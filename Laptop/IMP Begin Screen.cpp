@@ -5,25 +5,26 @@
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
 	#include "Timer Control.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Finish.h"
 	#include "IMP Text System.h"
 	#include "Text Input.h"
-	#include "messageboxscreen.h"
-	#include "Soldier Profile Type.h"
+	#include "MessageBoxScreen.h"
+	#include "soldier profile type.h"
 	#include "IMP Portraits.h"
 	#include "IMP Attribute Selection.h"
 	#include "english.h"
 	#include "line.h"
 	#include "Merc Hiring.h"
 	#include "strategic.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "LaptopSave.h"
 
+#include <language.hpp>
 
 #define FULL_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 138
 #define NICK_NAME_CURSOR_Y LAPTOP_SCREEN_WEB_UL_Y + 195
@@ -552,14 +553,14 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		//Heinz (18.01.2009): Russian layout
 		// ViSoR (07.01.2012) : Russian and Belarussian layouts
 		//
-#if defined(RUSSIAN) || defined(BELARUSSIAN)
+if(g_lang == i18n::Lang::ru) {
 		// ViSoR (02.02.2013): Fix for Cyrillic layouts
 		DWORD threadId = GetWindowThreadProcessId( ghWindow, 0 );
 		DWORD layout = (DWORD)GetKeyboardLayout( threadId ) & 0xFFFF;
 		if( layout == 0x419 ) // Russian
 		{
 			unsigned char TranslationTable[] = 
-				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#ÔÈÑÂÓÀÏÐØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïðøîëäüòùçéêûåãìö÷íÿÕ#Ú¨";
+				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#ÔÈÑÂÓÀÏÐØÎËÄÜÒÙÇÉÊÛÅÃÌÖ×Íßõ#ú#_¸ôèñâóàïðøîëäüòùçéêûåãìö÷íÿÕ#Ú¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
@@ -567,28 +568,23 @@ void HandleBeginScreenTextEvent( UINT32 uiKey )
 		else if( layout == 0x423 ) // Belarussian
 		{
 			unsigned char TranslationTable[] = 
-				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#Ô²ÑÂÓÀÏÐØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïðøîëäüò¢çéêûåãìö÷íÿÕ#'¨";
+				" #Ý####ý####á-þ.0123456789ÆæÁ#Þ,#Ô²ÑÂÓÀÏÐØÎËÄÜÒ¡ÇÉÊÛÅÃÌÖ×Íßõ#'#_¸ô³ñâóàïðøîëäüò¢çéêûåãìö÷íÿÕ#'¨ ";
 
 			uiKey = TranslateKey( uiKey, TranslationTable );
 			uiKey = GetCyrillicUnicodeChar( uiKey );
 		}
 		else if( !CheckIsKeyValid( uiKey ) )
 			uiKey = '#';
-
-		if( uiKey != '#')
-#else
-	#ifndef USE_CODE_PAGE
-		if( uiKey >= 'A' && uiKey <= 'Z' ||
+}
+		if( (g_lang != i18n::Lang::ru &&
+			uiKey >= 'A' && uiKey <= 'Z' ||
 					uiKey >= 'a' && uiKey <= 'z' ||
 					uiKey >= '0' && uiKey <= '9' ||
 					uiKey == '_' || uiKey == '.' ||
 					uiKey == ' ' || uiKey == '"' ||
 					uiKey == 39 // This is ' which cannot be written explicitly here of course
-					)
-	#else
-		if( charSet::IsFromSet( uiKey, charSet::CS_SPACE|charSet::CS_ALPHA_NUM|charSet::CS_SPECIAL_ALPHA ) )
-	#endif
-#endif
+					) ||
+			uiKey != '#')
 		{
 			// if the current string position is at max or great, do nothing
 			switch( ubTextEnterMode )

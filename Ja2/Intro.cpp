@@ -1,41 +1,19 @@
-	#include "sgp.h"
-	#include "sysutil.h"
-	#include "vobject_blitters.h"
-	#include "font control.h"
-	#include "cursor control.h"
-	#include "render dirty.h"
-	#include	"Text.h"
-	#include	"Utilities.h"
-	#include	"WordWrap.h"
-	#include "text.h"
-	#include "Line.h"
-	#include "Intro.h"
-	#include "Cinematics.h"
-	#include "Cinematics Bink.h"
-	#include "mainmenuscreen.h"
-	#include "Music Control.h"
-	#include "LibraryDataBase.h"
-	#include "english.h"
-	#include "soldier profile type.h"
-	#include "MessageBoxScreen.h"
-	#include "sgp_logger.h"
-	#include "Soldier Profile.h"
-	#include "Game Init.h"
-	#include "INIReader.h"
-
-#include <vfs/Core/vfs.h>
-
-#include "Luaglobal.h"
-#ifdef JA2UB
-#include "strategicmap.h"
-#include "Map Screen Interface Map.h"
-#include "Map Screen Interface.h"
-#include "End Game.h"
+#include "sgp.h"
+#include "sysutil.h"
+#include "Cursor Control.h"
+#include "Render Dirty.h"
+#include	"Utilities.h"
+#include "Intro.h"
+#include "Cinematics.h"
 #include "Cinematics Bink.h"
-#endif
-
+#include "mainmenuscreen.h"
+#include "Music Control.h"
+#include "english.h"
+#include "sgp_logger.h"
+#include "INIReader.h"
+#include "Luaglobal.h"
 #include "LuaInitNPCs.h"
-#include "XML.h"
+#include <language.hpp>
 
 BOOLEAN Style_JA = TRUE;
 extern INT8 Test = 0;
@@ -726,11 +704,11 @@ void DisplaySirtechSplashScreen()
 			*								(2006-10-10, Sergeant_Kolja)
 			*/
 			#ifdef _DEBUG
-			#	if defined(ENGLISH)
+			if( g_lang == i18n::Lang::en ) {
 				AssertMsg( 0, String( "Wheter English nor German works. May be You built English - but have only German or other foreign Disk?" ) );
-			#	elif defined(GERMAN)
+			} else if( g_lang == i18n::Lang::de ) {
 				AssertMsg( 0, String( "Weder Englisch noch Deutsch geht. Deutsche Version kompiliert und mit englischer CDs gestartet? Das geht nicht!" ) );
-			#	endif
+			}
 			#endif
 			AssertMsg( 0, String( "Failed to load %s", VObjectDesc.ImageFile ) );
 			return;

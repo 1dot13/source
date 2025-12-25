@@ -1,30 +1,30 @@
 	#include "email.h"
 	#include "laptop.h"
 	#include "AimMembers.h"
-	#include "Aim.h"
+	#include "aim.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "stdio.h"
 	#include "sysutil.h"
 	#include "Soldier Profile.h"
 	#include "Soldier Control.h"
-	#include "InterFace Items.h"
-	#include "overhead.h"
+	#include "Interface Items.h"
+	#include "Overhead.h"
 	#include "WordWrap.h"
 	#include "finances.h"
 	#include "vsurface.h"
-	#include "VObject.h"
+	#include "vobject.h"
 	#include "Game Clock.h"
-	#include "overhead.h"
-	#include "Faces.h"
-	#include "dialogue control.h"
-	#include "text.h"
-	#include "History.h"
+	#include "Overhead.h"
+	#include "faces.h"
+	#include "Dialogue Control.h"
+	#include "Text.h"
+	#include "history.h"
 	#include "Game Event Hook.h"
 	#include "MercTextBox.h"
 	#include "Render Dirty.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Soldier Add.h"
 	#include "Merc Hiring.h"
 	#include "strategic.h"
@@ -32,16 +32,15 @@
 	#include "LaptopSave.h"
 	#include "english.h"
 	#include "GameSettings.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Status.h"
 	#include "Merc Contract.h"
 	#include "Strategic Merc Handler.h"
-	#include "Language Defines.h"
 	#include "Assignments.h"
 	#include "Sound Control.h"
 	#include "Quests.h"
 	#include "strategicmap.h"
-	#include "Personnel.h"
+	#include "personnel.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
 
 #include "Strategic Town Loyalty.h"
@@ -50,6 +49,7 @@
 #include "Encrypted File.h"
 #include "InterfaceItemImages.h"
 #include <sstream>
+#include <language.hpp>
 
 //
 //******	Defines	******
@@ -148,10 +148,16 @@
 #define		FEE_X					PRICE_X + 7
 #define		FEE_Y					NAME_Y
 #define		FEE_WIDTH				37
+#define		FEE_X_UB				PRICE_X + 40
+#define		FEE_Y_UB				STATS_Y + 28
+#define		FEE_Y_UB_NSGI			STATS_Y
 
 #define		AIM_CONTRACT_X			PRICE_X + 51
 #define		AIM_CONTRACT_Y			FEE_Y
 #define		AIM_CONTRACT_WIDTH		59
+#define		AIM_CONTRACT_X_UB		PRICE_X + 19
+#define		AIM_OFFER_X				PRICE_X + 3
+#define		AIM_OFFER_WIDTH			110
 
 #define		ONEDAY_X				AIM_CONTRACT_X
 #define		ONEWEEK_X				AIM_CONTRACT_X
@@ -1093,7 +1099,6 @@ BOOLEAN RenderAIMMembers()
 	HVOBJECT	hPriceHandle;
 	HVOBJECT	hWeaponBoxHandle;
 	UINT16		x, uiPosX;
-	CHAR16		wTemp[50];
 
 	DrawAimDefaults();
 
@@ -1120,26 +1125,27 @@ BOOLEAN RenderAIMMembers()
 
 		UpdateMercInfo();
 
+		//Display AIM Member text
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_ACTIVE_MEMBERS], AIM_MEMBER_ACTIVE_TEXT_X_NSGI, AIM_MEMBER_ACTIVE_TEXT_Y_NSGI, AIM_MEMBER_ACTIVE_TEXT_WIDTH_NSGI, AIM_MAINTITLE_FONT, AIM_M_ACTIVE_MEMBER_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+
 		//Draw fee & contract
+#ifdef JA2UB
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_UB_MISSION_FEE], AIM_CONTRACT_X_UB, AIM_CONTRACT_Y_NSGI, 0, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+#else
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_FEE], FEE_X_NSGI, FEE_Y_NSGI, 0, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_CONTRACT], AIM_CONTRACT_X_NSGI, AIM_CONTRACT_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
 
 		//Draw pay period (day, week, 2 week)
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_DAY], ONEDAY_X_NSGI, EXPLEVEL_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_WEEK], ONEWEEK_X_NSGI, MARKSMAN_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_2_WEEKS], TWOWEEK_X_NSGI, MECHANAICAL_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-
-		//Display AIM Member text
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_ACTIVE_MEMBERS], AIM_MEMBER_ACTIVE_TEXT_X_NSGI, AIM_MEMBER_ACTIVE_TEXT_Y_NSGI, AIM_MEMBER_ACTIVE_TEXT_WIDTH_NSGI, AIM_MAINTITLE_FONT, AIM_M_ACTIVE_MEMBER_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_DAY], ONEDAY_X_NSGI, EXPLEVEL_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_WEEK], ONEWEEK_X_NSGI, MARKSMAN_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_2_WEEKS], TWOWEEK_X_NSGI, MECHANAICAL_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		//Display Option Gear Cost text
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_OPTIONAL_GEAR_NSGI], AIM_MEMBER_OPTIONAL_GEAR_X_NSGI, EXPLOSIVE_Y_NSGI, AIM_CONTRACT_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
 
-		swprintf(wTemp, L"%d", gMercProfiles[gbCurrentSoldier].usOptionalGearCost);
-		InsertCommasForDollarFigure( wTemp );
-		InsertDollarSignInToString( wTemp );
 		uiPosX = AIM_MEMBER_OPTIONAL_GEAR_X_NSGI + StringPixLength( CharacterInfo[AIM_MEMBER_OPTIONAL_GEAR_NSGI], AIM_M_FONT_STATIC_TEXT) + 5;
-		DrawTextToScreen(wTemp, AIM_MEMBER_OPTIONAL_GEAR_COST_X_NSGI, EXPLOSIVE_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].usOptionalGearCost).data(), AIM_MEMBER_OPTIONAL_GEAR_COST_X_NSGI, EXPLOSIVE_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+#endif // JA2UB
 	}
 	else
 	{
@@ -1163,26 +1169,27 @@ BOOLEAN RenderAIMMembers()
 
 		UpdateMercInfo();
 
+		//Display AIM Member text
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_ACTIVE_MEMBERS], AIM_MEMBER_ACTIVE_TEXT_X, AIM_MEMBER_ACTIVE_TEXT_Y, AIM_MEMBER_ACTIVE_TEXT_WIDTH, AIM_MAINTITLE_FONT, AIM_M_ACTIVE_MEMBER_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+
+#ifdef JA2UB
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_UB_MISSION_FEE], AIM_CONTRACT_X_UB, AIM_CONTRACT_Y, 0, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+#else
 		//Draw fee & contract
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_FEE], FEE_X, FEE_Y, 0, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_CONTRACT], AIM_CONTRACT_X, AIM_CONTRACT_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_PREV_NEXT_CONTACT, AIM_M_FEE_CONTRACT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
 
 		//Draw pay period (day, week, 2 week)
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_DAY], ONEDAY_X, EXPLEVEL_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_WEEK], ONEWEEK_X, MARKSMAN_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_2_WEEKS], TWOWEEK_X, MECHANAICAL_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-
-		//Display AIM Member text
-		DrawTextToScreen(CharacterInfo[AIM_MEMBER_ACTIVE_MEMBERS], AIM_MEMBER_ACTIVE_TEXT_X, AIM_MEMBER_ACTIVE_TEXT_Y, AIM_MEMBER_ACTIVE_TEXT_WIDTH, AIM_MAINTITLE_FONT, AIM_M_ACTIVE_MEMBER_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED	);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_DAY], ONEDAY_X, EXPLEVEL_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_1_WEEK], ONEWEEK_X, MARKSMAN_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DrawTextToScreen(CharacterInfo[AIM_MEMBER_2_WEEKS], TWOWEEK_X, MECHANAICAL_Y, AIM_CONTRACT_WIDTH, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		//Display Option Gear Cost text
 		DrawTextToScreen(CharacterInfo[AIM_MEMBER_OPTIONAL_GEAR], AIM_MEMBER_OPTIONAL_GEAR_X, AIM_MEMBER_OPTIONAL_GEAR_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_STATIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
 
-		swprintf(wTemp, L"%d", gMercProfiles[gbCurrentSoldier].usOptionalGearCost);
-		InsertCommasForDollarFigure( wTemp );
-		InsertDollarSignInToString( wTemp );
 		uiPosX = AIM_MEMBER_OPTIONAL_GEAR_X + StringPixLength( CharacterInfo[AIM_MEMBER_OPTIONAL_GEAR], AIM_M_FONT_STATIC_TEXT) + 5;
-		DrawTextToScreen(wTemp, uiPosX, AIM_MEMBER_OPTIONAL_GEAR_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].usOptionalGearCost).data(), uiPosX, AIM_MEMBER_OPTIONAL_GEAR_Y, 0, AIM_M_FONT_STATIC_TEXT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+#endif
 	}
 
 	DisableAimButton();
@@ -1247,19 +1254,6 @@ BOOLEAN DrawNumeralsToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 u
 	return(TRUE);
 }
 
-BOOLEAN DrawMoneyToScreen(INT32 iNumber, INT8 bWidth, UINT16 usLocX, UINT16 usLocY, UINT32 ulFont, UINT8 ubColor)
-{
-	CHAR16		sStr[10];
-
-	swprintf(sStr, L"%d",iNumber);
-	InsertCommasForDollarFigure( sStr );
-	InsertDollarSignInToString( sStr );
-
-//	DrawTextToScreen(L"$", usLocX, usLocY, 0, ulFont, ubColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
-	DrawTextToScreen(sStr, usLocX, usLocY, bWidth, ulFont, ubColor, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
-
-	return(TRUE);
-}
 
 
 void SelectFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
@@ -1301,6 +1295,19 @@ void SelectFaceMovementRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 
 #include "LocalizedStrings.h"
 
+static auto DrawDiscountedDailyCosts() -> void
+{
+	constexpr auto offset{ 65 };
+	constexpr auto l{ L"(" };
+	constexpr auto r{ L")" };
+	const static auto nsgi = gGameExternalOptions.gfUseNewStartingGearInterface;
+	const auto width = nsgi ? FEE_WIDTH_NSGI : FEE_WIDTH;
+	const auto xOffset = nsgi ? FEE_X_NSGI : FEE_X;
+
+	DrawTextToScreen((l + FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary / 7) + r).data(), xOffset + offset, nsgi ? AGILITY_Y_NSGI : AGILITY_Y, width, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen((l + FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary / 14) + r).data(), xOffset + offset, nsgi ? DEXTERITY_Y_NSGI : DEXTERITY_Y, width, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+}
+
 BOOLEAN	UpdateMercInfo(void)
 {
 	//UINT16					PosY = 300;
@@ -1309,23 +1316,24 @@ BOOLEAN	UpdateMercInfo(void)
 
 	if(gGameExternalOptions.gfUseNewStartingGearInterface)
 	{
+#ifdef JA2UB
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_UB, FEE_Y_UB_NSGI, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DisplayWrappedString(AIM_OFFER_X, AGILITY_Y_NSGI, AIM_OFFER_WIDTH, 2, AIM_M_FONT_DYNAMIC_TEXT, AIM_FONT_MCOLOR_WHITE, zNewTacticalMessages[TACT_MSG__AIMMEMBER_FEE_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+#else
 		//Display the salaries
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].sSalary, FEE_WIDTH_NSGI, FEE_X_NSGI, HEALTH_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH_NSGI, FEE_X_NSGI, AGILITY_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary, FEE_WIDTH_NSGI, FEE_X_NSGI, DEXTERITY_Y_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_X_NSGI, HEALTH_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_NSGI, AGILITY_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_X_NSGI, DEXTERITY_Y_NSGI, FEE_WIDTH_NSGI, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+
+		DrawDiscountedDailyCosts();
 
 		//if medical deposit is required
 		if( gMercProfiles[gbCurrentSoldier].bMedicalDeposit )
 		{
-			CHAR16	zTemp[40];
 			CHAR16	sMedicalString[40];
 
 			// Display the medical cost
-			swprintf( zTemp, L"%d", gMercProfiles[ gbCurrentSoldier ].sMedicalDepositAmount );
-			InsertCommasForDollarFigure( zTemp );
-			InsertDollarSignInToString( zTemp );
-
-			swprintf( sMedicalString, L"%s %s", zTemp, CharacterInfo[AIM_MEMBER_MEDICAL_DEPOSIT_REQ] );
+			swprintf( sMedicalString, L"%s %s", FormatMoney(gMercProfiles[gbCurrentSoldier].sMedicalDepositAmount).data(), CharacterInfo[AIM_MEMBER_MEDICAL_DEPOSIT_REQ] );
 
 			// If the string will be displayed in more then 2 lines, recenter the string
 			if( ( DisplayWrappedString( 0, 0, AIM_MEDICAL_DEPOSIT_WIDTH_NSGI, 2, AIM_FONT12ARIAL, AIM_M_COLOR_DYNAMIC_TEXT,	sMedicalString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( AIM_FONT12ARIAL ) ) > 2 )
@@ -1335,6 +1343,8 @@ BOOLEAN	UpdateMercInfo(void)
 			else
 				DisplayWrappedString(AIM_MEDICAL_DEPOSIT_X_NSGI, AIM_MEDICAL_DEPOSIT_Y_NSGI, AIM_MEDICAL_DEPOSIT_WIDTH_NSGI, 2, AIM_FONT12ARIAL, AIM_M_COLOR_DYNAMIC_TEXT,	sMedicalString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		}
+#endif // JA2UB
+
 		if(!g_bUseXML_Strings)
 		{
 		//	LoadMercBioInfo( gbCurrentSoldier, MercInfoString, AdditionalInfoString);
@@ -1363,10 +1373,16 @@ BOOLEAN	UpdateMercInfo(void)
 	}
 	else
 	{
+#ifdef JA2UB
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X_UB, FEE_Y_UB, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DisplayWrappedString(AIM_OFFER_X, AGILITY_Y, AIM_OFFER_WIDTH, 2, AIM_M_FONT_DYNAMIC_TEXT, AIM_FONT_MCOLOR_WHITE, zNewTacticalMessages[TACT_MSG__AIMMEMBER_FEE_TEXT], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
+#else
 		//Display the salaries
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].sSalary, FEE_WIDTH, FEE_X, HEALTH_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiWeeklySalary, FEE_WIDTH, FEE_X, AGILITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
-		DrawMoneyToScreen(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary, FEE_WIDTH, FEE_X, DEXTERITY_Y, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT	);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].sSalary).data(), FEE_X, HEALTH_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiWeeklySalary).data(), FEE_X, AGILITY_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(gMercProfiles[gbCurrentSoldier].uiBiWeeklySalary).data(), FEE_X, DEXTERITY_Y, FEE_WIDTH, AIM_M_NUMBER_FONT, AIM_M_COLOR_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+
+		DrawDiscountedDailyCosts();
 
 		//if medical deposit is required
 		if( gMercProfiles[gbCurrentSoldier].bMedicalDeposit )
@@ -1375,11 +1391,7 @@ BOOLEAN	UpdateMercInfo(void)
 			CHAR16	sMedicalString[40];
 
 			// Display the medical cost
-			swprintf( zTemp, L"%d", gMercProfiles[ gbCurrentSoldier ].sMedicalDepositAmount );
-			InsertCommasForDollarFigure( zTemp );
-			InsertDollarSignInToString( zTemp );
-
-			swprintf( sMedicalString, L"%s %s", zTemp, CharacterInfo[AIM_MEMBER_MEDICAL_DEPOSIT_REQ] );
+			swprintf( sMedicalString, L"%s %s", FormatMoney(gMercProfiles[gbCurrentSoldier].sMedicalDepositAmount).data(), CharacterInfo[AIM_MEMBER_MEDICAL_DEPOSIT_REQ] );
 
 			// If the string will be displayed in more then 2 lines, recenter the string
 			if( ( DisplayWrappedString( 0, 0, AIM_MEDICAL_DEPOSIT_WIDTH, 2, AIM_FONT12ARIAL, AIM_M_COLOR_DYNAMIC_TEXT,	sMedicalString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED | DONT_DISPLAY_TEXT ) / GetFontHeight( AIM_FONT12ARIAL ) ) > 2 )
@@ -1389,6 +1401,7 @@ BOOLEAN	UpdateMercInfo(void)
 			else
 				DisplayWrappedString(AIM_MEDICAL_DEPOSIT_X, AIM_MEDICAL_DEPOSIT_Y, AIM_MEDICAL_DEPOSIT_WIDTH, 2, AIM_FONT12ARIAL, AIM_M_COLOR_DYNAMIC_TEXT,	sMedicalString, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED);
 		}
+#endif
 		if(!g_bUseXML_Strings)
 		{
 //			LoadMercBioInfo( gbCurrentSoldier, MercInfoString, AdditionalInfoString);
@@ -2397,9 +2410,9 @@ INT8 AimMemberHireMerc()
 	MERC_HIRE_STRUCT HireMercStruct;
 //	UINT8		ubCurrentSoldier = AimMercArray[gbCurrentIndex];
 	UINT8		ubCurrentSoldier =  gAimAvailability[AimMercArray[gbCurrentIndex]].ProfilId;
-	INT8		bReturnCode;
-	INT16		sSoldierID=0;
-	INT8		bTypeOfContract=0;
+	INT8			bReturnCode;
+	SoldierID	sSoldierID = NOBODY;
+	INT8			bTypeOfContract=0;
 
 
 	if( LaptopSaveInfo.iCurrentBalance < giContractAmount )
@@ -2475,9 +2488,10 @@ INT8 AimMemberHireMerc()
 
 	//Set the type of contract the merc is on
 	sSoldierID = GetSoldierIDFromMercID( ubCurrentSoldier );
-	if( sSoldierID == -1 )
+	if( sSoldierID == NOBODY )
 		return( FALSE );
-	Menptr[ sSoldierID ].bTypeOfLastContract = bTypeOfContract;
+
+	sSoldierID->bTypeOfLastContract = bTypeOfContract;
 
 
 	//add an entry in the finacial page for the hiring of the merc
@@ -2528,6 +2542,21 @@ BOOLEAN DisplayVideoConferencingDisplay()
 
 	DisplayMercChargeAmount();
 
+#ifdef JA2UB
+	if (gubVideoConferencingMode == AIM_VIDEO_HIRE_MERC_MODE)
+	{
+		CHAR16	offerText[190];
+		swprintf(offerText, zNewTacticalMessages[TACT_MSG__AIMMEMBER_ONE_TIME_FEE], gMercProfiles[gbCurrentSoldier].zNickname);
+		const auto xCoord = AIM_MEMBER_VIDEO_CONF_TERMINAL_X + 115;
+		const auto yCoord = AIM_MEMBER_VIDEO_CONF_TERMINAL_Y + 45;
+		const auto textAreaWidth = 245;
+		SetFontShadow(AIM_M_VIDEO_NAME_SHADOWCOLOR);
+		DisplayWrappedString(xCoord, yCoord, textAreaWidth, 2, AIM_M_FONT_DYNAMIC_TEXT, FONT_MCOLOR_BLACK, offerText, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		SetFontShadow(DEFAULT_SHADOW);
+	}
+#endif // JA2UB
+
+
 //	if( gfMercIsTalking && !gfIsAnsweringMachineActive)
 	if( gfMercIsTalking && gGameSettings.fOptions[ TOPTION_SUBTITLES ] )
 	{
@@ -2577,6 +2606,9 @@ BOOLEAN DisplayMercsVideoFace()
 
 void DisplaySelectLights(BOOLEAN fContractDown, BOOLEAN fBuyEquipDown)
 {
+#ifdef JA2UB
+	return;
+#else
 	UINT16 i, usPosY, usPosX;
 
 	//First draw the select light for the contract length buttons
@@ -2630,13 +2662,14 @@ void DisplaySelectLights(BOOLEAN fContractDown, BOOLEAN fBuyEquipDown)
 		usPosY += AIM_MEMBER_BUY_EQUIPMENT_GAP;
 	}
 	InvalidateRegion(LAPTOP_SCREEN_UL_X,LAPTOP_SCREEN_WEB_UL_Y,LAPTOP_SCREEN_LR_X,LAPTOP_SCREEN_WEB_LR_Y);
+
+#endif // JA2UB
 }
 
 
 UINT32 DisplayMercChargeAmount()
 {
 	CHAR16		wTemp[50];
-	CHAR16		wDollarTemp[50];
 	HVOBJECT hImageHandle;
 
 
@@ -2653,7 +2686,10 @@ UINT32 DisplayMercChargeAmount()
 		giContractAmount = 0;
 
 		//the contract charge amount
-
+#ifdef JA2UB
+		// Special offer for a limited time! Act fast!
+		giContractAmount = gMercProfiles[gbCurrentSoldier].uiWeeklySalary;
+#else
 		// Get the salary rate
 		if( gubContractLength == AIM_CONTRACT_LENGTH_ONE_DAY)
 			giContractAmount = gMercProfiles[gbCurrentSoldier].sSalary;
@@ -2675,22 +2711,21 @@ UINT32 DisplayMercChargeAmount()
 		{
 			giContractAmount += gMercProfiles[gbCurrentSoldier].usOptionalGearCost;
 		}
+#endif
 	}
 
-
-	swprintf( wDollarTemp, L"%d", giContractAmount);
-	InsertCommasForDollarFigure( wDollarTemp );
-	InsertDollarSignInToString( wDollarTemp );
 
 	//if the merc hasnt just been hired
 //	if( FindSoldierByProfileID( gbCurrentSoldier, TRUE ) == NULL )
 	{
-		if( gMercProfiles[ gbCurrentSoldier ].bMedicalDeposit )
-			swprintf(wTemp, L"%s %s", wDollarTemp, VideoConfercingText[AIM_MEMBER_WITH_MEDICAL] );
-		else
-			swprintf(wTemp, L"%s", wDollarTemp );
+		auto contractAmount{ FormatMoney(giContractAmount) };
+#ifndef JA2UB
+		if (gMercProfiles[gbCurrentSoldier].bMedicalDeposit)
+			contractAmount += L" ";
+			contractAmount += VideoConfercingText[AIM_MEMBER_WITH_MEDICAL];
+#endif
 
-		DrawTextToScreen(wTemp, AIM_CONTRACT_CHARGE_AMOUNNT_X+1, AIM_CONTRACT_CHARGE_AMOUNNT_Y+3, 0, AIM_M_VIDEO_CONTRACT_AMOUNT_FONT, AIM_M_VIDEO_CONTRACT_AMOUNT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+		DrawTextToScreen(contractAmount.data(), AIM_CONTRACT_CHARGE_AMOUNNT_X + 1, AIM_CONTRACT_CHARGE_AMOUNNT_Y + 3, 0, AIM_M_VIDEO_CONTRACT_AMOUNT_FONT, AIM_M_VIDEO_CONTRACT_AMOUNT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}
 
 	return(giContractAmount);
@@ -3887,14 +3922,14 @@ BOOLEAN InitDeleteVideoConferencePopUp( )
 		MSYS_DisableRegion(&gSelectedShutUpMercRegion);
 
 		//Enable the ability to click on the BIG face to go to different screen
-	MSYS_EnableRegion(&gSelectedFaceRegion);
+		MSYS_EnableRegion(&gSelectedFaceRegion);
 
 //		EnableDisableCurrentVideoConferenceButtons(FALSE);
-			if( gubVideoConferencingPreviousMode == AIM_VIDEO_HIRE_MERC_MODE )
-			{
-				// Enable the current video conference buttons
-				EnableDisableCurrentVideoConferenceButtons(FALSE);
-			}
+		if( gubVideoConferencingPreviousMode == AIM_VIDEO_HIRE_MERC_MODE )
+		{
+			// Enable the current video conference buttons
+			EnableDisableCurrentVideoConferenceButtons(FALSE);
+		}
 
 
 		fVideoConferenceCreated = FALSE;
@@ -4085,6 +4120,22 @@ BOOLEAN InitDeleteVideoConferencePopUp( )
 
 //		InitVideoFaceTalking(gbCurrentSoldier, QUOTE_LENGTH_OF_CONTRACT);
 		DelayMercSpeech( gbCurrentSoldier, QUOTE_LENGTH_OF_CONTRACT, 750, TRUE, FALSE );
+
+#ifdef JA2UB
+		// Disable and hide contract length & gear purchase buttons
+		gfBuyEquipment = TRUE;
+		for (size_t i = 0; i < 3; i++)
+		{
+			DisableButton(giContractLengthButton[i]);
+			HideButton(giContractLengthButton[i]);
+
+			if (i < 2)
+			{
+				DisableButton(giBuyEquipmentButton[i]);
+				HideButton(giBuyEquipmentButton[i]);
+			}
+		}
+#endif // JA2UB
 	}
 
 
@@ -5297,11 +5348,17 @@ BOOLEAN DisplayShadedStretchedMercFace( UINT8 ubMercID, UINT16 usPosX, UINT16 us
 void DemoHiringOfMercs( )
 {
 	INT16	i;
-	#ifdef GERMAN
-		UINT8	MercID[]={ 7, 10, 4, 14, 50 };
-	#else
-		UINT8	MercID[]={ 7, 10, 4, 42, 33 };
-	#endif
+	UINT8 MercID[5];
+	MercID[0] = 7;
+	MercID[1] = 10;
+	MercID[2] = 4;
+	if( g_lang == i18n::Lang::de ) {
+		MercID[3] = 14;
+		MercID[4] = 50;
+	} else {
+		MercID[3] = 42;
+		MercID[4] = 33;
+	}
 	MERC_HIRE_STRUCT HireMercStruct;
 	static BOOLEAN	fHaveCalledBefore=FALSE;
 
@@ -5392,20 +5449,20 @@ void DisplayPopUpBoxExplainingMercArrivalLocationAndTime( )
 	//create the string to display to the user, looks like....
 	//	L"%s should arrive at the designated drop-off point ( sector %d:%d %s ) on day %d, at approximately %s.",		//first %s is mercs name, next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival
 
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 	//Germans version has a different argument order
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString,
 							zSectorIDString );
-#else
+} else {
 	swprintf( szLocAndTime, pMessageStrings[ MSG_JUST_HIRED_MERC_ARRIVAL_LOCATION_POPUP ],
 							gMercProfiles[ pSoldier->ubProfile ].zNickname,
 							zSectorIDString,
 							LaptopSaveInfo.sLastHiredMerc.uiArrivalTime / 1440,
 							zTimeString );
-#endif
+}
 
 
 
@@ -5633,28 +5690,15 @@ void EnableWeaponKitSelectionButtons()
 	{
 		if ( !(gMercProfiles[gbCurrentSoldier].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) || gGameExternalOptions.fGearKitsAlwaysAvailable )
 		{
-			bool bShow;
-			INT16 usItem;
 			for(int i=0; i<NUM_MERCSTARTINGGEAR_KITS; ++i)
 			{
-				bShow = false;
 				for(int j=INV_START_POS; j<NUM_INV_SLOTS; ++j)
 				{
-					usItem = gMercProfileGear[gbCurrentSoldier][i].inv[j];
-					if(usItem != NONE)
+					if(gMercProfileGear[gbCurrentSoldier][i].inv[j] != NONE)
 					{
-						bShow = true;
-						//shadooow: if any of the item in kit is limited to specific system and this system isn't enabled then disable the whole kit from selection
-						if (((Item[usItem].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[usItem].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
-						{
-							bShow = false;
-							break;
-						}
-					}					
-				}
-				if (bShow)
-				{
-					ShowButton(giWeaponboxSelectionButton[i]);
+						ShowButton( giWeaponboxSelectionButton[i] );
+						break;
+					}
 				}
 			}
 		}

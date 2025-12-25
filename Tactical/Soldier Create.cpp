@@ -1,24 +1,23 @@
 	#include "sgp.h"
 	#include "Soldier Create.h"
-	#include "overhead.h"
-	#include "wcheck.h"
-	#include "soldier profile.h"
-	#include "animation control.h"
-	#include "animation data.h"
+	#include "Overhead.h"
+	#include "WCheck.h"
+	#include "Soldier Profile.h"
+	#include "Animation Control.h"
+	#include "Animation Data.h"
 	#include "Sound Control.h"
-	#include "overhead types.h"
+	#include "Overhead Types.h"
 	#include "faces.h"
-	#include "isometric utils.h"
-	#include "items.h"
-	#include "weapons.h"
+	#include "Isometric Utils.h"
+	#include "Items.h"
+	#include "Weapons.h"
 	#include "opplist.h"
 	#include "random.h"
 	#include "Assignments.h"
-	#include "Soldier Init List.h"
 	#include "Smell.h"
 	#include "Squads.h"
 	#include "Interface Panels.h"
-	#include "Strategicmap.h"
+	#include "strategicmap.h"
 	#include "Inventory Choosing.h"
 	#include "Queen Command.h"
 	#include "Soldier Add.h"
@@ -27,14 +26,13 @@
 	#include "Sys Globals.h"
 	#include "Scheduling.h"
 	#include "Rotting Corpses.h"
-	#include "vehicles.h"
-	#include "handle ui.h"
-	#include "text.h"
+	#include "Vehicles.h"
+	#include "Handle UI.h"
+	#include "Text.h"
 	#include "Campaign.h"
 	#include "GameSettings.h"
 	#include "PreBattle Interface.h"
 	#include "Auto Resolve.h"
-	#include "Morale.h"
 	#include "ai.h"
 	#include "Strategic Mines.h"
 	#include "math.h"
@@ -43,17 +41,14 @@
 	#include "Soldier macros.h"		// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Rebel Command.h"
-
 #include "connect.h"
 #include "message.h"
-#include "fresh_header.h"
+#include "GameInitOptionsScreen.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
 #endif
 
-#include "GameInitOptionsScreen.h"
 
 extern INT32 GetTheStateOfDepartedMerc(INT32 iId);
 
@@ -419,6 +414,7 @@ SOLDIERCREATE_STRUCT::~SOLDIERCREATE_STRUCT() {
 //	Note that the constructor does this automatically.
 void SOLDIERCREATE_STRUCT::initialize() {
 	memset( this, 0, SIZEOF_SOLDIERCREATE_STRUCT_POD);
+	this->bAIMorale = MORALE_NORMAL;
 	Inv.clear();
 }
 
@@ -570,15 +566,13 @@ void DecideToAssignSniperOrders( SOLDIERCREATE_STRUCT * pp )
 // This causes an issue if someone enters a sector from an adjacent sector - they should be affected by their point of origin, not the current sector
 // For this reason, we add a little helper variable that stores such a sector.
 INT16 gsStrategicDiseaseOriginSector = -1;
-
-SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *pubID )
+SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, SoldierID *pubID )
 {
-	SOLDIERTYPE			Soldier;
-	INT32						cnt;
-	SOLDIERTYPE			*pTeamSoldier;
-	BOOLEAN					fGuyAvail = FALSE;
-	UINT8						bLastTeamID;
-	UINT8						ubVehicleID = 0;
+	SOLDIERTYPE Soldier;
+	SOLDIERTYPE *pTeamSoldier;
+	BOOLEAN fGuyAvail = FALSE;
+	UINT16 bLastTeamID;
+	UINT8 ubVehicleID = 0;
 	
 	*pubID = NOBODY;
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("TacticalCreateSoldier"));
@@ -603,7 +597,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		}
 		if ( is_server && tbTeam > OUR_TEAM && tbTeam < PLAYER_PLAN )
 		{
-			send_AI(pCreateStruct,pubID);
+			send_AI(pCreateStruct);
 		}
 		if(is_client && !is_server && tfPP==1)
 		{
@@ -761,7 +755,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 
 		if( guiCurrentScreen != AUTORESOLVE_SCREEN )
 		{
-			cnt = gTacticalStatus.Team[ Soldier.bTeam ].bFirstID;
+			SoldierID cnt = gTacticalStatus.Team[ Soldier.bTeam ].bFirstID;
 
 			// ATE: If we are a vehicle, and a player, start at a different slot ( 2 - max )
 			if( Soldier.ubBodyType == HUMVEE ||
@@ -778,8 +772,9 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			bLastTeamID = gTacticalStatus.Team[ Soldier.bTeam ].bLastID;
 
 			// look for all mercs on the same team,
-			for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+			for ( ; cnt <= bLastTeamID; ++cnt )
 			{
+				pTeamSoldier = cnt;
 				if ( !pTeamSoldier->bActive )
 				{
 					fGuyAvail = TRUE;
@@ -794,7 +789,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			}
 
 			// OK, set ID
-			Soldier.ubID = (UINT8)cnt;
+			Soldier.ubID = cnt;
 			*pubID = Soldier.ubID;
 		}
 
@@ -1189,7 +1184,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 			// Copy into merc struct
 			*MercPtrs[ Soldier.ubID ] = Soldier;
 			// Alrighty then, we are set to create the merc, stuff after here can fail!
-			CHECKF( MercPtrs[ Soldier.ubID ]->CreateSoldierCommon( Soldier.ubBodyType, Soldier.ubID, STANDING ) != FALSE );
+			CHECKF( Soldier.ubID->CreateSoldierCommon( Soldier.ubBodyType, Soldier.ubID, STANDING ) != FALSE );
 		}
 	}
 	else
@@ -1267,6 +1262,7 @@ SOLDIERTYPE* TacticalCreateSoldier( SOLDIERCREATE_STRUCT *pCreateStruct, UINT8 *
 		return pSoldier;
 	}
 }
+
 
 BOOLEAN TacticalCopySoldierFromProfile( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruct )
 {
@@ -1839,9 +1835,9 @@ BOOLEAN TacticalCopySoldierFromCreateStruct( SOLDIERTYPE *pSoldier, SOLDIERCREAT
 	{
 		if ( HAS_SKILL_TRAIT( pSoldier, SQUADLEADER_NT) )
 		{
-			UINT8 numenemies  = NumEnemyInSector();
+			UINT16 numenemies  = NumEnemyInSector();
 			UINT8 officertype = OFFICER_NONE;
-			UINT8 numofficers = HighestEnemyOfficersInSector( officertype );
+			UINT16 numofficers = HighestEnemyOfficersInSector( officertype );
 
 			// this guy becomes an officer if there are enough soldiers around, and we aren't already at max of officers
 			if ( numenemies > gGameExternalOptions.usEnemyOfficersPerTeamSize * numofficers && numofficers < gGameExternalOptions.usEnemyOfficersMax && !RebelCommand::NeutraliseRole(pSoldier) )
@@ -2084,57 +2080,57 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 	pSoldier->initialize();
 
 	// Set default values
-	pSoldier->bVisible							= -1;
-	pSoldier->iFaceIndex						= -1;
+	pSoldier->bVisible = -1;
+	pSoldier->iFaceIndex	 = -1;
 
 	// Set morale default
-	//pSoldier->aiData.bMorale								= DEFAULT_MORALE;
-	pSoldier->aiData.bMorale								= gMoraleSettings.ubDefaultMorale;
+	//pSoldier->aiData.bMorale = DEFAULT_MORALE;
+	pSoldier->aiData.bMorale = gMoraleSettings.ubDefaultMorale;
 
-	pSoldier->ubAttackerID					= NOBODY;
-	pSoldier->ubPreviousAttackerID	= NOBODY;
-	pSoldier->ubNextToPreviousAttackerID	= NOBODY;
+	pSoldier->ubAttackerID = NOBODY;
+	pSoldier->ubPreviousAttackerID = NOBODY;
+	pSoldier->ubNextToPreviousAttackerID	 = NOBODY;
 
 	//Set AI Delay!
-	pSoldier->uiAIDelay							= 100;
+	pSoldier->uiAIDelay = 100;
 
-	pSoldier->iLight								= -1;
-	pSoldier->iFaceIndex						= -1;
+	pSoldier->iLight = -1;
+	pSoldier->iFaceIndex = -1;
 
 	// Set update time to new speed
-	pSoldier->ubDesiredHeight				= NO_DESIRED_HEIGHT;
-	pSoldier->bViewRange						= NORMAL_VIEW_RANGE;
-	pSoldier->bInSector							= FALSE;
-	pSoldier->sGridNo								= NOWHERE;
-	pSoldier->iMuzFlash							= -1;
-	pSoldier->usPendingAnimation		= NO_PENDING_ANIMATION;
+	pSoldier->ubDesiredHeight			= NO_DESIRED_HEIGHT;
+	pSoldier->bViewRange					= NORMAL_VIEW_RANGE;
+	pSoldier->bInSector					= FALSE;
+	pSoldier->sGridNo					= NOWHERE;
+	pSoldier->iMuzFlash					= -1;
+	pSoldier->usPendingAnimation			= NO_PENDING_ANIMATION;
 	pSoldier->usPendingAnimation2		= NO_PENDING_ANIMATION;
-	pSoldier->ubPendingStanceChange	= NO_PENDING_STANCE;
-	pSoldier->ubPendingDirection		= NO_PENDING_DIRECTION;
-	pSoldier->aiData.ubPendingAction				= NO_PENDING_ACTION;
+	pSoldier->ubPendingStanceChange		= NO_PENDING_STANCE;
+	pSoldier->ubPendingDirection			= NO_PENDING_DIRECTION;
+	pSoldier->aiData.ubPendingAction		= NO_PENDING_ACTION;
 	pSoldier->bLastRenderVisibleValue	= -1;
-	pSoldier->bBreath								= 99;
-	pSoldier->bBreathMax						= 100;
-	pSoldier->bActive									= TRUE;
-	pSoldier->flags.fShowLocator						= FALSE;
-	pSoldier->sLastTarget							= NOWHERE;
+	pSoldier->bBreath					= 99;
+	pSoldier->bBreathMax					= 100;
+	pSoldier->bActive					= TRUE;
+	pSoldier->flags.fShowLocator			= FALSE;
+	pSoldier->sLastTarget				= NOWHERE;
 	pSoldier->sAbsoluteFinalDestination = NOWHERE;
-	pSoldier->sZLevelOverride					= -1;
-	pSoldier->ubServicePartner				= NOBODY;
-	pSoldier->ubAttackingHand					= HANDPOS;
-	pSoldier->usAnimState							= STANDING;
-	pSoldier->aiData.bInterruptDuelPts				= NO_INTERRUPT;
-	pSoldier->aiData.bMoved									= FALSE;
+	pSoldier->sZLevelOverride			= -1;
+	pSoldier->ubServicePartner			= NOBODY;
+	pSoldier->ubAttackingHand			= HANDPOS;
+	pSoldier->usAnimState				= STANDING;
+	pSoldier->aiData.bInterruptDuelPts	= NO_INTERRUPT;
+	pSoldier->aiData.bMoved				= FALSE;
 	pSoldier->ubRobotRemoteHolderID		= NOBODY;
-	pSoldier->aiData.sNoiseGridno						= NOWHERE;
-	pSoldier->ubPrevSectorID					= 255;
-	pSoldier->aiData.bNextPatrolPnt					= 1;
-	pSoldier->bCurrentCivQuote				= -1;
+	pSoldier->aiData.sNoiseGridno		= NOWHERE;
+	pSoldier->ubPrevSectorID				= 255;
+	pSoldier->aiData.bNextPatrolPnt		= 1;
+	pSoldier->bCurrentCivQuote			= -1;
 	pSoldier->bCurrentCivQuoteDelta		= 0;
-	pSoldier->uiBattleSoundID					= NO_SAMPLE;
-	pSoldier->aiData.ubXRayedBy							= NOBODY;
-	pSoldier->uiXRayActivatedTime			= 0;
-	pSoldier->bBulletsLeft						= 0;
+	pSoldier->uiBattleSoundID			= NO_SAMPLE;
+	pSoldier->aiData.ubXRayedBy			= NOBODY;
+	pSoldier->uiXRayActivatedTime		= 0;
+	pSoldier->bBulletsLeft				= 0;
 	pSoldier->bVehicleUnderRepairID		= -1;
 	pSoldier->sFacilityTypeOperated		= -1; // HEADROCK HAM 3.6: Facility Operated
 	pSoldier->usChatPartnerID			= NOBODY;
@@ -2147,12 +2143,10 @@ void InitSoldierStruct( SOLDIERTYPE *pSoldier )
 }
 
 
-BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVehicle )
+BOOLEAN InternalTacticalRemoveSoldier( SoldierID usSoldierIndex, BOOLEAN fRemoveVehicle )
 {
-	SOLDIERTYPE *		pSoldier;
-
 	// Check range of index given
-	if ( usSoldierIndex < 0 || usSoldierIndex > TOTAL_SOLDIERS-1 )
+	if ( usSoldierIndex >= NOBODY )
 	{
 		// Set debug message
 
@@ -2170,9 +2164,7 @@ BOOLEAN InternalTacticalRemoveSoldier( UINT16 usSoldierIndex, BOOLEAN fRemoveVeh
 		gfUISelectiveTargetFound = FALSE;
 	}
 
-	pSoldier = MercPtrs[ usSoldierIndex ];
-
-	return TacticalRemoveSoldierPointer( pSoldier, fRemoveVehicle );
+	return TacticalRemoveSoldierPointer(usSoldierIndex, fRemoveVehicle );
 }
 
 BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehicle )
@@ -2243,7 +2235,7 @@ BOOLEAN TacticalRemoveSoldierPointer( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveVehi
 	return( TRUE );
 }
 
-BOOLEAN TacticalRemoveSoldier( UINT16 usSoldierIndex )
+BOOLEAN TacticalRemoveSoldier( SoldierID usSoldierIndex )
 {
 	return( InternalTacticalRemoveSoldier( usSoldierIndex, TRUE ) );
 }
@@ -3034,7 +3026,7 @@ void ForceSoldierProfileID( SOLDIERTYPE *pSoldier, UINT8 ubProfileID )
 
 SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 {
-	INT32 i, iStart, iEnd;
+	SoldierID i, iStart, iEnd;
 	SOLDIERTYPE *pSoldier;
 	//This code looks for a soldier of specified type that currently exists in tactical and
 	//returns the pointer to that soldier.	This is used when copying the exact status of
@@ -3052,13 +3044,13 @@ SOLDIERTYPE* ReserveTacticalSoldierForAutoresolve( UINT8 ubSoldierClass )
 		iEnd = gTacticalStatus.Team[ CREATURE_TEAM ].bLastID;
 	}
 	for( i = iStart; i <= iEnd; ++i )
-	{		
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
+	{
+		if( i->bActive && i->bInSector && i->stats.bLife && !TileIsOutOfBounds(i->sGridNo))
 		{
-			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
+			if( i->ubSoldierClass == ubSoldierClass )
 			{
 				//reserve this soldier
-				MercPtrs[ i ]->sGridNo = NOWHERE;
+				i->sGridNo = NOWHERE;
 
 				//Allocate and copy the soldier
 				pSoldier = new SOLDIERTYPE(*MercPtrs[i]); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
@@ -3079,7 +3071,7 @@ SOLDIERTYPE* TacticalCreateAdministrator()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3112,7 +3104,7 @@ SOLDIERTYPE* TacticalCreateArmyTroop()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3146,7 +3138,7 @@ SOLDIERTYPE* TacticalCreateEliteEnemy()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3188,7 +3180,7 @@ SOLDIERTYPE* TacticalCreateEnemyTank()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3230,7 +3222,7 @@ SOLDIERTYPE* TacticalCreateEnemyJeep( )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3273,7 +3265,7 @@ SOLDIERTYPE* TacticalCreateEnemyRobot()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3316,7 +3308,7 @@ SOLDIERTYPE* TacticalCreateZombie()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3351,7 +3343,7 @@ SOLDIERTYPE* TacticalCreateZombie()
 
 SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 {
-	INT32 i, iStart, iEnd;
+	SoldierID i, iStart, iEnd;
 	SOLDIERTYPE *pSoldier;
 
 	// For description look original ReserveTacticalSoldierForAutoresolve()
@@ -3359,14 +3351,14 @@ SOLDIERTYPE* ReserveTacticalMilitiaSoldierForAutoresolve( UINT8 ubSoldierClass )
 	iStart = gTacticalStatus.Team[ MILITIA_TEAM ].bFirstID;
 	iEnd = gTacticalStatus.Team[ MILITIA_TEAM ].bLastID;
 
-	for( i = iStart; i <= iEnd; i++ )
+	for( i = iStart; i <= iEnd; ++i )
 	{		
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->bInSector && MercPtrs[ i ]->stats.bLife && !TileIsOutOfBounds(MercPtrs[ i ]->sGridNo))
+		if( i->bActive && i->bInSector && i->stats.bLife && !TileIsOutOfBounds(i->sGridNo))
 		{
-			if( MercPtrs[ i ]->ubSoldierClass == ubSoldierClass )
+			if( i->ubSoldierClass == ubSoldierClass )
 			{
 				//reserve this soldier
-				MercPtrs[ i ]->sGridNo = NOWHERE;
+				i->sGridNo = NOWHERE;
 
 				//Allocate and copy the soldier
 				pSoldier = new SOLDIERTYPE(*MercPtrs[i]); //(SOLDIERTYPE*)MemAlloc( SIZEOF_SOLDIERTYPE );
@@ -3390,7 +3382,7 @@ SOLDIERTYPE* TacticalCreateMilitia( UINT8 ubMilitiaClass, INT16 sX, INT16 sY )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if (gpBattleGroup &&
@@ -3431,7 +3423,7 @@ SOLDIERTYPE* TacticalCreateCreature( INT8 bCreatureBodyType )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3457,7 +3449,7 @@ SOLDIERTYPE* TacticalCreateArmedCivilian( UINT8 usSoldierClass )
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier = NULL;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3506,9 +3498,9 @@ SOLDIERTYPE* TacticalCreateCivilian( INT32 sGridNo, UINT8 usCivilianGroup, INT8 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN )
 		return NULL;
 
-	UINT8					ubID = NOBODY;
-	SOLDIERTYPE*			pSoldier = NULL;
-	SOLDIERCREATE_STRUCT	MercCreateStruct;
+	SoldierID				ubID = NOBODY;
+	SOLDIERTYPE*				pSoldier = NULL;
+	SOLDIERCREATE_STRUCT		MercCreateStruct;
 
 	MercCreateStruct.initialize( );
 	MercCreateStruct.bTeam = CIV_TEAM;
@@ -3605,7 +3597,7 @@ SOLDIERTYPE* TacticalCreateEnemyAssassin(UINT8 disguisetype)
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	// this needs the covert ops trait, and thus the new trait system
@@ -3670,7 +3662,7 @@ SOLDIERTYPE* TacticalCreateBandit()
 {
 	BASIC_SOLDIERCREATE_STRUCT bp;
 	SOLDIERCREATE_STRUCT pp;
-	UINT8 ubID;
+	SoldierID ubID;
 	SOLDIERTYPE * pSoldier;
 
 	if ( guiCurrentScreen == AUTORESOLVE_SCREEN && !gfPersistantPBI )
@@ -3861,7 +3853,7 @@ void CreatePrisonerOfWar()
 	}
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8						ubID;
+	SoldierID				ubID;
 
 	static INT8 bPowBodyType = REGMALE;
 
@@ -3943,7 +3935,7 @@ void CreateDownedPilot( )
 	while ( TileIsOutOfBounds( sGridNo ) || FindStructure( sGridNo, STRUCTURE_BLOCKSMOVES ) || TERRAIN_IS_WATER( gpWorldLevelData[sGridNo].ubTerrainID ) || GridNoNearPlayerMercs( sGridNo, 25 ) );
 
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT8						ubID;
+	SoldierID				ubID;
 	
 	MercCreateStruct.initialize( );
 	MercCreateStruct.bTeam = CIV_TEAM;
@@ -4103,9 +4095,9 @@ void RandomizeRelativeLevel( INT8 *pbRelLevel, UINT8 ubSoldierClass )
 void QuickCreateProfileMerc( INT8 bTeam, UINT8 ubProfileID )
 {
 	// Create guy # X
-	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16										sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
-	UINT8									ubID;
+	SOLDIERCREATE_STRUCT MercCreateStruct;
+	INT16 sWorldX, sWorldY, sSectorX, sSectorY, sGridX, sGridY;
+	SoldierID ubID;
 	INT32 usMapPos;
 
 	if ( GetMouseXY( &sGridX, &sGridY ) )
@@ -4163,7 +4155,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 			UINT32 invsize = pProfile->inv.size();
 			for ( cnt = 0; cnt < pProfile->inv.size(); ++cnt )
 			{
-				if ( pProfile->inv[ cnt ] == NOTHING || Item[pProfile->inv[cnt]].attachment) {
+				if ( pProfile->inv[ cnt ] == NOTHING || ItemIsAttachment(pProfile->inv[cnt]) ) {
 					continue;
 				}
 				fRet = CreateItems( pProfile->inv[ cnt ], pProfile->bInvStatus[ cnt ], pProfile->bInvNumber[ cnt ], &gTempObject );
@@ -4188,7 +4180,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 				if ( pProfile->inv[ cnt ] == NOTHING) {
 					continue;
 				}
-				if (!Item[pProfile->inv[cnt]].attachment) {
+				if (!ItemIsAttachment(pProfile->inv[cnt])) {
 					continue;
 				}
 				fRet = CreateItems( pProfile->inv[ cnt ], pProfile->bInvStatus[ cnt ], pProfile->bInvNumber[ cnt ], &gTempObject );
@@ -4293,7 +4285,7 @@ void CopyProfileItems( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCreateStruc
 					if(fRet)
 					{
 						pSoldier->inv[cnt] = gTempObject;
-						if ( Item[gTempObject.usItem].fingerprintid )
+						if (ItemHasFingerPrintID(gTempObject.usItem))
 						{
 							for (int x = 0; x < pProfile->bInvNumber[ cnt ]; ++x) {
 								gTempObject[x]->data.ubImprintID = pSoldier->ubProfile;
@@ -4900,7 +4892,8 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 	}
 	// SNIPER RIFLE - CHANCE FOR SNIPER TRAIT
 	else if ( Item[pCreateStruct->Inv[HANDPOS].usItem].usItemClass == IC_GUN &&
-		Weapon[pCreateStruct->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE )
+		( Weapon[pCreateStruct->Inv[HANDPOS].usItem].ubWeaponType == GUN_SN_RIFLE ||
+		Weapon[pCreateStruct->Inv[HANDPOS].usItem].ubWeaponType == GUN_RIFLE ))
 	{
 		// setup the chances
 		if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
@@ -5090,7 +5083,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 			}
 		}
 		// Chance to gain second weapon
-		if ( Chance( iChance / 4 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded ) // 1/4 of chance
+		if ( Chance( iChance / 4 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) ) // 1/4 of chance
 		{
 			(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 
@@ -5178,7 +5171,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 						BTraitAssigned = TRUE;
 
 						// elites can have third skill trait
-						if ( Chance( iChance / 3 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded &&
+						if ( Chance( iChance / 3 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) &&
 							(ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
 						{
 							pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
@@ -5188,7 +5181,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 
 					}
 					// Chance to gain second weapon and ambidextrous trait
-					else if ( Chance( iChance / 2 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded && !BTraitAssigned ) // 1/2 of chance
+					else if ( Chance( iChance / 2 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) && !BTraitAssigned ) // 1/2 of chance
 					{
 						if ( pCreateStruct->bTeam == MILITIA_TEAM && gGameExternalOptions.fMilitiaUseSectorInventory && gGameExternalOptions.fMilitiaUseSectorInventory_Gun )
 							;
@@ -5206,7 +5199,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					BTraitAssigned = TRUE;
 
 					// elites can have third skill trait
-					if ( Chance( iChance / 3 ) && !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded &&
+					if ( Chance( iChance / 3 ) && !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) &&
 						(ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
 					{
 						pSoldier->stats.ubSkillTraits[2] = AMBIDEXTROUS_NT;
@@ -5222,7 +5215,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					pSoldier->stats.ubSkillTraits[0] = AMBIDEXT_OT;
 					ATraitAssigned = TRUE;
 					// Ambidextrous trait gives us second weapon automatically
-					if ( !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded )
+					if ( !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) )
 					{
 						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 					}
@@ -5232,7 +5225,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 					pSoldier->stats.ubSkillTraits[1] = AMBIDEXT_OT;
 					BTraitAssigned = TRUE;
 					// Ambidextrous trait gives us second weapon automatically
-					if ( !Item[pCreateStruct->Inv[HANDPOS].usItem].twohanded )
+					if ( !ItemIsTwoHanded(pCreateStruct->Inv[HANDPOS].usItem) )
 					{
 						(pCreateStruct->Inv[SECONDHANDPOS]) = (pCreateStruct->Inv[HANDPOS]);
 					}
@@ -5267,28 +5260,29 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		{
 			if ( pCreateStruct->Inv[bLoop].exists( ) == true )
 			{
-				if ( Item[pCreateStruct->Inv[bLoop].usItem].mortar )
+				UINT16 usItem = pCreateStruct->Inv[bLoop].usItem;
+				if (ItemIsMortar(usItem))
 					foundMortar = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].rocketlauncher )
+				else if (ItemIsRocketLauncher(usItem))
 					foundRocketlauncher = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].grenadelauncher )
+				else if (ItemIsGrenadeLauncher(usItem))
 					foundGrenadelauncher = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_BLADE )
+				else if ( Item[usItem].usItemClass == IC_BLADE )
 					foundKnife = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_THROWING_KNIFE )
+				else if ( Item[usItem].usItemClass == IC_THROWING_KNIFE )
 					foundThrowing = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == IC_GRENADE )
+				else if ( Item[usItem].usItemClass == IC_GRENADE )
 					foundGrenades = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].brassknuckles )
+				else if (ItemIsBrassKnuckles(usItem))
 					foundHtH = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
-					Item[pCreateStruct->Inv[bLoop].usItem].uiIndex != 0 )
+				else if ( Item[usItem].usItemClass == 128 && // 128 is an identifier of blunt melee weapons
+					Item[usItem].uiIndex != 0 )
 					foundMelee = TRUE;
-				else if ( HasItemFlag( pCreateStruct->Inv[bLoop].usItem, RADIO_SET ) )
+				else if ( HasItemFlag( usItem, RADIO_SET ) )
 					fRadioSetFound = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].firstaidkit )
+				else if (ItemIsFirstAidKit(usItem))
 					fFirstAidKitFound = TRUE;
-				else if ( Item[pCreateStruct->Inv[bLoop].usItem].medicalkit )
+				else if (ItemIsMedicalKit(usItem))
 				{
 					// Flugente: for enemy medic purposes, med kits also count as first aid kits
 					fFirstAidKitFound = TRUE;
@@ -5497,7 +5491,7 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 		}
 
 		// THROWING TRAIT
-		if ( (foundThrowing) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		if ( (foundThrowing || foundGrenades) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
 		{
 			// setup basic chances based on soldier type
 			if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
@@ -5553,46 +5547,6 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && (ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
 				{
 					pSoldier->stats.ubSkillTraits[2] = THROWING_NT;
-					CTraitAssigned = TRUE;
-					return(TRUE);
-				}
-			}
-		}
-
-		// DEMOLITIONS TRAIT
-		if ( (foundGrenades) && (gGameOptions.fNewTraitSystem) && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
-		{
-			// setup basic chances based on soldier type
-			if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
-				iChance = 20 + ubProgress / 3; // 20-53% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
-				iChance = 10 + ubProgress / 3; // 10-43% chance
-			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
-				iChance = ubProgress / 3; // 0-33% chance
-
-			// modify the chance by preset ini setting
-			if ( gGameExternalOptions.bAssignedTraitsRarity != 0 )
-			{
-				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
-			}
-
-			// assign the trait based on the chance
-			if ( Chance( iChance ) )
-			{
-				if ( !ATraitAssigned )
-				{
-					pSoldier->stats.ubSkillTraits[0] = DEMOLITIONS_NT;
-					ATraitAssigned = TRUE;
-				}
-				else if ( !BTraitAssigned )
-				{
-					pSoldier->stats.ubSkillTraits[1] = DEMOLITIONS_NT;
-					BTraitAssigned = TRUE;
-				}
-				// allow third only to elites
-				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && (ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
-				{
-					pSoldier->stats.ubSkillTraits[2] = DEMOLITIONS_NT;
 					CTraitAssigned = TRUE;
 					return(TRUE);
 				}
@@ -5851,6 +5805,46 @@ BOOLEAN AssignTraitsToSoldier( SOLDIERTYPE *pSoldier, SOLDIERCREATE_STRUCT *pCre
 							return(TRUE); // We no longer need to continue from here
 						}
 					}
+				}
+			}
+		}
+
+		// DEMOLITIONS TRAIT
+		if ( gGameOptions.fNewTraitSystem && (!ATraitAssigned || !BTraitAssigned || !CTraitAssigned) )
+		{
+			// setup basic chances based on soldier type
+			if ( ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA )
+				iChance = 20 + ubProgress / 3; // 20-53% chance
+			else if ( ubSolClass == SOLDIER_CLASS_ARMY || ubSolClass == SOLDIER_CLASS_REG_MILITIA )
+				iChance = 10 + ubProgress / 3; // 10-43% chance
+			else if ( ubSolClass == SOLDIER_CLASS_ADMINISTRATOR || ubSolClass == SOLDIER_CLASS_GREEN_MILITIA || ubSolClass == SOLDIER_CLASS_BANDIT )
+				iChance = ubProgress / 3; // 0-33% chance
+
+			// modify the chance by preset ini setting
+			if ( gGameExternalOptions.bAssignedTraitsRarity != 0 )
+			{
+				iChance += ((iChance * gGameExternalOptions.bAssignedTraitsRarity) / 100);
+			}
+
+			// assign the trait based on the chance
+			if ( Chance( iChance ) )
+			{
+				if ( !ATraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[0] = DEMOLITIONS_NT;
+					ATraitAssigned = TRUE;
+				}
+				else if ( !BTraitAssigned )
+				{
+					pSoldier->stats.ubSkillTraits[1] = DEMOLITIONS_NT;
+					BTraitAssigned = TRUE;
+				}
+				// allow third only to elites
+				else if ( !CTraitAssigned && gGameOptions.fNewTraitSystem && (ubSolClass == SOLDIER_CLASS_ELITE || ubSolClass == SOLDIER_CLASS_ELITE_MILITIA) )
+				{
+					pSoldier->stats.ubSkillTraits[2] = DEMOLITIONS_NT;
+					CTraitAssigned = TRUE;
+					return(TRUE);
 				}
 			}
 		}

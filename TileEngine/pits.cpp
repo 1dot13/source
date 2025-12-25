@@ -8,7 +8,7 @@
 	#include "strategicmap.h"
 	#include "Isometric Utils.h"
 	#include "Sound Control.h"
-	#include "animation control.h"
+	#include "Animation Control.h"
 	#include "strategic.h"
 	#include "Action Items.h"
 
@@ -207,7 +207,7 @@ void RemoveAllPits()
 void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 sRadius )
 {
 	INT32 x, y, sNewGridNo;
-	UINT8	ubID;
+	SoldierID	ubID;
 	SOLDIERTYPE *pSoldier;
 
 
@@ -227,7 +227,7 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 s
 			{
 				// OK, make guy fall...
 				// Set data to look for exit grid....
-				pSoldier = MercPtrs[ ubID ];
+				pSoldier = ubID;
 
 				pSoldier->aiData.uiPendingActionData4 = sNewGridNo;
 
@@ -237,9 +237,9 @@ void SearchForOtherMembersWithinPitRadiusAndMakeThemFall( INT32 sGridNo, INT16 s
 	}
 }
 
-void HandleFallIntoPitFromAnimation( UINT8 ubID )
+void HandleFallIntoPitFromAnimation( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 	EXITGRID ExitGrid;
 	INT32 sPitGridNo;
 	// OK, get exit grid...

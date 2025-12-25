@@ -3,8 +3,8 @@
 	#include "sgp.h"
 	#include "Sound Control.h"
 	#include "soundman.h"
-	#include "overhead.h"
-	#include "isometric utils.h"
+	#include "Overhead.h"
+	#include "Isometric Utils.h"
 	#include "renderworld.h"
 	#include "GameSettings.h"
 	#include "math.h"
@@ -575,16 +575,15 @@ UINT32 PlayJA2AmbientRandom( UINT32 usNum, UINT32 uiTimeMin, UINT32 uiTimeMax)
 
 
 
-UINT32 PlaySoldierJA2Sample( UINT16 usID, UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, BOOLEAN fCheck )
+UINT32 PlaySoldierJA2Sample( SoldierID usID, UINT32 usNum, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan, BOOLEAN fCheck )
 {
-
 	if( !( gTacticalStatus.uiFlags & LOADING_SAVED_GAME ) )
 	{
-	// CHECK IF GUY IS ON SCREEN BEFORE PLAYING!
-	if ( ( MercPtrs[ usID ]->bVisible != -1 ) || !fCheck )
-	{
-		return( PlayJA2Sample( usNum, usRate, CalculateSoundEffectsVolume( ubVolume ), ubLoops, uiPan ) );
-	}
+		// CHECK IF GUY IS ON SCREEN BEFORE PLAYING!
+		if ( ( usID->bVisible != -1 ) || !fCheck )
+		{
+			return( PlayJA2Sample( usNum, usRate, CalculateSoundEffectsVolume( ubVolume ), ubLoops, uiPan ) );
+		}
 	}
 
 	return( 0 );
@@ -768,12 +767,13 @@ void DelayedSoundTimerCallback( void )
 typedef struct
 {
 	UINT32		uiFlags;
-  INT32 sGridNo;
-	INT32		 iSoundSampleID;
-	INT32		 iSoundToPlay;
+	INT32		sGridNo;
+	INT32		iSoundSampleID;
+	INT32		iSoundToPlay;
 	UINT32		uiData;
 	BOOLEAN		fAllocated;
 	BOOLEAN		fInActive;
+	UINT8		volume;
 
 } POSITIONSND;
 
@@ -793,88 +793,89 @@ INT32 GetFreePositionSnd( void )
 {
 	UINT32 uiCount;
 
-	for(uiCount=0; uiCount < guiNumPositionSnds; uiCount++)
+	for ( uiCount = 0; uiCount < guiNumPositionSnds; uiCount++ )
 	{
-		if(( gPositionSndData[uiCount].fAllocated==FALSE ) )
-			return( (INT32)uiCount );
+		if ( (gPositionSndData[uiCount].fAllocated == FALSE) )
+			return((INT32)uiCount);
 	}
 
-	if( guiNumPositionSnds < NUM_POSITION_SOUND_EFFECT_SLOTS )
-		return( (INT32) guiNumPositionSnds++ );
+	if ( guiNumPositionSnds < NUM_POSITION_SOUND_EFFECT_SLOTS )
+		return((INT32)guiNumPositionSnds++);
 
-	return( -1 );
+	return(-1);
 }
 
 void RecountPositionSnds( void )
 {
 	INT32 uiCount;
 
-	for(uiCount=guiNumPositionSnds-1; (uiCount >=0) ; uiCount--)
+	for ( uiCount = guiNumPositionSnds - 1; (uiCount >= 0); uiCount-- )
 	{
-		if( ( gPositionSndData[uiCount].fAllocated ) )
+		if ( (gPositionSndData[uiCount].fAllocated) )
 		{
-			guiNumPositionSnds=(UINT32)(uiCount+1);
+			guiNumPositionSnds = (UINT32)(uiCount + 1);
 			break;
 		}
 	}
 }
 
 
-INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay )
+INT32 NewPositionSnd( INT32 sGridNo, UINT32 uiFlags, UINT32 uiData, UINT32 iSoundToPlay, UINT8 volume )
 {
 	POSITIONSND *pPositionSnd;
 	INT32				iPositionSndIndex;
 
-	if( ( iPositionSndIndex = GetFreePositionSnd() )==(-1) )
+	if ( (iPositionSndIndex = GetFreePositionSnd()) == (-1) )
 		return(-1);
 
-	memset( &gPositionSndData[ iPositionSndIndex ], 0, sizeof( POSITIONSND ) );
+	memset( &gPositionSndData[iPositionSndIndex], 0, sizeof( POSITIONSND ) );
 
-	pPositionSnd = &gPositionSndData[ iPositionSndIndex ];
+	pPositionSnd = &gPositionSndData[iPositionSndIndex];
 
 
 	// Default to inactive
 
 	if ( gfPositionSoundsActive )
 	{
-	pPositionSnd->fInActive	= FALSE;
+		pPositionSnd->fInActive = FALSE;
 	}
 	else
 	{
-	pPositionSnd->fInActive	= TRUE;
+		pPositionSnd->fInActive = TRUE;
 	}
 
-	pPositionSnd->sGridNo	 = sGridNo;
-	pPositionSnd->uiData		= uiData;
-	pPositionSnd->uiFlags	 = uiFlags;
-	pPositionSnd->fAllocated	= TRUE;
+	pPositionSnd->sGridNo = sGridNo;
+	pPositionSnd->uiData = uiData;
+	pPositionSnd->uiFlags = uiFlags;
+	pPositionSnd->fAllocated = TRUE;
 	pPositionSnd->iSoundToPlay = iSoundToPlay;
+	pPositionSnd->volume = volume;
 
 	pPositionSnd->iSoundSampleID = NO_SAMPLE;
 
-	return( iPositionSndIndex );
+	return(iPositionSndIndex);
 }
 
 void DeletePositionSnd( INT32 iPositionSndIndex )
 {
 	POSITIONSND *pPositionSnd;
 
-	pPositionSnd = &gPositionSndData[ iPositionSndIndex ];
+	pPositionSnd = &gPositionSndData[iPositionSndIndex];
 
 	if ( pPositionSnd->fAllocated )
 	{
-	 // Turn inactive first...
-	 pPositionSnd->fInActive = TRUE;
+		// Turn inactive first...
+		pPositionSnd->fInActive = TRUE;
 
-	 // End sound...
-	 if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
-	 {
-		SoundStop( pPositionSnd->iSoundSampleID );
-	 }
+		// End sound...
+		if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
+		{
+			SoundStop( pPositionSnd->iSoundSampleID );
+		}
 
-	 pPositionSnd->fAllocated = FALSE;
+		pPositionSnd->fAllocated = FALSE;
 
-	 RecountPositionSnds( );
+		RecountPositionSnds();
 	}
 }
 
@@ -882,17 +883,17 @@ void SetPositionSndGridNo( INT32 iPositionSndIndex, INT32 sGridNo )
 {
 	POSITIONSND *pPositionSnd;
 
-	pPositionSnd = &gPositionSndData[ iPositionSndIndex ];
+	pPositionSnd = &gPositionSndData[iPositionSndIndex];
 
 	if ( pPositionSnd->fAllocated )
 	{
-	pPositionSnd->sGridNo = sGridNo;
+		pPositionSnd->sGridNo = sGridNo;
 
-	SetPositionSndsVolumeAndPanning( );
+		SetPositionSndsVolumeAndPanning();
 	}
 }
 
-void SetPositionSndsActive( )
+void SetPositionSndsActive()
 {
 	UINT32 cnt;
 	POSITIONSND *pPositionSnd;
@@ -901,24 +902,31 @@ void SetPositionSndsActive( )
 
 	for ( cnt = 0; cnt < guiNumPositionSnds; cnt++ )
 	{
-		pPositionSnd = &gPositionSndData[ cnt ];
+		pPositionSnd = &gPositionSndData[cnt];
 
-	if ( pPositionSnd->fAllocated )
-	{
-		if ( pPositionSnd->fInActive )
+		if ( pPositionSnd->fAllocated )
 		{
-		pPositionSnd->fInActive = FALSE;
+			if ( pPositionSnd->fInActive )
+			{
+				pPositionSnd->fInActive = FALSE;
 
-		// Begin sound effect
-		// Volume 0
-		pPositionSnd->iSoundSampleID = PlayJA2Sample( pPositionSnd->iSoundToPlay, RATE_11025, 0, 0, MIDDLEPAN );
+				// Begin sound effect
+				// Volume 0
+				if ( pPositionSnd->iSoundToPlay == POWER_GEN_FAN_SOUND )
+				{
+					pPositionSnd->iSoundSampleID = PlayJA2SampleFromFile( "Sounds\\POWERGENFAN.WAV", RATE_11025, 0, 0, MIDDLEPAN );
+				}
+				else
+				{
+					pPositionSnd->iSoundSampleID = PlayJA2Sample( pPositionSnd->iSoundToPlay, RATE_11025, 0, 0, MIDDLEPAN );
+				}
+			}
 		}
-	}
 	}
 }
 
 
-void SetPositionSndsInActive( )
+void SetPositionSndsInActive()
 {
 	UINT32 cnt;
 	POSITIONSND *pPositionSnd;
@@ -927,19 +935,19 @@ void SetPositionSndsInActive( )
 
 	for ( cnt = 0; cnt < guiNumPositionSnds; cnt++ )
 	{
-		pPositionSnd = &gPositionSndData[ cnt ];
+		pPositionSnd = &gPositionSndData[cnt];
 
-	if ( pPositionSnd->fAllocated )
-	{
-		pPositionSnd->fInActive = TRUE;
-
-		// End sound...
-		if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
+		if ( pPositionSnd->fAllocated )
 		{
-		 SoundStop( pPositionSnd->iSoundSampleID );
-		 pPositionSnd->iSoundSampleID = NO_SAMPLE;
+			pPositionSnd->fInActive = TRUE;
+
+			// End sound...
+			if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
+			{
+				SoundStop( pPositionSnd->iSoundSampleID );
+				pPositionSnd->iSoundSampleID = NO_SAMPLE;
+			}
 		}
-	}
 	}
 }
 
@@ -950,51 +958,51 @@ UINT8 PositionSoundDir( INT32 sGridNo )
 	INT16 sScreenX, sScreenY;
 	INT16	sMiddleX;
 	INT16	sDif, sAbsDif;
-	
-	if (TileIsOutOfBounds(sGridNo))
+
+	if ( TileIsOutOfBounds( sGridNo ) )
 	{
-		return( MIDDLEPAN );
+		return(MIDDLEPAN);
 	}
 
 	// OK, get screen position of gridno.....
 	ConvertGridNoToXY( sGridNo, &sWorldX, &sWorldY );
 
 	// Get screen coordinates for current position of soldier
-	GetWorldXYAbsoluteScreenXY( (INT16)(sWorldX), (INT16)(sWorldY), &sScreenX, &sScreenY);
+	GetWorldXYAbsoluteScreenXY( (INT16)(sWorldX), (INT16)(sWorldY), &sScreenX, &sScreenY );
 
 	// Get middle of where we are now....
-	sMiddleX = gsTopLeftWorldX + ( gsBottomRightWorldX - gsTopLeftWorldX ) / 2;
+	sMiddleX = gsTopLeftWorldX + (gsBottomRightWorldX - gsTopLeftWorldX) / 2;
 
 	sDif = sMiddleX - sScreenX;
 
-	if ( ( sAbsDif = abs( sDif ) ) > 64 )
+	if ( (sAbsDif = abs( sDif )) > 64 )
 	{
 		// OK, NOT the middle.
 
 		// Is it outside the screen?
-		if ( sAbsDif > ( ( gsBottomRightWorldX - gsTopLeftWorldX ) / 2 ) )
-	{
+		if ( sAbsDif > ((gsBottomRightWorldX - gsTopLeftWorldX) / 2) )
+		{
 			// yes, outside...
 			if ( sDif > 0 )
 			{
-				return( FARLEFT );
+				return(FARLEFT);
 				//return( 1 );
 			}
-	 else
-		return( FARRIGHT );
-		//return( 126 );
+			else
+				return(FARRIGHT);
+			//return( 126 );
 
-	}
+		}
 		else // inside screen
 		{
-			if ( sDif > 0)
-				return( LEFTSIDE );
+			if ( sDif > 0 )
+				return(LEFTSIDE);
 			else
-				return( RIGHTSIDE );
+				return(RIGHTSIDE);
 		}
 	}
 	else // hardly any difference, so sound should be played from middle
-	return(MIDDLE);
+		return(MIDDLE);
 }
 
 
@@ -1007,21 +1015,21 @@ INT8 PositionSoundVolume( INT8 bInitialVolume, INT32 sGridNo )
 	INT16	sDifY, sAbsDifY;
 	INT16 sMaxDistX, sMaxDistY;
 	double sMaxSoundDist, sSoundDist;
-	
-	if (TileIsOutOfBounds(sGridNo))
+
+	if ( TileIsOutOfBounds( sGridNo ) )
 	{
-		return( bInitialVolume );
+		return(bInitialVolume);
 	}
 
 	// OK, get screen position of gridno.....
 	ConvertGridNoToXY( sGridNo, &sWorldX, &sWorldY );
 
 	// Get screen coordinates for current position of soldier
-	GetWorldXYAbsoluteScreenXY( (INT16)(sWorldX), (INT16)(sWorldY), &sScreenX, &sScreenY);
+	GetWorldXYAbsoluteScreenXY( (INT16)(sWorldX), (INT16)(sWorldY), &sScreenX, &sScreenY );
 
 	// Get middle of where we are now....
-	sMiddleX = gsTopLeftWorldX + ( gsBottomRightWorldX - gsTopLeftWorldX ) / 2;
-	sMiddleY = gsTopLeftWorldY + ( gsBottomRightWorldY - gsTopLeftWorldY ) / 2;
+	sMiddleX = gsTopLeftWorldX + (gsBottomRightWorldX - gsTopLeftWorldX) / 2;
+	sMiddleY = gsTopLeftWorldY + (gsBottomRightWorldY - gsTopLeftWorldY) / 2;
 
 	sDifX = sMiddleX - sScreenX;
 	sDifY = sMiddleY - sScreenY;
@@ -1029,28 +1037,28 @@ INT8 PositionSoundVolume( INT8 bInitialVolume, INT32 sGridNo )
 	sAbsDifX = abs( sDifX );
 	sAbsDifY = abs( sDifY );
 
-	sMaxDistX = (INT16)( ( gsBottomRightWorldX - gsTopLeftWorldX ) * 1.5 );
-	sMaxDistY = (INT16)( ( gsBottomRightWorldY - gsTopLeftWorldY ) * 1.5 );
+	sMaxDistX = (INT16)((gsBottomRightWorldX - gsTopLeftWorldX) * 1.5);
+	sMaxDistY = (INT16)((gsBottomRightWorldY - gsTopLeftWorldY) * 1.5);
 
-	sMaxSoundDist = sqrt( (double) ( sMaxDistX * sMaxDistX ) + ( sMaxDistY * sMaxDistY ) );
-	sSoundDist	= sqrt( (double)( sAbsDifX * sAbsDifX ) + ( sAbsDifY * sAbsDifY ) );
+	sMaxSoundDist = sqrt( (double)(sMaxDistX * sMaxDistX) + (sMaxDistY * sMaxDistY) );
+	sSoundDist = sqrt( (double)(sAbsDifX * sAbsDifX) + (sAbsDifY * sAbsDifY) );
 
 	if ( sSoundDist == 0 )
 	{
-	return( bInitialVolume );
+		return(bInitialVolume);
 	}
 
 	if ( sSoundDist > sMaxSoundDist )
 	{
-	sSoundDist = sMaxSoundDist;
+		sSoundDist = sMaxSoundDist;
 	}
 
 	// Scale
-	return( (INT8)( bInitialVolume * ( ( sMaxSoundDist - sSoundDist ) / sMaxSoundDist ) ) );
+	return((INT8)(bInitialVolume * ((sMaxSoundDist - sSoundDist) / sMaxSoundDist)));
 }
 
 
-void SetPositionSndsVolumeAndPanning( )
+void SetPositionSndsVolumeAndPanning()
 {
 	UINT32 cnt;
 	POSITIONSND *pPositionSnd;
@@ -1060,48 +1068,48 @@ void SetPositionSndsVolumeAndPanning( )
 
 	for ( cnt = 0; cnt < guiNumPositionSnds; cnt++ )
 	{
-		pPositionSnd = &gPositionSndData[ cnt ];
+		pPositionSnd = &gPositionSndData[cnt];
 
-	if ( pPositionSnd->fAllocated )
-	{
-		if ( !pPositionSnd->fInActive )
+		if ( pPositionSnd->fAllocated )
 		{
-		 if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
-		 {
-			bVolume = PositionSoundVolume( 15, pPositionSnd->sGridNo );
-
-			if ( pPositionSnd->uiFlags & POSITION_SOUND_FROM_SOLDIER )
+			if ( !pPositionSnd->fInActive )
 			{
-				pSoldier = (SOLDIERTYPE*)pPositionSnd->uiData;
-
-				if ( pSoldier->bVisible == -1 )
+				if ( pPositionSnd->iSoundSampleID != NO_SAMPLE )
 				{
-					// Limit volume,,,
-					if ( bVolume > 10 )
+					bVolume = PositionSoundVolume( pPositionSnd->volume, pPositionSnd->sGridNo );
+
+					if ( pPositionSnd->uiFlags & POSITION_SOUND_FROM_SOLDIER )
 					{
-					bVolume = 10;
+						pSoldier = (SOLDIERTYPE *)pPositionSnd->uiData;
+
+						if ( pSoldier->bVisible == -1 )
+						{
+							// Limit volume,,,
+							if ( bVolume > 10 )
+							{
+								bVolume = 10;
+							}
+						}
 					}
+
+					//if the sound is from a stationary object
+					if ( pPositionSnd->uiFlags & POSITION_SOUND_STATIONATY_OBJECT )
+					{
+						// make sure you can always hear it
+						if ( bVolume < 5 )
+						{
+							bVolume = 5;
+						}
+					}
+
+					SoundSetVolume( pPositionSnd->iSoundSampleID, bVolume );
+
+					ubPan = PositionSoundDir( pPositionSnd->sGridNo );
+
+					SoundSetPan( pPositionSnd->iSoundSampleID, ubPan );
 				}
 			}
-
-			//if the sound is from a stationay object
-			if( pPositionSnd->uiFlags & POSITION_SOUND_STATIONATY_OBJECT )
-			{
-				// make sure you can always hear it
-				if ( bVolume < 5 )
-				{
-					bVolume = 5;
-				}
-			}
-
-			SoundSetVolume( pPositionSnd->iSoundSampleID, bVolume );
-
-            ubPan = PositionSoundDir( pPositionSnd->sGridNo );
-
-            SoundSetPan( pPositionSnd->iSoundSampleID, ubPan );
-		 }
 		}
-	}
 	}
 }
 

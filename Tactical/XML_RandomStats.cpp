@@ -2,11 +2,8 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-	#include "Interface.h"
-
 #include "soldier profile type.h"
 #include "Soldier Profile.h"
-#include "Random.h"
 
 struct
 {

@@ -12,7 +12,6 @@
 	#include "Facilities.h"
 	#include "Soldier Control.h"
 	#include "Map Screen Interface.h"
-	#include "Overhead.h"
 	#include "Assignments.h"
 	#include "GameSettings.h"
 	#include "LaptopSave.h"
@@ -21,7 +20,7 @@
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
 	#include "SkillCheck.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "Campaign.h"
@@ -29,10 +28,7 @@
 	#include "Interface.h"
 	#include "message.h"
 	#include "Morale.h"
-	#include "Points.h"
-	#include "Soldier Control.h"
 	#include "Isometric Utils.h"
-	#include "MilitiaSquads.h"
 	#include "Tactical Save.h"
 #include <random>
 
@@ -357,7 +353,7 @@ void UpdateStrategicDetectionLevel( )
 	// Run through list of player-characters
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
@@ -499,7 +495,7 @@ void UpdateSkyriderCostModifier()
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
@@ -562,7 +558,7 @@ void UpdateFacilityUsageCosts( )
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
@@ -704,7 +700,7 @@ INT32 MineIncomeModifierFromFacility( UINT8 ubMine )
 	UINT8 ubCounter = 0;
 	while (gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
@@ -1112,7 +1108,7 @@ void HandleHourlyRisks()
 
 	while (gCharactersList[iCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		// Is character truly valid?
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
@@ -1994,11 +1990,11 @@ INT32 GetTotalFacilityHourlyCosts( BOOLEAN fPositive )
 	// Run through list of player-characters
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character truly valid?
-		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
-				pSoldier->bSectorZ == 0  && pSoldier != NULL &&
+		if( pSoldier != NULL && !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
+				pSoldier->bSectorZ == 0  && 
 				pSoldier->stats.bLife >= OKLIFE &&
 				!(pSoldier->flags.fMercAsleep) )
 		{

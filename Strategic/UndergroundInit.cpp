@@ -9,8 +9,6 @@
 
 extern "C" {
 #include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
 }
 
 #include "lua_state.h"
@@ -19,7 +17,7 @@ extern "C" {
 #include "connect.h"
 
 // externals
-UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
+extern UNDERGROUND_SECTORINFO* NewUndergroundNode( UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ );
 extern BOOLEAN gfGettingNameFromSaveLoadScreen;
 
 // helper functions
@@ -49,6 +47,21 @@ bool LuaTable::getValue<UINT8>(const char * index, UINT8& value)
 	return false;
 }
 
+template <>
+bool LuaTable::getValue<UINT16>(const char* index, UINT16& value)
+{
+	int dummy;
+
+	bool b = getValue(index, dummy);
+	if (b)
+	{
+		value = static_cast<UINT16>(dummy);
+		return true;
+	}
+
+	return false;
+}
+
 // Calls into Lua script to let build underground sector list.
 BOOLEAN LuaUnderground::InitializeSectorList()
 {
@@ -64,6 +77,7 @@ BOOLEAN LuaUnderground::InitializeSectorList()
 			.TableOpen()
 			.TParam("difficultyLevel", int(gGameOptions.ubDifficultyLevel))
 			.TParam("gameStyle", int(gGameOptions.ubGameStyle))
+			.TParam("maxTacticalEnemies", int(gGameExternalOptions.ubGameMaximumNumberOfEnemies))
 			.TableClose();		
 		
 		SGP_THROW_IFFALSE(initsectorlist_func.Call(1), "call to lua function BuildUndergroundSectorList failed");

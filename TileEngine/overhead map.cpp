@@ -1,21 +1,22 @@
 #include "builddefines.h"
 
-	#include "sysutil.h"
-	#include "utilities.h"
+#include "WorldDat.h"
+#include "sysutil.h"
+	#include "Utilities.h"
 	#include "renderworld.h"
 	#include "vobject_blitters.h"
 	#include "overhead map.h"
-	#include "interface control.h"
-	#include "overhead.h"
-	#include "radar screen.h"
-	#include "cursors.h"
+	#include "Interface Control.h"
+	#include "Overhead.h"
+	#include "Radar Screen.h"
+	#include "Cursors.h"
 	#include "Sys Globals.h"
-	#include "render dirty.h"
+	#include "Render Dirty.h"
 	#include "Game Clock.h"
-	#include "interface panels.h"
+	#include "Interface Panels.h"
 	#include "english.h"
 	#include "line.h"
-	#include "map information.h"
+	#include "Map Information.h"
 	#include "Tactical Placement GUI.h"
 	#include "Interactive Tiles.h"
 	#include "gameloop.h"
@@ -567,7 +568,7 @@ void HandleOverheadMap( )
 
 	if( !gfEditMode && !gfTacticalPlacementGUIActive && gusSelectedSoldier != NOBODY )
 	{
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 
 	DisplayMercNameInOverhead( pSoldier );
 	}
@@ -747,7 +748,7 @@ void GoIntoOverheadMap( )
 		// Make sure we are in team panel mode...
 		gfSwitchPanel = TRUE;
 		gbNewPanel = TEAM_PANEL;
-		gubNewPanelParam = (UINT8)gusSelectedSoldier;
+		gubNewPanelParam = gusSelectedSoldier;
 		fInterfacePanelDirty = DIRTYLEVEL2;
 
 		// Disable tactical buttons......
@@ -768,7 +769,7 @@ void HandleOverheadUI(void)
 {
 	INT32 sMousePos = 0;
 	InputAtom InputEvent;
-	UINT8 ubID;
+	SoldierID ubID;
 
 	// CHECK FOR MOUSE OVER REGIONS...
 	if(GetOverheadMouseGridNo(&sMousePos))
@@ -1367,8 +1368,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		GetCurrentVideoSettings(&usWidth, &usHeight, &ubBitDepth);
 		pSrcBuf = LockVideoSurface(guiRENDERBUFFER, &uiSrcPitchBYTES);
 		pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
-		if(gbPixelDepth == 16)// BLIT HERE
-			Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight);
+		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES, (UINT16 *)pSrcBuf, uiSrcPitchBYTES, 0, 0, 0, 0, usWidth, usHeight);
 		UnLockVideoSurface(guiRENDERBUFFER);
 		UnLockVideoSurface(guiSAVEBUFFER);
 	}
@@ -1378,11 +1378,10 @@ void RenderOverheadOverlays()
 {
 	UINT32			uiDestPitchBYTES;
 	WORLDITEM		*pWorldItem;
-	UINT32				i;
 	SOLDIERTYPE	*pSoldier;
 	HVOBJECT		hVObject;
 	INT16				sX, sY;
-	UINT16			end;
+	SoldierID			id, end;
 	UINT16			usLineColor=0;
 	UINT8				*pDestBuf;
 	UINT8				ubPassengers = 0;
@@ -1416,10 +1415,10 @@ void RenderOverheadOverlays()
 		|| RebelCommand::ShowApproximateEnemyLocations())
 		marklastenemy = TRUE;
 	
-	for( i = 0; i < end; ++i )
+	for( id = 0; id < end; ++id )
 	{
 		//First, check to see if the soldier exists and is in the sector.
-		pSoldier = MercPtrs[ i ];
+		pSoldier = id;
 		if( !pSoldier->bActive || !pSoldier->bInSector )
 			continue;
 		//Soldier is here.	Calculate his screen position based on his current gridno.
@@ -1695,7 +1694,7 @@ void RenderOverheadOverlays()
 		FLOAT radius_inner = radius - thickness / 2;
 		FLOAT radius_outer = radius + thickness / 2;
 		
-		for( i = 0 ; i < guiNumWorldItems; ++i	)
+		for( UINT32 i = 0 ; i < guiNumWorldItems; ++i	)
 		{
 			pWorldItem = &gWorldItems[ i ];
 			if( !pWorldItem	|| !pWorldItem->fExists )

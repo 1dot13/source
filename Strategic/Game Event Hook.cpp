@@ -4,7 +4,6 @@
 	#include "environment.h"
 	#include "Ambient Control.h"
 	#include "Quests.h"
-//	#include "Sound Control.h"
 	#include "AimMembers.h"
 	#include "Strategic Event Handler.h"
 	#include "BobbyR.h"
@@ -12,30 +11,27 @@
 	#include "email.h"
 	#include "Game Clock.h"
 	#include "Merc Hiring.h"
-	#include "Insurance Contract.h"
+	#include "insurance Contract.h"
 	#include "Strategic Merc Handler.h"
 	#include "Strategic Movement.h"
 	#include "Assignments.h"
 	#include "Strategic Mines.h"
-	#include "Strategic Town Loyalty.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Map Screen Interface.h"
 	#include "Map Screen Helicopter.h"
 	#include "Scheduling.h"
 	#include "Arms Dealer Init.h"
-	#include "Strategic town reputation.h"
-	#include "air raid.h"
-	#include "meanwhile.h"
-	#include "overhead.h"
+	#include "strategic town reputation.h"
+	#include "Meanwhile.h"
+	#include "Overhead.h"
 	#include "random.h"
 	#include "Creature Spreading.h"
 	#include "Strategic AI.h"
 	#include "Merc Contract.h"
 	#include "Strategic Status.h"
-	#include "INIReader.h"
 	#include "GameSettings.h"
 	#include "english.h"
-	#include "Input.h"
+	#include "input.h"
 	#include "Soldier Profile.h"
 	#include "laptop.h"
 	#include "Campaign.h"
@@ -50,7 +46,6 @@
 	#include "Rebel Command.h"
 	#include "interface Dialogue.h"
 
-#include "connect.h"
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -85,7 +80,7 @@ void CrippledVersionEndGameCheck();
 
 
 
-BOOLEAN DelayEventIfBattleInProgress( STRATEGICEVENT *pEvent )
+static BOOLEAN DelayEventIfBattleInProgress( STRATEGICEVENT *pEvent )
 {
 	STRATEGICEVENT *pNewEvent;
 	if( gTacticalStatus.fEnemyInSector )
@@ -225,7 +220,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		//If a merc gets hired and they dont show up immediately, the merc gets added to the queue and shows up
 		// uiTimeTillMercArrives	minutes later
 		case EVENT_DELAYED_HIRING_OF_MERC:
-			MercArrivesCallback(	(UINT8) pEvent->uiParam );
+			MercArrivesCallback(	(UINT16) pEvent->uiParam );
 			break;
 		//handles the life insurance contract for a merc from AIM.
 		case EVENT_HANDLE_INSURED_MERCS:
@@ -233,7 +228,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		//handles when a merc is killed an there is a life insurance payout
 		case EVENT_PAY_LIFE_INSURANCE_FOR_DEAD_MERC:
-			InsuranceContractPayLifeInsuranceForDeadMerc( (UINT8) pEvent->uiParam );
+			InsuranceContractPayLifeInsuranceForDeadMerc( (UINT16) pEvent->uiParam );
 			break;
 		//gets called every day at midnight.
 		case EVENT_MERC_DAILY_UPDATE:
@@ -251,14 +246,17 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			break;
 		//When a merc is supposed to leave
 		case EVENT_MERC_CONTRACT_OVER:
-			MercsContractIsFinished( (UINT8) pEvent->uiParam );
+			MercsContractIsFinished( pEvent->uiParam );
 			break;
 		case EVENT_ADDSOLDIER_TO_UPDATE_BOX:
+		{
 			// if the grunt is currently active, add to update box
-			if( Menptr[ pEvent->uiParam ].bActive )
+			SoldierID usID = pEvent->uiParam;
+			if ( usID != NOBODY && usID->bActive )
 			{
-				AddSoldierToWaitingListQueue( &( Menptr[ pEvent->uiParam ] ) );
+				AddSoldierToWaitingListQueue( usID );
 			}
+		}
 			break;
 		case EVENT_SET_MENU_REASON:
 			AddReasonToWaitingListQueue( (UINT8) pEvent->uiParam );
@@ -392,10 +390,10 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			HandleEnricoEmail();
 			break;
 		case EVENT_INSURANCE_INVESTIGATION_STARTED:
-			StartInsuranceInvestigation( (UINT8) pEvent->uiParam );
+			StartInsuranceInvestigation( (UINT16) pEvent->uiParam );
 			break;
 		case EVENT_INSURANCE_INVESTIGATION_OVER:
-			EndInsuranceInvestigation( (UINT8) pEvent->uiParam );
+			EndInsuranceInvestigation( (UINT16) pEvent->uiParam );
 			break;
 		case EVENT_TEMPERATURE_UPDATE:
 			UpdateTemperature( (UINT8) pEvent->uiParam );
@@ -429,7 +427,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			BeginContractRenewalSequence( );
 			break;
 		case EVENT_RPC_WHINE_ABOUT_PAY:
-			RPCWhineAboutNoPay( (UINT8) pEvent->uiParam );
+			RPCWhineAboutNoPay( pEvent->uiParam );
 			break;
 
 		case EVENT_HAVENT_MADE_IMP_CHARACTER_EMAIL:

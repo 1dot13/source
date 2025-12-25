@@ -4,7 +4,7 @@
 	#include "Game Events.h"
 	#include "Game Clock.h"
 	#include "MemMan.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "Font Control.h"
 	#include "message.h"
 	#include "MiniEvents.h"
@@ -214,7 +214,7 @@ BOOLEAN DeleteEventsWithDeletionPending()
 }
 
 
-void AdjustClockToEventStamp( STRATEGICEVENT *pEvent, UINT32 *puiAdjustment )
+static void AdjustClockToEventStamp( STRATEGICEVENT *pEvent, UINT32 *puiAdjustment )
 {
 	UINT32 uiDiff;
 

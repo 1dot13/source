@@ -1,20 +1,15 @@
-	#include <stdio.h>
-	#include <time.h>
 	#include "sgp.h"
 	#include "mousesystem.h"
-	#include "vsurface.h"
-	#include "input.h"
 	#include "Handle UI.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "Interface Cursors.h"
-	#include "interface.h"
-	#include "Isometric utils.h"
-	#include "cursors.h"
-	#include "sys globals.h"
-	#include "overhead.h"
-	#include "interface items.h"
+	#include "Interface.h"
+	#include "Isometric Utils.h"
+	#include "Sys Globals.h"
+	#include "Overhead.h"
+	#include "Interface Items.h"
 	#include "GameSettings.h"
 
 #define DISPLAY_AP_INDEX					MOCKFLOOR1
@@ -335,7 +330,7 @@ BOOLEAN DrawUICursor( )
 				// If we are over a target, jump to that....
 				if ( gfUIFullTargetFound )
 				{
-					gusTargetDropPos = MercPtrs[ gusUIFullTargetID ]->sGridNo;
+					gusTargetDropPos = gusUIFullTargetID->sGridNo;
 				}
 
 				// Put tile on the floor
@@ -354,7 +349,7 @@ BOOLEAN DrawUICursor( )
 			// ATE; Is the current guy in steath mode?
 			if ( gusSelectedSoldier != NOBODY )
 			{
-				if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+				if ( gusSelectedSoldier->bStealthMode )
 				{
 					usTileCursor = FIRSTPOINTERS9;
 				}
@@ -367,7 +362,7 @@ BOOLEAN DrawUICursor( )
 				// ATE; Is the current guy in steath mode?
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+					if ( gusSelectedSoldier->bStealthMode )
 					{
 						usTileCursor = FIRSTPOINTERS10;
 					}

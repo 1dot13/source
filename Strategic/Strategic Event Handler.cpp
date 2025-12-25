@@ -1,25 +1,17 @@
 	#include "Strategic Event Handler.h"
-	#include "MemMan.h"
-	#include "message.h"
+	#include <Windows.h>
 	#include "Items.h"
 	#include "Handle Items.h"
-	#include "LaptopSave.h"
 	#include "Tactical Save.h"
-	#include "StrategicMap.h"
+	#include "strategicmap.h"
 	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "Game Event Hook.h"
 	#include "Game Clock.h"
-	#include "Interface Dialogue.h"
-	#include "Random.h"
+	#include "interface Dialogue.h"
+	#include "random.h"
 	#include "Overhead.h"
 	#include "Strategic Town Loyalty.h"
-	#include "Soldier Init List.h"
-	#include "SaveLoadMap.h"
-	#include "Soldier Create.h"
-	#include "Soldier Add.h"
-	#include "Renderworld.h"
-	#include "Soldier Profile.h"
 	#include "email.h"
 	#include "strategic.h"
 	#include "GameSettings.h"
@@ -30,7 +22,6 @@
 	#include "Rebel Command.h"
 
 #include "Luaglobal.h"
-#include "connect.h"
 #include "LuaInitNPCs.h"
 
 //forward declarations of common classes to eliminate includes
@@ -51,7 +42,7 @@ UINT32 guiPabloExtraDaysBribed = 0;
 
 UINT8		gubCambriaMedicalObjects;
 
-extern INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
+extern UINT16 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist );
 
 extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 
@@ -1334,7 +1325,7 @@ void CheckForMissingHospitalSupplies( void )
 					}
 				}
 #endif//obsoleteCode
-				if ( Item[pObj->usItem].firstaidkit || Item[pObj->usItem].medicalkit || pObj->usItem == REGEN_BOOSTER || pObj->usItem == ADRENALINE_BOOSTER )
+				if (ItemIsFirstAidKit(pObj->usItem) || ItemIsMedicalKit(pObj->usItem) || pObj->usItem == REGEN_BOOSTER || pObj->usItem == ADRENALINE_BOOSTER )
 				{
 					for (StackedObjects::iterator iter = pObj->objectStack.begin(); iter != pObj->objectStack.end(); ++iter) {
 						if ( iter->data.objectStatus > 60 )

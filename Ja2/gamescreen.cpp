@@ -1,85 +1,68 @@
-	#include "builddefines.h"
-	#include <stdio.h>
-	#include <time.h>
-	#include "sgp.h"
-	#include "gameloop.h"
-	#include "vobject.h"
-	#include "worlddef.h"
-	#include "renderworld.h"
-	#include "font.h"
-	#include "screenids.h"
-	#include "screens.h"
-	#include "overhead.h"
-	#include "Isometric Utils.h"
-	#include "sysutil.h"
-	#include "input.h"
-	#include "Event Pump.h"
-	#include "Font Control.h"
-	#include "Timer Control.h"
-	#include "Radar Screen.h"
-	#include "Render Dirty.h"
-	#include "Interface.h"
-	#include "Handle UI.h"
-	#include <wchar.h>
-	#include <tchar.h>
-	#include "cursors.h"
-	#include "vobject_blitters.h"
-	#include "Button System.h"
-	#include "lighting.h"
-	#include "renderworld.h"
-	#include "sys globals.h"
-	#include "environment.h"
-	#include "bullets.h"
-	#include "Assignments.h"
-	#include "message.h"
-	#include <string.h>
-	#include "overhead map.h"
-	#include "Strategic Exit GUI.h"
-	#include "strategic movement.h"
-	#include "Tactical Placement GUI.h"
-	#include "Air raid.h"
-	#include "Game Clock.h"
-	#include "game init.h"
+#include "builddefines.h"
+#include <stdio.h>
+#include "sgp.h"
+#include "gameloop.h"
+#include <Overhead Types.h>
+#include <Soldier Control.h>
+#include "renderworld.h"
+#include "Font.h"
+#include "screenids.h"
+#include "Screens.h"
+#include <Meanwhile.h>
+#include "HelpScreen.h"
+#include "Overhead.h"
+#include "Event Pump.h"
+#include "Font Control.h"
+#include "Timer Control.h"
+#include "Radar Screen.h"
+#include "Render Dirty.h"
+#include "Interface.h"
+#include "Handle UI.h"
+#include "Cursors.h"
+#include "vobject_blitters.h"
+#include "Button System.h"
+#include "lighting.h"
+#include "Sys Globals.h"
+#include "environment.h"
+#include "Bullets.h"
+#include <mousesystem.h>
+#include "message.h"
+#include "overhead map.h"
+#include "Strategic Exit GUI.h"
+#include "Tactical Placement GUI.h"
+#include "Air Raid.h"
+#include "Game Clock.h"
+#include "Game Init.h"
 
-	//DEF: Test Code
-	#ifdef NETWORKED
-	#include "Networking.h"
-	#endif
-	#include "interface control.h"
-	#include "game clock.h"
-	#include "physics.h"
-	#include "fade screen.h"
-	#include "dialogue control.h"
-	#include "soldier macros.h"
-	#include "faces.h"
-	#include "strategicmap.h"
-	#include "gamescreen.h"
-	#include "interface.h"
-	#include "cursor control.h"
-	#include "strategic turns.h"
-
-	#include "merc entering.h"
-	#include "soldier create.h"
-	#include "Soldier Init List.h"
-	#include "interface panels.h"
-	#include "Map Information.h"
-	#include "environment.h"
-	#include "Squads.h"
-	#include "interface dialogue.h"
-	#include "auto bandage.h"
-	#include "meanwhile.h"
-	#include "strategic ai.h"
-	#include "HelpScreen.h"
-	#include "PreBattle Interface.h"
-	#include "Sound Control.h"
-	#include "MessageBoxScreen.h"
-	#include "Text.h"
-	#include "GameSettings.h"
-	#include "Random.h"
-	#include "editscreen.h"
-	#include "Scheduling.h"
-	#include "Animated ProgressBar.h"
-
+//DEF: Test Code
+#ifdef NETWORKED
+#include "Networking.h"
+#endif
+#include "Interface Control.h"
+#include "physics.h"
+#include "Fade Screen.h"
+#include "Dialogue Control.h"
+#include "Soldier macros.h"
+#include "faces.h"
+#include "strategicmap.h"
+#include "gamescreen.h"
+#include "Cursor Control.h"
+#include "Strategic Turns.h"
+#include "merc entering.h"
+#include "Interface Panels.h"
+#include "Map Information.h"
+#include "Squads.h"
+#include "interface Dialogue.h"
+#include "Auto Bandage.h"
+#include "PreBattle Interface.h"
+#include "Sound Control.h"
+#include "MessageBoxScreen.h"
+#include "Text.h"
+#include "GameSettings.h"
+#include "random.h"
+#include "editscreen.h"
+#include "Scheduling.h"
+#include "Animated ProgressBar.h"
 #include "connect.h"
 
 #ifdef JA2UB
@@ -108,10 +91,10 @@ INT32		giCounterPeriodOverlay = 0;
 BOOLEAN	gfExitToNewSector					= FALSE;
 //UINT8		gubNewSectorExitDirection;
 
-BOOLEAN	gfGameScreenLocateToSoldier = FALSE;
-BOOLEAN	gfEnteringMapScreen					= FALSE;
-UINT32	uiOldMouseCursor;
-UINT8		gubPreferredInitialSelectedGuy = NOBODY;
+BOOLEAN		gfGameScreenLocateToSoldier = FALSE;
+BOOLEAN		gfEnteringMapScreen					= FALSE;
+UINT32		uiOldMouseCursor;
+SoldierID	gubPreferredInitialSelectedGuy = NOBODY;
 
 BOOLEAN				gfTacticalIsModal = FALSE;
 MOUSE_REGION	gTacticalDisableRegion;
@@ -261,17 +244,17 @@ void EnterTacticalScreen( )
 	if ( gusSelectedSoldier != NOBODY )
 	{
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: check our guy"));
-		if ( !OK_CONTROLLABLE_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+		if ( !OK_CONTROLLABLE_MERC( gusSelectedSoldier ) )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc not controllable"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: who is selected? %d", gusSelectedSoldier));
 		// ATE: If the current guy is sleeping, change....
-		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->flags.fMercAsleep )
+		if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->flags.fMercAsleep )
 		{
 			DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EnterTacticalScreen: SelectNextAvailSoldier, merc asleep"));
-			SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+			SelectNextAvailSoldier( gusSelectedSoldier );
 		}
 	}
 	else
@@ -580,9 +563,9 @@ UINT32	MainGameScreenHandle(void)
 			{
 				if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 				{
-					MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->AdjustNoAPToFinishMove( FALSE );
+					gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->AdjustNoAPToFinishMove( FALSE );
 				}
-				MercPtrs[ gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID ]->flags.fPauseAllAnimation = FALSE;
+				gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID->flags.fPauseAllAnimation = FALSE;
 
 				gTacticalStatus.fEnemySightingOnTheirTurn = FALSE;
 			}
@@ -684,7 +667,7 @@ UINT32	MainGameScreenHandle(void)
 		// Select a guy if he hasn;'
 		if( !gfTacticalPlacementGUIActive )
 		{
-			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( MercPtrs[ gusSelectedSoldier ] ) )
+			if ( gusSelectedSoldier != NOBODY && OK_INTERRUPT_MERC( gusSelectedSoldier ) )
 			{
 				DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("maingamescreenhandle: selectsoldier"));
 				SelectSoldier( gusSelectedSoldier, FALSE, TRUE );
@@ -735,11 +718,11 @@ UINT32	MainGameScreenHandle(void)
 
 	if ( !ARE_IN_FADE_IN( ) )
   	{
-	HandleAutoBandagePending( );
+		HandleAutoBandagePending( );
      
-	  #ifdef JA2UB
-      HandleThePlayerBeNotifiedOfSomeoneElseInSector();
-	  #endif
+#ifdef JA2UB
+		HandleThePlayerBeNotifiedOfSomeoneElseInSector();
+#endif
      }
 
 
@@ -933,7 +916,7 @@ UINT32	MainGameScreenHandle(void)
 			if ( gusSelectedSoldier != NOBODY )
 			{
 				if( !gGameSettings.fOptions[ TOPTION_MUTE_CONFIRMATIONS ] )
-					MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 			}
 		}
 
@@ -1030,15 +1013,12 @@ void DisableFPSOverlay( BOOLEAN fEnable )
 
 void TacticalScreenLocateToSoldier( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-	BOOLEAN				fPreferedGuyUsed = FALSE;
+	BOOLEAN fPreferedGuyUsed = FALSE;
 
 	if ( gubPreferredInitialSelectedGuy != NOBODY )
 	{
 		// ATE: Put condition here...
-		if ( OK_CONTROLLABLE_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) && OK_INTERRUPT_MERC( MercPtrs[ gubPreferredInitialSelectedGuy ] ) )
+		if ( OK_CONTROLLABLE_MERC( gubPreferredInitialSelectedGuy ) && OK_INTERRUPT_MERC( gubPreferredInitialSelectedGuy ) )
 		{
 			LocateSoldier( gubPreferredInitialSelectedGuy, 10 );
 			SelectSoldier( gubPreferredInitialSelectedGuy, FALSE, TRUE );
@@ -1050,14 +1030,14 @@ void TacticalScreenLocateToSoldier( )
 	if ( !fPreferedGuyUsed )
 	{
 		// Set locator to first merc
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+		SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier)
 		{
-			if ( OK_CONTROLLABLE_MERC( pSoldier ) && OK_INTERRUPT_MERC( pSoldier ) )
+			if ( OK_CONTROLLABLE_MERC( Soldier ) && OK_INTERRUPT_MERC( Soldier ) )
 			{
-				LocateSoldier( pSoldier->ubID, 10 );
-				SelectSoldier( pSoldier->ubID, FALSE, TRUE );
+				LocateSoldier( Soldier, 10 );
+				SelectSoldier( Soldier, FALSE, TRUE );
 				break;
 			}
 		}
@@ -1075,22 +1055,17 @@ void EnterMapScreen( )
 
 void UpdateTeamPanelAssignments( )
 {
-	INT32					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-
 	// Remove all players
 	RemoveAllPlayersFromSlot( );
 
 	// Set locator to first merc
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
 		// Setup team interface
-		CheckForAndAddMercToTeamPanel( pSoldier );
+		CheckForAndAddMercToTeamPanel( Soldier );
 	}
-
 }
 
 

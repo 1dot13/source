@@ -1,10 +1,10 @@
 	#include "ai.h"
 	#include "AIInternals.h"
 	#include "Isometric Utils.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "worldman.h"
-	#include "pathai.h"
-	//#include "points.h"
+	#include "PATHAI.H"
+	//#include "Points.h"
 	#include "message.h"
 	#include "Smell.h"
 	#include "mapscreen.h"
@@ -516,13 +516,18 @@ INT32 InternalGoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, IN
 #ifdef DEBUGDECISIONS
 		AIPopMessage("destination Grid # itself not valid, looking around it");
 #endif
-		if ( CREATURE_OR_BLOODCAT( pSoldier ) )
-		{
-			// we tried to get close, failed; abort!
-			pSoldier->pathing.usPathIndex = pSoldier->pathing.usPathDataSize = 0;
-			return( NOWHERE );
-		}
-		else
+		// Commented out this branch for now because bloodcats are constantly failing to find a legal destination in the previous call to legalNPCDestination
+		// Following the function calls deep enough ( GoAsFarAsPossibleTowards -> InternalGoAsFarAsPossibleTowards -> LegalNPCDestination -> NewOKDestination -> InternalOkayToAddStructureToWorld -> OkayToAddStructureToTile) shows that the last one fails when checking if we can add bloodcat's structure onto the tile our merc is
+		// This then results them freezing and staying in place even if they can see our mercs
+		// The reason I'm leaving the code here instead of simply removing it is because this and the check for adding structures to a tile are really old code,
+		// which has definitely worked fine at some point. As I'm right now unable to find the real reason for this breaking, I'm just circumventing the issue for now. -Asdow
+		//if ( CREATURE_OR_BLOODCAT( pSoldier ) )
+		//{
+		//	// we tried to get close, failed; abort!
+		//	pSoldier->pathing.usPathIndex = pSoldier->pathing.usPathDataSize = 0;
+		//	return( NOWHERE );
+		//}
+		//else
 		{
 			// else look at the 8 nearest gridnos to sDesGrid for a valid destination
 
@@ -877,12 +882,14 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 	}
 }
 
-void SetCivilianDestination(UINT8 ubWho, INT32 sGridNo)
+void SetCivilianDestination(SoldierID ubWho, INT32 sGridNo)
 {
- SOLDIERTYPE *pSoldier;
+	if ( ubWho == NOBODY )
+	{
+		return;
+	}
 
-
- pSoldier = MercPtrs[ubWho];
+	SOLDIERTYPE *pSoldier = ubWho;
 
 /*
  // if we control the civilian
@@ -892,12 +899,12 @@ void SetCivilianDestination(UINT8 ubWho, INT32 sGridNo)
 	// if the destination is different from what he has now
 	if (pSoldier->aiData.usActionData != sGridNo)
 	{
-	 // store his new destination
-	 pSoldier->aiData.usActionData = sGridNo;
+		// store his new destination
+		pSoldier->aiData.usActionData = sGridNo;
 
-	 // and cancel any movement in progress that he was still engaged in
-	 pSoldier->aiData.bAction = AI_ACTION_NONE;
-	 pSoldier->aiData.bActionInProgress = FALSE;
+		// and cancel any movement in progress that he was still engaged in
+		pSoldier->aiData.bAction = AI_ACTION_NONE;
+		pSoldier->aiData.bActionInProgress = FALSE;
 	}
 
 	// only set the underEscort flag once you give him a destination

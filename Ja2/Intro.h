@@ -12,13 +12,11 @@ void	StopIntroVideo();
 //enums used for when the intro screen can come up, used with 'gbIntroScreenMode'
 enum EIntroType
 {
-#ifdef JA2UB	
-	INTRO_HELI_CRASH,
-#endif
 	INTRO_BEGINNING,			//set when viewing the intro at the begining of the game
 	INTRO_ENDING,				//set when viewing the end game video.
-
 	INTRO_SPLASH,
+	// Unfinished Business
+	INTRO_HELI_CRASH
 };
 
 

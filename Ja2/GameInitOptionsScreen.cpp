@@ -1,38 +1,30 @@
-	#include "Types.h"
-	#include "GameInitOptionsScreen.h"
-	#include "GameSettings.h"
-	#include "Utilities.h"
-	#include "wCheck.h"
-	#include "Font Control.h"
-	#include "WordWrap.h"
-	#include "Render Dirty.h"
-	#include "Input.h"
-	#include "Options Screen.h"
-	#include "English.h"
-	#include "Sysutil.h"
-	#include "Fade Screen.h"
-	#include "Cursor Control.h"
-	#include "Music Control.h"
-	#include "cursors.h"
-	#include "Intro.h"
-	#include "Text.h"
-	#include "_Ja25EnglishText.h"
-	#include "Soldier Profile.h"
-
-#include "gameloop.h"
-#include "connect.h"
-#include "saveloadscreen.h"
-
-#ifdef JA2UB
-	#include "ub_config.h"
-#endif
-
+#include "types.h"
+#include "GameInitOptionsScreen.h"
+#include "GameSettings.h"
+#include "Utilities.h"
+#include "WCheck.h"
+#include "Font Control.h"
+#include "WordWrap.h"
+#include "Render Dirty.h"
+#include "input.h"
+#include "Options Screen.h"
+#include "english.h"
+#include "sysutil.h"
+#include "Fade Screen.h"
+#include "Cursor Control.h"
+#include "Music Control.h"
+#include "Cursors.h"
+#include "Intro.h"
+#include "Text.h"
+#include "_Ja25EnglishText.h"
+#include "Soldier Profile.h"
+#include "SaveLoadScreen.h"
 #include <vfs/Core/vfs.h>
-#include <vfs/Core/vfs_init.h>
 #include <vfs/Tools/vfs_property_container.h>
-#include <vfs/Core/vfs_os_functions.h>
+
 
 #ifdef JA2UB
+#include "ub_config.h"
 
 // *********************************
 // Unfinished Business: Initial Game Screen
@@ -1830,7 +1822,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution >= _800x600 && iResolution < _1024x768)
+		if (iResolution >= _800x600 && iResolution < _1280x720)
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )
@@ -1850,7 +1842,7 @@ void BtnGIOSquadSizeSelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
 		UINT8 maxSquadSize = GIO_SQUAD_SIZE_10;
-		if (iResolution >= _800x600 && iResolution < _1024x768)
+		if (iResolution >= _800x600 && iResolution < _1280x720 )
 			maxSquadSize = GIO_SQUAD_SIZE_8;
 
 		if ( iCurrentSquadSize < maxSquadSize )

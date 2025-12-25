@@ -1,22 +1,12 @@
 	#include "sgp.h"
 	#include "Game Clock.h"
-	#include "Font Control.h"
 	#include "Timer Control.h"
-	#include "overhead.h"
-	#include "Game Clock.h"
-	#include "message.h"
-	#include "worlddef.h"
-	#include "soldier create.h"
-	#include "soldier add.h"
-	#include "strategic turns.h"
-	#include "isometric utils.h"
-	#include "animation data.h"
-	#include "animation control.h"
+	#include "Overhead.h"
+	#include <Overhead Types.h>
+	#include "Strategic Turns.h"
 	#include "Tactical Turns.h"
-	#include "strategic turns.h"
 	#include "rt time defines.h"
-	#include "assignments.h"
-
+	
 
 
 

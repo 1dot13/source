@@ -1,4 +1,5 @@
-	#include "Types.h"
+#include "builddefines.h"
+#include "types.h"
 	#include "ShopKeeper Interface.h"
 	#include "Utilities.h"
 	#include "Game Clock.h"
@@ -10,61 +11,53 @@
 	#include "Interface Control.h"
 	#include "Overhead.h"
 	#include "Cursors.h"
-	#include "SysUtil.h"
+	#include "sysutil.h"
 	#include "Interface Panels.h"
 	#include "Radar Screen.h"
 	#include "Interface Items.h"
 	#include "Interface Utils.h"
-	#include "VObject_Blitters.h"
-	#include "Finances.h"
+	#include "vobject_blitters.h"
+	#include "finances.h"
 	#include "Text.h"
 	#include "Cursor Control.h"
-	#include "Input.h"
+	#include "input.h"
 	#include "Arms Dealer Init.h"
 	#include "english.h"
 	#include "Soldier Add.h"
-	#include "Faces.h"
+	#include "faces.h"
 	#include "Dialogue Control.h"
 	#include "ShopKeeper Quotes.h"
 	#include "GameSettings.h"
 	#include "MercTextBox.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Squads.h"
 	#include "Soldier Profile.h"
-	#include "Message.h"
-	#include "Personnel.h"
+	#include "message.h"
 	#include "LaptopSave.h"
 	#include "Quests.h"
 	#include "Weapons.h"
 	#include "MessageBoxScreen.h"
-	#include "LINE.H"
-	#include "Drugs and Alcohol.h"
-	#include "Map Screen Interface.h"
+	#include "Drugs And Alcohol.h"
 	#include "Soldier macros.h"
-	#include "armsdealerinvinit.h"
+	#include "ArmsDealerInvInit.h"
 	#include "opplist.h"
-	#include "los.h"
+	#include "LOS.h"
 	#include "NPC.h"
 	#include "Soldier Create.h"
-	#include "PATHAI.h"
+	#include "PATHAI.H"
 	#include "Points.h"
 	#include "InterfaceItemImages.h"
-	#include "Encyclopedia_new.h"
 	#include "Animation Control.h"	// added by Flugente
 	#include "Town Militia.h"		// added by Flugente
 
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "Ja25_Tactical.h"
+#include "soldier profile type.h"
+#include <mousesystem.h>
 #include "ub_config.h"
 #endif
 
-#include "BuildDefines.h"
 #include <algorithm>
 
 ////////////////////////////////////////////
@@ -295,7 +288,7 @@ INT32			giSKIMessageBox=-1;
 INT8			gbSelectedArmsDealerID = -1;		//Contains the enum value for the currently selected arms dealer
 
 // Flugente: while we're trading, store the ID of non-NPC dealers
-UINT8			gusIDOfCivTrader = NOBODY;
+SoldierID	gusIDOfCivTrader = NOBODY;
 
 //the quote that is in progress, in certain circumstances, we don't want queuing of related but different quotes
 INT32			giShopKeepDialogueEventinProgress = - 1;
@@ -356,7 +349,7 @@ BOOLEAN		gfDoneBusinessThisSession = FALSE;
 // this is used within SKI exclusively, to handle small faces
 UINT8			gubArrayOfEmployedMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
 UINT32		guiSmallSoldiersFace[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];
-UINT8			gubNumberMercsInArray;
+UINT16			gubNumberMercsInArray;
 
 //The subutitled text for what the merc is saying
 CHAR16		gsShopKeeperTalkingText[ SKI_SUBTITLE_TEXT_SIZE ];
@@ -379,17 +372,17 @@ BOOLEAN gfPerformTransactionInProgress = FALSE;
 
 BOOLEAN gfCommonQuoteUsedThisSession[ NUM_COMMON_SK_QUOTES ];
 
-extern		SOLDIERTYPE			*gpSMCurrentMerc;
-extern		SOLDIERTYPE			*gpItemDescSoldier;
+extern		SOLDIERTYPE		*gpSMCurrentMerc;
+extern		SOLDIERTYPE		*gpItemDescSoldier;
 extern		MOUSE_REGION		gItemDescAttachmentRegions[MAX_ATTACHMENTS];
 extern		MOUSE_REGION		gInvDesc;
-extern		BOOLEAN					gfSMDisableForItems;
-extern		OBJECTTYPE			*gpItemDescObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		OBJECTTYPE			*gpItemDescPrevObject;
-extern		void						HandleShortCutExitState( void );
-extern		UINT8						gubSelectSMPanelToMerc;
-extern		INT32						giItemDescAmmoButton;
+extern		BOOLEAN			gfSMDisableForItems;
+extern		OBJECTTYPE		*gpItemDescObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		OBJECTTYPE		*gpItemDescPrevObject;
+extern		void				HandleShortCutExitState( void );
+extern		SoldierID		gubSelectSMPanelToMerc;
+extern		INT32			giItemDescAmmoButton;
 
 extern		BOOLEAN BltVSurfaceUsingDD( HVSURFACE hDestVSurface, HVSURFACE hSrcVSurface, UINT32 fBltFlags, INT32 iDestX, INT32 iDestY, RECT *SrcRect );
 
@@ -607,8 +600,6 @@ void EnableAllDealersOfferSlots( void );
 
 void HatchOutInvSlot( UINT16 usPosX, UINT16 usPosY );
 
-extern BOOLEAN ItemIsARocketRifle( INT16 sItemIndex );
-
 #ifdef JA2TESTVERSION
 BOOLEAN gfTestDisplayDealerCash = FALSE;
 void DisplayAllDealersCash();
@@ -761,18 +752,17 @@ UINT32	ShopKeeperScreenShutdown()
 BOOLEAN EnterShopKeeperInterface()
 {
 	VOBJECT_DESC		VObjectDesc;
-	UINT16				ubCnt;
 	CHAR8				zTemp[32];
 	VSURFACE_DESC		vs_desc;
 
 	//ADB if we are here, we must be able to talk with an extended ear (CheckIfRadioIsEquipped())
 	//but if we are physically too far away, we don't have extended arms!
 
-	SOLDIERTYPE* pSoldier = MercPtrs[ gusSelectedSoldier ];
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 	SOLDIERTYPE* pShopkeeper = NULL;
 	
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
@@ -828,7 +818,7 @@ BOOLEAN EnterShopKeeperInterface()
 	}
 
 	// make sure current merc is close enough and eligible to talk to the shopkeeper.
-	AssertMsg( CanMercInteractWithSelectedShopkeeper( MercPtrs[ gusSelectedSoldier ] ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
+	AssertMsg( CanMercInteractWithSelectedShopkeeper( gusSelectedSoldier ), "Selected merc can't interact with shopkeeper.  Send save AM-1");
 
 	// Create a video surface to blt corner of the tactical screen that still shines through
 	vs_desc.fCreateFlags = VSURFACE_CREATE_DEFAULT | VSURFACE_SYSTEM_MEM_USAGE;
@@ -871,8 +861,8 @@ BOOLEAN EnterShopKeeperInterface()
 
 	//Reinitialize the team panel to be the SM panel
 	SetCurrentInterfacePanel( SM_PANEL );
-	SetCurrentTacticalPanelCurrentMerc( (UINT8)gusSelectedSoldier );
-	SetSMPanelCurrentMerc( (UINT8)gusSelectedSoldier );
+	SetCurrentTacticalPanelCurrentMerc( gusSelectedSoldier );
+	SetSMPanelCurrentMerc( gusSelectedSoldier );
 	
 	// load the Main trade screen background image
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
@@ -888,9 +878,9 @@ BOOLEAN EnterShopKeeperInterface()
 	//Create an array of all mercs (anywhere!) currently in the player's employ, and load their small faces
 	// This is to support showing of repair item owner's faces even when they're not in the sector, as long as they still work for player
 	gubNumberMercsInArray = 0;
-	for( ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
+	for( SoldierID ubCnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; ubCnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++ubCnt )
 	{
-		pSoldier = MercPtrs[ ubCnt ];
+		pSoldier = ubCnt;
 
 		if( pSoldier->bActive && ( pSoldier->ubProfile != NO_PROFILE ) &&
 			!(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )
@@ -1029,7 +1019,7 @@ BOOLEAN EnterShopKeeperInterface()
 		{
 			//add the item back to the current PC into the slot it came from
 			//ADB screw slot, slot is (used to be, before it was deleted) only ever, so autoplace it
-			AutoPlaceObject(&Menptr[ gpSMCurrentMerc->ubID ], &gItemToAdd.ItemObject, FALSE);
+			AutoPlaceObject(gpSMCurrentMerc->ubID, &gItemToAdd.ItemObject, FALSE);
 		}
 
 		//Clear the contents of the structure
@@ -1128,7 +1118,7 @@ BOOLEAN ExitShopKeeperInterface()
 	UnloadButtonImage( guiSKI_InvPageDownButtonImage );
 
 	//loop through the area and delete small faces
-	for (UINT8 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
+	for (UINT16 ubCnt=0; ubCnt<gubNumberMercsInArray; ++ubCnt)
 	{
 		DeleteVideoObjectFromIndex( guiSmallSoldiersFace[ ubCnt ] );
 	}
@@ -1176,10 +1166,10 @@ BOOLEAN ExitShopKeeperInterface()
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE && !( gJa25SaveStruct.uiJa25GeneralFlags & JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE ) )
 	{		
 		//Have a new merc say a quote
-		INT16 bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
-		if( bSoldierID > -1 )
+		SoldierID bSoldierID = RandomSoldierIdFromNewMercsOnPlayerTeam();
+		if( bSoldierID != NOBODY )
 		{
-			TacticalCharacterDialogue( &Menptr[bSoldierID], QUOTE_JA2UB_LAPTOP_FIXED );
+			TacticalCharacterDialogue( bSoldierID, QUOTE_JA2UB_LAPTOP_FIXED );
 		}
 
 		gJa25SaveStruct.uiJa25GeneralFlags |= JA_GF__PLAYER_SAID_LAPTOP_FIXED_QUOTE;
@@ -1474,7 +1464,7 @@ BOOLEAN RenderShopKeeperInterface()
 	// Flugente: if this is a non-NPC dealer, we instead show their body in their current animation
 	else if ( gusIDOfCivTrader != NOBODY )
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[gusIDOfCivTrader];
+		SOLDIERTYPE* pSoldier = gusIDOfCivTrader;
 
 		if ( pSoldier )
 		{
@@ -1527,15 +1517,13 @@ BOOLEAN RenderShopKeeperInterface()
 	// display shopkeeper budget
 	DisplayWrappedString( SKI_BUDGET_X, SKI_BUDGET_Y, SKI_BUDGET_WIDTH, 2, SKI_LABEL_FONT, SKI_TITLE_COLOR, SKI_Text[SKI_TEXT_BUDGET], FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
-	swprintf( zMoney, L"%d", gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash );
-
-	InsertCommasForDollarFigure( zMoney );
+	swprintf( zMoney, L"%s", FormatMoney(gArmsDealerStatus[gbSelectedArmsDealerID].uiArmsDealersCash).data() );
 
 	CHAR16			zTemp2[64];
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 		swprintf( zTemp2, L"%s Intel", zMoney );
 	else
-		swprintf( zTemp2, L"$%s", zMoney );
+		swprintf( zTemp2, L"%s", zMoney );
 
 	DrawTextToScreen( zTemp2, SKI_BUDGET_X, SKI_BUDGET_OFFSET_TO_VALUE, SKI_BUDGET_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
 
@@ -1557,15 +1545,13 @@ BOOLEAN RenderShopKeeperInterface()
 	//Display the players current balance value
 	if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 	{
-		swprintf( zMoney, L"%d", (int)(GetIntel()) );
-		InsertCommasForDollarFigure( zMoney );
+		swprintf( zMoney, L"%s", FormatMoney((int)(GetIntel()) ).data());
 		swprintf( zTemp2, L"%s Intel", zMoney );
 	}
 	else
 	{
-		swprintf( zMoney, L"%d", LaptopSaveInfo.iCurrentBalance );
-		InsertCommasForDollarFigure( zMoney );
-		swprintf( zTemp2, L"$%s", zMoney );
+		swprintf( zMoney, L"%s", FormatMoney(LaptopSaveInfo.iCurrentBalance ).data());
+		swprintf( zTemp2, L"%s", zMoney );
 	}
 
 	DrawTextToScreen( zTemp2, SKI_PLAYERS_CURRENT_BALANCE_X, SKI_PLAYERS_CURRENT_BALANCE_OFFSET_TO_VALUE, SKI_PLAYERS_CURRENT_BALANCE_WIDTH, FONT10ARIAL, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, TRUE, CENTER_JUSTIFIED );
@@ -1688,16 +1674,13 @@ void		GetShopKeeperInterfaceUserInput()
 
 				case SPACE:
 					{
-						UINT8	ubID;
-
 						DeleteItemDescriptionBox( );
 
 						// skip Robot and EPCs
-						ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
-
+						SoldierID ubID = FindNextActiveAndAliveMerc( gpSMCurrentMerc, FALSE, TRUE );
 						gubSelectSMPanelToMerc = ubID;
-
 						LocateSoldier( ubID, DONTSETLOCATOR );
+
 						// refresh background for player slots (in case item values change due to Flo's discount)
 						gubSkiDirtyLevel = SKI_DIRTY_LEVEL2;
 					}
@@ -1738,14 +1721,12 @@ void DisplayAllDealersCash()
 		DrawTextToScreen( gMercProfiles[ armsDealerInfo[ bArmsDealer ].ubShopKeeperID ].zNickname, SCREEN_X_OFFSET + 540, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, SKI_TITLE_COLOR, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
 
 		//Display the arms dealer cash on hand
-		swprintf( zTemp, L"%d", gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash );
-
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(gArmsDealerStatus[ bArmsDealer ].uiArmsDealersCash ).data());
 		
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		ubForeColor = ( UINT8 ) ( ( bArmsDealer == gbSelectedArmsDealerID ) ? SKI_BUTTON_COLOR : SKI_TITLE_COLOR );
 		DrawTextToScreen( zTemp2, SCREEN_X_OFFSET + 590, SCREEN_Y_OFFSET + usPosY, 0, FONT10ARIAL, ubForeColor, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED );
@@ -2462,7 +2443,7 @@ void EnterShopKeeperInterfaceScreen( UINT8	ubArmsDealer )
 }
 
 // Flugente: set up shopkeeper with a non-NPC
-void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
+void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, SoldierID aMercID )
 {
 	gusIDOfCivTrader = aMercID;
 
@@ -2479,7 +2460,7 @@ void EnterShopKeeperInterfaceScreen_NonNPC( INT8 ubArmsDealerID, UINT8 aMercID )
 
 	// Flugente: additional dialogue
 	if ( gusSelectedSoldier != NOBODY )
-		AdditionalTacticalCharacterDialogue_CallsLua( MercPtrs[gusSelectedSoldier], ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
+		AdditionalTacticalCharacterDialogue_CallsLua( gusSelectedSoldier, ADE_MERCHANT_CHAT, ubArmsDealerID >= 0 ? (UINT32)ubArmsDealerID : 0 );
 
 	LeaveTacticalScreen( SHOPKEEPER_SCREEN );
 }
@@ -2795,14 +2776,13 @@ UINT32 DisplayInvSlot( UINT16 ubSlotNum, UINT16 usItemIndex, UINT16 usPosX, UINT
 	//if the item has a price, display it
 	if( uiItemCost != 0 )
 	{
-		swprintf( zTemp, L"%d", uiItemCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiItemCost).data() );
 
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, (UINT16)(usPosX+SKI_INV_PRICE_OFFSET_X), (UINT16)(usPosY+SKI_INV_PRICE_OFFSET_Y+4), SKI_INV_SLOT_WIDTH, SKI_ITEM_DESC_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
@@ -2892,13 +2872,6 @@ BOOLEAN DetermineArmsDealersSellingInventory( )
 		iter != gArmsDealersInventory[ gbSelectedArmsDealerID ].end();) {
 
 		if ( iter->ItemIsInInventory() == false) {
-			++iter;
-			continue;
-		}
-
-		//shadooow: do not sell any item that is limited to specific system and this system isn't enabled
-		if (((Item[iter->object.usItem].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[iter->object.usItem].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
-		{
 			++iter;
 			continue;
 		}
@@ -3399,8 +3372,7 @@ FLOAT ItemConditionModifier(UINT16 usItemIndex, INT16 bStatus)
 
 		// an item at 100% is worth full price...
 
-//		if ( Item[ usItemIndex ].fFlags & ITEM_REPAIRABLE )
-		if ( Item[ usItemIndex ].repairable  )
+		if (ItemIsRepairable(usItemIndex))
 		{
 			// a REPAIRABLE item at 0% is still worth 50% of its full price, not 0%
 			dConditionModifier = 0.5f + ( bStatus / (FLOAT)200 );
@@ -3476,14 +3448,13 @@ void DisplayArmsDealerOfferArea()
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		//Display the total cost text
-		swprintf( zTemp, L"%d", uiTotalCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiTotalCost).data() );
 
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, SKI_ARMS_DEALER_TOTAL_COST_X, (UINT16)(SKI_ARMS_DEALER_TOTAL_COST_Y+5), SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
@@ -3678,12 +3649,10 @@ void DisplayPlayersOfferArea()
 				//get an updated status from the amount in the pocket
 				if( PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation != -1 && PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 				{
-					INT16 sSoldierID;
+					SoldierID sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
+					Assert(sSoldierID != NOBODY);
 
-					sSoldierID = GetSoldierIDFromMercID( PlayersOfferArea[ sCnt ].ubIdOfMercWhoOwnsTheItem );
-					Assert(sSoldierID != -1);
-
-					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = Menptr[ sSoldierID ].inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
+					PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount = sSoldierID->inv[ PlayersOfferArea[ sCnt ].bSlotIdInOtherLocation ][0]->data.money.uiMoneyAmount;
 					PlayersOfferArea[ sCnt ].uiItemPrice = PlayersOfferArea[ sCnt ].ItemObject[0]->data.money.uiMoneyAmount;
 				}
 			}
@@ -3743,14 +3712,13 @@ void DisplayPlayersOfferArea()
 	if( gubSkiDirtyLevel == SKI_DIRTY_LEVEL2 )
 	{
 		//Display the total cost text
-		swprintf( zTemp, L"%d", uiTotalCost );
-		InsertCommasForDollarFigure( zTemp );
+		swprintf( zTemp, L"%s", FormatMoney(uiTotalCost).data() );
 		
 		CHAR16			zTemp2[64];
 		if ( armsDealerInfo[gbSelectedArmsDealerID].uiFlags & ARMS_DEALER_DEALWITHINTEL )
 			swprintf( zTemp2, L"%s Intel", zTemp );
 		else
-			swprintf( zTemp2, L"$%s", zTemp );
+			swprintf( zTemp2, L"%s", zTemp );
 
 		DrawTextToScreen( zTemp2, SKI_TOTAL_VALUE_X, SKI_TOTAL_VALUE_OFFSET_TO_VALUE, SKI_INV_SLOT_WIDTH, SKI_LABEL_FONT, SKI_ITEM_PRICE_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 	}
@@ -5014,8 +4982,7 @@ BOOLEAN IsGunOrAmmoOfSameTypeSelected( OBJECTTYPE	*pItemObject )
 	}
 	
 	//if the highlighted object is an attachment
-//	if( Item[ pItemObject->usItem ].fFlags & ITEM_ATTACHMENT )
-	if( Item[ pItemObject->usItem ].attachment  )
+	if(ItemIsAttachment(pItemObject->usItem))
 	{
 		if( ValidAttachment( pItemObject->usItem, gpHighLightedItemObject ) )
 			return( TRUE );
@@ -5202,7 +5169,7 @@ int CountNumberOfItemsInTheArmsDealersOfferArea( )
 
 INT8 GetSlotNumberForMerc( UINT8 ubProfile )
 {
-	for( INT8 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
+	for( UINT16 bCnt = 0; bCnt < gubNumberMercsInArray; ++bCnt )
 	{
 		if( gubArrayOfEmployedMercs[ bCnt ] == ubProfile )
 			return( bCnt );
@@ -5653,7 +5620,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 			}
 
 			//if the item is a rocket rifle
-			if( ItemIsARocketRifle( PlayersOfferArea[ bSlotID ].sItemIndex ) )
+			if(ItemHasFingerPrintID( PlayersOfferArea[ bSlotID ].sItemIndex ) )
 			{
 				fRocketRifleWasEvaluated = TRUE;
 			}
@@ -5723,8 +5690,7 @@ void EvaluateItemAddedToPlayersOfferArea( INT8 bSlotID, BOOLEAN fFirstOne )
 		if( armsDealerInfo[ gbSelectedArmsDealerID ].ubTypeOfArmsDealer == ARMS_DEALER_REPAIRS )
 		{
 			// only otherwise repairable items count as actual rejections
-//			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].fFlags & ITEM_REPAIRABLE )
-			if ( Item[ PlayersOfferArea[ bSlotID ].sItemIndex ].repairable  )
+			if (ItemIsRepairable(PlayersOfferArea[bSlotID].sItemIndex))
 			{
 				uiEvalResult = EVAL_RESULT_DONT_HANDLE;
 			}
@@ -6363,7 +6329,7 @@ void SplitComplexObjectIntoSubObjects( OBJECTTYPE *pComplexObject )
 
 				// strip off any loaded ammo/payload
 				// Exception: don't do this with rocket launchers, their "shots left" are fake and this screws 'em up!
-				if ( !Item[usItem].singleshotrocketlauncher ) // Madd rpg - still do this
+				if ( !ItemIsSingleShotRocketLauncher(usItem)) // Madd rpg - still do this
 				{
 					pData->data.gun.usGunAmmoItem = NONE;
 					pData->data.gun.ubGunShotsLeft = 0;
@@ -6504,23 +6470,21 @@ void ShopkeeperAddItemToPool( INT32 sGridNo, OBJECTTYPE *pObject, INT8 bVisible,
 
 void IfMercOwnedCopyItemToMercInv( INVENTORY_IN_SLOT *pInv )
 {
-	INT16 sSoldierID;
-
 	//if the item picked up was in a previous location, and that location is on a merc's inventory
 	if ( ( pInv->bSlotIdInOtherLocation != -1 ) && ( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE ) )
 	{
 		// get soldier
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
-		Assert( sSoldierID != -1 );
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		Assert( sSoldierID != NOBODY );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		// then it better be a valid slot #
-		Assert( pInv->bSlotIdInOtherLocation < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( pInv->bSlotIdInOtherLocation < (INT8)(sSoldierID->inv.size()) );
 		// and it better have a valid merc who owned it
 		Assert( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE );
 		
 		//Copy the object back into that merc's original inventory slot
-		Menptr[ sSoldierID ].inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
+		sSoldierID->inv[ pInv->bSlotIdInOtherLocation ] = pInv->ItemObject;
 	}
 }
 
@@ -6536,15 +6500,15 @@ void IfMercOwnedRemoveItemFromMercInv2( UINT8 ubOwnerProfileId, INT16 bOwnerSlot
 	{
 		// and it better have a valid merc who owned it
 		Assert( ubOwnerProfileId != NO_PROFILE );
-		INT16 sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
-		Assert( sSoldierID != -1 );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( ubOwnerProfileId );
+		Assert( sSoldierID != NOBODY );
 		// then it better be a valid slot #
-		Assert( bOwnerSlotId < (INT8)Menptr[ sSoldierID ].inv.size() );
+		Assert( bOwnerSlotId < (INT8)(sSoldierID->inv.size() ));
 
-		Assert( CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) );
+		Assert( CanMercInteractWithSelectedShopkeeper( sSoldierID ) );
 
 		//remove the object from that merc's original inventory slot
-		DeleteObj(&(Menptr[ sSoldierID ].inv[bOwnerSlotId]));
+		DeleteObj(&(sSoldierID->inv[bOwnerSlotId]));
 	}
 }
 
@@ -6556,24 +6520,22 @@ BOOLEAN SKITryToReturnInvToOwnerOrCurrentMerc( INVENTORY_IN_SLOT *pInv )
 	// if it does have an owner
 	if( pInv->ubIdOfMercWhoOwnsTheItem != NO_PROFILE )
 	{
-		INT16 sSoldierID;
-
-		sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
+		SoldierID sSoldierID = GetSoldierIDFromMercID( pInv->ubIdOfMercWhoOwnsTheItem );
 		// if that soldier is not in player's hire any longer
-		if ( sSoldierID == -1 )
+		if ( sSoldierID >= NOBODY )
 		{
 			return(FALSE);
 		}
 
 		// For owners of repaired items, this checks that owner is still hired, in sector,
 		// on current squad, close enough to the shopkeeper, etc.
-		if ( !CanMercInteractWithSelectedShopkeeper( MercPtrs[ sSoldierID ] ) )
+		if ( !CanMercInteractWithSelectedShopkeeper( sSoldierID ) )
 		{
 			return(FALSE);
 		}
 
 		// Try to find a place to put in its owner's inventory (regardless of which merc is currently displayed!)
-		if ( SKITryToAddInvToMercsInventory( pInv, MercPtrs[ sSoldierID ] ) )
+		if ( SKITryToAddInvToMercsInventory( pInv, sSoldierID ) )
 		{
 			return( TRUE );
 		}
@@ -6646,7 +6608,7 @@ BOOLEAN CanMercInteractWithSelectedShopkeeper( SOLDIERTYPE *pSoldier )
 	Assert( gbSelectedArmsDealerID != -1 );
 
 	if ( gusIDOfCivTrader != NOBODY )
-		pShopkeeper = MercPtrs[gusIDOfCivTrader];
+		pShopkeeper = gusIDOfCivTrader;
 	else
 		pShopkeeper = FindSoldierByProfileID( armsDealerInfo[gbSelectedArmsDealerID].ubShopKeeperID, FALSE );
 
@@ -6687,7 +6649,7 @@ void AddShopkeeperToGridNo( UINT8 ubProfile, INT32 sGridNo )
 {
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
 	INT16										sSectorX, sSectorY;
-	UINT8									ubID;
+	SoldierID									ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 
@@ -6792,7 +6754,7 @@ void DealWithItemsStillOnTheTable()
 	}
 	else
 	{
-		pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+		pDropSoldier = gusSelectedSoldier;
 	}
 
 	// this guy HAS to be valid!
@@ -7035,7 +6997,7 @@ void SelectArmsDealersDropItemToGroundRegionCallBack(MOUSE_REGION * pRegion, INT
 		}
 		else
 		{
-			pDropSoldier = MercPtrs[ gusSelectedSoldier ];
+			pDropSoldier = gusSelectedSoldier;
 		}
 
 		//if we don't have an item, pick one up
@@ -7102,9 +7064,8 @@ UINT32 EvaluateInvSlot( INVENTORY_IN_SLOT *pInvSlot )
 	//if the dealer is Micky
 	if( gbSelectedArmsDealerID == ARMS_DEALER_MICKY )
 	{
-		INT16	sSoldierID;
-		sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
-		if( ( sSoldierID != -1 ) && ( GetDrunkLevel( &Menptr[ sSoldierID ] ) == DRUNK ) )
+		SoldierID sSoldierID = GetSoldierIDFromMercID( armsDealerInfo[ gbSelectedArmsDealerID ].ubShopKeeperID );
+		if( ( sSoldierID != NOBODY ) && ( GetDrunkLevel( sSoldierID ) == DRUNK ) )
 		{
 			//Micky is DRUNK, pays more!
 			dPriceModifier = armsDealerInfo[ gbSelectedArmsDealerID ].dSellModifier;

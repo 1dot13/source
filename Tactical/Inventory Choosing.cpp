@@ -1,8 +1,7 @@
-	#include <memory.h>
 	#include "Inventory Choosing.h"
-	#include "animation data.h"
+	#include "Animation Data.h"
 	#include "Items.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Weapons.h"
 	#include "Strategic Status.h"
 	#include "Campaign.h"
@@ -15,7 +14,6 @@
 	#include "strategic.h"
 	#include "Game Clock.h"
 	#include "message.h"
-	#include "Tactical Save.h"	// added by Flugente
 	#include "Soldier macros.h"		// added by Flugente
 	#include "Rebel Command.h"
 extern WorldItems gAllWorldItems;
@@ -738,7 +736,7 @@ void GenerateRandomEquipment( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass, INT8
 			switch( Item[ pItem->usItem ].usItemClass )
 			{
 				case IC_GUN:
-					if ( !Item[pItem->usItem].rocketlauncher )
+					if ( !ItemIsRocketLauncher(pItem->usItem) )
 					{
 						bWeaponClass *= -1;
 					}
@@ -873,7 +871,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 				pp->Inv[ i ][0]->data.gun.ubGunAmmoType = Magazine[Item[usAmmoIndex].ubClassIndex].ubAmmoType;
 				pp->Inv[ i ][0]->data.gun.usGunAmmoItem = usAmmoIndex;
 
-				if ( Item[usGunIndex].fingerprintid )
+				if (ItemHasFingerPrintID(usGunIndex))
 				{
 					pp->Inv[ i ][0]->data.ubImprintID = (NO_PROFILE + 1);
 				}
@@ -951,7 +949,7 @@ void ChooseWeaponForSoldierCreateStruct( SOLDIERCREATE_STRUCT *pp, INT8 bWeaponC
 	pp->Inv[ HANDPOS ].fFlags |= OBJECT_UNDROPPABLE;
 
 	// Rocket Rifles must come pre-imprinted, in case carrier gets killed without getting a shot off
-	if ( Item[usGunIndex].fingerprintid )
+	if (ItemHasFingerPrintID(usGunIndex))
 	{
 		pp->Inv[ HANDPOS ][0]->data.ubImprintID = (NO_PROFILE + 1);
 	}
@@ -3144,7 +3142,7 @@ void ReplaceExtendedGuns( SOLDIERCREATE_STRUCT *pp, INT8 bSoldierClass )
 	{
 		usItem = pp->Inv[ uiLoop ].usItem;
 
-		if ( ( Item[ usItem ].usItemClass & IC_GUN ) && ExtendedGunListGun( usItem ) )
+		if ( ( Item[ usItem ].usItemClass & IC_GUN ) && ItemIsOnlyInTonsOfGuns( usItem ) )
 		{
 			if ( bSoldierClass == SOLDIER_CLASS_NONE )
 			{
@@ -3528,7 +3526,7 @@ UINT32 ItemFitness( OBJECTTYPE* pObj, UINT8 idx )
 	}
 	else if ( Item[ pObj->usItem ].usItemClass & IC_FACE )
 	{
-		if ( Item[ pObj->usItem ].gasmask )
+		if (ItemIsGasmask(pObj->usItem))
 			value = (*pObj)[idx]->data.objectStatus;
 		else if ( Item[ pObj->usItem ].hearingrangebonus )
 		{
@@ -3901,7 +3899,7 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 			pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 			pWorldItem_tmp[uiCount].bVisible									= 1;
 			pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
-			pWorldItem_tmp[uiCount].soldierID									= -1;
+			pWorldItem_tmp[uiCount].soldierID									= NOBODY;
 			pWorldItem_tmp[uiCount].object										= tmp.Inv[ i ];
 		}
 	}
@@ -3924,23 +3922,23 @@ void MoveOneMilitiaEquipmentSet(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, 
 	}
 }
 
-void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, UINT8 usElites, UINT8 usRegulars, UINT8 usGreens)
+void MoveMilitiaEquipment(INT16 sSourceX, INT16 sSourceY, INT16 sTargetX, INT16 sTargetY, UINT16 usElites, UINT16 usRegulars, UINT16 usGreens)
 {
 	if ( !gGameExternalOptions.fMilitiaUseSectorInventory )
 		return;
 
 	// atm there is no class-specific selection, but that might change in the future
-	for (UINT8 i = 0; i < usElites; ++i)
+	for (UINT16 i = 0; i < usElites; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_ELITE_MILITIA);
 	}
 
-	for (UINT8 i = 0; i < usRegulars; ++i)
+	for (UINT16 i = 0; i < usRegulars; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_REG_MILITIA);
 	}
 
-	for (UINT8 i = 0; i < usGreens; ++i)
+	for (UINT16 i = 0; i < usGreens; ++i)
 	{
 		MoveOneMilitiaEquipmentSet( sSourceX, sSourceY, sTargetX, sTargetY, SOLDIER_CLASS_GREEN_MILITIA);
 	}
@@ -4186,7 +4184,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 					else if ( Item[pWorldItem[ uiCount ].object.usItem].usItemClass & IC_FACE && (!si[SI_SIGHT].done || !si[SI_FACE2].done || !si[SI_FACE_SPARESIGHT].done || !si[SI_GASMASK].done) )
 					{
 						// gasmasks are reserved for a special slot and will only be worn if we do not have 2 face items. items that increase our vision (NVGs adn sungooggles) get to slot 1, everything else in 2
-						if ( Item[ pWorldItem[ uiCount ].object.usItem ].gasmask )
+						if (ItemIsGasmask(pWorldItem[ uiCount ].object.usItem))
 							EvaluateObjForItem( pWorldItem, pObj, uiCount, &si[SI_GASMASK] );
 						else if ( Item[ pWorldItem[ uiCount ].object.usItem ].nightvisionrangebonus > 0 )
 						{
@@ -4265,7 +4263,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 						if ( fnd == launcherhelpmap.end() )
 						{
 							LauncherHelpStruct tmp;
-							tmp.fNeedsAmmo = !Item[pWorldItem[ uiCount ].object.usItem].singleshotrocketlauncher;
+							tmp.fNeedsAmmo = !ItemIsSingleShotRocketLauncher(pWorldItem[ uiCount ].object.usItem);
 							launcherhelpmap[ pWorldItem[ uiCount ].object.usItem ] = tmp;
 						}
 					}
@@ -4647,7 +4645,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 				pWorldItem[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 				pWorldItem[uiCount].bVisible									= 1;
 				pWorldItem[uiCount].bRenderZHeightAboveLevel					= 0;
-				pWorldItem[uiCount].soldierID									= -1;
+				pWorldItem[uiCount].soldierID									= NOBODY;
 				pWorldItem[uiCount].object										= newAmmoObj;
 
 				fNewMagCreated = FALSE;
@@ -4686,7 +4684,7 @@ void TakeMilitiaEquipmentfromSector( INT16 sMapX, INT16 sMapY, INT8 sMapZ, SOLDI
 		pWorldItem_tmp[uiCount].usFlags										= WORLD_ITEM_REACHABLE;
 		pWorldItem_tmp[uiCount].bVisible									= 1;
 		pWorldItem_tmp[uiCount].bRenderZHeightAboveLevel					= 0;
-		pWorldItem_tmp[uiCount].soldierID									= -1;
+		pWorldItem_tmp[uiCount].soldierID									= NOBODY;
 		pWorldItem_tmp[uiCount].object										= newAmmoObj;
 
 		fNewMagCreated = FALSE;

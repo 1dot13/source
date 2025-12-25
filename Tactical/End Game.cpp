@@ -1,14 +1,9 @@
 
 	#include "Overhead.h"
-	#include "Render Fun.h"
-	#include "Random.h"
-	#include "Worldman.h"
+	#include "worldman.h"
 	#include "Soldier Profile.h"
-	#include "NPC.h"
-	#include "ai.h"
 	#include "Dialogue Control.h"
-	#include "Handle UI.h"
-	#include "end game.h"
+	#include "End Game.h"
 	#include "Intro.h"
 	#include "Exit Grids.h"
 	#include "strategicmap.h"
@@ -17,22 +12,25 @@
 	#include "Sound Control.h"
 	#include "renderworld.h"
 	#include "Isometric Utils.h"
-	#include "Music Control.h"
 	#include "Soldier macros.h"
-	#include "qarray.h"
-	#include "los.h"
-	#include "Strategic AI.h"
-	#include "Squads.h"
-	#include "PreBattle Interface.h"
 	#include "Strategic Movement.h"
-	#include "strategic.h"
-	#include "Morale.h"
-	#include "Queen Command.h"
-	#include "Strategic Town Loyalty.h"
-	#include "Player Command.h"
-	#include "Campaign Types.h"
-	#include "Tactical Save.h"
 	#include "screenids.h"
+
+#ifndef JA2UB
+#include "NPC.h"
+#include "Music Control.h"
+#include "qarray.h"
+#include "LOS.h"
+#include "Strategic AI.h"
+#include "Squads.h"
+#include "PreBattle Interface.h"
+#include "strategic.h"
+#include "Queen Command.h"
+#include "Strategic Town Loyalty.h"
+#include "Player Command.h"
+#include "Tactical Save.h"
+#endif // !JA2UB
+
 
 #ifdef JA2UB
 #include "email.h"
@@ -41,6 +39,7 @@
 #include "Game Init.h"
 #include "interface Dialogue.h"
 #include "ub_config.h"
+#include "Handle UI.h"
 
 void HandleAddingTheEndGameEmails();
 void EndFadeToCredits( void );
@@ -149,7 +148,7 @@ void ChangeO3SectorStatue( BOOLEAN fFromExplosion )
 #ifdef JA2UB
 //Ja25 no queen
 #else
-void DeidrannaTimerCallback( void )
+static void DeidrannaTimerCallback( void )
 {
 	HandleDeidrannaDeath( gpKillerSoldier, gsGridNo, gbLevel );
 }
@@ -175,8 +174,7 @@ void BeginHandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8
 void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
-	UINT8		ubKillerSoldierID = NOBODY;
+	SoldierID ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
@@ -189,11 +187,13 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 
 	// STEP 1 ) START ALL QUOTES GOING!
 	// OK - loop through all witnesses and see if they want to say something abou this...
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
+
 		if ( cnt != ubKillerSoldierID )
 		{
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
@@ -218,7 +218,7 @@ void HandleDeidrannaDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLev
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_MULTIPURPOSE, MULTIPURPOSE_SPECIAL_EVENT_DONE_KILLING_DEIDRANNA, 0,0,0,0 );
 }
 
-void DoneFadeInKilledQueen( void )
+static void DoneFadeInKilledQueen( void )
 {
 	SOLDIERTYPE *pNPCSoldier;
 
@@ -237,17 +237,18 @@ void DoneFadeInKilledQueen( void )
 
 }
 
-void DoneFadeOutKilledQueen( void )
+static void DoneFadeOutKilledQueen( void )
 {
-	INT32 cnt;
+	SoldierID cnt;
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
 
 	// For one, loop through our current squad and move them over
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for (; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 		{
@@ -271,8 +272,9 @@ void DoneFadeOutKilledQueen( void )
 	cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ ENEMY_TEAM ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Are we active and in sector.....
 		if ( pTeamSoldier->bActive	)
 		{
@@ -349,7 +351,7 @@ void HandleDoneLastKilledQueenQuote( )
 
 void EndQueenDeathEndgameBeginEndCimenatic( )
 {
-	INT32 cnt;
+	SoldierID cnt;
 	SOLDIERTYPE *pSoldier;
 
 	// Start end cimimatic....
@@ -359,8 +361,9 @@ void EndQueenDeathEndgameBeginEndCimenatic( )
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && !AM_AN_EPC( pSoldier ) )
 		{
@@ -416,7 +419,7 @@ EndQueenDeathEndgame( );
 
 
 
-void QueenBitchTimerCallback( void )
+static void QueenBitchTimerCallback( void )
 {
 #ifdef JA2UB
 //no Ub
@@ -632,7 +635,7 @@ void FadeOutToLaptopOnEndGame( void )
 void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
+	SoldierID cnt;
 
 
 	gpKillerSoldier = pKillerSoldier;
@@ -653,8 +656,9 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 	cnt = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		// Are we active and ALIVE and in sector.....
 		if ( pTeamSoldier->bActive && pTeamSoldier->stats.bLife > 0 )
 		{
@@ -667,7 +671,7 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 			{
 //	 		gTacticalStatus.ubAttackBusyCount++;
 				DebugAttackBusy( "Killing off a queen ally.\n");
-				pTeamSoldier->EVENT_SoldierGotHit( 0, 10000, 0, pTeamSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, pTeamSoldier->bAimShotLocation, 0, NOWHERE );
+				pTeamSoldier->EVENT_SoldierGotHit( 0, 10000, 0, pTeamSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, pTeamSoldier->bAimShotLocation, 0, NOWHERE );
 			}
 		}
 	}
@@ -678,8 +682,7 @@ void BeginHandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT
 void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLevel )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32 cnt;
-	UINT8		ubKillerSoldierID = NOBODY;
+	SoldierID		ubKillerSoldierID = NOBODY;
 
 	// Start victory music here...
 	SetMusicMode( MUSIC_TACTICAL_VICTORY );
@@ -692,13 +695,14 @@ void HandleQueenBitchDeath( SOLDIERTYPE *pKillerSoldier, INT32 sGridNo, INT8 bLe
 
 	// STEP 1 ) START ALL QUOTES GOING!
 	// OK - loop through all witnesses and see if they want to say something abou this...
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// run through list
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++ )
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
 		if ( cnt != ubKillerSoldierID )
 		{
+			pTeamSoldier = cnt;
 			if ( OK_INSECTOR_MERC( pTeamSoldier ) && !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_GASSED ) && !AM_AN_EPC( pTeamSoldier ) )
 			{
 				if ( QuoteExp[ pTeamSoldier->ubProfile ].QuoteExpWitnessQueenBugDeath )

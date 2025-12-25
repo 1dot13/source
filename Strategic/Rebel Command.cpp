@@ -75,7 +75,7 @@ Points of interest:
 #include "GameSettings.h"
 #include "GameVersion.h"
 #include "input.h"
-#include "Line.h"
+#include "line.h"
 #include "laptop.h"
 #include "message.h"
 #include "MessageBoxScreen.h"
@@ -129,21 +129,10 @@ namespace ItemIdCache
 {
 	// cache these values on load so that we don't need to search for them every time something happens
 	std::vector<UINT16> gasCans;
-	std::vector<UINT16> firstAidKits;
-	std::vector<UINT16> medKits;
-	std::vector<UINT16> toolKits;
-	std::vector<UINT16> ammo[10]; // coolness
 
 	void Clear()
 	{
 		gasCans.clear();
-		firstAidKits.clear();
-		medKits.clear();
-		toolKits.clear();
-		for (int i = 0; i < 10; ++i)
-		{
-			ammo[i].clear();
-		}
 	}
 }
 
@@ -2178,9 +2167,9 @@ BOOLEAN SetupMissionAgentBox(UINT16 x, UINT16 y, INT8 index)
 
 	// temp/fixme
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[i];
+		SOLDIERTYPE* pSoldier = i;
 
 		if (pSoldier && pSoldier->bActive
 			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
@@ -2823,9 +2812,9 @@ void PrepareMission(INT8 index)
 
 	// confirmation popup
 	std::vector<SOLDIERTYPE*> mercs;
-	for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[i];
+		SOLDIERTYPE* pSoldier = i;
 
 		if (pSoldier && pSoldier->bActive
 			&& !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE)
@@ -2988,9 +2977,9 @@ void PrepareMission(INT8 index)
 
 			if (!evt.sentGenericRebelAgent)
 			{
-				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					SOLDIERTYPE* pSoldier = i;
 					if (pSoldier->ubProfile == evt.mercProfileId)
 					{
 						TakeSoldierOutOfVehicle(pSoldier);
@@ -3182,7 +3171,7 @@ INT32 GetMiningPolicyBonus(INT16 townId)
 	return 0;
 }
 
-void GetBonusMilitia(INT16 sx, INT16 sy, UINT8& green, UINT8& regular, UINT8& elite, BOOLEAN createGroup)
+void GetBonusMilitia(INT16 sx, INT16 sy, UINT16& green, UINT16& regular, UINT16& elite, BOOLEAN createGroup)
 {
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;
@@ -4417,24 +4406,7 @@ void SetupInfo()
 	// (Item[i].usItemClass & IC_AMMO) && (Magazine[ Item[i].ubClassIndex ].ubMagType == AMMO_BOX or AMMO_CRATE?)
 	for (UINT16 i = 0; i < MAXITEMS; ++i)
 	{
-		if (Item[i].gascan) ItemIdCache::gasCans.push_back(i);
-		else if (Item[i].firstaidkit) ItemIdCache::firstAidKits.push_back(i);
-		else if (Item[i].medicalkit) ItemIdCache::medKits.push_back(i);
-		else if (Item[i].toolkit) ItemIdCache::toolKits.push_back(i);
-		else if (Item[i].usItemClass & IC_AMMO)
-		{
-			if (Magazine[Item[i].ubClassIndex].ubMagType == AMMO_BOX)
-			{
-				if ((gGameOptions.fGunNut || !Item[i].biggunlist)
-				&& (gGameOptions.ubGameStyle == STYLE_SCIFI || !Item[i].scifi))
-				{
-					// coolness runs from 1-10, so apply offset
-					const UINT8 coolness = min(max(1, Item[i].ubCoolness), 10);
-					ItemIdCache::ammo[coolness-1].push_back(i);
-				}
-			}
-		}
-		
+		if (ItemIsGascan(i)) ItemIdCache::gasCans.push_back(i);
 	}
 }
 
@@ -4772,8 +4744,10 @@ void ApplyAdditionalASDEffects()
 		{
 		case MissionHelpers::DISRUPT_ASD_STEAL_FUEL:
 		{
-			// spawn a gas can
-			CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size()), 75 + Random(26));
+			// only spawn a gas can if at least one gas can is known by the game (ItemIsGascan)
+			if (ItemIdCache::gasCans.size() > 0)
+				// The gas can is spawned like a Bobby Ray delivery (you need to open the crate)
+				CreateItemAtAirport(ItemIdCache::gasCans.at(ItemIdCache::gasCans.size() -1), 75 + Random(26));
 
 			// say it came from the ASD's reserves
 			AddStrategicAIResources(ASD_FUEL, -(gGameExternalOptions.gASDResource_Fuel_Jeep + Random(gGameExternalOptions.gASDResource_Fuel_Jeep)));
@@ -4908,9 +4882,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		// make sure the merc's still on our team
 		BOOLEAN foundMerc = FALSE;
-		for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+		for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 		{
-			const SOLDIERTYPE* pSoldier = MercPtrs[i];
+			const SOLDIERTYPE* pSoldier = i;
 
 			if (pSoldier->ubProfile == evt1.mercProfileId && pSoldier->bActive)
 			{
@@ -4979,9 +4953,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 				if (!evt1.sentGenericRebelAgent)
 				{
-					for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+					for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 					{
-						SOLDIERTYPE* pSoldier = MercPtrs[i];
+						SOLDIERTYPE* pSoldier = i;
 						if (pSoldier->ubProfile == evt1.mercProfileId)
 						{
 							if (mission == RCAM_FORGE_TRANSPORT_ORDERS)
@@ -5006,9 +4980,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 		{
 			if (!evt1.sentGenericRebelAgent && foundMerc)
 			{
-				for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+				for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 				{
-					SOLDIERTYPE* pSoldier = MercPtrs[i];
+					SOLDIERTYPE* pSoldier = i;
 					if (pSoldier->ubProfile == evt1.mercProfileId)
 					{
 						// mission failed! we tried, give some pity exp
@@ -5028,9 +5002,9 @@ void HandleStrategicEvent(const UINT32 eventParam)
 
 		if (!evt1.sentGenericRebelAgent && foundMerc)
 		{
-			for (UINT8 i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
+			for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i)
 			{
-				SOLDIERTYPE* pSoldier = MercPtrs[i];
+				SOLDIERTYPE* pSoldier = i;
 				if (pSoldier->ubProfile == evt1.mercProfileId)
 				{
 					// merc ready for reassignment

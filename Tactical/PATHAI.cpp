@@ -7,50 +7,40 @@
 	Author			:		Chris Camfield
 	Date			:		1997-NOV
 */
-
 	#include <stdio.h>
-	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "MemMan.h"
 	#include "Overhead Types.h"
-
-	#include "Animation Cache.h"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
-	#include "interface.h"
-	#include <math.h>
-
+	#include "Interface.h"
 	#include "input.h"
 	#include "english.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "renderworld.h"
-	#include "pathai.h"
+	#include "PATHAI.H"
 	#include "Points.h"
 	#include "ai.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "message.h"
-	#include "structure wrap.h"
-	#include "keys.h"
-	#include "gamesettings.h"
+	#include "Structure Wrap.h"
+	#include "Keys.h"
+	#include "GameSettings.h"
 	#include "Buildings.h"
-	#include "soldier profile.h" // added by SANDRO
 	#include "Soldier macros.h"
-	#include "AIinternals.h"
+	#include "AIInternals.h"
 	#include "Rotting Corpses.h"
-	#include "Meanwhile.h"
-#include "connect.h"
-#include <Cheats.h>
+	#include "connect.h"
 #include "LOS.h"  //ddd
+#include "BinaryHeap.hpp"
+#include "opplist.h"
+#include "Weapons.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
 
-#include "BinaryHeap.hpp"
-#include "opplist.h"
-#include "weapons.h"
 extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
 extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
 extern INT32 gubMerkCanSeeThisTile[MAX_ALLOWED_WORLD_MAX];
@@ -2045,7 +2035,7 @@ bool AStarPathfinder::IsSomeoneInTheWay()
 	if (fPathAroundPeople && ( (CurrentNode != DestNode) || fCopyReachable) )
 	{
 		// ATE: ONLY cancel if they are moving.....
-		UINT8 ubMerc = WhoIsThere2( CurrentNode, pSoldier->pathing.bLevel);
+		UINT16 ubMerc = WhoIsThere2( CurrentNode, pSoldier->pathing.bLevel);
 		if ( ubMerc < NOBODY && ubMerc != pSoldier->ubID )
 		{
 			// Check for movement....
@@ -2165,7 +2155,7 @@ INT32 FindBestPath(SOLDIERTYPE *s , INT32 sDestination, INT8 bLevel, INT16 usMov
 	INT8	bLoopState = LOOPING_CLOCKWISE;
 	//BOOLEAN fLoopForwards = FALSE;
 	BOOLEAN	fCheckedBehind = FALSE;
-	UINT8	ubMerc;
+	SoldierID	ubMerc;
 	INT32 iDestX,iDestY, iLocX, iLocY, dx, dy;
 	INT32	newLoc,curLoc;
 	//INT32 curY;
@@ -3106,7 +3096,7 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 
 				// sevenfm: for player mercs, ignore invisible opponents
 				if (ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID && 
-					(!(s->flags.uiStatusFlags & SOLDIER_PC) || MercPtrs[ubMerc]->bSide == s->bSide || MercPtrs[ubMerc]->aiData.bNeutral || MercPtrs[ubMerc]->bVisible >= 0 || SoldierToSoldierLineOfSightTest(s, MercPtrs[ubMerc], TRUE, CALC_FROM_ALL_DIRS)))
+					(!(s->flags.uiStatusFlags & SOLDIER_PC) || ubMerc->bSide == s->bSide || ubMerc->aiData.bNeutral || ubMerc->bVisible >= 0 || SoldierToSoldierLineOfSightTest(s, ubMerc, TRUE, CALC_FROM_ALL_DIRS)))
 				//if ( ubMerc < TOTAL_SOLDIERS && ubMerc != s->ubID )
 				{
 					goto NEXTDIR;

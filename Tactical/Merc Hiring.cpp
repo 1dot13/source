@@ -1,37 +1,25 @@
 	#include "builddefines.h"
 	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "renderworld.h"
 	#include "Assignments.h"
 	#include "merc entering.h"
 	#include "Animation Control.h"
-	#include "Animation Data.h"
-	#include "Isometric Utils.h"
-	#include "Event Pump.h"
-	#include "Render Fun.h"
-	#include "interface.h"
-	#include "sysutil.h"
-	#include "FileMan.h"
-	#include "Random.h"
-	#include "ai.h"
-	#include "Interactive Tiles.h"
-	#include "english.h"
-	#include "overhead.h"
+	#include "Handle UI.h"
+	#include <Font Control.h>
+	#include "random.h"
+	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Game Clock.h"
-	#include "soldier create.h"
+	#include "Soldier Create.h"
 	#include "Merc Hiring.h"
 	#include "Game Event Hook.h"
 	#include "message.h"
 	#include "strategicmap.h"
 	#include "strategic.h"
-	#include "items.h"
-	#include "Soldier Add.h"
-	#include "History.h"
+	#include "Items.h"
+	#include "history.h"
 	#include "Squads.h"
 	#include "Strategic Merc Handler.h"
 	#include "Dialogue Control.h"
@@ -39,16 +27,14 @@
 	#include "Map Screen Interface Map.h"
 	#include "screenids.h"
 	#include "jascreens.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "Merc Contract.h"
 	#include "LaptopSave.h"
 	#include "personnel.h"
-	#include "Auto Resolve.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Quests.h"
 	#include "GameSettings.h"
 	#include "DynamicDialogue.h"// added by Flugente
-	#include "Dialogue Control.h"	// added by Flugente
 #include "connect.h"
 #include "Map Information.h"
 
@@ -61,9 +47,6 @@
 #include "opplist.h"
 #include "Ja25Update.h"
 #include "ub_config.h"
-#endif
-
-#ifdef JA2UB
 #else
 	// anv: for Kulba's odyssey
 	#include "email.h"
@@ -127,7 +110,7 @@ UINT16	GetInitialHeliRandomTime();
 INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 {
 	SOLDIERTYPE	*pSoldier;
-	UINT8		iNewIndex;
+	SoldierID	iNewIndex;
 	UINT8		ubCurrentSoldier = pHireMerc->ubProfileID;
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
@@ -211,18 +194,18 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 			// make an objecttype
 			CreateItem(LETTER, 100, &gTempObject);
 			// Give it
-			fReturn = AutoPlaceObject( MercPtrs[iNewIndex], &gTempObject, FALSE );
+			fReturn = AutoPlaceObject( iNewIndex, &gTempObject, FALSE );
 			// CHRISL: This condition should resolve the issue of the letter not being issued to the first merc
 			if(!fReturn)
 			{
 				if (UsingNewInventorySystem())
 				{
-					(MercPtrs[iNewIndex]->inv[NUM_INV_SLOTS-1]) = gTempObject;
+					(iNewIndex->inv[NUM_INV_SLOTS-1]) = gTempObject;
 					fReturn=TRUE;
 				}
 				else
 				{
-					(MercPtrs[iNewIndex]->inv[SMALLPOCK8POS]) = gTempObject;
+					(iNewIndex->inv[SMALLPOCK8POS]) = gTempObject;
 					fReturn = TRUE;
 				}
 			}
@@ -239,7 +222,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 	//record how long the merc will be gone for
 	pMerc->bMercStatus = (UINT8)pHireMerc->iTotalContractLength;
 
-	pSoldier = &Menptr[iNewIndex];
+	pSoldier = iNewIndex;
 
 	//Copy over insertion data....
 	pSoldier->ubStrategicInsertionCode = pHireMerc->ubInsertionCode;
@@ -425,7 +408,7 @@ INT8 HireMerc( MERC_HIRE_STRUCT *pHireMerc)
 }
 
 
-void MercArrivesCallback(	UINT8	ubSoldierID )
+void MercArrivesCallback( SoldierID ubSoldierID )
 {
 	MERCPROFILESTRUCT				*pMerc;
 	SOLDIERTYPE							*pSoldier;
@@ -457,7 +440,7 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	// stop time compression until player restarts it
 	StopTimeCompression();
 
-	pSoldier = &Menptr[ ubSoldierID ];
+	pSoldier = ubSoldierID;
 
 	pMerc = &gMercProfiles[ pSoldier->ubProfile ];
 
@@ -498,11 +481,11 @@ void MercArrivesCallback(	UINT8	ubSoldierID )
 	{
 		bool force_helidrop = true;
 		SOLDIERTYPE	*pTeamSoldier;
-		for (UINT8 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
+		for (UINT16 cnt = 0; cnt < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; cnt++)
 		{
 			if (gCharactersList[cnt].fValid)
 			{
-				pTeamSoldier = &Menptr[gCharactersList[cnt].usSolID];
+				pTeamSoldier = gCharactersList[cnt].usSolID;
 				if (pTeamSoldier != pSoldier && pTeamSoldier->bAssignment != ASSIGNMENT_DEAD && pTeamSoldier->bAssignment != ASSIGNMENT_POW && pTeamSoldier->bAssignment != IN_TRANSIT && pSoldier->ubStrategicInsertionCode != INSERTION_CODE_CHOPPER)
 				{
 					force_helidrop = false;
@@ -671,12 +654,12 @@ BOOLEAN IsTheSoldierAliveAndConcious( SOLDIERTYPE		*pSoldier )
 		return(FALSE);
 }
 
-UINT8	NumberOfMercsOnPlayerTeam()
+UINT16	NumberOfMercsOnPlayerTeam()
 {
-	INT8			cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16			bLastTeamID;
-	UINT8			ubCount=0;
+	SoldierID	cnt;
+	SOLDIERTYPE	*pSoldier;
+	SoldierID	bLastTeamID;
+	UINT16		ubCount=0;
 
 	// Set locator to first merc
 	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
@@ -685,8 +668,9 @@ UINT8	NumberOfMercsOnPlayerTeam()
 	if (! MercPtrs[cnt])
 		return 0;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; cnt <= bLastTeamID; ++cnt )
 	{
+		pSoldier = cnt;
 		AssertNotNIL(pSoldier);
 
 		//if the is active, and is not a vehicle
@@ -702,9 +686,9 @@ UINT8	NumberOfMercsOnPlayerTeam()
 
 void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 {
-	UINT8								cnt, usLastTeamID;
-	INT8								bHated;
-	SOLDIERTYPE							*pTeamSoldier;
+	SoldierID	cnt, usLastTeamID;
+	INT8			bHated;
+	SOLDIERTYPE	*pTeamSoldier;
 #ifdef JA2UB
 	//if we are at the begining of the game going through the initial heli scequence
 	if( pSoldier->fWaitingToGetupFromJA25Start )
@@ -730,8 +714,9 @@ void HandleMercArrivesQuotes( SOLDIERTYPE *pSoldier )
 		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		usLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 		//loop though all the mercs
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= usLastTeamID; ++cnt, ++pTeamSoldier)
+		for ( ; cnt <= usLastTeamID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			if ( pTeamSoldier->bActive )
 			{
 				if ( pTeamSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
@@ -819,14 +804,13 @@ UINT32 GetMercArrivalTimeOfDay( )
 
 void UpdateAnyInTransitMercsWithGlobalArrivalSector( )
 {
-	INT32 cnt;
 	SOLDIERTYPE		*pSoldier;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bAssignment == IN_TRANSIT )
@@ -1036,78 +1020,78 @@ if ( gGameUBOptions.InGameHeliCrash == TRUE )
 
 void UpdateJerryMiloInInitialSector()
 {
-	SOLDIERTYPE	*pSoldier = NULL;
-	SOLDIERTYPE	*pJerrySoldier=NULL;
+	SOLDIERTYPE *pSoldier = NULL;
+	SOLDIERTYPE *pJerrySoldier = NULL;
 
-	
-    //SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
-	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
-    //SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
-	StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
-    
-if ( gGameUBOptions.InGameHeli == TRUE )
-	return; //AA
 
-if ( gGameUBOptions.InGameHeliCrash == TRUE )
-   { 
-	//if it is the first sector we are loading up, place Jerry in the map
-	if( !gfFirstTimeInGameHeliCrash )
-		return;
-
-	if ( gGameUBOptions.InJerry == TRUE ) 
-	{
-	pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE ); //JERRY
-	if( pSoldier == NULL )
-	{
-		Assert( 0 );
-	}
-	
-	}
-
-	//the internet part of the laptop isnt working.  It gets broken in the heli crash.
-	if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
-	StartQuest( QUEST_FIX_LAPTOP, -1, -1 );
-
-	//Record the initial sector as ours
 	//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
-	  SectorInfo[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fSurfaceWasEverPlayerControlled = TRUE;
-	  StrategicMap[ (UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY ) ].fEnemyControlled = FALSE;
- 
-	  if ( gGameUBOptions.InJerry == TRUE ) 
+	SectorInfo[(UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fSurfaceWasEverPlayerControlled = TRUE;
+	//SectorInfo[ SEC_H7 ].ubNumAdmins = 2;
+	StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fEnemyControlled = FALSE;
+
+	if ( gGameUBOptions.InGameHeli == TRUE )
+		return; //AA
+
+	if ( gGameUBOptions.InGameHeliCrash == TRUE )
 	{
-	//Set some variable so Jerry will be on the ground
-	pSoldier->fWaitingToGetupFromJA25Start = TRUE;
-	pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
+		//if it is the first sector we are loading up, place Jerry in the map
+		if ( !gfFirstTimeInGameHeliCrash )
+			return;
 
-	//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO; //to by這 wy章czone
-	//pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( ); //to by這 wy章czone
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			pSoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE ); //JERRY
+			if ( pSoldier == NULL )
+			{
+				Assert( 0 );
+			}
 
-	RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, gsInitialHeliRandomTimes[ 6 ] + 800 + Random( 400 ) );
+		}
 
-	//should we be on our back or tummy
-	if( Random( 100 ) < 50 )
-		pSoldier->EVENT_InitNewSoldierAnim( STAND_FALLFORWARD_STOP, 1, TRUE );
-	else
-		pSoldier->EVENT_InitNewSoldierAnim( FALLBACKHIT_STOP, 1, TRUE );
-	}
+		//the internet part of the laptop isnt working.  It gets broken in the heli crash.
+		if ( gGameUBOptions.LaptopQuestEnabled == TRUE )
+			StartQuest( QUEST_FIX_LAPTOP, -1, -1 );
 
-//Wont work cause it gets reset every frame
-	//make sure we can see Jerry
-	
-	if ( gGameUBOptions.InJerry == TRUE ) 
-	{
-	pJerrySoldier = FindSoldierByProfileID(JERRY_MILO_UB, FALSE );//JERRY
-	if( pJerrySoldier != NULL )
-	{
-		//Make sure we can see the pilot
-		gbPublicOpplist[OUR_TEAM][ pJerrySoldier->ubID ] = SEEN_CURRENTLY;
-		pJerrySoldier->bVisible = TRUE;
-	}
+		//Record the initial sector as ours
+		//SectorInfo[ SEC_H7 ].fSurfaceWasEverPlayerControlled = TRUE;
+		SectorInfo[(UINT8)SECTOR( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fSurfaceWasEverPlayerControlled = TRUE;
+		StrategicMap[CALCULATE_STRATEGIC_INDEX( gGameExternalOptions.ubDefaultArrivalSectorX, gGameExternalOptions.ubDefaultArrivalSectorY )].fEnemyControlled = FALSE;
 
-	}
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			//Set some variable so Jerry will be on the ground
+			pSoldier->fWaitingToGetupFromJA25Start = TRUE;
+			pSoldier->fIgnoreGetupFromCollapseCheck = TRUE;
 
-	//Lock the interface
-	guiPendingOverrideEvent = LU_BEGINUILOCK;
+			//pSoldier->ubStrategicInsertionCode = INSERTION_CODE_GRIDNO; //to by這 wy章czone
+			//pSoldier->usStrategicInsertionData = GetInitialHeliGridNo( ); //to by這 wy章czone
+
+			RESETTIMECOUNTER( pSoldier->GetupFromJA25StartCounter, gsInitialHeliRandomTimes[6] + 800 + Random( 400 ) );
+
+			//should we be on our back or tummy
+			if ( Random( 100 ) < 50 )
+				pSoldier->EVENT_InitNewSoldierAnim( STAND_FALLFORWARD_STOP, 1, TRUE );
+			else
+				pSoldier->EVENT_InitNewSoldierAnim( FALLBACKHIT_STOP, 1, TRUE );
+		}
+
+		//Wont work cause it gets reset every frame
+			//make sure we can see Jerry
+
+		if ( gGameUBOptions.InJerry == TRUE )
+		{
+			pJerrySoldier = FindSoldierByProfileID( JERRY_MILO_UB, FALSE );//JERRY
+			if ( pJerrySoldier != NULL )
+			{
+				//Make sure we can see the pilot
+				gbPublicOpplist[OUR_TEAM][pJerrySoldier->ubID] = SEEN_CURRENTLY;
+				pJerrySoldier->bVisible = TRUE;
+			}
+
+		}
+
+		//Lock the interface
+		guiPendingOverrideEvent = LU_BEGINUILOCK;
 	}
 }
 

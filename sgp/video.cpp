@@ -1,16 +1,16 @@
 #include "types.h"
-#include "Video.h"
+#include "video.h"
 #include "vobject_blitters.h"
 #include "sgp.h"
 #include <stdio.h>
 #include <io.h>
 #include "renderworld.h"
 #include "Render Dirty.h"
-#include "fade screen.h"
+#include "Fade Screen.h"
 #include "impTGA.h"
-#include "timer control.h"
-#include "Fileman.h"
-#include "Input.h"
+#include "Timer Control.h"
+#include "FileMan.h"
+#include "input.h"
 #include "GameSettings.h"
 #include "sgp_logger.h"
 
@@ -18,8 +18,8 @@
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>
 
-#include "Local.h"
-#include "text.h"
+#include "local.h"
+#include "Text.h"
 
 
 #ifndef _MT
@@ -356,7 +356,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 	//
 	if( 0==iScreenMode ) /* Fullscreen mode */
 	{
-		ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, gbPixelDepth, 0, 0 );
+		ReturnCode = IDirectDraw2_SetDisplayMode( gpDirectDrawObject, SCREEN_WIDTH, SCREEN_HEIGHT, PIXEL_DEPTH, 0, 0 );
 		if (ReturnCode != DD_OK)
 		{
 			IDirectDraw2_SetCooperativeLevel(gpDirectDrawObject, ghWindow, DDSCL_NORMAL);
@@ -372,7 +372,7 @@ BOOLEAN InitializeVideoManager(HINSTANCE hInstance, UINT16 usCommandShow, void *
 
 	gusScreenWidth = SCREEN_WIDTH;
 	gusScreenHeight = SCREEN_HEIGHT;
-	gubScreenPixelDepth = gbPixelDepth;
+	gubScreenPixelDepth = PIXEL_DEPTH;
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	//
@@ -2756,11 +2756,6 @@ BOOLEAN GetRGBDistribution(void)
 
 	Assert ( gpPrimarySurface != NULL );
 
-	// ONLY DO IF WE ARE IN 16BIT MODE
-	if ( gbPixelDepth == 8 )
-	{
-		return( TRUE );
-	}
 
 	ZEROMEM(SurfaceDescription);
 	SurfaceDescription.dwSize = sizeof (DDSURFACEDESC);

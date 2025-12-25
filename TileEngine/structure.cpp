@@ -1,52 +1,39 @@
-	#include <string.h>
-	#include "types.h"
-	#include "wcheck.h"
-	#include "debug.h"
-	#include "FileMan.h"
-	#include "MemMan.h"
-	#include "structure.h"
-	#include "tiledef.h"
-	#include "worlddef.h"
-	#include "worldman.h"
-
-	#include "interface.h"
-
-	#include "isometric utils.h"
-	#include "font.h"
-	#include "font control.h"
-	#include "los.h"
-
-	#include "lighting.h"
-	#include "Smell.h"
-	#include "SaveLoadMap.h"
-	#include "strategicmap.h"
-	#include "sgp_logger.h"
-
-	#include "Sys Globals.h"	//for access to gfEditMode flag
-
-	//Kris:
-	#ifdef JA2EDITOR
-	#include "Editor Undo.h"	//for access to AddToUndoList( iMapIndex )
-	#endif
-
-	#include "explosion control.h"
-	#include "Sound Control.h"
-
-	#include "Buildings.h"
-
-	#include "Random.h"
-
-	#include "Tile Animation.h"
-	#include "Explosion Control.h"	// added by Flugente
-
-	// anv: for ramming people with vehicles
-	#include "Soldier macros.h"
-	#include "Overhead.h"
-	#include "Soldier Functions.h"
-	#include "Animation Control.h"
-	#include "Soldier Ani.h"
-	#include "ASD.h"		// added by Flugente
-	#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
+#include <string.h>
+#include "types.h"
+#include "WCheck.h"
+#include "DEBUG.H"
+#include "FileMan.h"
+#include "MemMan.h"
+#include "structure.h"
+#include "tiledef.h"
+#include "worlddef.h"
+#include "worldman.h"
+#include "Interface.h"
+#include "Isometric Utils.h"
+#include "Font.h"
+#include "Font Control.h"
+#include "Smell.h"
+#include "SaveLoadMap.h"
+#include "strategicmap.h"
+#include "sgp_logger.h"
+#include "Sys Globals.h"	//for access to gfEditMode flag
+//Kris:
+#ifdef JA2EDITOR
+#include "Editor Undo.h"	//for access to AddToUndoList( iMapIndex )
+#endif
+#include "Explosion Control.h"
+#include "Sound Control.h"
+#include "Buildings.h"
+#include "random.h"
+#include "Tile Animation.h"
+// anv: for ramming people with vehicles
+#include "Soldier macros.h"
+#include "Overhead.h"
+#include "Animation Control.h"
+#include "ASD.h"		// added by Flugente
+#include "renderworld.h"		// added by Flugente for SetRenderFlags( RENDER_FLAG_FULL );
+#include <vfs/Core/vfs.h>
+#include "XML_StructureData.hpp"
 
 #ifdef COUNT_PATHS
 	extern UINT32 guiSuccessfulPathChecks;
@@ -162,7 +149,7 @@ index 25, indestructable metal
 };
 
 // Function operating on a structure tile
-UINT8 FilledTilePositions( DB_STRUCTURE_TILE * pTile )
+static UINT8 FilledTilePositions( DB_STRUCTURE_TILE * pTile )
 {
 	UINT8				ubFilled = 0, ubShapeValue;
 	INT8				bLoopX, bLoopY, bLoopZ;
@@ -267,7 +254,7 @@ BOOLEAN FreeStructureFile( STRUCTURE_FILE_REF * pStructureFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32 * puiStructureDataSize )
+static BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32 * puiStructureDataSize )
 //UINT8 **ppubStructureData, UINT32 * puiDataSize, STRUCTURE_FILE_HEADER * pHeader )
 {
 	// Loads a structure file's data as a honking chunk o' memory
@@ -367,7 +354,7 @@ BOOLEAN LoadStructureData( STR szFileName, STRUCTURE_FILE_REF *	pFileRef, UINT32
 	return( TRUE );
 }
 
-BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataSize )
+static BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataSize )
 {
 	// Based on a file chunk, creates all the dynamic arrays for the
 	// structure definitions contained within
@@ -438,11 +425,8 @@ BOOLEAN CreateFileStructureArrays( STRUCTURE_FILE_REF * pFileRef, UINT32 uiDataS
 	return( TRUE );
 }
 
-#include <vfs/Core/vfs_file_raii.h>
-#include <vfs/Core/vfs.h>
-#include "XML_StructureData.hpp"
 
-void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
+static void checkStructureValidity(STRUCTURE_FILE_REF *str1, STRUCTURE_FILE_REF* str2, UINT32 size1, UINT32 size2)
 {
 	if(str1 == str2 && str1 == NULL)
 	{
@@ -579,7 +563,7 @@ STRUCTURE_FILE_REF * LoadStructureFile( STR szFileName )
 //
 
 
-STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileNum )
+static STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileNum )
 {
 	// Creates a STRUCTURE struct for one tile of a structure
 	STRUCTURE	*						pStructure;
@@ -630,9 +614,9 @@ STRUCTURE * CreateStructureFromDB( DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubT
 	return( pStructure );
 }
 
-extern UINT16 gusTempDragBuildSoldierID;
+extern SoldierID gusTempDragBuildSoldierID;
 
-BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY )
+static BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUCTURE_REF * pDBStructureRef, UINT8 ubTileIndex, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY )
 {
 	// Verifies whether a structure is blocked from being added to the map at a particular point
 	DB_STRUCTURE *	pDBStructure;
@@ -646,15 +630,15 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	BOOLEAN fIgnorePeople = (BOOLEAN)(sExclusionID == IGNORE_PEOPLE_STRUCTURE_ID);
 
 	BOOLEAN fVehicleIgnoreObstacles = (BOOLEAN)(sExclusionID == VEHICLE_IGNORE_OBSTACLES_STRUCTURE_ID);
-	if( gGameExternalOptions.ubCarsRammingMaxStructureArmour && sSoldierID != NOBODY && MercPtrs[ sSoldierID ]->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
+	if( gGameExternalOptions.ubCarsRammingMaxStructureArmour && sSoldierID != NOBODY && sSoldierID->usSoldierFlagMask2 & SOLDIER_RAM_THROUGH_OBSTACLES )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
-	else if ( gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour && sSoldierID != NOBODY && COMBAT_JEEP( MercPtrs[sSoldierID] ) )
+	else if ( gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour && sSoldierID != NOBODY && COMBAT_JEEP( sSoldierID ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
-	else if ( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( MercPtrs[sSoldierID] ) )
+	else if ( gGameExternalOptions.ubTanksRammingMaxStructureArmour && sSoldierID != NOBODY && TANK( sSoldierID ) )
 	{
 		fVehicleIgnoreObstacles = TRUE;
 	}
@@ -736,25 +720,25 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 						// but not monsters and such (they can't fall down due to lack of animations)
 						// also make sure AI won't flatten their allies
 						if( !( pSoldier->flags.uiStatusFlags & ( SOLDIER_VEHICLE | SOLDIER_ROBOT | SOLDIER_MONSTER ) ) && 
-							((!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowCarsDrivingOverPeople) ||
-							(ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gGameExternalOptions.fAllowTanksDrivingOverPeople)) &&
-							( MercPtrs[ sSoldierID ]->bTeam == gbPlayerNum || MercPtrs[ sSoldierID ]->bTeam != pSoldier->bTeam ) )
+							((!ARMED_VEHICLE( sSoldierID ) && gGameExternalOptions.fAllowCarsDrivingOverPeople) ||
+							(ARMED_VEHICLE( sSoldierID ) && gGameExternalOptions.fAllowTanksDrivingOverPeople)) &&
+							( sSoldierID->bTeam == gbPlayerNum || sSoldierID->bTeam != pSoldier->bTeam ) )
 						{
 							pExistingStructure = pExistingStructure->pNext;
 							// damage people when driving on them
 							if( fAddingForReal )
 							{	
-								if ( TANK( MercPtrs[sSoldierID] ) )
+								if ( TANK( sSoldierID ) )
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
-								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && MercPtrs[ sSoldierID ]->IsFastMovement() )
+								else if( gAnimControl[ pSoldier->usAnimState ].ubEndHeight == ANIM_PRONE && sSoldierID->IsFastMovement() )
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(5), Random(100)+Random(100), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
 								else
 								{
-									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), MercPtrs[ sSoldierID ]->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
+									pSoldier->EVENT_SoldierGotHit( 0, Random(10)+5, Random(200)+Random(200), sSoldierID->ubDirection, 0, sSoldierID, FIRE_WEAPON_VEHICLE_TRAUMA, 0, 0, pSoldier->sGridNo );
 								}
 							}
 							continue;
@@ -770,9 +754,9 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					else
 					{
 						// only if structure is weak enough
-						if ( (!ARMED_VEHICLE( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubCarsRammingMaxStructureArmour) ||
-							 (COMBAT_JEEP( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour) ||
-							(TANK( MercPtrs[sSoldierID] ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubTanksRammingMaxStructureArmour) )
+						if ( (!ARMED_VEHICLE( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubCarsRammingMaxStructureArmour) ||
+							 (COMBAT_JEEP( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubEnemyJeepsRammingMaxStructureArmour) ||
+							(TANK( sSoldierID ) && gubMaterialArmour[pExistingStructure->pDBStructureRef->pDBStructure->ubArmour] < gGameExternalOptions.ubTanksRammingMaxStructureArmour) )
 						{
 							// when not just plotting path, really destroy structure
 							if( fAddingForReal )
@@ -911,7 +895,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 					{
 						if( MercPtrs[ pExistingStructure->usStructureID ] != NULL && MercPtrs[ pExistingStructure->usStructureID ]->flags.uiStatusFlags & SOLDIER_VEHICLE )
 						{						
-							if( MercPtrs[ sSoldierID ]->flags.fInNonintAnim == TRUE || gAnimControl[ MercPtrs[ sSoldierID ]->usAnimState ].ubEndHeight == ANIM_PRONE )
+							if( sSoldierID->flags.fInNonintAnim == TRUE || gAnimControl[ sSoldierID->usAnimState ].ubEndHeight == ANIM_PRONE )
 							{
 								pExistingStructure = pExistingStructure->pNext;
 								continue;
@@ -942,7 +926,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 			{
 				// Flugente: we allow this if this structure is being dragged by a soldier, otherwise we can't move containers our of rooms (and are likely to unintenionally bar rooms)
 				if (pExistingStructure->fFlags & STRUCTURE_OPENABLE
-					&& !( gusTempDragBuildSoldierID != NOBODY && MercPtrs[gusTempDragBuildSoldierID]->sDragGridNo ) )
+					&& !( gusTempDragBuildSoldierID != NOBODY && gusTempDragBuildSoldierID->sDragGridNo ) )
 				{
 					// don't allow two openable structures in the same tile or things will screw
 					// up on an interface level
@@ -958,7 +942,7 @@ BOOLEAN OkayToAddStructureToTile( INT32 sBaseGridNo, INT16 sCubeOffset, DB_STRUC
 	return( TRUE );
 }
 
-BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
+BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, SoldierID sSoldierID )
 {
 	UINT8 ubLoop;
 	INT16									sCubeOffset;
@@ -1001,12 +985,12 @@ BOOLEAN InternalOkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_ST
 	return( TRUE );
 }
 
-BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, INT16 sSoldierID )
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal, SoldierID sSoldierID )
 {
 	return( InternalOkayToAddStructureToWorld( sBaseGridNo, bLevel, pDBStructureRef, sExclusionID, fAddingForReal, sSoldierID ) );
 }
 
-BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, UINT16 usStructureID )
+static BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, UINT16 usStructureID )
 {
 	// adds a STRUCTURE to a MAP_ELEMENT (adds part of a structure to a location on the map)
 	STRUCTURE *		pStructureTail;
@@ -1033,18 +1017,18 @@ BOOLEAN AddStructureToTile( MAP_ELEMENT * pMapElement, STRUCTURE * pStructure, U
 }
 
 
-STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
+static STRUCTURE * InternalAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, LEVELNODE * pLevelNode )
 {
 	// Adds a complete structure to the world at a location plus all other locations covered by the structure
-	INT32 sGridNo;
-	STRUCTURE **					ppStructure;
-	STRUCTURE *						pBaseStructure;
-	DB_STRUCTURE *				pDBStructure;
-	DB_STRUCTURE_TILE	**	ppTile;
-	UINT8 ubLoop;
-	UINT8 ubLoop2;
-	INT16									sBaseTileHeight=-1;
-	UINT16								usStructureID;
+	INT32				sGridNo;
+	STRUCTURE			**ppStructure;
+	STRUCTURE			*pBaseStructure;
+	DB_STRUCTURE			*pDBStructure;
+	DB_STRUCTURE_TILE	**ppTile;
+	UINT8				ubLoop;
+	UINT8				ubLoop2;
+	INT16				sBaseTileHeight=-1;
+	UINT16				usStructureID;
 
 	CHECKF( pDBStructureRef );
 	CHECKF( pLevelNode );
@@ -1335,7 +1319,7 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure )
 	return( TRUE );
 }
 
-STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
+static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * pStructure, BOOLEAN fFlipSwitches, BOOLEAN fStoreInMap )
 {
 	// switch structure
 	LEVELNODE *				pLevelNode;
@@ -1764,7 +1748,7 @@ BOOLEAN StructureDensity( STRUCTURE * pStructure, UINT8 * pubLevel0, UINT8 * pub
 	return( TRUE );
 }
 
-INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner, INT32 sAntiMaterialImpact )
+INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, SoldierID ubOwner, INT32 sAntiMaterialImpact )
 {
 	// do damage to a structure; returns TRUE if the structure should be removed
 	STRUCTURE			*pBase;
@@ -1915,9 +1899,9 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 			gpWorldLevelData[ tmpgridno ].uiFlags |= MAPELEMENT_STRUCTURE_DAMAGED;
 
 			// handle structure revenge - damage to vehicle - to be resolved after movement
-			if ( ubOwner != NOBODY && MercPtrs[ubOwner] && !ARMED_VEHICLE( MercPtrs[ubOwner] ) )
+			if ( ubOwner != NOBODY && !ARMED_VEHICLE( ubOwner ) )
 			{
-				MercPtrs[ubOwner]->SoldierTakeDelayedDamage(0, Random(max(0,(ubBaseArmour-10)/5)) + max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, MercPtrs[ ubOwner ]->sGridNo, 0, TRUE);
+				ubOwner->SoldierTakeDelayedDamage(0, Random(max(0,(ubBaseArmour-10)/5)) + max(0,(ubBaseArmour-10)/5), 0, TAKE_DAMAGE_STRUCTURE_EXPLOSION, NOBODY, ubOwner->sGridNo, 0, TRUE);
 			}
 			
 			// recompile = TRUE means that we destroyed something
@@ -2519,13 +2503,13 @@ BOOLEAN AddZStripInfoToVObject( HVOBJECT hVObject, STRUCTURE_FILE_REF * pStructu
 	return( TRUE );
 }
 
-BOOLEAN InitStructureDB( void )
+static BOOLEAN InitStructureDB( void )
 {
 	gusNextAvailableStructureID = FIRST_AVAILABLE_STRUCTURE_ID;
 	return( TRUE );
 }
 
-BOOLEAN FiniStructureDB( void )
+static BOOLEAN FiniStructureDB( void )
 {
 	gusNextAvailableStructureID = FIRST_AVAILABLE_STRUCTURE_ID;
 	return( TRUE );

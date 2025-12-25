@@ -1,18 +1,17 @@
 	#include "Player Command.h"
 	#include "Queen Command.h"
 	#include "Campaign Types.h"
-	#include "Strategic.h"
+	#include "strategic.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
-	#include "text.h"
-	#include "laptopsave.h"
-	#include "quests.h"
+	#include "Text.h"
+	#include "LaptopSave.h"
+	#include "Quests.h"
 	#include "Morale.h"
-	#include "Overhead.h"
 	#include "strategicmap.h"
 	#include "Map Screen Helicopter.h"
 	#include "Game Clock.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "email.h"
 	#include "GameSettings.h"
 	#include "Strategic Status.h"
@@ -20,15 +19,13 @@
 	#include "PreBattle Interface.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
-	#include "interface Dialogue.h"
-	#include "Random.h"
 	// HEADROCK HAM 3.6: Added for facility string printing...
 	#include "PopUpBox.h"
 	#include "CampaignStats.h"	// added by Flugente
 	#include "Town Militia.h"	// added by Flugente
 	#include "LuaInitNPCs.h"	// added by Flugente
 
-#include "postalservice.h"
+#include "PostalService.h"
 
 #include "GameInitOptionsScreen.h"
 
@@ -342,8 +339,8 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 // Ja25:	no loyalty
 #else
 				HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_GAIN_SAM, sMapX, sMapY, bMapZ );
-				UpdateAirspaceControl( );
 #endif
+				UpdateAirspaceControl( );
 				// if Skyrider has been delivered to chopper, and already mentioned Drassen SAM site, but not used this quote yet
 				if ( IsHelicopterPilotAvailable( ) && ( guiHelicopterSkyriderTalkState >= 1 ) && ( !gfSkyriderSaidCongratsOnTakingSAM ) )
 				{
@@ -543,7 +540,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 		{
 			// Enemies can steal items left lying about, each one can carry out up to X kg (defined in RemoveRandomItemsInSector).
 			// Don't care underground sectors here -- we are in overground code branch.
-			UINT8 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
+			UINT16 ubNumAdmins, ubNumTroops, ubNumElites, ubNumRobots, ubNumTanks, ubNumJeeps;
 			GetNumberOfStationaryEnemiesInSector( sMapX, sMapY, &ubNumAdmins, &ubNumTroops, &ubNumElites, &ubNumRobots, &ubNumTanks, &ubNumJeeps );
 			RemoveRandomItemsInSector( sMapX, sMapY, bMapZ, (UINT32)ubNumAdmins + ubNumTroops + ubNumElites );
 		}

@@ -1,6 +1,6 @@
 	#include "Map Screen Interface Bottom.h"
 	#include "Map Screen Interface Border.h"
-	#include "Types.h"
+	#include "types.h"
 	#include "vsurface.h"
 	#include "mousesystem.h"
 	#include "Button System.h"
@@ -9,28 +9,26 @@
 	#include "message.h"
 	#include "mapscreen.h"
 	#include "strategicmap.h"
-	#include "font control.h"
+	#include "Font Control.h"
 	#include "Radar Screen.h"
-	#include "game clock.h"
+	#include "Game Clock.h"
 	#include "sysutil.h"
 	#include "Render Dirty.h"
 	#include "Map Screen Interface.h"
 	#include "Map Screen Interface Map.h"
 	#include "Text.h"
 	#include "Overhead.h"
-	#include "Prebattle Interface.h"
+	#include "PreBattle Interface.h"
 	#include "Options Screen.h"
 	#include "Cursor Control.h"
 	#include "gameloop.h"
-	#include "ai.h"
 	#include "Tactical Save.h"
 	#include "Campaign Types.h"
-	#include "Air Raid.h"
-	#include "Finances.h"
+	#include "finances.h"
 	#include "LaptopSave.h"
 	#include "Interface Items.h"
-	#include "wordwrap.h"
-	#include "meanwhile.h"
+	#include "WordWrap.h"
+	#include "Meanwhile.h"
 	#include "Dialogue Control.h"
 	#include "Map Screen Helicopter.h"
 	#include "Map Screen Interface TownMine Info.h"
@@ -44,17 +42,17 @@
 	#include "SaveLoadScreen.h"
 	#include "Interface Control.h"
 	#include "Sys Globals.h"
-#include "game init.h"
+#include "Game Init.h"
 
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "MapScreen Quotes.h"
 #include "SaveLoadGame.h"
-#include "strategicmap.h"
 #endif
 
 #include "connect.h"
 
+#include <language.hpp>
 
 struct UILayout_BottomButtons
 {
@@ -713,6 +711,27 @@ void BtnTimeCompressMoreMapScreenCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		if ( CommonTimeCompressionChecks() == TRUE )
 			return;
+
+		// redraw region
+		if( btn->uiFlags & MSYS_HAS_BACKRECT )
+		{
+			fMapScreenBottomDirty = TRUE;
+		}
+
+		btn->uiFlags|=(BUTTON_CLICKED_ON);
+	}
+	// Start time compression which stops at the next hour
+	// Button down removes the pop up/tooltip, Button up calls the functionality
+	else if(reason & MSYS_CALLBACK_REASON_RBUTTON_UP )
+	{
+		if (btn->uiFlags & BUTTON_CLICKED_ON)
+		{
+			btn->uiFlags&=~(BUTTON_CLICKED_ON);
+			fMapScreenBottomDirty = TRUE;
+
+			stopTimeCompressionNextHour = true;
+			SetGameTimeCompressionLevel( TIME_COMPRESS_60MINS );
+		}
 	}
 }
 
@@ -1541,7 +1560,7 @@ void DisplayCurrentBalanceTitleForMapBottom( void )
 void DisplayCurrentBalanceForMapBottom( void )
 {
 	// show the current balance for the player on the map panel bottom
-	CHAR16 sString[ 128 ];
+	std::wstring sString;
 	INT16 sFontX, sFontY;
 
 	// ste the font buffer
@@ -1552,22 +1571,18 @@ void DisplayCurrentBalanceForMapBottom( void )
 	SetFontForeground( 183 );
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", LaptopSaveInfo.iCurrentBalance );
-
-	// insert
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney( LaptopSaveInfo.iCurrentBalance );
 
 	VarFindFontCenterCoordinates( 
 		UI_BOTTOM.Text.CurrentBalance.x, 
 		UI_BOTTOM.Text.CurrentBalance.y, 
 		UI_BOTTOM.Text.CurrentBalance.width, 
 		UI_BOTTOM.Text.CurrentBalance.height, 
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, sString.data()
 	);
 	
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", sString.data() );
 
 	return;
 }
@@ -1646,7 +1661,7 @@ void DisplayProjectedDailyMineIncome( void )
 {
 	INT32 iRate = 0;
 	static INT32 iOldRate = -1;
-	CHAR16 sString[ 128 ];
+	std::wstring sString;
 	INT16 sFontX, sFontY;
 
 	// grab the rate from the financial system
@@ -1671,22 +1686,18 @@ void DisplayProjectedDailyMineIncome( void )
 	SetFontForeground( 183 );
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", iRate );
-
-	// insert
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	sString = FormatMoney( iRate );
 
 	VarFindFontCenterCoordinates( 
 		UI_BOTTOM.Text.CurrentIncome.x, 
 		UI_BOTTOM.Text.CurrentIncome.y,
 		UI_BOTTOM.Text.CurrentIncome.width,
 		UI_BOTTOM.Text.CurrentIncome.height,
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, sString.data()
 	);
 
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", sString.data() );
 
 	return;
 }
@@ -1695,7 +1706,6 @@ void DisplayProjectedDailyExpenses( void )
 {
 	INT32 iRate = 0;
 	static INT32 iOldExpensesRate = -1;
-	CHAR16 sString[ 128 ];
 	INT16 sFontX, sFontY;
 
 	// grab the rate from the financial system
@@ -1728,22 +1738,18 @@ void DisplayProjectedDailyExpenses( void )
 	}
 	SetFontBackground( FONT_BLACK );
 
-	swprintf( sString, L"%d", iRate );
-
-	// insert extra characters
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	auto rate{FormatMoney(iRate)};
 
 	VarFindFontCenterCoordinates(
 		UI_BOTTOM.Text.CurrentExpenses.x, 
 		UI_BOTTOM.Text.CurrentExpenses.y, 
 		UI_BOTTOM.Text.CurrentExpenses.width,
 		UI_BOTTOM.Text.CurrentExpenses.height,
-		COMPFONT, &sFontX, &sFontY, sString 
+		COMPFONT, &sFontX, &sFontY, rate.data()
 	);
 
 	// print it
-	mprintf( sFontX, sFontY, L"%s", sString );
+	mprintf( sFontX, sFontY, L"%s", rate.data());
 
 	return;
 }
@@ -2049,7 +2055,14 @@ void HandleExitsFromMapScreen( void )
 #ifdef JA2UB
 				//JA25 ub
 				case MAP_EXIT_TO_INTRO_SCREEN:
-				//	SetPendingNewScreen( INTRO_SCREEN );
+					//	SetPendingNewScreen( INTRO_SCREEN );
+					// Set the PBI sector locator to initial arrival sector.
+					// UB skips the call to HandleTimeCompressWithTeamJackedInAndGearedToGo() that would normally set it upon game start
+					// When it's not set, the MapscreenHandle() will error on assert when trying to draw the glowing red box around the sector under attack
+					gubPBSectorX = gGameExternalOptions.ubDefaultArrivalSectorX;
+					gubPBSectorY = gGameExternalOptions.ubDefaultArrivalSectorY;
+					gubPBSectorZ = 0;
+
 					BeginLoadScreen();
 					break;
 #endif

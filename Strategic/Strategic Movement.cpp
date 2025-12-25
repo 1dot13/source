@@ -1,44 +1,42 @@
 	#include "builddefines.h"
 	#include <stdlib.h>
-	#include <memory.h>
 	#include "Strategic Movement.h"
 	#include "MemMan.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Campaign Types.h"
 	#include "Game Event Hook.h"
 	#include "Game Clock.h"
 
 	#include "Queen Command.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "strategicmap.h"
 	#include "jascreens.h"
 	#include "Strategic Pathing.h"
 	#include "Map Screen Interface Map.h"
 	#include "PreBattle Interface.h"
-	#include "Strategic.h"
+	#include "strategic.h"
 	#include "Assignments.h"
 	#include "Text.h"
 	#include "Font Control.h"
 	#include "message.h"
 	#include "mapscreen.h"
-	#include "dialogue control.h"
+	#include "Dialogue Control.h"
 	#include "Soldier Add.h"
 	#include "Game Events.h"
 	#include "Vehicles.h"
 	#include "Map Screen Helicopter.h"
 	#include "Map Screen Interface.h"
 	#include "Squads.h"
-	#include "Random.h"
-	#include "soldier macros.h"
+	#include "random.h"
+	#include "Soldier macros.h"
 	#include "Map Information.h"
 	#include "Tactical Save.h"
 	#include "Player Command.h"
 	#include "Strategic AI.h"
-	#include "Town Militia.h"
 	#include "Music Control.h"
 	#include "Campaign.h"
 	#include "Isometric Utils.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "Inventory Choosing.h"
 	#include "Map Screen Interface Border.h"
 	#include "Auto Resolve.h"
@@ -53,7 +51,6 @@
 	#include "Strategic Transport Groups.h"
 
 #include "MilitiaSquads.h"
-#include "Vehicles.h"
 
 #ifdef JA2UB
 #include "Ja25Update.h"
@@ -806,7 +803,7 @@ GROUP* CreateNewEnemyGroupDepartingFromSector( UINT32 uiSector, UINT8 ubNumAdmin
 	return NULL;
 }
 
-GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNumAdmins, UINT8& arusNumTroops, UINT8& arusNumElites )
+GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT16& arusNumAdmins, UINT16& arusNumTroops, UINT16& arusNumElites )
 {
 	GROUP *pNew;
 	AssertMsg( uiSector >= 0 && uiSector <= 255, String( "CreateNewMilitiaGroupDepartingFromSector with out of range value of %d", uiSector ) );
@@ -846,7 +843,7 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT8& arusNum
 	pNew->pEnemyGroup->ubNumAdmins = arusNumAdmins;
 	pNew->pEnemyGroup->ubNumTroops = arusNumTroops;
 	pNew->pEnemyGroup->ubNumElites = arusNumElites;
-	pNew->ubGroupSize = (UINT8)(arusNumAdmins + arusNumTroops + arusNumElites);
+	pNew->ubGroupSize = arusNumAdmins + arusNumTroops + arusNumElites;
 	pNew->ubTransportationMask = FOOT;
 	pNew->fVehicle = FALSE;
 	pNew->ubCreatedSectorID = pNew->ubOriginalSector;
@@ -1085,7 +1082,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	}
 
 	//Set music
-	UseCreatureMusic(HostileZombiesPresent());
+	CheckForZombieMusic();
 
 #ifdef NEWMUSIC
 	GlobalSoundID  = MusicSoundValues[ SECTOR( gWorldSectorX, gWorldSectorY ) ].SoundTacticalTensor[gbWorldSectorZ];
@@ -1120,7 +1117,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 				gfCantRetreatInPBI = TRUE;
 			}
 
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
+			ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 			pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
 			gpTacticalTraversalChosenSoldier = pSoldier;
@@ -1149,7 +1146,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 			gfCantRetreatInPBI = TRUE;
 		}
 
-		ubChosenMerc = (UINT8)Random( ubNumMercs );
+		ubChosenMerc = (UINT16)Random( ubNumMercs );
 
 		pSoldier = MercPtrs[ ubMercsInGroup[ ubChosenMerc ] ];
 
@@ -1946,11 +1943,6 @@ void GroupArrivedAtSector( UINT8 ubGroupID, BOOLEAN fCheckForBattle, BOOLEAN fNe
 
 	if ( pGroup->usGroupTeam == OUR_TEAM )
 	{
-		if( pGroup->ubSectorZ == 0 )
-		{
-			SectorInfo[SECTOR( pGroup->ubSectorX, pGroup->ubSectorY )].bLastKnownEnemies = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
-		}
-
 		// Flugente: do not award experience gain if we never left
 		if (!fNeverLeft)
 		{
@@ -2644,6 +2636,7 @@ BOOLEAN PossibleToCoordinateSimultaneousGroupArrivals( GROUP *pFirstGroup )
 	{
 		if ( pGroup != pFirstGroup && (pGroup->usGroupTeam == OUR_TEAM || pGroup->usGroupTeam == MILITIA_TEAM) && pGroup->fBetweenSectors &&
 			pGroup->ubNextX == pFirstGroup->ubSectorX && pGroup->ubNextY == pFirstGroup->ubSectorY &&
+			pFirstGroup->ubSectorZ == pGroup->ubSectorZ &&
 				!(pGroup->uiFlags & GROUPFLAG_SIMULTANEOUSARRIVAL_CHECKED) &&
 				!IsGroupTheHelicopterGroup( pGroup ) )
 		{
@@ -3769,8 +3762,6 @@ INT32 GetTravelTimeForFootTeam( UINT8 ubSector, UINT8 ubDirection )
 void HandleArrivalOfReinforcements( GROUP *pGroup )
 {
 	SOLDIERTYPE *pSoldier;
-	SECTORINFO *pSector;
-	INT32 iNumEnemiesInSector;
 	INT32	cnt;
 
 	if ( pGroup->usGroupTeam == OUR_TEAM )
@@ -3833,22 +3824,6 @@ void HandleArrivalOfReinforcements( GROUP *pGroup )
 	{
 		gfPendingNonPlayerTeam[MILITIA_TEAM] = TRUE;
 		AddPossiblePendingMilitiaToBattle( );
-	}
-
-	//Update the known number of enemies in the sector.
-	pSector = &SectorInfo[ SECTOR( pGroup->ubSectorX, pGroup->ubSectorY ) ];
-	iNumEnemiesInSector = NumNonPlayerTeamMembersInSector( pGroup->ubSectorX, pGroup->ubSectorY, ENEMY_TEAM );
-	if( iNumEnemiesInSector )
-	{
-		if( pSector->bLastKnownEnemies >= 0 )
-		{
-			pSector->bLastKnownEnemies = (INT8)iNumEnemiesInSector;
-		}
-		//if we don't know how many enemies there are, then we can't update this value.
-	}
-	else
-	{
-		pSector->bLastKnownEnemies = 0;
 	}
 }
 
@@ -4333,12 +4308,12 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 {
 	PLAYERGROUP		*pTemp=NULL;
 	PLAYERGROUP		*pHead=NULL;
-	UINT32	uiNumberOfNodes=0;
-	UINT32	uiProfileID=0;
-	UINT32	uiNumBytesRead;
-	UINT32	cnt=0;
-	INT16		sTempID;
-	GROUP		*pTempGroup = *pGroup;
+	UINT32			uiNumberOfNodes=0;
+	UINT32			uiProfileID=0;
+	UINT32			uiNumBytesRead;
+	UINT32			cnt=0;
+	SoldierID		sTempID;
+	GROUP			*pTempGroup = *pGroup;
 
 //	pTemp = pGroup;
 
@@ -4373,10 +4348,10 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 		sTempID = GetSoldierIDFromMercID( pTemp->ubProfileID );
 
 		//Should never happen
-		Assert( sTempID != -1 );
-		pTemp->ubID = (UINT8) sTempID;
+		Assert( sTempID != NOBODY );
+		pTemp->ubID = sTempID;
 
-		pTemp->pSoldier = &Menptr[ pTemp->ubID ];
+		pTemp->pSoldier = pTemp->ubID;
 
 		pTemp->next = NULL;
 
@@ -5137,7 +5112,7 @@ void AddFuelToVehicle( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pVehicle )
 	OBJECTTYPE *pItem;
 	INT16 sFuelNeeded, sFuelAvailable, sFuelAdded;
 	pItem = &pSoldier->inv[ HANDPOS ];
-	if( !Item[pItem->usItem].gascan )
+	if( !ItemIsGascan(pItem->usItem))
 	{
 		#ifdef JA2BETAVERSION
 			CHAR16 str[ 100 ];
@@ -5479,15 +5454,16 @@ BOOLEAN TestForBloodcatAmbush( GROUP *pGroup )
 		// merc recoeds - get a point to scouts
 		if ( fBloodCatAmbushPrevented )
 		{
-			for( UINT16 i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) )
+				SOLDIERTYPE *pSoldier = i;
+				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) )
 				{
-					if ( MercPtrs[ i ]->sSectorX == pGroup->ubSectorX && MercPtrs[ i ]->sSectorY == pGroup->ubSectorY && MercPtrs[ i ]->bAssignment != ASSIGNMENT_POW && MercPtrs[ i ]->bAssignment != ASSIGNMENT_MINIEVENT && MercPtrs[i]->bAssignment != ASSIGNMENT_REBELCOMMAND && MercPtrs[ i ]->stats.bLife >= OKLIFE )
+					if ( pSoldier->sSectorX == pGroup->ubSectorX && pSoldier->sSectorY == pGroup->ubSectorY && pSoldier->bAssignment != ASSIGNMENT_POW && pSoldier->bAssignment != ASSIGNMENT_MINIEVENT && pSoldier->bAssignment != ASSIGNMENT_REBELCOMMAND && pSoldier->stats.bLife >= OKLIFE )
 					{
-						if( HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) && MercPtrs[ i ]->ubProfile != NO_PROFILE )
+						if( HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) && pSoldier->ubProfile != NO_PROFILE )
 						{
-							gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usAmbushesExperienced++;
+							gMercProfiles[ pSoldier->ubProfile ].records.usAmbushesExperienced++;
 						}
 					}
 				}
@@ -5961,18 +5937,17 @@ BOOLEAN ValidateGroups( GROUP *pGroup )
 BOOLEAN ScoutIsPresentInSquad( INT16 ubSectorNumX, INT16 ubSectorNumY )
 {
 	BOOLEAN fScoutPresent = FALSE;
-	INT32 i;
-
 	// sevenfm: scout should not be sleeping, in vehicle or on assignment
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{
-		if( MercPtrs[ i ]->bActive &&
-			MercPtrs[ i ]->stats.bLife >= OKLIFE &&
-			MercPtrs[ i ]->sSectorX == ubSectorNumX &&
-			MercPtrs[ i ]->sSectorY == ubSectorNumY &&
-			MercPtrs[ i ]->bAssignment < ON_DUTY &&
-			!MercPtrs[ i ]->flags.fMercAsleep &&
-			HAS_SKILL_TRAIT( MercPtrs[ i ], SCOUTING_NT ) )
+		SOLDIERTYPE *pSoldier = i;
+		if( pSoldier->bActive &&
+			pSoldier->stats.bLife >= OKLIFE &&
+			pSoldier->sSectorX == ubSectorNumX &&
+			pSoldier->sSectorY == ubSectorNumY &&
+			pSoldier->bAssignment < ON_DUTY &&
+			!pSoldier->flags.fMercAsleep &&
+			HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) )
 		{
 			fScoutPresent = TRUE;
 		}
@@ -6003,13 +5978,14 @@ BOOLEAN ConcealedMercInSector( INT16 ubSectorNumX, INT16 ubSectorNumY, BOOLEAN a
 	if ( !gGameOptions.fNewTraitSystem )
 		return FALSE;
 
-	for ( int i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
+	for ( SoldierID i = gTacticalStatus.Team[OUR_TEAM].bFirstID; i <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++i )
 	{
-		if ( MercPtrs[i]->bActive && MercPtrs[i]->stats.bLife >= OKLIFE && SPY_LOCATION( MercPtrs[i]->bAssignment ) )
+		SOLDIERTYPE *pSoldier = i;
+		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && SPY_LOCATION( pSoldier->bAssignment ) )
 		{
-			if ( MercPtrs[i]->sSectorX == ubSectorNumX && MercPtrs[i]->sSectorY == ubSectorNumY && MercPtrs[i]->bSectorZ == 10 )
+			if ( pSoldier->sSectorX == ubSectorNumX && pSoldier->sSectorY == ubSectorNumY && pSoldier->bSectorZ == 10 )
 			{
-				if ( !aScoutsOnly || HAS_SKILL_TRAIT( MercPtrs[i], SCOUTING_NT ) )
+				if ( !aScoutsOnly || HAS_SKILL_TRAIT( pSoldier, SCOUTING_NT ) )
 				{
 					return TRUE;
 				}

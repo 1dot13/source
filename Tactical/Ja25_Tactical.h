@@ -5,7 +5,6 @@
 
 #include "MapScreen Quotes.h"
 
-#define		PGF__FAN_EXIT_GRID_GRIDNO																	10979
 
 #define		NUM_MERCS_WITH_NEW_QUOTES												20//7
 
@@ -37,8 +36,8 @@ typedef struct
 extern	BOOLEAN		gfFirstTimeInGameHeliCrash;
 
 INT16		RandomProfileIdFromNewMercsOnPlayerTeam();
-INT16		RandomSoldierIdFromNewMercsOnPlayerTeam();
-UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( UINT8 *pSoldierIdArray, UINT8 *pProfileIdArray );
+SoldierID	RandomSoldierIdFromNewMercsOnPlayerTeam();
+UINT8		GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( SoldierID *pSoldierIdArray, UINT8 *pProfileIdArray );
 BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedInitialHireMerc( SOLDIERTYPE *pSoldier );
 BOOLEAN	IsSoldierQualifiedMercForSeeingPowerGenFan( SOLDIERTYPE *pSoldier );
@@ -47,10 +46,10 @@ BOOLEAN SayQuoteFromAllNewHiredMercButDoGastonLast( UINT8 ubProfile, UINT32 uiQu
 
 //Pass in an array of size NUM_MERCS_WITH_NEW_QUOTES, array will be filled with
 //random soldier IDs of the qualified mercs
-UINT8 RandomArrayOfQualifiedMercs( UINT8 *pRandomSoldierIdArray );
+UINT8 RandomArrayOfQualifiedMercs( SoldierID *pRandomSoldierIdArray );
 
 
-extern UINT8 Get3RandomQualifiedMercs( UINT8 *pSoldierId1, UINT8 *pSoldierId2, UINT8 *pSoldierId3 );
+extern UINT8 Get3RandomQualifiedMercs( SoldierID *pSoldierId1, SoldierID *pSoldierId2, SoldierID *pSoldierId3 );
 
 void HandleWhenCertainPercentageOfEnemiesDie();
 
@@ -143,6 +142,10 @@ extern UINT8 BETTY_UB;
 extern UINT8 RAUL_UB;
 extern UINT8 MORRIS_UB;
 extern UINT8 RUDY_UB;
+
+extern INT16  BETTY_BLOODCAT_SECTOR_X;
+extern INT16  BETTY_BLOODCAT_SECTOR_Y;
+extern INT8   BETTY_BLOODCAT_SECTOR_Z;
 
 extern void Old_UB_Inventory ();
 extern void New_UB_Inventory ();

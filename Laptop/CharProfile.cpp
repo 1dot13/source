@@ -1,5 +1,5 @@
 	#include "laptop.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "CharProfile.h"
 	#include "IMP AboutUs.h"
 	#include "IMP Attribute Entrance.h"
@@ -19,7 +19,7 @@
 	#include "IMP Personality Finish.h"
 	#include "IMPVideoObjects.h"
 	#include "IMP Confirm.h"
-	#include "messageboxscreen.h"
+	#include "MessageBoxScreen.h"
 	#include "LaptopSave.h"
 	// These 5 added - SANDRO
 	#include "IMP Character and Disability Entrance.h"

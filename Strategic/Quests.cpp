@@ -1,19 +1,17 @@
 	#include "sgp.h"
 	#include "message.h"
-	#include "quests.h"
-	#include "game clock.h"
-	#include "StrategicMap.h"
-	#include "soldier profile.h"
+	#include "Quests.h"
+	#include "Game Clock.h"
+	#include "strategicmap.h"
+	#include "Soldier Profile.h"
 	#include "LaptopSave.h"
 	#include "Handle Items.h"
-	#include "overhead.h"
-	#include "Interface Dialogue.h"
-	#include "Soldier Profile.h"
+	#include "Overhead.h"
+	#include "interface Dialogue.h"
 	#include "Isometric Utils.h"
 	#include "Render Fun.h"
-	#include "History.h"
+	#include "history.h"
 	#include "Map Screen Helicopter.h"
-	#include "Overhead.h"
 	#include "Strategic Mines.h"
 	#include "Boxing.h"
 	#include "Campaign Types.h"
@@ -22,8 +20,7 @@
 	#include "Campaign.h"
 	#include "GameSettings.h"
 	#include "Arms Dealer Init.h"
-	#include "GameSettings.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Assignments.h"
 	#include "strategic.h"
 	#include "Strategic Event Handler.h"
@@ -181,7 +178,7 @@ BOOLEAN CheckNPCWithin( UINT8 ubFirstNPC, UINT8 ubSecondNPC, UINT8 ubMaxDistance
 	return( PythSpacesAway( pFirstNPC->sGridNo, pSecondNPC->sGridNo ) <= ubMaxDistance );
 }
 
-BOOLEAN CheckGuyVisible( UINT8 ubNPC, UINT8 ubGuy )
+BOOLEAN CheckGuyVisible( UINT16 ubNPC, UINT16 ubGuy )
 {
 	// NB ONLY WORKS IF ON DIFFERENT TEAMS
 	SOLDIERTYPE * pNPC, * pGuy;
@@ -299,12 +296,12 @@ UINT32 NumWoundedMercsNearby( UINT8 ubProfileID )
 	return( bNumber );
 }
 
-INT8 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist )
+UINT16 NumMercsNear( UINT8 ubProfileID, UINT8 ubMaxDist )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pNPC;
-	SOLDIERTYPE *		pSoldier;
+	UINT16 bNumber = 0;
+	UINT32 uiLoop;
+	SOLDIERTYPE *pNPC;
+	SOLDIERTYPE *pSoldier;
 	INT32 sGridNo;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
@@ -394,7 +391,7 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	//DBrot: More Rooms
 	//UINT8						ubRoom;
 	UINT16 usRoom;
-	INT8		bLoop;
+	SoldierID		bLoop;
 	SOLDIERTYPE * pSoldier;
 
 	pNPC = FindSoldierByProfileID( ubProfileID, FALSE );
@@ -404,9 +401,9 @@ BOOLEAN PCInSameRoom( UINT8 ubProfileID )
 	}
 	usRoom = gusWorldRoomInfo[ pNPC->sGridNo ];
 
-	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 	{
-		pSoldier = MercPtrs[ bLoop ];
+		pSoldier = bLoop;
 		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector )
 		{
 			if ( gusWorldRoomInfo[ pSoldier->sGridNo ] == usRoom )
@@ -536,12 +533,11 @@ BOOLEAN FemalePresent( UINT8 ubProfileID )
 
 BOOLEAN CheckPlayerHasHead( void )
 {
-	INT8						bLoop;
-	SOLDIERTYPE *		pSoldier;
+	SOLDIERTYPE * pSoldier;
 
-	for ( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; bLoop++ )
+	for ( SoldierID bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
 	{
-		pSoldier = MercPtrs[ bLoop ];
+		pSoldier = bLoop;
 
 		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )
 		{
@@ -1714,18 +1710,19 @@ void GiveQuestRewardPoint( INT16 sQuestSectorX, INT16 sQuestsSectorY, INT8 bExpR
 {
 	ScreenMsg( FONT_MCOLOR_LTBLUE, MSG_TESTVERSION, L"QUEST COMPLETED - Adding to merc records and awarding experiences (%d).", (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests) );
 
-	for ( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+	for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 	{
-		if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife >= CONSCIOUSNESS && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
-			MercPtrs[ i ]->sSectorX == sQuestSectorX && MercPtrs[ i ]->sSectorY == sQuestsSectorY && !MercPtrs[ i ]->flags.fBetweenSectors && MercPtrs[ i ]->bTeam == gbPlayerNum &&
-			MercPtrs[ i ]->bAssignment != IN_TRANSIT && MercPtrs[ i ]->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ MercPtrs[ i ]->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )
+		SOLDIERTYPE *pSoldier = id;
+		if( pSoldier->bActive && pSoldier->stats.bLife >= CONSCIOUSNESS && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
+			pSoldier->sSectorX == sQuestSectorX && pSoldier->sSectorY == sQuestsSectorY && !pSoldier->flags.fBetweenSectors && pSoldier->bTeam == gbPlayerNum &&
+			pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD && gMercProfiles[ pSoldier->ubProfile ].ubBodyType != 21 ) // != ROBOTNOWEAPON )
 		{
-			if ( MercPtrs[ i ]->ubProfile != bException )
+			if ( pSoldier->ubProfile != bException )
 			{
-				gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.ubQuestsHandled++;
+				gMercProfiles[ pSoldier->ubProfile ].records.ubQuestsHandled++;
 
 				if ( bExpReward > 0 && gGameExternalOptions.usAwardSpecialExpForQuests > 0 )
-					StatChange( MercPtrs[ i ], EXPERAMT, (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests), FALSE );
+					StatChange( pSoldier, EXPERAMT, (bExpReward * gGameExternalOptions.usAwardSpecialExpForQuests), FALSE );
 			}
 		}
 	}	

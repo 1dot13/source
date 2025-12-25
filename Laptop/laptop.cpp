@@ -3,8 +3,8 @@
 	#include "WCheck.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
-	#include "screens.h"
-	#include "cursors.h"
+	#include "Screens.h"
+	#include "Cursors.h"
 	#include "Event Pump.h"
 	#include "laptop.h"
 	#include "aim.h"
@@ -45,26 +45,26 @@
 	#include "Interface Control.h"
 	#include "Game Event Hook.h"
 	#include "WordWrap.h"
-	#include "Game init.h"
+	#include "Game Init.h"
 	#include "Game Clock.h"
 	#include "vobject_blitters.h"
 	#include "Soldier Profile.h"
 	#include "Overhead.h"
 	#include "environment.h"
 	#include "LibraryDataBase.h"
-	#include "music control.h"
+	#include "Music Control.h"
 	#include "SaveLoadGame.h"
 	#include "LaptopSave.h"
-	#include "RenderWorld.h"
+	#include "renderworld.h"
 	#include "gameloop.h"
 	#include "english.h"
 	#include "random.h"
 	#include "Merc Hiring.h"
 	#include "Map Screen Interface.h"
-	#include "ambient control.h"
+	#include "Ambient Control.h"
 	#include "Sound Control.h"
-	#include "text.h"
-	#include "Message.h"
+	#include "Text.h"
+	#include "message.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Cursor Control.h"
 	#include "Quests.h"
@@ -72,8 +72,8 @@
 	#include "BrokenLink.h"
 	#include "BobbyRShipments.h"
 	#include "Dialogue Control.h"
-	#include "helpscreen.h"
-	#include "cheats.h"
+	#include "HelpScreen.h"
+	#include "Cheats.h"
 	#include "Strategic Status.h"
 	#include "Arms Dealer Init.h"
 	#include "GameSettings.h"
@@ -81,7 +81,7 @@
 	#include "Encyclopedia_Data_new.h"
 	#include "CampaignHistoryMain.h"		// added by Flugente
 	#include "CampaignHistory_Summary.h"	// added by Flugente
-	#include "MercCompare.h"				// added by Flugente
+	#include "merccompare.h"				// added by Flugente
 	#include "WHO.h"						// added by Flugente
 	#include "PMC.h"						// added by Flugente
 	#include "MilitiaWebsite.h"				// added by Flugente
@@ -375,10 +375,6 @@ BOOLEAN fReDrawBookMarkInfo = FALSE;
 
 // show the 2 second info about bookmarks being accessed by clicking on web
 BOOLEAN fShowBookmarkInfo = FALSE;
-
-// show start button for ATM panel?
-extern BOOLEAN fShowAtmPanelStartButton;
-
 
 //TEMP!	Disables the loadpending delay when switching b/n www pages
 BOOLEAN	gfTemporaryDisablingOfLoadPendingFlag=FALSE;
@@ -1092,8 +1088,6 @@ INT32 EnterLaptop()
 	//DEF: Added to Init things in various laptop pages
 	EnterLaptopInitLaptopPages();
 	InitalizeSubSitesList( );
-
-	fShowAtmPanelStartButton = TRUE;
 
 	// lock cursor to screen
 	if ( gGameExternalOptions.fLaptopMouseCaptured == TRUE )
@@ -5090,11 +5084,7 @@ void ShouldNewMailBeDisplayed()
 void DisplayPlayersBalanceToDate( void )
 {
 	// print players balance to date
-	CHAR16 sString[ 100 ];
 	INT16 sX, sY;
-
-	// initialize string
-	memset( sString, 0, sizeof( sString ) );
 
 	// font stuff
 	SetFont( FONT10ARIAL);
@@ -5102,24 +5092,20 @@ void DisplayPlayersBalanceToDate( void )
 	SetFontShadow(NO_SHADOW);
 
 	// parse straigth number
-	swprintf( sString, L"%d", LaptopSaveInfo.iCurrentBalance );
-
-	// put in commas, then dollar sign
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	std::wstring sString{FormatMoney(LaptopSaveInfo.iCurrentBalance)};
 
 	// get center
-	FindFontCenterCoordinates( (INT16)LAPTOP_ICON_TEXT_X, iScreenHeightOffset, (INT16)(LAPTOP_ICON_TEXT_WIDTH) ,(INT16)(LAPTOP_ICON_TEXT_HEIGHT), sString, LAPTOPICONFONT, &sX, &sY );
+	FindFontCenterCoordinates( (INT16)LAPTOP_ICON_TEXT_X, iScreenHeightOffset, (INT16)(LAPTOP_ICON_TEXT_WIDTH) ,(INT16)(LAPTOP_ICON_TEXT_HEIGHT), sString.data(), LAPTOPICONFONT, &sX, &sY);
 
 //	gprintfdirty( sX , LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString );
 	// printf it!
 	if( ButtonList[ gLaptopButton[ 5 ] ]->uiFlags & BUTTON_CLICKED_ON )
 	{
-		mprintf( sX + 5, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10 + 5, sString);
+		mprintf( sX + 5, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10 + 5, sString.data());
 	}
 	else
 	{
-		mprintf( sX, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString);
+		mprintf( sX, LAPTOP_ICON_TEXT_FINANCIAL_Y + 10, sString.data());
 	}
 
 	// reset shadow
@@ -6213,7 +6199,6 @@ void DeleteDesktopBackground( void )
 
 void PrintBalance( void )
 {
-	CHAR16 pString[ 32 ];
 //	UINT16 usX, usY;
 
 	SetFont( FONT10ARIAL );
@@ -6221,17 +6206,15 @@ void PrintBalance( void )
 	SetFontBackground( FONT_BLACK );
 	SetFontShadow( NO_SHADOW );
 
-	swprintf(pString, L"%d", LaptopSaveInfo.iCurrentBalance);
-	InsertCommasForDollarFigure( pString );
-	InsertDollarSignInToString( pString );
+	std::wstring pString{ FormatMoney(LaptopSaveInfo.iCurrentBalance) };
 
 	if( ButtonList[ gLaptopButton[ 5 ] ]->uiFlags & BUTTON_CLICKED_ON )
 	{
-		mprintf(iScreenWidthOffset + 48, iScreenHeightOffset + 273,pString);
+		mprintf(iScreenWidthOffset + 48, iScreenHeightOffset + 273,pString.data());
 	}
 	else
 	{
-		mprintf(iScreenWidthOffset + 47, iScreenHeightOffset + 272,pString);
+		mprintf(iScreenWidthOffset + 47, iScreenHeightOffset + 272,pString.data());
 	}
 
 
@@ -6243,7 +6226,7 @@ void PrintNumberOnTeam( void )
 {
 	CHAR16 pString[ 32 ];
 	SOLDIERTYPE *pSoldier, *pTeamSoldier;
-	INT32 cnt=0;
+	SoldierID cnt = 0;
 	INT32 iCounter=0;
 	UINT16 usPosX, usPosY, usFontHeight, usStrLength;
 
@@ -6256,9 +6239,9 @@ void PrintNumberOnTeam( void )
 	// grab number on team
 	pSoldier = MercPtrs[0];
 
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++, pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt )
 	{
-		pTeamSoldier = MercPtrs[ cnt ];
+		pTeamSoldier = cnt;
 
 		if( ( pTeamSoldier->bActive)&&( !( pTeamSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ) )
 		{

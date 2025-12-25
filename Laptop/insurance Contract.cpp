@@ -13,12 +13,12 @@
 	#include "Soldier Add.h"
 	#include "Game Clock.h"
 	#include "finances.h"
-	#include "History.h"
+	#include "history.h"
 	#include "Game Event Hook.h"
 	#include "LaptopSave.h"
 	#include "english.h"
 	#include "Text.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Status.h"
 	#include "Assignments.h"
 	#include "Map Screen Interface.h"
@@ -27,7 +27,7 @@
 
 #ifdef JA2UB
 #include "ub_config.h"
-#include "quests.h"
+#include "Quests.h"
 #endif
 
 #define		INS_CTRCT_ORDER_GRID_WIDTH					132
@@ -163,11 +163,11 @@ BOOLEAN		DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID );
 INT8			GetNumberOfHireMercsStartingFromID( UINT8 ubStartMercID );
 //INT32			CalculateInsuranceCost( SOLDIERTYPE *pSoldier, BOOLEAN fHaveInsurance );
 void			InsuranceContractUserTextFieldCallBack( UINT8 ubID, BOOLEAN fEntering );
-INT8			CountInsurableMercs();
+UINT16		CountInsurableMercs();
 void			DisableInsuranceContractNextPreviousbuttons();
 void			CreateDestroyInsuranceContractFormButtons( BOOLEAN fCreate);
-void			HandleAcceptButton( UINT8 ubSoldierID, UINT8 ubFormID );
-FLOAT			DiffFromNormRatio( INT16 sThisValue, INT16 sNormalValue );
+void			HandleAcceptButton( SoldierID ubSoldierID, UINT8 ubFormID );
+FLOAT		DiffFromNormRatio( INT16 sThisValue, INT16 sNormalValue );
 void			InsContractNoMercsPopupCallBack( UINT8 bExitValue );
 void			BuildInsuranceArray();
 BOOLEAN		MercIsInsurable( SOLDIERTYPE *pSoldier );
@@ -177,8 +177,8 @@ UINT32		GetTimeRemainingOnSoldiersContract( SOLDIERTYPE *pSoldier );
 UINT32		GetTimeRemainingOnSoldiersInsuranceContract( SOLDIERTYPE *pSoldier );
 void			EnableDisableIndividualInsuranceContractButton( UINT8 ubMercIDForMercInForm1, UINT32 *puiAcceptButton );
 BOOLEAN		CanSoldierExtendInsuranceContract( SOLDIERTYPE *pSoldier );
-INT32			CalculateSoldiersInsuranceContractLength( SOLDIERTYPE *pSoldier );
-INT32			CalcStartDayOfInsurance( SOLDIERTYPE *pSoldier );
+INT32		CalculateSoldiersInsuranceContractLength( SOLDIERTYPE *pSoldier );
+INT32		CalcStartDayOfInsurance( SOLDIERTYPE *pSoldier );
 
 BOOLEAN		AreAnyAimMercsOnTeam( );
 //ppp
@@ -394,12 +394,14 @@ void RenderInsuranceContract()
 	{
 		sMercID = gubInsuranceMercArray[ sNextMercID ];
 
-		pSoldier = &Menptr[ GetSoldierIDFromMercID( (UINT8) sMercID ) ];
-
-		if( ( sMercID != -1 ) && MercIsInsurable( pSoldier ) )
+		SoldierID ID = GetSoldierIDFromMercID( sMercID );
+		if ( ID != NOBODY )
 		{
-			DisplayOrderGrid( ubCount, (UINT8)sMercID );
-			ubCount++;
+			if( ( sMercID != -1 ) && MercIsInsurable( ID ) )
+			{
+				DisplayOrderGrid( ubCount, (UINT8)sMercID );
+				ubCount++;
+			}
 		}
 
 		sNextMercID++;
@@ -499,18 +501,22 @@ void BtnInsContractNextButtonCallBack(GUI_BUTTON *btn,INT32 reason)
 
 BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 {
-	VOBJECT_DESC	VObjectDesc;
-	HVOBJECT hPixHandle;
-	UINT16	usPosX, usPosY;
-	UINT32	uiInsMercFaceImage;
-	INT32		iCostOfContract=0;
-	char			sTemp[100];
-	CHAR16		sText[800];
-	BOOLEAN		fDisplayMercContractStateTextColorInRed = FALSE;
+	VOBJECT_DESC		VObjectDesc;
+	HVOBJECT			hPixHandle;
+	UINT16			usPosX, usPosY;
+	UINT32			uiInsMercFaceImage;
+	INT32			iCostOfContract=0;
+	char				sTemp[100];
+	CHAR16			sText[800];
+	BOOLEAN			fDisplayMercContractStateTextColorInRed = FALSE;
+	SoldierID		usID = GetSoldierIDFromMercID( ubMercID );
 
-	SOLDIERTYPE	*pSoldier = &Menptr[ GetSoldierIDFromMercID( ubMercID ) ];
+	if ( usID == NOBODY )
+	{
+		return(FALSE);
+	}
 
-
+	SOLDIERTYPE	*pSoldier = usID;
 	usPosX=usPosY=0;
 
 	switch( ubGridNumber )
@@ -694,6 +700,7 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 		iCostOfContract = 0;
 	}
 
+	std::wstring amountRefund{};
 	if( iCostOfContract < 0 )
 	{
 		//shouldnt get in here now since we can longer give refunds
@@ -706,19 +713,16 @@ BOOLEAN DisplayOrderGrid( UINT8 ubGridNumber, UINT8 ubMercID )
 		DrawTextToScreen( sText, (UINT16)(usPosX+INS_CTRCT_EMPLYMNT_CNTRCT_TEXT_OFFSET_X), INS_CTRCT_ORDER_GRID1_Y+INS_CTRCT_PREMIUM_OWING_OFFSET_Y, INS_CTRCT_ORDER_GRID_WIDTH, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, CENTER_JUSTIFIED );
 
 		//display the amount of refund
-		swprintf( sText, L"%d", iCostOfContract );
-		InsertCommasForDollarFigure( sText );
-		InsertDollarSignInToString( sText );
+		amountRefund = FormatMoney(iCostOfContract);
 	}
 
 
 	if( IsMercDead( ubMercID ) )
 	{
-		swprintf( sText, L"0");
-		InsertDollarSignInToString( sText );
+		amountRefund = L"$0";
 	}
 	//display the amount owing
-	DrawTextToScreen( sText, (UINT16)(usPosX+32), INS_CTRCT_ORDER_GRID1_Y+179, 72, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
+	DrawTextToScreen( amountRefund.data(), (UINT16)(usPosX + 32), INS_CTRCT_ORDER_GRID1_Y + 179, 72, INS_FONT_MED, INS_FONT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 
 
@@ -747,8 +751,8 @@ void BtnInsuranceAcceptClearForm1ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm1 );
+			UINT8		ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
+			SoldierID	ubSoldierID =  GetSoldierIDFromMercID( gubMercIDForMercInForm1 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -759,7 +763,7 @@ void BtnInsuranceAcceptClearForm1ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				HandleAcceptButton( ubSoldierID, 1 );
 
 				//specify the length of the insurance contract
-				Menptr[ ubSoldierID ].iTotalLengthOfInsuranceContract = gsForm1InsuranceLengthNumber;
+				ubSoldierID->iTotalLengthOfInsuranceContract = gsForm1InsuranceLengthNumber;
 
 				//reset the insurance length
 				gsForm1InsuranceLengthNumber = 0;
@@ -791,8 +795,8 @@ void BtnInsuranceAcceptClearForm2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm2 );
+			UINT8		ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
+			SoldierID	ubSoldierID = GetSoldierIDFromMercID( gubMercIDForMercInForm2 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -803,7 +807,7 @@ void BtnInsuranceAcceptClearForm2ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				HandleAcceptButton( ubSoldierID, 2 );
 
 				//specify the length of the insurance contract
-				Menptr[ ubSoldierID ].iTotalLengthOfInsuranceContract = gsForm2InsuranceLengthNumber;
+				ubSoldierID->iTotalLengthOfInsuranceContract = gsForm2InsuranceLengthNumber;
 
 				//reset the insurance length
 				gsForm2InsuranceLengthNumber = 0;
@@ -836,8 +840,8 @@ void BtnInsuranceAcceptClearForm3ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	{
 		if (btn->uiFlags & BUTTON_CLICKED_ON)
 		{
-			UINT8	ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
-			UINT8	ubSoldierID = (UINT8) GetSoldierIDFromMercID( gubMercIDForMercInForm3 );
+			UINT8		ubButton = (UINT8) MSYS_GetBtnUserData( btn, 0 );
+			SoldierID	ubSoldierID = GetSoldierIDFromMercID( gubMercIDForMercInForm3 );
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
@@ -848,7 +852,7 @@ void BtnInsuranceAcceptClearForm3ButtonCallback(GUI_BUTTON *btn,INT32 reason)
 				HandleAcceptButton( ubSoldierID, 3 );
 
 				//specify the length of the insurance contract
-				Menptr[ ubSoldierID ].iTotalLengthOfInsuranceContract = gsForm3InsuranceLengthNumber;
+				ubSoldierID->iTotalLengthOfInsuranceContract = gsForm3InsuranceLengthNumber;
 
 				//reset the insurance length
 				gsForm3InsuranceLengthNumber = 0;
@@ -937,20 +941,17 @@ void SelectInsuranceContractRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason
 	}
 }
 
-INT8 CountInsurableMercs()
+UINT16 CountInsurableMercs()
 {
-	INT16					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-	INT8					bCount=0;
+	UINT16 bCount = 0;
 
 	// Set locator to first merc
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID Soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
-		if (MercIsInsurable(pSoldier))
+		if (MercIsInsurable(Soldier))
 		{
 			bCount++;
 		}
@@ -1067,12 +1068,12 @@ void CreateDestroyInsuranceContractFormButtons( BOOLEAN fCreate)
 
 
 
-void HandleAcceptButton( UINT8 ubSoldierID, UINT8 ubFormID )
+void HandleAcceptButton( SoldierID ubSoldierID, UINT8 ubFormID )
 {
 	//passed in either 1,2,3 should be 0,1,2
 	ubFormID--;
 
-	PurchaseOrExtendInsuranceForSoldier( &Menptr[ ubSoldierID ], CalculateSoldiersInsuranceContractLength( &Menptr[ ubSoldierID ] ) );
+	PurchaseOrExtendInsuranceForSoldier( ubSoldierID, CalculateSoldiersInsuranceContractLength( ubSoldierID ) );
 
 	RenderInsuranceContract();
 }
@@ -1088,33 +1089,29 @@ void HandleAcceptButton( UINT8 ubSoldierID, UINT8 ubFormID )
 // determines if a merc will run out of their insurance contract
 void DailyUpdateOfInsuredMercs()
 {
-	INT16		cnt;
-	INT16		bLastTeamID;
-	SOLDIERTYPE		*pSoldier;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
 		//if the soldier is in the team array
-		if( pSoldier->bActive )
+		if( Soldier->bActive )
 		{
 			//if the merc has life insurance
-			if( pSoldier->usLifeInsurance )
+			if( Soldier->usLifeInsurance )
 			{
 				//if the merc wasn't just hired
-				if( (INT16)GetWorldDay() != pSoldier->iStartOfInsuranceContract )
+				if( (INT16)GetWorldDay() != Soldier->iStartOfInsuranceContract )
 				{
 					//if the contract has run out of time
-					if( GetTimeRemainingOnSoldiersInsuranceContract( pSoldier ) <= 0 )
+					if( GetTimeRemainingOnSoldiersInsuranceContract( Soldier ) <= 0 )
 					{
 						//if the soldier isn't dead
-						if( !IsMercDead( pSoldier->ubProfile ) )
+						if( !IsMercDead( Soldier->ubProfile ) )
 						{
-							pSoldier->usLifeInsurance = 0;
-							pSoldier->iTotalLengthOfInsuranceContract = 0;
-							pSoldier->iStartOfInsuranceContract = 0;
+							Soldier->usLifeInsurance = 0;
+							Soldier->iTotalLengthOfInsuranceContract = 0;
+							Soldier->iStartOfInsuranceContract = 0;
 						}
 					}
 				}
@@ -1139,7 +1136,7 @@ INT32	CalculateInsuranceContractCost( INT32 iLength, UINT8 ubMercID )
 	SOLDIERTYPE	*pSoldier;
 
 
-	pSoldier = &Menptr[ GetSoldierIDFromMercID( ubMercID ) ];
+	pSoldier = GetSoldierIDFromMercID( ubMercID );
 
 
 	// only mercs with at least 2 days to go on their employment contract are insurable
@@ -1248,20 +1245,16 @@ void InsContractNoMercsPopupCallBack( UINT8 bExitValue )
 
 void BuildInsuranceArray()
 {
-	INT16					cnt;
-	SOLDIERTYPE		*pSoldier;
-	INT16					bLastTeamID;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 	gsMaxPlayersOnTeam = 0;
 
 	// store profile #s of all insurable mercs in an array
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pSoldier++)
+	for ( ; Soldier <= bLastTeamID; ++Soldier)
 	{
-		if( MercIsInsurable(pSoldier) )
+		if( MercIsInsurable(Soldier) )
 		{
-			gubInsuranceMercArray[ gsMaxPlayersOnTeam ] = pSoldier->ubProfile;
+			gubInsuranceMercArray[ gsMaxPlayersOnTeam ] = Soldier->ubProfile;
 			gsMaxPlayersOnTeam++;
 		}
 	}
@@ -1355,7 +1348,7 @@ BOOLEAN AddLifeInsurancePayout( SOLDIERTYPE *pSoldier )
 }
 
 
-void StartInsuranceInvestigation( UINT8	ubPayoutID )
+void StartInsuranceInvestigation( UINT16	ubPayoutID )
 {
 	UINT8 ubDays;
 
@@ -1408,7 +1401,7 @@ void StartInsuranceInvestigation( UINT8	ubPayoutID )
 }
 
 
-void EndInsuranceInvestigation( UINT8	ubPayoutID )
+void EndInsuranceInvestigation( UINT16	ubPayoutID )
 {
 	// send an email telling player the investigation is over
 	if ( gMercProfiles[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )
@@ -1455,14 +1448,14 @@ void EndInsuranceInvestigation( UINT8	ubPayoutID )
 
 
 //void InsuranceContractPayLifeInsuranceForDeadMerc( LIFE_INSURANCE_PAYOUT *pPayoutStruct )
-void InsuranceContractPayLifeInsuranceForDeadMerc( UINT8 ubPayoutID )
+void InsuranceContractPayLifeInsuranceForDeadMerc( UINT16 ubPayoutID )
 {
 	//if the mercs id number is the same what is in the soldier array
-	if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID == Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].ubID )
+	if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID == LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->ubID )
 	{
 		// and if the soldier is still active ( player hasn't removed carcass yet ), reset insurance flag
-		if( Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].bActive )
-			Menptr[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID ].usLifeInsurance = 0;
+		if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->bActive )
+			LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->usLifeInsurance = 0;
 	}
 
 	//add transaction to players account
@@ -1552,14 +1545,12 @@ void EnableDisableInsuranceContractAcceptButtons()
 
 void EnableDisableIndividualInsuranceContractButton( UINT8 ubMercIDForMercInForm, UINT32 *puiAcceptButton )
 {
-	INT16	sSoldierID = 0;
-
-	sSoldierID = GetSoldierIDFromMercID( ubMercIDForMercInForm );
-	if( sSoldierID == - 1)
+	SoldierID sSoldierID = GetSoldierIDFromMercID( ubMercIDForMercInForm );
+	if( sSoldierID == NOBODY)
 		return;
 
 	// if the soldiers contract can be extended, enable the button
-	if( CanSoldierExtendInsuranceContract( &Menptr[ sSoldierID ] ) )
+	if( CanSoldierExtendInsuranceContract( sSoldierID ) )
 		EnableButton( *puiAcceptButton );
 
 	// else the soldier cant extend their insurance contract, disable the button
@@ -1783,14 +1774,13 @@ INT32	CalcStartDayOfInsurance( SOLDIERTYPE *pSoldier )
 
 BOOLEAN AreAnyAimMercsOnTeam( )
 {
-	SOLDIERTYPE *pSoldier = NULL;
+	SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	for( int cnt = 0; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
+	for( ; Soldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++Soldier)
 	{
-		pSoldier = MercPtrs[cnt];
-
 		//check to see if any of the mercs are AIM mercs
-		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
+		if( Soldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC )
 		{
 			return TRUE;
 		}

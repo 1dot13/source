@@ -1,52 +1,47 @@
 	#include <stdio.h>
-	#include <time.h>
 	#include <math.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "mousesystem.h"
 	#include "Button System.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "vsurface.h"
 	#include "input.h"
 	#include "Handle UI.h"
-	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "renderworld.h"
-	#include "cursors.h"
-	#include "radar screen.h"
+	#include "Cursors.h"
+	#include "Radar Screen.h"
 	#include "worldman.h"
 	#include "Font Control.h"
-	#include "render dirty.h"
-	#include "utilities.h"
-	#include "interface cursors.h"
+	#include "Render Dirty.h"
+	#include "Utilities.h"
+	#include "Interface Cursors.h"
 	#include "lighting.h"
 	#include "Interface Panels.h"
-	#include "pathai.h"
 	#include "vobject_blitters.h"
 	#include "faces.h"
 	#include "Handle UI Plan.h"
-	#include "interface control.h"
-	#include "interface items.h"
-	#include "interface dialogue.h"
-	#include "interactive tiles.h"
+	#include "Interface Control.h"
+	#include "Interface Items.h"
+	#include "interface Dialogue.h"
+	#include "Interactive Tiles.h"
 	#include "Game Clock.h"
 	#include "Strategic Exit GUI.h"
 	#include "PopUpBox.h"
 	#include "Assignments.h"
-	#include "spread burst.h"
-	#include "squads.h"
+	#include "Spread burst.h"
+	#include "Squads.h"
 	#include "line.h"
 	#include "Militia Control.h"
 	#include "Map Screen Interface.h"
-	#include "civ quotes.h"
+	#include "Civ Quotes.h"
 	#include "GameSettings.h"
 	#include "Explosion Control.h"		// added by Flugente
 
-#include "connect.h"
 #include "Text.h"
 
 #ifdef JA2UB
@@ -317,7 +312,7 @@ void SetUpInterface( )
 	{
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			if ( MercPtrs[ gusSelectedSoldier ]->sGridNo != gsUIHandleShowMoveGridLocation )
+			if ( gusSelectedSoldier->sGridNo != gsUIHandleShowMoveGridLocation )
 			{
 				if ( gfUIHandleShowMoveGrid == 2 )
 				{
@@ -327,7 +322,7 @@ void SetUpInterface( )
 				}
 				else
 				{
-					if ( MercPtrs[ gusSelectedSoldier ]->bStealthMode )
+					if ( gusSelectedSoldier->bStealthMode )
 					{
 						AddTopmostToHead( gsUIHandleShowMoveGridLocation, GetSnapCursorIndex( FIRSTPOINTERS9 ) );
 						gpWorldLevelData[gsUIHandleShowMoveGridLocation].pTopmostHead->ubShadeLevel=DEFAULT_SHADE_LEVEL;
@@ -917,7 +912,7 @@ void RenderTopmostTacticalInterface( )
 			}
 			else
 			{
-				DrawSelectedUIAboveGuy((UINT16)pSoldier->ubID);
+				DrawSelectedUIAboveGuy(pSoldier->ubID);
 			}
 
 			DrawCounters( pSoldier );

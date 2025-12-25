@@ -1,22 +1,20 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "SaveLoadMap.h"
-	#include "OverHead.h"
+	#include "Overhead.h"
 	#include "FileMan.h"
 	#include "Tactical Save.h"
-	#include "Debug.h"
-	#include "WorldMan.h"
-	#include "StrategicMap.h"
+	#include "DEBUG.H"
+	#include "worldman.h"
+	#include "strategicmap.h"
 	#include "Campaign Types.h"
-	#include "RenderWorld.h"
 	#include "Render Fun.h"
 	#include "fov.h"
-	#include "WorldDef.h"
+	#include "worlddef.h"
 	#include "Exit Grids.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "GameSettings.h"
 	#include "Smell.h"
 
-#include <vfs/Core/vfs.h>
 //SB: make size of gpRevealedMap dependable from variable tactical map dimensions
 #define			NUM_REVEALED_BYTES			(WORLD_MAX/8)
 
@@ -175,7 +173,7 @@ typedef std::map<ModifiedMapFile::Key, ModifiedMapFile, ltMMF> ModifiedMapFileSe
 ModifiedMapFileSet g_mapFileSet;
 BOOLEAN g_useSaveCache;
 
-void ClearTempFileSets()
+static void ClearTempFileSets()
 {
 	//for (ModifiedMapFileSet::iterator itr = g_mapFileSet.begin(), end = g_mapFileSet.end(); itr != end; ++itr )
 	//{
@@ -195,7 +193,7 @@ BOOLEAN EnableModifiedFileSetCache(BOOLEAN value)
 	return previousValue;
 }
 
-bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ, ModifiedMapFile** ppMMF )
+static bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ, ModifiedMapFile** ppMMF )
 {
 	if (ppMMF == NULL)
 		return false;
@@ -211,7 +209,7 @@ bool TryGetModifiedMapFile( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ,
 	return true;
 }
 
-ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+static ModifiedMapFile& GetOrCreateModifiedMapFile(UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
 {
 	ModifiedMapFile* pResult = NULL;
 	if ( TryGetModifiedMapFile(uiType, sMapX, sMapY, bMapZ, &pResult) )

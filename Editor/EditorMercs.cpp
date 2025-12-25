@@ -9,24 +9,24 @@
 	#include "vobject.h"
 	#include "mousesystem.h"
 	#include "Button System.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "vsurface.h"
 	#include "line.h"
 	#include "input.h"
 	#include "sysutil.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "Font Control.h"
 	#include "editscreen.h"
 	#include "selectwin.h"
 	#include "video.h"
 	#include "vobject_blitters.h"
-	#include "interface panels.h"
-	#include "interface items.h"
-	#include "text.h"
-	#include "utilities.h"
+	#include "Interface Panels.h"
+	#include "Interface Items.h"
+	#include "Text.h"
+	#include "Utilities.h"
 	#include "World Items.h"
 	#include "worldman.h"
-	#include "overhead.h"	//GetSoldier
+	#include "Overhead.h"	//GetSoldier
 	#include "renderworld.h"
 	#include "Animation Data.h"
 	#include "Animation Control.h"
@@ -39,11 +39,11 @@
 	#include "Soldier Init List.h"
 	#include "strategicmap.h"
 	#include "Soldier Add.h"
-	#include "Soldier Profile Type.h"
+	#include "soldier profile type.h"
 	#include "Soldier Profile.h"
 	#include "Text Input.h"
-	#include "Random.h"
-	#include "wordwrap.h"
+	#include "random.h"
+	#include "WordWrap.h"
 	#include "EditorItems.h"
 	#include "Editor Taskbar Utils.h"
 	#include "Exit Grids.h"
@@ -162,7 +162,7 @@ void AddNewItemToSelectedMercsInventory( BOOLEAN fCreate );
 void RenderMercInventoryPanel();
 void SetDroppableCheckboxesBasedOnMercsInventory();
 
-extern BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode );
+extern BOOLEAN InternalAddSoldierToSector( SoldierID ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode );
 
 //array which keeps track of which item is in which slot.	This is dependant on the selected merc, so
 //these temp values must be updated when different mercs are selected, and reset when a merc detailed
@@ -559,7 +559,7 @@ void AddMercToWorld( INT32 iMapIndex )
 
 	if( IsLocationSittable( iMapIndex, gfRoofPlacement ) )
 	{
-		UINT8	ubID;
+		SoldierID ubID;
 		INT16 sSectorX, sSectorY;
 		SOLDIERINITNODE *pNode;
 
@@ -629,7 +629,7 @@ void HandleRightClickOnMerc( INT32 iMapIndex )
 		if ( gsSelectedMercID != sThisMercID )
 		{ // We want to edit a new merc (or different merc)
 			//We need to avoid the editing of player mercs.
-			pNode = FindSoldierInitNodeWithID( (UINT8)sThisMercID );
+			pNode = FindSoldierInitNodeWithID( sThisMercID );
 			if( !pNode )
 				return;		//this is a player merc (which isn't in the list), or an error in logic.
 			IndicateSelectedMerc( sThisMercID );
@@ -1634,7 +1634,7 @@ void IndicateSelectedMerc( INT16 sID )
 			break;
 		default:
 			//search for the merc with the specific ID.
-			gpSelected = FindSoldierInitNodeWithID( (UINT8)sID );
+			gpSelected = FindSoldierInitNodeWithID( sID );
 			if( !gpSelected )
 			{
 				gsSelectedMercID = -1;
@@ -3783,7 +3783,7 @@ void PasteMercPlacement( INT32 iMapIndex )
 
 	if( IsLocationSittable( iMapIndex, gfRoofPlacement ) )
 	{
-		UINT8	ubID;
+		SoldierID	ubID;
 		INT16 sSectorX, sSectorY;
 		SOLDIERINITNODE *pNode;
 

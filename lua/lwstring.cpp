@@ -1,5 +1,5 @@
 #include "builddefines.h"
-#include <Windows.h>
+#include <windows.h>
 
 #include "MemMan.h"
 

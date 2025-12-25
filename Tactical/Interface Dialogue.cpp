@@ -1,59 +1,53 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
-	#include "Encrypted File.h"
 	#include "faces.h"
-	#include "wcheck.h"
-	#include "soldier profile.h"
-	#include "wordwrap.h"
+	#include "WCheck.h"
+	#include "Soldier Profile.h"
+	#include "WordWrap.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
-	#include "interface dialogue.h"
-	#include "font control.h"
-	#include "dialogue control.h"
+	#include "interface Dialogue.h"
+	#include "Font Control.h"
+	#include "Dialogue Control.h"
 	#include "renderworld.h"
-	#include "npc.h"
-	#include "interface dialogue.h"
-	#include "merctextbox.h"
+	#include "NPC.h"
+	#include "MercTextBox.h"
 	#include "message.h"
-	#include "items.h"
-	#include "text.h"
-	#include "overhead.h"
-	#include "assignments.h"
+	#include "Items.h"
+	#include "Text.h"
+	#include "Overhead.h"
+	#include "Assignments.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
 	#include "gamescreen.h"
 	#include "ai.h"
-	#include "aiinternals.h"
-	#include "interactive tiles.h"
-	#include "soldier profile.h"
-	#include "interface panels.h"
-	#include "quests.h"
-	#include "squads.h"
-	#include "game event hook.h"
-	#include "game clock.h"
+	#include "AIInternals.h"
+	#include "Interactive Tiles.h"
+	#include "Interface Panels.h"
+	#include "Quests.h"
+	#include "Squads.h"
+	#include "Game Event Hook.h"
+	#include "Game Clock.h"
 	#include "MessageBoxScreen.h"
 	#include "Tactical Save.h"
-	#include "interface control.h"
-	#include "cursors.h"
-	#include "fade screen.h"
+	#include "Interface Control.h"
+	#include "Cursors.h"
+	#include "Fade Screen.h"
 	#include "gameloop.h"
 	#include "finances.h"
-	#include "saveloadmap.h"
+	#include "SaveLoadMap.h"
 	#include "Arms Dealer Init.h"
 	#include "ShopKeeper Interface.h"
 	#include "Strategic Town Loyalty.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "GameSettings.h"
 	#include "Strategic Mines.h"
 	#include "Boxing.h"
-	#include "Items.h"
-	#include "WorldMan.h"
+	#include "worldman.h"
 	#include "Render Fun.h"
-	// including this for Strategic AI.h
 	#include "Strategic Movement.h"
-	#include "Strategic AI.h"
-	#include "Soldier create.h"
+	#include "Soldier Create.h"
 	#include "SkillCheck.h"
 	#include "Sound Control.h"
 	#include "opplist.h"
@@ -63,17 +57,12 @@
 	#include "Morale.h"
 	#include "personnel.h"
 	#include "Map Screen Interface.h"
-	#include "Queen Command.h"
 	#include "Campaign.h"
 	#include "BobbyRMailOrder.h"
-	#include "end game.h"
+	#include "End Game.h"
 	#include "Map Screen Helicopter.h"
-	#include "Cheats.h"
-	#include "Overhead.h"
 	#include "Soldier Control.h"
-
 #include "LuaInitNPCs.h"
-#include "Text.h"
 #include "Luaglobal.h"
 
 
@@ -81,20 +70,18 @@
 #include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
 #include "Soldier macros.h"
 #include "LOS.h"
-#include "Soldier Control.h"
 #include "Ja25Update.h"
 #include "ub_config.h"
+#else
+// anv: for playable Speck
+#include "Speck Quotes.h"
+#include "mercs.h"
 #endif
 
-#ifdef JA2UB
-#else
-	// anv: for playable Speck
-	#include "Speck Quotes.h"
-	#include "mercs.h"
+#ifndef _DEBUG
+#include "Cheats.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -182,7 +169,7 @@ BOOLEAN InternalInitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pS
 extern void EndGameMessageBoxCallBack( UINT8 ubExitValue );
 extern INT32 FindNearestOpenableNonDoor( INT32 sStartGridNo );
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
-extern UINT8 NumCapableEnemyInSector( );
+extern UINT16 NumCapableEnemyInSector( );
 
 #ifdef JA2UB
 //JA25 UB
@@ -1037,7 +1024,7 @@ void TalkPanelClickCallback( MOUSE_REGION * pRegion, INT32 iReason )
 					// open inv panel...
 					gfSwitchPanel = TRUE;
 					gbNewPanel = SM_PANEL;
-					gubNewPanelParam = (UINT8)gpSrcSoldier->ubID;
+					gubNewPanelParam = gpSrcSoldier->ubID;
 
 					// Wait!
 					gpDestSoldier->aiData.bNextAction = AI_ACTION_WAIT;
@@ -1555,7 +1542,7 @@ void HandleNPCTriggerNPC( UINT8 ubTargetNPC, UINT8 ubTargetRecord, BOOLEAN fShow
 		guiWaitingForTriggerTime		= GetJA2Clock( );
 
 		// Setup locator!
-		ShowRadioLocator( (UINT8)pSoldier->ubID, SHOW_LOCATOR_FAST );
+		ShowRadioLocator( pSoldier->ubID, SHOW_LOCATOR_FAST );
 
 		// If he's visible, locate...
 		if ( pSoldier->bVisible != -1 )
@@ -1584,7 +1571,7 @@ void HandleNPCTrigger( )
 {
 	SOLDIERTYPE *pSoldier;
 	INT32				sPlayerGridNo;
-	UINT8				ubPlayerID;
+	UINT16				ubPlayerID;
 
 	pSoldier = FindSoldierByProfileID( gubTargetNPC, FALSE );
 	if (!pSoldier)
@@ -1818,16 +1805,16 @@ void HandleFactForNPCUnescorted( UINT8 ubNPC )
 
 void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum )
 {
-	INT32										cnt;
-	SOLDIERTYPE			 *pSoldier, *pSoldier2;
-	INT8										bNumDone = 0;
-	INT32 sGridNo = NOWHERE, sAdjustedGridNo;
-	INT8										bItemIn;
-	UINT8										ubDesiredMercDir;
-	EXITGRID								ExitGrid;
-	INT32 iRandom = 0;
-	UINT8										ubMineIndex;
-	INT16 sX, sY, sX2, sY2;
+	SoldierID	cnt;
+	SOLDIERTYPE *pSoldier, *pSoldier2;
+	INT8			bNumDone = 0;
+	INT32		sGridNo = NOWHERE, sAdjustedGridNo;
+	INT8			bItemIn;
+	UINT8		ubDesiredMercDir;
+	EXITGRID		ExitGrid;
+	INT32		iRandom = 0;
+	UINT8		ubMineIndex;
+	INT16		sX, sY, sX2, sY2;
 
 	pSoldier2 = NULL;
 	//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Handling %s, action %d at %ld", gMercProfiles[ ubTargetNPC ].zNickname, usActionCode, GetJA2Clock() );
@@ -1880,8 +1867,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				// Squad here to search for...
 
 				// look for all mercs on the same team,
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					// Are we in this sector, On the current squad?
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 					{
@@ -2170,8 +2158,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 				// look for all mercs on the same team,
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					// Are we in this sector, On the current squad?
 					if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector )
 					{
@@ -2353,7 +2342,8 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				break;
 			case NPC_ACTION_HAVE_PACOS_FOLLOW:
 				pSoldier = FindSoldierByProfileID( 114, FALSE );
-				sGridNo = 18193; //dnl!!!
+				sGridNo = 8537; //dnl!!!
+				//kitty: changed gridno from 18193 to 8537, that's at entrance door to rebel basement, where Fatima and Dimitri dialogue happens
 				if (pSoldier)
 				{
 					if (NewOKDestination( pSoldier, sGridNo, TRUE, 0 ) )
@@ -2480,7 +2470,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if (pSoldier)
 				{
 					DeleteTalkingMenu();
-					pSoldier->EVENT_SoldierGotHit( 1, 100, 10, pSoldier->ubDirection, 320, NOBODY , FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
+					pSoldier->EVENT_SoldierGotHit( 1, 100, 10, pSoldier->ubDirection, 320, NOBODY, FIRE_WEAPON_NO_SPECIAL, AIM_SHOT_TORSO, 0, NOWHERE );
 				}
 				break;
 
@@ -2825,7 +2815,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					bItemIn = FindObj( pSoldier, DEED );
 					if (bItemIn != NO_SLOT)
 					{
-						AddItemToPool( 12541, &(pSoldier->inv[bItemIn]), -1 , 0, 0, 0 );
+						AddItemToPool( 12541, &(pSoldier->inv[bItemIn]), -1, 0, 0, 0 );
 						DeleteObj( &(pSoldier->inv[ bItemIn ]) );
 						RemoveObjectFromSoldierProfile( ubTargetNPC, DEED );
 					}
@@ -3224,7 +3214,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( pSoldier )
 				{
 					INT32		sNearestPC;
-					UINT8		ubID;
+					SoldierID	ubID;
 					INT8		bMoneySlot;
 					INT8		bEmptySlot;
 
@@ -3235,7 +3225,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						ubID = WhoIsThere2( sNearestPC, 0 );
 						if (ubID != NOBODY)
 						{
-							pSoldier2 = MercPtrs[ ubID ];
+							pSoldier2 = ubID;
 						}
 					}
 
@@ -3357,7 +3347,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT8 ubTargetID;
+					SoldierID ubTargetID;
 					SOLDIERTYPE *pTarget;
 
 					// Target a different merc....
@@ -3384,7 +3374,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 					}
 					else
 					{
-						pTarget = MercPtrs[ ubTargetID ];
+						pTarget = ubTargetID;
 					}
 
 					// Use a different approach....
@@ -3477,7 +3467,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 				if (pSoldier)
 				{
-					UINT8 ubTargetID;
+					SoldierID ubTargetID;
 					SOLDIERTYPE *pTarget;
 					INT32				cnt;
 					BOOLEAN			fGoodTarget = FALSE;
@@ -3491,7 +3481,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 						}
 						else
 						{
-							pTarget = MercPtrs[ ubTargetID ];
+							pTarget = ubTargetID;
 						}
 
 						pSoldier->aiData.uiPendingActionData4 = APPROACH_DONE_PUNCH_1;
@@ -3726,8 +3716,9 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				{
 					//HOSPITAL_PATIENT_DISTANCE
 					cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-					for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+					for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 					{
+						pSoldier = cnt;
 						// Are we in this sector, On the current squad?
 						if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && (pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0) && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL && PythSpacesAway( pSoldier->sGridNo, pSoldier2->sGridNo ) < HOSPITAL_PATIENT_DISTANCE )
 						{
@@ -3901,7 +3892,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 				if ( !gfInTalkPanel )
 				{
 					INT32		sNearestPC;
-					UINT8		ubID;
+					SoldierID	ubID;
 
 					pSoldier = FindSoldierByProfileID( ubTargetNPC, FALSE );
 					if ( pSoldier )
@@ -3914,7 +3905,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 							ubID = WhoIsThere2( sNearestPC, 0 );
 							if (ubID != NOBODY)
 							{
-								pSoldier2 = MercPtrs[ ubID ];
+								pSoldier2 = ubID;
 							}
 						}
 
@@ -4331,7 +4322,7 @@ void HandleNPCDoAction( UINT8 ubTargetNPC, UINT16 usActionCode, UINT8 ubQuoteNum
 			case NPC_ACTION_PUT_PACOS_IN_BASEMENT:
 				gMercProfiles[ PACOS ].sSectorX = 10;
 				gMercProfiles[ PACOS ].sSectorY = MAP_ROW_A;
-				gMercProfiles[ PACOS ].bSectorZ = 0;
+				gMercProfiles[ PACOS ].bSectorZ = 1; //kitty: fixed - first level underground is 1, not 0 
 				break;
 			case NPC_ACTION_HISTORY_ASSASSIN:
 				AddHistoryToPlayersLog( HISTORY_ASSASSIN, 0, GetWorldTotalMin(), gWorldSectorX, gWorldSectorY );
@@ -4578,9 +4569,9 @@ UINT32 CalcMedicalCost( UINT8 ubId )
 
 	INT32 sGridNo = pNPC->sGridNo;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
+	for ( SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->bAssignment != ASSIGNMENT_HOSPITAL )
 		{
 			if ( pSoldier->stats.bLife < pSoldier->stats.bLifeMax || NumberOfDamagedStats(pSoldier) > 0)
@@ -4630,8 +4621,7 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 		case NPC_ACTION_ASK_ABOUT_PAYING_RPC:
 		case NPC_ACTION_ASK_ABOUT_PAYING_RPC_WITH_DAILY_SALARY:
 		case NPC_ACTION_REDUCE_CONRAD_SALARY_CONDITIONS:
-			swprintf( zTemp2, L"%d", gMercProfiles[ubProfileID].sSalary );
-			InsertDollarSignInToString( zTemp2 );
+			swprintf( zTemp2, L"%s", FormatMoney(gMercProfiles[ubProfileID].sSalary).data());
 			swprintf( zTemp, TacticalStr[ HIRE_PROMPT ], gMercProfiles[ubProfileID].zNickname, zTemp2 );
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
@@ -4640,8 +4630,7 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 			DoMessageBox( MSG_BOX_BASIC_STYLE, TacticalStr[ BOXING_PROMPT ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		case NPC_ACTION_BUY_LEATHER_KEVLAR_VEST:
-			swprintf( zTemp2, L"%d", Item[LEATHER_JACKET_W_KEVLAR].usPrice );
-			InsertDollarSignInToString( zTemp2 );
+			swprintf( zTemp2, L"%s", FormatMoney(Item[LEATHER_JACKET_W_KEVLAR].usPrice).data());
 			swprintf( zTemp, TacticalStr[ BUY_VEST_PROMPT ], ItemNames[LEATHER_JACKET_W_KEVLAR], zTemp2 );
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
@@ -4662,15 +4651,13 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 			{
 				iTemp -= giHospitalRefund;
 			}
-			swprintf( zTemp2, L"%ld", iTemp );
-			InsertDollarSignInToString( zTemp2 );
+			swprintf( zTemp2, L"%s", FormatMoney(iTemp).data());
 			swprintf( zTemp, TacticalStr[ PAY_MONEY_PROMPT ], zTemp2 );
 
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
 			break;
 		case NPC_ACTION_BUY_VEHICLE_REQUESTOR:
-			swprintf( zTemp2, L"%ld", 10000 );
-			InsertDollarSignInToString( zTemp2 );
+			swprintf( zTemp2, L"%s", FormatMoney(10000).data());
 			swprintf( zTemp, TacticalStr[ PAY_MONEY_PROMPT ], zTemp2 );
 
 			DoMessageBox( MSG_BOX_BASIC_STYLE, zTemp, GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_YESNO, DialogueMessageBoxCallBack, NULL );
@@ -4850,13 +4837,14 @@ void DialogueMessageBoxCallBack( UINT8 ubExitValue )
 			{
 				// He tried to lie.....
 				// Find the best conscious merc with a chance....
-				UINT8							cnt;
-				SOLDIERTYPE *			pLier = NULL;
-				SOLDIERTYPE *			pSoldier;
+				SoldierID	cnt;
+				SOLDIERTYPE *pLier = NULL;
+				SOLDIERTYPE *pSoldier;
 
 				cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-				for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++ )
+				for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 				{
+					pSoldier = cnt;
 					if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && pSoldier->bBreath >= OKBREATH )
 					{
 						if (!pLier || (EffectiveWisdom( pSoldier ) + EffectiveLeadership( pSoldier ) > EffectiveWisdom( pLier ) + EffectiveLeadership( pSoldier ) ) )
@@ -5016,13 +5004,13 @@ void	DoneFadeInActionBasement( )
 {
 	// Start conversation, etc
 	SOLDIERTYPE *pSoldier, *pNPCSoldier;
-	INT32										cnt;
 
 	// Look for someone to talk to
 	// look for all mercs on the same team,
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		// Are we in this sector, On the current squad?
 		if ( pSoldier->bActive && pSoldier->stats.bLife >= OKLIFE && pSoldier->bInSector && pSoldier->bAssignment == CurrentSquad( ) )
 		{
@@ -5206,10 +5194,10 @@ void CarmenLeavesSectorCallback( void )
 
 void PerformJerryMiloAction301()
 {
-	UINT8		ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
+	SoldierID	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
 	UINT8		usNumMercsPresent;
 	SOLDIERTYPE	*pSoldier=NULL;
-	UINT8		ubId;
+	SoldierID	ubId;
 
 	//Get the number and array of the new soldiers
 	usNumMercsPresent = GetNumSoldierIdAndProfileIdOfTheNewMercsOnPlayerTeam( ubMercsPresent, NULL );
@@ -5219,7 +5207,7 @@ void PerformJerryMiloAction301()
 	{
 		ubId = ubMercsPresent[ cnt ];
 		
-		TacticalCharacterDialogue( MercPtrs[ubId], QUOTE_DEATH_RATE_REFUSAL );
+		TacticalCharacterDialogue( ubId, QUOTE_DEATH_RATE_REFUSAL );
 	}
 
 	//Trigger Jerry Milo's script record 11 ( call action 302 )
@@ -5231,8 +5219,8 @@ void PerformJerryMiloAction301()
 
 void PerformJerryMiloAction302()
 {
-	UINT8	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
-	UINT8	usNumMercsPresent;
+	SoldierID	ubMercsPresent[NUM_MERCS_WITH_NEW_QUOTES];
+	UINT8		usNumMercsPresent;
 	
 	//off jazz
 	//Get the number and array of the new soldiers
@@ -5384,11 +5372,11 @@ void HandleSpecificQuoteWhenLeavingNpcTalkMenu()
 
 void HaveQualifiedMercSayQuoteAboutNpcWhenLeavingTalkScreen( UINT8 ubNpcProfileID, UINT32 uiQuoteNum )
 {
-	UINT8	usNumMercsPresent;
-	UINT8 SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
-	UINT8 ValidSoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES] = {0};
-	UINT8 ubNumValidSoldiers=0;
-	UINT8	ubCnt;
+	UINT8		usNumMercsPresent;
+	SoldierID	SoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES];
+	SoldierID	ValidSoldierIdArray[NUM_MERCS_WITH_NEW_QUOTES] = {0};
+	UINT8		ubNumValidSoldiers=0;
+	UINT8		ubCnt;
 	SOLDIERTYPE *pSoldier=NULL;
 	SOLDIERTYPE * pNPC;
 
@@ -5484,7 +5472,7 @@ BOOLEAN IsMineEntranceInSectorI13AtThisGridNo( UINT32 sGridNo )
 void HaveBiggensDetonatingExplosivesByTheMine()
 {
 	SOLDIERTYPE *pSoldier = NULL;
-	UINT8	ubID=NOBODY;
+	SoldierID	ubID = NOBODY;
 
 	pSoldier = FindSoldierByProfileID( BIGGENS_UB , FALSE ); //BIGGENS
 	if( pSoldier != NULL )
@@ -5638,7 +5626,7 @@ void HandleRaulBlowingHimselfUp()
 		usItem = HAND_GRENADE;
 		INT16 sX, sY;
 		ConvertGridNoToCenterCellXY(pSoldier->sGridNo, &sX, &sY);
-		IgniteExplosion( RAUL_UB, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
+		IgniteExplosion( pSoldier->ubID, sX, sY, 0, pSoldier->sGridNo, usItem, pSoldier->pathing.bLevel );
 
 		SetJa25GeneralFlag( JA_GF__RAUL_BLOW_HIMSELF_UP );
 	}

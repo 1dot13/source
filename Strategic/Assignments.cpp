@@ -1,96 +1,81 @@
-	#include "Assignments.h"
-	#include "Strategic.h"
-	#include "Items.h"
-	#include "Overhead.h"
-	#include "Game Clock.h"
-	#include "stdlib.h"
-	#include "Message.h"
-	#include "Font Control.h"
-	#include "Map Screen Interface.h"
-	#include "Soldier Profile Type.h"
-	#include "Soldier Profile.h"
-	#include "Campaign.h"
-	#include "Queen Command.h"
-	#include "strategicmap.h"
-	#include "Text.h"
-	#include "dialogue control.h"
-	#include "NPC.h"
-	#include "Strategic Town Loyalty.h"
-	#include "animation control.h"
-	#include "mapscreen.h"
-	#include "Squads.h"
-	#include "Map Screen Helicopter.h"
-	#include "PopUpBox.h"
-	#include "Vehicles.h"
-	#include "Merc Contract.h"
-	#include "Map Screen Interface Map.h"
-	#include "Strategic Movement.h"
-	#include "laptop.h"
-	#include "Finances.h"
-	#include "LaptopSave.h"
-	#include "renderworld.h"
-	#include "Interface Control.h"
-	#include "Interface.h"
-	#include "Soldier Find.h"
-	#include "ai.h"
-	#include "utilities.h"
-	#include "random.h"
-	#include "line.h"
-	#include "Soldier Add.h"
-	#include "GameSettings.h"
-	#include "Isometric Utils.h"
-	#include "Soldier Macros.h"
-	#include "Explosion Control.h"
-	#include "SkillCheck.h"
-	#include "Quests.h"
-	#include "Town Militia.h"
-	#include "Map Screen Interface Border.h"
-	#include "math.h"
-	#include "SkillCheck.h"
-	#include "Strategic Pathing.h"
-	#include "Game Event Hook.h"
-	#include "Strategic Event Handler.h"
-	#include "Map Information.h"
-	#include "Strategic Status.h"
-	#include "history.h"
-	#include "Map Screen Interface Map Inventory.h"
-	#include "interface dialogue.h"
-	// added by SANDRO
-	#include "AIInternals.h"
-	#include "Morale.h"
-	#include "Food.h"
-	#include "Tactical Save.h"		// added by Flugente
-	#include "Campaign Types.h"		// added by Flugente
-	#include "Strategic Town Loyalty.h"
-	#include "DynamicDialogue.h"	// added by Flugente
-	#include "Disease.h"			// added by Flugente
-	#include "Queen Command.h"		// added by Flugente
-	#include "PMC.h"				// added by Flugente
-	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
-	#include "MilitiaIndividual.h"	// added by Flugente
-	#include "Militia Control.h"	// added by Flugente
-	#include "ASD.h"				// added by Flugente
-	#include "Strategic AI.h"
-	#include "MiniEvents.h"
-	#include "Rebel Command.h"
+#include "Assignments.h"
+#include "strategic.h"
+#include "Items.h"
+#include "Overhead.h"
+#include "Game Clock.h"
+#include "stdlib.h"
+#include "message.h"
+#include "Font Control.h"
+#include "Map Screen Interface.h"
+#include "soldier profile type.h"
+#include "Soldier Profile.h"
+#include "Campaign.h"
+#include "Queen Command.h"
+#include "strategicmap.h"
+#include "Text.h"
+#include "Dialogue Control.h"
+#include "NPC.h"
+#include "Strategic Town Loyalty.h"
+#include "Animation Control.h"
+#include "mapscreen.h"
+#include "Squads.h"
+#include "Map Screen Helicopter.h"
+#include "PopUpBox.h"
+#include "Vehicles.h"
+#include "Merc Contract.h"
+#include "Map Screen Interface Map.h"
+#include "Strategic Movement.h"
+#include "laptop.h"
+#include "finances.h"
+#include "LaptopSave.h"
+#include "renderworld.h"
+#include "Interface Control.h"
+#include "Interface.h"
+#include "Soldier Find.h"
+#include <Rotting Corpses.h>
+#include "Utilities.h"
+#include "random.h"
+#include "Soldier Add.h"
+#include "GameSettings.h"
+#include "Isometric Utils.h"
+#include "Soldier macros.h"
+#include "Explosion Control.h"
+#include "SkillCheck.h"
+#include "Quests.h"
+#include "Town Militia.h"
+#include "Map Screen Interface Border.h"
+#include "math.h"
+#include "Game Event Hook.h"
+#include "Map Information.h"
+#include "Strategic Status.h"
+#include "history.h"
+#include "Map Screen Interface Map Inventory.h"
+#include "interface Dialogue.h"
+// added by SANDRO
+#include "AIInternals.h"
+#include "Morale.h"
+#include "Food.h"
+#include "Tactical Save.h"		// added by Flugente
+#include "Campaign Types.h"		// added by Flugente
+#include "DynamicDialogue.h"	// added by Flugente
+#include "Disease.h"			// added by Flugente
+#include "PMC.h"				// added by Flugente
+#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHaveDisability( ... )
+#include "MilitiaIndividual.h"	// added by Flugente
+#include "Militia Control.h"	// added by Flugente
+#include "ASD.h"				// added by Flugente
+#include "Strategic AI.h"
+#include "MiniEvents.h"
+#include "Rebel Command.h"
 #include <vector>
 #include <queue>
-
-#include "Vehicles.h"
-
 #include "GameInitOptionsScreen.h"
+#include "Facilities.h"
 
 //forward declarations of common classes to eliminate includes
-class OBJECTTYPE;
-class SOLDIERTYPE;
 extern int POP_UP_BOX_X;
 extern WorldItems gAllWorldItems;
 
-#include "MilitiaSquads.h"
-// HEADROCK HAM 3.5: Include Facility data
-#include "Facilities.h"
-
-#include "Vehicles.h"
 
 #ifdef JA2UB
 #include "Explosion Control.h"
@@ -292,7 +277,7 @@ extern BOOLEAN fInMapMode;
 INT8 gbTrainingMode = -1;
 
 // who is the highlighted guy
-extern UINT16 gusUIFullTargetID;
+extern SoldierID gusUIFullTargetID;
 
 // showing town info?
 extern BOOLEAN fShowTownInfo;
@@ -560,8 +545,6 @@ void HandleShadingOfLinesForSnitchSectorMenu( void );
 // Flugente: prisoner menu
 void HandleShadingOfLinesForPrisonerMenu( void );
 
-// post message about contract
-void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract );
 
 BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier );
 BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier );
@@ -634,7 +617,7 @@ BOOLEAN ValidTrainingPartnerInSameSectorOnAssignmentFound( SOLDIERTYPE *pSoldier
 
 extern void AddSectorForSoldierToListOfSectorsThatCompletedMilitiaTraining( SOLDIERTYPE *pSoldier );
 
-extern BOOLEAN CanChangeSleepStatusForCharSlot( INT8 bCharNumber );
+extern BOOLEAN CanChangeSleepStatusForCharSlot( INT16 bCharNumber );
 
 // only 2 trainers are allowed per sector, so this function counts the # in a guy's sector
 // HEADROCK HAM 3.6: Now takes an extra argument for Militia Type
@@ -784,7 +767,7 @@ void ChangeSoldiersAssignment( SOLDIERTYPE *pSoldier, INT8 bAssignment )
 	fMapPanelDirty = TRUE;
 }
 
-BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
+static BOOLEAN BasicCanCharacterAssignment( SOLDIERTYPE * pSoldier, BOOLEAN fNotInCombat )
 {
 	AssertNotNIL(pSoldier);
 	// global conditions restricting all assignment changes
@@ -1225,16 +1208,16 @@ BOOLEAN IsAnythingAroundForSoldierToClean( SOLDIERTYPE * pSoldier )
 	}
 
 	// now the other merc's stuff
-	for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+	for(SoldierID teamMember = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamMember <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamMember) 
 	{
 		// Ignore self, mercs in other sectors, etc.
-		if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+		if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, teamMember))
 		{
 
 			// Iterate over all pocket slots and add items in need of repair
 			for (UINT8 pocketIndex = HANDPOS; pocketIndex < NUM_INV_SLOTS; ++pocketIndex)
 			{
-				const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(MercPtrs[teamIndex])->inv[pocketIndex]);
+				const OBJECTTYPE* pObj = &(const_cast<SOLDIERTYPE *>(MercPtrs[teamMember])->inv[pocketIndex]);
 				if(pObj == NULL || pObj->ubNumberOfObjects == NOTHING || pObj->usItem == NOTHING)
 					continue;
 
@@ -1289,7 +1272,6 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 {
 	INT8	bPocket;
 	UINT8	ubItemsInPocket, ubObjectInPocketCounter;
-	INT8 bLoop;
 	OBJECTTYPE * pObj;
 	UINT8 ubPassType;
 
@@ -1340,18 +1322,16 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	if ( bHighestPass != - 1 )
 	{
 		// now look for items to repair on other mercs
-		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+		for( SoldierID OtherSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; OtherSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++OtherSoldier )
 		{
-			SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
-
-			if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
+			if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, OtherSoldier ) )
 			{
 				// okay, seems like a candidate!	Check if he has anything that needs unjamming or repairs
 				// CHRISL: Changed to dynamically determine max inventory locations.
 				for ( bPocket = HANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket )
 				{
 					// the object a weapon? and jammed?
-					if ( ( Item[ pOtherSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( pOtherSoldier->inv[ bPocket ][0]->data.gun.bGunAmmoStatus < 0 ) )
+					if ( ( Item[ OtherSoldier->inv[ bPocket ].usItem ].usItemClass == IC_GUN ) && ( OtherSoldier->inv[ bPocket ][0]->data.gun.bGunAmmoStatus < 0 ) )
 					{
 						return( TRUE );
 					}
@@ -1359,7 +1339,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 				// repair everyone's hands and armor slots first, then headgear, and pockets last
 				for ( ubPassType = REPAIR_HANDS_AND_ARMOR; ubPassType <= ( UINT8 ) bHighestPass; ubPassType++ )
 				{
-					if (FindRepairableItemOnOtherSoldier( pSoldier, pOtherSoldier, ubPassType )) {
+					if (FindRepairableItemOnOtherSoldier( pSoldier, OtherSoldier, ubPassType )) {
 						return( TRUE );
 					}
 				}
@@ -1370,7 +1350,7 @@ BOOLEAN DoesCharacterHaveAnyItemsToRepair( SOLDIERTYPE *pSoldier, INT8 bHighestP
 	return( FALSE );
 }
 
-BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
+static BOOLEAN BasicCanCharacterRepair( SOLDIERTYPE * pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -1562,7 +1542,7 @@ BOOLEAN CanCharacterPatient( SOLDIERTYPE *pSoldier )
 			return ( TRUE );
 
 		// Flugente: stats can also be damaged
-		if ( !UsingFoodSystem() || ( pSoldier->bFoodLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel > FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
+		if ( !UsingFoodSystem() || ( pSoldier->bFoodLevel >= FoodMoraleMods[FOOD_NORMAL].bThreshold && pSoldier->bDrinkLevel >= FoodMoraleMods[FOOD_NORMAL].bThreshold ) )
 		{
 			if ( pSoldier->usStarveDamageHealth > 0 || pSoldier->usStarveDamageStrength > 0 )
 				return ( TRUE );
@@ -1777,7 +1757,7 @@ BOOLEAN CanCharacterDrillMilitia( SOLDIERTYPE *pSoldier, BOOLEAN aErrorReport )
 	if ( LaptopSaveInfo.iCurrentBalance <= 0 )
 	{
 		if ( aErrorReport )
-			DoScreenIndependantMessageBox( sATMText[4], MSG_BOX_FLAG_OK, NULL );
+			DoScreenIndependantMessageBox(gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], MSG_BOX_FLAG_OK, NULL );
 		return( FALSE );
 	}
 
@@ -2057,17 +2037,16 @@ BOOLEAN DoesSectorMercIsInHaveSufficientLoyaltyToTrainMilitia( SOLDIERTYPE *pSol
 
 INT8 CountMilitiaTrainersInSoldiersSector( SOLDIERTYPE * pSoldier, UINT8 ubMilitiaType )
 {
-	INT8	bCount = 0;
+	INT8 bCount = 0;
 
 	AssertNotNIL(pSoldier);
 
-	for ( UINT8 bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+	for ( SoldierID OtherSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; OtherSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++OtherSoldier )
 	{
-		SOLDIERTYPE* pOtherSoldier = MercPtrs[ bLoop ];
-		if ( pSoldier != pOtherSoldier && pOtherSoldier->bActive && pOtherSoldier->stats.bLife >= OKLIFE && pOtherSoldier->sSectorX == pSoldier->sSectorX && pOtherSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
+		if ( pSoldier != OtherSoldier && OtherSoldier->bActive && OtherSoldier->stats.bLife >= OKLIFE && OtherSoldier->sSectorX == pSoldier->sSectorX && OtherSoldier->sSectorY == pSoldier->sSectorY && pSoldier->bSectorZ == OtherSoldier->bSectorZ )
 		{
 			// Count depends on Militia Type requested
-			if (ubMilitiaType == TOWN_MILITIA && pOtherSoldier->bAssignment == TRAIN_TOWN )
+			if (ubMilitiaType == TOWN_MILITIA && OtherSoldier->bAssignment == TRAIN_TOWN )
 			{
 				++bCount;
 			}
@@ -2454,7 +2433,7 @@ BOOLEAN CanCharacterTrainTeammates( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterBeTrainedByOther( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2839,7 +2818,7 @@ BOOLEAN CanCharacterSnitch( SOLDIERTYPE *pSoldier )
 	return( FALSE );
 }
 
-BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2870,7 +2849,7 @@ BOOLEAN CanCharacterSpreadPropaganda( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -2901,7 +2880,7 @@ BOOLEAN CanCharacterGatherInformation( SOLDIERTYPE *pSoldier )
 	return( TRUE );
 }
 
-BOOLEAN CanCharacterSnitchInPrison( SOLDIERTYPE *pSoldier )
+static BOOLEAN CanCharacterSnitchInPrison( SOLDIERTYPE *pSoldier )
 {
 	AssertNotNIL(pSoldier);
 
@@ -3109,7 +3088,7 @@ void VerifyTownTrainingIsPaidFor( void )
 			continue;
 		}
 
-		pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+		pSoldier = gCharactersList[ iCounter ].usSolID;
 
 		if( pSoldier->bActive && ( pSoldier->bAssignment == TRAIN_TOWN ) )
 		{
@@ -3179,7 +3158,7 @@ UINT8 GetNumberThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLE
 	return( ubNumberOfPeople );
 }
 
-SOLDIERTYPE* GetPatientThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
+static SOLDIERTYPE* GetPatientThatCanBeDoctored( SOLDIERTYPE *pDoctor, BOOLEAN fThisHour, BOOLEAN fSkipKitCheck, BOOLEAN fSkipSkillCheck, BOOLEAN fCheckForSurgery )
 {
 	int cnt;
 	SOLDIERTYPE *pSoldier = MercPtrs[0], *pTeamSoldier = NULL;
@@ -3349,7 +3328,7 @@ UINT8 CalculateRepairPointsForRepairman(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPts
 	}
 
 	// can't repair at all without a toolkit
-	if (!Item[pSoldier->inv[HANDPOS].usItem].toolkit	)
+	if (!ItemIsToolkit(pSoldier->inv[HANDPOS].usItem))
 	{
 		*pusMaxPts = 0;
 		return(0);
@@ -3600,7 +3579,7 @@ UINT32 CalculatePrisonGuardValue(SOLDIERTYPE *pSoldier )
 	return( usValue );
 }
 
-UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
+static UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 {
 	// this is an assignment
 	UINT32 usValue = 0;	
@@ -3636,20 +3615,18 @@ UINT32 CalculateSnitchGuardValue(SOLDIERTYPE *pSoldier )
 	return( usValue );
 }
 
-UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT32 prisonguardvalue = 0;	
 
 	// count any mercs found here, and sum up their guard values
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID Soldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; Soldier <= lastid; ++Soldier)
 	{
-		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) )
+		if( Soldier->bActive && ( Soldier->sSectorX == sMapX ) && ( Soldier->sSectorY == sMapY ) && ( Soldier->bSectorZ == bZ) )
 		{
-			prisonguardvalue += CalculatePrisonGuardValue(pSoldier );
+			prisonguardvalue += CalculatePrisonGuardValue( Soldier );
 		}
 	}
 
@@ -3659,20 +3636,18 @@ UINT32 CalculateAllGuardsValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	return( prisonguardvalue );
 }
 
-UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT32 prisonguardvalue = 0;	
 
 	// count any mercs found here, and sum up their guard values
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID Soldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; Soldier <= lastid; ++Soldier)
 	{
-		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+		if( Soldier->bActive && ( Soldier->sSectorX == sMapX ) && ( Soldier->sSectorY == sMapY ) && ( Soldier->bSectorZ == bZ) && Soldier->flags.fMercAsleep == FALSE )
 		{
-			prisonguardvalue += CalculateSnitchGuardValue(pSoldier );
+			prisonguardvalue += CalculateSnitchGuardValue(Soldier );
 		}
 	}
 
@@ -3682,21 +3657,19 @@ UINT32 CalculateAllSnitchesGuardValueInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ
 	return( prisonguardvalue );
 }
 
-UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
+static UINT32 CalculateAllGuardsNumberInPrison( INT16 sMapX, INT16 sMapY, INT8 bZ )
 {
 	UINT8 numprisonguards = 0;
 
 	// count any mercs found here
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID Soldier = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+	for ( ; Soldier <= lastid; ++Soldier)
 	{
-		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
+		if( Soldier->bActive && ( Soldier->sSectorX == sMapX ) && ( Soldier->sSectorY == sMapY ) && ( Soldier->bSectorZ == bZ) && Soldier->flags.fMercAsleep == FALSE )
 		{
 			// anv: undercover snitches don't count as guards as they don't guard in traditional sense
-			if ( !(pSoldier->bAssignment == FACILITY_PRISON_SNITCH) )
+			if ( !(Soldier->bAssignment == FACILITY_PRISON_SNITCH) )
 				++numprisonguards;
 		}
 	}
@@ -3779,7 +3752,7 @@ UINT32 CalculateSnitchInterrogationValue(SOLDIERTYPE *pSoldier, UINT16 *pusMaxPt
 }
 
 // Flugente: Determine the best cth with SAMs in a sector, and which merc has that cth if present
-FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, UINT16 *pubID )
+FLOAT GetBestSAMOperatorCTH_Player( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, SoldierID *pubID )
 {
 	// if nobody is here, nobody can fire
 	FLOAT bestsamcth = 0.0f;
@@ -3859,7 +3832,7 @@ INT16 GetTrainWorkerPts(SOLDIERTYPE *pSoldier)
 }
 
 // anv: handle prisoners exposing snitch as a snitch
-BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
+static BOOL HandleSnitchExposition(SOLDIERTYPE *pSoldier)
 {
 	UINT32 uiSuspicion = 0;	
 	UINT32 uiCoverQuality = 0;
@@ -4063,7 +4036,7 @@ UINT16 ToolKitPoints(SOLDIERTYPE *pSoldier)
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (int ubPocket=HANDPOS; ubPocket < NUM_INV_SLOTS; ++ubPocket)
 	{
-		if( Item[pSoldier->inv[ ubPocket ].usItem].toolkit )
+		if(ItemIsToolkit(pSoldier->inv[ ubPocket ].usItem))
 		{
 			usKitpts += TotalPoints( &( pSoldier->inv[ ubPocket ] ) );
 		}
@@ -4620,7 +4593,44 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 	// if we will heal life and stats at the same time, increases the medical cost
 	if ( fWillHealLife && fWillRepairStats )
 		bMedFactor += 1;
-		
+
+	/////////////////////////// DISEASE CURE ////////////////////////////////////
+	if (fWillCureDisease && ptsleft > 0)
+	{
+		// determine how many points we use on disease cure
+		if (ptsleft < sHundredsToDiseaseCure)
+			sHundredsToDiseaseCure_Used = ptsleft;
+		else
+			sHundredsToDiseaseCure_Used = sHundredsToDiseaseCure;
+
+		// use up points
+		ptsleft -= sHundredsToDiseaseCure_Used;
+
+		INT32 curablepoints = sHundredsToDiseaseCure_Used;
+
+		if (curablepoints > 0)
+		{
+			// now apply healing: reduce disease points for each disease by the determined factor
+			UINT16 healingdone = 0;
+			for (int i = 0; i < NUM_DISEASES; ++i)
+			{
+				if ((pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED))
+				{
+					// amount cured is fraction of disease to total disease times fraction of healing done
+					INT32 cured = (sHundredsToDiseaseCure_Used * pPatient->sDiseasePoints[i]) / (FLOAT)(sHundredsToDiseaseCure);
+
+					if (cured > 0)
+					{
+						pPatient->AddDiseasePoints(i, -cured);
+					}
+				}
+			}
+
+			// patient expresses his gratitude
+			if (pDoctor)
+				AddOpinionEvent(pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE);
+		}
+	}
 	/////////////////////////// LIFE HEAL ////////////////////////////////////
 	// heal life points
 	if ( fWillHealLife && ptsleft > 0 )
@@ -4682,45 +4692,7 @@ UINT16 HealPatient( SOLDIERTYPE *pPatient, SOLDIERTYPE * pDoctor, UINT16 usHealA
 		
 		RegainDamagedStats( pPatient, (sHundredsToRepair_Used * ubReturnDamagedStatRate / 100) );
 	}
-		
-	/////////////////////////// DISEASE CURE ////////////////////////////////////
-	if ( fWillCureDisease && ptsleft > 0 )
-	{
-		// determine how many points we use on stat repair
-		if ( ptsleft < sHundredsToDiseaseCure )
-			sHundredsToDiseaseCure_Used = ptsleft;
-		else
-			sHundredsToDiseaseCure_Used = sHundredsToDiseaseCure;
-
-		// use up points
-		ptsleft -= sHundredsToDiseaseCure_Used;
-
-		INT32 curablepoints = sHundredsToDiseaseCure_Used;
-
-		if ( curablepoints > 0 )
-		{
-			// now apply healing: reduce disease points for each disease by the determined factor
-			UINT16 healingdone = 0;
-			for ( int i = 0; i < NUM_DISEASES; ++i )
-			{
-				if ( (pPatient->sDiseaseFlag[i] & SOLDIERDISEASE_DIAGNOSED) && (Disease[i].usDiseaseProperties & DISEASE_PROPERTY_CANBECURED) )
-				{
-					// amount cured is fraction of disease to total disease times fraction of healing done
-					INT32 cured = (sHundredsToDiseaseCure_Used * pPatient->sDiseasePoints[i]) / (FLOAT)(sHundredsToDiseaseCure);
-
-					if ( cured > 0 )
-					{
-						pPatient->AddDiseasePoints( i, -cured );
-					}
-				}
-			}
-
-			// patient expresses his gratitude
-			if ( pDoctor )
-				AddOpinionEvent( pPatient->ubProfile, pDoctor->ubProfile, OPINIONEVENT_DISEASE_TREATMENT, TRUE );
-		}
-	}
-	
+			
 	// Finally use all kit points (we are sure, we have that much)
 	if ( pDoctor && UseTotalMedicalKitPoints( pDoctor, max( 1, ((sHundredsToHeal_Used + sHundredsToRepair_Used + sHundredsToDiseaseCure_Used) * bMedFactor) / 100 ) ) == FALSE )
 	{
@@ -5118,7 +5090,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket(SOLDIERTYPE * pSoldier, OBJECTTYP
 }
 
 // Flugente: changed this function so that it repairs items up to a variable threshold instead of always 100%. This will only happen if the option gGameExternalOptions.fAdvRepairSystem is used
-void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, INT16 sThreshold, UINT8 * pubRepairPtsLeft )
+static void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, INT16 sThreshold, UINT8 * pubRepairPtsLeft )
 {
 	INT16		sRepairCostAdj;
 	UINT16	usDamagePts, usPtsFixed;
@@ -5138,7 +5110,7 @@ void DoActualRepair( SOLDIERTYPE * pSoldier, UINT16 usItem, INT16 * pbStatus, IN
 
 	// repairs on electronic items take twice as long if the guy doesn't have the skill
 	// Technician/Electronic traits - repairing electronic items - SANDRO
-	if ( Item[ usItem ].electronic )
+	if (ItemIsElectronic(usItem))
 	{
 		if (gGameOptions.fNewTraitSystem)
 		{
@@ -5486,12 +5458,12 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 			// first our own stuff
 			CollectCleanableItems(pSoldier, pSoldier, itemsToClean);
 			// then other mercs' stuff
-			for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+			for(SoldierID teamMember = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamMember <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamMember) 
 			{
 				// Ignore self, mercs in other sectors, etc.
-				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+				if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, teamMember))
 					// silversurfer: This function now needs the guy that does the repairs and the one that owns the stuff.
-					CollectCleanableItems(pSoldier, MercPtrs[teamIndex], itemsToClean);
+					CollectCleanableItems(pSoldier, teamMember, itemsToClean);
 			}
 
 			while (!itemsToClean.empty() && ubCleaningPtsLeft > 0) 
@@ -5531,12 +5503,12 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 	
 				// silversurfer: Looks strange? It's not. This function now needs the guy that does the repairs and the one that owns the stuff. 
 				CollectRepairableItems(pSoldier, pSoldier, itemsToFix);
-				for(UINT8 teamIndex = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamIndex <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamIndex) 
+				for(SoldierID teamMember = gTacticalStatus.Team[gbPlayerNum].bFirstID; teamMember <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++teamMember) 
 				{
 					// Ignore self, mercs in other sectors, etc.
-					if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, MercPtrs[teamIndex]))
+					if (CanCharacterRepairAnotherSoldiersStuff(pSoldier, teamMember))
 						// silversurfer: This function now needs the guy that does the repairs and the one that owns the stuff.
-						CollectRepairableItems(pSoldier, MercPtrs[teamIndex], itemsToFix);
+						CollectRepairableItems(pSoldier, teamMember, itemsToFix);
 				}
 
 				// Step through items, starting with the highest priority item
@@ -5745,7 +5717,7 @@ void HandleRepairBySoldier( SOLDIERTYPE *pSoldier )
 BOOLEAN IsItemRepairable(SOLDIERTYPE* pSoldier, UINT16 usItem, INT16 bStatus, INT16 bThreshold )
 {
 	// check to see if item can/needs to be repaired
-	if ( ( bStatus < 100) && ( Item[ usItem ].repairable ) )
+	if ( ( bStatus < 100) && ItemIsRepairable(usItem) )
 	{
 		if ( gGameExternalOptions.fAdvRepairSystem )
 		{
@@ -6711,17 +6683,15 @@ void HandleStrategicDiseaseAndBurial()
 // Flugente: handle militia command
 void HandleMilitiaCommand()
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; soldier <= lastid; ++soldier)
 	{
-		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
+		if( soldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && soldier->flags.fMercAsleep == FALSE )
 		{
 			// every commander gets a bit of leadership and wisdom
-			StatChange( pSoldier, LDRAMT,		2, TRUE );
-			StatChange( pSoldier, WISDOMAMT,	1, TRUE );
+			StatChange( soldier, LDRAMT,		2, TRUE );
+			StatChange( soldier, WISDOMAMT,	1, TRUE );
 		}
 	}
 }
@@ -6744,12 +6714,11 @@ void HandleSpyAssignments()
 	std::vector<UINT16> vector_uncoveredmercs;
 	FLOAT intelgained = 0.0f;
 
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if ( pSoldier )
 		{
 			if ( SPY_LOCATION( pSoldier->bAssignment ) )
@@ -6784,7 +6753,7 @@ void HandleSpyAssignments()
 					{
 						// if we are already in hiding, we will be uncovered
 						if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] > 10 )
-							vector_uncoveredmercs.push_back( uiCnt );
+							vector_uncoveredmercs.push_back( id );
 
 						// we get a penalty, and a chance to be uncovered
 						pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_INTEL_PENALTY] += 20 + Random( 30 );
@@ -6845,19 +6814,17 @@ struct admintmpstruct
 	FLOAT percentage;
 };
 
-UINT16 GetNumberofAdministratableMercs( INT16 sX, INT16 sY )
+static UINT16 GetNumberofAdministratableMercs( INT16 sX, INT16 sY )
 {
 	UINT16 num = 0;
-
 	UINT8 townid_origin = GetTownIdForSector( sX, sY );
 
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id )
 	{
-		if ( pSoldier 
+		SOLDIERTYPE *pSoldier = id;
+		if ( pSoldier
 			&& !pSoldier->flags.fMercAsleep 
 			&& !pSoldier->bSectorZ
 			&& EnoughTimeOnAssignment( pSoldier )
@@ -6890,12 +6857,11 @@ FLOAT GetAdministrationPercentage( INT16 sX, INT16 sY )
 		data.townid = GetTownIdForSector( sX, sY );
 
 		// loop over all soldiers with this assignment, determine percentage applied, determine how much of total that is, award exp points
-		SOLDIERTYPE *pSoldier = NULL;
-		UINT32 uiCnt = 0;
-		UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-		UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-		for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+		SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; id <= lastid; ++id )
 		{
+			SOLDIERTYPE *pSoldier = id;
 			if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 			{
 				// sum up the points for towns, if not a town, for sectors
@@ -6921,12 +6887,11 @@ void HandleAdministrationAssignments()
 	std::vector<admintmpstruct> helpervec;
 
 	// loop over all soldiers with this assignment, determine percentage applied, determine how much of total that is, award exp points
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 		{
 			// sum up the points for towns, if not a town, for sectors
@@ -6970,8 +6935,10 @@ void HandleAdministrationAssignments()
 		}
 	}
 
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	for ( ; id <= lastid; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if ( pSoldier && pSoldier->bAssignment == ADMINISTRATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 		{
 			UINT8 sector = SECTOR( pSoldier->sSectorX, pSoldier->sSectorY );
@@ -7013,12 +6980,11 @@ void HandleAdministrationAssignments()
 // Flugente: handle exploration assignments
 void HandleExplorationAssignments()
 {	
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if ( pSoldier && pSoldier->bAssignment == EXPLORATION && !pSoldier->flags.fMercAsleep && EnoughTimeOnAssignment( pSoldier ) )
 		{
 			UINT32 pts = pSoldier->GetExplorationPoints();
@@ -7102,13 +7068,13 @@ void HandleExplorationAssignments()
 
 void HandleMiniEventAssignments()
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	const UINT32 firstid = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-	const UINT32 lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
 
-	for ( uiCnt = firstid, pSoldier = MercPtrs[uiCnt]; uiCnt <= lastid; ++uiCnt, ++pSoldier )
+	for ( ; id <= lastid; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
+
 		if ( pSoldier && pSoldier->bAssignment == ASSIGNMENT_MINIEVENT && EnoughTimeOnAssignment( pSoldier ) )
 		{
 			if (--pSoldier->ubHoursRemainingOnMiniEvent == 0)
@@ -7961,7 +7927,7 @@ BOOLEAN TrainTownInSector( SOLDIERTYPE *pTrainer, INT16 sMapX, INT16 sMapY, INT1
 	return ( FALSE );
 }
 
-void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
+static void Interrogateprisoner(UINT8 aPrisonerType, FLOAT aChanceModifier, INT8& arMilitiaType, UINT32& arRansom, FLOAT& arIntel )
 {
 	arMilitiaType = -1;
 
@@ -8805,12 +8771,11 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 	if ( (gWorldSectorX == sMapX) && (gWorldSectorY == sMapY) && (gbWorldSectorZ == bZ) )
 		sDropOffGridNo = gMapInformation.sCenterGridNo;
 
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+	for ( ; id <= lastid; ++id )
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
 		{
 			if( ( pSoldier->bAssignment == MOVE_EQUIPMENT ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
@@ -9051,8 +9016,11 @@ void HandleEquipmentMove( INT16 sMapX, INT16 sMapY, INT8 bZ )
 		// award a bit of experience to the movers
 		UINT16  itemsperperson = moveditems  / pair.first;
 		UINT16 weightperperson = movedweight / pair.first;
-		for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+
+		SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		for ( ; id <= lastid; ++id)
 		{
+			SOLDIERTYPE *pSoldier = id;
 			if( pSoldier->bActive && ( pSoldier->sSectorX == sMapX ) && ( pSoldier->sSectorY == sMapY ) && ( pSoldier->bSectorZ == bZ) && pSoldier->flags.fMercAsleep == FALSE )
 			{
 				if( ( pSoldier->bAssignment == MOVE_EQUIPMENT ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
@@ -9077,12 +9045,11 @@ void HandleTrainWorkers()
 {
 	INT32 totalworkersadded = 0;
 
-	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
+		SOLDIERTYPE *pSoldier = id;
 		if( pSoldier->bActive && !pSoldier->bSectorZ && !pSoldier->flags.fMercAsleep )
 		{
 			if( ( pSoldier->bAssignment == TRAIN_WORKERS ) && ( EnoughTimeOnAssignment( pSoldier ) ) )
@@ -9510,13 +9477,13 @@ void HandleHealingByNaturalCauses( SOLDIERTYPE *pSoldier )
 	// SANDRO - experimental - increase health regeneration of soldiers when doctors are around
 	if ( gGameOptions.fNewTraitSystem )
 	{
-		SOLDIERTYPE *	pMedic = NULL;
-		UINT8			cnt;
 		UINT16 bRegenerationBonus = 0;
 
-		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-		for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt, pMedic++)
+		SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+		const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+		for ( ; id <= lastid; ++id )
 		{
+			SOLDIERTYPE *pMedic = id;
 			if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
 			{
 				continue; // NEXT!!!
@@ -9646,7 +9613,8 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 
 			return;
 		}
-		if( ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].stats.bLife == 0 ) || ( Menptr[gCharactersList[bSelectedAssignChar].usSolID].bAssignment == ASSIGNMENT_POW ) )
+
+		if( ( gCharactersList[bSelectedAssignChar].usSolID->stats.bLife == 0 ) || ( gCharactersList[bSelectedAssignChar].usSolID->bAssignment == ASSIGNMENT_POW ) )
 		{
 			// dead guy handle menu stuff
 			fShowRemoveMenu = fShowAssignmentMenu | fShowContractMenu;
@@ -10459,7 +10427,7 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 	INT8 bPocket = 0, bonus = -101, bToolkitPocket = NO_SLOT;
 
 	// if there isn't a toolkit in his hand
-	if( Item[pSoldier->inv[ HANDPOS].usItem].toolkit )
+	if(ItemIsToolkit(pSoldier->inv[ HANDPOS].usItem))
 	{
 		bonus = Item[pSoldier->inv[ HANDPOS].usItem].RepairModifier;
 		bToolkitPocket = HANDPOS;
@@ -10469,7 +10437,7 @@ BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier )
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if( Item[pSoldier->inv[ bPocket ].usItem].toolkit && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
+		if(ItemIsToolkit(pSoldier->inv[ bPocket ].usItem) && Item[pSoldier->inv[ bPocket ].usItem].RepairModifier > bonus)
 		{
 			bonus = Item[pSoldier->inv[ bPocket ].usItem].RepairModifier;
 			bToolkitPocket = bPocket;
@@ -10503,7 +10471,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	fTeamPanelDirty = TRUE;
 
 	// if there is a MEDICAL BAG in his hand, we're set
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].medicalkit )
+	if (ItemIsMedicalKit(pSoldier->inv[ HANDPOS ].usItem))
 	{
 		return(TRUE);
 	}
@@ -10511,7 +10479,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	// run through rest of inventory looking 1st for MEDICAL BAGS, swap the first one into hand if found
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if ( Item[pSoldier->inv[ bPocket ].usItem].medicalkit )
+		if (ItemIsMedicalKit(pSoldier->inv[ bPocket ].usItem))
 		{
 			medkit_found = true;
 			can_swap = true;
@@ -10579,7 +10547,7 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 		return FALSE;
 
 	// we didn't find a medical bag, so settle for a FIRST AID KIT
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].firstaidkit )
+	if (ItemIsFirstAidKit(pSoldier->inv[ HANDPOS ].usItem))
 	{
 		return(TRUE);
 	}
@@ -10588,10 +10556,10 @@ BOOLEAN MakeSureMedKitIsInHand( SOLDIERTYPE *pSoldier , bool bAllow1stAidKit)
 	// CHRISL: Changed to dynamically determine max inventory locations.
 	for (bPocket = SECONDHANDPOS; bPocket < NUM_INV_SLOTS; ++bPocket)
 	{
-		if ( Item[pSoldier->inv[ bPocket ].usItem].firstaidkit )
+		if (ItemIsFirstAidKit(pSoldier->inv[ bPocket ].usItem))
 		{
 			// CHRISL: This needs to start with the first "non-big" pocket.
-			if( ( Item[ pSoldier -> inv[ HANDPOS ].usItem ].twohanded  ) && ( bPocket >= SMALLPOCKSTART ) )
+			if( (ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) && (bPocket >= SMALLPOCKSTART)))
 			{
 				// first move from hand to second hand
 				SwapObjs( pSoldier, HANDPOS, SECONDHANDPOS, TRUE );
@@ -11117,7 +11085,7 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionForFacilityMenu();
 	CreateDestroyMouseRegionsForFacilityAssignmentMenu();
 
-	if( ( ( Menptr[gCharactersList[ bSelectedInfoChar ].usSolID].stats.bLife == 0 )||( Menptr[gCharactersList[bSelectedInfoChar].usSolID].bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
+	if( ( ( gCharactersList[ bSelectedInfoChar ].usSolID->stats.bLife == 0 )||( gCharactersList[bSelectedInfoChar].usSolID->bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
 	{
 		// show basic assignment menu
 		ShowBox( ghRemoveMercAssignBox );
@@ -11486,7 +11454,7 @@ void ClearScreenMaskForMapScreenExit( void )
 	CreateDestroyMouseRegionsForPrisonerMenu( );
 }
 
-void CreateDestroyMouseRegions( void )
+static void CreateDestroyMouseRegions( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
@@ -11599,7 +11567,7 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 
 			return;
 		}
-		if( Menptr[gCharactersList[bSelectedContractChar].usSolID].stats.bLife == 0 )
+		if( gCharactersList[bSelectedContractChar].usSolID->stats.bLife == 0 )
 		{
 
 			// dead guy handle menu stuff
@@ -12703,7 +12671,7 @@ void RemoveMercMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
+static void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 {
 	// This function will setup the quote, then start dialogue beginning the actual leave sequence
 	if( ( pSoldier->stats.bLife > 0 ) && ( pSoldier->bAssignment != ASSIGNMENT_POW ) )
@@ -12806,7 +12774,7 @@ void BeginRemoveMercFromContract( SOLDIERTYPE *pSoldier )
 }
 
 
-void MercDismissConfirmCallBack( UINT8 bExitValue )
+static void MercDismissConfirmCallBack( UINT8 bExitValue )
 {
 	if ( bExitValue == MSG_BOX_RETURN_YES )
 	{
@@ -12828,7 +12796,7 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
-		pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 	}
 	else
 	{
@@ -12880,40 +12848,69 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 		switch( iValue )
 		{
-		case( CONTRACT_MENU_DAY ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_1_DAY );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_1_DAY );
+			case( CONTRACT_MENU_DAY ):
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i=0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_1_DAY);
+					}
+				}
+				else
+				{
+					MercContractHandling( pSoldier, CONTRACT_EXTEND_1_DAY );
+				}
 				fOkToClose = TRUE;
 			break;
 			case( CONTRACT_MENU_WEEK ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_1_WEEK );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_1_WEEK );
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i = 0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_1_WEEK);
+					}
+				}
+				else
+				{
+					MercContractHandling(pSoldier, CONTRACT_EXTEND_1_WEEK);
+				}
 				fOkToClose = TRUE;
 			break;
 			case( CONTRACT_MENU_TWO_WEEKS ):
-				MercContractHandling( pSoldier, CONTRACT_EXTEND_2_WEEK );
-				PostContractMessage( pSoldier, CONTRACT_EXTEND_2_WEEK );
+				if (gSelectedSoldiers.size() > 0)
+				{
+					for (size_t i = 0; i < gSelectedSoldiers.size(); ++i)
+					{
+						pSoldier = gSelectedSoldiers[i];
+						MercContractHandling(pSoldier, CONTRACT_EXTEND_2_WEEK);
+					}
+				}
+				else
+				{
+					MercContractHandling(pSoldier, CONTRACT_EXTEND_2_WEEK);
+				}
 				fOkToClose = TRUE;
 			break;
 
 			case( CONTRACT_MENU_TERMINATE ):
-		gpDismissSoldier = pSoldier;
+				gpDismissSoldier = pSoldier;
 
-		// If in the renewal sequence.. do right away...
-		// else put up requester.
-			if ( gfInContractMenuFromRenewSequence )
-		{
-			MercDismissConfirmCallBack( MSG_BOX_RETURN_YES );
-		}
-		else
-		{
-			// The game should be unpaused when this message box disappears
-			UnPauseGame();
-			DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
-		}
+				// If in the renewal sequence.. do right away...
+				// else put up requester.
+				if ( gfInContractMenuFromRenewSequence )
+				{
+					MercDismissConfirmCallBack( MSG_BOX_RETURN_YES );
+				}
+				else
+				{
+					// The game should be unpaused when this message box disappears
+					UnPauseGame();
+					DoMapMessageBox( MSG_BOX_BASIC_STYLE, gzLateLocalizedString[ 48 ], MAP_SCREEN, MSG_BOX_FLAG_YESNO, MercDismissConfirmCallBack );
+				}
 
-		fOkToClose = TRUE;
-
+				fOkToClose = TRUE;
 			break;
 		}
 
@@ -12930,13 +12927,12 @@ void ContractMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 		fGlowContractRegion = FALSE;
 		fShowContractMenu = FALSE;
 
-	// dirty region
+		// dirty region
 		fTeamPanelDirty = TRUE;
 		fMapScreenBottomDirty = TRUE;
 		fCharacterInfoPanelDirty = TRUE;
-	gfRenderPBInterface = TRUE;
+		gfRenderPBInterface = TRUE;
 	}
-
 
 	return;
 }
@@ -13742,6 +13738,75 @@ void PrisonerMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
+static void CheckForSurgery(SOLDIERTYPE *pSoldier)
+{
+	if ( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
+	{
+		SOLDIERTYPE *pBestMedic = NULL;
+		INT8 bSlot;
+
+		// Find the best doctor
+		SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+		const SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+		for ( ; id <= lastid; ++id )
+		{
+			SOLDIERTYPE *pMedic = id;
+			if ( !(pMedic->bActive) || !(pMedic->bInSector) || (pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE) || (pMedic->bAssignment == VEHICLE) )
+				continue; // is nowhere around!
+
+			if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR( pMedic->bAssignment ) )
+				continue; // cannot make surgery on self or not on the right assignment!	
+
+			bSlot = FindMedKit( pMedic );
+			if ( bSlot == NO_SLOT )
+				continue;// no medical kit!
+
+			if ( pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery) )
+			{
+				if ( pBestMedic != NULL )
+				{
+					if ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ) )
+						pBestMedic = pMedic;
+				}
+				else
+				{
+					pBestMedic = pMedic;
+				}
+			}
+		}
+
+		if ( pBestMedic != NULL )
+		{
+			CHAR16	zStr[200];
+			pAutomaticSurgeryDoctor = pBestMedic;
+			pAutomaticSurgeryPatient = pSoldier;
+
+			INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT )) / 10000;
+
+			// Flugente: check whether we have a bloodbag we can use
+			INT32 healwith_bloodbag = -1;
+			if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
+				healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * (gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT )) / 10000;
+
+			if ( healwith_bloodbag > healwithout_bloodbag )
+			{
+				swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
+
+				wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
+				wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
+				wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+				wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, (MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION), SurgeryBeforePatientingRequesterCallback );
+			}
+			else
+			{
+				swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
+				DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
+			}
+		}
+	}
+}
+
 void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 {
 	// btn callback handler for assignment region
@@ -13820,71 +13885,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 						
 						/////////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - added check for surgery
-						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
-						{
-							SOLDIERTYPE * pMedic = NULL;
-							SOLDIERTYPE * pBestMedic = NULL;
-							UINT8 cnt;
-							INT8 bSlot;
-
-							// Find the best doctor
-							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
-							{
-								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
-									continue; // is nowhere around!
-
-								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
-									continue; // cannot make surgery on self or not on the right assignment!	
-
-								bSlot = FindMedKit( pMedic );
-								if (bSlot == NO_SLOT)
-									continue;// no medical kit!
-
-								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
-								{
-									if (pBestMedic != NULL)
-									{
-										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
-											pBestMedic = pMedic;
-									}
-									else
-									{
-										pBestMedic = pMedic;
-									}
-								}
-							}
-
-							if (pBestMedic != NULL)
-							{
-								CHAR16	zStr[200];
-								pAutomaticSurgeryDoctor = pBestMedic;
-								pAutomaticSurgeryPatient = pSoldier;
-
-								INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								// Flugente: check whether we have a bloodbag we can use
-								INT32 healwith_bloodbag = -1;
-								if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
-									healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								if ( healwith_bloodbag > healwithout_bloodbag )
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
-
-									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
-									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
-									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
-								}
-								else
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
-								}
-							}
-						}
+						CheckForSurgery( pSoldier );
 						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
@@ -14102,71 +14103,7 @@ void AssignmentMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 
 						/////////////////////////////////////////////////////////////////////////////////////////
 						// SANDRO - added check for surgery
-						if( pSoldier->iHealableInjury >= 100 && gGameOptions.fNewTraitSystem ) // if we can heal at least one life point
-						{
-							SOLDIERTYPE * pMedic = NULL;
-							SOLDIERTYPE * pBestMedic = NULL;
-							UINT8 cnt;
-							INT8 bSlot;
-
-							// Find the best doctor
-							cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-							for ( pMedic = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; cnt++,pMedic++)
-							{
-								if ( !(pMedic->bActive) || !(pMedic->bInSector) || ( pMedic->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pMedic->bAssignment == VEHICLE ) )
-									continue; // is nowhere around!
-
-								if ( (pSoldier->ubID == pMedic->ubID) || !IS_DOCTOR(pMedic->bAssignment) )
-									continue; // cannot make surgery on self or not on the right assignment!
-
-								bSlot = FindMedKit( pMedic );
-								if (bSlot == NO_SLOT)
-									continue;// no medical kit!
-
-								if (pMedic->stats.bLife >= OKLIFE && !(pMedic->bCollapsed) && pMedic->stats.bMedical > 0 && ( NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) >= gSkillTraitValues.ubDONumberTraitsNeededForSurgery ))
-								{
-									if (pBestMedic != NULL)
-									{
-										if (NUM_SKILL_TRAITS( pMedic, DOCTOR_NT ) > NUM_SKILL_TRAITS( pBestMedic, DOCTOR_NT ))
-											pBestMedic = pMedic;
-									}
-									else
-									{
-										pBestMedic = pMedic;
-									}
-								}
-							}
-
-							if (pBestMedic != NULL)
-							{
-								CHAR16	zStr[200];
-								pAutomaticSurgeryDoctor = pBestMedic;
-								pAutomaticSurgeryPatient = pSoldier;
-								
-								INT32 healwithout_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								// Flugente: check whether we have a bloodbag we can use
-								INT32 healwith_bloodbag = -1;
-								if ( gSkillTraitValues.ubDOSurgeryHealPercentBloodbag > 0 && pAutomaticSurgeryDoctor->GetObjectWithItemFlag( BLOOD_BAG ) != NULL )
-									healwith_bloodbag = pAutomaticSurgeryPatient->iHealableInjury * ( gSkillTraitValues.ubDOSurgeryHealPercentBase + gSkillTraitValues.ubDOSurgeryHealPercentBloodbag + gSkillTraitValues.ubDOSurgeryHealPercentOnTop * NUM_SKILL_TRAITS( pAutomaticSurgeryDoctor, DOCTOR_NT ) ) / 10000;
-
-								if ( healwith_bloodbag > healwithout_bloodbag )
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_DOCTOR_ASSIGNMENT_BLOODBAG], pAutomaticSurgeryPatient->GetName(), healwithout_bloodbag, healwith_bloodbag );
-									
-									wcscpy( gzUserDefinedButton[0], New113Message[MSG113_BLOODBAGOPTIONS_YESSTAR] );
-									wcscpy( gzUserDefinedButton[1], New113Message[MSG113_BLOODBAGOPTIONS_YES] );
-									wcscpy( gzUserDefinedButton[2], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									wcscpy( gzUserDefinedButton[3], New113Message[MSG113_BLOODBAGOPTIONS_NO] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, ( MSG_BOX_FLAG_GENERIC_FOUR_BUTTONS | MSG_BOX_BUTTONS_HORIZONTAL_ORIENTATION ), SurgeryBeforePatientingRequesterCallback );
-								}
-								else
-								{
-									swprintf( zStr, New113Message[MSG113_SURGERY_BEFORE_PATIENT_ASSIGNMENT] );
-									DoMapMessageBox( MSG_BOX_BASIC_STYLE, zStr, MAP_SCREEN, MSG_BOX_FLAG_YESNO, SurgeryBeforePatientingRequesterCallback );
-								}
-							}
-						}
+						CheckForSurgery( pSoldier );
 						/////////////////////////////////////////////////////////////////////////////////////////
 					}
 				break;
@@ -14724,14 +14661,6 @@ void HandleShadingOfLinesForSquadMenu( void )
 }
 
 
-void PostContractMessage( SOLDIERTYPE *pCharacter, INT32 iContract )
-{	
-	// send a message stating that offer of contract extension made
-	//MapScreenMessage(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Offered to extend %s's contract by another %s.", pCharacter->GetName(), pContractExtendStrings[ iContract ] );
-
-	return;
-}
-
 BOOLEAN DisplayVehicleMenu( SOLDIERTYPE *pSoldier )
 {
 	BOOLEAN fVehiclePresent=FALSE;
@@ -15183,8 +15112,9 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  CHAR16 sString[ 50 ];
  CHAR16 sDollarString[ 50 ];
 
- ContractPosition.iX = (SCREEN_WIDTH - INTERFACE_WIDTH)/2 + OrigContractPosition.iX;
- ContractPosition.iY = yResOffset + OrigContractPosition.iY;
+ GetMousePos(&ContractPosition);
+ // Shift X-position to clear the mouse
+ ContractPosition.iX += 15;
 
  if( giBoxY != 0 )
  {
@@ -15223,14 +15153,12 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].sSalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].sSalary).data() );
 				}
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15238,15 +15166,13 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].uiWeeklySalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].uiWeeklySalary).data() );
 				}
 
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString );
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15254,16 +15180,14 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
 				if( pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC )
 				{
-					swprintf( sDollarString, L"%d", 0 );
+					swprintf( sDollarString, L"%s", FormatMoney(0).data() );
 				}
 				else
 				{
-					swprintf( sDollarString, L"%d", gMercProfiles[ pCharacter->ubProfile ].uiBiWeeklySalary );
+					swprintf( sDollarString, L"%s", FormatMoney(gMercProfiles[ pCharacter->ubProfile ].uiBiWeeklySalary).data() );
 				}
 
 
-				InsertCommasForDollarFigure( sDollarString );
-				InsertDollarSignInToString( sDollarString );
 				swprintf( sString, L"%s ( %s )",	pContractStrings[uiCounter], sDollarString);
 				AddMonoString(&hStringHandle, sString);
 			break;
@@ -15294,6 +15218,129 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
  ResizeBoxToText( ghContractBox );
 
 }
+
+
+void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT32 BiweeklySalaries)
+{
+	UINT32 hStringHandle;
+	UINT32 uiCounter;
+	CHAR16 sString[50];
+	CHAR16 sDollarString[50];
+
+	// rebuild contractbox for this merc
+	RemoveBox(ghContractBox);
+	ghContractBox = -1;
+	fShowContractMenu = TRUE;
+
+	GetMousePos(&ContractPosition);
+	// Shift X-position to clear the mouse
+	ContractPosition.iX += 15;
+
+	if (giBoxY != 0)
+	{
+		ContractPosition.iX = giBoxY;
+	}
+
+	CreatePopUpBox(&ghContractBox, ContractDimensions, ContractPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_RESIZE));
+	SetBoxBuffer(ghContractBox, FRAME_BUFFER);
+	SetBorderType(ghContractBox, guiPOPUPBORDERS);
+	SetBackGroundSurface(ghContractBox, guiPOPUPTEX);
+	SetMargins(ghContractBox, 6, 6, 4, 4);
+	SetLineSpace(ghContractBox, 2);
+
+	// set current box to this one
+	SetCurrentBox(ghContractBox);
+
+	// not null character?
+	//if (pCharacter != NULL)
+	{
+		for (uiCounter = 0; uiCounter < MAX_CONTRACT_MENU_STRING_COUNT; uiCounter++)
+		{
+			switch (uiCounter)
+			{
+			case(CONTRACT_MENU_CURRENT_FUNDS):
+				/*
+								// add current balance after title string
+								swprintf( sDollarString, L"%d", LaptopSaveInfo.iCurrentBalance);
+								InsertCommasForDollarFigure( sDollarString );
+								InsertDollarSignInToString( sDollarString );
+								swprintf( sString, L"%s %s",	pContractStrings[uiCounter], sDollarString );
+								AddMonoString(&hStringHandle, sString);
+				*/
+				AddMonoString(&hStringHandle, pContractStrings[uiCounter]);
+				break;
+			case(CONTRACT_MENU_DAY):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%s", FormatMoney(DailySalaries).data() );
+				}
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			case(CONTRACT_MENU_WEEK):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%s", FormatMoney(WeeklySalaries).data());
+				}
+
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			case(CONTRACT_MENU_TWO_WEEKS):
+
+				//if (pCharacter->ubWhatKindOfMercAmI != MERC_TYPE__AIM_MERC)
+				//{
+				//	swprintf(sDollarString, L"%d", 0);
+				//}
+				//else
+				{
+					swprintf(sDollarString, L"%s", FormatMoney(BiweeklySalaries).data());
+				}
+
+
+				swprintf(sString, L"%s ( %s )", pContractStrings[uiCounter], sDollarString);
+				AddMonoString(&hStringHandle, sString);
+				break;
+			default:
+				AddMonoString(&hStringHandle, pContractStrings[uiCounter]);
+				break;
+			}
+			UnHighLightLine(hStringHandle);
+		}
+	}
+
+
+	SetBoxFont(ghContractBox, MAP_SCREEN_FONT);
+	SetBoxHighLight(ghContractBox, FONT_WHITE);
+	SetBoxForeground(ghContractBox, FONT_LTGREEN);
+	SetBoxBackground(ghContractBox, FONT_BLACK);
+
+	// shaded color..for darkened text
+	SetBoxShade(ghContractBox, FONT_GRAY7);
+
+	//if (pCharacter != NULL)
+	{
+		// now set the color for the current balance value
+		SetBoxLineForeground(ghContractBox, 0, FONT_YELLOW);
+	}
+
+	// resize box to text
+	ResizeBoxToText(ghContractBox);
+
+	fTeamPanelDirty = TRUE;
+	fCharacterInfoPanelDirty = TRUE;
+}
+
 
 void CreateAttributeBox( void )
 {
@@ -18251,7 +18298,6 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	UINT8 ubNumberOfSelectedSoldiers = 0;
-	CHAR16 sString[ 128 ];
 	
 	for( iCounter = 0; iCounter < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; ++iCounter )
 	{
@@ -18261,7 +18307,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		if( gCharactersList[ iCounter ].fValid )
 		{
 			// get the soldier pointer
-			pSoldier = &Menptr[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( pSoldier->bActive == FALSE )
 			{
@@ -18273,7 +18319,7 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 				continue;
 			}
 
-			if( IsEntryInSelectedListSet( ( INT8 )iCounter ) == FALSE )
+			if( IsEntryInSelectedListSet( iCounter ) == FALSE )
 			{
 				continue;
 			}
@@ -18306,27 +18352,10 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 		}
 	}
 
-	// if there was anyone processed, check for success and inform player of failure
-	if( ubNumberOfSelectedSoldiers )
+	if( ubNumberOfSelectedSoldiers && !fSuccess && fDisplayWarning )
 	{
-		if( fSuccess == FALSE )
-		{
-			if( fWakeUp )
-			{
-				// inform player not everyone could be woke up
-				swprintf( sString, pMapErrorString[ 27 ] );
-			}
-			else
-			{
-				// inform player not everyone could be put to sleep
-				swprintf( sString, pMapErrorString[ 26 ]);
-			}
-
-			if( fDisplayWarning )
-			{
-				DoScreenIndependantMessageBox( sString, MSG_BOX_FLAG_OK, NULL);
-			}
-		}
+		// inform player not everyone could be woke up or put to sleep
+		DoScreenIndependantMessageBox(fWakeUp ? pMapErrorString[27] : pMapErrorString[26], MSG_BOX_FLAG_OK, NULL);
 	}
 
 	return( fSuccess );
@@ -18334,12 +18363,12 @@ BOOLEAN HandleSelectedMercsBeingPutAsleep( BOOLEAN fWakeUp, BOOLEAN fDisplayWarn
 
 BOOLEAN IsAnyOneOnPlayersTeamOnThisAssignment( INT8 bAssignment )
 {
-	SOLDIERTYPE *pSoldier = NULL;
-	
-	for( INT32 iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++iCounter )
+	SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[OUR_TEAM].bLastID;
+	for( ; id <= lastid; ++id)
 	{
 		// get the current soldier
-		pSoldier = &Menptr[ iCounter ];
+		SOLDIERTYPE *pSoldier = id;
 
 		// active?
 		if( pSoldier->bActive == FALSE )
@@ -18370,7 +18399,6 @@ void RebuildAssignmentsBox( void )
 
 void BandageBleedingDyingPatientsBeingTreated( )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 	SOLDIERTYPE *pDoctor = NULL;
 	INT32 iKitSlot;
@@ -18379,10 +18407,10 @@ void BandageBleedingDyingPatientsBeingTreated( )
 	UINT32 uiKitPtsUsed;
 	BOOLEAN fSomeoneStillBleedingDying = FALSE;
 	
-	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// check if the soldier is currently active?
 		if( pSoldier->bActive == FALSE )
@@ -18662,7 +18690,7 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 	{
 		if( gCharactersList[ bSelectedAssignChar ].fValid == TRUE )
 		{
-			pSelectedSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];
+			pSelectedSoldier = gCharactersList[ bSelectedAssignChar ].usSolID;
 		}
 	}
 
@@ -18674,9 +18702,9 @@ void SetAssignmentForList( INT8 bAssignment, INT8 bParam )
 		if( ( gCharactersList[ iCounter ].fValid ) &&
 				( fSelectedListOfMercsForMapScreen[ iCounter ] == TRUE ) &&
 				( iCounter != bSelectedAssignChar ) &&
-				!(Menptr[ gCharactersList[ iCounter ].usSolID].flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+				!(gCharactersList[ iCounter ].usSolID->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 		{
-			pSoldier = MercPtrs[ gCharactersList[ iCounter ].usSolID ];
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			// assume it's NOT gonna work
 			fItWorked = FALSE;
@@ -19471,13 +19499,13 @@ SOLDIERTYPE *GetSelectedAssignSoldier( BOOLEAN fNullOK, BOOLEAN fReturnVehicleDr
 		if( ( bSelectedAssignChar >= 0 ) && ( bSelectedAssignChar < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS ) &&
 				( gCharactersList[ bSelectedAssignChar ].fValid ) )
 		{
-			pSoldier = &Menptr[ gCharactersList[ bSelectedAssignChar ].usSolID ];
+			pSoldier = gCharactersList[ bSelectedAssignChar ].usSolID;
 		}
 	}
 	else
 	{
 		// tactical version
-		pSoldier = &Menptr[ gusUIFullTargetID ];
+		pSoldier = gusUIFullTargetID;
 	}
 
 	if ( !fNullOK )
@@ -19516,7 +19544,7 @@ void ResumeOldAssignment( SOLDIERTYPE *pSoldier )
 void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 {
 	UINT8 ubPassType;
-	INT8 bLoop;
+	UINT16 bLoop;
 	SOLDIERTYPE * pOtherSoldier;
 	SOLDIERTYPE * pBestOtherSoldier;
 	INT8 bPriority, bBestPriority = -1;
@@ -19528,9 +19556,11 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 		fSomethingWasRepairedThisPass = FALSE;
 		
 		// look for jammed guns on other soldiers in sector and unjam them
-		for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+		SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; id <= lastid; ++id )
 		{
-			pOtherSoldier = MercPtrs[ bLoop ];
+			pOtherSoldier = id;
 
 			// check character is valid, alive, same sector, not between, has inventory, etc.
 			if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
@@ -19548,9 +19578,11 @@ void RepairItemsOnOthers( SOLDIERTYPE *pSoldier, UINT8 *pubRepairPtsLeft )
 			pBestOtherSoldier = NULL;
 
 			// now look for items to repair on other mercs
-			for( bLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; bLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++bLoop )
+			SoldierID id = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			const SoldierID lastid = gTacticalStatus.Team[gbPlayerNum].bLastID;
+			for ( ; id <= lastid; ++id )
 			{
-				pOtherSoldier = MercPtrs[ bLoop ];
+				pOtherSoldier = id;
 
 				// check character is valid, alive, same sector, not between, has inventory, etc.
 				if ( CanCharacterRepairAnotherSoldiersStuff( pSoldier, pOtherSoldier ) )
@@ -19934,7 +19966,7 @@ BOOLEAN FindAnyAwakeTrainers( SOLDIERTYPE *pTrainee )
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainer = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pTrainer = gCharactersList[ ubCounter ].usSolID;
 			
 		// Is trainer awake?
 		if (pTrainer->bAssignment == TRAIN_TEAMMATE && pTrainer->bTrainStat == pTrainee->bTrainStat && 
@@ -19970,7 +20002,7 @@ BOOLEAN FindAnyAwakeTrainees( SOLDIERTYPE *pTrainer )
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pTrainee = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pTrainee = gCharactersList[ ubCounter ].usSolID;
 			
 		// Is trainee awake?
 		if (pTrainee->bAssignment == TRAIN_BY_OTHER && pTrainee->bTrainStat == pTrainer->bTrainStat && 
@@ -20913,7 +20945,7 @@ INT8 CountFreeFacilitySlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilityType )
 		// Count number of people doing anything at this facility.
 		while(gCharactersList[ubCounter].fValid)
 		{
-			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 			// Is character operating this facility?
 			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
@@ -20956,7 +20988,7 @@ INT8 CountFreeFacilityAssignmentSlots( UINT8 sMapX, UINT8 sMapY, UINT8 ubFacilit
 		// Count number of people doing this assignment at this facility.
 		while(gCharactersList[ubCounter].fValid)
 		{
-			pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+			pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 			// Is character operating this facility?
 			if( (UINT8)pSoldier->sFacilityTypeOperated == ubFacilityType &&
@@ -21339,7 +21371,7 @@ void PayFacilityCostsYesNoBoxCallback( UINT8 bExitValue )
 }
 
 // HEADROCK HAM 3.6: Callback on agreeing to pay off facility debts before you can assign another character to facility work.
-void PayFacilityDebtManuallyYesNoBoxCallback( UINT8 bExitValue )
+static void PayFacilityDebtManuallyYesNoBoxCallback( UINT8 bExitValue )
 {
 	// This callback should only be called if the player can pay off the ENTIRE debt!!
 	Assert( LaptopSaveInfo.iCurrentBalance >= giTotalOwedForFacilityOperationsToday );
@@ -21382,7 +21414,7 @@ void ResetAllExpensiveFacilityAssignments()
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// Is character doing facility work?
 		INT8 ubAssignmentIndex = GetSoldierFacilityAssignmentIndex( pSoldier );
@@ -22733,11 +22765,11 @@ BOOLEAN MercStaffsMilitaryHQ()
 		return TRUE;
 
 	SOLDIERTYPE *pSoldier = NULL;
-	UINT32 uiCnt = 0;
-	UINT32 firstid = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT32 lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( uiCnt = firstid, pSoldier = MercPtrs[ uiCnt ]; uiCnt <= lastid; ++uiCnt, ++pSoldier)
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid  = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; id <= lastid; ++id)
 	{
+		pSoldier = id;
 		if( pSoldier && pSoldier->bAssignment == FACILITY_STRATEGIC_MILITIA_MOVEMENT && pSoldier->flags.fMercAsleep == FALSE )
 		{
 			return TRUE;

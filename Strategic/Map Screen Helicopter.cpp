@@ -1,48 +1,41 @@
-	#include "Map Screen Helicopter.h"
-	#include "LaptopSave.h"
-	#include "Vehicles.h"
-	#include "Finances.h"
-	#include "Quests.h"
-	#include "Game Clock.h"
-	#include "strategic.h"
-	#include "Queen Command.h"
-	#include "Strategic Pathing.h"
-	#include "Random.h"
-	#include "Game Event Hook.h"
-	#include "String.h"
-	#include "Dialogue Control.h"
-	#include "Message.h"
-	#include "Strategic Movement.h"
-	#include "Soldier Profile.h"
-	#include "Assignments.h"
-	#include "PreBattle Interface.h"
-	#include "strategicmap.h"
-	#include "worlddef.h"
-	#include "worldman.h"
-	#include "tiledat.h"
-	#include "Map Screen Interface.h"
-	#include "Text.h"
-	#include "Squads.h"
-	#include "Player Command.h"
-	#include "Sound Control.h"
-	#include "GameSettings.h"
-	#include "meanwhile.h"
-	#include "Map Screen Interface Border.h"
-	#include "Strategic Event Handler.h"
-	#include "Overhead.h"
-	#include "Soldier Create.h"
-	#include "renderworld.h"
-	#include "soundman.h"
-	#include "Isometric Utils.h"
-	#include "Scheduling.h"
-	// HEADROCK HAM 3.5: Added facility-based skyrider costs modifier
-	#include "Facilities.h"
-	#include "Debug Control.h"
-	#include "expat.h"
-	#include "merc entering.h"	// added by Flugente
-	#include "ASD.h"			// added by Flugente
-
+#include "Map Screen Helicopter.h"
+#include "LaptopSave.h"
 #include "Vehicles.h"
+#include "finances.h"
+#include "Quests.h"
+#include "Game Clock.h"
+#include "strategic.h"
+#include "Queen Command.h"
+#include "Strategic Pathing.h"
+#include "random.h"
+#include "Game Event Hook.h"
+#include "string.h"
+#include "Dialogue Control.h"
+#include "message.h"
+#include "Strategic Movement.h"
+#include "Soldier Profile.h"
+#include "Assignments.h"
+#include "strategicmap.h"
+#include "worlddef.h"
+#include "worldman.h"
+#include "Map Screen Interface.h"
+#include "Text.h"
+#include "Squads.h"
+#include "Sound Control.h"
+#include "GameSettings.h"
+#include "Meanwhile.h"
+#include "Map Screen Interface Border.h"
+#include "Overhead.h"
+#include "Soldier Create.h"
+#include "renderworld.h"
+#include "Isometric Utils.h"
+#include "Scheduling.h"
+// HEADROCK HAM 3.5: Added facility-based skyrider costs modifier
+#include "Facilities.h"
+#include "Debug Control.h"
+#include "expat.h"
+#include "merc entering.h"	// added by Flugente
+#include "ASD.h"			// added by Flugente
 #include "NPC.h"
 #include "history.h"
 
@@ -72,7 +65,7 @@
 #define HELICOPTER_RETURN_REASON_DAMAGE 2
 
 extern FACETYPE	*gpCurrentTalkingFace;
-extern UINT8			gubCurrentTalkingID;
+extern UINT16			gubCurrentTalkingID;
 
 // current temp path for dest char
 extern PathStPtr pTempHelicopterPath;
@@ -510,7 +503,7 @@ BOOLEAN ReadInHeliInfo(STR fileName)
 	return TRUE;
 }
 
-BOOLEAN WriteInInfo(STR fileName)
+static BOOLEAN WriteInInfo(STR fileName)
 {
 	HWFILE		hFile;
 
@@ -1278,8 +1271,7 @@ void LandHelicopter( void )
 	else
 	{
 #ifdef JA2UB
-		Assert( 0 );
-//No meanwhiles
+		//No meanwhiles in UB
 #else
 		// play meanwhile scene if it hasn't been used yet
 		HandleKillChopperMeanwhileScene();
@@ -2447,7 +2439,7 @@ BOOLEAN WillAirRaidBeStopped( INT16 sSectorX, INT16 sSectorY )
 	return( FALSE );
 }
 
-void HeliCrashSoundStopCallback( void *pData )
+static void HeliCrashSoundStopCallback( void *pData )
 {
 	SkyriderDestroyed( );
 }
@@ -2590,7 +2582,7 @@ BOOLEAN CanHelicopterTakeOff( void )
 	return( FALSE );
 }
 
-void AddHeliPiece( INT32 iGridNo, UINT16 sOStruct )
+static void AddHeliPiece( INT32 iGridNo, UINT16 sOStruct )
 {
 	UINT16 usDummy;
 

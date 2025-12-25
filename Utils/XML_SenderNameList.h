@@ -1,7 +1,7 @@
 #ifndef _XML_SENDERNAMELIST_H
 #define _XML_SENDERNAMELIST_H
 
-#include "Types.h"
+#include "types.h"
 
 #define MAX_SENDER_NAMES_CHARS 128
 

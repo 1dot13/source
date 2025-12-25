@@ -8,10 +8,10 @@
 	#include <wchar.h>
 	#include "sgp.h"
 	#include "pcx.h"
-	#include "memman.h"
-	#include "fileman.h"
+	#include "MemMan.h"
+	#include "FileMan.h"
 	#include "Font.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 
 	#include "video.h"
 
@@ -1042,15 +1042,7 @@ UINT8				*pDestBuf;
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferMonoShadowClip(pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground8, FontBackground8);
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
-		}
+		Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 
@@ -1156,15 +1148,7 @@ UINT8				*pDestBuf;
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
+		Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 
@@ -1214,15 +1198,7 @@ UINT8				*pDestBuf;
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
+		Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 
@@ -1271,15 +1247,7 @@ CHAR16	string[512];
 			desty+=GetHeight(FontObjs[FontType], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
-		}
+		Blt8BPPDataTo16BPPBufferTransparentClip( (UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion );
 
 		destx+=GetWidth(FontObjs[FontType], transletter);
 	}
@@ -1323,15 +1291,7 @@ CHAR16	string[512];
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferMonoShadowClip(pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground8, FontBackground8);
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
-		}
+		Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 
@@ -1390,15 +1350,7 @@ UINT16	usOldForeColor;
 			desty+=GetHeight(FontObjs[FontDefault], transletter);
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferMonoShadowClip(pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground8, FontBackground8);
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
-		}
+		Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 
@@ -1469,15 +1421,7 @@ UINT8				*pDestBuf;
 			return 0;
 		}
 
-		// Blit directly
-		if ( gbPixelDepth == 8 )
-		{
-			Blt8BPPDataTo8BPPBufferMonoShadowClip(pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground8, FontBackground8);
-		}
-		else
-		{
-			Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
-		}
+		Blt8BPPDataTo16BPPBufferMonoShadowClip((UINT16*)pDestBuf, uiDestPitchBYTES, FontObjs[FontDefault], destx, desty, transletter, &FontDestRegion, FontForeground16, FontBackground16, FontShadow16 );
 		destx+=GetWidth(FontObjs[FontDefault], transletter);
 	}
 

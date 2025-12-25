@@ -1,12 +1,12 @@
 	#include "sgp.h"
 	#include "screenids.h"
 	#include "Timer Control.h"
-	#include "sys globals.h"
-	#include "fade screen.h"
+	#include "Sys Globals.h"
+	#include "Fade Screen.h"
 	#include "sysutil.h"
 	#include "vobject_blitters.h"
-	#include "cursor control.h"
-	#include "music control.h"
+	#include "Cursor Control.h"
+	#include "Music Control.h"
 	#include "Render Dirty.h"
 	#include "gameloop.h"
 
@@ -681,13 +681,9 @@ BOOLEAN UpdateSaveBufferWithBackbuffer(void)
 	pSrcBuf = LockVideoSurface(FRAME_BUFFER, &uiSrcPitchBYTES);
 	pDestBuf = LockVideoSurface(guiSAVEBUFFER, &uiDestPitchBYTES);
 
-	if(gbPixelDepth==16)
-	{
-		// BLIT HERE
-		Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
-					(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
-					0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
-	}
+	Blt16BPPTo16BPP((UINT16 *)pDestBuf, uiDestPitchBYTES,
+				(UINT16 *)pSrcBuf, uiSrcPitchBYTES,
+				0, 0, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 	UnLockVideoSurface(FRAME_BUFFER);
 	UnLockVideoSurface(guiSAVEBUFFER);

@@ -3,16 +3,14 @@
 	#include "laptop.h"
 	#include "worlddef.h"
 	#include "Soldier Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "email.h"
 	#include "Game Clock.h"
-	#include "soldier profile.h"
+	#include "Soldier Profile.h"
 	#include "strategicmap.h"
-	#include "game init.h"
-	#include "animation data.h"
+	#include "Game Init.h"
 	#include "finances.h"
-	#include "soldier create.h"
-	#include "Soldier Init List.h"
+	#include "Soldier Create.h"
 	#include "strategic.h"
 	#include "history.h"
 	#include "merc entering.h"
@@ -21,52 +19,45 @@
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
 	#include "gameloop.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
 	#include "Campaign Types.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Game Event Hook.h"
 	#include "Strategic Movement.h"
 	#include "Creature Spreading.h"
 	#include "Quests.h"
 	#include "Strategic AI.h"
-	#include "Laptopsave.h"
 	#include "AimMembers.h"
-	#include "dialogue control.h"
-	#include "npc.h"
+	#include "Dialogue Control.h"
+	#include "NPC.h"
 	#include "GameSettings.h"
-	#include "interface dialogue.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Helicopter.h"
 	#include "Vehicles.h"
 	#include "Map Screen Interface Map.h"
 	#include "PreBattle Interface.h"
-	#include "bobbyr.h"
-	#include "helpscreen.h"
+	#include "BobbyR.h"
+	#include "HelpScreen.h"
 	#include "Air Raid.h"
 	#include "Interface.h"
-	#include "cheats.h"
+	#include "Cheats.h"
 	#include "Interface Panels.h"
 	// HEADROCK HAM 3.6: Include for adding facility debt reset
 	#include "Facilities.h"
 	// HEADROCK HAM 4: Include for initializing Manual Restrictions
-	#include "MilitiaSquads.h"
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "CampaignStats.h"						// added by Flugente
 	#include "PMC.h"								// added by Flugente
-	#include "ASD.h"								// added by Flugente
 	#include "MiniEvents.h"
 	#include "Rebel Command.h"
 	#include "World Items.h"
 
-#include "Vehicles.h"
-#include "text.h"
 #include "connect.h"
 #include "XML.h"
 #include "mercs.h"
 #include "aim.h"
-#include "Map Screen Interface.h"
 #ifdef JA2UB
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"
@@ -105,14 +96,14 @@ UINT8 gubCheatLevel = STARTING_CHEAT_LEVEL;
 UINT8			gubScreenCount=0;
 
 #ifdef JA2UB
-void InitCustomStrategicLayer ( void )
+static void InitCustomStrategicLayer ( void )
 {
 	LetLuaGameInit(2); //load custom InitStrategicLayer
 }
 
 #endif
 
-void InitNPCs( void )
+static void InitNPCs( void )
 {		
 
 #ifdef LUA_GAME_INIT_NPCS
@@ -842,19 +833,14 @@ fFirstTimeInMapScreen = TRUE;
 
 BOOLEAN AnyMercsHired( )
 {
-	INT32 cnt;
-	SOLDIERTYPE		*pTeamSoldier;
-	INT16				bLastTeamID;
-
-	// Find first guy availible in team
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	// Find first guy available in team
+	SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= bLastTeamID; cnt++,pTeamSoldier++)
+	for ( ; id <= bLastTeamID; ++id)
 	{
-		if ( pTeamSoldier->bActive )
+		if ( id->bActive )
 		{
 			return( TRUE );
 		}

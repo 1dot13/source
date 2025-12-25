@@ -1,7 +1,7 @@
 #ifndef _ROTTING_CORPSES_H
 #define _ROTTING_CORPSES_H
 
-#include "tile animation.h"
+#include "Tile Animation.h"
 
 #define	NUM_CORPSE_SHADES		17
 #define CORPSE_WARNING_MAX 5
@@ -241,5 +241,7 @@ BOOLEAN CorpseOkToDress( ROTTING_CORPSE* pCorpse );
 
 // Flugente: how rotten is this corpse? values from 0 to 1, 1 as soon as it is rotting
 FLOAT GetCorpseRotFactor( ROTTING_CORPSE* pCorpse );
+
+void CheckForZombieMusic();
 
 #endif

@@ -3,20 +3,20 @@
 	#include <stdio.h>
 	#include <string.h>
 	#include "stdlib.h"
-	#include "debug.h"
-	#include "weapons.h"
+	#include "DEBUG.H"
+	#include "Weapons.h"
 	#include "handle items.h"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "animation control.h"
-	#include "tile animation.h"
+	#include "Animation Control.h"
+	#include "Tile Animation.h"
 	#include "handle items.h"
-	#include "smokeeffects.h"
+	#include "SmokeEffects.h"
 	#include "message.h"
-	#include "isometric utils.h"
+	#include "Isometric Utils.h"
 	#include "renderworld.h"
-	#include "explosion control.h"
-	#include "Random.h"
+	#include "Explosion Control.h"
+	#include "random.h"
 	#include "Game Clock.h"
 	#include "opplist.h"
 	#include "Campaign Types.h"
@@ -27,7 +27,7 @@
 	#include "Render Fun.h"
 
 #include "SaveLoadGame.h"
-#include "debug control.h"
+#include "Debug Control.h"
 
 #include "connect.h"
 
@@ -192,7 +192,7 @@ UINT16 FromSmokeTypeToWorldFlags( INT8 bType )
 
 
 
-INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOL fFromRemoteClient )
+INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOL fFromRemoteClient )
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;
@@ -204,14 +204,14 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 	// OJW - 20091027 - Syncronising smoke effect start for multiplayer
 	if (is_networked && is_client)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[ubOwner];
+		SOLDIERTYPE* pSoldier = ubOwner;
 		if (pSoldier != NULL)
 		{
 			if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
 			{
 				// let all the other clients know we are spawning this effect
 				// and align them with our random number generator
-				send_newsmokeeffect(sGridNo,usItem,ubOwner,bLevel,iSmokeIndex);
+				send_newsmokeeffect(sGridNo, usItem, bLevel, ubOwner, iSmokeIndex);
 			}
 			else if (!fFromRemoteClient)
 			{
@@ -222,7 +222,7 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 		}
 #ifdef JA2BETAVERSION
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString,"NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n",sGridNo, usItem , ubOwner , bLevel , iSmokeIndex );
+		sprintf(tmpMPDbgString,"NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n",sGridNo, usItem , ubOwner.i , bLevel , iSmokeIndex );
 		MPDebugMsg(tmpMPDbgString);
 		gfMPDebugOutputRandoms = true;
 #endif
@@ -327,12 +327,12 @@ INT32 NewSmokeEffect( INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, 
 	}
 
 	// ATE: FALSE into subsequent-- it's the first one!
-	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex , fFromRemoteClient , TRUE );
+	SpreadEffect( pSmoke->sGridNo, pSmoke->ubRadius, pSmoke->usItem, pSmoke->ubOwner, FALSE, bLevel, iSmokeIndex, fFromRemoteClient, TRUE );
 
 	return( iSmokeIndex );
 }
 
-INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
+INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOLEAN fFromRemoteClient, UINT8 ubDuration, UINT8 ubRadius, UINT8 ubGeneration)
 {
 	SMOKEEFFECT *pSmoke;
 	INT32		iSmokeIndex;
@@ -348,14 +348,14 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, B
 	// OJW - 20091027 - Synchronizing smoke effect start for multiplayer
 	if (is_networked && is_client)
 	{
-		SOLDIERTYPE* pSoldier = MercPtrs[ubOwner];
+		SOLDIERTYPE* pSoldier = ubOwner;
 		if (pSoldier != NULL)
 		{
 			if (pSoldier->bTeam == 0 || (pSoldier->bTeam == 1 && is_server))
 			{
 				// let all the other clients know we are spawning this effect
 				// and align them with our random number generator
-				send_newsmokeeffect(sGridNo, usItem, ubOwner, bLevel, iSmokeIndex);
+				send_newsmokeeffect(sGridNo, usItem, bLevel, ubOwner, iSmokeIndex);
 			}
 			else if (!fFromRemoteClient)
 			{
@@ -366,7 +366,7 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, UINT8 ubOwner, B
 		}
 #ifdef JA2BETAVERSION
 		CHAR tmpMPDbgString[512];
-		sprintf(tmpMPDbgString, "NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n", sGridNo, usItem, ubOwner, bLevel, iSmokeIndex);
+		sprintf(tmpMPDbgString, "NewSmokeEffect ( sGridNo : %i ,  usItem : %i , ubOwner : %i , bLevel : %i , iSmokeEffectID : %i )\n", sGridNo, usItem, ubOwner.i, bLevel, iSmokeIndex);
 		MPDebugMsg(tmpMPDbgString);
 		gfMPDebugOutputRandoms = true;
 #endif

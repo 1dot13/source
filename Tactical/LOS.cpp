@@ -1,51 +1,42 @@
 #include "connect.h"
 #include "builddefines.h"
 #include <stdio.h>
-
-#include <memory.h>
 #include <math.h>
-#include "wcheck.h"
+#include "WCheck.h"
 #include "Isometric Utils.h"
-#include "debug.h"
-#include "los.h"
-#include "animation control.h"
-#include "Random.h"
-//#include "soldier control.h"
+#include "DEBUG.H"
+#include "LOS.h"
+#include "Animation Control.h"
+#include "random.h"
 #include "Event Pump.h"
-#include "overhead.h"
-#include "weapons.h"
-
+#include "Overhead.h"
+#include "Weapons.h"
 #include "opplist.h"
-#include "bullets.h"
-
+#include "Bullets.h"
 #include "lighting.h"
 #include "phys math.h"
-#include "items.h"
+#include "Items.h"
 #include "Soldier Profile.h"
 #include "worldman.h"
-#include "rotting corpses.h"
+#include "Rotting Corpses.h"
 #include "GameSettings.h"
-#include "keys.h"
+#include "Keys.h"
 #include "message.h"
 #include "Structure Wrap.h"
-#include "campaign.h"
+#include "Campaign.h"
 #include "environment.h"
-#include "Pathai.h"
+#include "PATHAI.H"
 #include "Soldier macros.h"
 #include "strategicmap.h"
 #include "Interface.h"
-#include "points.h"
+#include "Points.h"
 #include "Smell.h"
 #include "Text.h"
-#include "Quests.h"
-#include "items.h"
 #include "Item Types.h"
 #include "Vehicles.h"
 #include "fresh_header.h"
-#include "WorldDat.h"
 // HEADROCK HAM 3.6: This must be included, for testing whether Bloodcats and Enemies can see one another.
 #include "Campaign Types.h"
-#include "soldier tile.h"		// added by Flugente
 #include "Sound Control.h"		// added by Flugente
 #include "Soldier Functions.h"	// added by Flugente for DoesSoldierWearGasMask(...)
 #include "CampaignStats.h"		// added by Flugente
@@ -2435,7 +2426,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 {
 	FLOAT dStartZPos, dEndZPos;
 	INT16 sX, sY, sX2, sY2;
-	UINT8 ubTargetID;
+	SoldierID ubTargetID;
 	BOOLEAN fOk;
 
 	CHECKF( pStartSoldier );
@@ -2455,7 +2446,7 @@ INT32 SoldierTo3DLocationLineOfSightTest( SOLDIERTYPE * pStartSoldier, INT32 sGr
 		if (ubTargetID != NOBODY)
 		{
 			// there's a merc there; do a soldier-to-soldier test
-			return( SoldierToSoldierLineOfSightTest( pStartSoldier, MercPtrs[ubTargetID], bAware, iTileSightLimit, LOS_POS, adjustForSight) );
+			return( SoldierToSoldierLineOfSightTest( pStartSoldier, ubTargetID, bAware, iTileSightLimit, LOS_POS, adjustForSight) );
 		}
 		// else... assume standing height
 		dEndZPos = STANDING_LOS_POS + bLevel * HEIGHT_UNITS;
@@ -3436,7 +3427,7 @@ BOOLEAN BulletHitMerc( BULLET * pBullet, STRUCTURE * pStructure, BOOLEAN fIntend
 		// be legal, but the bLevel May change...
   	sNewGridNo = NewGridNo( pBullet->sGridNo, DirectionInc( gOppositeDirection[ SWeaponHit.usDirection ] ) );
 
-		bSpewBloodLevel = MercPtrs[ SWeaponHit.usSoldierID ]->pathing.bLevel;
+		bSpewBloodLevel = SWeaponHit.usSoldierID->pathing.bLevel;
 		fCanSpewBlood	= TRUE;
 
 		// If on anything other than bLevel of 0, we can pretty much freely spew blood
@@ -4390,7 +4381,7 @@ UINT8 SoldierToSoldierBodyPartChanceToGetThrough( SOLDIERTYPE * pStartSoldier, S
 	return( ChanceToGetThrough( pStartSoldier, (FLOAT) sX, (FLOAT) sY, dEndZPos ) );
 }
 
-UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, UINT8 ubTargetID )
+UINT8 SoldierToLocationChanceToGetThrough( SOLDIERTYPE * pStartSoldier, INT32 sGridNo, INT8 bLevel, INT8 bCubeLevel, SoldierID ubTargetID )
 {
 	FLOAT			dEndZPos;
 	INT16			sXPos;
@@ -4640,7 +4631,7 @@ void CalculateFiringIncrementsSimple( DOUBLE ddHorizAngle, DOUBLE ddVerticAngle,
 	pBullet->qIncrZ = FloatToFixed( (FLOAT) ( sin( ddVerticAngle ) / sin( (PI/2) - ddVerticAngle ) * HEIGHTUNITS_PER_CELL ) );//dnl ch60 010913
 }
 
-INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake )
+INT8 FireBullet( SoldierID ubFirer, BULLET * pBullet, BOOLEAN fFake )
 {
 	//DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("FireBullet"));
 
@@ -4654,7 +4645,7 @@ INT8 FireBullet( UINT8 ubFirer, BULLET * pBullet, BOOLEAN fFake )
 	pBullet->sGridNo = MAPROWCOLTOPOS( pBullet->iCurrTileY, pBullet->iCurrTileX );
 
 	if ( ubFirer != NOBODY )
-		pBullet->pFirer = MercPtrs[ ubFirer ];
+		pBullet->pFirer = ubFirer;
 	else
 		pBullet->pFirer = NULL;
 
@@ -4840,15 +4831,15 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -4907,7 +4898,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
 			if (pFirer->ubTargetID != NOBODY)
 			{
-				MercPtrs[ pFirer->ubTargetID ]->bNumPelletsHitBy = 0;
+				pFirer->ubTargetID->bNumPelletsHitBy = 0;
 			}
 		}
 		weapon=NULL;
@@ -5118,7 +5109,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							pFirer->ubID, ubLoop, ubShots,
+							pFirer->ubID.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
 							NULL
@@ -5237,7 +5228,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -5335,15 +5326,15 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if (	Item[usHandItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usHandItem].cannon )
+	else if (ItemIsCannon(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usHandItem].rocketrifle )
+	else if (ItemIsRocketRifle(usHandItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -5435,7 +5426,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 			ubImpact = (UINT8) (ubImpact * AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageMultiplier / max(1,AmmoTypes[weapon->gun.ubGunAmmoType].multipleBulletDamageDivisor) );
 			if (pFirer->ubTargetID != NOBODY)
 			{
-				MercPtrs[ pFirer->ubTargetID ]->bNumPelletsHitBy = 0;
+				pFirer->ubTargetID->bNumPelletsHitBy = 0;
 			}
 		}
 		weapon=NULL;
@@ -5639,7 +5630,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							pFirer->ubID, ubLoop, ubShots,
+							pFirer->ubID.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
@@ -5753,7 +5744,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 	if( !fFake && ( pFirer->ubProfile != NO_PROFILE ) && ( pFirer->bTeam == gbPlayerNum ) )
 	{
 		// another shot fired
-		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || Item[usHandItem].grenadelauncher || Item[usHandItem].rocketlauncher || Item[usHandItem].singleshotrocketlauncher || Item[usHandItem].mortar)
+		if ( Item[usHandItem].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(usHandItem) || ItemIsRocketLauncher(usHandItem) || ItemIsSingleShotRocketLauncher(usHandItem) || ItemIsMortar(usHandItem))
 			gMercProfiles[ pFirer->ubProfile ].records.usMissilesLaunched++;
 		else if ( Item[usHandItem].usItemClass == IC_THROWING_KNIFE )
 			gMercProfiles[ pFirer->ubProfile ].records.usKnivesThrown++;
@@ -5775,7 +5766,7 @@ INT8 FireBulletGivenTarget( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOA
 // Note that this function does not make provisions for Fake Firing. There is no need for it, and it would needlessly
 // complicate things anyway.
 // Also note we receive start coordinates from the bomb itself, because there's nowhere else to get them.
-INT8 FireFragmentGivenTarget( UINT8 ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
+INT8 FireFragmentGivenTarget( SoldierID ubOwner, FLOAT dStartX, FLOAT dStartY, FLOAT dStartZ, FLOAT dEndX, FLOAT dEndY, FLOAT dEndZ, UINT16 usExplosiveItem )
 {
 	// Artificial...
 	dStartZ++;
@@ -6007,15 +5998,15 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6284,7 +6275,7 @@ INT8 FireBulletGivenTargetTrapOnly( SOLDIERTYPE* pThrower, OBJECTTYPE* pObj, INT
 						fprintf(OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							NOBODY, ubLoop, ubShots,
+							NOBODY.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
@@ -6594,15 +6585,15 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 	{
 		usBulletFlags |= BULLET_FLAG_KNIFE;
 	}
-	else if ( Item[usItem].rocketlauncher )
+	else if (ItemIsRocketLauncher(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_MISSILE;
 	}
-	else if ( Item[usItem].cannon )
+	else if (ItemIsCannon(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_TANK_CANNON;
 	}
-	else if ( Item[usItem].rocketrifle )
+	else if (ItemIsRocketRifle(usItem))
 	{
 		usBulletFlags |= BULLET_FLAG_SMALL_MISSILE;
 	}
@@ -6834,7 +6825,7 @@ INT8 FireBulletGivenTarget_NoObjectNoSoldier( UINT16 usItem, UINT8 ammotype, UIN
 						fprintf( OutFile, "{ % 9.8f , % 9.8f , % 9.8f , % 9.8f }, //DEBUG: merc %4d fired pellet %4d of %4d using method %4d %12s with SpreadPattern %4d %s\n",
 							ddRawHorizAngle, ddRawVerticAngle,
 							ddHorizAngle, ddVerticAngle,
-							NOBODY, ubLoop, ubShots,
+							NOBODY.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
 							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
@@ -6923,7 +6914,7 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 	// sevenfm: check that weapon exists!
 	if (pObjHand->exists() &&
 		pObjHand->usItem == pFirer->usAttackingWeapon &&
-		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || Item[pFirer->usAttackingWeapon].rocketlauncher))
+		(Item[pFirer->usAttackingWeapon].usItemClass == IC_GUN || Item[pFirer->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE || ItemIsRocketLauncher(pFirer->usAttackingWeapon)))
 	{
 		BOOLEAN fBuckShot = FALSE;
 
@@ -6951,7 +6942,7 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 		// sevenfm: additionally initialize usAttackingWeapon, ubTargetID, bDoBurst and bDoAutofire which are used by FireBulletGivenTarget()
 		UINT16 oldAttackingWeapon = pFirer->usAttackingWeapon;
 		UINT8 oldAttackingHand = pFirer->ubAttackingHand;
-		UINT8 oldTargetID = pFirer->ubTargetID;
+		SoldierID oldTargetID = pFirer->ubTargetID;
 		INT8 oldBurst = pFirer->bDoBurst;
 		INT8 oldAutofire = pFirer->bDoAutofire;
 
@@ -6986,9 +6977,8 @@ INT8 ChanceToGetThrough(SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, FLOAT dE
 
 void MoveBullet( INT32 iBullet )
 {
-	BULLET	*pBullet;
-
-	FIXEDPT	qLandHeight;
+	BULLET		*pBullet;
+	FIXEDPT		qLandHeight;
 	INT32		iCurrAboveLevelZ;
 	INT32		iCurrCubesAboveLevelZ;
 	INT16		sDesiredLevel;
@@ -6997,48 +6987,48 @@ void MoveBullet( INT32 iBullet )
 	INT32		iOldTileY;
 	INT32		iOldCubesZ;
 
-	MAP_ELEMENT *		pMapElement;
-	STRUCTURE *			pStructure;
-	STRUCTURE *			pRoofStructure = NULL;
+	MAP_ELEMENT *pMapElement;
+	STRUCTURE	*pStructure;
+	STRUCTURE	*pRoofStructure = NULL;
 
-	FIXEDPT					qLastZ;
+	FIXEDPT		qLastZ;
 
-	SOLDIERTYPE *		pTarget;
-	UINT8						ubTargetID;
-	BOOLEAN					fIntended;
-	BOOLEAN					fStopped;
-	INT8						bOldLOSIndexX;
-	INT8						bOldLOSIndexY;
+	SOLDIERTYPE *pTarget;
+	SoldierID	ubTargetID;
+	BOOLEAN		fIntended;
+	BOOLEAN		fStopped;
+	INT8			bOldLOSIndexX;
+	INT8			bOldLOSIndexY;
 
-	UINT32					uiTileInc = 0;
-	UINT32					uiTime;
+	UINT32		uiTileInc = 0;
+	UINT32		uiTime;
 
-	INT8						bDir;
-	INT32						iGridNo, iAdjGridNo;
+	INT8			bDir;
+	INT32		iGridNo, iAdjGridNo;
 
-	INT32						iRemainingImpact;
+	INT32		iRemainingImpact;
 
-	FIXEDPT					qDistToTravelX;
-	FIXEDPT					qDistToTravelY;
-	INT32						iStepsToTravelX;
-	INT32						iStepsToTravelY;
-	INT32						iStepsToTravel;
+	FIXEDPT		qDistToTravelX;
+	FIXEDPT		qDistToTravelY;
+	INT32		iStepsToTravelX;
+	INT32		iStepsToTravelY;
+	INT32		iStepsToTravel;
 
-	INT32						iNumLocalStructures;
-	INT32						iStructureLoop;
-	UINT32					uiChanceOfHit;
+	INT32		iNumLocalStructures;
+	INT32		iStructureLoop;
+	UINT32		uiChanceOfHit;
 
-	BOOLEAN					fResolveHit;
+	BOOLEAN		fResolveHit;
 
-	INT32						i;
-	BOOLEAN					fGoingOver = FALSE;
-	BOOLEAN					fHitStructure;
+	INT32		i;
+	BOOLEAN		fGoingOver = FALSE;
+	BOOLEAN		fHitStructure;
 
-	FIXEDPT					qWallHeight;
-	FIXEDPT					qWindowBottomHeight;
-	FIXEDPT					qWindowTopHeight;
+	FIXEDPT		qWallHeight;
+	FIXEDPT		qWindowBottomHeight;
+	FIXEDPT		qWindowTopHeight;
 
-	UINT16					lastriotshieldholder = NOBODY;	// added by Flugente
+	SoldierID	lastriotshieldholder = NOBODY;	// added by Flugente
 
 	pBullet = GetBulletPtr( iBullet );
 
@@ -7224,8 +7214,10 @@ void MoveBullet( INT32 iBullet )
 			}
 			else if (pStructure->fFlags & STRUCTURE_PERSON)
 			{
+				SOLDIERTYPE *pSoldier = MercPtrs[pStructure->usStructureID];
+
 				// HEADROCK HAM 5: Fragments can hit the shooter.
-				if ( MercPtrs[ pStructure->usStructureID ] != pBullet->pFirer || pBullet->fFragment == TRUE )
+				if ( pSoldier != pBullet->pFirer || pBullet->fFragment == TRUE )
 				{
 					// in actually moving the bullet, we consider only count friends as targets if the bullet is unaimed
 					// (buckshot), if they are the intended target, or beyond the range of automatic friendly fire hits
@@ -7244,13 +7236,13 @@ void MoveBullet( INT32 iBullet )
 					else if ( pBullet->pFirer->flags.uiStatusFlags & SOLDIER_MONSTER )
 					{
 						// monsters firing will always accidentally hit people but never accidentally hit each other.
-						if ( !(MercPtrs[ pStructure->usStructureID ]->flags.uiStatusFlags & SOLDIER_MONSTER) )
+						if ( !(pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) )
 						{
 							gpLocalStructure[iNumLocalStructures] = pStructure;
 							iNumLocalStructures++;
 						}
 					}
-					else if (MercPtrs[pStructure->usStructureID]->bVisible == TRUE &&
+					else if (pSoldier->bVisible == TRUE &&
 							PositionAllowsHit(pBullet, pStructure) &&
 							(pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS || 
 							!pBullet->fAimed && pBullet->iLoop > MIN_DIST_FOR_HIT_FRIENDS_UNAIMED ||
@@ -7262,16 +7254,16 @@ void MoveBullet( INT32 iBullet )
 					}
 
 					// this might be a close call
-					if ( pBullet->ubFirerID != NOBODY && MercPtrs[ pStructure->usStructureID ]->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == MercPtrs[ pStructure->usStructureID ]->pathing.bLevel )
+					if ( pBullet->ubFirerID != NOBODY && pSoldier->bTeam == gbPlayerNum && pBullet->pFirer->bTeam != gbPlayerNum && sDesiredLevel == pSoldier->pathing.bLevel )
 					{
-						MercPtrs[ pStructure->usStructureID ]->flags.fCloseCall = TRUE;
+						pSoldier->flags.fCloseCall = TRUE;
 					}
 
-					if ( IS_MERC_BODY_TYPE( MercPtrs[pStructure->usStructureID] ) )
+					if ( IS_MERC_BODY_TYPE( pSoldier ) )
 					{
 						// apply suppression, regardless of friendly or enemy
 						// except if friendly, not within a few tiles of shooter
-						if (pBullet->ubFirerID == NOBODY || MercPtrs[pStructure->usStructureID]->bSide != pBullet->pFirer->bSide || pBullet->iLoop > gGameExternalOptions.usMinDistanceFriendlySuppression)
+						if (pBullet->ubFirerID == NOBODY || pSoldier->bSide != pBullet->pFirer->bSide || pBullet->iLoop > gGameExternalOptions.usMinDistanceFriendlySuppression)
 						{
 							// buckshot has only a 1 in 2 chance of applying a suppression point
 							// HEADROCK HAM 5: For NCTH, make pellets as effective as any other bullet.
@@ -7280,7 +7272,7 @@ void MoveBullet( INT32 iBullet )
 							if (!(pBullet->usFlags & BULLET_FLAG_BUCKSHOT) || Chance(gGameExternalOptions.ubBuckshotSuppressionEffectiveness))
 							{
 								// bullet goes whizzing by this guy!
-								switch ( gAnimControl[ MercPtrs[pStructure->usStructureID]->usAnimState ].ubEndHeight )
+								switch ( gAnimControl[ pSoldier->usAnimState ].ubEndHeight )
 								{
 								case ANIM_PRONE:
 									// two 1/4 chances of avoiding suppression pt - one below
@@ -7297,8 +7289,8 @@ void MoveBullet( INT32 iBullet )
 									}
 									// else fall through
 								default:
-									MercPtrs[pStructure->usStructureID]->ubSuppressionPoints++;
-									MercPtrs[pStructure->usStructureID]->ubSuppressorID = pBullet->ubFirerID;
+									pSoldier->ubSuppressionPoints++;
+									pSoldier->ubSuppressorID = pBullet->ubFirerID;
 									break;
 								}
 							}
@@ -7358,7 +7350,7 @@ void MoveBullet( INT32 iBullet )
 						ubTargetID = WhoIsThere2( iAdjGridNo, (INT8) sDesiredLevel );
 						if (ubTargetID != NOBODY)
 						{
-							pTarget = MercPtrs[ ubTargetID ];
+							pTarget = ubTargetID;
 							if ( IS_MERC_BODY_TYPE( pTarget ) && (pBullet->ubFirerID == NOBODY || pBullet->pFirer->bSide != pTarget->bSide) )
 							{
 								// buckshot has only a 1 in 2 chance of applying a suppression point
@@ -8643,7 +8635,7 @@ void AdjustTargetCenterPoint( SOLDIERTYPE *pShooter, INT32 iTargetGridNo, FLOAT 
 
 	//INT32 iLaserRange = GetBestLaserRange(&(pShooter->inv[pSoldier->ubAttackingHand]));
 	INT16 sLaserRange = GetBestLaserRange(pWeapon);
-	if (AM_A_ROBOT(pShooter) && Item[pShooter->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotLaserBonus)
+	if (AM_A_ROBOT(pShooter) && ItemProvidesRobotLaserBonus(pShooter->inv[ROBOT_TARGETING_SLOT].usItem))
 	{
 		sLaserRange = max(sLaserRange, GetBestLaserRange(&pShooter->inv[ROBOT_TARGETING_SLOT]));
 	}
@@ -9911,7 +9903,7 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 	// If we can't see the target, but buddies can see it, CF-Accuracy drops by 50%
 	// If we can't see the target and neither can buddies, CF-Accuracy drops by 75%
 
-	UINT8 ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
+	SoldierID ubTargetID = WhoIsThere2( pShooter->sTargetGridNo, pShooter->bTargetLevel ); // Target ubID
 	INT16 sDistVis = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 	gbForceWeaponNotReady = true;
 	INT16 sDistVisNoScope = pShooter->GetMaxDistanceVisible(pShooter->sTargetGridNo, pShooter->bTargetLevel, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
@@ -9920,12 +9912,12 @@ UINT32 CalcCounterForceAccuracy(SOLDIERTYPE *pShooter, OBJECTTYPE *pWeapon, UINT
 
 	INT32 iSightRange = 0;
 	if (ubTargetID != NOBODY)
-		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false );
+		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, ubTargetID, TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false );
 	if (iSightRange == 0) {	// didn't do a bodypart-based test or can't see specific body part aimed at
 		iSightRange = SoldierTo3DLocationLineOfSightTest( pShooter, pShooter->sTargetGridNo, pShooter->bTargetLevel, pShooter->bTargetCubeLevel, TRUE, NO_DISTANCE_LIMIT, false );
 	}
 	if (iSightRange == 0) {	// Can't see the target but we still need to know what the sight range would be if we could so we can deal with cover penalties
-		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, MercPtrs[ubTargetID], TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false, true );
+		iSightRange = SoldierToSoldierLineOfSightTest( pShooter, ubTargetID, TRUE, NO_DISTANCE_LIMIT, pShooter->bAimShotLocation, false, true );
 	}
 
 	// Modify iSightRange for scope use

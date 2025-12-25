@@ -3,8 +3,8 @@
 	#include "FileMan.h"
 	#include "imgfmt.h"
 	#include "himage.h"
-	#include "Types.h"
-	#include "Debug.h"
+	#include "types.h"
+	#include "DEBUG.H"
 	#include "WCheck.h"
 
 BOOLEAN STCILoadRGB( HIMAGE hImage, UINT16 fContents, HWFILE hFile, STCIHeader * pHeader );

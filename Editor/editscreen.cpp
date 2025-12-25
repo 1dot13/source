@@ -1,4 +1,4 @@
-	#include "builddefines.h"
+#include "builddefines.h"
 
 #ifdef JA2EDITOR
 
@@ -12,22 +12,22 @@
 	#include "edit_sys.h"
 	#include "screenids.h"
 	#include "editscreen.h"
-	#include "sys globals.h"
+	#include "Sys Globals.h"
 	#include "SmartMethod.h"
 	#include "selectwin.h"
 	#include "Interface.h"
 	#include "lighting.h"
 	#include "Interactive Tiles.h"
-	#include "overhead types.h"
+	#include "Overhead Types.h"
 	#include "Overhead.h"
 	#include "Handle UI.h"
 	#include "Event Pump.h"
 	#include "world items.h"
-	#include "loadscreen.h"
-	#include "render dirty.h"
-	#include "isometric utils.h"
+	#include "LoadScreen.h"
+	#include "Render Dirty.h"
+	#include "Isometric Utils.h"
 	#include "message.h"
-	#include "render fun.h"
+	#include "Render Fun.h"
 	#include "popupmenu.h"
 	#include "overhead map.h"
 	#include "EditorDefines.h"
@@ -39,7 +39,7 @@
 	#include "newsmooth.h"
 	#include "Smoothing Utils.h"
 	#include "messagebox.h"
-	#include "messageboxscreen.h"
+	#include "MessageBoxScreen.h"
 	#include "Soldier Create.h"
 	#include "Soldier Init List.h"
 	#include "Text Input.h"
@@ -59,7 +59,7 @@
 	#include "line.h"
 	#include "english.h"
 	#include "random.h"
-	#include "scheduling.h"
+	#include "Scheduling.h"
 	#include "Road Smoothing.h"
 	#include "strategicmap.h"
 	#include "message.h"
@@ -70,7 +70,7 @@
 	#include "GameSettings.h"
 	#include "Summary Info.h"
 	#include "connect.h"//dnl
-	#include "cursors.h"//dnl ch2 210909
+	#include "Cursors.h"//dnl ch2 210909
 	#include "Cursor Control.h"//dnl ch2 210909
 	#include "maputility.h"//dnl ch49 061009
 	#include "Text.h"
@@ -1069,10 +1069,7 @@ void ShowCurrentDrawingMode( void )
 	// Set the color for the window's border. Blueish color = Normal, Red = Fake lighting is turned on
 	usFillColor = GenericButtonFillColors[0];
 	pDestBuf = LockVideoSurface( FRAME_BUFFER, &uiDestPitchBYTES );
-	if(gbPixelDepth==16)
-		RectangleDraw( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
-	else if(gbPixelDepth==8)
-		RectangleDraw8( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
+	RectangleDraw( FALSE, iScreenWidthOffset + 0, 2 * iScreenHeightOffset + 400, iScreenWidthOffset + 99, 2 * iScreenHeightOffset + 458, usFillColor, pDestBuf );
 
 	UnLockVideoSurface( FRAME_BUFFER );
 
@@ -2953,6 +2950,23 @@ UINT32 WaitForSelectionWindowResponse( void )
 			}
 		}
 	}
+
+	// Mousewheel scroll
+	if (_WheelValue > 0)
+	{
+		while (_WheelValue--)
+		{
+			ScrollSelWinUp();
+		}
+	}
+	else
+	{
+		while (_WheelValue++)
+		{
+			ScrollSelWinDown();
+		}
+	}
+	_WheelValue = 0;
 
 	if ( DoWindowSelection( ) )
 	{

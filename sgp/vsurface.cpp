@@ -1,12 +1,12 @@
 #include "DirectDraw Calls.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "debug.h"
+#include "DEBUG.H"
 #include "video.h"
 #include "himage.h"
 #include "vsurface.h"
 #include "vsurface_private.h"
-#include "wcheck.h"
+#include "WCheck.h"
 #include "vobject_blitters.h"
 
 extern void SetClippingRect(SGPRect *clip);

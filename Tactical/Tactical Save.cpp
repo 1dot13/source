@@ -1,40 +1,34 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "MemMan.h"
 	#include "message.h"
 	#include "Items.h"
 	#include "Handle Items.h"
-	#include "StrategicMap.h"
+	#include "strategicmap.h"
 	#include "Tactical Save.h"
 	#include <stdio.h>
 	#include "Campaign Types.h"
 	#include "SaveLoadGame.h"
-	#include "WorldDef.h"
-	#include "rotting corpses.h"
-	#include "OverHead.h"
+	#include "worlddef.h"
+	#include "Rotting Corpses.h"
+	#include "Overhead.h"
 	#include "Keys.h"
-	#include "Soldier Create.h"
 	#include "Soldier Profile.h"
 	#include "Isometric Utils.h"
-	#include "Soldier Add.h"
-	#include "Npc.h"
-	#include "Ai.h"
+	#include "NPC.h"
 	#include "Game Clock.h"
 	#include "Animation Control.h"
 	#include "Map Information.h"
 	#include "SaveLoadMap.h"
-	#include "debug.h"
-	#include "Random.h"
-	#include "quests.h"
+	#include "DEBUG.H"
+	#include "random.h"
+	#include "Quests.h"
 	#include "Animated ProgressBar.h"
 	#include "Text.h"
-	#include "meanwhile.h"
 	#include "Enemy Soldier Save.h"
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
 	#include "PATHAI.H"
-	#include "GameVersion.h"
 	#include "strategic.h"
-	#include "Map Screen Interface Map.h"
 	#include "Strategic Status.h"
 	#include "Soldier macros.h"
 	#include "sgp.h"
@@ -42,8 +36,13 @@
 	#include "screenids.h"
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
-#include "Animation Control.h"
-#include <vfs/Core/vfs.h>
+
+#ifdef JA2UB
+#else
+#include "Meanwhile.h"
+#endif // JA2UB
+
+
 BOOLEAN gfWasInMeanwhile = FALSE;
 
 
@@ -119,7 +118,7 @@ void SaveNPCInformationToProfileStruct( );
 BOOLEAN DoesTempFileExistsForMap( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 
-INT16 GetSoldierIDFromAnyMercID(UINT8 ubMercID);
+SoldierID GetSoldierIDFromAnyMercID(UINT8 ubMercID);
 
 
 BOOLEAN SetUnderGroundSectorFlag( INT16 sSectorX, INT16 sSectorY, UINT8 ubSectorZ, UINT32 uiFlagToSet );
@@ -1131,7 +1130,6 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
 	// find out which items in the list are reachable
-	UINT32 uiCounter = 0;
 	UINT8	ubDir, ubMovementCost;
 	BOOLEAN fReachable = FALSE;
 	INT32 sGridNo = NOWHERE, sGridNo2 = NOWHERE;
@@ -1179,9 +1177,9 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 	{
 		sGridNo2 = gMapInformation.sIsolatedGridNo;
 
-		for( uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
+		for( SoldierID uiCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; uiCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++uiCounter )
 		{
-			pSoldier = MercPtrs[ uiCounter ];
+			pSoldier = uiCounter;
 			if ( pSoldier && pSoldier->bActive && pSoldier->stats.bLife > 0 && pSoldier->sSectorX == sSectorX && pSoldier->sSectorY == sSectorY && pSoldier->bSectorZ == bSectorZ )
 			{
 				if ( FindBestPath( pSoldier, sGridNo2, pSoldier->pathing.bLevel, WALKING, NO_COPYROUTE, 0 ) )
@@ -1200,7 +1198,7 @@ void HandleAllReachAbleItemsInTheSector( INT16 sSectorX, INT16 sSectorY, INT8 bS
 
 	GlobalItemsReachableTest( sGridNo, sGridNo2 );
 
-	for( uiCounter = 0; uiCounter < guiNumWorldItems; ++uiCounter )
+	for( UINT32 uiCounter = 0; uiCounter < guiNumWorldItems; ++uiCounter )
 	{
 		// reset reachablity
 		fReachable = FALSE;
@@ -2130,29 +2128,26 @@ BOOLEAN DoesTempFileExistsForMap( UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 
 }
 
 
-INT16 GetSoldierIDFromAnyMercID(UINT8 ubMercID)
+SoldierID GetSoldierIDFromAnyMercID(UINT8 ubMercID)
 {
-	UINT16 cnt;
-	UINT8		ubLastTeamID;
-	SOLDIERTYPE		*pTeamSoldier;
+	SOLDIERTYPE *pTeamSoldier;
+	SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID ubLastTeamID = TOTAL_SOLDIERS;
 
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-
-	ubLastTeamID = TOTAL_SOLDIERS;
-
-  // look for all mercs on the same team,
-  for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; cnt++,pTeamSoldier++)
+	// look for all mercs on the same team,
+	for ( ; cnt <= ubLastTeamID; ++cnt )
 	{
-		if( pTeamSoldier->bActive )
+		pTeamSoldier = cnt;
+		if ( pTeamSoldier->bActive )
 		{
 			if ( pTeamSoldier->ubProfile == ubMercID )
 			{
-				return( cnt );
+				return(cnt);
 			}
 		}
 	}
 
-	return( -1 );
+	return(NOBODY);
 }
 
 
@@ -2554,13 +2549,15 @@ BOOLEAN SetSectorFlag( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, UINT32 uiFlagToSet
 				UpdateLastDayOfPlayerActivity( (UINT16) GetWorldDay() );
 			}
 
-			for ( UINT8 i = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; i <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; i++ )
+			for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
-				if( MercPtrs[ i ]->bActive && MercPtrs[ i ]->stats.bLife && !(MercPtrs[ i ]->flags.uiStatusFlags & SOLDIER_VEHICLE) && MercPtrs[ i ]->ubProfile != NO_PROFILE &&
-					MercPtrs[ i ]->sSectorX == sMapX && MercPtrs[ i ]->sSectorY == sMapY && MercPtrs[ i ]->bSectorZ == bMapZ && !MercPtrs[ i ]->flags.fBetweenSectors &&
-					MercPtrs[ i ]->bAssignment != IN_TRANSIT && MercPtrs[ i ]->bAssignment != ASSIGNMENT_DEAD )
+				SOLDIERTYPE *pSoldier = id;
+
+				if( pSoldier->bActive && pSoldier->stats.bLife && !(pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE) && pSoldier->ubProfile != NO_PROFILE &&
+					pSoldier->sSectorX == sMapX && pSoldier->sSectorY == sMapY && pSoldier->bSectorZ == bMapZ && !pSoldier->flags.fBetweenSectors &&
+					pSoldier->bAssignment != IN_TRANSIT && pSoldier->bAssignment != ASSIGNMENT_DEAD )
 				{
-					gMercProfiles[ MercPtrs[ i ]->ubProfile ].records.usSectorsDiscovered++;
+					gMercProfiles[ pSoldier->ubProfile ].records.usSectorsDiscovered++;
 				}
 			}
 		}
@@ -2678,7 +2675,7 @@ BOOLEAN AddDeadSoldierToUnLoadedSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ, S
 					pWorldItems[ bCount ].bVisible = TRUE;
 					pWorldItems[ bCount ].bRenderZHeightAboveLevel = 0;
 
-					if ( Item[pSoldier->inv[i].usItem].damageable ) // Madd: drop crappier items on higher difficulty levels
+					if (ItemIsDamageable(pSoldier->inv[i].usItem)) // Madd: drop crappier items on higher difficulty levels
 					{
 						// silversurfer: externalized this
 						//pSoldier->inv[i][0]->data.objectStatus -= (gGameOptions.ubDifficultyLevel - 1) * Random(20);
@@ -3176,7 +3173,7 @@ void SaveWorldItemsToTempFiles()
 		const auto y = gAllWorldItems.sectors[i].y;
 		const auto z = gAllWorldItems.sectors[i].z;
 		const auto nItems = gAllWorldItems.NumItems[i];
-		auto Items = gAllWorldItems.Items[i];
+		auto &Items = gAllWorldItems.Items[i];
 
 		SaveWorldItemsToTempItemFile(x, y, (INT8)z, nItems, Items);
 	}

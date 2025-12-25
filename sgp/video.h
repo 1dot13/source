@@ -5,11 +5,11 @@
 #include <ddraw.h>
 #include <process.h> 
 
-#include "Local.h"
-#include "Debug.h"
-#include "Types.h"
+#include "local.h"
+#include "DEBUG.H"
+#include "types.h"
 #include "DirectDraw Calls.h"
-#include "VSurface.h"
+#include "vsurface.h"
 
 #define BUFFER_READY			0x00
 #define BUFFER_BUSY			0x01

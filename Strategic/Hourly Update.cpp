@@ -4,13 +4,12 @@
 	#include "Strategic Mines.h"
 	#include "Campaign.h"
 	#include "Morale.h"
-	#include "Quests.h"
 	#include "Game Clock.h"
 	#include "Overhead.h"
 	#include "jascreens.h"
 	#include "screenids.h"
 	#include "Items.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "finances.h"
 	#include "history.h"
 	#include "Dialogue Control.h"
@@ -85,6 +84,11 @@ CHAR16	zString[128];
 		return;
 	if(is_networked)
 		return;
+
+	if (stopTimeCompressionNextHour)
+	{
+		SetGameTimeCompressionLevel( TIME_COMPRESS_X0);
+	}	
 
 	// hourly update of town loyalty
 	HandleTownLoyalty();
@@ -361,18 +365,18 @@ UINT16	LarryItems[ NUM_LARRY_ITEMS ][ 3 ] =
 
 void HourlyLarryUpdate()
 {
-	SOLDIERTYPE *				pSoldier = NULL;
-	SOLDIERTYPE *				pOtherSoldier = NULL;
-	INT8						bSlot = NO_SLOT, bBoozeSlot;
-	UINT16						usTemptation = 0;
-	UINT16						usCashAmount;
-	BOOLEAN						fBar = FALSE;
-	OBJECTTYPE*					pObj = NULL;
-	BOOLEAN						fTookDrugs = FALSE;
+	SOLDIERTYPE *pSoldier = NULL;
+	SOLDIERTYPE *pOtherSoldier = NULL;
+	INT8			bSlot = NO_SLOT, bBoozeSlot;
+	UINT16		usTemptation = 0;
+	UINT16		usCashAmount;
+	BOOLEAN		fBar = FALSE;
+	OBJECTTYPE*	pObj = NULL;
+	BOOLEAN		fTookDrugs = FALSE;
 
-	for( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep && ( pSoldier->ubProfile == LARRY_NORMAL || pSoldier->ubProfile == LARRY_DRUNK || pSoldier->HasBackgroundFlag( BACKGROUND_DRUGUSE ) ) )
 		{
@@ -484,9 +488,9 @@ void HourlyLarryUpdate()
 				{
 					// anv: snitches stop mercs from getting wasted
 					BOOLEAN fSnitchStoppedBehaviour = FALSE;
-					for( INT32 cnt2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt2 )
+					for( SoldierID id2 = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id2 <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id2 )
 					{					
-						pOtherSoldier = MercPtrs[ cnt2 ];
+						pOtherSoldier = id2;
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
 						{
@@ -612,12 +616,12 @@ void HourlyLarryUpdate()
 // Flugente: mercs that are smokers occasionally consume smokes if they have some in their inventory
 void HourlySmokerUpdate( )
 {
-	SOLDIERTYPE *				pSoldier = NULL;
-	OBJECTTYPE*					pObj = NULL;
+	SOLDIERTYPE *pSoldier = NULL;
+	OBJECTTYPE *pObj = NULL;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	for ( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[cnt];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive && !pSoldier->flags.fMercAsleep )
 		{
@@ -627,7 +631,7 @@ void HourlySmokerUpdate( )
 				INT8 invsize = (INT8)pSoldier->inv.size( );											// remember inventorysize, so we don't call size() repeatedly
 				for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )									// ... for all items in our inventory ...
 				{
-					if ( pSoldier->inv[bLoop].exists( ) && Item[pSoldier->inv[bLoop].usItem].cigarette )
+					if ( pSoldier->inv[bLoop].exists( ) && ItemIsCigarette(pSoldier->inv[bLoop].usItem) )
 					{
 						pObj = &(pSoldier->inv[bLoop]);
 
@@ -647,9 +651,9 @@ void HourlyDisabilityUpdate( )
 	SOLDIERTYPE*				pSoldier = NULL;
 	SOLDIERTYPE*				pOtherSoldier = NULL;
 
-	for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
+	for ( SoldierID id = gTacticalStatus.Team[OUR_TEAM].bFirstID; id <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id )
 	{
-		pSoldier = MercPtrs[cnt];
+		pSoldier = id;
 
 		if ( pSoldier && pSoldier->bActive )
 		{
@@ -664,9 +668,9 @@ void HourlyDisabilityUpdate( )
 				{
 					// anv: snitches stop mercs from getting wasted
 					BOOLEAN fSnitchStoppedBehaviour = FALSE;
-					for ( INT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
+					for ( SoldierID id2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; id2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++id2 )
 					{
-						pOtherSoldier = MercPtrs[cnt2];
+						pOtherSoldier = id2;
 
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if ( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
@@ -760,9 +764,9 @@ void HourlyStealUpdate()
 	SOLDIERTYPE *				pSoldier = NULL;
 	SOLDIERTYPE *				pOtherSoldier = NULL;
 	
-	for( INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
+	for( SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt )
 	{
-		pSoldier = MercPtrs[ cnt ];
+		pSoldier = cnt;
 
 		// merc must be alive, not travelling and awake. If he is in the currently loaded sector, we may not be in tactical (we would see an item suddenly disappearing) and not in combat
 		if ( pSoldier
@@ -794,9 +798,9 @@ void HourlyStealUpdate()
 
 			// anv: snitches prevent scrounging in the same sector
 			BOOLEAN fSnitchStoppedBehaviour = FALSE;
-			for ( UINT32 cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
+			for ( SoldierID cnt2 = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt2 <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt2 )
 			{
-				pOtherSoldier = MercPtrs[cnt2];
+				pOtherSoldier = cnt2;
 
 				// note - snitches stop others, but can scrounge themselves (if they have scrounging specifically set in background...)
 				if ( pOtherSoldier
@@ -904,7 +908,7 @@ void HourlyStealUpdate()
 	}
 }
 
-BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
+static BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem, UINT32 usNumToRemove )
 {
 	UINT32 uiTotalNumberOfRealItems = 0;
 	std::vector<WORLDITEM> pWorldItem;//dnl ch75 271013
@@ -980,7 +984,7 @@ BOOLEAN RemoveItemInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT1
 	return FALSE;
 }
 
-UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
+static UINT32 CountAccessibleItemsInSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usItem )
 {
 	UINT32 numfound = 0;
 	UINT32 uiTotalNumberOfRealItems = 0;

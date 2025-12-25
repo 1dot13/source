@@ -1,21 +1,19 @@
 	#include "types.h"
 	#include <stdio.h>
-	#include <Windows.h>
+	#include <windows.h>
 	#include "sgp.h"
 	#include "time.h"
 	#include "vobject.h"
 	#include "FileMan.h"
 	#include "Utilities.h"
 	#include "Font Control.h"
-	#include "overhead.h"
-	#include "overhead types.h"
-	#include "wcheck.h"
-	#include "sys globals.h"
+	#include "Overhead.h"
+	#include "Overhead Types.h"
+	#include "WCheck.h"
+	#include "Sys Globals.h"
 
 
 extern BOOLEAN GetCDromDriveLetter( STR8	pString );
-
-#define		DATA_8_BIT_DIR	"8-Bit\\"
 
 BOOLEAN PerformTimeLimitedCheck();
 
@@ -97,26 +95,7 @@ BOOLEAN PerformTimeLimitedCheck();
 //#define	TIME_LIMITED_VERSION
 void FilenameForBPP(STR pFilename, STR pDestination)
 {
-CHAR8 Drive[128], Dir[128], Name[128], Ext[128];
-
-	if(GETPIXELDEPTH()==16)
-	{
-		// no processing for 16 bit names
-		strcpy(pDestination, pFilename);
-	}
-	else
-	{
-		_splitpath(pFilename, Drive, Dir, Name, Ext);
-
-		strcat(Name, "_8");
-
-		strcpy(pDestination, Drive);
-		//strcat(pDestination, Dir);
-		strcat(pDestination, DATA_8_BIT_DIR);
-		strcat(pDestination, Name);
-		strcat(pDestination, Ext);
-	}
-
+	strcpy(pDestination, pFilename);
 }
 
 BOOLEAN CreateSGPPaletteFromCOLFile( SGPPaletteEntry *pPalette, SGPFILENAME ColFile )

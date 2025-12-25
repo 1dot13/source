@@ -4,7 +4,7 @@
 #include "CampaignStats.h"
 #include "mapscreen.h"
 #include "Soldier Control.h"
-#include "Types.h"
+#include "types.h"
 
 #define		REBEL_COMMAND_Z_OFFSET						9
 #define		REBEL_COMMAND_MAX_ACTIONS_PER_REGION		6
@@ -188,7 +188,7 @@ void ApplyMilitiaBonuses(SOLDIERTYPE* pMilitia);
 UINT8 GetApproximateEnemyLocationResolutionIndex();
 FLOAT GetAssignmentBonus(INT16 x, INT16 y);
 INT32 GetMiningPolicyBonus(INT16 townId);
-void GetBonusMilitia(INT16 x, INT16 y, UINT8& green, UINT8& regular, UINT8& elite, BOOLEAN createGroup);
+void GetBonusMilitia(INT16 x, INT16 y, UINT16& green, UINT16& regular, UINT16& elite, BOOLEAN createGroup);
 INT16 GetFortificationsBonus(UINT8 sector);
 FLOAT GetHarriersSpeedPenalty(UINT8 sector);
 FLOAT GetLoyaltyGainModifier();

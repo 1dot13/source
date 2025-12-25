@@ -1,12 +1,12 @@
 	#include "types.h"
-	#include "fileman.h"
+	#include "FileMan.h"
 	#include "himage.h"
 	#include "Creature Spreading.h"
 	#include "Campaign Types.h"
 	#include "Strategic Movement.h"
 	#include "Game Event Hook.h"
 	#include "GameSettings.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "message.h"
 	#include "Font Control.h"
 	#include "Soldier Init List.h"
@@ -23,17 +23,12 @@
 	#include "Map Edgepoints.h"
 	#include "Animation Data.h"
 	#include "opplist.h"
-	#include "meanwhile.h"
-	#include "Strategic AI.h"
-	#include "MessageBoxScreen.h"
+	#include "Meanwhile.h"
 	#include "Map Information.h"
 	#include "Queen Command.h"
 	#include "ai.h"					// added by Flugente
-	#include "Isometric Utils.h"	// added by Flugente
 	#include "Soldier Create.h"		// added by Flugente
-	#include "Player Command.h"		// added by Flugente
-
-#include "Strategic Mines.h"
+	
 #include "connect.h"
 
 #include "GameInitOptionsScreen.h"
@@ -139,11 +134,11 @@ INT32 giDestroyedLairID = 0;
 //prebattle interface, autoresolve, etc.
 INT16 gsCreatureInsertionCode = 0;
 INT32 gsCreatureInsertionGridNo = 0;
-UINT8 gubNumCreaturesAttackingTown = 0;
-UINT8 gubYoungMalesAttackingTown = 0;
-UINT8 gubYoungFemalesAttackingTown = 0;
-UINT8 gubAdultMalesAttackingTown = 0;
-UINT8 gubAdultFemalesAttackingTown = 0;
+UINT16 gubNumCreaturesAttackingTown = 0;
+UINT16 gubYoungMalesAttackingTown = 0;
+UINT16 gubYoungFemalesAttackingTown = 0;
+UINT16 gubAdultMalesAttackingTown = 0;
+UINT16 gubAdultFemalesAttackingTown = 0;
 UINT8 gubCreatureBattleCode = CREATURE_BATTLE_CODE_NONE;
 UINT8 gubSectorIDOfCreatureAttack = 0;
 
@@ -160,7 +155,7 @@ extern SECTOR_EXT_DATA	SectorExternalData[256][4];
 //extern MINE_STATUS_TYPE gMineStatus[ MAX_NUMBER_OF_MINES ];
 
 
-CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
+static CREATURE_DIRECTIVE* NewDirective( UINT8 ubSectorID, UINT8 ubSectorZ, UINT8 ubCreatureHabitat )
 {
 	CREATURE_DIRECTIVE *curr;
 	UINT8 ubSectorX, ubSectorY;
@@ -278,7 +273,7 @@ void InitLairGrumm()
 }
 */
 
-void InitLair(INT32 iChosenMine)
+static void InitLair(INT32 iChosenMine)
 {
 	CREATURE_DIRECTIVE *curr;
 	giLairID = iChosenMine;
@@ -517,7 +512,7 @@ void InitCreatureQuest()
 	}
 }
 
-void AddCreatureToNode( CREATURE_DIRECTIVE *node )
+static void AddCreatureToNode( CREATURE_DIRECTIVE *node )
 {
 	node->pLevel->ubNumCreatures++;
 
@@ -529,7 +524,7 @@ void AddCreatureToNode( CREATURE_DIRECTIVE *node )
 	}
 }
 
-BOOLEAN PlaceNewCreature( CREATURE_DIRECTIVE *node, INT32 iDistance )
+static BOOLEAN PlaceNewCreature( CREATURE_DIRECTIVE *node, INT32 iDistance )
 {
 DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"CreatureSpreading1");
 	if( !node )
@@ -677,7 +672,7 @@ void DecayCreatures()
 
 }
 
-void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, UINT8 ubNumAdultFemales )
+static void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8 ubNumAdultMales, UINT8 ubNumAdultFemales )
 {
 	INT32 iRandom;
 	SOLDIERTYPE *pSoldier;
@@ -764,7 +759,7 @@ void AddCreaturesToBattle( UINT8 ubNumYoungMales, UINT8 ubNumYoungFemales, UINT8
 	AllTeamsLookForAll( FALSE );
 }
 
-void AddCreaturesToBattle_Other( UINT8 ubNum )
+static void AddCreaturesToBattle_Other( UINT8 ubNum )
 {
 	SOLDIERTYPE *pSoldier;
 	MAPEDGEPOINTINFO MapEdgepointInfo = {};
@@ -851,7 +846,7 @@ void AddCreaturesToBattle_Other( UINT8 ubNum )
 	AllTeamsLookForAll( FALSE );
 }
 
-void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
+static void ChooseTownSectorToAttack( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 {
 	INT32 iRandom, i;
 	UINT8 ubSectorX, ubSectorY;
@@ -1482,7 +1477,7 @@ void ChooseCreatureQuestStartDay()
 	}
 }
 
-void DeleteDirectiveNode( CREATURE_DIRECTIVE **node )
+static void DeleteDirectiveNode( CREATURE_DIRECTIVE **node )
 {
 	if( (*node)->next )
 		DeleteDirectiveNode( &((*node)->next) );
@@ -1634,8 +1629,8 @@ BOOLEAN MineClearOfMonsters( UINT8 ubMineIndex )
 	return TRUE;
 }
 
-void DetermineCreatureTownComposition( UINT8 ubNumCreatures, UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-									  UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
+void DetermineCreatureTownComposition( UINT16 ubNumCreatures, UINT16 *pubNumYoungMales, UINT16 *pubNumYoungFemales,
+									  UINT16 *pubNumAdultMales, UINT16 *pubNumAdultFemales )
 {
 	INT32 i, iRandom;
 	UINT8 ubYoungMalePercentage = 10;
@@ -1667,8 +1662,8 @@ void DetermineCreatureTownComposition( UINT8 ubNumCreatures, UINT8 *pubNumYoungM
 	}
 }
 
-void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures, UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-																UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales )
+void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT16 *pubNumCreatures, UINT16 *pubNumYoungMales, UINT16 *pubNumYoungFemales,
+																UINT16 *pubNumAdultMales, UINT16 *pubNumAdultFemales )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -1676,9 +1671,9 @@ void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCr
 	*pubNumCreatures = 0;
 	pSector->ubNumCreatures = 0;
 	pSector->ubCreaturesInBattle = 0;
-	for( INT32 i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
+	for( SoldierID i = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 		if( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			switch( pSoldier->ubBodyType )
@@ -1704,7 +1699,7 @@ void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCr
 	}
 }
 
-void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT8* pubNumCreatures, UINT8* pubNumBloodcats, UINT8* pubNumZombies, UINT8* pubNumBandits )
+void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT16* pubNumCreatures, UINT16* pubNumBloodcats, UINT16* pubNumZombies, UINT16* pubNumBandits )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -1712,9 +1707,9 @@ void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT8* pub
 	*pubNumCreatures = 0;
 	pSector->ubNumCreatures = 0;
 	pSector->ubCreaturesInBattle = 0;
-	for ( INT32 i = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
+	for ( SoldierID i = gTacticalStatus.Team[CREATURE_TEAM].bFirstID; i <= gTacticalStatus.Team[CREATURE_TEAM].bLastID; ++i )
 	{
-		pSoldier = MercPtrs[i];
+		pSoldier = i;
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife )
 		{
 			if ( pSoldier->IsZombie() )
@@ -1750,13 +1745,13 @@ BOOLEAN PrepareCreaturesForBattle()
 	UINT8 ubAdultMalePercentage;
 	UINT8 ubAdultFemalePercentage;
 	UINT8 ubCreatureHabitat;
-	UINT8 ubNumLarvae = 0;
-	UINT8 ubNumInfants = 0;
-	UINT8 ubNumYoungMales = 0;
-	UINT8 ubNumYoungFemales = 0;
-	UINT8 ubNumAdultMales = 0;
-	UINT8 ubNumAdultFemales = 0;
-	UINT8 ubNumCreatures;
+	UINT16 ubNumLarvae = 0;
+	UINT16 ubNumInfants = 0;
+	UINT16 ubNumYoungMales = 0;
+	UINT16 ubNumYoungFemales = 0;
+	UINT16 ubNumAdultMales = 0;
+	UINT16 ubNumAdultFemales = 0;
+	UINT16 ubNumCreatures;
 
 	if( !gubCreatureBattleCode )
 	{
@@ -2243,7 +2238,6 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine()
 {
 	CREATURE_DIRECTIVE *curr;
 	SOLDIERTYPE *pSoldier;
-	INT32 i;
 	INT16 sSectorX, sSectorY;
 	INT8 bSectorZ;
 
@@ -2261,9 +2255,9 @@ BOOLEAN PlayerGroupIsInACreatureInfestedMine()
 		bSectorZ = (INT8)curr->pLevel->ubSectorZ;
 		//Loop through all the creature directives (mine sectors that are infectible) and
 		//see if players are there.
-		for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+		for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 		{
-			pSoldier = MercPtrs[ i ];
+			pSoldier = i;
 			if( pSoldier->bActive && pSoldier->stats.bLife &&
 					pSoldier->sSectorX == sSectorX &&
 					pSoldier->sSectorY == sSectorY &&

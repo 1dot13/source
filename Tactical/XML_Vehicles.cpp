@@ -1,9 +1,8 @@
-	#include "sgp.h"
-	#include "Debug Control.h"
-	#include "expat.h"
-	#include "XML.h"
-	#include "Interface.h"
-	#include "Vehicles.h"
+#include "sgp.h"
+#include "Debug Control.h"
+#include "expat.h"
+#include "XML.h"
+#include "Vehicles.h"
 
 struct
 {

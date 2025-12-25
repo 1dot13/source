@@ -1,10 +1,10 @@
 #include "builddefines.h"
 
-	#include	"Types.h"
+	#include	"types.h"
 	#include	"Quest Debug System.h"
 	#include	"WCheck.h"
 	#include	"Font Control.h"
-	#include	"Video.h"
+	#include	"video.h"
 	#include	"Game Clock.h"
 	#include	"Render Dirty.h"
 	#include	"WordWrap.h"
@@ -19,23 +19,21 @@
 	#include	"Text Input.h"
 	#include	"Soldier Create.h"
 	#include	"strategicmap.h"
-	#include	"soldier add.h"
-	#include	"Opplist.h"
+	#include	"Soldier Add.h"
+	#include	"opplist.h"
 	#include	"Handle Items.h"
-	#include	"Game Clock.h"
 	#include	"environment.h"
-	#include	"dialogue control.h"
+	#include	"Dialogue Control.h"
 	//#include	"Soldier Control.h"
-	#include	"overhead.h"
+	#include	"Overhead.h"
 	#include	"MessageBoxScreen.h"
-	#include	"Stdio.h"
 	#include	"english.h"
 	#include	"line.h"
 	#include	"Keys.h"
-	#include	"Interface Dialogue.h"
-	#include	"SysUtil.h"
-	#include	"Message.h"
-	#include "Random.h"
+	#include	"interface Dialogue.h"
+	#include	"sysutil.h"
+	#include	"message.h"
+	#include "random.h"
 
 //#ifdef JA2BETAVERSION
 
@@ -665,19 +663,19 @@ void			ChangeFactState( INT32 iNumber );
 void			DisplayCurrentGridNo();
 void			EnableQDSButtons();
 
-BOOLEAN			DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
+BOOLEAN		DoQDSMessageBox( UINT8 ubStyle, STR16 zString, UINT32 uiExitScreen, UINT8 ubFlags, MSGBOX_CALLBACK ReturnCallback );
 void			IncrementActiveDropDownBox( INT16 sIncrementValue );
-INT16			IsMercInTheSector( UINT16 usMercID );
+SoldierID	IsMercInTheSector( UINT8 ubMercProfileID );
 void			RefreshAllNPCInventory();
 void			SetQDSMercProfile();
 void			HandleQDSTalkingMerc();
 void			DisplayQDSCurrentlyQuoteNum( );
 void			SetTalkingMercPauseState( BOOLEAN fState );
-UINT8			WhichPanelShouldTalkingMercUse( );
+UINT8		WhichPanelShouldTalkingMercUse( );
 void			EndMercTalking();
 void			EnableFactMouseRegions();
 void			DisableFactMouseRegions();
-INT32			GetMaxNumberOfQuotesToPlay( );
+INT32		GetMaxNumberOfQuotesToPlay( );
 void			GetDebugLocationString( UINT16 usProfileID, STR16 pzText );
 
 //ppp
@@ -2993,9 +2991,9 @@ void DestroyQuestDebugTextInputBoxes()
 
 void AddNPCToGridNo( INT32 iGridNo )
 {
-	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	INT16										sSectorX, sSectorY;
-	UINT8									ubID;
+	SOLDIERCREATE_STRUCT MercCreateStruct;
+	INT16 sSectorX, sSectorY;
+	SoldierID ubID;
 
 	GetCurrentWorldSector( &sSectorX, &sSectorY );
 	MercCreateStruct.bTeam				= CIV_TEAM;
@@ -3270,7 +3268,7 @@ void BtnQuestDebugAllOrSectorNPCToggleCallback( GUI_BUTTON *btn, INT32 reason )
 				DisableButton( guiQuestDebugStartMercTalkingButtonButton );
 			}
 
-			if( IsMercInTheSector( gNpcListBox.sCurSelectedItem ) == -1 )
+			if( IsMercInTheSector( gNpcListBox.sCurSelectedItem ) == NOBODY )
 				DisableButton( guiQuestDebugViewNPCInvButton );
 
 			EnableQDSButtons();
@@ -3567,7 +3565,7 @@ void EnableQDSButtons()
 
 	if( gfUseLocalNPCs )
 	{
-		if( IsMercInTheSector( gubCurrentNpcInSector[ gNpcListBox.sCurSelectedItem ] ) != -1 )
+		if( IsMercInTheSector( gubCurrentNpcInSector[ gNpcListBox.sCurSelectedItem ] ) != NOBODY )
 		{
 			EnableButton( guiQuestDebugViewNPCInvButton );
 			EnableButton( guiQuestDebugNPCRefreshButtonButton );
@@ -3664,23 +3662,20 @@ void IncrementActiveDropDownBox( INT16 sIncrementValue )
 }
 
 
-INT16	IsMercInTheSector( UINT16 usMercID )
+SoldierID IsMercInTheSector( UINT8 ubMercProfileID )
 {
-	if( usMercID == -1 )
-		return( FALSE );
-
-	UINT8					cnt;
+	UINT16 cnt;
 	for ( cnt=0; cnt < TOTAL_SOLDIERS; cnt++ )
 	{
 		//if the merc is active
-		if( Menptr[ cnt ].ubProfile == usMercID )
+		if( Menptr[ cnt ].ubProfile == ubMercProfileID )
 		{
 			if( Menptr[ cnt ].bActive )
 				return( Menptr[ cnt ].ubID );
 		}
 	}
 
-	return( -1 );
+	return( NOBODY );
 }
 
 

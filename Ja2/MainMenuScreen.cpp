@@ -1,38 +1,28 @@
-	#include "sgp.h"
-	#include "screenids.h"
-	#include "Timer Control.h"
-	#include "sysutil.h"
-	#include "vobject_blitters.h"
-	#include "MercTextBox.h"
-	#include "cursors.h"
-	#include "font control.h"
-	#include "mainmenuscreen.h"
-	#include "cursor control.h"
-	#include "render dirty.h"
-	#include "music control.h"
-	#include "GameSettings.h"
-	#include "SaveLoadScreen.h"
-	#include "SaveLoadGame.h"
-	#include "Options Screen.h"
-	#include	"English.h"
-	#include	"Gameloop.h"
-	#include	"Game Init.h"
-	#include	"Utilities.h"
-	#include	"WordWrap.h"
-	#include "Font Control.h"
-	#include "text.h"
-	#include "Multi Language Graphic Utils.h"
-	#include "Encrypted File.h"
-	#include "ja2 splash.h"
-	#include "GameVersion.h"
-
-#include "gamesettings.h"
+#include "sgp.h"
+#include "screenids.h"
+#include "Timer Control.h"
+#include "sysutil.h"
+#include "Cursors.h"
+#include "Font Control.h"
+#include "mainmenuscreen.h"
+#include "Cursor Control.h"
+#include "Render Dirty.h"
+#include "Music Control.h"
+#include "GameSettings.h"
+#include "SaveLoadScreen.h"
+#include "SaveLoadGame.h"
+#include "Options Screen.h"
+#include	"english.h"
+#include	"gameloop.h"
+#include	"Game Init.h"
+#include	"WordWrap.h"
+#include "Text.h"
+#include "Multi Language Graphic Utils.h"
+#include "JA2 Splash.h"
+#include "GameVersion.h"
 #include "connect.h"
 #include "strategic.h"
-#include "strategic movement.h"
-#include "overhead.h"
-#include "init.h"
-#include "xml.h"
+#include "Strategic Movement.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_profile.h>
 
@@ -83,7 +73,6 @@ void MenuButtonCallback(GUI_BUTTON *btn, INT32 reason);
 void HandleMainMenuKeyboardInput();
 void HandleMainMenuInput();
 void HandleMainMenuScreen();
-void DisplayAssignmentText();
 void ClearMainMenu();
 void SelectMainMenuBackGroundRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason );
 void SetMainMenuExitScreen( UINT32 uiNewScreen );
@@ -428,7 +417,7 @@ void MenuButtonCallback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
+static void MenuButtonMoveCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if(reason & MSYS_CALLBACK_REASON_LOST_MOUSE)
 	{

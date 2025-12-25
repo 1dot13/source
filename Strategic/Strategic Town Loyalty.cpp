@@ -8,30 +8,24 @@
 	#include "Queen Command.h"
 	#include "Animation Data.h"
 	#include "Quests.h"
-	#include "Font.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "LOS.h"
 	#include "World Items.h"
 	#include "Tactical Save.h"
 	#include "Soldier Profile.h"
 	#include "Handle Items.h"
 	#include "random.h"
-	#include "strategic movement.h"
+	#include "Strategic Movement.h"
 	#include "Strategic Pathing.h"
-	#include "vehicles.h"
 	#include "Game Clock.h"
-	#include "Game Event Hook.h"
 	#include "Morale.h"
 	#include "GameSettings.h"
 	#include "Text.h"
 	#include "MessageBoxScreen.h"
 	#include "Town Militia.h"
 	#include "history.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "Strategic Status.h"
-	// HEADROCK HAM B1: Added include for Dynamic Roaming Militia
-	#include "MilitiaSquads.h"
-	// HEADROCK HAM 3.6: Include for Facility Debt
 	#include "Facilities.h"
 	#include "CampaignStats.h"		// added by Flugente
 	#include "DynamicDialogue.h"			// added by Flugente
@@ -40,6 +34,7 @@
 #include "Luaglobal.h"
 #include "LuaInitNPCs.h"
 #include "Interface.h"
+#include <language.hpp>
 
 #include "GameInitOptionsScreen.h"
 extern WorldItems gAllWorldItems;
@@ -679,7 +674,6 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	INT8 bTownId = 0;
 	INT32 iLoyaltyChange = 0;
 	INT8 bSeenState = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pCivSoldier = NULL;
 	UINT32 uiChanceFalseAccusal = 0;
 	INT8 bKillerTeam = 0;
@@ -740,13 +734,13 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	}
 	*/
 	// set killer team
-	bKillerTeam = Menptr[ pSoldier->ubAttackerID ].bTeam;
+	bKillerTeam = pSoldier->ubAttackerID->bTeam;
 
 
 	// if the player did the killing
 	if( bKillerTeam == OUR_TEAM )
 	{
-		SOLDIERTYPE *pKiller = MercPtrs[ pSoldier->ubAttackerID ];
+		SOLDIERTYPE *pKiller = pSoldier->ubAttackerID;
 
 		// apply morale penalty for killing a civilian!
 		HandleMoraleEvent( pKiller, MORALE_KILLED_CIVILIAN, pKiller->sSectorX, pKiller->sSectorY, pKiller->bSectorZ );
@@ -789,10 +783,10 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 	// check if LOS between any civ, killer and killed
 	// if so, then do not adjust
 
-	for( iCounter = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; iCounter++ )
+	for( SoldierID iCounter = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++iCounter )
 	{
 		// set current civ soldier
-		pCivSoldier = MercPtrs[ iCounter ];
+		pCivSoldier = iCounter;
 
 		if ( pCivSoldier == pSoldier )
 		{
@@ -800,7 +794,7 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 		}
 
 		// killer seen by civ?
-		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, MercPtrs[ pSoldier->ubAttackerID ], TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
+		if ( SoldierToSoldierLineOfSightTest( pCivSoldier, pSoldier->ubAttackerID, TRUE, gGameExternalOptions.ubStraightSightRange ) != 0 )
 		{
 			bSeenState |= 1;
 		}
@@ -908,7 +902,7 @@ void HandleMurderOfCivilian( SOLDIERTYPE *pSoldier, BOOLEAN fIntentional )
 
 	case CREATURE_TEAM:
 			// killed by a monster - make sure it was one
-			if( ( Menptr[ pSoldier->ubAttackerID ].ubBodyType >= ADULTFEMALEMONSTER ) && ( Menptr[ pSoldier->ubAttackerID ].ubBodyType <= QUEENMONSTER ) )
+			if( ( pSoldier->ubAttackerID->ubBodyType >= ADULTFEMALEMONSTER ) && ( pSoldier->ubAttackerID->ubBodyType <= QUEENMONSTER ) )
 			{
 				// increase for the extreme horror of being killed by a monster
 				iLoyaltyChange *= MULTIPLIER_FOR_MURDER_BY_MONSTER;
@@ -1631,12 +1625,12 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 		swprintf( str, gpStrategicString[STR_PB_BANDIT_KILLCIVS_IN_SECTOR], ubHowMany, pSectorString );
 	else
 	{
-#ifdef CHINESE
+if( g_lang == i18n::Lang::zh ) {
 		//diffrent order of words in Chinese
 		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], pSectorString, ubHowMany );
-#else
+} else {
 		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], ubHowMany, pSectorString );
-#endif
+}
 	}
 
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
@@ -2129,13 +2123,12 @@ BOOLEAN DidFirstBattleTakePlaceInThisTown( INT8 bTownId )
 
 UINT32 PlayerStrength( void )
 {
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT32					uiStrength, uiTotal = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT32 uiStrength, uiTotal = 0;
 
-	for ( ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubLoop++ )
+	for ( SoldierID ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop )
 	{
-		pSoldier = MercPtrs[ ubLoop ];
+		pSoldier = ubLoop;
 		if ( pSoldier->bActive )
 		{
 			if ( pSoldier->bInSector || (pSoldier->flags.fBetweenSectors && SECTORX( pSoldier->ubPrevSectorID ) == gWorldSectorX && SECTORY( pSoldier->ubPrevSectorID ) == gWorldSectorY && (pSoldier->bSectorZ == gbWorldSectorZ)) )
@@ -2151,13 +2144,12 @@ UINT32 PlayerStrength( void )
 
 UINT32 EnemyStrength( void )
 {
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT32					uiStrength, uiTotal = 0;
+	SOLDIERTYPE * pSoldier;
+	UINT32 uiStrength, uiTotal = 0;
 
-		for ( ubLoop = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 		{
-			pSoldier = MercPtrs[ ubLoop ];
+			pSoldier = ubLoop;
 			if ( pSoldier->bActive && pSoldier->bInSector && !pSoldier->aiData.bNeutral )
 			{
 				// count this person's strength (condition), calculated as life reduced up to half according to maxbreath

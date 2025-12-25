@@ -1,43 +1,31 @@
-	#include <stdio.h>
 	#include <string.h>
-	#include "stdlib.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "renderworld.h"
-
-
-	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
-	#include "Event Pump.h"
 	#include "Render Fun.h"
-	#include "interface.h"
-	#include "sysutil.h"
+	#include "Interface.h"
 	#include "FileMan.h"
-	#include "Random.h"
-	#include "ai.h"
-	#include "Interactive Tiles.h"
-	#include "soldier ani.h"
-	#include "english.h"
-	#include "overhead.h"
+	#include "random.h"
+	#include "Soldier Ani.h"
+	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Game Clock.h"
-	#include "assignments.h"
+	#include "Assignments.h"
 	#include "Dialogue Control.h"
-	#include "soldier create.h"
-	#include "soldier add.h"
+	#include "Soldier Create.h"
+	#include "Soldier Add.h"
 	#include "opplist.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Strategic Town Loyalty.h"
-	#include "squads.h"
-	#include "Tactical Save.h"
+	#include "Squads.h"
 	#include "Quests.h"
 	#include "aim.h"
-	#include "Interface Dialogue.h"
+	#include "interface Dialogue.h"
 	#include "GameSettings.h"
 	#include "strategic town reputation.h"
-	#include "interface utils.h"
+	#include "Interface Utils.h"
 	#include "Game Event Hook.h"
 	#include "Map Information.h"
 	#include "history.h"
@@ -46,29 +34,23 @@
 	#include "Player Command.h"
 	#include "strategic.h"
 	#include "strategicmap.h" // added by SANDRO
-	#include "drugs and alcohol.h" // added by Flugente
+	#include "Drugs And Alcohol.h" // added by Flugente
 	#include "Campaign.h"
 	#include "LuaInitNPCs.h"		// added by Flugente
-
-#include "aim.h"
 #include "AimFacialIndex.h"
-#include "mercs.h"
+#include "connect.h"
+
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#endif
-
-#include "ub_config.h"
-#include "XML.h"
-
-#ifdef JA2UB
 #else
 	// anv: for playable Speck
-	#include "Speck Quotes.h"
+#include "mercs.h"
+#include "Speck Quotes.h"
 	#include "LaptopSave.h"
 #endif
 
-#include "connect.h"
+
 #ifdef JA2EDITOR
 	extern BOOLEAN gfProfileDataLoaded;
 #endif
@@ -1530,7 +1512,7 @@ INT16 CalcMedicalDeposit( MERCPROFILESTRUCT * pProfile )
 
 SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnly )
 {
-	UINT8 ubLoop, ubLoopLimit;
+	UINT16 ubLoop, ubLoopLimit;
 	SOLDIERTYPE * pSoldier;
 
 	// sevenfm: fix for last soldier in player team
@@ -1559,19 +1541,19 @@ SOLDIERTYPE * FindSoldierByProfileID( UINT8 ubProfileID, BOOLEAN fPlayerMercsOnl
 
 SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 {
-	UINT8										ubID;
-	SOLDIERTYPE							*pNewSoldier = NULL;
+	SoldierID				ubID;
+	SOLDIERTYPE				*pNewSoldier = NULL;
 	SOLDIERCREATE_STRUCT		MercCreateStruct;
-	UINT32									cnt;
-	INT32										sOldGridNo;
+	UINT32					cnt;
+	INT32					sOldGridNo;
 
-	UINT8										ubOldID;
-	UINT32									uiOldUniqueId;
+	SoldierID				ubOldID;
+	UINT32					uiOldUniqueId;
 
-	UINT32									uiSlot;
-	SOLDIERTYPE							*pGroupMember;
+	UINT32					uiSlot;
+	SOLDIERTYPE				*pGroupMember;
 
-	BOOLEAN								success;
+	BOOLEAN					success;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("ChangeSoldierTeam"));
 
@@ -1713,7 +1695,7 @@ SOLDIERTYPE *ChangeSoldierTeam( SOLDIERTYPE *pSoldier, UINT8 ubTeam )
 
 
 		// Set insertion gridNo
-		pNewSoldier->sInsertionGridNo								= sOldGridNo;
+		pNewSoldier->sInsertionGridNo = sOldGridNo;
 
 		if ( gfPotentialTeamChangeDuringDeath )
 		{
@@ -1845,7 +1827,7 @@ BOOLEAN RecruitRPC( UINT8 ubCharNum )
 		if ( bSlot != NO_SLOT )
 		{
 //			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].fFlags & ITEM_TWO_HANDED )
-			if ( Item[ pNewSoldier->inv[ bSlot ].usItem ].twohanded )
+			if (ItemIsTwoHanded(pNewSoldier->inv[ bSlot ].usItem))
 			{
 				if ( bSlot != SECONDHANDPOS && pNewSoldier->inv[ SECONDHANDPOS ].exists() == true )
 				{
@@ -2717,11 +2699,10 @@ void OverwriteMercOpinionsWithXMLData( UINT32 uiLoop )
 // SANDRO - added function
 INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 {
-	INT8						bNumber = 0;
-	UINT32					uiLoop;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTeammate;
-	BOOLEAN				fOnlyOneException = FALSE;
+	INT8			bNumber = 0;
+	SOLDIERTYPE *	pSoldier;
+	SOLDIERTYPE *pTeammate;
+	BOOLEAN		fOnlyOneException = FALSE;
 
 	pSoldier = FindSoldierByProfileID( ubProfileID, FALSE );
 	if (!pSoldier || !( pSoldier->bActive ) || !( pSoldier->bInSector ) )
@@ -2729,9 +2710,9 @@ INT8 CheckMercsNearForCharTraits( UINT8 ubProfileID, INT8 bCharTraitID )
 		return( -1 );
 	}
 
-	for ( uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; uiLoop++)
+	for ( SoldierID uiLoop = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID; uiLoop <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++uiLoop )
 	{
-		pTeammate = MercPtrs[ uiLoop ];
+		pTeammate = uiLoop;
 		if ( pTeammate == NULL )
 		{
 			continue;

@@ -1,14 +1,12 @@
-	#include <stdio.h>
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "structure wrap.h"
-	#include "isometric utils.h"
-	#include "worldman.h"
-	#include "overhead.h"
+	#include "Structure Wrap.h"
+	#include "Isometric Utils.h"
+	#include "Overhead.h"
 	#include "renderworld.h"
 	#include "strategicmap.h"
-	#include "rotting corpses.h"
+	#include "Rotting Corpses.h"
 	#include "WorldDat.h"	// added by Flugente
 
 extern BOOLEAN DoesSAMExistHere( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ, INT32 sGridNo );
@@ -518,9 +516,9 @@ BOOLEAN IsCuttableWireFenceAtGridNo( INT32 sGridNo )
 }
 
 
-BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
+BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT16 * pubID )
 {
-	UINT8 ubMerc;
+	UINT16 ubMerc;
 
 	// OK, first look for a vehicle....
 	ubMerc = WhoIsThere2( sGridNo, 0 );
@@ -554,9 +552,9 @@ BOOLEAN IsRepairableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
 }
 
 
-BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT8 *pubID )
+BOOLEAN IsRefuelableStructAtGridNo( INT32 sGridNo, UINT16 * pubID )
 {
-	UINT8 ubMerc;
+	UINT16 ubMerc;
 
 	// OK, first look for a vehicle....
 	ubMerc = WhoIsThere2( sGridNo, 0 );

@@ -1,32 +1,29 @@
 	#include "sgp.h"
-	#include "overhead.h"
-	#include "messageboxscreen.h"
+	#include "Overhead.h"
+	#include "MessageBoxScreen.h"
 	#include "screenids.h"
 	#include "Handle UI.h"
 	#include "message.h"
-	#include "game clock.h"
-	#include "items.h"
+	#include "Game Clock.h"
+	#include "Items.h"
 	#include "Text.h"
 	#include "MercTextBox.h"
-	#include "interface.h"
-	#include "auto bandage.h"
+	#include "Interface.h"
+	#include "Auto Bandage.h"
 	#include "renderworld.h"
-	#include "strategic turns.h"
+	#include "Strategic Turns.h"
 	#include "Event Pump.h"
-	#include "dialogue control.h"
+	#include "Dialogue Control.h"
 	#include "ai.h"
-	#include "interface control.h"
+	#include "Interface Control.h"
 	#include "strategicmap.h"
-	#include "animation control.h"
+	#include "Animation Control.h"
 	#include "Map Screen Interface.h"
 	#include "Soldier Profile.h"
 	#include "Assignments.h"
-	#include "WordWrap.h"
-	#include "cursors.h"
-	#include "English.h"
-	#include "SkillCheck.h"		// added by Flugente
+	#include "Cursors.h"
+	#include "english.h"
 
-#include "Music Control.h"
 
 // max number of merc faces per row in autobandage box
 #define NUMBER_MERC_FACES_AUTOBANDAGE_BOX 4
@@ -69,13 +66,11 @@ std::vector<INT32>	giAutoBandagesSoldierFaces (2*CODE_MAXIMUM_NUMBER_OF_PLAYER_S
 BOOLEAN fAutoEndBandageButtonCreated = FALSE;
 
 void BeginAutoBandageCallBack( UINT8 bExitValue );
-void CancelAutoBandageCallBack( UINT8 bExitValue );
 
 // the update box for autobandaging mercs
 void CreateTerminateAutoBandageButton( INT16 sX, INT16 sY );
 void DestroyTerminateAutoBandageButton( void );
 void DisplayAutoBandageUpdatePanel( void );
-void EndAutobandageButtonCallback(GUI_BUTTON *btn,INT32 reason);
 void SetUpAutoBandageUpdatePanel( void );
 BOOLEAN AddFacesToAutoBandageBox( void );
 BOOLEAN RenderSoldierSmallFaceForAutoBandagePanel( INT32 iIndex, INT16 sCurrentXPosition, INT16 sCurrentYPosition );
@@ -85,14 +80,12 @@ BOOLEAN RemoveFacesForAutoBandage( void );
 
 extern BOOLEAN CanCharacterAutoBandageTeammate( SOLDIERTYPE *pSoldier );
 extern BOOLEAN CanCharacterBeAutoBandagedByTeammate( SOLDIERTYPE *pSoldier );
-extern UINT8 NumEnemyInSector( );
+extern UINT16 NumEnemyInSector( );
 
 void BeginAutoBandage( )
 {
-	INT32				cnt;
-	BOOLEAN				fFoundAGuy = FALSE;
-	SOLDIERTYPE *		pSoldier;
-	BOOLEAN				fFoundAMedKit = FALSE;
+	BOOLEAN fFoundAGuy = FALSE;
+	BOOLEAN fFoundAMedKit = FALSE;
 	
 	// If we are in combat, we con't...
 	if ( (gTacticalStatus.uiFlags & INCOMBAT) || (NumEnemyInSector() != 0) )
@@ -101,21 +94,21 @@ void BeginAutoBandage( )
 		return;
 	}
 
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID soldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 	// check for anyone needing bandages
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pSoldier )
+	for ( ; soldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++soldier )
 	{
 		// if the soldier isn't active or in sector, we have problems..leave
-		if ( !(pSoldier->bActive) || !(pSoldier->bInSector) || ( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (pSoldier->bAssignment == VEHICLE ) )
+		if ( !(soldier->bActive) || !(soldier->bInSector) || ( soldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) || (soldier->bAssignment == VEHICLE ) )
 		{
 			continue;
 		}
 
 		// can this character be helped out by a teammate?
-		if ( CanCharacterBeAutoBandagedByTeammate( pSoldier ) )
+		if ( CanCharacterBeAutoBandagedByTeammate( soldier ) )
 			fFoundAGuy = TRUE;
 
-		if ( FindObjClass( pSoldier, IC_MEDKIT ) != NO_SLOT )
+		if ( FindObjClass( soldier, IC_MEDKIT ) != NO_SLOT )
 			fFoundAMedKit = TRUE;	
 
 		if ( fFoundAGuy && fFoundAMedKit )
@@ -155,9 +148,6 @@ void BeginAutoBandage( )
 
 void HandleAutoBandagePending( )
 {
-	INT32 cnt;
-	SOLDIERTYPE *pSoldier = NULL;
-
 	// OK, if we have a pending autobandage....
 	// check some conditions
 	if ( gTacticalStatus.fAutoBandagePending )
@@ -176,15 +166,15 @@ void HandleAutoBandagePending( )
 		}
 
 		// Do any guys have pending actions...?
-		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt, ++pSoldier)
+		SoldierID soldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+		for ( ; soldier <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++soldier)
 		{
 			// Are we in sector?
-			if ( pSoldier->bActive	)
+			if ( soldier->bActive	)
 			{
-				if ( pSoldier->sSectorX == gWorldSectorX && pSoldier->sSectorY == gWorldSectorY && pSoldier->bSectorZ == gbWorldSectorZ && !pSoldier->flags.fBetweenSectors )
+				if ( soldier->sSectorX == gWorldSectorX && soldier->sSectorY == gWorldSectorY && soldier->bSectorZ == gbWorldSectorZ && !soldier->flags.fBetweenSectors )
 				{
-					if ( pSoldier->aiData.ubPendingAction != NO_PENDING_ACTION )
+					if ( soldier->aiData.ubPendingAction != NO_PENDING_ACTION )
 					{
 						return;
 					}
@@ -246,14 +236,14 @@ BOOLEAN HandleAutoBandage( )
 			ShadowVideoSurfaceRect( FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 			InvalidateScreen( );
 			RefreshScreen( NULL );
-			INT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-			SOLDIERTYPE *pSoldier = NULL;
-			for (pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier)
+
+			SoldierID soldier = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+			for ( ; soldier <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++soldier)
 			{
-				if(pSoldier->bActive && pSoldier->bInSector && pSoldier->aiData.bAction != 0)
+				if(soldier->bActive && soldier->bInSector && soldier->aiData.bAction != 0)
 				{
 					//shadooow: this fixes autobandaging sometimes hang indefinitely
-					pSoldier->aiData.bAction = 0;
+					soldier->aiData.bAction = 0;
 				}
 			}
 		}
@@ -308,17 +298,15 @@ BOOLEAN HandleAutoBandage( )
 }
 
 
-BOOLEAN CreateAutoBandageString( void )
+static BOOLEAN CreateAutoBandageString( void )
 {
-	INT32				cnt;
     // WDS - make number of mercenaries, etc. be configurable
-	UINT8				ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
+	UINT16				ubDoctor[CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS], ubDoctors = 0;
 	UINT32				uiDoctorNameStringLength = 1; // for end-of-string character
 	STR16				sTemp;
-	SOLDIERTYPE *		pSoldier;
 
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt, ++pSoldier)
+	SoldierID pSoldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	for ( ; pSoldier <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++pSoldier )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife >= OKLIFE && !(pSoldier->bCollapsed) && pSoldier->stats.bMedical > 0 && FindObjClass( pSoldier, IC_MEDKIT ) != NO_SLOT)
 		{
@@ -364,7 +352,7 @@ BOOLEAN CreateAutoBandageString( void )
 			return( FALSE );
 		}
 		wcscpy( sTemp, L"" );
-		for (cnt = 0; cnt < ubDoctors - 1; ++cnt)
+		for (UINT16 cnt = 0; cnt < ubDoctors - 1; ++cnt)
 		{
 			wcscat( sTemp, MercPtrs[ubDoctor[cnt]]->name );
 			if (ubDoctors > 2)
@@ -394,10 +382,7 @@ void SetAutoBandageComplete( void )
 
 void AutoBandage( BOOLEAN fStart )
 {
-	SGPRect					aRect;
-	UINT8						ubLoop;
-	INT32						cnt;
-	SOLDIERTYPE *		pSoldier;
+	SGPRect		aRect;
 
 	if ( fStart )
 	{
@@ -417,8 +402,8 @@ void AutoBandage( BOOLEAN fStart )
 		// Compress time...
 		//SetGameTimeCompressionLevel( TIME_COMPRESS_5MINS );
 
-		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++cnt, ++pSoldier)
+		SoldierID pSoldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+		for ( ; pSoldier <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++pSoldier)
 		{
 			if ( pSoldier->bActive	)
 			{
@@ -456,11 +441,11 @@ void AutoBandage( BOOLEAN fStart )
 		gTacticalStatus.uiFlags					&= ( ~OUR_MERCS_AUTO_MOVE );
 
 		// make sure anyone under AI control has their action cancelled
-		cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier )
+		SoldierID pSoldier = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+		for ( ; pSoldier <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++pSoldier )
 		{
 			// 0verhaul:  Make sure the merc is also in the sector before making him stand up!
-			if (pSoldier && pSoldier->bActive && pSoldier->bInSector)
+			if (pSoldier->bActive && pSoldier->bInSector)
 			{
 				ActionDone( pSoldier );
 				if ( pSoldier->bSlotItemTakenFrom != NO_SLOT )
@@ -480,11 +465,10 @@ void AutoBandage( BOOLEAN fStart )
 			}
 		}
 
-		ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-		for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop)
+		pSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		for ( ; pSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++pSoldier )
 		{
-			pSoldier = MercPtrs[ubLoop];
-			if (pSoldier && pSoldier->bActive && pSoldier->bInSector)
+			if ( pSoldier->bActive && pSoldier->bInSector)
 			{
 				ActionDone(pSoldier);
 
@@ -553,7 +537,6 @@ void BeginAutoBandageCallBack( UINT8 bExitValue )
 
 void SetUpAutoBandageUpdatePanel( void )
 {
-
 	INT32 iNumberDoctoring = 0;
 	INT32 iNumberPatienting = 0;
 	INT32 iNumberOnTeam = 0;
@@ -574,24 +557,21 @@ void SetUpAutoBandageUpdatePanel( void )
 	// grab number of potential grunts on players team
 	iNumberOnTeam = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 
-	// run through mercs on squad...if they can doctor, add to list
+	// run through mercs on squad...if they can be a doctor or patient, add to list
 	for( iCounterA = 0; iCounterA < iNumberOnTeam; iCounterA++ )
 	{
-		if( CanCharacterAutoBandageTeammate( &Menptr[ iCounterA ] ) )
+		SOLDIERTYPE *pSoldier = &Menptr[iCounterA];
+
+		if( CanCharacterAutoBandageTeammate( pSoldier ))
 		{
 			// add to list, up the count
 			iDoctorList[ iNumberDoctoring ] = iCounterA;
 			iNumberDoctoring++;
 		}
-	}
-
-	// run through mercs on squad, if they can patient, add to list
-	for( iCounterA = 0; iCounterA < iNumberOnTeam; iCounterA++ )
-	{
-		if( CanCharacterBeAutoBandagedByTeammate( &Menptr[ iCounterA ] ) )
+		if ( CanCharacterBeAutoBandagedByTeammate( pSoldier ) )
 		{
 			// add to list, up the count
-			iPatientList[ iNumberPatienting ] = iCounterA;
+			iPatientList[iNumberPatienting] = iCounterA;
 			iNumberPatienting++;
 		}
 	}
@@ -1028,7 +1008,7 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 	INT32 iCounter = 0;
 	INT32 iNumberOfDoctors = 0;
 	VOBJECT_DESC	 VObjectDesc;
-
+	const MERCPROFILESTRUCT *profile;
 
     // WDS - make number of mercenaries, etc. be configurable
 	// reset
@@ -1044,21 +1024,24 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		// find a free slot
 		if( iDoctorList[ iCounter ] != -1 )
 		{
-			if( gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex < 100 )
+			profile = &gMercProfiles[(Menptr[iDoctorList[iCounter]]).ubProfile];
+			const UINT8 face = profile->ubFaceIndex;
+
+			if( face < 100 )
 			{
 				// grab filename of face
-				if ((iDoctorList[ iCounter ] != -1) && gMercProfiles[( Menptr[iDoctorList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", face );
 			}
 			else
 			{
 				// grab filename of face
-				if ((iDoctorList[ iCounter ] != -1) && gMercProfiles[( Menptr[iDoctorList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iDoctorList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", face );
 			}
 
 			// load the face
@@ -1077,21 +1060,24 @@ BOOLEAN AddFacesToAutoBandageBox( void )
 		// find a free slot
 		if( iPatientList[ iCounter ] != -1 )
 		{
-			if( gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex < 100 )
+			profile = &gMercProfiles[(Menptr[iPatientList[iCounter]]).ubProfile];
+			const UINT8 face = profile->ubFaceIndex;
+
+			if( face < 100 )
 			{
 				// grab filename of face
-				if ((iPatientList[ iCounter ] != -1) && gMercProfiles[( Menptr[iPatientList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%02d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%02d.sti", face );
 			}
 			else
 			{
 				// grab filename of face
-				if ( (iPatientList[ iCounter ] != -1) && gMercProfiles[( Menptr[iPatientList[iCounter]] ).ubProfile].Type == PROFILETYPE_IMP )
-					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+				if ( profile->Type == PROFILETYPE_IMP )
+					sprintf( VObjectDesc.ImageFile, "IMPFaces\\65Face\\%03d.sti", face );
 				else
-					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", gMercProfiles[ ( Menptr[ iPatientList[ iCounter ] ] ).ubProfile ].ubFaceIndex );
+					sprintf( VObjectDesc.ImageFile, "Faces\\65Face\\%03d.sti", face );
 			}
 		
 			// load the face
@@ -1233,15 +1219,15 @@ BOOLEAN RetreatBandagingPending()
 }
 
 // return the ID of best doctor that has a medkit and is travelling with pPatient
-UINT16 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient )
+SoldierID GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient )
 {
 	// if this is a travelling, bleeding merc, can somebody who travels with him bandage him/her?
 	if ( pPatient && pPatient->bActive && pPatient->flags.fBetweenSectors && pPatient->bBleeding )
 	{
-		UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-		SOLDIERTYPE* pSoldier = NULL;
-		for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier )
+		SoldierID ID = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+		for ( ; ID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ID )
 		{
+			SOLDIERTYPE *pSoldier = ID;
 			// this requires mercs to travel and thus NOT be in a sector
 			// also we need to be in a specific sector
 			if ( pSoldier->bActive && pSoldier->flags.fBetweenSectors && pSoldier->sSectorX == pPatient->sSectorX  && pSoldier->sSectorY == pPatient->sSectorY )
@@ -1249,7 +1235,7 @@ UINT16 GetBestRetreatingMercDoctor( SOLDIERTYPE* pPatient )
 				// find the best conscious doctor that has a medkit
 				if ( pSoldier->stats.bLife >= OKLIFE && pSoldier->stats.bMedical > 0 && FindObjClass( pSoldier, IC_MEDKIT ) != NO_SLOT )
 				{
-					return cnt;
+					return ID;
 				}
 			}
 		}
@@ -1278,12 +1264,12 @@ void HandleRetreatBandaging()
 	BOOLEAN needhelpinsector = FALSE;
 	INT16 sX = -1;
 	INT16 sY = -1;
-	UINT16 possiblepatient = NOBODY;
+	SoldierID possiblepatient = NOBODY;
 
-	UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-	SOLDIERTYPE* pSoldier = NULL;
-	for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier )
+	SoldierID ID = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	for ( ; ID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ID )
 	{
+		SOLDIERTYPE* pSoldier = ID;
 		// this requires mercs to travel and thus NOT be in a sector
 		// are we bleeding?
 		if ( pSoldier->bActive && pSoldier->flags.fBetweenSectors &&  pSoldier->bBleeding )
@@ -1327,7 +1313,7 @@ void HandleRetreatBandaging()
 				needhelpinsector = TRUE;
 				sX = pSoldier->sSectorX;
 				sY = pSoldier->sSectorY;
-				possiblepatient = cnt;
+				possiblepatient = ID;
 			}
 		}
 	}
@@ -1336,16 +1322,17 @@ void HandleRetreatBandaging()
 	if ( needhelpinsector && possiblepatient != NOBODY)
 	{
 		// find the best doctor here
-		UINT16 bestdoctorid = GetBestRetreatingMercDoctor( MercPtrs[possiblepatient] );
+		SoldierID bestdoctorid = GetBestRetreatingMercDoctor( MercPtrs[possiblepatient] );
 		
 		if ( bestdoctorid != NOBODY )
 		{
 			// have the doctor treat people
-			SOLDIERTYPE* pDoctor = MercPtrs[bestdoctorid];
+			SOLDIERTYPE* pDoctor = bestdoctorid;
 
-			cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-			for ( pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pSoldier )
+			SoldierID ID = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+			for ( ; ID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ID)
 			{
+				SOLDIERTYPE *pSoldier = ID;
 				// this requires mercs to travel and thus NOT be in a sector
 				// also we need to be in a specific sector
 				// treat bleeding people only

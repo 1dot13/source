@@ -6,17 +6,17 @@
 #include "IMP Gear.h"
 #include "IMP Skill Trait.h"
 #include "Button System.h"
-#include "utilities.h"
-#include "Debug.h"
+#include "Utilities.h"
+#include "DEBUG.H"
 #include "Text.h"
 #include "Font Control.h"
-#include "font.h"
+#include "Font.h"
 #include "laptop.h"
-#include "cursors.h"
+#include "Cursors.h"
 #include "IMP MainPage.h"
 #include "IMPVideoObjects.h"
 #include "_Ja25EnglishText.h"
-#include "wordwrap.h"
+#include "WordWrap.h"
 #include "CharProfile.h"
 #include "soldier profile type.h"
 #include "IMP Compile Character.h"
@@ -269,7 +269,7 @@ void IMPGearDisplay( )
 			gIMPGearGun1 = currentWeapon;
 
 			std::vector<std::pair<INT16, STR16> > entries;
-			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[60])); //Reusing AssignmentString for "Empty" text
 
 			if (Item[gIMPGearGun1].usItemClass & IC_GUN)
 			{
@@ -321,7 +321,7 @@ void IMPGearDisplay( )
 
 
 			std::vector<std::pair<INT16, STR16> > entries;
-			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[60])); //Reusing AssignmentString for "Empty" text
 
 
 			if (Item[gIMPGearGun2].usItemClass & IC_GUN)
@@ -372,7 +372,7 @@ void IMPGearDisplay( )
 			gIMPGearGun3 = currentWeapon;
 
 			std::vector<std::pair<INT16, STR16> > entries;
-			entries.push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+			entries.push_back(std::make_pair(0, pLongAssignmentStrings[60])); //Reusing AssignmentString for "Empty" text
 
 			if (Item[gIMPGearGun3].usItemClass & IC_GUN)
 			{
@@ -1272,7 +1272,7 @@ void DistributePossibleItemsToVectors(void)
 	// it is always possible to not select something
 	for (int i = 0; i < NUM_INV_SLOTS; ++i)
 	{
-		gIMPPossibleItems[i].push_back(std::make_pair(0, pLongAssignmentStrings[40])); //Reusing AssignmentString for "Empty" text
+		gIMPPossibleItems[i].push_back(std::make_pair(0, pLongAssignmentStrings[60])); //Reusing AssignmentString for "Empty" text
 		SetChoiceForPocket(i, 0, 1); // Initialize all selections to empty at first
 	}
 
@@ -1285,7 +1285,7 @@ void DistributePossibleItemsToVectors(void)
 		{
 			gIMPPossibleItems[HANDPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName));
 
-			if (Item[usItem].twohanded) {
+			if (ItemIsTwoHanded(usItem)) {
 				gIMPPossibleItems[GUNSLINGPOCKPOS].push_back(std::make_pair(usItem, Item[usItem].szItemName)); 
 			}
 			else { 

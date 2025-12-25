@@ -1,15 +1,13 @@
-	#include "builddefines.h"
-	#include <stdio.h>
+	#include <string.h>
 	#include "sgp.h"
 	#include "himage.h"
 	#include "vobject.h"
-	#include "interface utils.h"
-	#include "render dirty.h"
-	#include "interface.h"
+	#include "Interface Utils.h"
+	#include "Render Dirty.h"
+	#include "Interface.h"
 	#include "sysutil.h"
 	#include "faces.h"
-	#include "render dirty.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Overhead.h"
 	#include "Soldier macros.h"
 	#include "line.h"
@@ -43,7 +41,7 @@ extern UINT32 guiBrownBackgroundForTeamPanel;
 extern UINT32 guiGoldBackgroundForTeamPanel;
 
 // selected grunt
-extern UINT16 gusSelectedSoldier;
+extern SoldierID gusSelectedSoldier;
 
 // car portraits
 enum{
@@ -494,7 +492,7 @@ void RenderSoldierFace( SOLDIERTYPE *pSoldier, INT16 sFaceX, INT16 sFaceY, BOOLE
 			}
 			else
 			{
-				SetAutoFaceActiveFromSoldier( FRAME_BUFFER, guiSAVEBUFFER, pSoldier->ubID , sFaceX, sFaceY );
+				SetAutoFaceActiveFromSoldier( FRAME_BUFFER, guiSAVEBUFFER, pSoldier->ubID, sFaceX, sFaceY );
 			//	SetAutoFaceActiveFromSoldier( FRAME_BUFFER, FACE_AUTO_RESTORE_BUFFER, pSoldier->ubID , sFaceX, sFaceY );
 			}
 		}

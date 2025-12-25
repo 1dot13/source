@@ -1,27 +1,21 @@
 #include "builddefines.h"
-#include "Types.h"
+#include "types.h"
 #include "Isometric Utils.h"
-//#include "Soldier Control.h"
 #include "Overhead.h"
-#include "displaycover.h"
+#include "DisplayCover.h"
 #include "Font Control.h"
 #include "_Ja25EnglishText.h"
 #include "message.h"
 #include "GameSettings.h"
 #include "renderworld.h"
 #include "Interface.h"
-#include "Debug.h"
-#include "PATHAI.H"
 #include "worldman.h"
 #include "opplist.h"
-#include "los.h"
-#include "weapons.h"
+#include "LOS.h"
+#include "Weapons.h"
 #include "Game Clock.h"
 #include "Animation Control.h"
 #include "lighting.h"
-#include "Text.h"
-#include "strategicmap.h"
-#include "Render Fun.h"
 // HEADROCK HAM B2.7: Allow calling a CTH approximation function for the CTH display ("F" key)
 #include "UI Cursors.h"
 #include "soldier profile type.h"
@@ -98,7 +92,7 @@ BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
 BOOLEAN HasAdjTile(const INT32& ubX, const INT32& ubY, const INT32& ubZ);
 
 
-TileDefines GetOverlayIndex( INT8 bOverlayType )
+static TileDefines GetOverlayIndex( INT8 bOverlayType )
 {
 	switch ( bOverlayType )
 	{
@@ -441,7 +435,7 @@ void RemoveCoverObjectsFromViewArea()
 	gNoRedraw = (gubDrawMode == DRAW_MODE_OFF);
 }
 
-void updateCoverViewArea()
+static void updateCoverViewArea()
 {
 	INT16 usTmp;
 	GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp);
@@ -538,11 +532,10 @@ void DisplayCover( BOOLEAN forceUpdate )
 
 static void CalculateCoverFromEnemies()
 {
-	if (gusSelectedSoldier == NOBODY)
+	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
 		return;
 
-	SOLDIERTYPE* pSoldier;
-	GetSoldier(&pSoldier, gusSelectedSoldier);
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 	const INT8 OurSoldierStealth = GetStealth(pSoldier);
 	const INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
 
@@ -673,10 +666,10 @@ void CalculateCover()
 	INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
 
-	if (gusSelectedSoldier == NOBODY)
+	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
 		return;
 
-	GetSoldier(&pSoldier, gusSelectedSoldier);
+	pSoldier = gusSelectedSoldier;
 
 	for (ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
 	{
@@ -712,9 +705,10 @@ void CalculateCover()
 				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect) // view of selected mercs
 				{
 					// OK, loop through all guys who are 'multi-selected' and
-					INT32 cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-					for (pSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt, ++pSoldier)
+					SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+					for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 					{
+						pSoldier = cnt;
 						if (pSoldier->bActive && pSoldier->bInSector)
 						{
 							if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED)
@@ -1199,7 +1193,7 @@ void CalculateMines()
 			return;
 	}
 	
-	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 		
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
@@ -1274,7 +1268,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 						{
 							case MINES_DRAW_PLAYERTEAM_NETWORKS:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										// if we're already marked as MINE_BOMB, switch to MINE_BOMB_AND_WIRE
 										if ( bOverlayType == MINE_BOMB )
@@ -1314,7 +1308,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 
 							case MINES_DRAW_NETWORKCOLOURING:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										// determine if wire is of the network we're searching for
 										// determine this tripwire's flag
@@ -1342,7 +1336,7 @@ void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType,
 							case MINES_DRAW_NET_C:
 							case MINES_DRAW_NET_D:
 								{
-									if ( Item[pObj->usItem].tripwire == 1 )
+									if (ItemIsTripwire(pObj->usItem))
 									{
 										UINT32 specificnet = 0;
 										switch ( gubDrawMode )
@@ -1453,7 +1447,7 @@ void CalculateTraitRange()
 		return;
 	}
 				
-	const INT32& sSelectedSoldierGridNo = MercPtrs[ gusSelectedSoldier ]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 	
 	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
 	{
@@ -1530,7 +1524,7 @@ void AddTraitObjectsToViewArea()
 	}
 }
 
-BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
 	INT32 ubTX, ubTY;
 
@@ -1591,7 +1585,7 @@ void CalculateTrackerRange( )
 
 	UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 
-	const INT32& sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
+	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 	
 	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
 	{
@@ -1684,7 +1678,7 @@ void AddTrackerObjectsToViewArea( )
 	}
 }
 
-BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
 {
 	INT32 ubTX, ubTY;
 
@@ -1775,7 +1769,7 @@ void CalculateWeapondata()
 
 	BOOLEAN guninhand = WeaponInHand( pSoldier );
 
-	INT32 sSelectedSoldierGridNo = MercPtrs[gusSelectedSoldier]->sGridNo;
+	INT32 sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 
 	if ( TileIsOutOfBounds( sSelectedSoldierGridNo ) )
 		return;

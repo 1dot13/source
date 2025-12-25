@@ -4,7 +4,7 @@
  */
 
 #include "SkillMenu.h"
-#include "Soldier Profile Type.h"
+#include "soldier profile type.h"
 #include "Overhead.h"
 #include "Text.h"
 #include "Isometric Utils.h"
@@ -23,7 +23,7 @@ std::vector<std::string> gTemplateVector;
 
 extern void ReadEquipmentTable( SOLDIERTYPE* pSoldier, std::string name );
 
-extern INT8 bSelectedInfoChar;
+extern INT16 bSelectedInfoChar;
 
 // sevenfm: need this for correct calculation of traits menu position
 extern INT16 gsInterfaceLevel;
@@ -395,7 +395,7 @@ SkillSelection::Functions( UINT32 aVal )
 	if ( pSoldier == NULL )
 		return;
 	
-	UINT8 ubID = WhoIsThere2(sTraitsMenuTargetGridNo, 0 );
+	UINT16 ubID = WhoIsThere2(sTraitsMenuTargetGridNo, 0 );
 
 	BOOLEAN result = pSoldier->UseSkill(aVal, sTraitsMenuTargetGridNo, ubID);
 
@@ -784,17 +784,17 @@ SoldierSelection::Setup( UINT32 aVal )
 
 		// pretty simple: we find every soldier in a radius around the target position and add him to the list
 		// loop through all soldiers around
-		for ( UINT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID ; cnt <= gTacticalStatus.Team[ CIV_TEAM ].bLastID ; ++cnt )
+		for ( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID ; id <= gTacticalStatus.Team[ CIV_TEAM ].bLastID ; ++id )
 		{
-			INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( sTraitsMenuTargetGridNo, MercPtrs[ cnt ]->sGridNo );
+			INT32 iRange = GetRangeInCellCoordsFromGridNoDiff( sTraitsMenuTargetGridNo, id->sGridNo );
 
 			if ( iRange < 100 )
 			{
-				if ( cnt != pSoldier->ubID )
+				if ( id != pSoldier->ubID )
 				{
-					swprintf( pStr, L"%s", MercPtrs[ cnt ]->GetName() );
+					swprintf( pStr, L"%s", id->GetName() );
 
-					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT8>( &Wrapper_Function_SoldierSelection, cnt ) );
+					pOption = new POPUP_OPTION(&std::wstring( pStr ), new popupCallbackFunction<void, UINT16>( &Wrapper_Function_SoldierSelection, id ) );
 
 					// grey out if no artillery can be called from this sector
 					if ( 0 )
@@ -865,11 +865,11 @@ DragSelection::Setup( UINT32 aVal )
 
 		// pretty simple: we find every soldier in a radius around the target position and add him to the list
 		// loop through all soldiers around
-		for ( UINT32 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt )
+		for ( SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID; cnt <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++cnt )
 		{
 			if ( cnt != pSoldier->ubID && pSoldier->CanDragPerson(cnt) )
 			{
-				swprintf( pStr, L"%s", MercPtrs[cnt]->GetName( ) );
+				swprintf( pStr, L"%s", cnt->GetName( ) );
 
 				pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection, cnt ) );
 				
@@ -909,7 +909,9 @@ DragSelection::Setup( UINT32 aVal )
 
 				if ( xmlentry >= 0 )
 				{
-					swprintf( pStr, L"%hs (%s)", gStructureMovePossible[xmlentry].szTileSetDisplayName, FaceDirs[gOneCDirection[ubDirection]] );
+					WCHAR buf[256];
+					MultiByteToWideChar(CP_UTF8, 0, gStructureMovePossible[xmlentry].szTileSetDisplayName, -1, buf, 256);
+					swprintf(pStr, L"%s (%s)", buf, FaceDirs[gOneCDirection[ubDirection]]);
 
 					// we have to use an offset of NOBODY in order to differentiate between person and corpse
 					pOption = new POPUP_OPTION( &std::wstring( pStr ), new popupCallbackFunction<void, UINT32>( &Wrapper_Function_DragSelection_GridNo, sTempGridNo ) );
@@ -1096,7 +1098,7 @@ EquipmentSelection::Functions(UINT32 aVal)
 	}
 	else if ( aVal < gTemplateVector.size( ) )
 	{
-		SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+		SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 		if ( pSoldier )
 		{
 			std::string name = gTemplateVector[aVal];

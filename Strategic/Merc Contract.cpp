@@ -1,16 +1,14 @@
 #include "builddefines.h"
 
-	#include "Types.h"
+	#include "types.h"
 	#include "Merc Contract.h"
 	#include "Soldier Profile.h"
-	#include "History.h"
+	#include "history.h"
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Soldier Add.h"
 	#include "Dialogue Control.h"
 	#include "Soldier Create.h"
-	#include "Message.h"
-	#include "Font Control.h"
 	#include "personnel.h"
 	#include "LaptopSave.h"
 	#include "Map Screen Interface.h"
@@ -18,20 +16,17 @@
 	#include "strategicmap.h"
 	#include "Quests.h"
 	#include "worlddef.h"
-	#include "Animation Control.h"
-	#include "Tactical Save.h"
+	#include <Overhead.h>
 	#include "Interface Control.h"
 	#include "gamescreen.h"
 	#include "jascreens.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Assignments.h"
 	#include "Strategic Movement.h"
 	#include "Squads.h"
-	#include "gameloop.h"
 	#include "Text.h"
 	#include "Strategic Status.h"
-	#include "mercs.h"
-	#include "insurance contract.h"
+	#include "insurance Contract.h"
 	#include "Vehicles.h"
 	#include "email.h"
 	#include "Map Screen Helicopter.h"
@@ -282,9 +277,9 @@ void EndCurrentContractRenewal( )
 	}
 }
 
-void HandleMercIsWillingToRenew( UINT8 ubID )
+void HandleMercIsWillingToRenew( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	// We wish to lock interface
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1,MAP_SCREEN,0,0,0 );
@@ -302,9 +297,9 @@ void HandleMercIsWillingToRenew( UINT8 ubID )
 }
 
 
-void HandleMercIsNotWillingToRenew( UINT8 ubID )
+void HandleMercIsNotWillingToRenew( SoldierID ubID )
 {
-	SOLDIERTYPE *pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	// We wish to lock interface
 	SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1,MAP_SCREEN,0,0,0 );
@@ -742,16 +737,12 @@ BOOLEAN WillMercRenew( SOLDIERTYPE	*pSoldier, BOOLEAN fSayQuote )
 
 void HandleBuddiesReactionToFiringMerc(SOLDIERTYPE *pFiredSoldier, INT8 bMoraleEvent )
 {
-	INT8									bMercID;
-	INT8									bLastTeamID;
-	SOLDIERTYPE *					pSoldier;
-
-
-	bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+	SoldierID bMercID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID bLastTeamID = gTacticalStatus.Team[ gbPlayerNum ].bLastID;
 	// loop through all mercs to find buddies
-	for ( pSoldier = MercPtrs[ bMercID ]; bMercID <= bLastTeamID; bMercID++,pSoldier++)
+	for ( ; bMercID <= bLastTeamID; ++bMercID)
 	{
+		SOLDIERTYPE *pSoldier = bMercID;
 		//if the merc is active, in Arulco, not POW and is a buddy
 		if ( WhichBuddy(pSoldier->ubProfile,pFiredSoldier->ubProfile) != (-1) &&
 			pSoldier->bActive && pSoldier->ubProfile != NO_PROFILE &&
@@ -1416,9 +1407,9 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 	SOLDIERTYPE *pSoldier = NULL, *pSoldierWhoWillQuit = NULL;
 	INT32				iCounter= 0, iNumberOnTeam = 0;
 // WDS - make number of mercenaries, etc. be configurable
-	UINT8				ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
-	UINT8				ubNumMercs = 0;
-	UINT8				ubChosenMerc;
+	SoldierID			ubPotentialMercs[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ] = { 0 };
+	UINT16				ubNumMercs = 0;
+	UINT16				ubChosenMerc;
 
 	gfFirstMercSayQuote = FALSE;
 
@@ -1498,16 +1489,17 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void )
 		// OK, pick one....
 		if ( ubNumMercs > 0 )
 		{
-			ubChosenMerc = (UINT8)Random( ubNumMercs );
+			ubChosenMerc = (UINT16)Random( ubNumMercs );
+			SOLDIERTYPE *pChosenSoldier = ubPotentialMercs[ubChosenMerc];
 
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,1 ,MAP_SCREEN ,0 ,0 ,0 );
-			HandleImportantMercQuote( MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ], QUOTE_CONTRACTS_OVER );
+			HandleImportantMercQuote( pChosenSoldier, QUOTE_CONTRACTS_OVER );
 			SpecialCharacterDialogueEvent( DIALOGUE_SPECIAL_EVENT_LOCK_INTERFACE,0 ,MAP_SCREEN ,0 ,0 ,0 );
 
 			AddReasonToWaitingListQueue( CONTRACT_EXPIRE_WARNING_REASON );
-			TacticalCharacterDialogueWithSpecialEvent( MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ], 0, DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU, 0,0 );
+			TacticalCharacterDialogueWithSpecialEvent( pChosenSoldier, 0, DIALOGUE_SPECIAL_EVENT_SHOW_UPDATE_MENU, 0,0 );
 
-			MercPtrs[ ubPotentialMercs[ ubChosenMerc ] ]->ubContractRenewalQuoteCode = SOLDIER_CONTRACT_RENEW_QUOTE_89_USED;
+			pChosenSoldier->ubContractRenewalQuoteCode = SOLDIER_CONTRACT_RENEW_QUOTE_89_USED;
 		}
 	}
 }
@@ -1521,16 +1513,8 @@ void HandleNotifyPlayerCantAffordInsurance( void )
 void HandleNotifyPlayerCanAffordInsurance( SOLDIERTYPE *pSoldier, UINT8 ubLength, INT32 iCost )
 {
 	CHAR16 sString[ 128 ];
-	CHAR16 sStringA[ 32 ];
 
-	//parse the cost
-	swprintf( sStringA, L"%d",iCost );
-
-	// insert the commans and dollar sign
-	InsertCommasForDollarFigure( sStringA );
-	InsertDollarSignInToString( sStringA );
-
-	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->GetName(), sStringA, ubLength );
+	swprintf( sString, zMarksMapScreenText[ 10 ], pSoldier->GetName(), FormatMoney(iCost).data(), ubLength );
 
 	//Set the length to the global variable ( so we know how long the contract is in the callback )
 	gubContractLength = ubLength;

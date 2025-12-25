@@ -1,9 +1,27 @@
-	#include "text.h"
-	#include "Fileman.h"
+	#include "Text.h"
+	#include "FileMan.h"
 	#include "GameSettings.h"
 	// sevenfm
 	#include <codecvt>
 	#include <string>
+
+auto FormatMoney(INT32 iNumber) -> std::wstring
+{
+    static std::wstringstream wss([] {
+        std::wstringstream ss;
+        try {
+            ss.imbue(std::locale("en_US.UTF-8"));
+        }
+        catch (const std::exception&) {
+            ss.imbue(std::locale::classic());
+        }
+        return ss;
+        }());
+    wss.str(L"");
+    wss << iNumber;
+
+    return L"$" + wss.str();
+}
 
 BOOLEAN LoadItemInfo(UINT16 ubIndex, STR16 pNameString, STR16 pInfoString )
 {
@@ -386,17 +404,6 @@ void ParseCommandLine (
    if (argv)
       *argv++ = NULL;
    ++*numargs;
-}
-
-inline std::string narrow(std::wstring const& text)
-{
-	std::locale const loc("");
-	wchar_t const* from = text.c_str();
-	std::size_t const len = text.size();
-	std::vector<char> buffer(len + 1);
-	std::use_facet<std::ctype<wchar_t> >(loc).narrow(from, from + len, '_', &buffer[0]);
-
-	return std::string(&buffer[0], &buffer[len]);
 }
 
 // convert UTF-8 string to wstring

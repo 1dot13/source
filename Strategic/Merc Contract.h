@@ -68,8 +68,8 @@ void FindOutIfAnyMercAboutToLeaveIsGonnaRenew( void );
 void BeginContractRenewalSequence( );
 void HandleContractRenewalSequence( );
 void EndCurrentContractRenewal( );
-void HandleMercIsWillingToRenew( UINT8 ubID );
-void HandleMercIsNotWillingToRenew( UINT8 ubID );
+void HandleMercIsWillingToRenew( SoldierID ubID );
+void HandleMercIsNotWillingToRenew( SoldierID ubID );
 
 BOOLEAN ContractIsExpiring( SOLDIERTYPE *pSoldier );
 UINT32 GetHourWhenContractDone( SOLDIERTYPE *pSoldier );

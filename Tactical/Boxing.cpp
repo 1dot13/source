@@ -2,35 +2,33 @@
 	#include "Overhead.h"
 	#include "Boxing.h"
 	#include "Render Fun.h"
-	#include "Random.h"
-	#include "Worldman.h"
+	#include "random.h"
+	#include "worldman.h"
 	#include "Soldier Profile.h"
 	#include "NPC.h"
-	#include "Opplist.h"
+	#include "opplist.h"
 	#include "ai.h"
-	#include "Dialogue Control.h"
 	#include "Handle UI.h"
 	#include "Points.h"
-	#include "interface.h"
-	#include "interface dialogue.h"
+	#include "Interface.h"
+	#include "interface Dialogue.h"
 	#include "TeamTurns.h"
 	#include "Music Control.h"
 	#include "history.h"
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "Animation Data.h"
-	#include "Font Control.h"
-	#include "message.h"
 	#include "GameSettings.h" // added by SANDRO
-	#include "Soldier macros.h"
+#include <Font Control.h>
+#include <message.h>
 
-INT32	gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
-UINT8 gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
-BOOLEAN gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
-BOOLEAN	gfLastBoxingMatchWonByPlayer = FALSE;
-UINT8	gubBoxingMatchesWon = 0;
-UINT8	gubBoxersRests = 0;
-BOOLEAN gfBoxersResting = FALSE;
+INT32		gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
+SoldierID	gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
+BOOLEAN		gfBoxerFought[ NUM_BOXERS ] = { FALSE, FALSE, FALSE };
+BOOLEAN		gfLastBoxingMatchWonByPlayer = FALSE;
+UINT8		gubBoxingMatchesWon = 0;
+UINT8		gubBoxersRests = 0;
+BOOLEAN		gfBoxersResting = FALSE;
 
 extern void RecalculateOppCntsDueToBecomingNeutral( SOLDIERTYPE * pSoldier );
 
@@ -211,7 +209,7 @@ UINT8 CountPeopleInBoxingRing( void )
 	return( ubTotalInRing );
 }
 
-void CountPeopleInBoxingRingAndDoActions( void )
+static void CountPeopleInBoxingRingAndDoActions( void )
 {
 	UINT32				uiLoop;
 	UINT8				ubTotalInRing = 0;
@@ -327,8 +325,8 @@ void CountPeopleInBoxingRingAndDoActions( void )
 
 BOOLEAN CheckOnBoxers( void )
 {
-	UINT32					uiLoop;
-	UINT8						ubID;
+	UINT32 uiLoop;
+	SoldierID ubID;
 
 	// repick boxer IDs every time
 	if ( gubBoxerID[0] == NOBODY )
@@ -338,15 +336,15 @@ BOOLEAN CheckOnBoxers( void )
 		{
 			ubID = WhoIsThere2( gsBoxerGridNo[ uiLoop ], 0 );
 
-			// WANNE: Safty check!
+			// WANNE: Safety check!
 			if (ubID < TOTAL_SOLDIERS)
 			{
-				if ( FindObjClass( MercPtrs[ ubID ], IC_WEAPON ) == NO_SLOT &&
-					IS_MERC_BODY_TYPE( MercPtrs[ ubID ] ) )
+				if ( FindObjClass( ubID, IC_WEAPON ) == NO_SLOT &&
+					IS_MERC_BODY_TYPE( ubID ) )
 				{
 					// no weapon and not a civilian so this guy is a boxer
 					gubBoxerID[ uiLoop ] = ubID;
-					DebugQuestInfo(String("CheckOnBoxers: set gubBoxerID[%d] %d", ubID, gubBoxerID[uiLoop]));
+					DebugQuestInfo(String("CheckOnBoxers: set gubBoxerID[%d] to %d", uiLoop, ubID.i));
 				}
 			}
 		}
@@ -376,8 +374,8 @@ BOOLEAN BoxerExists( void )
 
 BOOLEAN PickABoxer( void )
 {
-	UINT32			uiLoop;
-	SOLDIERTYPE*	pBoxer;
+	UINT32		uiLoop;
+	SOLDIERTYPE	*pBoxer;
 
 	for( uiLoop = 0; uiLoop < NUM_BOXERS; ++uiLoop )
 	{
@@ -386,11 +384,11 @@ BOOLEAN PickABoxer( void )
 			if ( gfBoxerFought[ uiLoop ] )
 			{
 				// pathetic attempt to prevent multiple AI boxers
-				MercPtrs[ gubBoxerID[ uiLoop ] ]->DeleteBoxingFlag();
+				gubBoxerID[ uiLoop ]->DeleteBoxingFlag();
 			}
 			else
 			{
-				pBoxer = MercPtrs[ gubBoxerID[ uiLoop ] ];
+				pBoxer = gubBoxerID[ uiLoop ];
 				// pick this boxer!
 				if ( pBoxer->bActive && pBoxer->bInSector && pBoxer->stats.bLife >= OKLIFE )
 				{
@@ -447,7 +445,7 @@ BOOLEAN BoxerAvailable( void )
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+			if( gubBoxerID[ ubLoop ]->bActive && gubBoxerID[ ubLoop ]->bInSector && gubBoxerID[ ubLoop ]->stats.bLife >= OKLIFE )
 				return( TRUE );
 		}
 	}
@@ -459,13 +457,13 @@ BOOLEAN BoxerAvailable( void )
 // SEQUEL FIGHT.   Maybe we could check Kingpin's location instead!
 UINT8 BoxersAvailable( void )
 {
-	UINT8			ubCount = 0;
+	UINT8 ubCount = 0;
 
 	for (UINT8 ubLoop = 0; ubLoop < NUM_BOXERS; ++ubLoop)
 	{
 		if ( gubBoxerID[ ubLoop ] != NOBODY && !gfBoxerFought[ ubLoop ] )
 		{
-			if( MercPtrs[ gubBoxerID[ ubLoop ] ]->bActive && MercPtrs[ gubBoxerID[ ubLoop ] ]->bInSector && MercPtrs[ gubBoxerID[ ubLoop ] ]->stats.bLife >= OKLIFE )
+			if( gubBoxerID[ ubLoop ]->bActive && gubBoxerID[ ubLoop ]->bInSector && gubBoxerID[ ubLoop ]->stats.bLife >= OKLIFE )
 				++ubCount;
 		}
 	}
@@ -479,9 +477,7 @@ BOOLEAN AnotherFightPossible( void )
 	// a player has at least OKLIFE + 5 life
 
 	// and at least one fight HAS occurred
-	UINT8						ubLoop;
-	SOLDIERTYPE *		pSoldier;
-	UINT8						ubAvailable;
+	UINT8 ubAvailable;
 
 	ubAvailable = BoxersAvailable();
 
@@ -491,9 +487,8 @@ BOOLEAN AnotherFightPossible( void )
 	}
 
 	// Loop through all mercs on player team
-	ubLoop = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	pSoldier = MercPtrs[ ubLoop ];
-	for ( ; ubLoop <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubLoop, pSoldier++ )
+	SoldierID pSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; pSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++pSoldier )
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > (OKLIFE + 5) && !pSoldier->bCollapsed )
 		{

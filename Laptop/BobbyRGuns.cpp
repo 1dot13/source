@@ -5,12 +5,12 @@
 	#include "WCheck.h"
 	#include "WordWrap.h"
 	#include "Cursors.h"
-	#include "interface items.h"
+	#include "Interface Items.h"
 	#include "Encrypted File.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "Store Inventory.h"
 	#include "LaptopSave.h"
-	#include "Finances.h"
+	#include "finances.h"
 	#include "Overhead.h"
 	#include "Weapons.h"
 	#include "GameSettings.h"
@@ -20,6 +20,7 @@
 	// HEADROCK HAM 4
 	#include "input.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
+	#include <language.hpp>
 
 
 #define		BOBBYR_DEFAULT_MENU_COLOR					255
@@ -115,11 +116,7 @@
 #define		BOBBYR_ITEM_QTY_NUM_X							BOBBYR_GRIDLOC_X + 105//BOBBYR_ITEM_COST_TEXT_X + 1
 #define		BOBBYR_ITEM_QTY_NUM_Y							BOBBYR_ITEM_QTY_TEXT_Y//BOBBYR_ITEM_COST_TEXT_Y + 40
 
-#ifdef CHINESE
-	#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH - 10	//BOBBYR_ITEM_QTY_NUM_X
-#else
-	#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH//BOBBYR_ITEM_QTY_NUM_X
-#endif
+#define		BOBBYR_ITEMS_BOUGHT_X							BOBBYR_GRIDLOC_X + 105 - BOBBYR_ORDER_NUM_WIDTH//BOBBYR_ITEM_QTY_NUM_X
 
 #define		BOBBY_RAY_NOT_PURCHASED						255
 #define		BOBBY_RAY_MAX_AMOUNT_OF_ITEMS_TO_PURCHASE		200
@@ -1427,8 +1424,6 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	UINT8		ubCount=0;
 	UINT16	PosY, usTextPosY;
 	UINT16	usItemIndex;
-	CHAR16	sDollarTemp[60];
-	CHAR16	sTemp[60];
 	CHAR16	sPage[60];
 	INT16		pItemNumbers[ BOBBYR_NUM_WEAPONS_ON_PAGE ];
 	BOOLEAN		bAddItem = FALSE;
@@ -1437,11 +1432,8 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 	usTextPosY = BOBBYR_ITEM_DESC_START_Y;
 
 	//Display the subtotal at the bottom of the screen
-	swprintf( sDollarTemp, L"%d", CalculateTotalPurchasePrice() );
-	InsertCommasForDollarFigure( sDollarTemp );
-	InsertDollarSignInToString( sDollarTemp );
-	swprintf( sTemp, L"%s %s", BobbyRText[BOBBYR_GUNS_SUB_TOTAL], sDollarTemp );
-	DrawTextToScreen(sTemp, BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
+	auto subtotal{ std::wstring(BobbyRText[BOBBYR_GUNS_SUB_TOTAL]) + std::wstring(L" ") + FormatMoney(CalculateTotalPurchasePrice()) };
+	DrawTextToScreen(subtotal.data(), BOBBYR_ORDER_SUBTOTAL_X, BOBBYR_ORDER_SUBTOTAL_Y, 0, BOBBYR_ORDER_TITLE_FONT, BOBBYR_ORDER_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED | TEXT_SHADOWED);
 
 	//Buggler: Display the current page & total pages at the bottom of the screen
 	swprintf( sPage, L"%d / %d", gubCurPage + 1, gubNumPages );
@@ -1765,11 +1757,11 @@ BOOLEAN DisplayItemInfo(UINT32 uiItemClass, INT32 iFilter, INT32 iSubFilter)
 					{
 						if ( iSubFilter > -1 ) // Madd: new BR filters
 						{
-							if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter )
+							if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter )
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
-							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+							else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 								bAddItem = TRUE;
 						}
 						else
@@ -2062,11 +2054,7 @@ UINT16 DisplayCostAndQty(UINT16 usPosY, UINT16 usIndex, UINT16 usFontHeight, UIN
 	DrawTextToScreen(BobbyRText[BOBBYR_GUNS_COST], BOBBYR_ITEM_COST_TEXT_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_STATIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 
-	swprintf(sTemp, L"%d", CalcBobbyRayCost( usIndex, usBobbyIndex, fUsed ));
-	InsertCommasForDollarFigure( sTemp );
-	InsertDollarSignInToString( sTemp );
-
-	DrawTextToScreen(sTemp, BOBBYR_ITEM_COST_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	DrawTextToScreen(FormatMoney(CalcBobbyRayCost(usIndex, usBobbyIndex, fUsed)).data(), BOBBYR_ITEM_COST_NUM_X, (UINT16)usPosY, BOBBYR_ITEM_COST_TEXT_WIDTH, BOBBYR_ITEM_DESC_TEXT_FONT, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY += usFontHeight + 2;
 
 
@@ -2506,7 +2494,11 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 		if( ubPurchaseNumber != BOBBY_RAY_NOT_PURCHASED)
 		{
 			swprintf(sTemp, L"% 4d", BobbyRayPurchases[ ubPurchaseNumber ].ubNumberPurchased);
-			DrawTextToScreen(sTemp, BOBBYR_ITEMS_BOUGHT_X, (UINT16)usPosY, 0, FONT14ARIAL, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+			auto bobbyRItemsBoughtX{ BOBBYR_ITEMS_BOUGHT_X };
+			if (g_lang == i18n::Lang::zh) {
+				bobbyRItemsBoughtX -= 10;
+			}
+			DrawTextToScreen(sTemp, bobbyRItemsBoughtX, (UINT16)usPosY, 0, FONT14ARIAL, BOBBYR_ITEM_DESC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 		}
 	}
 
@@ -2516,11 +2508,11 @@ void DisplayItemNameAndInfo(UINT16 usPosY, UINT16 usIndex, UINT16 usBobbyIndex, 
 	//if it's a used item, display how damaged the item is
 	if( fUsed )
 	{
-		#ifdef CHINESE
+		if ( g_lang == i18n::Lang::zh ) {
 			swprintf( sTemp, ChineseSpecString2, LaptopSaveInfo.BobbyRayUsedInventory[ usBobbyIndex ].ubItemQuality );//zww
-		#else
+		} else {
 			swprintf( sTemp, L"*%3d%%%%", LaptopSaveInfo.BobbyRayUsedInventory[ usBobbyIndex ].ubItemQuality );
-		#endif
+		}
 		
 		DrawTextToScreen(sTemp, (UINT16)(BOBBYR_ITEM_NAME_X-2), (UINT16)(usPosY - BOBBYR_ORDER_NUM_Y_OFFSET), BOBBYR_ORDER_NUM_WIDTH, BOBBYR_ITEM_NAME_TEXT_FONT, BOBBYR_ITEM_NAME_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 	}
@@ -2653,11 +2645,11 @@ void SetFirstLastPagesForNew( UINT32 uiClassMask, INT32 iFilter, INT32 iSubFilte
 							{
 								if (iSubFilter > -1 )
 								{
-									if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & iSubFilter)
+									if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & iSubFilter)
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+									else if (iSubFilter == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
-									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment )
+									else if (iSubFilter == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 										bCntNumItems = TRUE;
 								}
 								else
@@ -3641,11 +3633,11 @@ void CalcFirstIndexForPage( STORE_INVENTORY *pInv, UINT32	uiItemClass )
 						{
 							if (guiCurrentMiscSubFilterMode > -1) // Madd: new BR filter options
 							{
-								if (Item[usItemIndex].attachment && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
+								if (ItemIsAttachment(usItemIndex) && Item[usItemIndex].attachmentclass & guiCurrentMiscSubFilterMode)
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_OTHER_ATTACHMENTS && !(Item[usItemIndex].attachmentclass & BR_MISC_FILTER_STD_ATTACHMENTS) && ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
-								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !Item[usItemIndex].attachment)
+								else if (guiCurrentMiscSubFilterMode == BR_MISC_FILTER_NO_ATTACHMENTS && !ItemIsAttachment(usItemIndex))
 									bCntItem = TRUE;
 							}
 							else 
@@ -3719,26 +3711,27 @@ void OutOfStockMessageBoxCallBack( UINT8 bExitValue )
 UINT8 CheckPlayersInventoryForGunMatchingGivenAmmoID( INT16 sItemID )
 {
 	UINT8	ubItemCount=0;
-	UINT8	ubMercCount;
 	UINT8	ubPocketCount;
 
-	UINT8	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	UINT8	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SoldierID 	id;
+	SoldierID 	ubFirstID = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID 	ubLastID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	//loop through all the mercs on the team
-	for( ubMercCount = ubFirstID; ubMercCount <= ubLastID; ++ubMercCount )
+	for( id = ubFirstID; id <= ubLastID; ++id )
 	{
-		if( Menptr[ ubMercCount ].bActive )
+		SOLDIERTYPE *pSoldier = id;
+		if( pSoldier->bActive )
 		{
 			//loop through all the pockets on the merc
-			UINT8 invsize = Menptr[ ubMercCount ].inv.size();
+			UINT8 invsize = pSoldier->inv.size();
 			for( ubPocketCount=0; ubPocketCount<invsize; ++ubPocketCount)
 			{
 				//if there is a weapon here
-				if( Item[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].usItemClass == IC_GUN )
+				if( Item[ pSoldier->inv[ ubPocketCount ].usItem ].usItemClass == IC_GUN )
 				{
 					//if the weapon uses the same kind of ammo as the one passed in, return true
-					if( Weapon[ Menptr[ ubMercCount ].inv[ ubPocketCount ].usItem ].ubCalibre == Magazine[ Item[ sItemID ].ubClassIndex ].ubCalibre )
+					if( Weapon[ pSoldier->inv[ ubPocketCount ].usItem ].ubCalibre == Magazine[ Item[ sItemID ].ubClassIndex ].ubCalibre )
 					{
 						++ubItemCount;
 					}
@@ -4181,7 +4174,7 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 					for (it = range.first; it != range.second; it++)
 					{
 						UINT16 attachmentId = it->second.attachmentIndex;
-						if (!Item[attachmentId].hiddenaddon && !Item[attachmentId].hiddenattachment && ItemIsLegal(attachmentId, TRUE))
+						if (!ItemIsHiddenAddon(attachmentId) && !ItemIsHiddenAttachment(attachmentId) && ItemIsLegal(attachmentId, TRUE))
 						{
 							fAttachmentsFound = TRUE;
 							if (DecorateAppendString(attachStr3, ATTACHMENTS_STRBUF_SIZE, Item[attachmentId].szItemName) == FALSE)
@@ -4194,7 +4187,7 @@ void GetHelpTextForItemInLaptop( STR16 pzStr, UINT16 usItemNumber )
 					for (UINT32 itemId = 1; itemId < gMAXITEMS_READ; itemId++)
 					{
 						// If the attachment is not hidden and attachable to the gun (usItemNumber)
-						if (!Item[itemId].hiddenaddon && !Item[itemId].hiddenattachment &&
+						if (!ItemIsHiddenAddon(itemId) && !ItemIsHiddenAttachment(itemId) &&
 							ItemIsLegal(itemId, TRUE) && IsAttachmentPointAvailable(Item[usItemNumber].uiIndex, itemId))
 						{
 							fAttachmentsFound = TRUE;

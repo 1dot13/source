@@ -8,20 +8,18 @@
 	#include "vsurface.h"
 	#include "Button System.h"
 	#include "Font Control.h"
-	#include "Editor Taskbar Utils.h"
 	#include "line.h"
 	#include "input.h"
 	#include "vobject_blitters.h"
 	#include "Text Input.h"
 	#include "mousesystem.h"
 	#include "strategicmap.h"
-	#include "Fileman.h"
-	#include "Map Information.h"
-	#include "render dirty.h"
+	#include "FileMan.h"
+	#include "Render Dirty.h"
 	#include "Game Clock.h"
 	#include "Campaign Types.h"
 	#include "Queen Command.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "GameSettings.h"
 	#include "Game Event Hook.h"
@@ -32,7 +30,7 @@
 	#include "Campaign.h"
 	#include "Auto Resolve.h"
 	#include "Strategic Status.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 	#include "Town Militia.h"	// added by Flugente
 
 #ifdef JA2BETAVERSION
@@ -157,7 +155,7 @@ void ViewCreaturesCallback( GUI_BUTTON *btn, INT32 reason );
 void ExtractAndUpdatePopulations();
 void PrintEnemyPopTable();
 void PrintEnemiesKilledTable();
-UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks, UINT8 ubJeeps );
+UINT8 ChooseEnemyIconColor( UINT16 ubAdmins, UINT16 ubTroops, UINT16 ubElites, UINT16 ubTanks, UINT16 ubJeeps );
 void BlitGroupIcon( UINT8 ubIconType, UINT8 ubIconColor, UINT32 uiX, UINT32 uiY, HVOBJECT hVObject );
 void PrintDetailedEnemiesInSectorInfo( INT32 iScreenX, INT32 iScreenY, UINT8 ubSectorX, UINT8 ubSectorY );
 
@@ -536,7 +534,7 @@ void RenderMovingGroupsAndMercs()
 	GROUP *pGroup;
 	HVOBJECT hVObject;
 	INT32 x, y;
-	UINT8 ubNumTroops, ubNumAdmins, ubNumElites, ubNumTanks, ubNumJeeps;
+	UINT16 ubNumTroops, ubNumAdmins, ubNumElites, ubNumTanks, ubNumJeeps;
 	float ratio;
 	INT32 minX, maxX, minY, maxY;
 	UINT8 ubIconType;
@@ -648,8 +646,8 @@ void RenderMovingGroupsAndMercs()
 void RenderInfoInSector()
 {
 	UINT8 ubSectorX, ubSectorY;
-	UINT8 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
-	INT32 i, xp, yp;
+	UINT16 ubMercs=0, ubActive=0, ubUnconcious=0, ubCollapsed=0;
+	INT32 xp, yp;
 
 	if( gfViewEnemies && !gbViewLevel )
 	{
@@ -694,11 +692,10 @@ void RenderInfoInSector()
 
 
 	//Count the number of mercs and their states (even for underground sectors)
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
-		SOLDIERTYPE *pSoldier;
+		SOLDIERTYPE *pSoldier = id;
 
-		pSoldier = MercPtrs[ i ];
 		if( pSoldier->bActive && pSoldier->sSectorX == ubSectorX && pSoldier->sSectorY == ubSectorY && pSoldier->bSectorZ == gbViewLevel )
 		{
 			if( pSoldier->stats.bLife )
@@ -722,7 +719,7 @@ void RenderInfoInSector()
 	{
 		SECTORINFO *pSector;
 		GROUP *pGroup;
-		UINT8 ubNumAdmins = 0, ubNumTroops = 0, ubNumElites = 0, ubNumTanks = 0, ubNumJeeps = 0, ubAdminsInBattle = 0, ubTroopsInBattle = 0, ubElitesInBattle = 0, ubTanksInBattle = 0, ubJeepsInBattle = 0,ubNumGroups = 0;
+		UINT16 ubNumAdmins = 0, ubNumTroops = 0, ubNumElites = 0, ubNumTanks = 0, ubNumJeeps = 0, ubAdminsInBattle = 0, ubTroopsInBattle = 0, ubElitesInBattle = 0, ubTanksInBattle = 0, ubJeepsInBattle = 0,ubNumGroups = 0;
 
 		pSector = &SectorInfo[ SECTOR( ubSectorX, ubSectorY ) ];
 
@@ -1832,7 +1829,7 @@ void PrintEnemiesKilledTable()
 
 
 
-UINT8 ChooseEnemyIconColor( UINT8 ubAdmins, UINT8 ubTroops, UINT8 ubElites, UINT8 ubTanks, UINT8 ubJeeps )
+UINT8 ChooseEnemyIconColor( UINT16 ubAdmins, UINT16 ubTroops, UINT16 ubElites, UINT16 ubTanks, UINT16 ubJeeps )
 {
 	UINT8 ubIconColor;
 

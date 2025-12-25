@@ -1,54 +1,41 @@
-	#include "builddefines.h"
-	#include <stdio.h>
-	#include <time.h>
-	#include "sgp.h"
-	#include "gameloop.h"
-	#include "himage.h"
-	#include "vobject.h"
-	#include "vobject_blitters.h"
-	#include "wcheck.h"
-	#include "input.h"
-	#include "font.h"
-	#include "timer.h"
-	#include "mousesystem.h"
-	#include "screenids.h"
-	#include "screens.h"
-	#include "Font Control.h"
-	#include "sysutil.h"
-	#include "tiledef.h"
-	#include "worlddef.h"
-	#include "editscreen.h"
-	#include <wchar.h>
-	#include <tchar.h>
-	#include "Timer Control.h"
-	#include "Sys Globals.h"
-	#include "interface.h"
-	#include "overhead.h"
-	#include "utilities.h"
-	#include "render dirty.h"
-	#include "jascreens.h"
-	#include "gameloop.h"
-	#include "Event Pump.h"
-	#include "animation cache.h"
-	#include "lighting.h"
-	#include "mainmenuscreen.h"
-	#include "Game Init.h"
-	#include "init.h"
-	#include "cursor control.h"
-	#include "utilities.h"
-	#include "GameVersion.h"
-	#include "game clock.h"
-	#include "gamescreen.h"
-	#include "english.h"
-	#include "Random.h"
-	#include "WordWrap.h"
-	#include "Sound Control.h"
-	#include "WordWrap.h"
-	#include "text.h"
-	#include "Language Defines.h"
-	#include "IniReader.h"
+#include "builddefines.h"
+#include <cstdio>
+#include "sgp.h"
+#include "gameloop.h"
+#include "himage.h"
+#include "vobject.h"
+#include "vobject_blitters.h"
+#include "WCheck.h"
+#include "input.h"
+#include "Font.h"
+#include "screenids.h"
+#include "Screens.h"
+#include "Font Control.h"
+#include <Overhead Types.h>
+#include <Soldier Control.h>
+#include "Timer Control.h"
+#include "Sys Globals.h"
+#include <Handle UI.h>
+#include "Overhead.h"
+#include "Utilities.h"
+#include "Render Dirty.h"
+#include "jascreens.h"
+#include "mainmenuscreen.h"
+#include "Game Init.h"
+#include "Init.h"
+#include "Cursor Control.h"
+#include "GameVersion.h"
+#include "Game Clock.h"
+#include "gamescreen.h"
+#include "english.h"
+#include "random.h"
+#include "WordWrap.h"
+#include "Sound Control.h"
+#include "Text.h"
+#include "INIReader.h"
 
 #include "sgp_logger.h"
+#include <language.hpp>
 
 #define _UNICODE
 // Networking Stuff
@@ -332,7 +319,7 @@ UINT32 InitScreenHandle(void)
 
 	if ( ubCurrentScreen == 255 )
 	{
-	#ifdef ENGLISH
+	if( g_lang == i18n::Lang::en ) {
 		if( gfDoneWithSplashScreen )
 		{
 			ubCurrentScreen = 0;
@@ -342,9 +329,9 @@ UINT32 InitScreenHandle(void)
 			SetCurrentCursorFromDatabase( VIDEO_NO_CURSOR );
 			return( INTRO_SCREEN );
 		}
-	#else
+	} else {
 		ubCurrentScreen = 0;
-	#endif
+	}
 	}
 
 	if ( ubCurrentScreen == 0 )
@@ -397,7 +384,7 @@ UINT32 InitScreenHandle(void)
 		// Handle queued .ini file error messages
  		int y = 40;
 		sgp::Logger_ID ini_id = sgp::Logger::instance().createLogger();
-		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.txt", false, sgp::Logger::FLUSH_ON_DELETE);
+		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.log", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 		while (! iniErrorMessages.empty()) {
 			static BOOL iniErrorMessage_create_out_file = TRUE;
@@ -407,7 +394,7 @@ UINT32 InitScreenHandle(void)
 			if (iniErrorMessage_create_out_file)
 			{
 				y += 25;
-				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.txt has been created." );
+				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.log has been created." );
 				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
 				iniErrorMessage_create_out_file = FALSE;
 			}
@@ -514,31 +501,25 @@ UINT32 PalEditScreenShutdown(void)
 
 void PalEditRenderHook(	)
 {
-	SOLDIERTYPE		*pSoldier;
-
-	if ( gusSelectedSoldier != NOBODY )
+	if ( gusSelectedSoldier < NOBODY && gusSelectedSoldier->bActive)
 	{
-		// Set to current
-		GetSoldier( &pSoldier, gusSelectedSoldier );
-
-		DisplayPaletteRep( pSoldier->HeadPal, 50, 10, FRAME_BUFFER );
-		DisplayPaletteRep( pSoldier->PantsPal, 50, 50, FRAME_BUFFER );
-		DisplayPaletteRep( pSoldier->VestPal, 50, 90, FRAME_BUFFER );
-		DisplayPaletteRep( pSoldier->SkinPal, 50, 130, FRAME_BUFFER );
-
+		DisplayPaletteRep( gusSelectedSoldier->HeadPal, 50, 10, FRAME_BUFFER );
+		DisplayPaletteRep( gusSelectedSoldier->PantsPal, 50, 50, FRAME_BUFFER );
+		DisplayPaletteRep( gusSelectedSoldier->VestPal, 50, 90, FRAME_BUFFER );
+		DisplayPaletteRep( gusSelectedSoldier->SkinPal, 50, 130, FRAME_BUFFER );
 	}
 }
 
 BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 {
-	UINT8					ubType;
-	SOLDIERTYPE		*pSoldier;
-	UINT8					ubPaletteRep;
-	UINT32				cnt;
-	UINT8					ubStartRep = 0;
-	UINT8					ubEndRep = 0;
+	SOLDIERTYPE *pSoldier;
+	UINT32		cnt;
+	UINT8		ubType;
+	UINT8		ubPaletteRep;
+	UINT8		ubStartRep = 0;
+	UINT8		ubEndRep = 0;
 
-	if ( gusSelectedSoldier == NOBODY )
+	if ( gusSelectedSoldier >= NOBODY || gusSelectedSoldier->bActive == FALSE )
 	{
 		return( FALSE );
 	}
@@ -549,11 +530,10 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 		return( TRUE );
 	}
 
+	pSoldier = gusSelectedSoldier;
+
 	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'h' ))
 	{
-			// Get Soldier
-			GetSoldier( &pSoldier, gusSelectedSoldier );
-
 			// Get index of current
 			CHECKF( GetPaletteRepIndexFromID( pSoldier->HeadPal, &ubPaletteRep ) );
 			ubType = gpPalRep[ ubPaletteRep ].ubType;
@@ -582,9 +562,6 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 
 	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'v' ))
 	{
-			// Get Soldier
-			GetSoldier( &pSoldier, gusSelectedSoldier );
-
 			// Get index of current
 			CHECKF( GetPaletteRepIndexFromID( pSoldier->VestPal, &ubPaletteRep ) );
 			ubType = gpPalRep[ ubPaletteRep ].ubType;
@@ -612,9 +589,6 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 
 	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 'p' ))
 	{
-			// Get Soldier
-			GetSoldier( &pSoldier, gusSelectedSoldier );
-
 			// Get index of current
 			CHECKF( GetPaletteRepIndexFromID( pSoldier->PantsPal, &ubPaletteRep ) );
 			ubType = gpPalRep[ ubPaletteRep ].ubType;
@@ -642,9 +616,6 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent )
 
 	if ((pInputEvent->usEvent == KEY_DOWN )&& ( pInputEvent->usParam == 's' ))
 	{
-			// Get Soldier
-			GetSoldier( &pSoldier, gusSelectedSoldier );
-
 			// Get index of current
 			CHECKF( GetPaletteRepIndexFromID( pSoldier->SkinPal, &ubPaletteRep ) );
 			ubType = gpPalRep[ ubPaletteRep ].ubType;
@@ -679,7 +650,7 @@ UINT32 DebugScreenInit(void)
 }
 
 
-BOOLEAN CheckForAndExitTacticalDebug( )
+static BOOLEAN CheckForAndExitTacticalDebug( )
 {
 	if ( gfExitDebugScreen )
 	{
@@ -696,7 +667,7 @@ BOOLEAN CheckForAndExitTacticalDebug( )
 	return( FALSE );
 }
 
-void ExitDebugScreen( )
+static void ExitDebugScreen( )
 {
 	if ( guiCurrentScreen == DEBUG_SCREEN )
 	{
@@ -951,7 +922,7 @@ UINT32 DemoExitScreenInit(void)
 }
 
 
-void DoneFadeOutForDemoExitScreen( void )
+static void DoneFadeOutForDemoExitScreen( void )
 {
 	gfProgramIsRunning = FALSE;
 }
@@ -959,8 +930,7 @@ void DoneFadeOutForDemoExitScreen( void )
 // unused
 //extern INT8 gbFadeSpeed;
 
-#ifdef GERMAN
-void DisplayTopwareGermanyAddress()
+static void DisplayTopwareGermanyAddress()
 {
 	VOBJECT_DESC		vo_desc;
 	UINT32					uiTempID;
@@ -994,7 +964,6 @@ void DisplayTopwareGermanyAddress()
 	ExecuteBaseDirtyRectQueue();
 	EndFrameBufferRender();
 }
-#endif
 
 UINT32 DemoExitScreenHandle(void)
 {

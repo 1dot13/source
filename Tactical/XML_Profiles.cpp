@@ -13,10 +13,9 @@
 	#include "sgp.h"
 	#include "Debug Control.h"
 	#include "expat.h"
-	#include "gamesettings.h"
+	#include "GameSettings.h"
 	#include "XML.h"
 	#include "Soldier Profile.h"
-		#include "Soldier Profile.h"
 //#define MAX_PROFILE_NAME_LENGTH 30
 
 struct
@@ -1179,7 +1178,6 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 
 // Flugente hack: analyze profiles and print out the result
 #include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
-#include <fstream>
 #include <iostream>
 
 extern STR16 gzMercSkillTextNew[];

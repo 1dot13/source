@@ -1,18 +1,15 @@
-	#include <String.h>
 	#include "Strategic Mines.h"
-	#include "Finances.h"
+	#include "finances.h"
 	#include "Strategic Town Loyalty.h"
 	#include "strategic.h"
 	#include "Game Clock.h"
 	#include "strategicmap.h"
-	#include "Random.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
 	#include "Map Screen Interface.h"
 	#include "Quests.h"
 	#include "Creature Spreading.h"
 	#include "message.h"
-	#include "Text.h"
 	#include "Game Event Hook.h"
 	#include "GameSettings.h"
 	#include "Strategic AI.h"
@@ -22,7 +19,6 @@
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
 
-#include "GameInitOptionsScreen.h"
 
 #include "Strategic Mines LUA.h"
 #include <vector>
@@ -132,7 +128,7 @@ UINT8 gubMonsterMineInfestation[]={
 // the static NPC dialogue faces
 //extern UINT32 uiExternalStaticNPCFaces[];
 extern FACETYPE	*gpCurrentTalkingFace;
-extern UINT8			gubCurrentTalkingID;
+extern UINT16			gubCurrentTalkingID;
 
 
 

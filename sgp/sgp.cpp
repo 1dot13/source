@@ -1,62 +1,46 @@
 /* $Id: sgp.c,v 1.4 2004/03/19 06:16:04 digicrab Exp $ */
 //its test what doeas it do?
-	#include "types.h"
-	#include <windows.h>
-	#include <stdio.h>
-	#include <stdarg.h>
-	#include <string.h>
-	#include "sgp.h"
-	#include "vobject.h"
-	#include "font.h"
-	#include "local.h"
-	#include "Fileman.h"
-	#include "input.h"
-	#include "Random.h"
-	#include "gameloop.h"
-	#include "soundman.h"
-		#include "JA2 Splash.h"
-		#include "Timer Control.h"
-	#include "LibraryDataBase.h"
-	#include "utilities.h"
-
-#include "GameSettings.h"
+#include "builddefines.h"
+#include "types.h"
+#include <windows.h>
+#include <string.h>
+#include "sgp.h"
+#include "vobject.h"
+#include "Font.h"
+#include "local.h"
+#include "FileMan.h"
 #include "input.h"
+#include "random.h"
+#include "gameloop.h"
+#include "soundman.h"
+#include "JA2 Splash.h"
+#include "Timer Control.h"
+#include "Utilities.h"
+#include "GameSettings.h"
 #include "zmouse.h"
-
 #include <vfs/Aspects/vfs_settings.h>
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
-#include <vfs/Core/vfs_os_functions.h>
-#include <vfs/Core/File/vfs_file.h>
 #include <vfs/Tools/vfs_log.h>
-#include <vfs/Tools/vfs_parser_tools.h>
 #include <vfs/Tools/vfs_file_logger.h>
-
 #include "sgp_logger.h"
 #include "Text.h"
-#include "LocalizedStrings.h"
 #include "ExportStrings.h"
 #include "ImportStrings.h"
+#include <excpt.h>
+#include "INIReader.h"
+#include "connect.h"
+#include "wine.h"
+#include "Intro.h"
+#include <Music Control.h>
+#include <language.hpp>
+
 
 #define USE_CONSOLE 0
 
-#include <iostream>
-#include <excpt.h>
-
-
-#include "INIReader.h"
-#include "Console.h"
-#include "Lua Interpreter.h"
-#include "connect.h"
-#include "english.h"
-
-	#include "BuildDefines.h"
-	#include "Intro.h"
-
 #ifndef WIN32_LEAN_AND_MEAN
-	#define WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
 #endif
-#include <Music Control.h>
 
 
 static void MAGIC(std::string const& aarrrrgggh = "")
@@ -72,7 +56,7 @@ static vfs::FileLogger *vfslog = NULL;
 
 int		iWindowedMode;
 
-void SHOWEXCEPTION(sgp::Exception& ex)
+static void SHOWEXCEPTION(sgp::Exception& ex)
 {
 	try {
 		_ExceptionMessage(ex);
@@ -83,7 +67,7 @@ void SHOWEXCEPTION(sgp::Exception& ex)
 	}
 }
 
-void SHOWEXCEPTION(vfs::Exception& ex)
+static void SHOWEXCEPTION(vfs::Exception& ex)
 {
 	try {
 		_ExceptionMessage(ex);
@@ -172,9 +156,6 @@ CHAR8				gzCommandLine[100];		// Command line given
 
 CHAR8				gzErrorMsg[2048]="";
 BOOLEAN				gfIgnoreMessages=FALSE;
-
-// GLOBAL VARIBLE, SET TO DEFAULT BUT CAN BE CHANGED BY THE GAME IF INIT FILE READ
-UINT8				gbPixelDepth = PIXEL_DEPTH;
 
 
 INT32 FAR PASCAL SyncWindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
@@ -367,14 +348,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 
 	case WM_SYSKEYDOWN:
 	case WM_KEYDOWN:
-#ifdef USE_CODE_PAGE
-			if(s_DebugKeyboardInput)
-			{
-				static vfs::Log& debugKeys = *vfs::Log::Create(L"DebugKeys.txt");
-				static int input_counter = 1;
-				debugKeys << (input_counter++) << " : " << (int)wParam << vfs::Log::endl;
-			}
-#endif // USE_CODE_PAGE
 			KeyDown(wParam, lParam);
 			gfSGPInputReceived =	TRUE;
 			break;
@@ -392,21 +365,6 @@ INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LP
 			}
 			break;
 
-		case WM_INPUTREADY:
-			{
-				wstring *tstr = (wstring*) lParam;
-				if (EvalLua( tstr->c_str()))
-				{
-					tstr->erase();
-				}
-				else
-				{
-					cout << ">";
-				}
-
-				cout << "> ";
-			}
-			break;
 	default	:
 		return DefWindowProc(hWindow, Message, wParam, lParam);
 	}
@@ -514,24 +472,6 @@ BOOLEAN InitializeStandardGamingPlatform(HINSTANCE hInstance, int sCommandShow)
 		}
 	}
 
-#ifdef USE_CODE_PAGE
-	charSet::InitializeCharSets();
-	
-	if(!s_CodePage.empty())
-	{
-		try
-		{
-			CodePageReader cpr;
-			cpr.ReadCodePage(s_CodePage);
-		}
-		catch(std::exception& ex)
-		{
-			std::wstringstream wss;
-			wss << L"Could not process codepage file \"" << s_CodePage() << L"\"";
-			SGP_RETHROW(wss.str().c_str(), ex);
-		}
-	}
-#endif // USE_CODE_PAGE
 
 	if(g_bUseXML_Strings)
 	{
@@ -677,7 +617,7 @@ void ShutdownStandardGamingPlatform(void)
 
 #include "MPJoinScreen.h"
 
-vfs::String getGameID()
+static vfs::String getGameID()
 {
 	static vfs::String _id;
 	static bool has_id = false;
@@ -791,7 +731,16 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	HWND			hPrevInstanceWindow;
 	UINT32			uiTimer = 0;
 
+	// Make sure the game works out of the box on Linux/macOS/Android (WINE)
+	if (wine_add_dll_overrides())
+	{
+		/* newly added dll overrides only work after a restart */
+		char exe_path[MAX_PATH] = { 0 };
+		GetModuleFileNameA(NULL, exe_path, _countof(exe_path));
 
+		ShellExecuteA(NULL, "open", exe_path, pCommandLine, NULL, sCommandShow);
+		return 0;
+	}
 
 	vfs::Log::setSharedString( getGameID() );
 	//if(!vfs::Aspects::getMutexFactory())
@@ -884,13 +833,13 @@ int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pC
 	}
 #endif
 
-#	ifdef ENGLISH
+	if( g_lang == i18n::Lang::en ) {
 	try
 	{
 		SetIntroType( INTRO_SPLASH );
 	}
 	HANDLE_FATAL_ERROR;
-#	endif
+	}
 
 	gfApplicationActive = TRUE;
 	gfProgramIsRunning = TRUE;
@@ -1210,8 +1159,6 @@ void GetRuntimeSettings( )
 			iResY = iResY - 70;
 	}
 
-	// Adjust again
-	gbPixelDepth = PIXEL_DEPTH;
 
 	SCREEN_WIDTH = iResX;
 	SCREEN_HEIGHT = iResY;
@@ -1255,10 +1202,6 @@ void GetRuntimeSettings( )
 	// haydent: mouse scrolling
 	iDisableMouseScrolling = (int)oProps.getIntProperty("Ja2 Settings","DISABLE_MOUSE_SCROLLING", iDisableMouseScrolling);
 
-#ifdef USE_CODE_PAGE
-	s_DebugKeyboardInput = oProps.getBoolProperty(L"Ja2 Settings", L"DEBUG_KEYS", false);
-	s_CodePage = oProps.getStringProperty(L"Ja2 Settings", L"CODE_PAGE");
-#endif // USE_CODE_PAGE
 
 	// WANNE: Highspeed Timer always ON (no more optional in the ja2.ini)
 	// get timer/clock initialization state

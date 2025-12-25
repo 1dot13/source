@@ -1,4 +1,4 @@
-#include "Types.h"
+#include "types.h"
 
 #define	WEAPONSFILENAME					"TABLEDATA\\Weapons.dat"
 #define MAX_CHAR_DATA_LENGTH			500

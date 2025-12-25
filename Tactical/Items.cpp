@@ -1,35 +1,30 @@
-	#include "items.h"
+	#include "Items.h"
 	#include "Action Items.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Soldier Control.h"
-	#include "overhead.h"
-	#include "Handle UI.h"
+	#include "Overhead.h"
 	#include "Animation Control.h"
-	#include "points.h"
+	#include "Points.h"
 	#include "Sound Control.h"
 	#include "Isometric Utils.h"
 	#include "Animation Data.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Campaign.h"
-	#include "interface.h"
-	#include "interface panels.h"
-	#include "explosion control.h"
+	#include "Interface.h"
+	#include "Interface Panels.h"
+	#include "Explosion Control.h"
 	#include "Keys.h"
-	#include "faces.h"
-
-	#include "wcheck.h"
-	#include "soldier profile.h"
+	#include <mapscreen.h>
+#include "soldier profile type.h"
+	#include "WCheck.h"
+	#include "Soldier Profile.h"
 	#include "SkillCheck.h"
-	#include "los.h"
+	#include "LOS.h"
 	#include "message.h"
-	#include "text.h"
-
-	#include "fov.h"
+	#include "Text.h"
 	#include "MessageBoxScreen.h"
-
 	#include "Interface Control.h"
 	#include "ShopKeeper Interface.h"
-
 	#include "GameSettings.h"
 	#include "environment.h"
 	#include "Auto Resolve.h"
@@ -41,27 +36,18 @@
 	#include "Soldier macros.h"
 	#include "Smell.h"
 	#include "lighting.h"
-	#include "utilities.h"
-	#include "english.h"
-	#include "debug control.h"
-
-	#include "math.h"
+	#include "Utilities.h"
+	#include "Debug Control.h"
 	// THE_BOB : added for pocket popup definitions
 	#include <map>
 	#include "popup_definition.h"
-
-	#include "drugs and alcohol.h"
+	#include "Drugs And Alcohol.h"
 	#include "Food.h"
-	#include "opplist.h"
-	#include "Sys Globals.h"//dnl ch74 201013
 	#include "CampaignStats.h"		// added by Flugente
-	#include "DisplayCover.h"		// added by Flugente
-	#include "Map Information.h"
 	#include "ai.h"					// added by Flugente
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
 #endif
 
 //forward declarations of common classes to eliminate includes
@@ -1271,16 +1257,25 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	if ( Item[usItemIndex].ubCoolness == 0 && !fIgnoreCoolness )
 		return FALSE;
 
-	// silversurfer: no food items if the food system is off
-	if ( !UsingFoodSystem() && Item[ usItemIndex ].foodtype > 0 )
+	// kitty: players might want food items in game for roleplay reasons, i.e. when interacting with npc-dealer in restaurant, no food might seems odd
+	// with the option "ALWAYS_FOOD" set TRUE, food items will show even without using the foodsystem
+	// should it be set to FALSE, no food items will be shown without using the foodsystem
+	if (!gGameExternalOptions.fAlwaysFood)
 	{
-		// Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
-		if ( Food[Item[usItemIndex].foodtype].bFoodPoints > 0 )
-			return FALSE;
-	}
+		  // silversurfer: no food items if the food system is off
+	      if (!UsingFoodSystem() && Item[usItemIndex].foodtype > 0 )
+		  {
+		      // silversurfer: Only restrict food for now. Water can be used to replenish lost energy so it is useful even without the food system.
+		      // kitty: and only if food isn't a drug at the same time, to make sure using those drugs without food system is possible
+			  if (Food[Item[usItemIndex].foodtype].bFoodPoints > 0 && Item[usItemIndex].drugtype == 0 )
 
-	//shadooow: exclude also any item that is limited to specific system and this system isn't enabled
-	if (((Item[usItemIndex].usLimitedToSystem & FOOD_SYSTEM_FLAG) && !UsingFoodSystem()) || ((Item[usItemIndex].usLimitedToSystem & DISEASE_SYSTEM_FLAG) && !gGameExternalOptions.fDisease))
+				   return FALSE;
+	      }
+    }
+
+	// kitty: no disease items if the disease system is off
+	// whether the item is exclusive is defined by tag
+	if (!gGameExternalOptions.fDisease && ItemIsOnlyInDisease(usItemIndex))
 	{
 		return FALSE;
 	}
@@ -1292,14 +1287,14 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 		//if( (Item[ usItemIndex ].usItemClass == IC_GUN) || (Item[ usItemIndex ].usItemClass == IC_AMMO )) //Madd: restriction removed
 		{
 			// and the item is only available with the extended guns
-			if( Item[usItemIndex].biggunlist )
+			if(ItemIsOnlyInTonsOfGuns(usItemIndex))
 			{
 				return(FALSE);
 			}
 		}
 	}
 
-	if ( gGameOptions.ubGameStyle != STYLE_SCIFI && Item[usItemIndex].scifi )
+	if ( gGameOptions.ubGameStyle != STYLE_SCIFI && ItemIsOnlyInScifi(usItemIndex) )
 	{
 		return FALSE;
 	}
@@ -1312,7 +1307,7 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	}
 	else
 	{
-		if(Item[usItemIndex].usItemClass == IC_LBEGEAR || Item[usItemIndex].newinv)
+		if(Item[usItemIndex].usItemClass == IC_LBEGEAR || ItemIsOnlyInNIV(usItemIndex))
 			return FALSE;
 	}
 
@@ -1324,18 +1319,11 @@ BOOLEAN ItemIsLegal( UINT16 usItemIndex, BOOLEAN fIgnoreCoolness )
 	return(TRUE);
 }
 
-// also used for ammo
-BOOLEAN ExtendedGunListGun( UINT16 usGun )
-{
-//	return( (Item[ usGun ].fFlags & ITEM_BIGGUNLIST) != 0 );
-	return( (Item[ usGun ].biggunlist ) != 0 );
-}
-
 UINT16 StandardGunListReplacement( UINT16 usGun )
 {
 	UINT8 ubLoop;
 
-	if ( ExtendedGunListGun( usGun ) )
+	if (ItemIsOnlyInTonsOfGuns( usGun ) )
 	{
 		ubLoop = 0;
 		while ( ReplacementGuns[ ubLoop ][ 0 ] != 0 )
@@ -1385,7 +1373,7 @@ BOOLEAN WeaponInHand( SOLDIERTYPE * pSoldier )
 {
 	if ( Item[pSoldier->inv[HANDPOS].usItem].usItemClass & (IC_WEAPON | IC_THROWN) && pSoldier->inv[HANDPOS].exists() == true)
 	{
-		if (Item[pSoldier->inv[HANDPOS].usItem].fingerprintid )
+		if (ItemHasFingerPrintID(pSoldier->inv[HANDPOS].usItem))
 		{
 			if (pSoldier->inv[HANDPOS][0]->data.ubImprintID != NO_PROFILE)
 			{
@@ -1636,18 +1624,18 @@ INT8 FindBestWeaponIfCurrentIsOutOfRange(SOLDIERTYPE * pSoldier, INT8 bCurrentWe
 
 INT8 FindMetalDetectorInHand( SOLDIERTYPE * pSoldier )
 {
-	if ( (&(pSoldier->inv[HANDPOS] ))->exists() && Item[pSoldier->inv[HANDPOS].usItem].metaldetector )
+	if ( (&(pSoldier->inv[HANDPOS] ))->exists() && ItemIsMetalDetector(pSoldier->inv[HANDPOS].usItem))
 	{
 		return( HANDPOS );
 	}
 	
-	if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && Item[pSoldier->inv[SECONDHANDPOS].usItem].metaldetector )
+	if ( (&(pSoldier->inv[SECONDHANDPOS] ))->exists() && ItemIsMetalDetector(pSoldier->inv[SECONDHANDPOS].usItem))
 	{
 		return( SECONDHANDPOS );
 	}
 
 	// rftr: a metal detector can be installed into the robot
-	if ( pSoldier && AM_A_ROBOT(pSoldier) && (&(pSoldier->inv[ROBOT_UTILITY_SLOT]))->exists() && Item[pSoldier->inv[ROBOT_UTILITY_SLOT].usItem].metaldetector )
+	if ( pSoldier && AM_A_ROBOT(pSoldier) && (&(pSoldier->inv[ROBOT_UTILITY_SLOT]))->exists() && ItemIsMetalDetector(pSoldier->inv[ROBOT_UTILITY_SLOT].usItem))
 	{
 		return( ROBOT_UTILITY_SLOT );
 	}
@@ -1660,7 +1648,7 @@ INT8 FindLockBomb( SOLDIERTYPE * pSoldier )
 	INT8 invsize = (INT8)pSoldier->inv.size();
 	for (INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
-		if (Item[pSoldier->inv[bLoop].usItem].lockbomb && pSoldier->inv[bLoop].exists() == true)
+		if (ItemIsLockBomb(pSoldier->inv[bLoop].usItem) && pSoldier->inv[bLoop].exists() == true)
 		{
 			return( bLoop );
 		}
@@ -1841,7 +1829,7 @@ INT8 FindEmptySlotWithin( SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper )
 			continue;
 		if (pSoldier->inv[bLoop].exists() == false)
 		{
-			if (bLoop == SECONDHANDPOS && Item[pSoldier->inv[HANDPOS].usItem].twohanded )
+			if (bLoop == SECONDHANDPOS && ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) )
 			{
 				continue;
 			}
@@ -1857,7 +1845,7 @@ INT8 FindEmptySlotWithin( SOLDIERTYPE * pSoldier, INT8 bLower, INT8 bUpper )
 BOOLEAN GLGrenadeInSlot(SOLDIERTYPE *pSoldier, INT8 bSlot )
 {
 	if (pSoldier->inv[bSlot].exists() == true) {
-		if (Item[pSoldier->inv[bSlot].usItem].glgrenade)
+		if (ItemIsGLgrenade(pSoldier->inv[bSlot].usItem))
 			return TRUE;
 	}
 	//switch (pSoldier->inv[bSlot].usItem)
@@ -1921,12 +1909,12 @@ INT8 FindThrowableGrenade(SOLDIERTYPE * pSoldier, UINT8 ubGrenadeType, UINT8 ubM
 			if ((Item[usItem].usItemClass & IC_GRENADE) &&
 				Item[usItem].ubCursor == TOSSCURS &&
 				GetLauncherFromLaunchable(usItem) == NOTHING &&
-				(!Item[usItem].flare || NightLight()) &&
+				(!ItemIsFlare(usItem) || NightLight()) &&
 				ubDamage >= ubMinDamage &&
 				(ubGrenadeType == EXPLOSV_ANY_TYPE || ubType == ubGrenadeType))
 			{
 				// return if flare grenade has priority
-				if (fCheckForFlares && Item[usItem].flare)
+				if (fCheckForFlares && ItemIsFlare(usItem))
 				{
 					return bLoop;
 				}
@@ -2174,7 +2162,7 @@ BOOLEAN ItemHasAttachments( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier, UINT8 ite
 				{
 					for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
 					{
-						if ( att->usItem != 0 && !Item[att->usItem].hiddenattachment )
+						if ( att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
 						{
 							attachmentHidden = FALSE;
 							break;
@@ -2190,7 +2178,7 @@ BOOLEAN ItemHasAttachments( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier, UINT8 ite
 			{
 				for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
 				{
-					if ( att->usItem != 0 && !Item[att->usItem].hiddenattachment )
+					if ( att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
 					{
 						attachmentHidden = FALSE;
 						break;
@@ -2259,7 +2247,7 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, UINT16 usItem, UINT8 * pubAPCost )
 	}
 
 	//Madd: all guns can be attached to tripwires
-	if ( Item[usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN )
+	if (ItemIsTripwire(usItem) && Item[usAttachment].usItemClass & IC_GUN )
 		return TRUE;
 
 	//Madd: Common Attachment Framework
@@ -2297,8 +2285,8 @@ BOOLEAN ValidAttachment( UINT16 usAttachment, OBJECTTYPE * pObj, UINT8 * pubAPCo
 		return FALSE;
 
 	// shadooow: efficiency check, we are passing all kinds of items into this function that are not necessary attachments at all
-	if (!Item[usAttachment].attachment && !Item[usAttachment].attachmentclass && !Item[usAttachment].nasAttachmentClass &&
-		!Item[usAttachment].hiddenaddon && !((Item[usAttachment].usItemClass & IC_GUN) && Item[pObj->usItem].tripwire))
+	if (!ItemIsAttachment(usAttachment) && !Item[usAttachment].attachmentclass && !Item[usAttachment].nasAttachmentClass &&
+		!ItemIsHiddenAddon(usAttachment) && !((Item[usAttachment].usItemClass & IC_GUN) && ItemIsTripwire(pObj->usItem)))
 		return FALSE;
 
 	if( UsingNewAttachmentSystem() )
@@ -2450,7 +2438,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 	{
 		//Search for incompatible attachments
 		//Madd: check for gun on tripwire first
-		if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
+		if (ItemIsTripwire(pObj->usItem) && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
 		{
 			fSimilarItems = TRUE;
 			OBJECTTYPE * tmpObj = FindAttachmentByClass( pObj, IC_GUN, subObject );
@@ -2516,7 +2504,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 			//Search for any valid attachments in this slot
 			//CHRISL: Valid attachments are determined by the old "ValidItemAttachment" function and comparing the attachment class of the item and slot
 			//Madd: gun on tripwire always allowed
-			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && Item[pObj->usItem].tripwire)) &&
+			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && ItemIsTripwire(pObj->usItem))) &&
 				(ValidItemAttachment(pObj,usAttachment,fAttemptingAttachment,fDisplayMessage,subObject,usAttachmentSlotIndexVector) ||
 				ValidLaunchable(usAttachment, GetAttachedGrenadeLauncher(pObj)) ||
 				ValidLaunchable(usAttachment, pObj->usItem)))
@@ -2552,7 +2540,7 @@ BOOLEAN ValidItemAttachmentSlot( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN
 			//Search for any valid attachments in this slot
 			//CHRISL: Valid attachments are determined by the old "ValidItemAttachment" function and comparing the attachment class of the item and slot
 			//Madd: gun on tripwire always allowed
-			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && Item[pObj->usItem].tripwire)) &&
+			if((AttachmentSlots[ubSlotIndex].nasAttachmentClass & Item[usAttachment].nasAttachmentClass || (Item[usAttachment].usItemClass & IC_GUN && ItemIsTripwire(pObj->usItem))) &&
 				(ValidItemAttachment(pObj,usAttachment,FALSE,FALSE,subObject,usAttachmentSlotIndexVector) ||
 				ValidLaunchable(usAttachment, GetAttachedGrenadeLauncher(pObj)) ||
 				ValidLaunchable(usAttachment, pObj->usItem)))
@@ -2619,7 +2607,7 @@ BOOLEAN ValidItemAttachment( OBJECTTYPE * pObj, UINT16 usAttachment, BOOLEAN fAt
 		UINT16		usSimilarItem = NOTHING;
 
 		//Madd: check for gun on tripwire first
-		if ( Item[pObj->usItem].tripwire && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
+		if (ItemIsTripwire(pObj->usItem) && Item[usAttachment].usItemClass & IC_GUN && FindAttachmentByClass( pObj, IC_GUN, subObject ) != 0 )
 		{
 			fSimilarItems = TRUE;
 			OBJECTTYPE * tmpObj = FindAttachmentByClass( pObj, IC_GUN, subObject );
@@ -2715,17 +2703,6 @@ BOOLEAN CompatibleFaceItem( UINT16 usItem1, UINT16 usItem2 )
 	return( TRUE );
 }
 
-
-//Determines if this item is a two handed item.
-BOOLEAN TwoHandedItem( UINT16 usItem )
-{
-//	if (Item[usItem].fFlags & ITEM_TWO_HANDED)
-	if (Item[usItem].twohanded )
-	{
-		return( TRUE );
-	}
-	return FALSE;
-}
 
 BOOLEAN ValidLaunchable( UINT16 usLaunchable, UINT16 usItem )
 {
@@ -3148,7 +3125,7 @@ UINT16 OBJECTTYPE::GetWeightOfObjectInStack(unsigned int index)
 				weight += Item[ (*this)[index]->data.gun.usGunAmmoItem ].ubWeight;
 			}
 		}
-		else if ( gGameExternalOptions.fAmmoDynamicWeight && ( pItem->camouflagekit || pItem->canteen || pItem->drugtype || pItem->foodtype || usItem == JAR_ELIXIR ) )
+		else if ( gGameExternalOptions.fAmmoDynamicWeight && (ItemIsCamoKit(pItem->uiIndex) || ItemIsCanteen(pItem->uiIndex) || pItem->drugtype || pItem->foodtype || usItem == JAR_ELIXIR ) )
 		{
 			weight *= (FLOAT)( ( *this )[index] )->data.objectStatus / 100.0f;
 		}
@@ -3184,7 +3161,7 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 	{
 		if (pSoldier->usDragPersonID != NOBODY)
 		{
-			SOLDIERTYPE* pOtherSoldier = MercPtrs[pSoldier->usDragPersonID];
+			SOLDIERTYPE* pOtherSoldier = pSoldier->usDragPersonID;
 
 			uiTotalWeight += GetTotalWeight( pOtherSoldier );
 			uiTotalWeight += pOtherSoldier->GetBodyWeight();
@@ -3406,7 +3383,7 @@ BOOLEAN ReloadGun( SOLDIERTYPE * pSoldier, OBJECTTYPE * pGun, OBJECTTYPE * pAmmo
 		}
 	}
 
-	if ( Item[ pGun->usItem ].usItemClass == IC_LAUNCHER || Item[pGun->usItem].cannon )
+	if ( Item[ pGun->usItem ].usItemClass == IC_LAUNCHER || ItemIsCannon(pGun->usItem))
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("ReloadGun: Loading launcher - new ammo type = %d, weight = %d", pAmmo->usItem, CalculateObjectWeight(pAmmo) ) );
 		(*pGun)[subObject]->data.gun.usGunAmmoItem = pAmmo->usItem;
@@ -3837,7 +3814,7 @@ INT8 FindAmmoToReload( SOLDIERTYPE * pSoldier, INT8 bWeaponIn, INT8 bExcludeSlot
 			return bWeaponIn;
 		//</SB>
 	}
-	if ( Item[pObj->usItem].usItemClass == IC_GUN && !Item[pObj->usItem].cannon )
+	if ( Item[pObj->usItem].usItemClass == IC_GUN && !ItemIsCannon(pObj->usItem) )
 	{
 		//MM: make reload use crates/boxes if not in combat...
 	 	if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) )
@@ -4148,7 +4125,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		return FALSE;
 	}
 	//CHRISL: If we're adding a loaded UGL, then we have to make sure there are actually 2 open attachment slots instead of 1
-	if(Item[pAttachment->usItem].grenadelauncher && (*pAttachment)[0]->attachments.size() > 0) {
+	if(ItemIsGrenadeLauncher(pAttachment->usItem) && (*pAttachment)[0]->attachments.size() > 0) {
 		if ((*this)[subObject]->attachments.size() >= (OLD_MAX_ATTACHMENTS_101-1))
 			return FALSE;
 	}
@@ -4180,7 +4157,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 		// find an attachment position...
 		// second half of this 'if' is for attaching GL grenades to a gun w/attached GL
-		if ( fValidLaunchable || (Item[pAttachment->usItem].glgrenade && FindAttachmentByClass(this, IC_LAUNCHER, subObject) != 0 ) )
+		if ( fValidLaunchable || (ItemIsGLgrenade(pAttachment->usItem) && FindAttachmentByClass(this, IC_LAUNCHER, subObject) != 0 ) )
 		{
 			canOnlyAttach1 = true;
 			// try replacing if possible
@@ -4215,7 +4192,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					return( FALSE );
 				}
 			}
-			else if ( Item[this->usItem].tripwire && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
+			else if (ItemIsTripwire(this->usItem) && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
 			{
 				iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
 				if (iCheckResult < 0)
@@ -4237,7 +4214,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			if ( ValidItemAttachment( this, pAttachment->usItem, TRUE, TRUE, subObject  ) && playSound ) // not launchable
 			{
 				// attachment sounds
-				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || Item[this->usItem].tripwire )  //Madd: attaching items to tripwire makes gun attach sound
+				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || ItemIsTripwire(this->usItem) )  //Madd: attaching items to tripwire makes gun attach sound
 				{
 					PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 				}
@@ -4271,7 +4248,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		//if (pAttachmentPosition) {
 		if(pAttachmentPosition || (pAttachmentPosition == NULL && (*this)[subObject]->attachments.size() < OLD_MAX_ATTACHMENTS_101)){
 			//we know we are replacing this attachment
-			if ( Item[ this->usItem ].usItemClass == IC_LAUNCHER || Item[this->usItem].cannon )
+			if ( Item[ this->usItem ].usItemClass == IC_LAUNCHER || ItemIsCannon(this->usItem) )
 			{
 				if ( fValidLaunchable )
 				{
@@ -4282,7 +4259,7 @@ BOOLEAN OBJECTTYPE::AttachObjectOAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		}
 
 		//unfortunately must come before possible attachment swap
-		if (Item[pAttachment->usItem].grenadelauncher )
+		if (ItemIsGrenadeLauncher(pAttachment->usItem))
 		{
 			// transfer any attachments from the grenade launcher to the gun
 			(*this)[subObject]->attachments.splice((*this)[subObject]->attachments.begin(), (*pAttachment)[0]->attachments,
@@ -4846,7 +4823,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 					return( FALSE );
 				}
 			}
-			else if ( Item[this->usItem].tripwire && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
+			else if (ItemIsTripwire(this->usItem) && Item[pAttachment->usItem].usItemClass & IC_GUN ) // Madd: gun on tripwire
 			{
 				iCheckResult = SkillCheck( pSoldier, ATTACHING_DETONATOR_CHECK, 0 );
 				if (iCheckResult < 0)
@@ -4868,7 +4845,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			if (fValidItemAttachment && playSound ) // not launchable
 			{
 				// attachment sounds
-				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || Item[this->usItem].tripwire ) //Madd: attaching items to tripwire makes gun attach sound
+				if ( Item[ this->usItem ].usItemClass & IC_WEAPON || ItemIsTripwire(this->usItem) ) //Madd: attaching items to tripwire makes gun attach sound
 				{
 					PlayJA2Sample( ATTACH_TO_GUN, RATE_11025, SoundVolume( MIDVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 				}
@@ -4902,7 +4879,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 		// the AP costs for reloading GL/RL will be taken from weapons.xml ( wrong place!!! the AP's are deducted in DeleteItemDescriptionBox() )
 
 		//we know we are replacing this attachment
-		if ( Item[ this->usItem ].usItemClass == IC_LAUNCHER || Item[this->usItem].cannon )
+		if ( Item[ this->usItem ].usItemClass == IC_LAUNCHER || ItemIsCannon(this->usItem) )
 		{
 			if ( fValidLaunchable )
 			{
@@ -5403,7 +5380,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			case TEMPERATURE:
 				{
 					// check if this can work
-					if ( Item[ this->usItem ].usItemClass == IC_GUN && Item[pAttachment->usItem].barrel == TRUE )
+					if ( Item[ this->usItem ].usItemClass == IC_GUN && ItemIsBarrel(pAttachment->usItem) )
 					{
 						FLOAT guntemperature = (*this)[subObject]->data.bTemperature;
 						FLOAT barreltemperature = (*pAttachment)[0]->data.bTemperature;
@@ -5424,7 +5401,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 			case TRIPWIRE_ROLL:
 				{
 					// check if this can work
-					if ( Item[ this->usItem ].tripwire && Item[pAttachment->usItem].tripwire && HasItemFlag( this->usItem, TRIPWIREROLL ) )
+					if (ItemIsTripwire(this->usItem) && ItemIsTripwire(pAttachment->usItem) && HasItemFlag( this->usItem, TRIPWIREROLL ) )
 					{
 						if ( (*this)[subObject]->data.objectStatus < 100 )
 							(*this)[subObject]->data.objectStatus++;
@@ -5721,7 +5698,7 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	{	
 		fItemLayout = Item[pObj->usItem].nasLayoutClass;
 		fIsLBE = (Item[pObj->usItem].usItemClass == IC_LBEGEAR);
-		if ( Item[pObj->usItem].grenadelauncher || Item[pObj->usItem].rocketlauncher )
+		if (ItemIsGrenadeLauncher(pObj->usItem) || ItemIsRocketLauncher(pObj->usItem) )
 			magSize = GetMagSize( pObj );
 
 		//We don't need to do anything if the item gets no slots
@@ -5786,7 +5763,7 @@ std::vector<UINT16> GetItemSlots(OBJECTTYPE* pObj, UINT8 subObject, BOOLEAN fAtt
 	//Madd: Only record these extra slots if the item has its attachment flag set!
 	for(attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
 	{
-		if(iter->exists() && Item[iter->usItem].attachment && !(*iter)[0]->attachments.empty() )
+		if(iter->exists() && ItemIsAttachment(iter->usItem) && !(*iter)[0]->attachments.empty() )
 		{
 			OBJECTTYPE* pAttachment = &(*iter);
 			tempSlots = GetItemSlots(pAttachment,0,TRUE);
@@ -6245,10 +6222,10 @@ BOOLEAN CanItemFitInRobot(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, INT8 bPos, BO
 			(Magazine[Item[pObj->usItem].ubClassIndex].ubCalibre == Weapon[pSoldier->inv[HANDPOS].usItem].ubCalibre);
 
 	case ROBOT_TARGETING_SLOT:
-		if (Item[pObj->usItem].fProvidesRobotLaserBonus)
+		if (ItemProvidesRobotLaserBonus(pObj->usItem))
 			return(TRUE);
 
-		if (Item[pObj->usItem].fProvidesRobotNightVision)
+		if (ItemProvidesRobotNightvision(pObj->usItem))
 			return(TRUE);
 
 		if (Item[pObj->usItem].bRobotTargetingSkillGrant > 0)
@@ -6260,7 +6237,7 @@ BOOLEAN CanItemFitInRobot(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, INT8 bPos, BO
 		if (Item[pObj->usItem].bRobotStrBonus > 0 || Item[pObj->usItem].bRobotAgiBonus > 0 || Item[pObj->usItem].bRobotDexBonus > 0)
 			return(TRUE);
 
-		if (Item[pObj->usItem].fProvidesRobotCamo)
+		if (ItemProvidesRobotCamo(pObj->usItem))
 			return(TRUE);
 
 		if (Item[pObj->usItem].fRobotDamageReductionModifier > 0.0f && Item[pObj->usItem].fRobotDamageReductionModifier < 1.0f)
@@ -6278,10 +6255,10 @@ BOOLEAN CanItemFitInRobot(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, INT8 bPos, BO
 		if (HasItemFlag( pObj->usItem, RADIO_SET ))
 			return(TRUE);
 
-		if (Item[pObj->usItem].metaldetector == 1)
+		if (ItemIsMetalDetector(pObj->usItem))
 			return(TRUE);
 
-		if (Item[pObj->usItem].xray == 1)
+		if (ItemHasXRay(pObj->usItem))
 			return(TRUE);
 
 		if (Item[pObj->usItem].bRobotUtilitySkillGrant > 0)
@@ -6325,13 +6302,13 @@ BOOLEAN CanItemFitInPosition( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, INT8 bPos
 				&& pSoldier->HasDiseaseWithFlag( DISEASE_PROPERTY_LIMITED_USE_ARMS ) )
 				return FALSE;
 
-			if (Item[pSoldier->inv[HANDPOS].usItem].twohanded )
+			if (ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem))
 			{
 				return( FALSE );
 			}
 			break;
 		case HANDPOS:
-			if (Item[ pObj->usItem ].twohanded )
+			if (ItemIsTwoHanded(pObj->usItem))
 			{
 				// Flugente: disease can stop us from using our arms normally
 				if ( gGameExternalOptions.fDisease
@@ -6668,7 +6645,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 	OBJECTTYPE *	pInSlot;
 	BOOLEAN				fObjectWasRobotRemote = FALSE;
 
-	if ( Item[pObj->usItem].robotremotecontrol )
+	if (ItemIsRobotRemote(pObj->usItem))
 	{
 		fObjectWasRobotRemote = TRUE;
 	}
@@ -6798,7 +6775,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			pSoldier->bDoBurst = TRUE;
 			pSoldier->bDoAutofire = TRUE;
 		}
-		if ( Item[pObj->usItem].twohanded && Weapon[pObj->usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+		if (ItemIsTwoHanded(pObj->usItem) && Weapon[pObj->usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
 			pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD;
 		else
 			pSoldier->bScopeMode = USE_BEST_SCOPE;
@@ -6819,7 +6796,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 		if (pObj->exists() == false)
 		{
 			// dropped everything
-			if (bPos == HANDPOS && Item[pInSlot->usItem].twohanded )
+			if (bPos == HANDPOS && ItemIsTwoHanded(pInSlot->usItem))
 			{
 				// We just performed a successful drop of a two-handed object into the
 				// main hand
@@ -7015,7 +6992,7 @@ BOOLEAN PlaceObject( SOLDIERTYPE * pSoldier, INT8 bPos, OBJECTTYPE * pObj )
 			pInSlot->AddObjectsToStack( *pObj, ALL_OBJECTS, pSoldier, bPos );
 		}
 
-		else if ( (Item[pObj->usItem].twohanded ) && (bPos == HANDPOS) )
+		else if (ItemIsTwoHanded(pObj->usItem) && (bPos == HANDPOS) )
 		{
 			if (pSoldier->inv[SECONDHANDPOS].exists() == true) {
 				// both pockets have something in them, so we can't swap
@@ -7109,7 +7086,7 @@ bool TryToPlaceInSlot(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, bool fNewItem, in
 	}
 
 	if (bSlot == SECONDHANDPOS) {
-		if (pSoldier->inv[HANDPOS].exists() == true && Item[pSoldier->inv[ HANDPOS ].usItem].twohanded) {
+		if (pSoldier->inv[HANDPOS].exists() == true && ItemIsTwoHanded(pSoldier->inv[ HANDPOS ].usItem)) {
 			return false;
 		}
 	}
@@ -7446,7 +7423,7 @@ BOOLEAN AutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNew
 						return( TRUE );
 				}
 			}
-			else if ( !(Item[pSoldier->inv[HANDPOS].usItem].twohanded ) && pSoldier->inv[SECONDHANDPOS].exists() == false)
+			else if ( !ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem) && pSoldier->inv[SECONDHANDPOS].exists() == false)
 			{
 				// put the one-handed weapon in the guy's 2nd hand...
 				if( PlaceObject( pSoldier, SECONDHANDPOS, pObj, fNewItem ) )
@@ -7506,7 +7483,7 @@ BOOLEAN AutoPlaceObject( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, BOOLEAN fNew
 					This is only an issue during merc hiring when leggings will often be placed after leg protectors.
 					However, this isn't as big an issue at this point because of the redesigns in the profile item sorting
 					functions.*/
-					if(Item[pSoldier->inv[LEGPOS].usItem].attachment)
+					if(ItemIsAttachment(pSoldier->inv[LEGPOS].usItem))
 					{
 						SwapObjs(pSoldier, LEGPOS, pObj, TRUE);
 						pSoldier->inv[LEGPOS].AttachObject(pSoldier, pObj, FALSE);
@@ -7831,17 +7808,17 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 			(*pObj)[bLoop]->data.objectStatus -= (INT8)(usPoints * (max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction) ) )/100);
 
 			// Flugente: campaign stats
-			if ( Item[pObj->usItem].foodtype || Item[pObj->usItem].canteen)
+			if ( Item[pObj->usItem].foodtype || ItemIsCanteen(pObj->usItem))
 				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_FOOD, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
-			else if ( Item[pObj->usItem].medical || Item[pObj->usItem].drugtype)
+			else if (ItemIsMedical(pObj->usItem) || Item[pObj->usItem].drugtype)
 				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_MEDICAL, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
-			else if ( Item[pObj->usItem].toolkit || HasItemFlag(pObj->usItem, CLEANING_KIT) )
+			else if (ItemIsToolkit(pObj->usItem) || HasItemFlag(pObj->usItem, CLEANING_KIT) )
 				gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_REPAIR, (FLOAT)(usOriginalPoints * Item[pObj->usItem].ubWeight / 100.0) );
 
 			return( usOriginalPoints );
 		}
 		// Flugente: we no longer destroy canteens upon emtptying them - as we can now refill them
-		else if ( Item[pObj->usItem].canteen == TRUE )
+		else if (ItemIsCanteen(pObj->usItem) == TRUE )
 		{
 			// consume this kit totally
 			usPoints -= (((*pObj)[bLoop]->data.objectStatus - 1) / ((max( 0, (100 - Item[pObj->usItem].percentstatusdrainreduction))) /100));
@@ -7878,11 +7855,11 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 	}
 
 	// Flugente: campaign stats
-	if ( Item[pObj->usItem].foodtype || Item[pObj->usItem].canteen)
+	if ( Item[pObj->usItem].foodtype || ItemIsCanteen(pObj->usItem))
 		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_FOOD, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
-	else if ( Item[pObj->usItem].medical || Item[pObj->usItem].drugtype)
+	else if (ItemIsMedical(pObj->usItem) || Item[pObj->usItem].drugtype)
 		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_MEDICAL, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
-	else if ( Item[pObj->usItem].toolkit || HasItemFlag(pObj->usItem, CLEANING_KIT) )
+	else if (ItemIsToolkit(pObj->usItem) || HasItemFlag(pObj->usItem, CLEANING_KIT) )
 		gCampaignStats.AddConsumption(CAMPAIGN_CONSUMED_REPAIR, (FLOAT)((usOriginalPoints -  usPoints) * Item[pObj->usItem].ubWeight / 100.0) );
 
 	// check if pocket/hand emptied..update inventory, then update panel
@@ -8244,7 +8221,7 @@ BOOLEAN CreateGun( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	}
 	else if ( EXPLOSIVE_GUN( usItem ) )
 	{
-		if ( Item[usItem].singleshotrocketlauncher )
+		if (ItemIsSingleShotRocketLauncher(usItem))
 		{
 			pStackedObject->data.gun.ubGunShotsLeft = 1;
 		}
@@ -8391,8 +8368,7 @@ BOOLEAN CreateItem( UINT16 usItem, INT16 bStatus, OBJECTTYPE * pObj )
 	}
 	if (fRet)
 	{
-//		if (Item[ usItem ].fFlags & ITEM_DEFAULT_UNDROPPABLE)
-		if (Item[ usItem ].defaultundroppable )
+		if (ItemIsUndroppableByDefault(usItem))
 		{
 			(*pObj).fFlags |= OBJECT_UNDROPPABLE;
 		}
@@ -8470,7 +8446,7 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 	{
 		fRemote = TRUE;
 	}
-	else if ( Item[pObj->usItem].mine || pObj->usItem == TRIP_FLARE || pObj->usItem == TRIP_KLAXON || pObj->usItem == ACTION_ITEM )
+	else if (ItemIsMine(pObj->usItem) || pObj->usItem == TRIP_FLARE || pObj->usItem == TRIP_KLAXON || pObj->usItem == ACTION_ITEM )
 	{
 		fPressure = TRUE;
 	}
@@ -8528,7 +8504,7 @@ BOOLEAN ArmBomb( OBJECTTYPE * pObj, INT8 bSetting )
 
 	// tripwires
 	UINT32 ubWireNetworkFlag = 0;
-	if ( Item[pObj->usItem].tripwire == 1 && bSetting > 0 && bSetting < 17 ) // checks for safety
+	if (ItemIsTripwire(pObj->usItem) && bSetting > 0 && bSetting < 17 ) // checks for safety
 	{
 		// we are placing it, so it's ours
 		ubWireNetworkFlag |= TRIPWIRE_NETWORK_OWNER_PLAYER;
@@ -8709,7 +8685,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 				pSoldier->bDoBurst = TRUE;
 				pSoldier->bDoAutofire = 1;
 			}
-			if ( Item[pSoldier->inv[ HANDPOS ].usItem].twohanded && Weapon[pSoldier->inv[ HANDPOS ].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
+			if (ItemIsTwoHanded(pSoldier->inv[ HANDPOS ].usItem) && Weapon[pSoldier->inv[ HANDPOS ].usItem].HeavyGun && gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 )
 				pSoldier->bScopeMode = USE_ALT_WEAPON_HOLD;
 			else
 				pSoldier->bScopeMode = USE_BEST_SCOPE;
@@ -8771,7 +8747,7 @@ BOOLEAN OBJECTTYPE::RemoveAttachment( OBJECTTYPE * pAttachment, OBJECTTYPE * pNe
 		*pNewObj = removedAttachment;
 	}
 
-	if (pNewObj->exists() && Item[pNewObj->usItem].grenadelauncher )//UNDER_GLAUNCHER)
+	if (pNewObj->exists() && ItemIsGrenadeLauncher(pNewObj->usItem))//UNDER_GLAUNCHER)
 	{
 		// look for any grenade; if it exists, we must make it an
 		// attachment of the grenade launcher
@@ -9018,7 +8994,7 @@ INT8 CheckItemForDamage( UINT16 usItem, INT32 iMaxDamage )
 	}
 	// metal items are tough and will be damaged less
 //	if (Item[usItem].fFlags & ITEM_METAL)
-	if (Item[usItem].metal )
+	if (ItemIsMetal(usItem))
 	{
 		iMaxDamage /= 2;
 	}
@@ -9109,7 +9085,7 @@ BOOLEAN DamageItem( OBJECTTYPE * pObject, INT32 iDamage, BOOLEAN fOnGround, INT3
 	INT8		bLoop;
 	INT16		bDamage;
 
-	if ( pObject->exists() && (Item[pObject->usItem].damageable  || Item[ pObject->usItem ].usItemClass == IC_AMMO) )
+	if ( pObject->exists() && (ItemIsDamageable(pObject->usItem) || Item[ pObject->usItem ].usItemClass == IC_AMMO) )
 	{
 
 		for (bLoop = 0; bLoop < pObject->ubNumberOfObjects; bLoop++)
@@ -9322,11 +9298,11 @@ void CheckEquipmentForFragileItemDamage( SOLDIERTYPE *pSoldier, INT32 iDamage )
 }
 
 
-BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, UINT8 ubOwner )
+BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, INT32 iDamage, SoldierID ubOwner )
 {
 #ifdef JA2BETAVERSION
 	CHAR tmpMPDbgString[512];
-	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner );
+	sprintf(tmpMPDbgString,"DamageItemOnGround ( usItem : %i , sGridNo : %i , bLevel : %i , iDamage : %i , ubOwner : %i )\n",pObject->usItem, sGridNo , bLevel , iDamage , ubOwner.i );
 	MPDebugMsg(tmpMPDbgString);
 #endif
 
@@ -9364,7 +9340,7 @@ BOOLEAN DamageItemOnGround( OBJECTTYPE * pObject, INT32 sGridNo, INT8 bLevel, IN
 INT8 IsMedicalKitItem( OBJECTTYPE *pObject )
 {
 	// check item id against current medical kits
-	if ( Item[pObject->usItem].medicalkit && pObject->exists() == true)
+	if (ItemIsMedicalKit(pObject->usItem) && pObject->exists() == true)
 		return 1;
 
 	//switch( pObject->usItem )
@@ -9401,7 +9377,7 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 		}
 
 		// if we somehow had an item in our second hand (which shouldn't be possible to begin with), drop it to inventory if twohanded
-		if ( TwoHandedItem( pSoldier->inv[SECONDHANDPOS].usItem ) )
+		if ( ItemIsTwoHanded( pSoldier->inv[SECONDHANDPOS].usItem ) )
 		{
 			// must move the item in the main hand elsewhere in the inventory
 			fOk = AutoPlaceObject( pSoldier, &( pSoldier->inv[SECONDHANDPOS] ), FALSE, SECONDHANDPOS );
@@ -9424,7 +9400,7 @@ void SwapHandItems( SOLDIERTYPE * pSoldier )
 	}
 	else
 	{
-		if (TwoHandedItem( pSoldier->inv[SECONDHANDPOS].usItem ) )
+		if (ItemIsTwoHanded( pSoldier->inv[SECONDHANDPOS].usItem ) )
 		{
 			// must move the item in the main hand elsewhere in the inventory
 			fOk = AutoPlaceObject( pSoldier, &(pSoldier->inv[HANDPOS]), FALSE, HANDPOS );
@@ -9489,8 +9465,7 @@ void WaterDamage( SOLDIERTYPE *pSoldier )
 				continue;
 			}
 			// if there's an item here that can get water damaged...
-//			if (pSoldier->inv[ bLoop ].usItem && Item[pSoldier->inv[ bLoop ].usItem].fFlags & ITEM_WATER_DAMAGES)
-			if (pSoldier->inv[ bLoop ].usItem && Item[pSoldier->inv[ bLoop ].usItem].waterdamages )
+			if (pSoldier->inv[ bLoop ].usItem && ItemIsDamagedByWater(pSoldier->inv[bLoop].usItem) )
 			{
 				// roll the 'ol 100-sided dice
 				uiRoll = PreRandom(100);
@@ -9714,7 +9689,7 @@ BOOLEAN ApplyCamo( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16& usrPointsToUse
 
 		return( TRUE );
 	}
-	else if ( !Item[usItem].camouflagekit )
+	else if ( !ItemIsCamoKit(usItem))
 	{
 		return( FALSE );
 	}
@@ -9961,7 +9936,7 @@ BOOLEAN ApplyCamo( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16& usrPointsToUse
 
 BOOLEAN ApplyCanteen( SOLDIERTYPE * pSoldier, UINT16 usItem, UINT16 usPointsToUse )
 {
-	if ( !Item[usItem].canteen )
+	if ( !ItemIsCanteen(usItem))
 	{
 		return(FALSE);
 	}
@@ -10154,7 +10129,7 @@ void ActivateXRayDevice( SOLDIERTYPE * pSoldier )
 	SOLDIERTYPE *	pSoldier2;
 	UINT32				uiSlot;
 
-	if ( Item[pSoldier->inv[ HANDPOS ].usItem].needsbatteries && pSoldier->inv[ HANDPOS ].exists() == true && !AM_A_ROBOT(pSoldier) )
+	if (ItemNeedsBatteries(pSoldier->inv[ HANDPOS ].usItem) && pSoldier->inv[ HANDPOS ].exists() == true && !AM_A_ROBOT(pSoldier) )
 	{
 		// check for batteries
 		OBJECTTYPE* pBatteries = FindAttachedBatteries( &(pSoldier->inv[HANDPOS]) );
@@ -10560,7 +10535,7 @@ INT16 GetRangeBonus( OBJECTTYPE * pObj )
 			bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].rangebonus;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( !Item[iter->usItem].duckbill || ( Item[iter->usItem].duckbill && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ) && iter->exists())
+			if ( !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ) && iter->exists())
 				bonus += BonusReduce( Item[iter->usItem].rangebonus, (*iter)[0]->data.objectStatus );
 		}
 	}
@@ -11353,7 +11328,7 @@ INT16 GetNightVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+	if (AM_A_ROBOT(pSoldier) && ItemProvidesRobotNightvision(pSoldier->inv[ROBOT_TARGETING_SLOT].usItem))
 	{
 		return bonus += BonusReduceMore(
 			NightBonusScale( Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].nightvisionrangebonus, bLightLevel ),
@@ -11458,7 +11433,7 @@ INT16 GetCaveVisionRangeBonus( SOLDIERTYPE * pSoldier, UINT8 bLightLevel )
 	UINT16 usItem;
 	INVTYPE *pItem;
 
-	if (AM_A_ROBOT(pSoldier) && Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].fProvidesRobotNightVision)
+	if (AM_A_ROBOT(pSoldier) && ItemProvidesRobotNightvision(pSoldier->inv[ROBOT_TARGETING_SLOT].usItem))
 	{
 		return bonus += BonusReduceMore(
 			NightBonusScale( Item[pSoldier->inv[ROBOT_TARGETING_SLOT].usItem].cavevisionrangebonus, bLightLevel ),
@@ -11972,7 +11947,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 
 			if (!IsWeapon(pSoldier->inv[i].usItem) || (IsWeapon(pSoldier->inv[i].usItem) && usingGunScope == true) )
 			{
-				if (Item[pSoldier->inv[i].usItem].thermaloptics)
+				if (ItemIsThermalOptics(pSoldier->inv[i].usItem))
 				{
 					return TRUE;
 				}
@@ -11986,7 +11961,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 		OBJECTTYPE* pObj = &pSoldier->inv[HANDPOS];
 		if (pObj->exists() == true) {
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if ( Item[iter->usItem].thermaloptics && iter->exists() )
+				if (ItemIsThermalOptics(iter->usItem) && iter->exists() )
 					return TRUE;
 			}
 		}
@@ -12039,11 +12014,11 @@ INT16 GetHearingRangeBonus( SOLDIERTYPE * pSoldier )
 BOOLEAN IsDuckbill( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
-		if (Item[pObj->usItem].duckbill || Item[(*pObj)[0]->data.gun.usGunAmmoItem].duckbill )
+		if (ItemIsDuckbill(pObj->usItem) || ItemIsDuckbill((*pObj)[0]->data.gun.usGunAmmoItem))
 			return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].duckbill && iter->exists() )
+			if (ItemIsDuckbill(iter->usItem) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -12077,7 +12052,7 @@ INT8 FindGasMask( SOLDIERTYPE * pSoldier )
 	for (bLoop = 0; bLoop < NUM_INV_SLOTS; bLoop++)//dnl ch40 041009
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( Item[pSoldier->inv[bLoop].usItem].gasmask )
+			if (ItemIsGasmask(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12094,7 +12069,7 @@ BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].detonator && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_DETONATOR ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -12110,7 +12085,7 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].remotedetonator && iter->exists() )
+			if ( IsAttachmentClass( iter->usItem, AC_REMOTEDET ) && iter->exists() )
 			{
 				return( TRUE );
 			}
@@ -12126,17 +12101,17 @@ BOOLEAN IsFlashSuppressor( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier )
 		if (Item[pObj->usItem].usItemClass == IC_GUN && AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].tracerEffect && pSoldier->bDoBurst )
 			return FALSE;
 
-		if (Item[pObj->usItem].hidemuzzleflash )
+		if (ItemHasHiddenMuzzleFlash(pObj->usItem))
 			return TRUE;
 
-		if ( Item[(*pObj)[0]->data.gun.usGunAmmoItem].hidemuzzleflash )
+		if (ItemHasHiddenMuzzleFlash((*pObj)[0]->data.gun.usGunAmmoItem))
 			return TRUE;
 
 		attachmentList::iterator iter    = (*pObj)[0]->attachments.begin();
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (; iter != iterend; ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].hidemuzzleflash )
+			if (iter->exists() && ItemHasHiddenMuzzleFlash(iter->usItem))
 			{
 				return( TRUE );
 			}
@@ -12149,12 +12124,12 @@ BOOLEAN IsGrenadeLauncherAttached( OBJECTTYPE * pObj, UINT8 subObject )
 {
 	if (pObj->exists() == true)
 	{
-		if (Item[pObj->usItem].grenadelauncher )
+		if (ItemIsGrenadeLauncher(pObj->usItem))
 			return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && (Item[iter->usItem].grenadelauncher || IsAttachmentClass( iter->usItem, AC_RIFLEGRENADE ) ) )
+			if (iter->exists() && (ItemIsGrenadeLauncher(iter->usItem) || IsAttachmentClass( iter->usItem, AC_RIFLEGRENADE ) ) )
 			{
 				return TRUE;
 			}
@@ -12179,12 +12154,12 @@ OBJECTTYPE* FindAttachment_GrenadeLauncher( OBJECTTYPE * pObj )
 			}
 		}
 
-		if (Item[pObj->usItem].grenadelauncher )
+		if (ItemIsGrenadeLauncher(pObj->usItem))
 			return pObj;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].grenadelauncher )
+			if (iter->exists() && ItemIsGrenadeLauncher(iter->usItem))
 			{
 				return( &(*iter) );
 			}
@@ -12209,12 +12184,12 @@ INT16 GetGrenadeLauncherStatus( OBJECTTYPE * pObj )
 			}
 		}
 
-		if (Item[pObj->usItem].grenadelauncher  )
+		if (ItemIsGrenadeLauncher(pObj->usItem))
 			return (*pObj)[0]->data.objectStatus;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].grenadelauncher )
+			if (iter->exists() && ItemIsGrenadeLauncher(iter->usItem))
 			{
 				return( (*iter)[0]->data.objectStatus );
 			}
@@ -12239,12 +12214,12 @@ UINT16 GetAttachedGrenadeLauncher( OBJECTTYPE * pObj )
 			}
 		}
 
-		if (Item[pObj->usItem].grenadelauncher  )
+		if (ItemIsGrenadeLauncher(pObj->usItem))
 			return pObj->usItem;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 		{
-			if (iter->exists() && Item[iter->usItem].grenadelauncher )
+			if (iter->exists() && ItemIsGrenadeLauncher(iter->usItem))
 			{
 				return( (UINT16) Item[iter->usItem].uiIndex );
 			}
@@ -12321,7 +12296,7 @@ BOOLEAN EXPLOSIVE_GUN ( UINT16 x)
 {
 	 //DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("EXPLOSIVE_GUN x = %d",x));
 
-	if ( Item[x].rocketlauncher || Item[x].cannon )
+	if (ItemIsRocketLauncher(x) || ItemIsCannon(x) )
 		return TRUE;
 	else
 		return FALSE;
@@ -12333,7 +12308,7 @@ INT8 FindRocketLauncherOrCannon( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].rocketlauncher || Item[pSoldier->inv[bLoop].usItem].cannon )
+			if (ItemIsRocketLauncher(pSoldier->inv[bLoop].usItem) || ItemIsCannon(pSoldier->inv[bLoop].usItem) )
 			{
 				return( bLoop );
 			}
@@ -12348,7 +12323,7 @@ INT8 FindCannon( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( Item[pSoldier->inv[bLoop].usItem].cannon )
+			if (ItemIsCannon(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12368,7 +12343,7 @@ INT8 FindUsableCrowbar( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if ( Item[pSoldier->inv[bLoop].usItem].crowbar && pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE && Item[pSoldier->inv[bLoop].usItem].CrowbarModifier > bonus)
+			if (ItemIsCrowbar(pSoldier->inv[bLoop].usItem) && pSoldier->inv[bLoop][0]->data.objectStatus >= USABLE && Item[pSoldier->inv[bLoop].usItem].CrowbarModifier > bonus)
 			{
 				bonus = Item[pSoldier->inv[bLoop].usItem].CrowbarModifier;
 				FoundCrowbar = bLoop;
@@ -12382,7 +12357,7 @@ OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].batteries && iter->exists())
+			if (ItemIsBatteries(iter->usItem) && iter->exists())
 			{
 				return( &(*iter) );
 			}
@@ -12397,7 +12372,7 @@ INT8 FindToolkit( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].toolkit )
+			if (ItemIsToolkit(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12412,7 +12387,7 @@ INT8 FindMedKit( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].medicalkit  )
+			if (ItemIsMedicalKit(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12427,7 +12402,7 @@ INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].firstaidkit  )
+			if (ItemIsFirstAidKit(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12442,7 +12417,7 @@ INT8 FindCamoKit( SOLDIERTYPE * pSoldier )
 	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].camouflagekit   )
+			if (ItemIsCamoKit(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12484,7 +12459,7 @@ INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier )
 	{
 		if (pSoldier->inv[bLoop].exists() == true)
 		{
-			if (Item[pSoldier->inv[bLoop].usItem].locksmithkit )
+			if (ItemIsLocksmithKit(pSoldier->inv[bLoop].usItem))
 			{
 				//JMich_SkillModifiers: If the locksmith kit has a bonus, reduce it based on the status, so we use the best bonus.
 				if (Item[pSoldier->inv[bLoop].usItem].LockPickModifier > 0 )
@@ -12516,7 +12491,7 @@ INT8 FindWalkman(SOLDIERTYPE * pSoldier)
 	// sevenfm: walkman only works from head slot
 	for (INT8 bLoop = HEAD1POS; bLoop <= HEAD2POS; bLoop++)
 	{
-		if (pSoldier->inv[bLoop].exists() && Item[pSoldier->inv[bLoop].usItem].walkman)
+		if (pSoldier->inv[bLoop].exists() && ItemIsWalkman(pSoldier->inv[bLoop].usItem))
 		{
 			return(bLoop);
 		}
@@ -12531,7 +12506,7 @@ INT8 FindTrigger( SOLDIERTYPE * pSoldier )
 	{
 		if (pSoldier->inv[bLoop].exists() == true)
 		{
-			if (Item[pSoldier->inv[bLoop].usItem].remotetrigger )
+			if (ItemIsRemoteTrigger(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12545,7 +12520,7 @@ INT8 FindRemoteControl( SOLDIERTYPE * pSoldier )
 	for (INT8 bLoop = BODYPOSSTART; bLoop < BODYPOSFINAL; ++bLoop)
 	{
 		if (pSoldier->inv[bLoop].exists() == true) {
-			if (Item[pSoldier->inv[bLoop].usItem].robotremotecontrol    )
+			if (ItemIsRobotRemote(pSoldier->inv[bLoop].usItem))
 			{
 				return( bLoop );
 			}
@@ -12614,7 +12589,7 @@ INT16 GetCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].camobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!Item[iter->usItem].camouflagekit && iter->exists())
+			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
 				bonus += (INT16) (Item[iter->usItem].camobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12627,7 +12602,7 @@ INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].urbanCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!Item[iter->usItem].camouflagekit && iter->exists())
+			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
 				bonus += (INT16) (Item[iter->usItem].urbanCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12640,7 +12615,7 @@ INT16 GetDesertCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].desertCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!Item[iter->usItem].camouflagekit && iter->exists())
+			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
 				bonus += (INT16) (Item[iter->usItem].desertCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12653,7 +12628,7 @@ INT16 GetSnowCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].snowCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!Item[iter->usItem].camouflagekit && iter->exists())
+			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
 				bonus += (INT16) (Item[iter->usItem].snowCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12666,7 +12641,7 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 
 	if (AM_A_ROBOT(pSoldier))
 	{
-		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		if (ItemProvidesRobotCamo(pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem))
 		{
 			ttl += GetCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
@@ -12725,7 +12700,7 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 
 	if (AM_A_ROBOT(pSoldier))
 	{
-		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		if (ItemProvidesRobotCamo(pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem))
 		{
 			ttl += GetUrbanCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
@@ -12784,7 +12759,7 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 
 	if (AM_A_ROBOT(pSoldier))
 	{
-		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		if (ItemProvidesRobotCamo(pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem))
 		{
 			ttl += GetDesertCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
@@ -12842,7 +12817,7 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 
 	if (AM_A_ROBOT(pSoldier))
 	{
-		if (Item[pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem].fProvidesRobotCamo)
+		if (ItemProvidesRobotCamo(pSoldier->inv[ROBOT_CHASSIS_SLOT].usItem))
 		{
 			ttl += GetSnowCamoBonus(&pSoldier->inv[ROBOT_CHASSIS_SLOT]);
 		}
@@ -13438,7 +13413,7 @@ UINT8 AllowedAimingLevelsNCTH( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 	// Read from item
 	aimLevels = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubAimLevels;
-	fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
+	fTwoHanded = ItemIsTwoHanded(pSoldier->inv[pSoldier->ubAttackingHand].usItem);
 	weaponRange = ( Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].usRange * GetPercentRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]) ) / 10000;
 	weaponRange += GetRangeBonus(&pSoldier->inv[pSoldier->ubAttackingHand]);
 	weaponType = Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].ubWeaponType;
@@ -13568,7 +13543,7 @@ UINT8 AllowedAimingLevels(SOLDIERTYPE * pSoldier, INT32 sGridNo)
 			BOOLEAN fTwoHanded, fUsingBipod;
 			
 			// Read weapon data
-			fTwoHanded = Item[pSoldier->inv[pSoldier->ubAttackingHand].usItem].twohanded;
+			fTwoHanded = ItemIsTwoHanded(pSoldier->inv[pSoldier->ubAttackingHand].usItem);
 
 			UINT16 usRange = GetModifiedGunRange(pSoldier->inv[pSoldier->ubAttackingHand].usItem);
 
@@ -13860,7 +13835,7 @@ UINT8 GetAllowedAimingLevelsForItem( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UI
 		aimLevels = 0;
 		
 		// Read weapon data
-		fTwoHanded = Item[pObj->usItem].twohanded;
+		fTwoHanded = ItemIsTwoHanded(pObj->usItem);
 		weaponRange = ( Weapon[Item[pObj->usItem].ubClassIndex].usRange * GetPercentRangeBonus(pObj) ) / 10000;
 		weaponRange += GetRangeBonus(pObj);
 		weaponType = Weapon[Item[pObj->usItem].ubClassIndex].ubWeaponType;
@@ -14223,15 +14198,15 @@ BOOLEAN IsFlashSuppressorAlt( OBJECTTYPE * pObj )
 	if ( AmmoTypes[(*pObj)[0]->data.gun.ubGunAmmoType].tracerEffect )
 		return FALSE;
 
-	if ( Item[pObj->usItem].hidemuzzleflash )
+	if (ItemHasHiddenMuzzleFlash(pObj->usItem))
 		return TRUE;
 
-	if ( Item[(*pObj)[0]->data.gun.usGunAmmoItem].hidemuzzleflash )
+	if (ItemHasHiddenMuzzleFlash((*pObj)[0]->data.gun.usGunAmmoItem))
 		return TRUE;
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 	{
-		if ( iter->exists( ) && Item[iter->usItem].hidemuzzleflash )
+		if ( iter->exists( ) && ItemHasHiddenMuzzleFlash(iter->usItem))
 		{
 			return( TRUE );
 		}
@@ -14529,12 +14504,12 @@ BOOLEAN HasExtendedEarOn( SOLDIERTYPE * pSoldier )
 {
 	// optimistically assume, that anything electronic with hearing range bonus serves as extended ear as well
 	if ( pSoldier->inv[HEAD1POS].exists() && (pSoldier->inv[HEAD1POS].usItem == EXTENDEDEAR ||
-		(Item[pSoldier->inv[HEAD1POS].usItem].hearingrangebonus > 0 && Item[pSoldier->inv[HEAD1POS].usItem].electronic)) )
+		(Item[pSoldier->inv[HEAD1POS].usItem].hearingrangebonus > 0 && ItemIsElectronic(pSoldier->inv[HEAD1POS].usItem))) )
 	{
 		return( TRUE );
 	}
 	else if ( pSoldier->inv[HEAD2POS].exists() && (pSoldier->inv[HEAD2POS].usItem == EXTENDEDEAR ||
-		(Item[pSoldier->inv[HEAD2POS].usItem].hearingrangebonus > 0 && Item[pSoldier->inv[HEAD2POS].usItem].electronic)) )
+		(Item[pSoldier->inv[HEAD2POS].usItem].hearingrangebonus > 0 && ItemIsElectronic(pSoldier->inv[HEAD2POS].usItem))) )
 	{
 		return( TRUE );
 	}
@@ -14653,19 +14628,19 @@ void  GetScopeLists( SOLDIERTYPE * pSoldier, OBJECTTYPE * pObj, std::map<INT8, O
 	// dual wielding only allows iron sights or similar attachments
 	BOOLEAN bDualWielding = FALSE;
 
-	if( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && !Item[pSoldier->inv[HANDPOS].usItem].twohanded)
-		&& (Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_GUN && !Item[pSoldier->inv[SECONDHANDPOS].usItem].twohanded) )
+	if( (Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_GUN && !ItemIsTwoHanded(pSoldier->inv[HANDPOS].usItem))
+		&& (Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_GUN && !ItemIsTwoHanded(pSoldier->inv[SECONDHANDPOS].usItem)) )
 		bDualWielding = TRUE;
 
 	// certain attachments prohibit the use of an iron sight once they are installed (flip-up built-in sights)
-	BOOLEAN noironsight = ( Item[pObj->usItem].blockironsight == TRUE );
+	BOOLEAN noironsight = ItemBlocksIronsight(pObj->usItem);
 		
 	attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 	{
 		if ( iter->exists() )
 		{
-			if ( Item[iter->usItem].blockironsight == TRUE )
+			if (ItemBlocksIronsight(iter->usItem))
 				noironsight = TRUE;
 
 			if ( IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
@@ -15209,7 +15184,7 @@ bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 a
 {
 	if (pObject)
 	{
-		if ( Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint( pObject, subObject ) )
+		if ( Item[pObject->usItem].ulAvailableAttachmentPoint > 0 && (ItemIsAttachment(attachmentID) || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & GetAvailableAttachmentPoint( pObject, subObject ) )
 			return true;
 	}
 
@@ -15219,7 +15194,7 @@ bool IsAttachmentPointAvailable( OBJECTTYPE * pObject, UINT8 subObject, UINT32 a
 //Madd: Common Attachment Framework - if we already know the point 
 bool IsAttachmentPointAvailable( UINT64 point, UINT32 attachmentID, BOOLEAN onlyCheckAttachments )
 {
-	if ( point > 0 && (!onlyCheckAttachments || (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) )) && Item[attachmentID].ulAttachmentPoint & point )
+	if ( point > 0 && (!onlyCheckAttachments || (ItemIsAttachment(attachmentID) || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) )) && Item[attachmentID].ulAttachmentPoint & point )
 		return true;
 	
 	return false;
@@ -15228,7 +15203,7 @@ bool IsAttachmentPointAvailable( UINT64 point, UINT32 attachmentID, BOOLEAN only
 //Madd: Common Attachment Framework, doesn't look at attachments
 bool IsAttachmentPointAvailable( UINT32 itemID, UINT32 attachmentID )
 {
-	if ( Item[itemID].ulAvailableAttachmentPoint > 0 && (Item[attachmentID].attachment || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & Item[itemID].ulAvailableAttachmentPoint )
+	if ( Item[itemID].ulAvailableAttachmentPoint > 0 && (ItemIsAttachment(attachmentID) || Item[attachmentID].usItemClass & (IC_GRENADE | IC_BOMB) ) && Item[attachmentID].ulAttachmentPoint & Item[itemID].ulAvailableAttachmentPoint )
 		return true;
 	
 	return false;
@@ -15243,7 +15218,7 @@ UINT64 GetAvailableAttachmentPoint (OBJECTTYPE * pObject, UINT8 subObject)
 		point = Item[pObject->usItem].ulAvailableAttachmentPoint;
 		for (attachmentList::iterator iter = (*pObject)[subObject]->attachments.begin(); iter != (*pObject)[subObject]->attachments.end(); ++iter) 
 		{
-			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint && Item[iter->usItem].attachment )
+			if(iter->exists() && Item[iter->usItem].ulAvailableAttachmentPoint && ItemIsAttachment(iter->usItem) )
 				point |= Item[iter->usItem].ulAvailableAttachmentPoint;
 		}
 	}
@@ -15268,13 +15243,18 @@ void CheckBombSpecifics( OBJECTTYPE * pObj, INT8* detonatortype, INT8* setting, 
 }
 
 // Flugente: check for specific flags
-BOOLEAN HasItemFlag( UINT16 usItem, UINT64 aFlag )
+BOOLEAN HasItemFlag( UINT16 usItem, FLAGS64 aFlag )
 {
 	return( (Item[usItem].usItemFlag & aFlag) != 0 );
 }
 
+BOOLEAN HasItemFlag2(UINT16 usItem, FLAGS64 aFlag)
+{
+	return((Item[usItem].usItemFlag2 & aFlag) != 0);
+}
+
 // Flugente: get first item number that has this flag. Use with caution, as we search in all items
-BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, UINT64 aFlag )
+BOOLEAN GetFirstItemWithFlag( UINT16* pusItem, FLAGS64 aFlag )
 {
 	UINT16 i;
 	for ( i = 1; i < gMAXITEMS_READ; ++i )
@@ -15301,10 +15281,10 @@ BOOLEAN ObjectIsExternalFeeder(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject)
 	if ( !pSoldier || !pObject)
 		return( FALSE );
 		
-	UINT8  usSoldierFeedingTarget1 = 0;
+	SoldierID  usSoldierFeedingTarget1 = NOBODY;
 	UINT16 usGunSlot1 = 0;
 	UINT16 usAmmoSlot1 = 0;
-	UINT8  usSoldierFeedingTarget2 = 0;
+	SoldierID  usSoldierFeedingTarget2 = NOBODY;
 	UINT16 usGunSlot2 = 0;
 	UINT16 usAmmoSlot2 = 0;
 	if ( pSoldier->IsFeedingExternal(&usSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2) )
@@ -15346,10 +15326,11 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 
 		// loop over other members of our team in this sector. This includes ourself, as our gun can be fed from a belt in our inventory
 		SOLDIERTYPE* pTeamSoldier = NULL;
-		INT32 cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
-		INT32 lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+		SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+		SoldierID lastid = gTacticalStatus.Team[ pSoldier->bTeam ].bLastID;
+		for ( ; cnt < lastid; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// check if teamsoldier exists in this sector
 			if ( !pTeamSoldier || !pTeamSoldier->bActive || !pTeamSoldier->bInSector || pTeamSoldier->stats.bLife < OKLIFE || pTeamSoldier->sSectorX != pSoldier->sSectorX || pTeamSoldier->sSectorY != pSoldier->sSectorY || pTeamSoldier->bSectorZ != pSoldier->bSectorZ )
 				continue;
@@ -15359,10 +15340,10 @@ OBJECTTYPE* GetExternalFeedingObject(SOLDIERTYPE* pSoldier, OBJECTTYPE * pObject
 				continue;
 
 			// we check if that guy is feeding someone, and that someone is really us
-			UINT8  usTeamSoldierFeedingTarget1 = 0;
+			SoldierID  usTeamSoldierFeedingTarget1 = NOBODY;
 			UINT16 usGunSlot1 = 0;
 			UINT16 usAmmoSlot1 = 0;
-			UINT8  usTeamSoldierFeedingTarget2 = 0;
+			SoldierID  usTeamSoldierFeedingTarget2 = NOBODY;
 			UINT16 usGunSlot2 = 0;
 			UINT16 usAmmoSlot2 = 0;
 			if ( pTeamSoldier->IsFeedingExternal(&usTeamSoldierFeedingTarget1, &usGunSlot1, &usAmmoSlot1, &usTeamSoldierFeedingTarget2, &usGunSlot2, &usAmmoSlot2)  )
@@ -15438,7 +15419,7 @@ INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo )
 	UINT16 usInHand = pSoldier->inv[ HANDPOS ].usItem;
 
 	// If we are in water and having a pistol, don't allow alternative fire at all
-	if ( !Item[usInHand].twohanded && pSoldier->MercInWater() )
+	if ( !ItemIsTwoHanded(usInHand) && pSoldier->MercInWater() )
 	{
 		return -1;
 	}
@@ -15455,7 +15436,7 @@ INT8 GetNumberAltFireAimLevels( SOLDIERTYPE * pSoldier, INT32 iGridNo )
 		// with this mode, we always switch aaiming type manually
 		return ubStandardAimLvls;
 	}
-	else if ( Weapon[usInHand].HeavyGun && Item[usInHand].twohanded)
+	else if ( Weapon[usInHand].HeavyGun && ItemIsTwoHanded(usInHand))
 	{
 		// if this gun is flagged as too heavy to shoulder, return the same as standard aim levels
 		return ubStandardAimLvls;
@@ -15717,7 +15698,7 @@ BOOL AddToRandomListFromItem( UINT16 usItem )
 			if ( Item[usItem].ubCoolness <= rditemmaxcoolness )
 			{
 				// if item is food, not drug or canteen, and food system is off, don't add this
-				if ( !UsingFoodSystem() && Item[usItem].foodtype > 0 && Item[usItem].drugtype == 0 && Item[usItem].canteen == 0 )
+				if ( !UsingFoodSystem() && Item[usItem].foodtype > 0 && Item[usItem].drugtype == 0 && !ItemIsCanteen(usItem))
 					;
 				else
 					randomitemarray[itemcnt++] = usItem;
@@ -15766,13 +15747,13 @@ BOOLEAN ItemCanBeAppliedToOthers( UINT16 usItem )
 	if ( Item[ usItem ].drugtype )
 		return TRUE;
 
-	if ( Item[ usItem ].gasmask )
+	if (ItemIsGasmask(usItem))
 		return TRUE;
 		
-	if ( Item[ usItem ].canteen )
+	if (ItemIsCanteen(usItem))
 		return TRUE;
 
-	if ( Item[ usItem ].camouflagekit )
+	if (ItemIsCamoKit(usItem))
 		return TRUE;
 
 	if ( Item[ usItem ].clothestype )
@@ -15795,7 +15776,7 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj )
 			bonus = ( bonus * ( 100 +  Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentrangebonus ) ) / 100;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( !Item[iter->usItem].duckbill || ( Item[iter->usItem].duckbill && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ))
+			if ( !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ))
 				bonus = ( bonus * ( 100 +  BonusReduce( Item[iter->usItem].percentrangebonus, (*iter)[0]->data.objectStatus ) ) ) / 100;
 		}
 	}
@@ -15879,7 +15860,7 @@ FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubMEBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, MELEE_NT ) ) / 100.0f;
 		}
-		else if( Item[ pObj->usItem ].usItemClass == IC_PUNCH && Item[pObj->usItem].brassknuckles )
+		else if( Item[ pObj->usItem ].usItemClass == IC_PUNCH && ItemIsBrassKnuckles(pObj->usItem) )
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubMAPunchAPsReduction * NUM_SKILL_TRAITS( pSoldier, MARTIAL_ARTS_NT ) ) / 100.0f;
 		}
@@ -15888,17 +15869,17 @@ FLOAT GetAttackAPTraitMultiplier( SOLDIERTYPE *pSoldier, OBJECTTYPE *pObj, UINT8
 			fMultiplier = (100 - gSkillTraitValues.ubTHBladesAPsReduction * NUM_SKILL_TRAITS( pSoldier, THROWING_NT ) ) / 100.0f;
 		}
 		// grenade launchers
-		else if( (Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || Item[ pObj->usItem ].grenadelauncher) && !(Item[ pObj->usItem ].rocketlauncher) && !(Item[ pObj->usItem ].mortar) )
+		else if( (Item[ pObj->usItem ].usItemClass == IC_LAUNCHER || ItemIsGrenadeLauncher(pObj->usItem)) && !(ItemIsRocketLauncher(pObj->usItem)) && !ItemIsMortar(pObj->usItem) )
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubHWGrenadeLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100.0f;
 		}
 		// rocket launchers
-		else if( (Item[ pObj->usItem ].rocketlauncher || Item[ pObj->usItem ].singleshotrocketlauncher) && !(Item[ pObj->usItem ].mortar) )
+		else if( (ItemIsRocketLauncher(pObj->usItem) || ItemIsSingleShotRocketLauncher(pObj->usItem)) && !ItemIsMortar(pObj->usItem) )
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubHWRocketLaunchersAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) ) / 100.0f;
 		}
 		// mortar
-		else if( Item[ pObj->usItem ].mortar )
+		else if(ItemIsMortar(pObj->usItem))
 		{
 			fMultiplier = (100 - gSkillTraitValues.ubHWMortarAPsReduction * NUM_SKILL_TRAITS( pSoldier, HEAVY_WEAPONS_NT ) + pSoldier->GetBackgroundValue(BG_ARTILLERY) ) / 100.0f;
 		}
@@ -16063,3 +16044,80 @@ BOOLEAN FindAttachmentRange(UINT16 usAttachment, UINT32* pStartIndex, UINT32* pE
 
 	return result;
 }
+
+////////////////////////////////////
+// Item flagmask utility functions
+// Just to improve readability
+////////////////////////////////////
+// usItemFlag
+BOOLEAN ItemIsDamageable(UINT16 usItem) { return HasItemFlag(usItem, ITEM_damageable); }
+BOOLEAN ItemIsRepairable(UINT16 usItem) { return HasItemFlag(usItem, ITEM_repairable); }
+BOOLEAN ItemIsDamagedByWater(UINT16 usItem) { return HasItemFlag(usItem, ITEM_waterdamages); }
+BOOLEAN ItemIsMetal(UINT16 usItem) { return HasItemFlag(usItem, ITEM_metal); }
+BOOLEAN ItemSinks(UINT16 usItem) { return HasItemFlag(usItem, ITEM_sinks); }
+BOOLEAN ItemIsTwoHanded(UINT16 usItem) { return HasItemFlag(usItem, ITEM_twohanded); }
+BOOLEAN ItemIsHiddenAddon(UINT16 usItem) { return HasItemFlag(usItem, ITEM_hiddenaddon); }
+BOOLEAN ItemIsNotBuyable(UINT16 usItem) { return HasItemFlag(usItem, ITEM_notbuyable); }
+BOOLEAN ItemIsAttachment(UINT16 usItem) { return HasItemFlag(usItem, ITEM_attachment); }
+BOOLEAN ItemIsHiddenAttachment(UINT16 usItem) { return HasItemFlag(usItem, ITEM_hiddenattachment); }
+BOOLEAN ItemIsOnlyInTonsOfGuns(UINT16 usItem) { return HasItemFlag(usItem, ITEM_biggunlist); }
+BOOLEAN ItemIsNotInEditor(UINT16 usItem) { return HasItemFlag(usItem, ITEM_notineditor); }
+BOOLEAN ItemIsUndroppableByDefault(UINT16 usItem) { return HasItemFlag(usItem, ITEM_defaultundroppable); }
+BOOLEAN ItemIsUnaerodynamic(UINT16 usItem) { return HasItemFlag(usItem, ITEM_unaerodynamic); }
+BOOLEAN ItemIsElectronic(UINT16 usItem) { return HasItemFlag(usItem, ITEM_electronic); }
+BOOLEAN ItemIsCannon(UINT16 usItem) { return HasItemFlag(usItem, ITEM_cannon); }
+BOOLEAN ItemIsRocketRifle(UINT16 usItem) { return HasItemFlag(usItem, ITEM_rocketrifle); }
+BOOLEAN ItemHasFingerPrintID(UINT16 usItem) { return HasItemFlag(usItem, ITEM_fingerprintid); }
+BOOLEAN ItemIsMetalDetector(UINT16 usItem) { return HasItemFlag(usItem, ITEM_metaldetector); }
+BOOLEAN ItemIsGasmask(UINT16 usItem) { return HasItemFlag(usItem, ITEM_gasmask); }
+BOOLEAN ItemIsLockBomb(UINT16 usItem) { return HasItemFlag(usItem, ITEM_lockbomb); }
+BOOLEAN ItemIsFlare(UINT16 usItem) { return HasItemFlag(usItem, ITEM_flare); }
+BOOLEAN ItemIsGrenadeLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_grenadelauncher); }
+BOOLEAN ItemIsMortar(UINT16 usItem) { return HasItemFlag(usItem, ITEM_mortar); }
+BOOLEAN ItemIsDuckbill(UINT16 usItem) { return HasItemFlag(usItem, ITEM_duckbill); }
+BOOLEAN ItemHasHiddenMuzzleFlash(UINT16 usItem) { return HasItemFlag(usItem, ITEM_hidemuzzleflash); }
+BOOLEAN ItemIsRocketLauncher(UINT16 usItem) { return HasItemFlag(usItem, ITEM_rocketlauncher); }
+// usItemFlag2
+BOOLEAN ItemIsSingleShotRocketLauncher(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_singleshotrocketlauncher); }
+BOOLEAN ItemIsBrassKnuckles(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_brassknuckles); }
+BOOLEAN ItemIsCrowbar(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_crowbar); }
+BOOLEAN ItemIsGLgrenade(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_glgrenade); }
+BOOLEAN ItemIsFlakJacket(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_flakjacket); }
+BOOLEAN ItemIsLeatherJacket(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_leatherjacket); }
+BOOLEAN ItemIsBatteries(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_batteries); }
+BOOLEAN ItemNeedsBatteries(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_needsbatteries); }
+BOOLEAN ItemHasXRay(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_xray); }
+BOOLEAN ItemIsWirecutters(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_wirecutters); }
+BOOLEAN ItemIsToolkit(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_toolkit); }
+BOOLEAN ItemIsFirstAidKit(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_firstaidkit); }
+BOOLEAN ItemIsMedicalKit(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_medicalkit); }
+BOOLEAN ItemIsCanteen(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_canteen); }
+BOOLEAN ItemIsJar(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_jar); }
+BOOLEAN ItemIsCanAndString(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_canandstring); }
+BOOLEAN ItemIsMarbles(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_marbles); }
+BOOLEAN ItemIsWalkman(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_walkman); }
+BOOLEAN ItemIsRemoteTrigger(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_remotetrigger); }
+BOOLEAN ItemIsRobotRemote(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_robotremotecontrol); }
+BOOLEAN ItemIsCamoKit(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_camouflagekit); }
+BOOLEAN ItemIsLocksmithKit(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_locksmithkit); }
+BOOLEAN ItemIsMine(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_mine); }
+BOOLEAN ItemIsATMine(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_antitankmine); }
+BOOLEAN ItemIsHardware(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_hardware); }
+BOOLEAN ItemIsMedical(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_medical); }
+BOOLEAN ItemIsGascan(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_gascan); }
+BOOLEAN ItemContainsLiquid(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_containsliquid); }
+BOOLEAN ItemIsRock(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_rock); }
+BOOLEAN ItemIsThermalOptics(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_thermaloptics); }
+BOOLEAN ItemIsOnlyInScifi(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_scifi); }
+BOOLEAN ItemIsOnlyInNIV(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_newinv); }
+BOOLEAN ItemIsBarrel(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_barrel); }
+BOOLEAN ItemHasTripwireActivation(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_tripwireactivation); }
+BOOLEAN ItemIsTripwire(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_tripwire); }
+BOOLEAN ItemIsDirectional(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_directional); }
+BOOLEAN ItemBlocksIronsight(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_blockironsight); }
+BOOLEAN ItemAllowsClimbing(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fAllowClimbing); }
+BOOLEAN ItemIsCigarette(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_cigarette); }
+BOOLEAN ItemIsOnlyInDisease(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_DiseaseSystemExclusive); }
+BOOLEAN ItemProvidesRobotCamo(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotCamo); }
+BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotNightVision); }
+BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem) { return HasItemFlag2(usItem, ITEM_fProvidesRobotLaserBonus); }

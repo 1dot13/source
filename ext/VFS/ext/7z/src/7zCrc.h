@@ -4,7 +4,7 @@
 #ifndef __7Z_CRC_H
 #define __7Z_CRC_H
 
-#include "Types.h"
+#include "types.h"
 
 EXTERN_C_BEGIN
 

@@ -4,13 +4,13 @@
 	#include "renderworld.h"
 	#include "Sound Control.h"
 	#include "Interactive Tiles.h"
-	#include "interface cursors.h"
+	#include "Interface Cursors.h"
 	#include "worldman.h"
-	#include "points.h"
-	#include "structure wrap.h"
-	#include "tile animation.h"
-	#include "tile cache.h"
-	#include "handle doors.h"
+	#include "Points.h"
+	#include "Structure Wrap.h"
+	#include "Tile Animation.h"
+	#include "Tile Cache.h"
+	#include "Handle Doors.h"
 	#include "Dialogue Control.h"
 	#include "english.h"
 	#include "NPC.h"
@@ -505,7 +505,7 @@ void LogMouseOverInteractiveTile( INT32 sGridNo )
 	}
 
 	// Also, don't allow for mercs who are on upper level...
-	if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->pathing.bLevel == 1 )
+	if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->pathing.bLevel == 1 )
 	{
 		return;
 	}
@@ -789,7 +789,7 @@ BOOLEAN RefineLogicOnStruct( INT32 sGridNo, LEVELNODE *pNode )
 			return( FALSE );
 		}
 
-		if ( gusSelectedSoldier != NOBODY && MercPtrs[ gusSelectedSoldier ]->ubBodyType == ROBOTNOWEAPON )
+		if ( gusSelectedSoldier != NOBODY && gusSelectedSoldier->ubBodyType == ROBOTNOWEAPON )
 		{
 			return( FALSE );
 		}

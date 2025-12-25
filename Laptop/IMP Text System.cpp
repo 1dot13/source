@@ -12,24 +12,24 @@
 	#include "IMP Confirm.h"
 	#include "GameSettings.h"
 	#include "Text.h"
-	#include "_Ja25Englishtext.h"
+	#include "_Ja25EnglishText.h"
 #ifdef JA2UB
 	#include "laptop.h"
 	#include "email.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
-	#include "soldier profile.h"
+	#include "Cursors.h"
+	#include "Soldier Profile.h"
 	#include "IMP Compile Character.h"
 	#include "IMP Voices.h"
 	#include "IMP Portraits.h"
 	#include "Game Clock.h"
 	#include "environment.h"
 	#include "AimMembers.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "LaptopSave.h"
 	#include "finances.h"
@@ -38,6 +38,7 @@
 	#include "GameSettings.h"
 #endif
 
+#include <language.hpp>
 
 #define IMP_SEEK_AMOUNT 5 * 80 * 2
 
@@ -204,18 +205,18 @@ void PrintImpText( void )
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 81, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_6, FONT14ARIAL, FONT_BLACK, FALSE, 0);
 
 //inshy (18.01.2009): fix position for russian text
-	#ifdef RUSSIAN
+	if( g_lang == i18n::Lang::ru ) {
 			// male
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 225, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_10, FONT14ARIAL, FONT_BLACK, FALSE, 0);
 			// female
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 335, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_11, FONT14ARIAL, FONT_BLACK, FALSE, 0);
-	#else
+	} else {
 			// male
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 240, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_10, FONT14ARIAL, FONT_BLACK, FALSE, 0);
 
 			// female
 			LoadAndDisplayIMPText( LAPTOP_SCREEN_UL_X + 360, LAPTOP_SCREEN_WEB_UL_Y + 259, ( 640	), IMP_BEGIN_11, FONT14ARIAL, FONT_BLACK, FALSE, 0);
-	#endif
+	}
 
 		break;
 		case ( IMP_PERSONALITY ):

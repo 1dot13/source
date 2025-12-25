@@ -1,6 +1,6 @@
 //**************************************************************************
 //
-// Filename :	debug.h
+// Filename :	DEBUG.H
 //
 //	Purpose :	prototypes for the debug manager
 //

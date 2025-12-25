@@ -1,33 +1,33 @@
 #pragma once
-
+#include "Event Pump.h"
 //time for a new header :)
 extern int readyteamreg[10];
 
 typedef struct
 {
-	UINT16 soldier_id;
-	UINT16 attacker_id;
+	SoldierID soldier_id;
+	SoldierID attacker_id;
 	UINT8 attacker_team;
 	UINT8 soldier_team;
 }death_struct;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT32 sGridNo;
 	BOOLEAN fNoAnimations;
 }doors;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT8 bLife;
 	INT8 bBleeding;
 }heal;
 
 typedef struct
 {
-	UINT16 ubID;
+	SoldierID ubID;
 	INT8 bteam;
 }AIint;
 
@@ -62,7 +62,7 @@ void startCombat(UINT8 ubStartingTeam);
 void intAI (SOLDIERTYPE *pSoldier );
 void teamwiped (void);
 BOOLEAN check_status (void);
-extern UINT8 NumEnemyInSector( );
-extern INT8	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
+extern UINT16 NumEnemyInSector( );
+extern UINT16	NumActiveAndConsciousTeamMembers( UINT8 ubTeam );
 void send_heal (SOLDIERTYPE *pSoldier );
 void requestAIint(SOLDIERTYPE *pSoldier );

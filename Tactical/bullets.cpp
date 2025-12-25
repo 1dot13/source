@@ -1,27 +1,16 @@
-	#include "builddefines.h"
-	#include "math.h"
-	#include <stdio.h>
-	#include <errno.h>
-
+	#include <string.h>
 	#include "worlddef.h"
-	#include "renderworld.h"
-	#include "vsurface.h"
-	#include "sysutil.h"
-	#include "wcheck.h"
-	#include "video.h"
-	#include "vobject_blitters.h"
-	#include "faces.h"
-	#include "utilities.h"
-	#include "overhead.h"
-	#include "Soldier Profile.h"
+	#include <Isometric Utils.h>
+	#include "WCheck.h"
+	#include <shading.h>
+	#include "Overhead.h"
 	#include "Bullets.h"
-	#include "los.h"
+	#include "LOS.h"
 	#include "worldman.h"
 	#include "random.h"
 	#include "GameSettings.h"
 	#include "FileMan.h"
 	#include "lighting.h"
-	#include "Buildings.h"
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.
@@ -38,7 +27,7 @@ int gXPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
 int gYPATH[BULLET_TRACER_MAX_LENGTH]; // positions between bullet
 //afp-end
 
-INT32 GetFreeBullet(void)
+static INT32 GetFreeBullet(void)
 {
 	UINT32 uiCount;
 
@@ -55,7 +44,7 @@ INT32 GetFreeBullet(void)
 }
 
 
-void RecountBullets(void)
+static void RecountBullets(void)
 {
 	INT32 uiCount;
 
@@ -71,7 +60,7 @@ void RecountBullets(void)
 }
 
 
-INT32	CreateBullet( UINT8 ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
+INT32	CreateBullet( SoldierID ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fromItem )
 {
 	INT32			iBulletIndex;
 	BULLET		*pBullet;
@@ -245,7 +234,7 @@ void LocateBullet( INT32 iBulletIndex )
 	// Check if a bad guy fired!
 	if ( gBullets[ iBulletIndex ].ubFirerID != NOBODY )
 	{
-		if ( MercPtrs[ gBullets[ iBulletIndex ].ubFirerID ]->bSide == gbPlayerNum )
+		if ( gBullets[ iBulletIndex ].ubFirerID->bSide == gbPlayerNum )
 		{
 			if ( !gBullets[ iBulletIndex ].fLocated )
 			{
@@ -633,7 +622,7 @@ BOOLEAN LoadBulletStructureFromSavedGameFile( HWFILE hFile )
 		//Set some parameters
 		gBullets[usCnt].uiLastUpdate = 0;
 		if( gBullets[usCnt].ubFirerID != NOBODY )
-			gBullets[usCnt].pFirer = &Menptr[ gBullets[usCnt].ubFirerID ];
+			gBullets[usCnt].pFirer = gBullets[usCnt].ubFirerID;
 		else
 			gBullets[usCnt].pFirer = NULL;
 

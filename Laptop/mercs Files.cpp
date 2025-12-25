@@ -10,10 +10,10 @@
 	#include "stdio.h"
 	#include "Encrypted File.h"
 	#include "AimMembers.h"
-	#include "InterFace Items.h"
+	#include "Interface Items.h"
 	#include "Game Clock.h"
 	#include "Soldier Add.h"
-	#include "OverHead.h"
+	#include "Overhead.h"
 	#include "Game Clock.h"
 	#include "message.h"
 	#include "Font.h"
@@ -23,11 +23,11 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "Quests.h"
 	#include "Assignments.h"
-	#include "Input.h"
+	#include "input.h"
 	#include "english.h"
 	#include "finances.h"
 	#include "GameSettings.h"
-	#include "Personnel.h"
+	#include "personnel.h"
 	#include "Encyclopedia_new.h"	//update encyclopedia item visibility when viewing that item
 	#include "mousesystem.h"
 
@@ -418,6 +418,34 @@ BOOLEAN EnterMercsFiles()
 	return( TRUE );
 }
 
+static void TryToHireMERC()
+{
+	if ( (gMercProfiles[GetAvailableMercIDFromMERCArray( gubCurMercIndex )].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
+	{
+		//bought gear before
+		fMercBuyEquipment = 0;
+		MercProcessHireAfterGear();
+	}
+	else
+	{
+#ifdef JA2UB
+		if ( gSelectedMercKit == 0 ) // First kit is free, due to M.E.R.C special offer
+		{
+			fMercBuyEquipment = 1;
+			MercProcessHireAfterGear();
+		}
+		else
+		{
+			//prompt to buy gear
+			DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[MERC_FILES_BUY_GEAR], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+		}
+#else
+		//prompt to buy gear
+		DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[MERC_FILES_BUY_GEAR], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+#endif // JA2UB
+	}
+}
+
 void SelectMercsFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 {
 	if (iReason & MSYS_CALLBACK_REASON_RBUTTON_UP)
@@ -442,15 +470,7 @@ void SelectMercsFaceRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		//else try to hire the merc
 		else
 		{
-			if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-			{	
-				//bought gear before
-				fMercBuyEquipment = 0;
-				MercProcessHireAfterGear();
-			}
-			else
-				//prompt to buy gear
-				DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+			TryToHireMERC();
 		}
 	}
 }
@@ -701,15 +721,7 @@ void BtnMercHireButtonCallback(GUI_BUTTON *btn,INT32 reason)
 			//else try to hire the merc
 			else
 			{
-				if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-				{	
-					//bought gear before
-					fMercBuyEquipment = 0;
-					MercProcessHireAfterGear();
-				}
-				else
-					//prompt to buy gear
-					DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+				TryToHireMERC();
 			}
 
 			InvalidateRegion(btn->Area.RegionTopLeftX, btn->Area.RegionTopLeftY, btn->Area.RegionBottomRightX, btn->Area.RegionBottomRightY);
@@ -965,8 +977,7 @@ void DisplayMercsStats( UINT8 ubMercID )
 {
 	UINT16 usPosY, usPosX;
 	CHAR16 sPage[60];
-	CHAR16 sTemp[128];
-	CHAR16 sString[128];
+	std::wstring sString{};
 	CHAR16 NsString[128];
 	CHAR16 N2sString[128];
 	UINT8	ubColor;
@@ -1040,16 +1051,21 @@ void DisplayMercsStats( UINT8 ubMercID )
 	DrawNumeralsToScreen(gMercProfiles[ ubMercID ].bMedical, 3, MERC_STATS_SECOND_NUM_COL_X, usPosY, MERC_STATS_FONT, ubColor);
 	usPosY += MERC_SPACE_BN_LINES;
 
-	//Daily Salary
-	DrawTextToScreen( MercInfo[MERC_FILES_SALARY], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
+	//Merc Salary
+#ifdef JA2UB
+	// One time "Fee" instead of "Salary" per day
+	DrawTextToScreen( CharacterInfo[AIM_MEMBER_FEE], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_TITLE_FONT, MERC_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
 
-	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength(MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT);
-	swprintf(sString, L"%d", gMercProfiles[ ubMercID ].sSalary);
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
-	swprintf(sTemp, L" %s", MercInfo[MERC_FILES_PER_DAY]);
-	wcscat( sString, sTemp );
-	DrawTextToScreen( sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( CharacterInfo[AIM_MEMBER_FEE], MERC_NAME_FONT );
+	sString = FormatMoney(gMercProfiles[ubMercID].uiWeeklySalary);
+#else
+	DrawTextToScreen( MercInfo[MERC_FILES_SALARY], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED );
+
+	usPosX = MERC_STATS_SECOND_COL_X + StringPixLength( MercInfo[MERC_FILES_SALARY], MERC_NAME_FONT );
+	sString = FormatMoney(gMercProfiles[ubMercID].sSalary) + L" " + std::wstring(MercInfo[MERC_FILES_PER_DAY]);
+#endif // JA2UB
+
+	DrawTextToScreen( sString.data(), usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 	// Buggler: Display current MERC index & total MERC members at the bottom of the screen
 	swprintf( sPage, L"%d / %d", gubCurMercIndex + 1, LaptopSaveInfo.gubLastMercIndex + 1 );
@@ -1059,18 +1075,29 @@ void DisplayMercsStats( UINT8 ubMercID )
 	if (gubCurMercFilesTogglePage == MERC_FILES_INV_PAGE)
 	{
 		//Gear Cost
-		usPosY = usPosY + 145;
+		usPosY = usPosY + 148;
 		DrawTextToScreen( MercInfo[MERC_FILES_GEAR], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_STATS_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 		
-		if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS ) 
-			&& ( !(gMercProfiles[ ubMercID ].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID) || gGameExternalOptions.fGearKitsAlwaysAvailable ) )
+		if ( (gMercProfiles[ubMercID].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS)
+			&& (!(gMercProfiles[ubMercID].ubMiscFlags2 & PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID) || gGameExternalOptions.fGearKitsAlwaysAvailable) )
+		{
 			gMercProfiles[ ubMercID ].usOptionalGearCost = 0;
+		}
+#ifdef JA2UB
+		if ( gSelectedMercKit == 0 ) // First kit is free, due to M.E.R.C special offer
+		{
+			gMercProfiles[ubMercID].usOptionalGearCost = 0;
 
-		swprintf(NsString, L"+ ");
-		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost);
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-		wcscat( NsString, sTemp );
+			// Special offer text above the gear cost
+			const auto y = usPosY - MERC_SPACE_BN_LINES + 2;
+			swprintf( NsString, MercInfo[MERC_FILES_SPECIAL_OFFER] );
+			DrawTextToScreen( NsString, usPosX, y, 95, MERC_TITLE_FONT, MERC_TITLE_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED );
+		}
+#endif // JA2UB
+
+		swprintf( NsString, L"+ " );
+		sString = FormatMoney(gMercProfiles[ ubMercID ].usOptionalGearCost);
+		wcscat( NsString, sString.data() );
 		DrawTextToScreen( NsString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 		usPosY += MERC_SPACE_BN_LINES;
 
@@ -1078,10 +1105,12 @@ void DisplayMercsStats( UINT8 ubMercID )
 		DrawTextToScreen( MercInfo[MERC_FILES_TOTAL], MERC_STATS_SECOND_COL_X, usPosY, 0, MERC_NAME_FONT, MERC_STATIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 		swprintf(N2sString, L"= ");
-		swprintf(sTemp, L"%d",gMercProfiles[ ubMercID ].usOptionalGearCost+gMercProfiles[ ubMercID ].sSalary);
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-		wcscat( N2sString, sTemp );
+#ifdef JA2UB
+		sString = FormatMoney(gMercProfiles[ubMercID].usOptionalGearCost + gMercProfiles[ubMercID].uiWeeklySalary);
+#else
+		sString = FormatMoney(gMercProfiles[ ubMercID ].usOptionalGearCost+gMercProfiles[ ubMercID ].sSalary);
+#endif
+		wcscat( N2sString, sString.data() );
 		DrawTextToScreen( N2sString, usPosX, usPosY, 95, MERC_NAME_FONT, MERC_DYNAMIC_STATS_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	}
 }
@@ -1171,9 +1200,25 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 
 	if(is_networked && (Namount*(-1) > LaptopSaveInfo.iCurrentBalance))
 	{
-		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, sATMText[ 4 ], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
-		return(FALSE);//not enough big ones $$$sATMText
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL);
+		return(FALSE);
 	}
+
+#ifdef JA2UB
+	Namount = 0;
+	Namount += gMercProfiles[ubMercID].uiWeeklySalary;
+	if ( gSelectedMercKit > 0 )
+	{
+		Namount += gMercProfiles[ubMercID].usOptionalGearCost;
+	}
+
+	if ( Namount > LaptopSaveInfo.iCurrentBalance )
+	{
+		DoLapTopMessageBox( MSG_BOX_LAPTOP_DEFAULT, gzSkiAtmText[SKI_ATM_MODE_TEXT_SELECT_INUSUFFICIENT_FUNDS], LAPTOP_SCREEN, MSG_BOX_FLAG_OK, NULL );
+		return(FALSE);
+	}
+#endif // JA2UB
+
 
 	bReturnCode = HireMerc( &HireMercStruct );
 
@@ -1196,16 +1241,25 @@ BOOLEAN MercFilesHireMerc(UINT8 ubMercID)
 			AddTransactionToPlayersBook( HIRED_MERC, ubMercID, GetWorldTotalMin(), Namount );
 		}
 		
-		#ifdef JA2UB
+#ifdef JA2UB
 		//add an entry in the finacial page for the hiring of the merc
-		AddTransactionToPlayersBook(PAY_SPECK_FOR_MERC, ubMercID, GetWorldTotalMin(), -(INT32)( gMercProfiles[ubMercID].uiWeeklySalary ) );
-		#endif
+		INT32 totalCost = gMercProfiles[ubMercID].uiWeeklySalary;
+		if ( gSelectedMercKit > 0 ) // First kit is included in the initial fee
+		{
+			totalCost += gMercProfiles[ubMercID].usOptionalGearCost;
+		}
+		AddTransactionToPlayersBook(PAY_SPECK_FOR_MERC, ubMercID, GetWorldTotalMin(), -totalCost );
+#endif
 
 		//JMich_MMG: Setting the flag that we bought the gear and still haven't paid for it if we succesfully hired the merc
 		if ( fMercBuyEquipment )
 		{
 			gMercProfiles[ ubMercID ].ubMiscFlags |= PROFILE_MISC_FLAG_ALREADY_USED_ITEMS;
+#ifdef JA2UB
+			// Gear cost gets added to initial hiring fee in UB
+#else
 			gMercProfiles[ ubMercID ].ubMiscFlags2 |= PROFILE_MISC_FLAG2_MERC_GEARKIT_UNPAID;
+#endif // JA2UB
 		}
 
 		return(TRUE);
@@ -1305,15 +1359,7 @@ void HandleMercsFilesKeyBoardInput( )
 						//else try to hire the merc
 						else
 						{
-							//bought gear before
-							if ( (gMercProfiles[ GetAvailableMercIDFromMERCArray( gubCurMercIndex ) ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
-							{	
-								fMercBuyEquipment = 0;
-								MercProcessHireAfterGear();
-							}
-							//prompt to buy gear
-							else
-								DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, MercInfo[ MERC_FILES_BUY_GEAR ], LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercHireButtonGearYesNoCallback );
+							TryToHireMERC();
 						}
 					}
 				break;
@@ -1783,11 +1829,22 @@ void MercWeaponKitSelectionUpdate(UINT8 selectedInventory)
 void MercHireButtonGearYesNoCallback (UINT8 bExitValue)
 {
 	//yes, buy gear
-	if( bExitValue == MSG_BOX_RETURN_YES )
+	if ( bExitValue == MSG_BOX_RETURN_YES )
+	{
 		fMercBuyEquipment = 1;
+	}
 	//no, no gear 
 	else
+	{
+#ifdef JA2UB
+		// Switch to the free, first kit
+		gSelectedMercKit = 0;
+		MercWeaponKitSelectionUpdate( gSelectedMercKit );
+		fMercBuyEquipment = 1;
+#else
 		fMercBuyEquipment = 0;
+#endif // JA2UB
+	}
 	
 	MercProcessHireAfterGear();
 }
@@ -1810,6 +1867,10 @@ void MercProcessHireAfterGear()
 
 void NextMercMember()
 {
+	// Reset selected kit, cannot assume next merc has more than 1 kit
+	gSelectedMercKit = 0;
+	MercWeaponKitSelectionUpdate( gSelectedMercKit );
+
 	if (gfKeyState [ CTRL ])
 		gubCurMercIndex = LaptopSaveInfo.gubLastMercIndex;
 	else if (gfKeyState [ SHIFT ])
@@ -1840,6 +1901,10 @@ void NextMercMember()
 
 void PrevMercMember()
 {
+	// Reset selected kit, cannot assume next merc has more than 1 kit
+	gSelectedMercKit = 0;
+	MercWeaponKitSelectionUpdate( gSelectedMercKit );
+
 	if (gfKeyState [ CTRL ])
 		gubCurMercIndex = 0;
 	else if (gfKeyState [ SHIFT ])

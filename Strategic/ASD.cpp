@@ -6,35 +6,18 @@
 #include <math.h>
 #include "ASD.h"
 #include "strategic.h"
-#include "WCheck.h"
-#include "Utilities.h"
-#include "WordWrap.h"
-#include "Cursors.h"
-#include "Line.h"
-#include "Insurance Text.h"
-#include "Encrypted File.h"
 #include "Text.h"
-#include "Multi Language Graphic Utils.h"
 #include "random.h"
 #include "Interface.h"
-#include "Soldier Add.h"
-#include "Soldier Profile.h"
 #include "Overhead.h"
-#include "Map Screen Interface.h"
-#include "finances.h"
+#include <Font Control.h>
 #include "Game Clock.h"
 #include "SaveLoadGame.h"
-#include "GameVersion.h"
 #include "message.h"
 #include "Game Event Hook.h"
-#include "militia control.h"
 #include "Town Militia.h"
-#include "Strategic Town Loyalty.h"
-#include "map information.h"
 
 #include "Campaign.h"
-#include "random.h"
-#include "Explosion Control.h"
 #include "Strategic AI.h"
 #include "Strategic Mines.h"
 #include "Reinforcement.h"
@@ -42,9 +25,6 @@
 #include "Queen Command.h"
 #include "Map Screen Helicopter.h"
 #include "Points.h"
-#include "worldman.h"
-#include "Map Information.h"
-#include "opplist.h"
 #include "Dialogue Control.h"
 #include "Sound Control.h"
 #include "renderworld.h"
@@ -1091,7 +1071,7 @@ void EnemyHeliSAMCheck( INT16 id )
 					// also check whether this sector is not enemy-controlled - we can't have the AI shooting at its own helis
 					if ( pSAMStrategicMap && !pSAMStrategicMap->fEnemyControlled )
 					{
-						UINT16 ubBestSAMOperatorID = NOBODY;
+						SoldierID ubBestSAMOperatorID = NOBODY;
 						FLOAT samcth = GetBestSAMOperatorCTH_Player( gpSamSectorX[i], gpSamSectorY[i], 0, &ubBestSAMOperatorID );
 
 						// cth is reduced if SAM is damaged, even if it can still operate
@@ -1142,9 +1122,9 @@ void EnemyHeliSAMCheck( INT16 id )
 							if ( ubBestSAMOperatorID != NOBODY )
 							{
 								if ( fHit )
-									StatChange( MercPtrs[ubBestSAMOperatorID], EXPERAMT, fDestroyed ? 30 : 10, TRUE );
+									StatChange( ubBestSAMOperatorID, EXPERAMT, fDestroyed ? 30 : 10, TRUE );
 
-								StatChange( MercPtrs[ubBestSAMOperatorID], MECHANAMT, 5, TRUE );
+								StatChange( ubBestSAMOperatorID, MECHANAMT, 5, TRUE );
 							}
 						}
 					}
@@ -1198,7 +1178,7 @@ void EnemyHeliMANPADSCheck( INT16 id )
 				if ( pObj )
 				{
 					// abort if this is a launcher without ammo
-					if ( Item[pObj->usItem].rocketlauncher && !Item[pObj->usItem].singleshotrocketlauncher )
+					if (ItemIsRocketLauncher(pObj->usItem) && !ItemIsSingleShotRocketLauncher(pObj->usItem))
 					{
 						OBJECTTYPE* pAttachment = FindAttachmentByClass( pObj, IC_GRENADE );
 						if ( !pAttachment->exists( ) )
@@ -1227,7 +1207,7 @@ void EnemyHeliMANPADSCheck( INT16 id )
 					MapScreenMessage( FONT_MCOLOR_LTRED, MSG_INTERFACE, szEnemyHeliText[7], pSoldier->GetName( ), Item[pObj->usItem].szItemName, pStrSectorName );
 
 					// 'fire' (remove shot)
-					if ( Item[pObj->usItem].singleshotrocketlauncher )
+					if (ItemIsSingleShotRocketLauncher(pObj->usItem))
 					{
 						CreateItem( Item[pObj->usItem].discardedlauncheritem, (*pObj)[0]->data.objectStatus, pObj );
 

@@ -1,37 +1,34 @@
-	#include	"Types.h"
+	#include	"types.h"
 	#include	"SaveLoadScreen.h"
-	#include	"Video.h"
+	#include	"video.h"
 	#include	"Font Control.h"
 	#include	"Game Clock.h"
 	#include	"Render Dirty.h"
 	#include	"Text Input.h"
 	#include	"SaveLoadGame.h"
-	#include	"Stdio.h"
+	#include	"stdio.h"
 	#include	"WordWrap.h"
-	#include	"StrategicMap.h"
-	#include	"Finances.h"
+	#include	"strategicmap.h"
 	#include	"WCheck.h"
 	#include	"Utilities.h"
 	#include	"Cursors.h"
-	#include	"VObject.h"
+	#include	"vobject.h"
 	#include	"Merc Hiring.h"
 	#include	"LaptopSave.h"
 	#include	"Options Screen.h"
 	#include	"GameVersion.h"
-	#include	"SysUtil.h"
-	#include	"Tactical Save.h"
-	#include	"OverHead.h"
+	#include	"sysutil.h"
+	#include	"Overhead.h"
 	#include	"gamescreen.h"
 	#include	"GameSettings.h"
-	#include	"fade screen.h"
-	#include	"English.h"
-	#include	"Gameloop.h"
+	#include	"Fade Screen.h"
+	#include	"english.h"
+	#include	"gameloop.h"
 	#include	"Game Init.h"
 	#include	"Text.h"
-	#include	"Message.h"
+	#include	"message.h"
 	#include	"Map Screen Interface.h"
 	#include	"Multi Language Graphic Utils.h"
-	#include	"Campaign Types.h"
 	#include	"PostalService.h"
 
 #include "connect.h"
@@ -41,10 +38,6 @@
 #include <vfs/Core/vfs_file_raii.h>
 
 #ifdef JA2UB
-#include "Strategic Movement.h"
-
-//#include "Strategic Movement Costs.h"
-
 #include "LuaInitNPCs.h"
 #endif
 
@@ -1398,7 +1391,6 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 	CHAR16		zDateString[128];
 	CHAR16		zLocationString[128];
 	CHAR16		zNumMercsString[128];
-	CHAR16		zBalanceString[128];
 	SAVED_GAME_HEADER SaveGameHeader;
 	HVOBJECT hPixHandle;
 	UINT16		usPosX=SLG_FIRST_SAVED_SPOT_X;
@@ -1669,11 +1661,6 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 				}
 			}
 
-			//Get the current balance
-			swprintf( zBalanceString, L"%d", SaveGameHeader.iCurrentBalance);
-			InsertCommasForDollarFigure( zBalanceString );
-			InsertDollarSignInToString( zBalanceString );
-
 			//
 			// Display the Saved game information
 			//
@@ -1692,7 +1679,7 @@ BOOLEAN DisplaySaveGameEntry( INT32 bEntryID )
 
 			//The balance
 			if(!is_networked)
-				DrawTextToScreen( zBalanceString, (UINT16)(usPosX+SLG_BALANCE_OFFSET_X), (UINT16)(usPosY+SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED	);
+				DrawTextToScreen(FormatMoney(SaveGameHeader.iCurrentBalance).data(), (UINT16)(usPosX + SLG_BALANCE_OFFSET_X), (UINT16)(usPosY + SLG_BALANCE_OFFSET_Y), 0, uiFont, ubFontColor, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 			if( gbSaveGameArray[ VAL_SLOT_START + bEntryID ] || ( gfSaveGame && !gfUserInTextInputMode && ( gbSelectedSaveLocation == bEntryID ) ) )
 			{

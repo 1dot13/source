@@ -1,15 +1,8 @@
-	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
-	#include "debug.h"
-	#include "math.h"
-	#include "worlddef.h"
-	#include "renderworld.h"
-
-	#include "Random.h"
-	#include "Campaign.h"
-
-#include "XML.h"
+#include "DEBUG.H"
+#include "worlddef.h"
+#include "random.h"
+#include "Campaign.h"
+#include <Store Inventory.h>
 
 //Jenilee: full randomization of mercs, including traits, gear kits and all statistics.
 //to use, set MERCS_RANDOM_STATS to 4 in JA2_Options.ini.
@@ -460,7 +453,7 @@ INVTYPE* GearGetRandomFaceItem(INT8 min_coolness = -1, INT8 max_coolness = -1, U
 		if (HasItemFlag((*it)->uiIndex, SCUBA_MASK))
 			continue;
 
-		if (item_type == FACEITEM_GAS_MASK && (*it)->gasmask < 1) continue;
+		if (item_type == FACEITEM_GAS_MASK && !ItemIsGasmask((*it)->uiIndex)) continue;
 		if (item_type == FACEITEM_SPECTACLES && (*it)->brightlightvisionrangebonus < 1) continue;
 		if (item_type == FACEITEM_NVG && (*it)->nightvisionrangebonus < 1) continue;
 		if (item_type == FACEITEM_HEADSET && (*it)->hearingrangebonus < 1) continue;
@@ -643,7 +636,8 @@ std::vector<INVTYPE*> GearFindAttachmentsForWeapon(INVTYPE* weapon, BOOL attach_
 	{
 		INVTYPE* item = *it;
 
-		if (item->attachment < 1)
+		//if (item->attachment < 1)
+		if (!ItemIsAttachment(item->uiIndex))
 			continue;
 
 		if (!ValidAttachment(item->uiIndex, weapon->uiIndex))
@@ -680,7 +674,7 @@ std::vector<INVTYPE*> GearFindItemsForRole(std::vector<UINT8>* roles, std::vecto
 		INVTYPE* item = *it;
 		INT8 chance = 0;
 
-		if (item->glgrenade > 0)
+		if (ItemIsGLgrenade(item->uiIndex))
 			continue;
 
 		if (item->attachmentclass == AC_GRENADE || item->attachmentclass == AC_ROCKET)

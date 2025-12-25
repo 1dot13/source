@@ -1,13 +1,13 @@
 	#include "worlddef.h"
 	#include "worldman.h"
-	#include "wcheck.h"
-	#include "debug.h"
+	#include "WCheck.h"
+	#include "DEBUG.H"
 	#include "lighting.h"
 	#include "renderworld.h"
 	#include "ai.h"
-	#include "animation control.h"
+	#include "Animation Control.h"
 	#include "message.h"
-	#include "tile cache.h"
+	#include "Tile Cache.h"
 	#include "SaveLoadMap.h"
 	#include "random.h"
 	// sevenfm
@@ -3750,7 +3750,7 @@ BOOLEAN IsRoofVisible2( INT32 sMapPos )
 }
 
 
-UINT8 WhoIsThere2( INT32 sGridNo, INT8 bLevel )
+SoldierID WhoIsThere2( INT32 sGridNo, INT8 bLevel )
 {
 	STRUCTURE * pStructure;
 
@@ -3774,7 +3774,7 @@ UINT8 WhoIsThere2( INT32 sGridNo, INT8 bLevel )
 				{
 					// found a person, on the right level!
 					// structure ID and merc ID are identical for merc structures
-					return( (UINT8) pStructure->usStructureID );
+					return( pStructure->usStructureID );
 				}
 			}
 			pStructure = pStructure->pNext;
@@ -3782,7 +3782,7 @@ UINT8 WhoIsThere2( INT32 sGridNo, INT8 bLevel )
 
 	}
 
-	return( (UINT8)NOBODY );
+	return( NOBODY );
 }
 
 UINT8	GetTerrainType( INT32 sGridNo )
@@ -4159,7 +4159,7 @@ void UpdateTreeVisibility()
 					// find visible soldier near spot
 					if (!TileIsOutOfBounds(sSpot) && !fHideTree)
 					{
-						for (UINT8 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+						for (UINT16 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 						{
 							pOpponent = MercSlots[uiLoop];
 

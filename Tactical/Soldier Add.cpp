@@ -1,40 +1,36 @@
 	#include "sgp.h"
 
-	#include "overhead.h"
-	#include "overhead types.h"
-	#include "isometric utils.h"
-	#include "interface panels.h"
-	#include "soldier macros.h"
-	#include "strategicmap.h"
+	#include "Overhead.h"
+	#include "Overhead Types.h"
+	#include "Isometric Utils.h"
+	#include "Interface Panels.h"
+	#include "Soldier macros.h"
 	#include "strategic.h"
-	#include "animation control.h"
-	#include "soldier create.h"
-	#include "Soldier Init List.h"
-	#include "soldier add.h"
+	#include "Animation Control.h"
+	#include "Soldier Add.h"
 	#include "Map Information.h"
 	#include "fov.h"
-	#include "pathai.h"
-	#include "Random.h"
+	#include "PATHAI.H"
+	#include "random.h"
 	#include "Render Fun.h"
-	#include "meanwhile.h"
 	#include "Exit Grids.h"
-	#include "Interface.h"			// added by Flugente for zBackground
 	#include "renderworld.h"		// added by Flugente
-	#include "Vehicles.h"			// added by Flugente
 	#include "CampaignStats.h"		// added by Flugente
 	#include "worldman.h"			// added by Flugente for Water(...)
-
-#ifdef JA2UB
-#include "Ja25 Strategic Ai.h"
-#include "Ja25_Tactical.h"
-#include "ub_config.h"
-#endif
-
 #include "GameSettings.h"	// ary-05/05/2009 : add forced turn mode
-#include "text.h"			//	: add forced turn mode
-#include "font control.h"	//	: add forced turn mode
+#include "Text.h"			//	: add forced turn mode
+#include "Font Control.h"	//	: add forced turn mode
 #include "message.h"		//  : add forced turn mode
 #include "connect.h"
+
+
+#ifdef JA2UB
+#include "Ja25_Tactical.h"
+#include "ub_config.h"
+#else
+#include "Meanwhile.h"
+#endif
+
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
@@ -1135,18 +1131,16 @@ INT32 FindRandomGridNoBetweenCircles( INT32 sCenterGridNo, UINT8 uInnerRadius, U
 	return(sGridNo);
 }
 
-
-BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
+BOOLEAN InternalAddSoldierToSector(SoldierID ubID, BOOLEAN fCalculateDirection, BOOLEAN fUseAnimation, UINT16 usAnimState, UINT16 usAnimCode )
 {
-	UINT8					ubDirection = 0;
-	UINT8					ubCalculatedDirection = 0;
-	SOLDIERTYPE				*pSoldier = 0;
-	INT32			sGridNo = NOWHERE;
-	INT32			sExitGridNo = NOWHERE;
+	UINT8	ubDirection = 0;
+	UINT8	ubCalculatedDirection = 0;
+	INT32	sGridNo = NOWHERE;
+	INT32	sExitGridNo = NOWHERE;
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("InternalAddSoldierToSector"));
 
-	pSoldier = MercPtrs[ ubID ];
+	SOLDIERTYPE *pSoldier = ubID;
 
 	if ( pSoldier->bActive	)
 	{
@@ -1201,7 +1195,14 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 			if( fCalculateDirection )
 				ubDirection = ubCalculatedDirection;
 			else
+			{
+				// Override calculated direction if we were told to....
+				if ( pSoldier->ubInsertionDirection >= 100 )
+				{
+					pSoldier->ubInsertionDirection -= 100;
+				}
 				ubDirection = pSoldier->ubInsertionDirection;
+			}
 		}
 		else
 		{			
@@ -1333,20 +1334,19 @@ BOOLEAN InternalAddSoldierToSector( UINT8 ubID, BOOLEAN fCalculateDirection, BOO
 	return( FALSE );
 }
 
-
-BOOLEAN AddSoldierToSector( UINT8 ubID )
+BOOLEAN AddSoldierToSector( SoldierID ubID )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSector"));
 	return( InternalAddSoldierToSector( ubID, TRUE, FALSE, 0 , 0) );
 }
 
-BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT8 ubID )
+BOOLEAN AddSoldierToSectorNoCalculateDirection( UINT16 ubID )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSectorNoCalculateDirection"));
 	return( InternalAddSoldierToSector( ubID, FALSE, FALSE, 0, 0 ) );
 }
 
-BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT8 ubID, UINT16 usAnimState, UINT16 usAnimCode )
+BOOLEAN AddSoldierToSectorNoCalculateDirectionUseAnimation( UINT16 ubID, UINT16 usAnimState, UINT16 usAnimCode )
 {
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("AddSoldierToSectorNoCalculateDirectionUseAnimation"));
 	return( InternalAddSoldierToSector( ubID, FALSE, TRUE, usAnimState, usAnimCode ) );
@@ -1764,16 +1764,14 @@ void AddSoldierToSectorGridNo( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 ubDir
 // IsMercOnTeam() checks to see if the passed in Merc Profile ID is currently on the player's team
 BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 {
-	UINT16 cnt;
-	UINT8		ubLastTeamID;
-	SOLDIERTYPE		*pTeamSoldier;
-
-	cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	SOLDIERTYPE *pTeamSoldier;
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID ubLastTeamID = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= ubLastTeamID; ++cnt, pTeamSoldier++)
+	for ( ; cnt <= ubLastTeamID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID && pTeamSoldier->bActive )
 		{
 			if ( aAlreadyInCountry && pTeamSoldier->bAssignment == IN_TRANSIT )
@@ -1790,16 +1788,16 @@ BOOLEAN IsMercOnTeam(UINT8 ubMercID, BOOLEAN aAlreadyInCountry, BOOLEAN aAlive)
 }
 
 
-// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns -1
-INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
+// GetSoldierIDFromMercID() Gets the Soldier ID from the Merc Profile ID, else returns NOBODY
+SoldierID GetSoldierIDFromMercID(UINT8 ubMercID)
 {
 	SOLDIERTYPE		*pTeamSoldier = NULL;
-
-	UINT16 cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[OUR_TEAM].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pTeamSoldier = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt, ++pTeamSoldier )
+	for ( ; cnt <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->ubProfile == ubMercID )
 		{
 			if( pTeamSoldier->bActive )
@@ -1807,7 +1805,7 @@ INT16 GetSoldierIDFromMercID(UINT8 ubMercID)
 		}
 	}
 
-	return -1 ;
+	return NOBODY;
 }
 
 

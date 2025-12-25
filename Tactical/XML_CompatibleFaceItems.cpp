@@ -1,6 +1,6 @@
 	#include "sgp.h"
-	#include "overhead.h"
-	#include "weapons.h"
+#include "FileMan.h"
+#include "Item Types.h"
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"

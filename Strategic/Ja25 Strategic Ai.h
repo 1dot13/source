@@ -199,7 +199,6 @@ BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile );
 BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile );
 
 
-void AddEnemiesToJa25TunnelMaps();
 void HandleAddingEnemiesToTunnelMaps();
 
 void SetJa25GeneralFlag( UINT32 uiFlagToSet );

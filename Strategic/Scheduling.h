@@ -1,7 +1,7 @@
 #ifndef __SCHEDULING_H
 #define __SCHEDULING_H
 
-#include "BuildDefines.h"
+#include "builddefines.h"
 #include "Soldier Init List.h"
 
 //Merc scheduling actions
@@ -54,6 +54,18 @@ typedef struct _OLD_SCHEDULENODE
 	UINT16 usFlags;
 }_OLD_SCHEDULENODE;
 
+typedef struct _OLD_SCHEDULENODE_PRE_ITS
+{
+	struct _OLD_SCHEDULENODE_PRE_ITS* next;
+	UINT16 usTime[MAX_SCHEDULE_ACTIONS];	// Converted to minutes 12:30PM would be 12*60 + 30 = 750
+	UINT32 usData1[MAX_SCHEDULE_ACTIONS];	// Typically the gridno, but depends on the action
+	UINT32 usData2[MAX_SCHEDULE_ACTIONS];	// Secondary information, not used by most actions
+	UINT8 ubAction[MAX_SCHEDULE_ACTIONS];
+	UINT8 ubScheduleID;
+	UINT8 ubSoldierID;
+	UINT16 usFlags;
+}_OLD_SCHEDULENODE_PRE_ITS;
+
 class SCHEDULENODE
 {
 public:
@@ -63,10 +75,11 @@ public:
 	UINT32 usData2[MAX_SCHEDULE_ACTIONS];	// Secondary information, not used by most actions
 	UINT8 ubAction[MAX_SCHEDULE_ACTIONS];
 	UINT8 ubScheduleID;
-	UINT8 ubSoldierID;
+	SoldierID ubSoldierID;
 	UINT16 usFlags;
 public:
 	SCHEDULENODE& operator=(const _OLD_SCHEDULENODE& src);
+	SCHEDULENODE& operator=(const _OLD_SCHEDULENODE_PRE_ITS& src);
 	BOOLEAN Load(INT8** hBuffer, FLOAT dMajorMapVersion);
 	BOOLEAN Save(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);
 };

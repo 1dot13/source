@@ -1,11 +1,11 @@
 #include "SaveLoadMap.h"
 #include "Structure Wrap.h"
 #include "Tactical Save.h"
-#include "postalservice.h"
+#include "PostalService.h"
 #include "strategic.h"
 #include "strategicmap.h"
 #include "random.h"
-#include "game clock.h"
+#include "Game Clock.h"
 #include "GameSettings.h"
 #include <list>
 #include <string>

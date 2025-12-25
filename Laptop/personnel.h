@@ -2,7 +2,7 @@
 #define __PERSONNEL_H
 
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 
@@ -73,9 +73,6 @@ void AddCharacterToFiredList( SOLDIERTYPE *pSoldier );
 
 // get the total amt of money on this guy
 INT32 GetFundsOnMerc( SOLDIERTYPE *pSoldier );
-
-BOOLEAN TransferFundsFromMercToBank( SOLDIERTYPE *pSoldier, INT32 iCurrentBalance );
-BOOLEAN TransferFundsFromBankToMerc( SOLDIERTYPE *pSoldier, INT32 iCurrentBalance );
 
 BOOLEAN RemoveNewlyHiredMercFromPersonnelDepartedList( UINT8 ubProfile );
 

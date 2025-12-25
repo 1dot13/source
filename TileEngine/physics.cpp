@@ -1,20 +1,20 @@
 #include "builddefines.h"
 
 	#include "physics.h"
-	#include "wcheck.h"
-	#include "isometric utils.h"
+	#include "WCheck.h"
+	#include "Isometric Utils.h"
 	#include "worldman.h"
 	#include "Sound Control.h"
-	#include "interface.h"
-	#include "interface items.h"
-	#include "explosion control.h"
+	#include "Interface.h"
+	#include "Interface Items.h"
+	#include "Explosion Control.h"
 	#include "Debug Control.h"
 	#include "message.h"
-	#include "structure wrap.h"
-	#include "animation control.h"
-	#include "text.h"
-	#include "Random.h"
-	#include "lighteffects.h"
+	#include "Structure Wrap.h"
+	#include "Animation Control.h"
+	#include "Text.h"
+	#include "random.h"
+	#include "LightEffects.h"
 	#include "opplist.h"
 	#include "Buildings.h"
 	#include "Dialogue Control.h"	// added by Flugente
@@ -160,7 +160,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->dLifeSpan = src.dLifeSpan;
 	this->fFirstTimeMoved = src.fFirstTimeMoved;
 	this->sFirstGridNo = src.sFirstGridNo;
-	this->ubOwner = src.ubOwner;
+	this->ubOwner = static_cast<UINT16>(src.ubOwner);
 	this->ubActionCode = src.ubActionCode;
 	this->uiActionData = src.uiActionData;
 	this->fDropItem = src.fDropItem;
@@ -175,7 +175,7 @@ REAL_OBJECT& REAL_OBJECT::operator =(OLD_REAL_OBJECT_101 &src)
 	this->fPotentialForDebug = src.fPotentialForDebug;
 	this->sLevelNodeGridNo = src.sLevelNodeGridNo;
 	this->iSoundID = src.iSoundID;
-	this->ubLastTargetTakenDamage = src.ubLastTargetTakenDamage;
+	this->ubLastTargetTakenDamage = static_cast<UINT16>(src.ubLastTargetTakenDamage);
 	return *this;
 }
 
@@ -214,7 +214,7 @@ void RecountObjectSlots(void)
 }
 
 
-INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, UINT8 ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
+INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, real yPos, real zPos, real xForce, real yForce, real zForce, SoldierID ubOwner, UINT8 ubActionCode, UINT32 uiActionData, BOOLEAN fTestObject )
 {
 	INT32			iObjectIndex;
 	FLOAT			mass;
@@ -258,7 +258,7 @@ INT32	CreatePhysicalObject( OBJECTTYPE *pGameObj, real dLifeLength, real xPos, r
 	pObject->Position.z	= zPos;
 	pObject->fVisible		= TRUE;
 	pObject->fTestObject	= fTestObject;
-	pObject->ubOwner	= ubOwner;
+	pObject->ubOwner = ubOwner;
 	pObject->ubActionCode = ubActionCode;
 	pObject->uiActionData = uiActionData;
 	pObject->fDropItem		= TRUE;
@@ -531,8 +531,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			else
 			{
 				// If we are in water, and we are a sinkable item...
-				//				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].fFlags & ITEM_SINKS ) )
-				if ( !pObject->fInWater || !( Item[ pObject->Obj.usItem ].sinks	) )
+				if ( !pObject->fInWater || !ItemSinks(pObject->Obj.usItem) )
 				{
 					if ( pObject->fDropItem )
 					{
@@ -547,7 +546,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 						{
 							SOLDIERTYPE *pSoldier;
 
-							pSoldier = MercPtrs[ pObject->ubLastTargetTakenDamage ];
+							pSoldier = pObject->ubLastTargetTakenDamage;
 
 							bLevel = pSoldier->pathing.bLevel;
 						}
@@ -562,7 +561,7 @@ BOOLEAN	PhysicsUpdateLife( REAL_OBJECT *pObject, real DeltaTime )
 			}
 
 			// Make impact noise....
-			if ( Item[pObject->Obj.usItem].rock )
+			if (ItemIsRock(pObject->Obj.usItem))
 			{
 				MakeNoise( pObject->ubOwner, pObject->sGridNo, 0, gpWorldLevelData[ pObject->sGridNo ].ubTerrainID, (UINT8) (9 + PreRandom( 9 ) ), NOISE_ROCK_IMPACT );
 			}
@@ -1013,10 +1012,11 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 		if ( iCollisionCode == COLLISION_WINDOW_NORTHWEST || iCollisionCode == COLLISION_WINDOW_NORTHEAST || iCollisionCode == COLLISION_WINDOW_SOUTHWEST || iCollisionCode == COLLISION_WINDOW_SOUTHEAST )
 		{
 			// sevenfm: added requirements for object to break window
-			if (Item[pObject->Obj.usItem].ubWeight >= 4 &&
-				Item[pObject->Obj.usItem].sinks &&
-				!Item[pObject->Obj.usItem].unaerodynamic &&
-				(Item[pObject->Obj.usItem].metal || Item[pObject->Obj.usItem].rock))
+			UINT16 usItem = pObject->Obj.usItem;
+			if (Item[usItem].ubWeight >= 4 &&
+				ItemSinks(usItem) &&
+				!ItemIsUnaerodynamic(usItem) &&
+				(ItemIsMetal(usItem) || ItemIsRock(usItem)))
 			{
 				if (!pObject->fTestObject)
 				{
@@ -1120,10 +1120,10 @@ BOOLEAN	PhysicsCheckForCollisions( REAL_OBJECT *pObject, INT32 *piCollisionID )
 					{
 						gTacticalStatus.ubAttackBusyCount++;
 						DebugAttackBusy( String( "Incrementing attack busy because of delayed water explosion. Now %d\n", gTacticalStatus.ubAttackBusyCount ) );
-						AniParams.ubKeyFrame1					= 11;
+						AniParams.ubKeyFrame1				= 11;
 						AniParams.uiKeyFrame1Code			= ANI_KEYFRAME_CHAIN_WATER_EXPLOSION;
 						AniParams.uiUserData					= pObject->Obj.usItem;
-						AniParams.ubUserData2					= pObject->ubOwner;
+						AniParams.ubUserData2				= pObject->ubOwner;
 					}
 
 					pNode = CreateAnimationTile( &AniParams );
@@ -1927,7 +1927,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1741"));
-	if ( fArmed && ( Item[usLauncher].mortar || Item[pItem->usItem].mortar ) )
+	if ( fArmed && (ItemIsMortar(usLauncher) || ItemIsMortar(pItem->usItem)) )
 	{
 		// Start at 0....
 		sStartZ = ( pSoldier->pathing.bLevel * 256 );
@@ -1937,7 +1937,7 @@ void CalculateLaunchItemBasicParams( SOLDIERTYPE *pSoldier, OBJECTTYPE *pItem, I
 	}
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 1750"));
 
-	if ( fArmed && ( Item[usLauncher].grenadelauncher || Item[pItem->usItem].grenadelauncher ) )
+	if ( fArmed && (ItemIsGrenadeLauncher(usLauncher) || ItemIsGrenadeLauncher(pItem->usItem)) )
 	{
 		// OK, look at target level and decide angle to use...
 		if ( ubLevel == 1 )
@@ -2188,7 +2188,7 @@ BOOLEAN CalculateLaunchItemChanceToGetThrough( SOLDIERTYPE *pSoldier, OBJECTTYPE
 
 	if ( pSoldier->sGridNo == sGridNo )
 	{
-		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID);
+		printf("Warning! Soldier #%d attempted to launch item at himself\n", pSoldier->ubID.i);
 		return FALSE;
 	}
 	// Ge7t basic launch params...
@@ -2327,7 +2327,7 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 	}
 
 	// set the max miss radius
-	if ( Item[usItemNum].mortar )
+	if (ItemIsMortar(usItemNum))
 	{
 		bMaxRadius = gItemSettings.usMissMaxRadiusMortar;
 	}
@@ -2413,7 +2413,7 @@ void CalculateLaunchItemParamsForThrow( SOLDIERTYPE *pSoldier, INT32 sGridNo, UI
 
 	DebugMsg(TOPIC_JA2,DBG_LEVEL_3,String("physics.cpp line 2103"));
 
-	if ( fArmed && Item[usLauncher].mortar )
+	if ( fArmed && ItemIsMortar(usLauncher))
 	{
 		// Start at 0....
 		sStartZ = ( pSoldier->pathing.bLevel * 256 ) + 50;
@@ -2471,7 +2471,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 		// Is it a guy?
 		if ( usStructureID < INVALID_STRUCTURE_ID )
 		{
-			if ( pObject->ubLastTargetTakenDamage != (UINT8)usStructureID )
+			if ( pObject->ubLastTargetTakenDamage != usStructureID )
 			{
 				// Flugente: if this fails, something is very wrong indeed
 				Assert(usStructureID<TOTAL_SOLDIERS);
@@ -2488,7 +2488,7 @@ void CheckForObjectHittingMerc( REAL_OBJECT *pObject, UINT16 usStructureID )
 
 				pSoldier->EVENT_SoldierGotHit( NOTHING, sDamage, sBreath, pSoldier->ubDirection, 0, pObject->ubOwner, FIRE_WEAPON_TOSSED_OBJECT_SPECIAL, 0, 0, NOWHERE );
 
-				pObject->ubLastTargetTakenDamage = (UINT8)( usStructureID );
+				pObject->ubLastTargetTakenDamage = usStructureID;
 			}
 		}
 	}
@@ -2665,7 +2665,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 	{
 		fCheckForDuds = TRUE;
 
-		if (CanDelayGrenadeExplosion(pObj->usItem) && (Item[pObj->usItem].ubCursor == TOSSCURS || Item[pObj->usItem].glgrenade))
+		if (CanDelayGrenadeExplosion(pObj->usItem) && (Item[pObj->usItem].ubCursor == TOSSCURS || ItemIsGLgrenade(pObj->usItem)))
 		{
 			fCanDelayExplosion = TRUE;
 		}
@@ -2734,7 +2734,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 				(*pObj)[0]->data.misc.bDelay = 1;
 
 				// for non-player grenades, add turn so player could disarm grenade or run away
-				if ( pObject->ubOwner != NOBODY && MercPtrs[pObject->ubOwner]->bTeam != gbPlayerNum )
+				if ( pObject->ubOwner != NOBODY && pObject->ubOwner->bTeam != gbPlayerNum )
 				{
 					(*pObj)[0]->data.misc.bDelay++;
 				}
@@ -2762,7 +2762,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 			if ( pObject->ubOwner != NOBODY && !fGoodStatus )
 			{
-				MercPtrs[ pObject->ubOwner ]->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
+				pObject->ubOwner->DoMercBattleSound( (INT8)( BATTLE_SOUND_CURSE1 ) );
 			}
 		}
 	}
@@ -2780,7 +2780,7 @@ void HandleArmedObjectImpact( REAL_OBJECT *pObject )
 
 	if ( fDoImpact )
 	{
-		if ( Item[pObject->Obj.usItem].flare )
+		if (ItemIsFlare(pObject->Obj.usItem))
 		{
 			//if the light object will be created OFF the ground
 			if( pObject->Position.z > 0 && FindBuilding(pObject->sGridNo) )

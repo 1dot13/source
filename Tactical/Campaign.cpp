@@ -1,17 +1,13 @@
 	#include "builddefines.h"
-	#include <wchar.h>
 	#include <stdio.h>
-	#include <string.h>
-	#include "stdlib.h"
-	#include "debug.h"
-	#include "MemMan.h"
+	#include "DEBUG.H"
 	#include "Overhead Types.h"
 
 	#include "random.h"
-	#include "campaign.h"
-	#include "dialogue control.h"
-	#include "Map Screen Interface.h"
-	#include "Message.h"
+	#include "Campaign.h"
+	#include "Dialogue Control.h"
+	#include "Font Control.h"
+	#include "message.h"
 	#include "Game Clock.h"
 	#include "Strategic Mines.h"
 	#include "Strategic Status.h"
@@ -22,7 +18,7 @@
 	#include "Interface.h"
 	#include "Game Event Hook.h"
 	#include "Overhead.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "Quests.h"
 	#include "Squads.h"
 	#include "Soldier macros.h"
@@ -34,22 +30,16 @@
 	#include "Strategic AI.h"
 	#include "interface Dialogue.h"
 	#include "DynamicDialogue.h"
+#include "email.h"
+#include "mercs.h"
 
 #ifdef JA2UB
-#include "Explosion Control.h"
-#include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
 #include "ub_config.h"
 #endif
 
 #include "GameInitOptionsScreen.h"
 
-#include "email.h"
-#include "mercs.h"
 
 
 //forward declarations of common classes to eliminate includes
@@ -1836,13 +1826,9 @@ void TestDumpStatChanges(void)
 
 void AwardExperienceBonusToActiveSquad( UINT8 ubExpBonusType )
 {
-	UINT16 usXPs = 0;
-	UINT8 ubGuynum;
-	SOLDIERTYPE *pSoldier;
-
-
 	Assert ( ubExpBonusType < NUM_EXP_BONUS_TYPES );
 
+	UINT16 usXPs = 0;
 	switch ( ubExpBonusType )
 	{
 		case EXP_BONUS_MINIMUM:		usXPs =   25;			break;
@@ -1853,9 +1839,9 @@ void AwardExperienceBonusToActiveSquad( UINT8 ubExpBonusType )
 	}
 
 	// to do: find guys in sector on the currently active squad, those that are conscious get this amount in XPs
-	for ( ubGuynum = gTacticalStatus.Team[ gbPlayerNum ].bFirstID, pSoldier = MercPtrs[ ubGuynum ];
-				ubGuynum <= gTacticalStatus.Team[ gbPlayerNum ].bLastID;
-				ubGuynum++, pSoldier++ )
+	for ( SoldierID pSoldier = gTacticalStatus.Team[ gbPlayerNum ].bFirstID ;
+				pSoldier <= gTacticalStatus.Team[ gbPlayerNum ].bLastID;
+				++pSoldier)
 	{
 		if ( pSoldier->bActive && pSoldier->bInSector && IsMercOnCurrentSquad( pSoldier ) && ( pSoldier->stats.bLife >= CONSCIOUSNESS ) &&
 				 !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !AM_A_ROBOT( pSoldier ) )

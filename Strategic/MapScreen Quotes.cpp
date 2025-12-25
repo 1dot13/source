@@ -1,4 +1,5 @@
-	#include "Map Screen Interface.h"
+#ifdef JA2UB
+#include "Map Screen Interface.h"
 	#include "string.h"
 	#include "Map Screen Interface Map.h"
 	#include "Font Control.h"
@@ -6,8 +7,8 @@
 	#include "Soldier Control.h"
 	#include "Overhead.h"
 	#include "Squads.h"
-	#include "Soundman.h"
-	#include "Message.h"
+	#include "soundman.h"
+	#include "message.h"
 	#include "PopUpBox.h"
 	#include "Handle Items.h"
 	#include "Interface Items.h"
@@ -16,14 +17,14 @@
 	#include "Game Event Hook.h"
 	#include "Tactical Save.h"
 	#include "Quests.h"
-	#include "Strategicmap.h"
+	#include "strategicmap.h"
 	#include "Soldier Profile.h"
 	#include "Strategic Movement.h"
 	#include "Dialogue Control.h"
 	#include "Map Screen Interface Border.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "Vehicles.h"
-	#include "LINE.H"
+	#include "line.h"
 	#include "Text.h"
 	#include "gameloop.h"
 	#include "Map Screen Helicopter.h"
@@ -36,7 +37,7 @@
 	#include "Keys.h"
 	#include "Soldier macros.h"
 	#include "Militia Control.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Cursor Control.h"
 	#include "renderworld.h"
 	#include "Strategic Mines.h"
@@ -47,7 +48,6 @@
 
 #include "connect.h"
 
-	#ifdef JA2UB
 
 #include "Ja25 Strategic Ai.h"
 #include "Ja25_Tactical.h"

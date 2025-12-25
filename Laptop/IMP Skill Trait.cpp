@@ -1,16 +1,16 @@
 	#include "IMP Skill Trait.h"
 	#include "Button System.h"
-	#include "utilities.h"
-	#include "Debug.h"
+	#include "Utilities.h"
+	#include "DEBUG.H"
 	#include "Text.h"
 	#include "Font Control.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "laptop.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "IMP MainPage.h"
 	#include "IMPVideoObjects.h"
 	#include "_Ja25EnglishText.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 	#include "CharProfile.h"
 	#include "soldier profile type.h"
 	#include "IMP Compile Character.h"
@@ -98,8 +98,8 @@ UINT8 gusOldMajorTraitRemap[IMP_SKILL_TRAITS__NUMBER_SKILLS] =
 // Global Variables
 //
 //*******************************************************************
-BOOLEAN	gfSkillTraitQuestions[ 20 ];
-BOOLEAN	gfSkillTraitQuestions2[ 20 ];
+BOOLEAN	gfSkillTraitQuestions[ 20 ]; 
+BOOLEAN	gfSkillTraitQuestions2[ 20 ]; 
 
 
 BOOLEAN gfIST_Redraw=FALSE;

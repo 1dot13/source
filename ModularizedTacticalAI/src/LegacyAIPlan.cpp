@@ -9,13 +9,13 @@
 #include "../../TacticalAI/AIInternals.h"       // ACTING_ON_SCHEDULE
 #include "../../TacticalAI/NPC.h"               // NPCReachedDestination
 #include "../../Tactical/Animation Control.h"   // defines ANIM_...
-#include "../../Tactical/Soldier Macros.h"      // CREATURE_OR_BLOODCAT
+#include "../../Tactical/Soldier macros.h"      // CREATURE_OR_BLOODCAT
 #include "../../Tactical/opplist.h"             // EndMuzzleFlash
 #include "../../Tactical/Dialogue Control.h"    // DialogueQueueIsEmpty
 #include "../../TileEngine/Isometric Utils.h"   // defines NOWHERE
 #include "../../Utils/Debug Control.h"          // LiveMessage
 #include "../../Utils/Font Control.h"           // ScreenMsg about deadlock
-#include "../../Utils/Text.h"                   // Sniper warning
+#include <Text.h>                               // Sniper warning
 #include "../../Utils/message.h"                // ditto
 
 

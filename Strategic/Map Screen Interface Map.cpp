@@ -17,9 +17,8 @@
 	#include "WCheck.h"
 	#include "Assignments.h"
 	#include "Squads.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Soldier Profile.h"
-	#include "Player Command.h"
 	#include "Strategic Movement.h"
 	#include "Queen Command.h"
 	#include "Campaign Types.h"
@@ -28,7 +27,6 @@
 	#include "Vehicles.h"
 	#include "Map Screen Helicopter.h"
 	#include "Game Clock.h"
-	#include "finances.h"
 	#include "line.h"
 	#include "english.h"
 	#include "PreBattle Interface.h"
@@ -39,7 +37,6 @@
 	#include "Tactical Save.h"
 	#include "Map Information.h"
 	#include "Air Raid.h"
-	#include "Auto Resolve.h"
 	#include "ASD.h"	// added by Flugente
 	#include "MilitiaIndividual.h"	// added by Flugente
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
@@ -50,12 +47,11 @@
 
 #include "Quests.h"
 #include "connect.h"
-#include "Strategic Mines.h"
 // HEADROCK HAM 3.5: included for detectionlevels
 #include "Facilities.h"
-#include "MilitiaSquads.h"
 
 #include "LaptopSave.h"
+#include <language.hpp>
 
 // added by Flugente
 extern CHAR16 gzSectorNames[256][4][MAX_SECTOR_NAME_LENGTH];
@@ -475,10 +471,10 @@ UINT32 guiMAPCURSORS;
 UINT32 guiMapPathingArrows;
 
 // assignment selection character
-INT8 bSelectedAssignChar=-1;
+INT16 bSelectedAssignChar=-1;
 
 // current contract char
-INT8 bSelectedContractChar = -1;
+INT16 bSelectedContractChar = -1;
 
 
 // has the temp path for character or helicopter been already drawn?
@@ -522,7 +518,7 @@ void ShowTownText( void );
 void DrawTownLabels(STR16 pString, STR16 pStringA,UINT16 usFirstX, UINT16 usFirstY);
 void ShowTeamAndVehicles(INT32 fShowFlags);
 BOOLEAN ShadeMapElem( INT16 sMapX, INT16 sMapY, INT32 iColor );
-BOOLEAN ShadeMapElements(const INT32(&colorMap)[16][16]);
+BOOLEAN ShadeMapElements(const INT32(&colorMap)[MAXIMUM_VALID_Y_COORDINATE][MAXIMUM_VALID_X_COORDINATE]);
 void AdjustXForLeftMapEdge(STR16 wString, INT16 *psX, INT32 iFont);
 void BlitTownGridMarkers( void );
 void BlitMineGridMarkers( void );
@@ -601,11 +597,11 @@ BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 // Flugente: added getter/setter so that we can easily check when a new char is set
 // we also set a marker determining when we should update the squads data, so that we only check that when required
 // destination plotting character
-INT8 bSelectedDestChar = -1;
+INT16 bSelectedDestChar = -1;
 bool gSquadEncumbranceCheckNecessary = true;
 
-INT8 GetSelectedDestChar() { return bSelectedDestChar; }
-void SetSelectedDestChar( INT8 aVal )
+INT16 GetSelectedDestChar() { return bSelectedDestChar; }
+void SetSelectedDestChar( INT16 aVal )
 {
 	bSelectedDestChar = aVal;
 	gSquadEncumbranceCheckNecessary = true;
@@ -1199,11 +1195,11 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen1");
 			// don't show loyalty string until loyalty tracking for that town has been started
 			if( gTownLoyalty[ bTown ].fStarted && gfTownUsesLoyalty[ bTown ])
 			{
-				#ifdef CHINESE
+				if ( g_lang == i18n::Lang::zh ) {
 					swprintf( sStringA, L"%d%ге%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
-				#else
+				} else {
 					swprintf( sStringA, L"%d%%%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
-				#endif
+				}
 				
 				// if loyalty is too low to train militia, and militia training is allowed here
 				if ( ( gTownLoyalty[ bTown ].ubRating < iMinLoyaltyToTrain ) && MilitiaTrainingAllowedInTown( bTown ) )
@@ -1298,7 +1294,7 @@ INT32 ShowOnDutyTeam( INT16 sMapX, INT16 sMapY )
 	// run through list
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		if( !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) &&
 				( pSoldier->sSectorX == sMapX) &&
@@ -1350,7 +1346,7 @@ INT32 ShowAssignedTeam(INT16 sMapX, INT16 sMapY, INT32 iCount)
 
 	while(gCharactersList[ubCounter].fValid)
 	{
-		pSoldier = MercPtrs[ gCharactersList[ ubCounter ].usSolID ];
+		pSoldier = gCharactersList[ ubCounter ].usSolID;
 
 		// given number of on duty members, find number of assigned chars
 		// start at beginning of list, look for people who are in sector and assigned
@@ -4377,9 +4373,7 @@ void DisplayDistancesForHelicopter( void )
 	if( (INT32)uiTripCost > LaptopSaveInfo.iCurrentBalance )
 		SetFontForeground( FONT_LTRED );
 		
-	swprintf( sString, L"%d", uiTripCost );
-	InsertCommasForDollarFigure( sString );
-	InsertDollarSignInToString( sString );
+	swprintf( sString, L"%s", FormatMoney(uiTripCost).data());
 	FindFontRightCoordinates(UI_MAP.HeliETA.PopupBox.x + 5, ( INT16 ) (UI_MAP.HeliETA.PopupBox.y + 5 + 3 * GetFontHeight( MAP_FONT ) ), UI_MAP.HeliETA.PopupBox.width, 0,  sString, MAP_FONT,  &sX, &sY );
 	mprintf( sX, ( INT16 ) ( sYPosition + 5 + 3 * GetFontHeight( MAP_FONT ) ), sString );
 
@@ -4856,9 +4850,7 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 	if (PlayerControlsMine(ubMineIndex) && !gMineStatus[ ubMineIndex ].fEmpty)
 	{
 		// show current production
-		swprintf( wSubString, L"%d", PredictDailyIncomeFromAMine(ubMineIndex, TRUE) );
-		InsertCommasForDollarFigure( wSubString );
-		InsertDollarSignInToString( wSubString );
+		swprintf( wSubString, L"%s", FormatMoney(PredictDailyIncomeFromAMine(ubMineIndex, TRUE)).data());
 		wcscpy( wString, wSubString );
 
 /*
@@ -4873,11 +4865,11 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		// if potential is not nil, show percentage of the two
 		if (GetMaxPeriodicRemovalFromMine(ubMineIndex) > 0)
 		{
-			#ifdef CHINESE
+			if ( g_lang == i18n::Lang::zh ) {
 				swprintf( wSubString, L" (%d%ге%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
-			#else
+			} else {
 				swprintf( wSubString, L" (%d%%%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
-			#endif
+			}
 			
 			wcscat( wString, wSubString );
 		}
@@ -5282,12 +5274,12 @@ BOOLEAN LoadMilitiaPopUpBox( void )
 	// load the militia pop up box
 	VObjectDesc.fCreateFlags=VOBJECT_CREATE_FROMFILE;
 
-	if (iResolution >= _640x480 && iResolution < _800x600)
-		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
-	else if (iResolution < _1024x768)
+	if ( isWidescreenUI() || iResolution >= _1024x768)
+		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
+	else if (iResolution >= _800x600)
 		FilenameForBPP("INTERFACE\\Militia_800x600.sti", VObjectDesc.ImageFile);
 	else
-		FilenameForBPP("INTERFACE\\Militia_1024x768.sti", VObjectDesc.ImageFile);
+		FilenameForBPP("INTERFACE\\Militia.sti", VObjectDesc.ImageFile);
 
 	CHECKF(AddVideoObject(&VObjectDesc, &guiMilitia));
 
@@ -6231,14 +6223,14 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen4");
 				usSector = SECTOR( sSectorX, sSectorY );
 
 				// distribute here
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT8 )( iNumberOfGreens / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT8 )( iNumberOfRegulars / iNumberUnderControl );
-				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT8 )( iNumberOfElites / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ GREEN_MILITIA ] =  ( UINT16 )( iNumberOfGreens / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ REGULAR_MILITIA ] =  ( UINT16 )( iNumberOfRegulars / iNumberUnderControl );
+				SectorInfo[usSector].ubNumberOfCivsAtLevel[ ELITE_MILITIA ] =  ( UINT16 )( iNumberOfElites / iNumberUnderControl );
 
 				// Flugente: indivdual militia
-				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT8)(iNumberOfGreens / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT8)(iNumberOfRegulars / iNumberUnderControl) );
-				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT8)(iNumberOfElites / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, GREEN_MILITIA, (UINT16)(iNumberOfGreens / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, REGULAR_MILITIA, (UINT16)(iNumberOfRegulars / iNumberUnderControl) );
+				DropIndividualMilitia( usSector, ELITE_MILITIA, (UINT16)(iNumberOfElites / iNumberUnderControl) );
 
 				// Flugente: as we do not move the group militia, we have to make sure we don't accidentally overfill a sector
 				sTotalSoFar = NumNonPlayerTeamMembersInSector( sSectorX, sSectorY, MILITIA_TEAM );
@@ -6948,19 +6940,15 @@ UINT32 WhatPlayerKnowsAboutEnemiesInSector( INT16 sSectorX, INT16 sSectorY )
 
 BOOLEAN CanMercsScoutThisSector( INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ )
 {
-	INT32 iFirstId = 0, iLastId = 0;
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-
 	// to speed it up a little?
-	iFirstId = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-
-	for( iCounter = iFirstId; iCounter <= iLastId; iCounter++ )
+	SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	const SoldierID iLastId = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for( ; id <= iLastId; ++id )
 	{
 		// get the soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// is the soldier active
 		if( pSoldier->bActive == FALSE )
@@ -7126,7 +7114,7 @@ UINT8 NumActiveCharactersInSector( INT16 sSectorX, INT16 sSectorY, INT16 bSector
 	{
 		if( gCharactersList[ iCounter ].fValid )
 		{
-			pSoldier = &( Menptr[ gCharactersList[ iCounter ].usSolID ] );
+			pSoldier = gCharactersList[ iCounter ].usSolID;
 
 			if( pSoldier->bActive && ( pSoldier->stats.bLife > 0 ) &&
 					( pSoldier->bAssignment != ASSIGNMENT_POW ) && ( pSoldier->bAssignment != IN_TRANSIT ) )
@@ -8090,7 +8078,7 @@ void MilitiaGroupBoxButtonCallback( GUI_BUTTON *btn, INT32 reason )
 				UINT8 militiatype = id / 2;
 
 				// for now, always alter by 1
-				UINT8 howmany = 1;
+				UINT16 howmany = 1;
 
 				// either add or remove a militia from currently selected group
 				if ( id % 2 )

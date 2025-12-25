@@ -1,17 +1,12 @@
-	#include "items.h"
+	#include "Items.h"
 	#include "handle Items.h"
-	#include "overhead.h"
-	#include "weapons.h"
+	#include "Overhead.h"
 	#include "tiledef.h"
 	#include "worlddef.h"
-	#include "interface.h"
-	#include "renderworld.h"
-	#include "Animation Control.h"
-	#include "font control.h"
+	#include "Font Control.h"
 	#include "World items.h"
-	#include "debug.h"
-	#include "Isometric utils.h"
-	#include "sys globals.h"
+	#include "Isometric Utils.h"
+	#include "Sys Globals.h"
 	#include "Tactical Save.h"
 	#include "strategicmap.h"
 	#include "Campaign Types.h"
@@ -22,8 +17,10 @@
 	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "message.h"
-	#include "map screen interface map inventory.h"	// added by Flugente
+	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #include "connect.h"
+
+
 #ifdef JA2EDITOR//dnl ch84 290114
 #include "Item Statistics.h"
 #endif
@@ -256,7 +253,7 @@ void WORLDITEM::initialize()
 	this->bRenderZHeightAboveLevel = 0;
 	this->bVisible = 0;
 	this->ubNonExistChance = 0;
-	this->soldierID = -1;
+	this->soldierID = NOBODY;
 	this->object.initialize();
 }
 
@@ -270,7 +267,7 @@ WORLDITEM& WORLDITEM::operator=(OLD_WORLDITEM_101& src)
 	this->bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
 	this->bVisible = src.bVisible;
 	this->ubNonExistChance = src.ubNonExistChance;
-	this->soldierID = -1;
+	this->soldierID = NOBODY;
 
 	//convert the OBJECTTYPE
 	this->object = src.oldObject;
@@ -288,7 +285,7 @@ WORLDITEM& WORLDITEM::operator=(_OLD_WORLDITEM& src)//dnl ch42 280909
 		bRenderZHeightAboveLevel = src.bRenderZHeightAboveLevel;
 		bVisible = src.bVisible;
 		ubNonExistChance = src.ubNonExistChance;
-		soldierID = -1;
+		soldierID = NOBODY;
 		object = src.object;
 	}
 	return(*this);
@@ -457,7 +454,7 @@ INT32 FindWorldItemForTripwireInGridNo( INT32 sGridNo, INT8 bLevel, BOOLEAN fKno
 		{
 			pObj = &( gWorldItems[ gWorldBombs[ uiBombIndex ].iItemIndex ].object );
 
-			if ( pObj && Item[pObj->usItem].tripwire )
+			if ( pObj && ItemIsTripwire(pObj->usItem) )
 			{
 				if ( !fKnown )
 					return( gWorldBombs[ uiBombIndex ].iItemIndex );
@@ -610,7 +607,7 @@ void ResizeWorldItems(void)//dnl ch75 271013
 #endif
 }
 
-INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, INT8 soldierID )
+INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 usFlags, INT8 bRenderZHeightAboveLevel, INT8 bVisible, SoldierID soldierID )
 {
 	UINT32	iItemIndex;
 	INT32		iReturn;
@@ -658,12 +655,15 @@ INT32 AddItemToWorld( INT32 sGridNo, OBJECTTYPE *pObject, UINT8 ubLevel, UINT16 
 			{
 				SOLDIERTYPE* pSoldier = NULL;
 
-				if (soldierID == -1)
+				if (soldierID == NOBODY)
 				{
 					if (gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner > 1)
 					{
 						soldierID = gWorldItems[ iItemIndex ].object[0]->data.misc.ubBombOwner - 2; // undo the hack
-						pSoldier = MercPtrs[ soldierID ];
+						if ( soldierID < NOBODY )
+						{
+							pSoldier = soldierID;
+						}
 					}
 				}
 				
@@ -867,7 +867,7 @@ void LoadWorldItemsFromMap( INT8 **hBuffer, float dMajorMapVersion, int ubMinorM
 				}
 			}
 
-			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && ( Item[dummyItem.object.usItem].mine || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
+			else if ( dummyItem.bVisible == HIDDEN_ITEM && dummyItem.object[0]->data.bTrap > 0 && (ItemIsMine(dummyItem.object.usItem) || dummyItem.object.usItem == TRIP_FLARE || dummyItem.object.usItem == TRIP_KLAXON) )
 			{
 				ArmBomb( &dummyItem.object, BOMB_PRESSURE );
 				dummyItem.usFlags |= WORLD_ITEM_ARMED_BOMB;

@@ -1,11 +1,11 @@
 #include "builddefines.h"
 
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Debug Control.h"
-	#include "tile surface.h"
-	#include "tile cache.h"
+	#include "Tile Surface.h"
+	#include "Tile Cache.h"
 #ifdef JA2TESTVERSION
-	#include "sys globals.h"
+	#include "Sys Globals.h"
 #endif
 
 UINT32	guiNumTileCacheStructs = 0;

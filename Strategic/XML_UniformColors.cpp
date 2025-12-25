@@ -13,11 +13,9 @@
 	#include "XML.h"
 	#include "expat.h"
 	#include "string.h"
-	#include "Campaign Types.h"
 	#include "FileMan.h"
 	#include "MemMan.h"
 	#include "Debug Control.h"
-	#include "mapscreen.h"
 
 #define MAX_CHAR_DATA_LENGTH			500
 

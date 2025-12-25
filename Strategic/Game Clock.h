@@ -109,6 +109,9 @@ extern INT32 giTimeCompressSpeeds[ NUM_TIME_COMPRESS_SPEEDS ];
 // compress mode now in use
 extern INT32 giTimeCompressMode;
 
+// run time compression till next hour
+extern bool stopTimeCompressionNextHour;
+
 
 enum
 {

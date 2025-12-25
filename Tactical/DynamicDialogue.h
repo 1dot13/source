@@ -7,7 +7,7 @@
 * @brief This file contains declarations of classes and functions used for dynamic dialogue
 */
 
-#include "Types.h"
+#include "types.h"
 #include "Soldier Control.h"
 
 // Flugente: calculate A's opinion of B
@@ -452,7 +452,7 @@ BOOLEAN LoadDynamicDialogue( HWFILE hwFile );
 
 
 //  modify usProfileA's opinion of usProfileB because of usEvent
-void AddOpinionEvent( UINT8 usProfileA, UINT8 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue = TRUE );
+void AddOpinionEvent( UINT16 usProfileA, UINT16 usProfileB, UINT8 usEvent, BOOLEAN fStartDialogue = TRUE );
 
 // get usProfileA's opinion of usProfileB on one of the last 4 days
 INT8 GetDynamicOpinionDay( UINT8 usProfileA, UINT8 usProfileB, UINT8 usDay );
@@ -480,7 +480,7 @@ void HandleDynamicOpinionTeaching( SOLDIERTYPE* pSoldier, UINT8 ubStat );
 // some events require a 'leader' -  merc the team will regard as the one being in charge, and subsequently being praised or damned for the way things develop
 UINT32 GetSoldierLeaderRating( SOLDIERTYPE* pSoldier );
 
-UINT16 GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ );
+SoldierID GetBestMercLeaderInSector( INT16 sX, INT16 sY, INT8 sZ );
 
 // get id of a random merc in a sector, provided one exists
 UINT8 GetRandomMercInSectorNotInList( INT16 sX, INT16 sY, INT8 sZ, std::vector<UINT8> aTaboo, BOOLEAN fImpOnly );

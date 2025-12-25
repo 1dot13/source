@@ -1,36 +1,31 @@
-	#include <stdio.h>
 	#include <time.h>
 	#include "sgp.h"
-	#include "Gameloop.h"
+	#include "gameloop.h"
 	#include "Screens.h"
-	#include "cursors.h"
-	#include "init.h"
-	#include "music control.h"
-	#include "sys globals.h"
+	#include "Cursors.h"
+	#include "Init.h"
+	#include "Music Control.h"
+	#include "Sys Globals.h"
 	#include "laptop.h"
 	#include "mapscreen.h"
 	#include "Game Clock.h"
 	#include "Timer Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "LibraryDataBase.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
 	#include "Interface.h"
 	#include "GameSettings.h"
-	#include "mapscreen.h"
 	#include "Interface Control.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "HelpScreen.h"
 	#include "PreBattle Interface.h"
-	#include "Tactical Placement GUI.h"//dnl ch45 071009
 	#include "Map Screen Interface Map Inventory.h"//dnl ch51 081009
 	#include "World Items.h"//dnl ch77 191113
-	#include "Overhead.h"	// added by Flugente		
 	#include "Ambient Control.h"	// sevenfm
 
 #include "SaveLoadScreen.h"
 
-#include "Lua Interpreter.h"
 //**ddd direct link libraries
 #pragma comment (lib, "user32.lib")
 #pragma comment (lib, "gdi32.lib")
@@ -80,7 +75,7 @@ void HandleNewScreenChange( UINT32 uiNewScreen, UINT32 uiOldScreen );
 
 #ifdef JA2BETAVERSION
 BOOLEAN gubReportMapscreenLock = 0;
-void ReportMapscreenErrorLock()
+static void ReportMapscreenErrorLock()
 {
 	switch( gubReportMapscreenLock )
 	{

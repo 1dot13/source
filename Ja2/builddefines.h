@@ -1,8 +1,6 @@
 #ifndef _BUILDDEFINES_H
 #define _BUILDDEFINES_H
 
-#include "Language Defines.h"
-
 //----- Briefing Room (Mission based JA2 like in JA/DG) - by Jazz -----
 // Once enabled here and also enabled in the ja2_options.ini (BRIEFING_ROOM), 
 // you can access the briefing room feature from the laptop
@@ -33,7 +31,9 @@
 // -----------------------------
 
 // Map Editor version - you should use the MapEditor configuration instead of messing with these defines (ChrisL)
+//#ifndef JA2BETAVERSION
 //#define JA2BETAVERSION
+//#endif
 //#define JA2EDITOR
 // Normal test version
 //#define JA2TESTVERSION
@@ -79,6 +79,6 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS
 #define _SCL_SECURE_NO_WARNINGS
 
-#include "Profiler.h"
+#include "profiler.h"
 
 #endif

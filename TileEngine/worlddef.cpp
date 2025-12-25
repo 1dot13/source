@@ -1,26 +1,26 @@
 #include "builddefines.h"
 
 	#include "worlddef.h"
-	#include "worlddat.h"
-	#include "wcheck.h"
-	#include "debug.h"
+	#include "WorldDat.h"
+	#include "WCheck.h"
+	#include "DEBUG.H"
 	#include "worldman.h"
-	#include "sys globals.h"
+	#include "Sys Globals.h"
 	#include "Render Fun.h"
 	#include "lighting.h"
 	#include "Interactive Tiles.h"
-	#include "utilities.h"
-	#include "overhead.h"
+	#include "Utilities.h"
+	#include "Overhead.h"
 	#include "opplist.h"
 	#include "renderworld.h"
 	#include "Radar Screen.h"
 	#include "Exit Grids.h"
-	#include "tile surface.h"
-	#include "rotting corpses.h"
+	#include "Tile Surface.h"
+	#include "Rotting Corpses.h"
 	#include "Keys.h"
 	#include "Map Information.h"
 	#include "Animated ProgressBar.h"
-	#include "pathai.h"
+	#include "PATHAI.H"
 	#include "EditorBuildings.h"
 	#include "Map Edgepoints.h"
 	#include "Shade Table Util.h"
@@ -34,13 +34,13 @@
 	#include "overhead map.h"
 	#include "SmokeEffects.h"
 	#include "LightEffects.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "LoadScreen.h"//dnl ch30 150909
 	#include "Interface Cursors.h"
 	#include "Simple Render Utils.h"//dnl ch54 111009
 	#include "Interface.h"
 ///ddd
-	#include "gamesettings.h"
+	#include "GameSettings.h"
 	#include "editscreen.h"
 	#include "Editor Taskbar Utils.h"
 
@@ -122,7 +122,6 @@ BOOLEAN gfInitAnimateLoading = FALSE;
 BOOLEAN LoadTileSurfaces( char pTileSurfaceFilenames[][32], UINT8 ubTilesetID );
 BOOLEAN AddTileSurface( SGPFILENAME cFilename, UINT32 ubType, UINT8 ubTilesetID, BOOLEAN fGetFromRoot );
 void DestroyTileSurfaces( void );
-void ProcessTilesetNamesForBPP(void);
 BOOLEAN IsRoofVisibleForWireframe( INT32 sMapPos );
 
 #ifdef JA2UBMAPS
@@ -225,7 +224,7 @@ BOOLEAN GridNoIndoors( INT32 iMapIndex )
 	return FALSE;
 }
 
-void DOIT( )
+static void DOIT( )
 {
 //	LEVELNODE *			pLand;
 	//LEVELNODE *			pObject;
@@ -271,9 +270,6 @@ BOOLEAN InitializeWorld( )
 	#endif
 
 	SetNumberOfTiles();
-
-	// DB Adds the _8 to the names if we're in 8 bit mode.
-	//ProcessTilesetNamesForBPP();
 
 	// Memset tileset list
 	memset( TileSurfaceFilenames, '\0', sizeof( TileSurfaceFilenames ) );
@@ -341,7 +337,7 @@ void DeinitializeWorld()
 }
 
 
-BOOLEAN ReloadTilesetSlot( INT32 iSlot )
+static BOOLEAN ReloadTilesetSlot( INT32 iSlot )
 {
 	return(TRUE);
 }
@@ -770,7 +766,7 @@ void DestroyTileSurfaces( )
 	}
 }
 
-void CompileWorldTerrainIDs( void )
+static void CompileWorldTerrainIDs( void )
 {
 	INT32			sGridNo;
 	INT32			sTempGridNo;
@@ -825,7 +821,7 @@ void CompileWorldTerrainIDs( void )
 	}
 }
 
-BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
+static BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 {	
 
 	if (	(pStructure->fFlags & STRUCTURE_WALLNWINDOW) && gGameExternalOptions.fCanJumpThroughWindows
@@ -863,7 +859,7 @@ BOOLEAN IsNotRestrictedWindow(STRUCTURE *	pStructure)
 
 	return FALSE;
 }
-void CompileTileMovementCosts( INT32 usGridNo )
+static void CompileTileMovementCosts( INT32 usGridNo )
 {
 	UINT8						ubTerrainID;
 	TILE_ELEMENT		TileElem;
@@ -2322,7 +2318,7 @@ INT8	bDirectionsForShadowSearch[ NUM_DIR_SEARCHES ] =
 	EAST
 };
 
-void OptimizeMapForShadows( )
+static void OptimizeMapForShadows( )
 {
 	INT32 cnt, dir;
 	INT32 sNewGridNo;
@@ -2352,7 +2348,7 @@ void OptimizeMapForShadows( )
 	}
 }
 
-void SetBlueFlagFlags( void )
+static void SetBlueFlagFlags( void )
 {
 	INT32		cnt;
 	LEVELNODE * pNode;
@@ -2927,7 +2923,7 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 		SetWorldSize(iRowSize, iColSize);
 
 		// We still have the "normal" map size AND the map is saved in vanilla format
-		if ((iRowSize <= OLD_WORLD_ROWS && iRowSize <= OLD_WORLD_COLS) && (dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION))
+		if ((iRowSize <= OLD_WORLD_ROWS && iColSize <= OLD_WORLD_COLS) && (dMajorMapVersion == VANILLA_MAJOR_MAP_VERSION && ubMinorMapVersion == VANILLA_MINOR_MAP_VERSION))
 		{
 			// Check "vanilla map saving"
 			gfVanillaMode = TRUE;//dnl ch74 191013
@@ -3289,10 +3285,9 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	// CHECK IF OUR SELECTED GUY IS GONE!
 	if(gusSelectedSoldier != NOBODY)
 	{
-		if(MercPtrs[gusSelectedSoldier]->bActive == FALSE)
+		if(gusSelectedSoldier->bActive == FALSE)
 			gusSelectedSoldier = NOBODY;
 	}
-	AdjustSoldierCreationStartValues();
 	RenderProgressBar(0, 60);
 	InvalidateWorldRedundency();
 	// SAVE FILENAME
@@ -3325,9 +3320,6 @@ BOOLEAN NewWorld( INT32 nMapRows,  INT32 nMapCols )
 	UINT16				NewIndex;
 	INT32					cnt;
 
-	gusSelectedSoldier = gusOldSelectedSoldier = NOBODY;
-
-	AdjustSoldierCreationStartValues( );
 
 	TrashWorld();
 
@@ -3422,7 +3414,10 @@ void TrashWorld( void )
 	//Remove the schedules
 	DestroyAllSchedules();
 #ifdef JA2UB
-//Ja25 no meanwhiles
+	//Ja25 no meanwhiles
+	// But DO turn off powergen fan sound
+	extern void HandleRemovingPowerGenFanSound();
+	HandleRemovingPowerGenFanSound();
 #else
 	// on trash world sheck if we have to set up the first meanwhile
 	HandleFirstMeanWhileSetUpWithTrashWorld( );
@@ -3529,7 +3524,7 @@ void TrashWorld( void )
 
 
 
-void TrashMapTile(INT16 MapTile)
+void TrashMapTile(INT32 MapTile)
 {
 	MAP_ELEMENT		*pMapTile;
 	LEVELNODE			*pLandNode;
@@ -3717,7 +3712,7 @@ void SetLoadOverrideParams( BOOLEAN fForceLoad, BOOLEAN fForceFile, CHAR8 *zLoad
 }
 
 
-void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
+static void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 {
 	LEVELNODE			*pTopmost, *pTopmostTail;
 
@@ -3744,7 +3739,7 @@ void AddWireFrame( INT32 sGridNo, UINT16 usIndex, BOOLEAN fForced )
 }
 
 
-UINT16 GetWireframeGraphicNumToUseForWall( INT32 sGridNo, STRUCTURE *pStructure )
+static UINT16 GetWireframeGraphicNumToUseForWall( INT32 sGridNo, STRUCTURE *pStructure )
 {
 	LEVELNODE	*pNode = NULL;
 	UINT8		ubWallOrientation;

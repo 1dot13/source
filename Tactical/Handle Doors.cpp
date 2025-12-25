@@ -1,23 +1,21 @@
-	#include "builddefines.h"
-	#include <stdio.h>
-	#include <time.h>
+	#include <wchar.h>
 	#include "sgp.h"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "renderworld.h"
 	#include "structure.h"
 	#include "Animation Control.h"
-	#include "points.h"
+	#include "Points.h"
 	#include "opplist.h"
-	#include "overhead.h"
-	#include "tile animation.h"
+	#include "Overhead.h"
+	#include "Tile Animation.h"
 	#include "Interactive Tiles.h"
-	#include "handle doors.h"
+	#include "Handle Doors.h"
 	#include "Sound Control.h"
-	#include "interface.h"
-	#include "keys.h"
+	#include "Interface.h"
+	#include "Keys.h"
 	#include "message.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "random.h"
 	#include "SkillCheck.h"
 	#include "Dialogue Control.h"
@@ -29,20 +27,14 @@
 	#include "Isometric Utils.h"
 	#include "ai.h"
 	#include "Soldier macros.h"
-	#include "Event Pump.h"
 	#include "GameSettings.h"
 #include "fresh_header.h"
 #include "connect.h"
+#include <language.hpp>
 
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
-#include "ub_config.h"
 #endif
 
 BOOLEAN gfSetPerceivedDoorState = FALSE;
@@ -438,12 +430,10 @@ void ProcessImplicationsOfPCMessingWithDoor( SOLDIERTYPE * pSoldier )
 	// if player is hacking at a door in the brothel and a kingpin guy can see him
 	if ( (InARoom( pSoldier->sGridNo, &usRoom ) && IN_BROTHEL( usRoom )) || (gWorldSectorX == 5 && gWorldSectorY == MAP_ROW_D && gbWorldSectorZ == 0 && (pSoldier->sGridNo == gModSettings.iBrothelDoor1 || pSoldier->sGridNo == gModSettings.iBrothelDoor2 || pSoldier->sGridNo == gModSettings.iBrothelDoor3 ) ) )//11010,11177,11176
 	{
-		UINT8		ubLoop;
-
 		// see if a kingpin goon can see us
-		for ( ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ubLoop++ )
+		for ( SoldierID ubLoop = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; ubLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++ubLoop )
 		{
-			pGoon = MercPtrs[ ubLoop ];
+			pGoon = ubLoop;
 			if ( pGoon->ubCivilianGroup == KINGPIN_CIV_GROUP && pGoon->bActive && pGoon->bInSector && pGoon->stats.bLife >= OKLIFE && pGoon->aiData.bOppList[ pSoldier->ubID ] == SEEN_CURRENTLY )
 			{
 				MakeCivHostile(pGoon);
@@ -1492,7 +1482,7 @@ void SetDoorString( INT32 sGridNo )
 	// ATE: If here, we try to say, opened or closed...
 	if ( gfUIIntTileLocation2 == FALSE )
 	{
-#ifdef GERMAN
+if( g_lang == i18n::Lang::de ) {
 
 			wcscpy( gzIntTileLocation2, TacticalStr[ DOOR_DOOR_MOUSE_DESCRIPTION ] );
 			gfUIIntTileLocation2 = TRUE;
@@ -1535,7 +1525,7 @@ void SetDoorString( INT32 sGridNo )
 					gfUIIntTileLocation = TRUE;
 				}
 			}
-#else
+} else {
 
 			// Try to get doors status here...
 			pDoorStatus = GetDoorStatus( sGridNo );
@@ -1576,7 +1566,7 @@ void SetDoorString( INT32 sGridNo )
 				}
 			}
 
-#endif
+}
 	}
 
 }

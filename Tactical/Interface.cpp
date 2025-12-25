@@ -1,62 +1,55 @@
 	#include "builddefines.h"
 	#include <stdio.h>
 	#include <stdarg.h>
-	#include <time.h>
 	#include "sgp.h"
-	#include "gameloop.h"
 	#include "himage.h"
 	#include "vobject.h"
 	#include "sysutil.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "mousesystem.h"
 	#include "Button System.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "vsurface.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "input.h"
 	#include "Handle UI.h"
 	#include "Animation Control.h"
 	#include "Animation Data.h"
 	#include "renderworld.h"
-	#include "sys globals.h"
-	#include "cursors.h"
-	#include "radar screen.h"
+	#include "Sys Globals.h"
+	#include "Cursors.h"
+	#include "Radar Screen.h"
 	#include "worldman.h"
 	#include "Font Control.h"
-	#include "render dirty.h"
-	#include "utilities.h"
-	#include "interface cursors.h"
+	#include "Render Dirty.h"
+	#include "Utilities.h"
+	#include "Interface Cursors.h"
 	#include "Sound Control.h"
 	#include "lighting.h"
 	#include "Interface Panels.h"
-	#include "pathai.h"
-	#include "vobject_blitters.h"
+	#include "PATHAI.H"
+	#include <shading.h>
 	#include "faces.h"
-	#include "Handle UI Plan.h"
-	#include "interface control.h"
-	#include "interface items.h"
-	#include "soldier profile.h"
+	#include "Interface Control.h"
+	#include "Interface Items.h"
+	#include "Soldier Profile.h"
 	#include "MercTextBox.h"
-	#include "soldier functions.h"
-	#include "cursor control.h"
-	#include "handle doors.h"
-	#include "keys.h"
-	#include "text.h"
-	#include "points.h"
-	#include "soldier macros.h"
-	#include "game clock.h"
+	#include "Soldier Functions.h"
+	#include "Cursor Control.h"
+	#include "Handle Doors.h"
+	#include "Keys.h"
+	#include "Text.h"
+	#include "Points.h"
+	#include "Soldier macros.h"
+	#include "Game Clock.h"
 	#include "physics.h"
-	#include "Map Screen Interface Map.h"
 	#include "line.h"
 	#include "Vehicles.h"
-	#include "messageboxscreen.h"
-	#include "gamesettings.h"
+	#include "GameSettings.h"
 	#include "Squads.h"
 	#include "message.h"
-    #include "strategicmap.h"
-	#include "Queen Command.h"
 	// HEADROCK HAM 4: Included for new CTH indicator
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Map Screen Interface.h"	// added by Flugente for SquadNames
 	#include "environment.h"
 	#include "SkillCheck.h"				// added by Flugente
@@ -65,14 +58,7 @@
 
 #include "InterfaceItemImages.h"
 #ifdef JA2UB
-#include "Explosion Control.h"
 #include "Ja25_Tactical.h"
-#include "Ja25 Strategic Ai.h"
-#include "MapScreen Quotes.h"
-#include "email.h"
-#include "interface Dialogue.h"
-#include "mercs.h"
-#include "ub_config.h"
 #endif
 
 #include "connect.h"
@@ -122,8 +108,8 @@ extern BOOLEAN gfCannotGetThrough;			// will use it when showing red laser dot
 extern void SoldierTooltip(SOLDIERTYPE*);
 
 BOOLEAN	gfProgBarActive		= FALSE;
-UINT8		gubProgNumEnemies		= 0;
-UINT8		gubProgCurEnemy			= 0;
+UINT16		gubProgNumEnemies		= 0;
+UINT16		gubProgCurEnemy			= 0;
 
 
 UINT32		guiPORTRAITICONS;
@@ -164,8 +150,6 @@ MOUSE_REGION	gMenuOverlayRegion;
 
 MOUSE_REGION	gBottomPanalRegion;
 
-UINT16				gusOldSelectedSoldier		= NOBODY;
-
 // OVerlay ID
 INT32					giPopupSlideMessageOverlay = -1;
 UINT16				gusOverlayPopupBoxWidth, gusOverlayPopupBoxHeight;
@@ -187,9 +171,9 @@ BOOLEAN	gfPanelAllocated = FALSE;
 
 extern MOUSE_REGION	gDisableRegion;
 extern MOUSE_REGION gUserTurnRegion;
-extern BOOLEAN gfUserTurnRegionActive;
-extern UINT8 gubSelectSMPanelToMerc;
-extern BOOLEAN gfIgnoreOnSelectedGuy;
+extern BOOLEAN		gfUserTurnRegionActive;
+extern SoldierID		gubSelectSMPanelToMerc;
+extern BOOLEAN		gfIgnoreOnSelectedGuy;
 
 enum
 {
@@ -461,14 +445,7 @@ BOOLEAN InitializeTacticalInterface(	)
 
 	// failing the CHECKF after this will cause you to lose your mouse
 
-	if ( GETPIXELDEPTH() == 8 )
-	{
-		strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT_8.pcx" );
-	}
-	else if ( GETPIXELDEPTH() == 16 )
-	{
-		strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT.STI" );
-	}
+	strcpy( vs_desc.ImageFile, "INTERFACE\\IN_TEXT.STI" );
 
 	if( !AddVideoSurface( &vs_desc, &guiINTEXT ) )
 		AssertMsg( 0, "Missing INTERFACE\\In_text.sti");
@@ -663,10 +640,7 @@ void ShutdownCurrentPanel( )
 
 
 
-
-
-
-void SetCurrentTacticalPanelCurrentMerc( UINT8 ubID )
+void SetCurrentTacticalPanelCurrentMerc( SoldierID ubID )
 {
 	SOLDIERTYPE *pSoldier;
 
@@ -676,7 +650,7 @@ void SetCurrentTacticalPanelCurrentMerc( UINT8 ubID )
 	if ( gsCurInterfacePanel == SM_PANEL )
 	{
 		// If we are not of merc bodytype, or am an epc, and going into inv, goto another....
-		pSoldier = MercPtrs[ ubID ];
+		pSoldier = ubID;
 
 		if ( !IS_MERC_BODY_TYPE( pSoldier ) || AM_AN_EPC( pSoldier ) )
 		{
@@ -692,12 +666,11 @@ void SetCurrentTacticalPanelCurrentMerc( UINT8 ubID )
 			break;
 
 		case TEAM_PANEL:
-			SetTEAMPanelCurrentMerc( (UINT8)gusSelectedSoldier );
+			SetTEAMPanelCurrentMerc( gusSelectedSoldier );
 			break;
 	}
-
-
 }
+
 
 void CreateCurrentTacticalPanelButtons( )
 {
@@ -730,7 +703,7 @@ void SetCurrentInterfacePanel( UINT8 ubNewPanel )
 void ToggleTacticalPanels( )
 {
 	gfSwitchPanel			= TRUE;
-	gubNewPanelParam	= (UINT8)gusSelectedSoldier;
+	gubNewPanelParam	= gusSelectedSoldier;
 
 	if ( gsCurInterfacePanel == SM_PANEL )
 	{
@@ -760,7 +733,7 @@ void RemoveCurrentTacticalPanelButtons( )
 }
 
 
-BOOLEAN IsMercPortraitVisible( UINT8 ubSoldierID )
+BOOLEAN IsMercPortraitVisible( UINT16 ubSoldierID )
 {
 	if ( gsCurInterfacePanel == TEAM_PANEL )
 	{
@@ -851,7 +824,7 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 
 	if ( gusSelectedSoldier != NOBODY )
 	{
-		pSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSoldier = gusSelectedSoldier;
 	}
 
 	// Blit background!
@@ -978,12 +951,12 @@ void PopupMovementMenu( UI_EVENT *pUIEvent )
 	}
 	else
 	{
-		if ( Item[pSoldier->inv[ HANDPOS ].usItem].toolkit )
+		if (ItemIsToolkit(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = TOOLKITACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
 		}
-		else if ( Item[pSoldier->inv[ HANDPOS ].usItem].wirecutters )
+		else if (ItemIsWirecutters(pSoldier->inv[ HANDPOS ].usItem))
 		{
 			uiActionImages = WIRECUTACTIONC_IMAGES;
 			swprintf( zActionString, TacticalStr[ NOT_APPLICABLE_POPUPTEXT ] );
@@ -1673,7 +1646,7 @@ void DrawCTHPixelToBuffer( UINT16 *pBuffer, UINT32 uiPitch, INT16 sLeft, INT16 s
 
 //QUOTE_SYSTEM_STRUCT	soldierTTInfo;
 
-void DrawSelectedUIAboveGuy( UINT16 usSoldierID )
+void DrawSelectedUIAboveGuy( SoldierID usSoldierID )
 {
 	SOLDIERTYPE		*pSoldier;
 	INT16			sXPos, sYPos;
@@ -3562,10 +3535,7 @@ void DrawBarsInUIBox( SOLDIERTYPE *pSoldier , INT16 sXPos, INT16 sYPos, INT16 sW
 		}
 		if ( pSoldier->ubID == gusSelectedSoldier )
 		{
-			if(gbPixelDepth==16)
-				RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color16, pDestBuf);
-			else
-				RectangleDraw8( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color8, pDestBuf);
+			RectangleDraw( TRUE, sXPos+1, sYPos-1, sXPos+sWidth+3, sYPos+1+interval*3, color16, pDestBuf);
 		}
 	}
 
@@ -4218,7 +4188,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_OPEN_DOOR], APBPConstants[BP_OPEN_DOOR], FALSE ) )
 				{
 				// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					if ( gOpenDoorMenu.fClosingDoor )
 					{
@@ -4242,7 +4212,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, GetAPsToOpenDoor( gOpenDoorMenu.pSoldier ), APBPConstants[BP_OPEN_DOOR], FALSE ) )
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				if ( gOpenDoorMenu.fClosingDoor )
 				{
@@ -4267,7 +4237,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_BOOT_DOOR], APBPConstants[BP_BOOT_DOOR], FALSE ) )
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_FORCE );
 			}
@@ -4284,7 +4254,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_UNLOCK_DOOR], APBPConstants[BP_UNLOCK_DOOR], FALSE ) )
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_UNLOCK );
 			}
@@ -4301,7 +4271,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, GetAPsToPicklock( gOpenDoorMenu.pSoldier ), APBPConstants[BP_PICKLOCK], FALSE ) ) // SANDRO
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_LOCKPICK );
 			}
@@ -4318,7 +4288,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_EXAMINE_DOOR], APBPConstants[BP_EXAMINE_DOOR], FALSE ) )
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_EXAMINE );
 			}
@@ -4344,7 +4314,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_EXPLODE_DOOR], APBPConstants[BP_EXPLODE_DOOR], FALSE ) )
 				{
 					// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_EXPLODE );
 				}
@@ -4359,7 +4329,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, GetAPsToBombDoor( gOpenDoorMenu.pSoldier ), APBPConstants[BP_EXPLODE_DOOR], FALSE ) ) // SANDRO
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_EXPLODE );
 			}
@@ -4377,7 +4347,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, GetAPsToUntrapDoor( gOpenDoorMenu.pSoldier ), APBPConstants[BP_UNTRAP_DOOR], FALSE ) ) // SANDRO
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_UNTRAP );
 			}
@@ -4403,7 +4373,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 				if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_USE_CROWBAR], APBPConstants[BP_USE_CROWBAR], FALSE ) )
 				{
 					// Set UI
-					SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+					SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 					InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_CROWBAR );
 				}
@@ -4418,7 +4388,7 @@ void BtnDoorMenuCallback(GUI_BUTTON *btn,INT32 reason)
 			if ( EnoughPoints(	gOpenDoorMenu.pSoldier, APBPConstants[AP_USE_CROWBAR], APBPConstants[BP_USE_CROWBAR], FALSE ) )
 			{
 				// Set UI
-				SetUIBusy( (UINT8)gOpenDoorMenu.pSoldier->ubID );
+				SetUIBusy( gOpenDoorMenu.pSoldier->ubID );
 
 				InteractWithClosedDoor( gOpenDoorMenu.pSoldier, HANDLE_DOOR_CROWBAR );
 			}
@@ -5176,7 +5146,7 @@ void PauseRT( BOOLEAN fPause )
 }
 
 
-void InitEnemyUIBar( UINT8 ubNumEnemies, UINT8 ubDoneEnemies )
+void InitEnemyUIBar( UINT16 ubNumEnemies, UINT16 ubDoneEnemies )
 {
 	// OK, set value
 	gubProgNumEnemies = ubNumEnemies + ubDoneEnemies;
@@ -5215,8 +5185,7 @@ void UpdateEnemyUIBar( )
 void InitPlayerUIBar( BOOLEAN fInterrupt )
 {
 	SOLDIERTYPE *pTeamSoldier;
-	INT32				cnt = 0;
-	INT8				bNumOK = 0, bNumNotOK = 0;
+	INT16				bNumOK = 0, bNumNotOK = 0;
 
 	if ( !gGameOptions.fTurnTimeLimit )
 	{
@@ -5241,11 +5210,12 @@ void InitPlayerUIBar( BOOLEAN fInterrupt )
 		gTacticalStatus.usTactialTurnLimitCounter = 0;
 
 		// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-		cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+		SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 		// look for all mercs on the same team,
-		for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pTeamSoldier++)
+		for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 		{
+			pTeamSoldier = cnt;
 			// Are we active and in sector.....
 			if ( pTeamSoldier->bActive && pTeamSoldier->bInSector )
 			{
@@ -5714,7 +5684,6 @@ void BeginMultiPurposeLocator( INT32 sGridNo, INT8 bLevel, BOOLEAN fSlideTo )
 
 	// sGridNo here for DG compatibility
 	gTacticalStatus.sSlideTarget = sGridNo;
-	gTacticalStatus.sSlideReason = NOBODY;
 
 	// Plot new path!
 	gfPlotNewMovement = TRUE;
@@ -5812,10 +5781,7 @@ void DrawBar( INT32 x, INT32 y, INT32 width, INT32 height, UINT16 color8, UINT16
 	{
 		for( INT32 i=0; i < height; i++ )
 		{
-			if(gbPixelDepth==16)
-				LineDraw( TRUE, x, y+i, x+width-1, y+i, color16, pDestBuf );
-			else if(gbPixelDepth==8)
-				LineDraw8( TRUE, x, y+i, x+width-1, y+i, color8, pDestBuf );
+			LineDraw( TRUE, x, y+i, x+width-1, y+i, color16, pDestBuf );
 		}
 	}
 }
@@ -6043,7 +6009,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );
@@ -6059,7 +6025,7 @@ void GetEnemyInfoString( SOLDIERTYPE* pSelectedSoldier, SOLDIERTYPE* pTargetSold
 				}
 				else
 				{	// show general name
-					if( Item[pTargetSoldier->inv[HEAD1POS].usItem].gasmask )
+					if(ItemIsGasmask(pTargetSoldier->inv[HEAD1POS].usItem))
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_MASK ] );
 					else if( Item[pTargetSoldier->inv[HEAD1POS].usItem].nightvisionrangebonus || Item[pTargetSoldier->inv[HEAD1POS].usItem].cavevisionrangebonus )
 						wcscat( NameStr, TacticalStr[ GENERAL_INFO_NVG ] );
@@ -6136,7 +6102,7 @@ void ShowEnemyWeapon( INT16 sX, INT16 sY, SOLDIERTYPE* pTargetSoldier )
 	INT32 iVisibleDistance;
 
 	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSelectedSoldier = gusSelectedSoldier;
 	else
 		return;
 
@@ -6182,7 +6148,7 @@ void ShowEnemyHealthBar( INT16 sX, INT16 sY, SOLDIERTYPE* pSoldier )
 	SOLDIERTYPE *pSelectedSoldier;
 
 	if ( gusSelectedSoldier != NOBODY )
-		pSelectedSoldier = MercPtrs[ gusSelectedSoldier ];
+		pSelectedSoldier = gusSelectedSoldier;
 	else
 		return;
 	

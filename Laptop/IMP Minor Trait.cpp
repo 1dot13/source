@@ -1,17 +1,17 @@
 	#include "IMP Minor Trait.h"
 	#include "IMP Skill Trait.h"
 	#include "Button System.h"
-	#include "utilities.h"
-	#include "Debug.h"
+	#include "Utilities.h"
+	#include "DEBUG.H"
 	#include "Text.h"
 	#include "Font Control.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "laptop.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "IMP MainPage.h"
 	#include "IMPVideoObjects.h"
 	#include "_Ja25EnglishText.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 	#include "CharProfile.h"
 	#include "soldier profile type.h"
 	#include "IMP Compile Character.h"
@@ -80,7 +80,7 @@ UINT8 gusNewMinorTraitRemap[IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS] =
 
 BOOLEAN gfIMT_Redraw=FALSE;
 
-BOOLEAN	gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ];
+BOOLEAN	gfMinorTraitQuestions[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ]; 
 
 // these are the buttons for the questions
 INT32 giIMPMinorTraitAnswerButton[ IMP_SKILL_TRAITS_NEW_NUMBER_MINOR_SKILLS ];

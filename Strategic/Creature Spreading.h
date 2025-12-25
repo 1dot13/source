@@ -30,11 +30,11 @@ BOOLEAN GetWarpOutOfMineCodes( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSecto
 
 extern INT16 gsCreatureInsertionCode;
 extern INT32 gsCreatureInsertionGridNo;
-extern UINT8 gubNumCreaturesAttackingTown;
-extern UINT8 gubYoungMalesAttackingTown;
-extern UINT8 gubYoungFemalesAttackingTown;
-extern UINT8 gubAdultMalesAttackingTown;
-extern UINT8 gubAdultFemalesAttackingTown;
+extern UINT16 gubNumCreaturesAttackingTown;
+extern UINT16 gubYoungMalesAttackingTown;
+extern UINT16 gubYoungFemalesAttackingTown;
+extern UINT16 gubAdultMalesAttackingTown;
+extern UINT16 gubAdultFemalesAttackingTown;
 extern UINT8 gubSectorIDOfCreatureAttack;
 enum{
 	CREATURE_BATTLE_CODE_NONE,
@@ -53,15 +53,15 @@ enum {
 };
 extern UINT8 guCreatureAttackType;
 
-void DetermineCreatureTownComposition( UINT8 ubNumCreatures, 
-																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales );
+void DetermineCreatureTownComposition( UINT16 ubNumCreatures, 
+																			UINT16 *pubNumYoungMales, UINT16 *pubNumYoungFemales,
+																			UINT16 *pubNumAdultMales, UINT16 *pubNumAdultFemales );
 
-void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT8 *pubNumCreatures, 
-																			UINT8 *pubNumYoungMales, UINT8 *pubNumYoungFemales,
-																			UINT8 *pubNumAdultMales, UINT8 *pubNumAdultFemales );
+void DetermineCreatureTownCompositionBasedOnTacticalInformation( UINT16 *pubNumCreatures, 
+																			UINT16 *pubNumYoungMales, UINT16 *pubNumYoungFemales,
+																			UINT16 *pubNumAdultMales, UINT16 *pubNumAdultFemales );
 
-void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT8* pubNumCreatures, UINT8* pubNumBloodcats, UINT8* pubNumZombies, UINT8* pubNumBandits );
+void DetermineOtherCreatureTownCompositionBasedOnTacticalInformation( UINT16* pubNumCreatures, UINT16* pubNumBloodcats, UINT16* pubNumZombies, UINT16* pubNumBandits );
 
 
 BOOLEAN PlayerGroupIsInACreatureInfestedMine();

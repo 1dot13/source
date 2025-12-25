@@ -1,27 +1,23 @@
-	#include "sgp.h"
-	#include "sysutil.h"
-	#include "vobject_blitters.h"
-	#include "wcheck.h"
-	#include "cursors.h"
-	#include "font control.h"
-	#include "cursor control.h"
-	#include "render dirty.h"
-	#include	"Text.h"
-	#include	"Utilities.h"
-	#include	"WordWrap.h"
-	#include "Font Control.h"
-	#include "text.h"
-	#include "HelpScreen.h"
-	#include "HelpScreenText.h"
-	#include "Line.h"
-	#include "Game Clock.h"
-	#include "GameSettings.h"
-	#include "laptop.h"
-	#include "Text Input.h"
-	#include "english.h"
-	#include "renderworld.h"
-	#include "Game Init.h"
-	#include "Overhead.h"
+#include "sgp.h"
+#include "sysutil.h"
+#include "WCheck.h"
+#include "Cursors.h"
+#include "Font Control.h"
+#include "Render Dirty.h"
+#include	"Text.h"
+#include	"Utilities.h"
+#include	"WordWrap.h"
+#include "HelpScreen.h"
+#include "HelpScreenText.h"
+#include "line.h"
+#include "Game Clock.h"
+#include "GameSettings.h"
+#include "laptop.h"
+#include "Text Input.h"
+#include "english.h"
+#include "renderworld.h"
+#include "Game Init.h"
+#include "Overhead.h"
 
 extern INT16 gsVIEWPORT_END_Y;
 extern void PrintDate( void );
@@ -308,7 +304,6 @@ void SelectHelpScrollAreaCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 // region to mask the background
 MOUSE_REGION	gHelpScreenScrollAreaArrows;
-void SelectHelpScrollAreaArrowsCallBack( MOUSE_REGION * pRegion, INT32 iReason );
 
 
 //checkbox to toggle show help again toggle

@@ -1,34 +1,27 @@
 	#include "Map Screen Interface TownMine Info.h"
 	#include "strategicmap.h"
-	#include "popupbox.h"
+	#include "PopUpBox.h"
 	#include "Map Screen Interface.h"
 	#include "Queen Command.h"
 	#include "Player Command.h"
 	#include "Font Control.h"
-	#include "Font.h"
 	#include "Text.h"
 	#include "Map Screen Interface Map.h"
 	#include "Map Screen Interface Border.h"
-	#include "Handle UI.h"
-	#include "NPC.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
-	#include "finances.h"
 	#include "Map Screen Interface Map Inventory.h"
-	#include "Strategic.h"
+	#include "strategic.h"
 	#include "Utilities.h"
-	#include "video.h"
+	#include <vsurface.h>
 	#include "Town Militia.h"
 	#include "HelpScreen.h"
 	#include "Map Screen Helicopter.h"
 	#include "Tactical Save.h"
 	#include "GameSettings.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "Overhead.h"	// added by Flugente
-	#include "Game Clock.h"			// added by Flugente
-	#include "Game Event Hook.h"	// added by Flugente
-
-#include "Strategic Mines.h"
+		
 
 #define BOX_BUTTON_WIDTH 100
 #define BOX_BUTTON_HEIGHT 20
@@ -180,11 +173,12 @@ void CreateDestroyTownInfoBox( void )
 		// set highlight color
 		SetBoxHighLight(ghTownMineBox, FONT_WHITE);
 
-		SetBoxSecondColumnForeground( ghTownMineBox, FONT_WHITE );
-		SetBoxSecondColumnBackground( ghTownMineBox, FONT_BLACK );
-		SetBoxSecondColumnHighLight( ghTownMineBox, FONT_WHITE );
-		SetBoxSecondColumnShade( ghTownMineBox, FONT_BLACK );
-		SetBoxSecondColumnFont( ghTownMineBox, BLOCKFONT2 );
+		const auto column = 1;
+		SetBoxColumnForeground( ghTownMineBox, FONT_WHITE, column );
+		SetBoxColumnBackground( ghTownMineBox, FONT_BLACK, column );
+		SetBoxColumnHighLight( ghTownMineBox, FONT_WHITE, column );
+		SetBoxColumnShade( ghTownMineBox, FONT_BLACK, column );
+		SetBoxColumnFont( ghTownMineBox, BLOCKFONT2, column );
 		SetBoxSecondColumnMinimumOffset( ghTownMineBox, 20 );
 
 		// unhighlighted color
@@ -548,20 +542,14 @@ void AddTextToMineBox( void )
 		swprintf( wString, L"%s:", pwMineStrings[ 3 ]);
 		AddMonoString( &hStringHandle, wString );
 
-		swprintf( wString, L"%d", PredictDailyIncomeFromAMine( ubMineIndex, TRUE ) );
-		InsertCommasForDollarFigure( wString );
-		InsertDollarSignInToString( wString );
-		AddSecondColumnMonoString( &hStringHandle, wString );
+		AddSecondColumnMonoString( &hStringHandle, FormatMoney(PredictDailyIncomeFromAMine(ubMineIndex, TRUE)).data() );
 
 
 		// potential production
 		swprintf( wString, L"%s:", pwMineStrings[ 4 ]);
 		AddMonoString( &hStringHandle, wString );
 
-		swprintf( wString, L"%d", GetMaxDailyRemovalFromMine( ubMineIndex ) );
-		InsertCommasForDollarFigure( wString );
-		InsertDollarSignInToString( wString );
-		AddSecondColumnMonoString( &hStringHandle, wString );
+		AddSecondColumnMonoString( &hStringHandle, FormatMoney(GetMaxDailyRemovalFromMine(ubMineIndex)).data());
 
 
 		// if potential is not nil
@@ -615,9 +603,7 @@ void AddTextToMineBox( void )
 	wcscpy( wString, L"Remaining (DEBUG):");
 	AddMonoString( &hStringHandle, wString );
 
-	swprintf( wString, L"%d", GetTotalLeftInMine( ubMineIndex ) );
-	InsertCommasForDollarFigure( wString );
-	InsertDollarSignInToString( wString );
+	swprintf( wString, L"%s", FormatMoney( GetTotalLeftInMine( ubMineIndex ) ).data() );
 	AddSecondColumnMonoString( &hStringHandle, wString );
 #endif
 

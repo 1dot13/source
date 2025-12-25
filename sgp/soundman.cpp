@@ -11,7 +11,7 @@
 	#include <string.h>
 	#include "soundman.h"
 	#include "FileMan.h"
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "MemMan.h"
 	#include "random.h"
 	#include "fmod.h"
@@ -261,7 +261,6 @@ void ShutdownSoundManager(void)
 
 	SoundStopAll();
 	SoundShutdownCache();
-	Sleep(1000);
 	SoundShutdownHardware();
 	fSoundSystemInit=FALSE;
 	SoundLog("JA2 sound manager shutdown");

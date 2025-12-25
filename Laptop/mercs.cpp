@@ -6,13 +6,13 @@
 	#include "Cursors.h"
 	#include "Overhead.h"
 	#include "Soldier Add.h"
-	#include "Email.h"
+	#include "email.h"
 	#include "Game Clock.h"
-	#include "Faces.h"
-	#include "dialogue control.h"
+	#include "faces.h"
+	#include "Dialogue Control.h"
 	#include "MercTextBox.h"
 	#include "Merc Hiring.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "LaptopSave.h"
 	#include "GameSettings.h"
 	#include "Text.h"
@@ -980,7 +980,8 @@ void BtnFileBoxButtonCallback(GUI_BUTTON *btn,INT32 reason)
 void DailyUpdateOfMercSite( UINT16 usDate)
 {
 	SOLDIERTYPE *pSoldier;
-	INT16		sSoldierID, i;
+	SoldierID	sSoldierID;
+	INT16		i;
 	UINT8		ubMercID;
 	INT32		iNumDays;
 
@@ -1006,7 +1007,7 @@ void DailyUpdateOfMercSite( UINT16 usDate)
 			//	continue;
 
 			sSoldierID = GetSoldierIDFromMercID( ubMercID );
-			pSoldier = MercPtrs[ sSoldierID ];
+			pSoldier = sSoldierID;
 
 			//if the merc is dead, dont advance the contract length
 			if( !IsMercDead( pSoldier->ubProfile ) )

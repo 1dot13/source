@@ -1,61 +1,57 @@
 	#include "types.h"
-	#include "overhead.h"
-	#include "animation control.h"
-	#include "points.h"
+	#include "Overhead.h"
+	#include "Animation Control.h"
+	#include "Points.h"
 	#include "opplist.h"
-	#include "timer.h"
-	#include "event pump.h"
 	#include "Sound Control.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "Isometric Utils.h"
-	#include "Font Control.H"
+	#include "Font Control.h"
 	#include "ai.h"
-	#include "interface.h"
 	#include "message.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "TeamTurns.h"
 	#include "Smell.h"
-	#include "game clock.h"
-	#include "Soldier Functions.h"
-	#include "cursors.h"
+	#include "Game Clock.h"
 	#include "Queen Command.h"
-	#include "Pathai.h"
+	#include "PATHAI.H"
 	#include "lighting.h"
 	#include "environment.h"
 	#include "Explosion Control.h"
-	#include "dialogue control.h"
-	#include "Soldier Profile Type.h"
+	#include "Dialogue Control.h"
+	#include "soldier profile type.h"
 	#include "SmokeEffects.h"
-	#include "lighteffects.h"
-	#include "air raid.h"
-	#include "meanwhile.h"
+	#include "LightEffects.h"
+	#include "Air Raid.h"
 	#include "SkillCheck.h"
 	#include "AIInternals.h"
 	#include "AIList.h"
 	#ifdef DEBUG_INTERRUPTS
-		#include "debug.h"
+		#include "DEBUG.H"
 	#endif
 	#include "renderworld.h"
-	#include "rotting corpses.h"
+	#include "Rotting Corpses.h"
 	#include "Squads.h"
 	#include "Soldier macros.h"
 	#include "Soldier Profile.h"
 	#include "NPC.h"
-	#include "drugs and alcohol.h"	// added by Flugente
+	#include "Drugs And Alcohol.h"	// added by Flugente
+#include "GameSettings.h"
+#include "Reinforcement.h"
+#include "fresh_header.h"
+#include "connect.h"
+
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
-#endif
+#else
+#include "meanwhile.h"
+#endif // JA2UB
 
-// HEADROCK HAM 3.2: Gamesettings.h for external modifications to team turns.
-#include "GameSettings.h"
-#include "Reinforcement.h"
-#include "fresh_header.h"
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
 class SOLDIERTYPE;
-#include "connect.h"
 
 extern INT8 STRAIGHT;
 //extern UINT8 gubSpeedUpAnimationFactor;
@@ -91,34 +87,34 @@ void RecalculateSoldiersAniSpeed()
 extern void DecayPublicOpplist(INT8 bTeam);
 extern void VerifyAndDecayOpplist(SOLDIERTYPE *pSoldier);
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred );
-void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate);
+void DeleteFromIntList( UINT16 ubIndex, BOOLEAN fCommunicate);
 
 #define END_OF_INTERRUPTS 255
 
-UINT8 gubOutOfTurnOrder[MAXMERCS] = { END_OF_INTERRUPTS, 0 };
-UINT8 gubOutOfTurnPersons = 0;
+UINT16 gubOutOfTurnOrder[MAXMERCS] = { END_OF_INTERRUPTS, 0 };
+UINT16 gubOutOfTurnPersons = 0;
 
 #define LATEST_INTERRUPT_GUY (gubOutOfTurnOrder[gubOutOfTurnPersons])
-#define REMOVE_LATEST_INTERRUPT_GUY()	(DeleteFromIntList( (UINT8) (gubOutOfTurnPersons), TRUE ))
+#define REMOVE_LATEST_INTERRUPT_GUY()	(DeleteFromIntList( (gubOutOfTurnPersons), TRUE ))
 #define INTERRUPTS_OVER (gubOutOfTurnPersons == 1)
 
-INT16 InterruptOnlyGuynum = NOBODY;
-BOOLEAN InterruptsAllowed = TRUE;
-BOOLEAN gfHiddenInterrupt = FALSE;
-UINT8		gubLastInterruptedGuy = 0;
+SoldierID	InterruptOnlyGuynum = NOBODY;
+BOOLEAN		InterruptsAllowed = TRUE;
+BOOLEAN		gfHiddenInterrupt = FALSE;
+SoldierID	gubLastInterruptedGuy = NOBODY;
 
-extern UINT16 gsWhoThrewRock;
+extern SoldierID gsWhoThrewRock;
 extern UINT8 gubSightFlags;
 
 typedef struct
 {
-	UINT8		ubOutOfTurnPersons;
+	UINT16		ubOutOfTurnPersons;
 
-	INT16		InterruptOnlyGuynum;
-	INT16		sWhoThrewRock;
-	BOOLEAN InterruptsAllowed;
-	BOOLEAN fHiddenInterrupt;
-	UINT8		ubLastInterruptedGuy;
+	SoldierID	InterruptOnlyGuynum;
+	SoldierID	sWhoThrewRock;
+	BOOLEAN		InterruptsAllowed;
+	BOOLEAN		fHiddenInterrupt;
+	SoldierID	ubLastInterruptedGuy;
 
 	UINT8	ubFiller[16];
 } TEAM_TURN_SAVE_STRUCT;
@@ -136,8 +132,7 @@ void ClearIntList( void )
 
 BOOLEAN BloodcatsPresent( void )
 {
-	INT32						iLoop;
-	SOLDIERTYPE *		pSoldier;
+	SOLDIERTYPE *pSoldier;
 
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"BloodcatsPresent");
 	if ( gTacticalStatus.Team[ CREATURE_TEAM ].bTeamActive == FALSE )
@@ -145,9 +140,9 @@ BOOLEAN BloodcatsPresent( void )
 		return( FALSE );
 	}
 
-	for ( iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; iLoop++ )
+	for ( SoldierID iLoop = gTacticalStatus.Team[ CREATURE_TEAM ].bFirstID; iLoop <= gTacticalStatus.Team[ CREATURE_TEAM ].bLastID; ++iLoop )
 	{
-		pSoldier = MercPtrs[ iLoop ];
+		pSoldier = iLoop;
 
 		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 && pSoldier->ubBodyType == BLOODCAT )
 		{
@@ -160,7 +155,6 @@ BOOLEAN BloodcatsPresent( void )
 
 void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 {
-	INT32 cnt;
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartPlayerTeamTurn");
 //	SOLDIERTYPE		*pSoldier;
 //	EV_S_BEGINTURN	SBeginTurn;
@@ -177,8 +171,6 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 	//
 	// make sure set properly in gTacticalStatus:
 	gTacticalStatus.ubCurrentTeam = OUR_TEAM;
-
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	InitPlayerUIBar( FALSE );
 
@@ -197,6 +189,7 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 
 		// ATE: Commented out - looks like this message is called earlier for our team
 		// look for all mercs on the same team,
+		//SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 		//for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
 		//{
 		//	if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )
@@ -212,10 +205,10 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 			if ( gusSelectedSoldier != NOBODY )
 			{
 				// Check if this guy is able to be selected....
-				if ( MercPtrs[ gusSelectedSoldier ]->stats.bLife < OKLIFE )
+				if ( gusSelectedSoldier->stats.bLife < OKLIFE )
 				{
 					DebugMsg(TOPIC_JA2INTERRUPT,DBG_LEVEL_3,String("StartPlayerTeamTurn: SelectNextAvailSoldier"));
-					SelectNextAvailSoldier( MercPtrs[ gusSelectedSoldier ] );
+					SelectNextAvailSoldier( gusSelectedSoldier );
 				}
 				else
 				{
@@ -225,12 +218,12 @@ void StartPlayerTeamTurn( BOOLEAN fDoBattleSnd, BOOLEAN fEnteringCombatMode )
 				// Slide to selected guy...
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
+					SlideTo(gusSelectedSoldier, SETLOCATOR);
 
 					if ( fDoBattleSnd )
 					{
 						// Say ATTENTION SOUND...
-						MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+						gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 					}
 
 					if ( gsInterfaceLevel == 1 )
@@ -302,7 +295,6 @@ void EndTurn( UINT8 ubNextTeam )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EndTurn");
 	SOLDIERTYPE * pSoldier;
-	INT32 cnt;
 
 	//Check for enemy pooling (add enemies if there happens to be more than the max in the
 	//current battle.	If one or more slots have freed up, we can add them now.
@@ -344,9 +336,10 @@ void EndTurn( UINT8 ubNextTeam )
 		FreezeInterfaceForEnemyTurn();
 
 		// Loop through all mercs and set to moved
-		cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; cnt++,pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive )
 			{
 				pSoldier->aiData.bMoved = TRUE;
@@ -380,7 +373,6 @@ void EndAITurn( void )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EndAITurn");
 	SOLDIERTYPE * pSoldier;
-	INT32 cnt;
 
 	// Remove any deadlock message
 	EndDeadlockMsg( );
@@ -395,9 +387,10 @@ void EndAITurn( void )
 	}
 	else
 	{
-		cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; cnt++,pSoldier++)
+		SoldierID cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
+		for ( ; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++cnt )
 		{
+			pSoldier = cnt;
 			if ( pSoldier->bActive )
 			{
 				pSoldier->aiData.bMoved = TRUE;
@@ -417,7 +410,6 @@ void EndAllAITurns( void )
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EndAllAITurns");
 	// warp turn to the player's turn
 	SOLDIERTYPE * pSoldier;
-	INT32 cnt;
 
 	// Remove any deadlock message
 	EndDeadlockMsg( );
@@ -428,9 +420,10 @@ void EndAllAITurns( void )
 
 	if ( gTacticalStatus.ubCurrentTeam != gbPlayerNum )
 	{
-		cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
-		for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; cnt++,pSoldier++)
+		SoldierID id = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
+		for ( ; id <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++id )
 		{
+			pSoldier = id;
 			if ( pSoldier->bActive )
 			{
 				pSoldier->aiData.bMoved = TRUE;
@@ -463,9 +456,10 @@ void EndTurnEvents( void )
 	DecaySmokeEffects( GetWorldTotalSeconds( ) );
 
 	SOLDIERTYPE* pSoldier = NULL;
-	UINT32 cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt, ++pSoldier)
+	SoldierID  id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	for ( ; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 	{
+		pSoldier = id;
 		if ( pSoldier->bActive && pSoldier->stats.bLife > 0 )//&& !( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !( AM_A_ROBOT( pSoldier ) ) )
 		{
 			// Flugente: update multi-turn actions
@@ -505,8 +499,6 @@ BOOLEAN LightningEndOfTurn( UINT8 ubTeam );
 void BeginTeamTurn( UINT8 ubTeam )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"BeginTeamTurn");
-	INT32 cnt;
-	UINT8	ubID;
 	SOLDIERTYPE		*pSoldier;
 
 	//rain
@@ -573,9 +565,10 @@ void BeginTeamTurn( UINT8 ubTeam )
 			// decay team's public opplist
 			DecayPublicOpplist( ubTeam );
 
-			cnt = gTacticalStatus.Team[ ubTeam ].bFirstID;
-			for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ ubTeam ].bLastID; cnt++,pSoldier++)
+			SoldierID id = gTacticalStatus.Team[ ubTeam ].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[ ubTeam ].bLastID; ++id )
 			{
+				pSoldier = id;
 				if ( pSoldier->bActive && pSoldier->stats.bLife > 0)
 				{
 					// decay personal opplist, and refresh APs and BPs
@@ -644,7 +637,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 			if ( BuildAIListForTeam( ubTeam ) )
 			{
 
-				ubID = RemoveFirstAIListEntry();
+				SoldierID ubID = RemoveFirstAIListEntry();
 				if (ubID != NOBODY)
 				{
 					// Dirty panel interface!
@@ -657,7 +650,7 @@ void BeginTeamTurn( UINT8 ubTeam )
 					{
 						AddTopMessage( COMPUTER_TURN_MESSAGE, TeamTurnString[ ubTeam ] );
 					}
-					StartNPCAI( MercPtrs[ ubID ] );
+					StartNPCAI( ubID );
 					/*if(is_server && !net_turn) send_EndTurn(ubTeam);
 					if(net_turn == true) net_turn = false;*/
 					if(is_server) send_EndTurn(ubTeam);
@@ -688,7 +681,7 @@ void DisplayHiddenInterrupt( SOLDIERTYPE * pSoldier )
 
 	if (pSoldier->bVisible != -1 )
 	{
-		SlideTo( NOWHERE, pSoldier->ubID, NOBODY ,SETLOCATOR);
+		SlideTo( pSoldier->ubID, SETLOCATOR);
 	}
 
 		if(is_client)
@@ -788,7 +781,7 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 BOOLEAN EveryoneInInterruptListOnSameTeam( void )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EveryoneInInterruptListOnSameTeam");
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 	UINT8	ubTeam = 255;
 
 	for (ubLoop = 1; ubLoop <= gubOutOfTurnPersons; ubLoop++)
@@ -810,12 +803,12 @@ BOOLEAN EveryoneInInterruptListOnSameTeam( void )
 
 void StartInterrupt( void )
 {
-	UINT8						ubFirstInterrupter;
-	INT8						bTeam;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTempSoldier;
-	UINT8						ubInterrupter;
-	INT32						cnt;
+	INT8			bTeam;
+	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pTempSoldier;
+	SoldierID 	ubFirstInterrupter;
+	SoldierID 	ubInterrupter;
+	INT32		cnt;
 
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StartInterrupt");
 	ubFirstInterrupter = LATEST_INTERRUPT_GUY;
@@ -837,9 +830,9 @@ void StartInterrupt( void )
 
 	gTacticalStatus.fInterruptOccurred = TRUE;
 
-	cnt = 0;
-	for ( pTempSoldier = MercPtrs[ cnt ]; cnt < MAX_NUM_SOLDIERS; cnt++,pTempSoldier++)
+	for ( SoldierID id = 0; id < MAX_NUM_SOLDIERS; ++id )
 	{
+		pTempSoldier = id;
 		if ( pTempSoldier->bActive )
 		{
 			pTempSoldier->bMovedPriorToInterrupt = pTempSoldier->aiData.bMoved;
@@ -862,7 +855,7 @@ void StartInterrupt( void )
 		//while( 1 )
 		for( iCounter = 0; iCounter < MAX_NUM_SOLDIERS; iCounter++ )
 		{
-			MercPtrs[ubInterrupter]->aiData.bMoved = FALSE;
+			ubInterrupter->aiData.bMoved = FALSE;
 			DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: popping %d off of the interrupt queue", ubInterrupter ) );
 
 			REMOVE_LATEST_INTERRUPT_GUY();
@@ -873,7 +866,7 @@ void StartInterrupt( void )
 			{
 				continue;
 			}
-			else if (MercPtrs[ubInterrupter]->bTeam != bTeam)
+			else if (ubInterrupter->bTeam != bTeam)
 			{
 				break;
 			}
@@ -891,7 +884,7 @@ void StartInterrupt( void )
 			handleInterrupt = FALSE;
 
 			// build string in separate loop here, want to linearly process squads...
-			SOLDIERTYPE *pInterruptedSoldier = MercPtrs[ubInterrupter];
+			SOLDIERTYPE *pInterruptedSoldier = ubInterrupter;
 			for ( iSquad = 0; iSquad < NUMBER_OF_SQUADS; iSquad++ )
 			{
 				for ( iCounter = 0; iCounter < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounter++ )
@@ -961,7 +954,7 @@ void StartInterrupt( void )
 			SelectSoldier( ubFirstInterrupter, TRUE, TRUE );
 
 			// ATE; Slide to guy who got interrupted!
-			SlideTo( NOWHERE, gubLastInterruptedGuy, NOBODY, SETLOCATOR);
+			SlideTo( gubLastInterruptedGuy, SETLOCATOR);
 
 			// Dirty panel interface!
 			fInterfacePanelDirty						= DIRTYLEVEL2;
@@ -981,24 +974,25 @@ void StartInterrupt( void )
 			PlayJA2Sample( ENDTURN_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 
 			// report any close call quotes for us here
-			for ( iCounter = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; iCounter <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; iCounter++ )
+			for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
-				if ( OK_INSECTOR_MERC( MercPtrs[ iCounter ] ) )
+				SOLDIERTYPE *pSoldier = id;
+
+				if ( OK_INSECTOR_MERC( pSoldier ) )
 				{
-					if ( MercPtrs[ iCounter ]->flags.fCloseCall )
+					if ( pSoldier->flags.fCloseCall )
 					{
-						if ( MercPtrs[ iCounter ]->bNumHitsThisTurn == 0 && !(MercPtrs[ iCounter ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+						if ( pSoldier->bNumHitsThisTurn == 0 && !(pSoldier->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
 						{
 							// say close call quote!
-							TacticalCharacterDialogue( MercPtrs[ iCounter ], QUOTE_CLOSE_CALL );
-							MercPtrs[ iCounter ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+							TacticalCharacterDialogue( pSoldier, QUOTE_CLOSE_CALL );
+							pSoldier->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
 						}
-						MercPtrs[ iCounter ]->flags.fCloseCall = FALSE;
+						pSoldier->flags.fCloseCall = FALSE;
 					}
 				}
 			}
 		}
-
 	}
 	else
 	{
@@ -1021,7 +1015,7 @@ void StartInterrupt( void )
 		UINT16 usCounter;
 		for( usCounter = 0; usCounter < MAX_NUM_SOLDIERS; usCounter++ )
 		{
-			MercPtrs[ubInterrupter]->aiData.bMoved = FALSE;
+			ubInterrupter->aiData.bMoved = FALSE;
 
 			DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: popping %d off of the interrupt queue", ubInterrupter ) );
 
@@ -1032,7 +1026,7 @@ void StartInterrupt( void )
 			{
 				continue;
 			}
-			else if (MercPtrs[ubInterrupter]->bTeam != bTeam)
+			else if (ubInterrupter->bTeam != bTeam)
 			{
 				break;
 			}
@@ -1046,12 +1040,12 @@ void StartInterrupt( void )
 		BuildAIListForTeam( bTeam );
 
 		// set to the new first interrupter
-		cnt = RemoveFirstAIListEntry();		
+		SoldierID id = RemoveFirstAIListEntry();
 
 		// sevenfm: RemoveFirstAIListEntry() can return NOBODY
-		if( cnt != NOBODY )
+		if( id != NOBODY )
 		{
-			pTempSoldier = MercPtrs[ cnt ];
+			pTempSoldier = id;
 
 			// sevenfm: don't do anything if pTempSoldier is NULL
 			if( pTempSoldier != NULL )
@@ -1116,16 +1110,15 @@ void StartInterrupt( void )
 
 void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 {
-	UINT8						ubInterruptedSoldier;
-	SOLDIERTYPE *		pSoldier;
-	SOLDIERTYPE *		pTempSoldier;
-	INT32						cnt;
-	BOOLEAN					fFound;
-	INT16						ubMinAPsToAttack;
+	SoldierID	ubInterruptedSoldier;
+	SOLDIERTYPE *pSoldier;
+	SOLDIERTYPE *pTempSoldier;
+	BOOLEAN		fFound;
+	INT16	ubMinAPsToAttack;
 
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"EndInterrupt");
 
-	for ( cnt = gubOutOfTurnPersons; cnt > 0; cnt-- )
+	for ( UINT16 cnt = gubOutOfTurnPersons; cnt > 0; cnt-- )
 	{
 		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("ENDINT:	Q position %d: %d", cnt, gubOutOfTurnOrder[ cnt ] ) );
 	}
@@ -1143,9 +1136,10 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 	}
 
 	// Loop through all mercs and see if any passed on this interrupt
-	cnt = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
-	for ( pTempSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; cnt++,pTempSoldier++)
+	SoldierID id = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID;
+	for ( ; id <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++id )
 	{
+		pTempSoldier = id;
 		if ( pTempSoldier->bActive && pTempSoldier->bInSector && !pTempSoldier->aiData.bMoved && (pTempSoldier->bActionPoints == pTempSoldier->aiData.bIntStartAPs))
 		{
 			ubMinAPsToAttack = MinAPsToAttack( pTempSoldier, pTempSoldier->sLastTarget, FALSE, 0 );
@@ -1162,58 +1156,58 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 
 		// resume interrupted interrupt
 		//hayden
-		if (!is_networked) 
+		if ( !is_networked )
 		{
 			StartInterrupt();
-		} 
-				else 
+		}
+		else
 		{
-			UINT8						nubFirstInterrupter;
-			INT8						nbTeam;
-			SOLDIERTYPE *				npSoldier;
-					
+			SoldierID 	nubFirstInterrupter;
+			INT8			nbTeam;
+			SOLDIERTYPE *npSoldier;
+
 			nubFirstInterrupter = LATEST_INTERRUPT_GUY;
-			npSoldier = MercPtrs[nubFirstInterrupter];
+			npSoldier = nubFirstInterrupter;
 			nbTeam = npSoldier->bTeam;
-				
+
 			//pSoldier is interrupted //but its not available //needs calculating
 			//npSoldier,nbTeam is interruptor
 			//hayden
 
 #ifdef BETAVERSION
-			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"unchecked interrupt call area:(resume interrupted interrupt)...");
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"unchecked interrupt call area:(resume interrupted interrupt)..." );
 #endif
-		
-			if ((nbTeam > 0) && (nbTeam <6 ) && is_server) // AI interrupt resume and im server
+
+			if ( (nbTeam > 0) && (nbTeam < 6) && is_server ) // AI interrupt resume and im server
 			{
 				send_interrupt( npSoldier );
 				StartInterrupt();
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s and AI", TeamNameStrings[npSoldier->bTeam]);//tried to use pSoldier, but its not available. find another way to get correct team
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s and AI", TeamNameStrings[npSoldier->bTeam] );//tried to use pSoldier, but its not available. find another way to get correct team
 
 			}
-			else if(is_server && gTacticalStatus.ubCurrentTeam == 1)// resume AI interrupted and im server
+			else if ( is_server && gTacticalStatus.ubCurrentTeam == 1 )// resume AI interrupted and im server
 			{
 				//hayden
 				send_interrupt( npSoldier );
 
-				if(nbTeam !=0)
-					intAI(npSoldier);						
-				else 
-					StartInterrupt();					
-				
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt of AI by %s", TeamNameStrings[npSoldier->bTeam]);
+				if ( nbTeam != 0 )
+					intAI( npSoldier );
+				else
+					StartInterrupt();
+
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt of AI by %s", TeamNameStrings[npSoldier->bTeam] );
 
 			}
-			
+
 #ifdef	INTERRUPT_MP_DEADLOCK_FIX
 			//its our turn//else// pure client awarding interrupt resume //its our turn
-			else if(gTacticalStatus.ubCurrentTeam == 0)
+			else if ( gTacticalStatus.ubCurrentTeam == 0 )
 #else
 			// pure client awarding interrupt resume
 			else
 #endif
 			{
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s", TeamNameStrings[npSoldier->bTeam]);//this can be simplified if above comment is implemented
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"Continuing interrupt with %s", TeamNameStrings[npSoldier->bTeam] );//this can be simplified if above comment is implemented
 				//ClearIntList();
 				//hayden//may need more work.
 				StartInterrupt();
@@ -1224,14 +1218,13 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 	else
 	{
 		ubInterruptedSoldier = LATEST_INTERRUPT_GUY;
-		pSoldier = MercPtrs[ubInterruptedSoldier];
+		pSoldier = ubInterruptedSoldier;
 
 		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: interrupt over, soldier %d's team %d regains control", ubInterruptedSoldier, pSoldier->bTeam ) );
 
-
-		cnt = 0;
-		for ( pTempSoldier = MercPtrs[ cnt ]; cnt < MAX_NUM_SOLDIERS; cnt++,pTempSoldier++)
+		for ( SoldierID id = 0; id < MAX_NUM_SOLDIERS; ++id)
 		{
+			pTempSoldier = id;
 			if ( pTempSoldier->bActive )
 			{
 				// AI guys only here...
@@ -1289,14 +1282,14 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				gfHiddenInterrupt = FALSE;
 
 				// If we can continue a move, do so!
-				if ( MercPtrs[ gusSelectedSoldier ]->flags.fNoAPToFinishMove && pSoldier->ubReasonCantFinishMove != REASON_STOPPED_SIGHT )
+				if ( gusSelectedSoldier->flags.fNoAPToFinishMove && pSoldier->ubReasonCantFinishMove != REASON_STOPPED_SIGHT )
 				{
 					// Continue
-					MercPtrs[ gusSelectedSoldier ]->AdjustNoAPToFinishMove( FALSE );
+					gusSelectedSoldier->AdjustNoAPToFinishMove( FALSE );
 
-					if ( MercPtrs[ gusSelectedSoldier ]->sGridNo != MercPtrs[ gusSelectedSoldier ]->pathing.sFinalDestination )
+					if ( gusSelectedSoldier->sGridNo != gusSelectedSoldier->pathing.sFinalDestination )
 					{
-						MercPtrs[ gusSelectedSoldier ]->EVENT_GetNewSoldierPath( MercPtrs[ gusSelectedSoldier ]->pathing.sFinalDestination, MercPtrs[ gusSelectedSoldier ]->usUIMovementMode );
+						gusSelectedSoldier->EVENT_GetNewSoldierPath( gusSelectedSoldier->pathing.sFinalDestination, gusSelectedSoldier->usUIMovementMode );
 					}
 					else
 					{
@@ -1329,10 +1322,10 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 
 				if ( gusSelectedSoldier != NOBODY )
 				{
-					SlideTo( NOWHERE, gusSelectedSoldier, NOBODY ,SETLOCATOR);
+					SlideTo( gusSelectedSoldier, SETLOCATOR);
 
 					// Say ATTENTION SOUND...
-					MercPtrs[ gusSelectedSoldier ]->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
+					gusSelectedSoldier->DoMercBattleSound( BATTLE_SOUND_ATTN1 );
 
 					if ( gsInterfaceLevel == 1 )
 					{
@@ -1370,9 +1363,10 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 			fFound = FALSE;
 
 			// rebuild list for this team if anyone on the team is still available
-			cnt = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
-			for ( pTempSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; cnt++,pTempSoldier++)
+			SoldierID id = gTacticalStatus.Team[ ENEMY_TEAM ].bFirstID;
+			for ( ; id <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++id )
 			{
+				pTempSoldier = id;
 				if ( pTempSoldier->bActive && pTempSoldier->bInSector && pTempSoldier->stats.bLife >= OKLIFE )
 				{
 					fFound = TRUE;
@@ -1389,16 +1383,16 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 				{
 					// now bubble up everyone left in the interrupt queue, starting
 					// at the front of the array
-					for (cnt = 1; cnt <= gubOutOfTurnPersons; cnt++)
+					for (UINT16 cnt = 1; cnt <= gubOutOfTurnPersons; cnt++)
 					{
 						MoveToFrontOfAIList( gubOutOfTurnOrder[ cnt ] );
 					}
 
-					cnt = RemoveFirstAIListEntry();
-					if (cnt != NOBODY)
+					SoldierID id = RemoveFirstAIListEntry();
+					if (id != NOBODY)
 					{
 						fFound = TRUE;
-						StartNPCAI( MercPtrs[ cnt ] );
+						StartNPCAI( id );
 					}
 				}
 
@@ -1495,7 +1489,7 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 }
 
 
-BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, INT8 bOldOppList)
+BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, SoldierID ubOpponentID, INT8 bOldOppList)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"StandardInterruptConditionsMet");
 //	UINT8 ubAniType;
@@ -1539,7 +1533,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 			return(FALSE);
 		}
 
-		pOpponent = MercPtrs[ ubOpponentID ];
+		pOpponent = ubOpponentID;
 	}
 	else	// no opponent, so controller of 'ptr' makes the call instead
 	{
@@ -1692,7 +1686,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 		// the selected character, ie. his friends...
 		if ( pOpponent->bTeam == gbPlayerNum )
 		{
-			if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != Menptr[gusSelectedSoldier].bSide))
+			if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != gusSelectedSoldier->bSide))
 			{
 				return( FALSE );
 			}
@@ -1714,7 +1708,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 		}
 		/* old DG code for same:
 
-		if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != Menptr[gusSelectedSoldier].bSide))
+		if ((ubOpponentID != gusSelectedSoldier) && (pSoldier->bSide != gusSelectedSoldier->bSide))
 		{
 			return(FALSE);
 		}
@@ -1797,7 +1791,7 @@ BOOLEAN StandardInterruptConditionsMet( SOLDIERTYPE * pSoldier, UINT8 ubOpponent
 }
 
 
-INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN fUseWatchSpots )
+INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, SoldierID ubOpponentID, BOOLEAN fUseWatchSpots )
 {
 	INT32 iPoints;
 	INT8 bLightLevel;
@@ -1825,8 +1819,8 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	{
 		//iPoints = EffectiveExpLevel( MercPtrs[ pSoldier->ubRobotRemoteHolderID ] ) - 2;
 		// Snap: (do some proper rounding here)
-		iPoints = ( 20*EffectiveExpLevel( MercPtrs[ pSoldier->ubRobotRemoteHolderID ] )
-			+ EffectiveAgility( MercPtrs[ pSoldier->ubRobotRemoteHolderID ], FALSE ) + 15 ) / 30 - 2;
+		iPoints = ( 20*EffectiveExpLevel( pSoldier->ubRobotRemoteHolderID )
+			+ EffectiveAgility( pSoldier->ubRobotRemoteHolderID, FALSE ) + 15 ) / 30 - 2;
 	}
 	else
 	{
@@ -1853,7 +1847,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	if (fUseWatchSpots && !(pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS))
 	{
 		// if this is a previously noted spot of enemies, give bonus points!
-		iPoints += GetWatchedLocPoints( pSoldier->ubID, MercPtrs[ ubOpponentID ]->sGridNo, MercPtrs[ ubOpponentID ]->pathing.bLevel );
+		iPoints += GetWatchedLocPoints( pSoldier->ubID, ubOpponentID->sGridNo, ubOpponentID->pathing.bLevel );
 	}
 
 	// LOSE one point for each 2 additional opponents he currently sees, above 2
@@ -1882,7 +1876,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	// if soldier is still in shock from recent injuries, that penalizes him
 	iPoints -= pSoldier->aiData.bShock;
 
-	ubDistance = (UINT8) PythSpacesAway( pSoldier->sGridNo, MercPtrs[ ubOpponentID ]->sGridNo );
+	ubDistance = (UINT8) PythSpacesAway( pSoldier->sGridNo, ubOpponentID->sGridNo );
 
 	// if we are in combat mode - thus doing an interrupt rather than determine who gets first turn -
 	// then give bonus
@@ -1951,7 +1945,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 				INT16 range = PythSpacesAway( pSoldier->sFocusGridNo, pSoldier->sGridNo );
 				INT16 radius = gSkillTraitValues.ubSNFocusRadius * range / 20;
 
-				INT16 range_opponent = PythSpacesAway( pSoldier->sFocusGridNo, MercPtrs[ubOpponentID]->sGridNo );
+				INT16 range_opponent = PythSpacesAway( pSoldier->sFocusGridNo, ubOpponentID->sGridNo );
 
 				if ( range_opponent <= radius )
 					iPoints += gSkillTraitValues.sSNFocusInterruptBonus;
@@ -2034,7 +2028,7 @@ INT8 CalcInterruptDuelPts( SOLDIERTYPE * pSoldier, UINT8 ubOpponentID, BOOLEAN f
 	#endif
 if(is_networked)
 {
-	SOLDIERTYPE	*pOpp = &Menptr[ubOpponentID];
+	SOLDIERTYPE	*pOpp = ubOpponentID;
 		#ifdef JA2BETAVERSION
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_MPSYSTEM, L"Interrupt: '%s' vs '%s' = %d points.",pSoldier->name,pOpp->name, iPoints );
 		#endif
@@ -2076,11 +2070,11 @@ BOOLEAN InterruptDuel( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOpponent)
 }
 
 
-void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate)
+void DeleteFromIntList( UINT16 ubIndex, BOOLEAN fCommunicate)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"DeleteFromIntList");
-	UINT8 ubLoop;
-	UINT8 ubID;
+	UINT16 ubLoop;
+	UINT16 ubID;
 
 	if ( ubIndex > gubOutOfTurnPersons)
 	{
@@ -2118,10 +2112,10 @@ void DeleteFromIntList( UINT8 ubIndex, BOOLEAN fCommunicate)
 	*/
 }
 
-void AddToIntList( UINT8 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
+void AddToIntList( UINT16 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"AddToIntList");
-	UINT8 ubLoop;
+	UINT16 ubLoop;
 
 //	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%d added to int list", ubID );
 	DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: adding ID %d who %s", ubID, fGainControl ? "gains control" : "loses control" ) );
@@ -2182,11 +2176,11 @@ void AddToIntList( UINT8 ubID, BOOLEAN fGainControl, BOOLEAN fCommunicate )
 void VerifyOutOfTurnOrderArray()
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"VerifyOutOfTurnOrderArray");
-	UINT8		ubTeamHighest[ MAXTEAMS ] = { 0 };
+	UINT16		ubTeamHighest[ MAXTEAMS ] = { 0 };
 	UINT8		ubTeamsInList;
-	UINT8		ubNextInArrayOnTeam, ubNextIndex;
+	UINT16		ubNextInArrayOnTeam, ubNextIndex;
 	UINT8		ubTeam;
-	UINT8 ubLoop, ubLoop2;
+	UINT16 ubLoop, ubLoop2;
 	BOOLEAN	fFoundLoop = FALSE;
 
 	for (ubLoop = 1; ubLoop <= gubOutOfTurnPersons; ubLoop++)
@@ -2304,9 +2298,9 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 			{
 				StartInterrupt();
 			} 
-						else 
+			else 
 			{
-				UINT8						nubFirstInterrupter;
+				UINT16						nubFirstInterrupter;
 				INT8						nbTeam;
 				SOLDIERTYPE *				npSoldier;
 						
@@ -2356,7 +2350,7 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 					send_interrupt( npSoldier );
 
 
-					SOLDIERTYPE* pMerc = MercPtrs[ gusSelectedSoldier ];
+					SOLDIERTYPE* pMerc = gusSelectedSoldier;
 					//AdjustNoAPToFinishMove( pMerc, TRUE );	
 					pMerc->HaultSoldierFromSighting(TRUE);
 					//pMerc->fTurningFromPronePosition = FALSE;// hmmm ??
@@ -2380,13 +2374,14 @@ void DoneAddingToIntList( SOLDIERTYPE * pSoldier, BOOLEAN fChange, UINT8 ubInter
 void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,String("ResolveInterruptsVs: Soldier ID = %d, APs = %d (interrupt type = %d)",pSoldier->ubID,pSoldier->bActionPoints, ubInterruptType));
-	UINT8 ubTeam, ubOpp;
-	UINT8 ubIntCnt;
-	UINT8 ubIntList[MAXMERCS];
+	UINT8 ubTeam;
+	SoldierID ubOpp;
+	UINT16 ubIntCnt;
+	UINT16 ubIntList[MAXMERCS];
 	UINT8 ubIntDiff[MAXMERCS];
 	UINT8 ubSmallestDiff;
-	UINT8 ubSlot, ubSmallestSlot;
-	UINT8 ubLoop;
+	UINT16 ubSlot, ubSmallestSlot;
+	UINT16 ubLoop;
 	BOOLEAN fIntOccurs;
 	SOLDIERTYPE * pOpponent;
 	BOOLEAN fControlChanged = FALSE;
@@ -2402,9 +2397,9 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 			// WDS fix broken interrupts (I hope...)
 			if (/*gTacticalStatus.Team[ubTeam].bTeamActive &&*/ (gTacticalStatus.Team[ubTeam].bSide != pSoldier->bSide) && ubTeam != CIV_TEAM)
 			{
-				for ( ubOpp = gTacticalStatus.Team[ ubTeam ].bFirstID; ubOpp <= gTacticalStatus.Team[ ubTeam ].bLastID; ubOpp++)
+				for ( ubOpp = gTacticalStatus.Team[ ubTeam ].bFirstID; ubOpp <= gTacticalStatus.Team[ ubTeam ].bLastID; ++ubOpp)
 				{
-					pOpponent = MercPtrs[ubOpp];
+					pOpponent = ubOpp;
 					AssertNotNIL(pOpponent);
 					if ( pOpponent->bActive && pOpponent->bInSector && (pOpponent->stats.bLife >= OKLIFE) && (pOpponent->bBreath >= OKBREATH) && !(pOpponent->bCollapsed) )
 					{
@@ -2447,7 +2442,7 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 
 							default:		// interrupt is possible, run a duel
 								DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, "Calculating int duel pts for onlooker in ResolveInterruptsVs" );
-								pSoldier->aiData.bInterruptDuelPts = CalcInterruptDuelPts(pSoldier,pOpponent->ubID,TRUE);
+								pSoldier->aiData.bInterruptDuelPts = CalcInterruptDuelPts(pSoldier, pOpponent->ubID, TRUE);
 								fIntOccurs = InterruptDuel(pOpponent,pSoldier);
 								#ifdef DEBUG_INTERRUPTS
 								if (fIntOccurs)
@@ -2517,17 +2512,16 @@ void ResolveInterruptsVs( SOLDIERTYPE * pSoldier, UINT8 ubInterruptType)
 			{
 				// if anyone on this team is under AI control, remove
 				// their AI control flag and put them on the queue instead of this guy
-				for ( ubLoop = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID; ubLoop <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ubLoop++ )
+				for ( SoldierID id = gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bFirstID; id <= gTacticalStatus.Team[ gTacticalStatus.ubCurrentTeam ].bLastID; ++id)
 				{
-					if ( (MercPtrs[ ubLoop ]->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
+					if ( id->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL)
 					{
 						// this guy lost control
-						MercPtrs[ ubLoop ]->flags.uiStatusFlags &= (~SOLDIER_UNDERAICONTROL);
-						AddToIntList( ubLoop, FALSE, TRUE);
+						id->flags.uiStatusFlags &= (~SOLDIER_UNDERAICONTROL);
+						AddToIntList( id, FALSE, TRUE);
 						break;
 					}
 				}
-
 			}
 			else
 			{
@@ -2590,8 +2584,8 @@ BOOLEAN	SaveTeamTurnsToTheSaveGameFile( HWFILE hFile )
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
 	//Save the gubTurn Order Array
-	FileWrite( hFile, gubOutOfTurnOrder, sizeof( UINT8 ) * MAXMERCS, &uiNumBytesWritten );
-	if( uiNumBytesWritten != sizeof( UINT8 ) * MAXMERCS )
+	FileWrite( hFile, gubOutOfTurnOrder, sizeof( UINT16 ) * MAXMERCS, &uiNumBytesWritten );
+	if( uiNumBytesWritten != sizeof( UINT16 ) * MAXMERCS )
 	{
 		return( FALSE );
 	}
@@ -2623,8 +2617,8 @@ BOOLEAN	LoadTeamTurnsFromTheSavedGameFile( HWFILE hFile )
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
 	//Load the gubTurn Order Array
-	FileRead( hFile, gubOutOfTurnOrder, sizeof( UINT8 ) * MAXMERCS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT8 ) * MAXMERCS )
+	FileRead( hFile, gubOutOfTurnOrder, sizeof( UINT16 ) * MAXMERCS, &uiNumBytesRead );
+	if( uiNumBytesRead != sizeof( UINT16 ) * MAXMERCS )
 	{
 		return( FALSE );
 	}

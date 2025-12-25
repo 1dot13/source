@@ -1,40 +1,20 @@
-#include <stdio.h>
-#include <string.h>
-#include "stdlib.h"
-#include "debug.h"
-#include "math.h"
-#include "jascreens.h"
-#include "pathai.h"
-//#include "Soldier Control.h"
+#include <Button System.h>
 #include "Animation Control.h"
-#include "Animation Data.h"
-#include "Event Pump.h"
+#include "Soldier Find.h"
 #include "Timer Control.h"
 #include "Handle UI.h"
 #include "Isometric Utils.h"
 #include "input.h"
-#include "overhead.h"
+#include "Overhead.h"
 #include "Sys Globals.h"
-#include "screenids.h"
-#include "interface.h"
-#include "cursor control.h"
+#include "Interface.h"
 #include "Interactive Tiles.h"
-#include "spread burst.h"
-#include "world items.h"
-#include "interface items.h"
-#include "physics.h"
-#include "ui cursors.h"
-#include "strategicmap.h"
-#include "soldier profile.h"
-#include "soldier create.h"
-#include "soldier add.h"
-#include "dialogue control.h"
-#include "interface dialogue.h"
-#include "interactive tiles.h"
-#include "messageboxscreen.h"
-#include "gameloop.h"
-#include "spread burst.h"
-#include "explosion control.h"
+#include "Spread burst.h"
+#include "Interface Items.h"
+#include "UI Cursors.h"
+#include "Dialogue Control.h"
+#include "interface Dialogue.h"
+#include <mousesystem.h>
 #include "message.h"
 #include "Strategic Exit GUI.h"
 #include "Assignments.h"
@@ -42,25 +22,23 @@
 #include "renderworld.h"
 #include	"GameSettings.h"
 #include "english.h"
-#include "text.h"
-#include "soldier macros.h"
-#include "render dirty.h"
+#include "Text.h"
+#include "Soldier macros.h"
+#include "Render Dirty.h"
 #include "Militia Control.h"
-#include "render dirty.h"
-#include "Militia Control.h"
-///***dddd
 #include "Squads.h"
 #include "Interface Panels.h"
-#include "Soldier functions.h"
-#include "SaveLoadMap.h"
-#include "worlddat.h" //for gtileset
-#include "Debug Control.h" //for livelog
-
+#include "Soldier Functions.h"
 #include "SkillMenu.h"			// sevenfm: need this for TraitsMenu
 #include "DisplayCover.h"		// added by Sevenfm
-
 #include "Vehicles.h"	// anv: for switching from soldier to vehicle
-#include "VehicleMenu.h"
+#include <types.h>
+#include "Item Types.h"
+#include "Items.h"
+#include "Overhead Types.h"
+#include "Soldier Control.h"
+#include "Weapons.h"
+#include <Font Control.h>
 
 
 
@@ -180,7 +158,7 @@ void	GetRTMouseButtonInput( UINT32 *puiNewEvent )
 
 void	QueryRTLeftButton( UINT32 *puiNewEvent )
 {
-	UINT16	usSoldierIndex;
+	SoldierID usSoldierIndex;
 	SOLDIERTYPE *pSoldier;
 	SOLDIERTYPE *pVehicle;
 	UINT32	uiMercFlags;
@@ -190,7 +168,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 	static BOOLEAN	fValidDoubleClickPossible = FALSE;
 	static BOOLEAN	fCanCheckForSpeechAdvance = FALSE;
 	static INT32		sMoveClickGridNo					= 0;
-	UINT16 usSubjectSoldier = gusSelectedSoldier;
+	SoldierID usSubjectSoldier = gusSelectedSoldier;
 
 	// LEFT MOUSE BUTTON
 	if ( gViewportRegion.uiFlags & MSYS_MOUSE_IN_AREA )
@@ -202,13 +180,13 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 		if ( gusSelectedSoldier != NOBODY )
 		{
-			if ( MercPtrs[ gusSelectedSoldier ]->pTempObject != NULL )
+			if ( gusSelectedSoldier->pTempObject != NULL )
 			{
 				return;
 			}
-			if ( MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags & SOLDIER_DRIVER )
+			if ( gusSelectedSoldier->flags.uiStatusFlags & SOLDIER_DRIVER )
 			{
-				pVehicle = GetSoldierStructureForVehicle( MercPtrs[ usSubjectSoldier ]->iVehicleId );
+				pVehicle = GetSoldierStructureForVehicle( usSubjectSoldier->iVehicleId );
 				usSubjectSoldier = pVehicle->ubID;
 			}
 		}
@@ -313,7 +291,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 												if ( usSubjectSoldier != NOBODY )
 												{
-													if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
+													if ( ( fResult = UIOKMoveDestination( usSubjectSoldier, usMapPos ) ) == 1 )
 													{
 														if ( gsCurrentActionPoints != 0 )
 														{
@@ -365,7 +343,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 						if(	FindSoldierFromMouse( &usSoldierIndex, &uiMercFlags ) )
 						{
 							// Select guy
-							if ( (uiMercFlags & SELECTED_MERC) && !( uiMercFlags & UNCONSCIOUS_MERC ) && !( MercPtrs[ usSoldierIndex ]->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
+							if ( (uiMercFlags & SELECTED_MERC) && !( uiMercFlags & UNCONSCIOUS_MERC ) && !( usSoldierIndex->flags.uiStatusFlags & SOLDIER_VEHICLE ) )
 							{
 								*puiNewEvent = M_CHANGE_TO_ADJPOS_MODE;
 							}
@@ -448,10 +426,10 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 								{
 									// Set movement mode
 									// OK, only change this if we are stationary!
-									//if ( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY )
-									//if ( MercPtrs[ gusSelectedSoldier ]->usAnimState == WALKING )
+									//if ( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY )
+									//if ( gusSelectedSoldier->usAnimState == WALKING )
 									{
-										MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = TRUE;
+										usSubjectSoldier->flags.fUIMovementFast = TRUE;
 										*puiNewEvent = C_MOVE_MERC;
 									}
 								}
@@ -595,13 +573,13 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 													if ( usSubjectSoldier != NOBODY )
 													{
-														if ( MercPtrs[ usSubjectSoldier ]->usAnimState != RUNNING )
+														if ( usSubjectSoldier->usAnimState != RUNNING )
 														{
 															*puiNewEvent = C_MOVE_MERC;
 														}
 														else
 														{
-															MercPtrs[ usSubjectSoldier ]->flags.fUIMovementFast = 2;
+															usSubjectSoldier->flags.fUIMovementFast = 2;
 															*puiNewEvent = C_MOVE_MERC;
 														}
 													}
@@ -621,7 +599,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 													//{
 													//	if ( gusSelectedSoldier != NOBODY )
 													//	{
-													//		if ( !( gAnimControl[ MercPtrs[ gusSelectedSoldier ]->usAnimState ].uiFlags & ANIM_STATIONARY ) )
+													//		if ( !( gAnimControl[ gusSelectedSoldier->usAnimState ].uiFlags & ANIM_STATIONARY ) )
 													//		{
 
 													//gUITargetShotWaiting	= TRUE;
@@ -680,7 +658,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																				// OK, if we have a selected guy.. make him part too....
 																				if ( gusSelectedSoldier != NOBODY )
 																				{
-																					MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
+																					gusSelectedSoldier->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
 																				}
 																			}
 
@@ -715,7 +693,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 																		// OK, if we have a selected guy.. make him part too....
 																		if ( gusSelectedSoldier != NOBODY )
 																		{
-																			MercPtrs[ gusSelectedSoldier ]->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
+																			gusSelectedSoldier->flags.uiStatusFlags |= (SOLDIER_MULTI_SELECTED );
 																		}
 
 																		gfIgnoreOnSelectedGuy = TRUE;
@@ -792,7 +770,7 @@ void	QueryRTLeftButton( UINT32 *puiNewEvent )
 
 																			if ( usSubjectSoldier != NOBODY )
 																			{
-																				if ( ( fResult = UIOKMoveDestination( MercPtrs[ usSubjectSoldier ], usMapPos ) ) == 1 )
+																				if ( ( fResult = UIOKMoveDestination( usSubjectSoldier, usMapPos ) ) == 1 )
 																				{
 																					if ( gfUIAllMoveOn )
 																					{
@@ -1017,7 +995,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 								if ( gfUICanBeginAllMoveCycle )
 								{
 									// ATE: Here, check if we can do this....
-									if ( !UIOKMoveDestination( MercPtrs[ gusSelectedSoldier ], usMapPos ) )
+									if ( !UIOKMoveDestination( gusSelectedSoldier, usMapPos ) )
 									{
 										ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_UI_FEEDBACK, TacticalStr[ CANT_MOVE_THERE_STR ] );
 										gfRTClickLeftHoldIntercepted = TRUE;
@@ -1041,7 +1019,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 						{
 							gfBeginBurstSpreadTracking = FALSE;
 							gfRTClickLeftHoldIntercepted = TRUE;
-							MercPtrs[ gusSelectedSoldier ]->flags.fDoSpread				= FALSE;
+							gusSelectedSoldier->flags.fDoSpread				= FALSE;
 							fClickHoldIntercepted = TRUE;
 							*puiNewEvent = A_END_ACTION;
 							gCurrentUIMode = MOVE_MODE;
@@ -1234,7 +1212,7 @@ void	QueryRTRightButton( UINT32 *puiNewEvent )
 										case MOVE_MODE:
 										case TALKCURSOR_MODE:
 											// anv: don't switch if passengers are blocked from attacking
-											pSoldier = MercPtrs[ gusSelectedSoldier ];
+											pSoldier = gusSelectedSoldier;
 											if( pSoldier->flags.uiStatusFlags & ( SOLDIER_DRIVER | SOLDIER_PASSENGER ) )
 											{
 												SOLDIERTYPE *pVehicle = GetSoldierStructureForVehicle( pSoldier->iVehicleId );
@@ -1489,7 +1467,7 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 				{
 					if( gfUIFullTargetFound )
 					{
-						if ( IsValidTalkableNPC( (UINT8)gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && MercPtrs[ gusUIFullTargetID ]->bTeam != ENEMY_TEAM && !ValidQuickExchangePosition( ) )
+						if ( IsValidTalkableNPC( gusUIFullTargetID, FALSE, FALSE, FALSE ) && !_KeyDown( SHIFT ) && !AM_AN_EPC( pSoldier ) && gusUIFullTargetID->bTeam != ENEMY_TEAM && !ValidQuickExchangePosition( ) )
 						{
 							uiMoveTargetSoldierId = gusUIFullTargetID;
 							*puiNewEvent = T_CHANGE_TO_TALKING;
@@ -1532,11 +1510,11 @@ void GetRTMousePositionInput( UINT32 *puiNewEvent )
 			if ( gfUIFullTargetFound	)
 				//if ( gfUIFullTargetFound )
 			{
-				if ( IsValidTargetMerc( (UINT8)gusUIFullTargetID ) )
+				if ( IsValidTargetMerc( gusUIFullTargetID ) )
 				{
 					guiUITargetSoldierId = gusUIFullTargetID;
 
-					if ( MercPtrs[ gusUIFullTargetID ]->bTeam != gbPlayerNum )
+					if ( gusUIFullTargetID->bTeam != gbPlayerNum )
 					{
 						fOnValidGuy = TRUE;
 					}
@@ -2021,51 +1999,53 @@ void HandleAltMouseRTX2Button(UINT32 *puiNewEvent)
 // sevenfm: original mouse commands functionality
 void HandleMouseRTWheel( void )
 {
-	UINT8		bID;
-								// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
-								if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
-									( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-								{
-										if ( gViewportRegion.WheelState > 0 ) //wheel up
-										{
-											//change stance ->DOWN
-											if ( _KeyDown( ALT ) )
+	SoldierID bID;
+	// nothing in hand and either not in SM panel, or the matching button is enabled if we are in SM panel
+	if ( !( gTacticalStatus.uiFlags & ENGAGED_IN_CONV )	&&
+		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ NEXTMERC_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
+	{
+		if ( gViewportRegion.WheelState > 0 ) //wheel up
+		{
+			//change stance ->DOWN
+			if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-												GotoLowerStance(MercPtrs[ gusSelectedSoldier ]);
+					GotoLowerStance(gusSelectedSoldier);
 				return;
-											}
+			}
 
-											if ( gusSelectedSoldier != NOBODY )
-											{ //Select prev merc
-												bID = FindPrevActiveAndAliveMerc( MercPtrs[ gusSelectedSoldier ], TRUE, TRUE );
-												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
-												// Center to guy....
-												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-											}
-										}
-										else
-										{
-											//change stance ->UP
-											if ( _KeyDown( ALT ) )
+			if ( gusSelectedSoldier != NOBODY )
+			{ //Select prev merc
+				bID = FindPrevActiveAndAliveMerc( gusSelectedSoldier, TRUE, TRUE );
+				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				// Center to guy....
+				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+			}
+		}
+		else
+		{
+			//change stance ->UP
+			if ( _KeyDown( ALT ) )
 			{	
 				if ( (gusSelectedSoldier != NOBODY) && ( gpItemPointer == NULL ) )
-													GotoHeigherStance( MercPtrs[ gusSelectedSoldier ] );
+					GotoHeigherStance( gusSelectedSoldier );
 				return;
-											}
+			}
 
-											//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"wheel %d", gViewportRegion.WheelState);
-											if ( gusSelectedSoldier != NOBODY )
-											{ //Select next merc
-												bID = FindNextMercInTeamPanel( MercPtrs[ gusSelectedSoldier ], FALSE, FALSE );
-												HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
-												// Center to guy....
-												LocateSoldier( gusSelectedSoldier, SETLOCATOR );
-											}
-										}
-										//*puiNewEvent = M_ON_TERRAIN; ????????????????
-								}
+			//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"wheel %d", gViewportRegion.WheelState);
+			if ( gusSelectedSoldier != NOBODY )
+			{ //Select next merc
+				bID = FindNextMercInTeamPanel( gusSelectedSoldier, FALSE, FALSE );
+				HandleLocateSelectMerc( bID, LOCATEANDSELECT_MERC );
+				// Center to guy....
+				LocateSoldier( gusSelectedSoldier, SETLOCATOR );
+			}
+		}
+			//*puiNewEvent = M_ON_TERRAIN; ????????????????
+	}
 }
+
+
 void HandleMouseRTMButton( UINT32 *puiNewEvent )
 {
 	if ( _KeyDown( ALT ) )
@@ -2073,11 +2053,13 @@ void HandleMouseRTMButton( UINT32 *puiNewEvent )
 		// toggle fire mode
 		if ( ( gpItemPointer == NULL ) && ( gusSelectedSoldier != NOBODY ) &&
 			( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ BURSTMODE_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-			ChangeWeaponMode( MercPtrs[ gusSelectedSoldier ] );
+			ChangeWeaponMode( gusSelectedSoldier );
 			}
 	else
 		*puiNewEvent = LC_LOOK;
 }
+
+
 void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 {
 			if ( !_KeyDown( ALT ) && !_KeyDown( SHIFT ))
@@ -2139,55 +2121,57 @@ void HandleMouseRTX1Button( UINT32 *puiNewEvent )
 
 void HandleMouseRTX2Button( UINT32 *puiNewEvent )
 {
-			if ( _KeyDown( ALT ) )
-				AutoReload( MercPtrs[ gusSelectedSoldier ] );
-			else
-			// Toggle squad's stealth mode.....
-			// For each guy on squad...
+	if ( _KeyDown( ALT ) )
+		AutoReload( gusSelectedSoldier );
+	else
+		// Toggle squad's stealth mode.....
+		// For each guy on squad...
+	{
+		SOLDIERTYPE *pTeamSoldier;
+		SoldierID	bLoop;
+		BOOLEAN		fStealthOn = FALSE;
+
+		// Check if at least one guy is on stealth....
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() )
 			{
-				SOLDIERTYPE				*pTeamSoldier;
-				INT8					bLoop;
-				BOOLEAN					fStealthOn = FALSE;
-
-				// Check if at least one guy is on stealth....
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
+				if ( pTeamSoldier->bStealthMode )
 				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) )
-					{
-						if ( pTeamSoldier->bStealthMode )
-						{
-							fStealthOn = TRUE;
-						}
-					}
-				}
-
-				fStealthOn = !fStealthOn;
-
-				for (bLoop=gTacticalStatus.Team[gbPlayerNum].bFirstID, pTeamSoldier=MercPtrs[bLoop]; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; bLoop++, pTeamSoldier++)
-				{
-					if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad( ) && !AM_A_ROBOT( pTeamSoldier ) )
-					{
-						if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
-						{
-							gfUIStanceDifferent = TRUE;
-						}
-
-						pTeamSoldier->bStealthMode = fStealthOn;
-					}
-				}
-
-				fInterfacePanelDirty = DIRTYLEVEL2;
-
-				// OK, display message
-				if ( fStealthOn )
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_ON_STEALTHMODE ] );
-				}
-				else
-				{
-					ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[ MSG_SQUAD_OFF_STEALTHMODE ] );
+					fStealthOn = TRUE;
 				}
 			}
+		}
+
+		fStealthOn = !fStealthOn;
+
+		for ( bLoop = gTacticalStatus.Team[gbPlayerNum].bFirstID; bLoop <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++bLoop )
+		{
+			pTeamSoldier = bLoop;
+			if ( OK_CONTROLLABLE_MERC( pTeamSoldier ) && pTeamSoldier->bAssignment == CurrentSquad() && !AM_A_ROBOT( pTeamSoldier ) )
+			{
+				if ( gpSMCurrentMerc != NULL && bLoop == gpSMCurrentMerc->ubID )
+				{
+					gfUIStanceDifferent = TRUE;
+				}
+
+				pTeamSoldier->bStealthMode = fStealthOn;
+			}
+		}
+
+		fInterfacePanelDirty = DIRTYLEVEL2;
+
+		// OK, display message
+		if ( fStealthOn )
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_ON_STEALTHMODE] );
+		}
+		else
+		{
+			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_SQUAD_OFF_STEALTHMODE] );
+		}
+	}
 }
 
 // sevenfm: common functionality
@@ -2252,7 +2236,7 @@ void HandleRTToggleFireMode( void )
 	// toggle fire mode
 	if ( ( gpItemPointer == NULL ) && ( gusSelectedSoldier != NOBODY ) &&
 		( ( gsCurInterfacePanel != SM_PANEL ) || ( ButtonList[ iSMPanelButtons[ BURSTMODE_BUTTON ] ]->uiFlags & BUTTON_ENABLED ) ) )
-		ChangeWeaponMode( MercPtrs[ gusSelectedSoldier ] );
+		ChangeWeaponMode( gusSelectedSoldier );
 }
 void HandleRTLocateSoldier( void )
 {

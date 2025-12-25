@@ -1,18 +1,17 @@
-	#include <memory.h>
-	#include "Fileman.h"
+	#include "FileMan.h"
 	#include "types.h"
 	#include "Scheduling.h"
 
 	#include "message.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Game Clock.h"
 	#include "Game Event Hook.h"
 	#include "worlddef.h"
 	#include "Soldier Init List.h"
 	#include "Isometric Utils.h"
 	#include "ai.h"
-	#include "debug.h"
-	#include "Random.h"
+	#include "DEBUG.H"
+	#include "random.h"
 	#include "Animation Data.h"
 	#include "Map Information.h"
 	#include "Keys.h"
@@ -190,7 +189,7 @@ void ProcessTacticalSchedule( UINT8 ubScheduleID )
 	}
 
 	//Validate the existance of the soldier.
-	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
+	pSoldier = pSchedule->ubSoldierID;
 	if ( pSoldier->stats.bLife < OKLIFE )
 	{
 		// dead or dying!
@@ -331,7 +330,7 @@ void PrepareSchedulesForEditorEntry()
 				prev->next = curr->next;
 			else
 				gpScheduleList = gpScheduleList->next;
-			MercPtrs[ curr->ubSoldierID ]->ubScheduleID = 0;
+			curr->ubSoldierID->ubScheduleID = 0;
 			temp = curr;
 			curr = curr->next;
 			MemFree( temp );
@@ -483,7 +482,23 @@ SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE& src)
 		TranslateArrayFields(usData2, src.usData2, OLD_MAX_SCHEDULE_ACTIONS, INT16_INT32);
 		TranslateArrayFields(ubAction, src.ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
 		ubScheduleID = src.ubScheduleID;
-		ubSoldierID = src.ubSoldierID;
+		ubSoldierID = static_cast<UINT16>( src.ubSoldierID );
+		usFlags = src.usFlags;
+	}
+	return(*this);
+}
+
+SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE_PRE_ITS& src)
+{
+	if ((void*)this != (void*)&src)
+	{
+		next = NULL;
+		TranslateArrayFields(usTime, src.usTime, OLD_MAX_SCHEDULE_ACTIONS, UINT16_UINT16);
+		TranslateArrayFields(usData1, src.usData1, OLD_MAX_SCHEDULE_ACTIONS, UINT32_UINT32);
+		TranslateArrayFields(usData2, src.usData2, OLD_MAX_SCHEDULE_ACTIONS, UINT32_UINT32);
+		TranslateArrayFields(ubAction, src.ubAction, OLD_MAX_SCHEDULE_ACTIONS, UINT8_UINT8);
+		ubScheduleID = src.ubScheduleID;
+		ubSoldierID = static_cast<UINT16>(src.ubSoldierID);
 		usFlags = src.usFlags;
 	}
 	return(*this);
@@ -491,10 +506,16 @@ SCHEDULENODE& SCHEDULENODE::operator=(const _OLD_SCHEDULENODE& src)
 
 BOOLEAN SCHEDULENODE::Load(INT8** hBuffer, FLOAT dMajorMapVersion)
 {
-	if(dMajorMapVersion < 7.0)
+	if (dMajorMapVersion < 7.0)
 	{
 		_OLD_SCHEDULENODE OldScheduleNode;
 		LOADDATA(&OldScheduleNode, *hBuffer, sizeof(_OLD_SCHEDULENODE));
+		*this = OldScheduleNode;
+	}
+	else if (dMajorMapVersion < 8.0)
+	{
+		_OLD_SCHEDULENODE_PRE_ITS OldScheduleNode;
+		LOADDATA(&OldScheduleNode, *hBuffer, sizeof(_OLD_SCHEDULENODE_PRE_ITS));
 		*this = OldScheduleNode;
 	}
 	else
@@ -653,11 +674,11 @@ BOOLEAN SortSchedule( SCHEDULENODE *pSchedule )
 
 BOOLEAN BumpAnyExistingMerc( INT32 sGridNo ) 
 {
-	UINT8						ubID;
-	SOLDIERTYPE *		pSoldier; // NB this is the person already in the location,
-	INT32 sNewGridNo;
-	UINT8						ubDir;
-	INT16						sCellX, sCellY;
+	SoldierID	ubID;
+	SOLDIERTYPE *pSoldier; // NB this is the person already in the location,
+	INT32		sNewGridNo;
+	UINT8		ubDir;
+	INT16		sCellX, sCellY;
 
 	// this is for autoprocessing schedules...
 	// there could be someone in the destination location, in which case
@@ -675,7 +696,7 @@ BOOLEAN BumpAnyExistingMerc( INT32 sGridNo )
 		return( TRUE );
 	}
 
-	pSoldier = MercPtrs[ ubID ];
+	pSoldier = ubID;
 
 	// what if the existing merc is prone?
 	sNewGridNo = FindGridNoFromSweetSpotWithStructDataFromSoldier( pSoldier, STANDING, 5, &ubDir, 1, pSoldier );
@@ -707,7 +728,7 @@ void AutoProcessSchedule( SCHEDULENODE *pSchedule, INT32 index )
 		return;
 	}
 
-	pSoldier = MercPtrs[ pSchedule->ubSoldierID ];
+	pSoldier = pSchedule->ubSoldierID;
 
 	if (pSoldier->ubID == 0)
 	{
@@ -1381,16 +1402,16 @@ void ReplaceSleepSpot( SCHEDULENODE * pSchedule, UINT16 usNewSpot )
 
 void SecureSleepSpot( SOLDIERTYPE * pSoldier, UINT32 usSleepSpot )
 {
-	SOLDIERTYPE *			pSoldier2;
-	UINT32				usSleepSpot2;
-	UINT32						uiLoop;
-	SCHEDULENODE *		pSchedule;
-	UINT8							ubDirection;
+	SOLDIERTYPE *pSoldier2;
+	UINT32		usSleepSpot2;
+	UINT16		uiLoop;
+	SCHEDULENODE *pSchedule;
+	UINT8		ubDirection;
 
 	// start after this soldier's ID so we don't duplicate work done in previous passes
 	for ( uiLoop = pSoldier->ubID + 1; uiLoop <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; uiLoop++ )
 	{
-		pSoldier2 = MercPtrs[ uiLoop ];
+		pSoldier2 = MercPtrs[uiLoop];
 		if ( pSoldier2->bActive && pSoldier2->bInSector && pSoldier2->ubScheduleID != 0 )
 		{
 			pSchedule = GetSchedule( pSoldier2->ubScheduleID );

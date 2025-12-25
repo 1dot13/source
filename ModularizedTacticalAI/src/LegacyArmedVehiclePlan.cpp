@@ -5,7 +5,7 @@
 
 #include "../include/LegacyArmedVehiclePlan.h"
 #include "Soldier Control.h" // definition of SOLDIERTYPE
-#include "aiinternals.h"
+#include "AIInternals.h"
 
 namespace AI
 {

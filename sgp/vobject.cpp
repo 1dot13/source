@@ -1,10 +1,10 @@
 #include "DirectDraw Calls.h"
 #include <stdio.h>
-#include "debug.h"
+#include "DEBUG.H"
 #include "video.h"
 #include "himage.h"
 #include "vobject.h"
-#include "wcheck.h"
+#include "WCheck.h"
 #include "vobject_blitters.h"
 #include "sgp.h"
 
@@ -959,45 +959,23 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 				// Switch based on flags given
 				do
 				{
-					if(gbPixelDepth==16)
+					if ( fBltFlags & VO_BLT_SRCTRANSPARENCY	)
 					{
-						if ( fBltFlags & VO_BLT_SRCTRANSPARENCY	)
-						{
-							if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
-								Blt8BPPDataTo16BPPBufferTransparentClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
-							else
-								Blt8BPPDataTo16BPPBufferTransparent( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
-							break;
-						}
-						else if ( fBltFlags & VO_BLT_SHADOW	)
-						{
-							if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
-								Blt8BPPDataTo16BPPBufferShadowClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
-							else
-								Blt8BPPDataTo16BPPBufferShadow( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
-							break;
-						}
+						if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
+							Blt8BPPDataTo16BPPBufferTransparentClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
+						else
+							Blt8BPPDataTo16BPPBufferTransparent( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
+						break;
+					}
+					else if ( fBltFlags & VO_BLT_SHADOW	)
+					{
+						if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
+							Blt8BPPDataTo16BPPBufferShadowClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
+						else
+							Blt8BPPDataTo16BPPBufferShadow( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
+						break;
+					}
 
-					}
-					else if(gbPixelDepth==8)
-					{
-						if ( fBltFlags & VO_BLT_SRCTRANSPARENCY	)
-						{
-							if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
-								Blt8BPPDataTo8BPPBufferTransparentClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
-							else
-								Blt8BPPDataTo8BPPBufferTransparent( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
-							break;
-						}
-						else if ( fBltFlags & VO_BLT_SHADOW	)
-						{
-							if(BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect))
-								Blt8BPPDataTo8BPPBufferShadowClip( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
-							else
-								Blt8BPPDataTo8BPPBufferShadow( pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex );
-							break;
-						}
-					}
 					// Use default blitter here
 					//Blt8BPPDataTo16BPPBuffer( hDestVObject, hSrcVObject, (UINT16)iDestX, (UINT16)iDestY, (SGPRect*)&SrcRect );
 

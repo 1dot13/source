@@ -10,8 +10,8 @@
 	#include "Game Clock.h"
 	#include "Soldier Add.h"
 	#include "Overhead.h"
-	#include "History.h"
-	#include "Email.h"
+	#include "history.h"
+	#include "email.h"
 	#include "LaptopSave.h"
 	#include "Text.h"
 	#include "Speck Quotes.h"
@@ -446,13 +446,8 @@ void BtnMercAuthorizeButtonCallback(GUI_BUTTON *btn,INT32 reason)
 
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
 
-			swprintf( wzDollarAmount, L"%d", giMercTotalContractCharge );
-
-			InsertCommasForDollarFigure( wzDollarAmount );
-			InsertDollarSignInToString( wzDollarAmount );
-
 			//create the string to show to the user
-			swprintf( wzAuthorizeString, MercAccountText[MERC_ACCOUNT_AUTHORIZE_CONFIRMATION], wzDollarAmount );
+			swprintf( wzAuthorizeString, MercAccountText[MERC_ACCOUNT_AUTHORIZE_CONFIRMATION], FormatMoney(giMercTotalContractCharge).data());
 
 			DoLapTopMessageBox( MSG_BOX_BLUE_ON_GREY, wzAuthorizeString, LAPTOP_SCREEN, MSG_BOX_FLAG_YESNO, MercAuthorizePaymentMessageBoxCallBack );
 

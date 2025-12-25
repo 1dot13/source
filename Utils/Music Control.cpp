@@ -1,10 +1,10 @@
 	#include "types.h"
 	#include "Music Control.h"
 	#include "soundman.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "jascreens.h"
-	#include "overhead.h"
-	#include "timer control.h"
+	#include "Overhead.h"
+	#include "Timer Control.h"
 	#include "strategicmap.h"
 
 #include "Overhead Types.h"
@@ -234,7 +234,7 @@ BOOLEAN MusicPlay(NewMusicList mode, UINT8 songIndex)
 		return FALSE;
 	}
 
-	MusicPlay(MusicLists[mode][songIndex]);
+	return MusicPlay(MusicLists[mode][songIndex]);
 }
 
 //********************************************************************************

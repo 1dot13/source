@@ -6,10 +6,10 @@
 	#include "WCheck.h"
 	#include "input.h"
 	#include "Isometric Utils.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Text System.h"
 

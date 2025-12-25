@@ -10,7 +10,7 @@
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Game Event Hook.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "LaptopSave.h"
 	#include "Soldier Profile.h"
 	#include "input.h"
@@ -20,8 +20,8 @@
 	#include "Multi Language Graphic Utils.h"
 	#include "strategic.h"
 	#include "strategicmap.h"
-	#include "isometric utils.h"
-	#include "postalservice.h"
+	#include "Isometric Utils.h"
+	#include "PostalService.h"
 	#include "english.h"
 	#include <list>
 
@@ -30,6 +30,7 @@
 #include "GameSettings.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/File/vfs_file.h>
+#include <language.hpp>
 
 /*
 typedef struct
@@ -488,11 +489,11 @@ BOOLEAN EnterBobbyRMailOrder()
 	SetButtonCursor(guiBobbyRClearOrder, CURSOR_LAPTOP_SCREEN);
 	SpecifyDisabledButtonStyle( guiBobbyRClearOrder, DISABLED_STYLE_NONE );
  //inshy: fix position of text for buttons
-#ifdef FRENCH
+if(g_lang == i18n::Lang::fr) {
 	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 13, 10, TRUE );
-#else
+} else {
 	SpecifyButtonTextOffsets( guiBobbyRClearOrder, 39, 10, TRUE );
-#endif
+}
 
 	// Accept Order button
 	guiBobbyRAcceptOrderImage = LoadButtonImage("LAPTOP\\AcceptOrderButton.sti", 2,0,-1,1,-1 );
@@ -504,11 +505,11 @@ BOOLEAN EnterBobbyRMailOrder()
 													DEFAULT_MOVE_CALLBACK, BtnBobbyRAcceptOrderCallback);
 	SetButtonCursor( guiBobbyRAcceptOrder, CURSOR_LAPTOP_SCREEN);
  //inshy: fix position of text for buttons
-#ifdef FRENCH
+if(g_lang == i18n::Lang::fr) {
 	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 15, 24, TRUE );
-#else
+} else {
 	SpecifyButtonTextOffsets( guiBobbyRAcceptOrder, 43, 24, TRUE );
-#endif
+}
 	SpecifyDisabledButtonStyle( guiBobbyRAcceptOrder, DISABLED_STYLE_SHADED );
 
 	if( gbSelectedCity == -1 )
@@ -1126,19 +1127,11 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 			DrawTextToScreen(sText, (UINT16)(usGridX+BOBBYR_GRID_THIRD_COLUMN_X+2), usPosY, BOBBYR_GRID_THIRD_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, LEFT_JUSTIFIED);
 
 			//unit price
-			swprintf(sTemp, L"%d", CalcBobbyRayCost( pBobbyRayPurchase[i].usItemIndex, pBobbyRayPurchase[i].usBobbyItemIndex, pBobbyRayPurchase[i].fUsed ));
-			InsertCommasForDollarFigure( sTemp );
-			InsertDollarSignInToString( sTemp );
-
-			DrawTextToScreen(sTemp, (UINT16)(usGridX+BOBBYR_GRID_FOURTH_COLUMN_X-2), usPosY, BOBBYR_GRID_FOURTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+			DrawTextToScreen(FormatMoney(CalcBobbyRayCost(pBobbyRayPurchase[i].usItemIndex, pBobbyRayPurchase[i].usBobbyItemIndex, pBobbyRayPurchase[i].fUsed)).data(), (UINT16)(usGridX+BOBBYR_GRID_FOURTH_COLUMN_X-2), usPosY, BOBBYR_GRID_FOURTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 			uiTotal += CalcBobbyRayCost( pBobbyRayPurchase[i].usItemIndex, pBobbyRayPurchase[i].usBobbyItemIndex, pBobbyRayPurchase[i].fUsed ) * pBobbyRayPurchase[i].ubNumberPurchased;
 
-			swprintf(sTemp, L"%d", uiTotal );
-			InsertCommasForDollarFigure( sTemp );
-			InsertDollarSignInToString( sTemp );
-
-			DrawTextToScreen(sTemp, (UINT16)(usGridX+BOBBYR_GRID_FIFTH_COLUMN_X-2), usPosY, BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+			DrawTextToScreen(FormatMoney(uiTotal).data(), (UINT16)(usGridX+BOBBYR_GRID_FIFTH_COLUMN_X-2), usPosY, BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 			usPosY += BOBBYR_GRID_ROW_OFFSET;
 		}
@@ -1258,7 +1251,6 @@ void DisplayPurchasedItems( BOOLEAN fCalledFromOrderPage, UINT16 usGridX, UINT16
 
 void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16 usGridX, UINT16 usGridY, INT32 iOrderNum )
 {
-	CHAR16	sTemp[20];
 	HVOBJECT hPixHandle;
 	INT32	iShippingCost = 0;
 //	INT32 iTotal;
@@ -1330,27 +1322,15 @@ void DisplayShippingCosts( BOOLEAN fCalledFromOrderPage, INT32 iSubTotal, UINT16
 	if( iSubTotal )
 	{
 		//Display the subtotal
-		swprintf(sTemp, L"%d", iSubTotal );
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-
-		DrawTextToScreen(sTemp, (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X-2), (UINT16)(usGridY + BOBBYR_SUBTOTAL_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(iSubTotal).data(), (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X - 2), (UINT16)(usGridY + BOBBYR_SUBTOTAL_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 		//Display the shipping and handling charge
-		swprintf(sTemp, L"%d", iShippingCost );
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-
-		DrawTextToScreen(sTemp, (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X-2), (UINT16)(usGridY + BOBBYR_SHIPPING_N_HANDLE_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(iShippingCost).data(), (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X - 2), (UINT16)(usGridY + BOBBYR_SHIPPING_N_HANDLE_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 
 
 		//Display the grand total
 		giGrandTotal = iSubTotal + iShippingCost;
-		swprintf(sTemp, L"%d", giGrandTotal );
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
-
-		DrawTextToScreen(sTemp, (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X-2), (UINT16)(usGridY + BOBBYR_GRAND_TOTAL_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
+		DrawTextToScreen(FormatMoney(giGrandTotal).data(), (UINT16)(usGridX + BOBBYR_GRID_FIFTH_COLUMN_X - 2), (UINT16)(usGridY + BOBBYR_GRAND_TOTAL_Y), BOBBYR_GRID_FIFTH_COLUMN_WIDTH, BOBBYR_ORDER_DYNAMIC_TEXT_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	}
 
 	InvalidateRegion(iScreenWidthOffset + 333,iScreenHeightOffset + 326,iScreenWidthOffset + 374,iScreenHeightOffset + 400);
@@ -1829,7 +1809,7 @@ void DrawSelectedCity( UINT8 ubCityNumber )
 
 void DisplayShippingLocationCity()
 {
-	CHAR16	sTemp[40];
+	std::wstring sTemp{ L"$0" };
 	UINT16 usPosY;
 
 	//display the name on the title bar
@@ -1852,39 +1832,29 @@ void DisplayShippingLocationCity()
 	//Display the shipping cost
 	usPosY = BOBBYR_OVERNIGHT_EXPRESS_Y;
 
-	wcscpy(sTemp, L"$0");
-
 	if( gbSelectedCity != -1 )
 	{
 //		swprintf( sTemp, L"%d", ( INT32 )(BobbyROrderLocations[gbSelectedCity].usOverNightExpress/GetWeightBasedOnMetricOption( 1 ) )	);
-		swprintf( sTemp, L"%d", ( INT32 )(gPostalService.GetDestinationFee(0, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption( 1 ) )	);
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
+		sTemp = FormatMoney(static_cast<INT32>(gPostalService.GetDestinationFee(0, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption(1)));
 	}
 
-	DrawTextToScreen(sTemp, BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
+	DrawTextToScreen(sTemp.data(), BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY +=BOBBYR_GRID_ROW_OFFSET;
 
 	if( gbSelectedCity != -1 )
 	{
-//		swprintf( sTemp, L"%d", ( INT32 )( BobbyROrderLocations[gbSelectedCity].us2DaysService / GetWeightBasedOnMetricOption( 1 ) ) );
-		swprintf( sTemp, L"%d", ( INT32 )(gPostalService.GetDestinationFee(1, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption( 1 ) ) );
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
+		sTemp = FormatMoney(static_cast<INT32>(gPostalService.GetDestinationFee(1, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption(1)));
 	}
 
-	DrawTextToScreen(sTemp, BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
+	DrawTextToScreen(sTemp.data(), BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 	usPosY +=BOBBYR_GRID_ROW_OFFSET;
 
 	if( gbSelectedCity != -1 )
 	{
-//		swprintf( sTemp, L"%d", (INT32 )( BobbyROrderLocations[gbSelectedCity].usStandardService / GetWeightBasedOnMetricOption( 1 ) ) );
-		swprintf( sTemp, L"%d", ( INT32 )(gPostalService.GetDestinationFee(2, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption( 1 ) ) );
-		InsertCommasForDollarFigure( sTemp );
-		InsertDollarSignInToString( sTemp );
+		sTemp = FormatMoney(static_cast<INT32>(gPostalService.GetDestinationFee(2, gDestinationTable[gbSelectedCity]->usID) / GetWeightBasedOnMetricOption(1)));
 	}
 
-	DrawTextToScreen(sTemp, BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED	);
+	DrawTextToScreen(sTemp.data(), BOBBYR_SHIPPING_SPEED_NUMBER_X, usPosY, BOBBYR_SHIPPING_SPEED_NUMBER_WIDTH, BOBBYR_DROPDOWN_FONT, BOBBYR_ORDER_DYNAMIC_TEXT_COLOR, FONT_MCOLOR_BLACK, FALSE, RIGHT_JUSTIFIED);
 }
 
 void SelectCloseDroDownRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )

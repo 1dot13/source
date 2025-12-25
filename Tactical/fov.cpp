@@ -1,26 +1,25 @@
 	#include "sgp.h"
 	#include "Isometric Utils.h"
 	#include "worlddef.h"
-	#include "render fun.h"
+	#include "Render Fun.h"
 	#include "renderworld.h"
-	#include "dialogue control.h"
-	#include "structure wrap.h"
-	#include "font control.h"
-	#include "pathai.h"
-	#include "overhead.h"
-	#include "smell.h"
+	#include "Dialogue Control.h"
+	#include "Structure Wrap.h"
+	#include "Font Control.h"
+	#include "PATHAI.H"
+	#include "Overhead.h"
+	#include "Smell.h"
 	#include "fov.h"
-	#include "rotting corpses.h"
-	#include "keys.h"
+	#include "Rotting Corpses.h"
+	#include "Keys.h"
 	#include "english.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "input.h"
-	#include "exit grids.h"
 	#include "environment.h"
 	#include "worldman.h"
 	#include "Fog Of War.h"
-	#include "Strategicmap.h"
-	#include "boxing.h"
+	#include "strategicmap.h"
+	#include "Boxing.h"
 	#include "opplist.h"
 	#include "lighting.h"
 	#include "Soldier macros.h"
@@ -295,7 +294,6 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	INT8		itemVisible = FALSE;
 	INT8		Blocking,twoMoreTiles,markerDir;
 	INT8		nextDir=0;
-	UINT8		who; //,itemIndex; // for each square checked
 	UINT8		dir,range,Path2;
 	//DBrot: More Rooms
 	//UINT8		ubRoomNo;
@@ -355,7 +353,6 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 	MercLooksForDoors( pSoldier, TRUE );
 
 
-	who = pSoldier->ubID;
 	dir = pSoldier->ubDirection;
 
 	//NumMessage("good old reveal",dir);
@@ -767,7 +764,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 														 // Turn off item lock for locators...
 														 gTacticalStatus.fLockItemLocators = FALSE;
 														 // Slide to location!
-														SlideToLocation( 0, marker );
+														SlideToLocation( marker );
 													}
 												}
 

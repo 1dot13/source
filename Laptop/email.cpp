@@ -2,17 +2,17 @@
 	#include "email.h"
 	#include "Utilities.h"
 	#include "WCheck.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
-	#include "soldier profile.h"
+	#include "Cursors.h"
+	#include "Soldier Profile.h"
 	#include "CharProfile.h"
 	#include "IMP Compile Character.h"
 	#include "IMP Portraits.h"
 	#include "Game Clock.h"
 	#include "AimMembers.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "LaptopSave.h"
 	#include "finances.h"
@@ -6165,15 +6165,8 @@ BOOLEAN ReplaceMercNameAndAmountWithProperData( CHAR16 *pFinishedString, EmailPt
 			}
 			else
 			{
-				CHAR16	sDollarAmount[64];
-
-				swprintf( sDollarAmount, L"%d", pMail->iFirstData );
-
-				InsertCommasForDollarFigure( sDollarAmount );
-				InsertDollarSignInToString( sDollarAmount );
-
 				//add the mercs name to the string
-				wcscat( pFinishedString, sDollarAmount );
+				wcscat( pFinishedString, FormatMoney(pMail->iFirstData).data() );
 			}
 		}
 		else

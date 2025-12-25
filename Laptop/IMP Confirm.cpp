@@ -3,10 +3,10 @@
 	#include "IMP HomePage.h"
 	#include "IMPVideoObjects.h"
 	#include "Utilities.h"
-	#include "Debug.h"
+	#include "DEBUG.H"
 	#include "WordWrap.h"
 	#include "Encrypted File.h"
-	#include "cursors.h"
+	#include "Cursors.h"
 	#include "laptop.h"
 	#include "IMP Compile Character.h"
 	#include "soldier profile type.h"
@@ -14,7 +14,7 @@
 	#include "IMP Confirm.h"
 	#include "finances.h"
 	#include "Soldier Profile.h"
-	#include "Soldier Profile Type.h"
+	#include "soldier profile type.h"
 	#include "Soldier Control.h"
 	#include "IMP Portraits.h"
 	#include "Overhead.h"
@@ -25,8 +25,8 @@
 	#include "Game Event Hook.h"
 	#include "LaptopSave.h"
 	#include "strategic.h"
-	#include "weapons.h"
-	#include "Random.h"
+	#include "Weapons.h"
+	#include "random.h"
 	#include "GameVersion.h"
 	#include "GameSettings.h"
 	#include "IMP Gear.h"				// added by Flugente
@@ -526,7 +526,7 @@ void DistributeInitialGear(MERCPROFILESTRUCT *pProfile)
 		if(iOrder[i]!=-1)
 		{
 			// skip if this item is an attachment
-			if(Item[tInv[iOrder[i]].inv].attachment)
+			if(ItemIsAttachment(tInv[iOrder[i]].inv))
 				continue;
 			iSet = FALSE;
 			number = tInv[iOrder[i]].iNumber;
@@ -1103,7 +1103,7 @@ INT32 SpecificFreePocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubHow
 					return HELMETPOS;
 				if ( pProfile->inv[VESTPOS] == NONE && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_VEST )
 					return VESTPOS;
-				if ( pProfile->inv[LEGPOS] == NONE && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_LEGGINGS && !(Item[usItem].attachment))
+				if ( pProfile->inv[LEGPOS] == NONE && Armour[Item[usItem].ubClassIndex].ubArmourClass == ARMOURCLASS_LEGGINGS && !ItemIsAttachment(usItem) )
 					return LEGPOS;
 				break;
 			case IC_BLADE:
@@ -1132,7 +1132,7 @@ INT32 SpecificFreePocket(MERCPROFILESTRUCT *pProfile, UINT16 usItem, UINT8 ubHow
 			case IC_GUN:
 				if ( pProfile->inv[HANDPOS] == NONE )
 					return HANDPOS;
-				if ( pProfile->inv[SECONDHANDPOS] == NONE && !(Item[pProfile->inv[HANDPOS]].twohanded))
+				if ( pProfile->inv[SECONDHANDPOS] == NONE && !(ItemIsTwoHanded(pProfile->inv[HANDPOS])))
 					return SECONDHANDPOS;
 				if((UsingNewInventorySystem() == true))
 					if ( pProfile->inv[GUNSLINGPOCKPOS] == NONE && pProfile->inv[BPACKPOCKPOS] == NONE && LBEPocketType[1].ItemCapacityPerSize[Item[usItem].ItemSize]!=0)
@@ -1681,7 +1681,7 @@ void GiveIMPRandomItems( MERCPROFILESTRUCT *pProfile, UINT8 typeIndex )
 
 		// give ammo for guns
 		Assert( usItem < gMAXITEMS_READ );
-		if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+		if ( Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 		{
 			usItem = DefaultMagazine(usItem);
 			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPRandomItems: give ammo typeIndex = %d, usItem = %d ",typeIndex, usItem ));
@@ -1726,7 +1726,7 @@ void GiveIMPItems( MERCPROFILESTRUCT *pProfile, INT8 abilityValue, UINT8 typeInd
 			MakeProfileInvItemAnySlot(pProfile,usItem,100,1);
 			
 			// give ammo for guns
-			if ( Item[usItem].usItemClass == IC_GUN && !Item[usItem].rocketlauncher )
+			if ( Item[usItem].usItemClass == IC_GUN && !ItemIsRocketLauncher(usItem) )
 			{
 				usItem = DefaultMagazine(usItem);
 				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("GiveIMPItems: give ammo typeIndex = %d, usItem = %d",typeIndex, usItem ));

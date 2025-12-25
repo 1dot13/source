@@ -1,7 +1,8 @@
 #ifndef __XML_H
 #define __XML_H
 
-#include "armsdealerinvinit.h"
+#include "expat.h"
+#include "ArmsDealerInvInit.h"
 #include "EnemyItemDrops.h"
 #include "Loading Screen.h"
 #include "faces.h"
@@ -56,14 +57,6 @@ typedef PARSE_STAGE;
 
 #define TABLEDATA_DIRECTORY						"TableData\\"
 #define TABLEDATA_LAPTOP_DIRECTORY				"Laptop\\"
-
-#define GERMAN_PREFIX							"German."
-#define RUSSIAN_PREFIX							"Russian."
-#define DUTCH_PREFIX							"Dutch."
-#define POLISH_PREFIX							"Polish."
-#define FRENCH_PREFIX							"French."
-#define ITALIAN_PREFIX							"Italian."
-#define CHINESE_PREFIX							"Chinese."
 
 #define	ATTACHMENTSFILENAME						"Items\\Attachments.xml"
 #define	ATTACHMENTINFOFILENAME					"Items\\AttachmentInfo.xml"
@@ -580,5 +573,7 @@ extern BOOLEAN ReadInAimOldArchive(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInHistorys(STR fileName, BOOLEAN localizedVersion );
 extern BOOLEAN ReadInDifficultySettings(STR fileName, BOOLEAN localizedVersion);
+
+extern const XML_Char* GetAttribute(const XML_Char* name, const XML_Char** atts);
 
 #endif

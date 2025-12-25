@@ -6,7 +6,7 @@
 #include "sgp.h"
 #include "Debug Control.h"
 #include "expat.h"
-#include "gamesettings.h"
+#include "Campaign Types.h"
 #include "XML.h"
 #include "FileMan.h"
 #include "Handle Items.h"

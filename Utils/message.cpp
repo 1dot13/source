@@ -1,27 +1,28 @@
 	#include "sgp.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "types.h"
 	#include "Font Control.h"
 	#include "message.h"
 	#include "memory.h"
 	#include "mbstring.h"
 	#include "Timer Control.h"
-	#include "render dirty.h"
+	#include "Render Dirty.h"
 	#include "renderworld.h"
 	#include "local.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "mapscreen.h"
 	#include "Map Screen Interface Bottom.h"
 	#include "WordWrap.h"
 	#include "Sound Control.h"
-	#include "Soundman.h"
-	#include "BuildDefines.h"
+	#include "soundman.h"
+	#include "builddefines.h"
 	#include "Dialogue Control.h"
 	#include <stdio.h>
 	#include "Game Clock.h"
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
 
+#include <language.hpp>
 typedef struct
 {
 	UINT32	uiFont;

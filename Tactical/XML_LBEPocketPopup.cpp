@@ -4,7 +4,6 @@
 	#include "Debug Control.h"
 	#include "expat.h"
 	#include "XML.h"
-	#include "GameSettings.h"
 
 // namespace'd because of name collision with POPUP class def
 namespace POPUP_PARSE {

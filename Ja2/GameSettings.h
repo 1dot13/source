@@ -1,7 +1,7 @@
 #ifndef _GAME_SETTINGS__H_
 #define _GAME_SETTINGS__H_
 
-#include "Types.h"
+#include "types.h"
 #include "Strategic Status.h"
 #include "Morale.h"
 #include "GameInitOptionsScreen.h"
@@ -337,6 +337,7 @@ BOOLEAN UsingBackGroundSystem();
 BOOLEAN UsingImprovedInterruptSystem();
 BOOLEAN UsingInventoryCostsAPSystem();
 
+
 BOOLEAN IsNIVModeValid(bool checkRes = true);
 
 // Snap: Options read from an INI file in the default of custom Data directory
@@ -505,6 +506,7 @@ typedef struct
 	FLOAT	sFoodDecayModificator;
 	
 	BOOLEAN fFoodEatingSounds;
+	BOOLEAN fAlwaysFood;
 
 	// Flugente: disease settings
 	BOOLEAN fDisease;
@@ -1359,6 +1361,9 @@ typedef struct
 	INT16 sBackpackWeightToClimb;
 	BOOLEAN fUseGlobalBackpackSettings;
 
+	// Buscher
+	UINT8 ubBackPackWeightFactorForAPPenalty;
+
 	// sevenfm: show enemy weapon above soldier in tactical
 	BOOLEAN fShowEnemyWeapon;
 	BOOLEAN fShowEnemyExtendedInfo;
@@ -1558,6 +1563,12 @@ typedef struct
 	
 	// Flugente: backgrounds
 	BOOLEAN fBackGround;
+
+	// Kitty: Alternative IMP Creation (choices in skills/char-traits/disabilities determine available backgrounds, plus additional available backgrounds)
+    BOOLEAN fAltIMPCreation;
+
+	// Kitty: Reduced IMP Backgrounds (same as fAltIMPCreation, but for this only the additional backgrounds)
+	BOOLEAN fReducedIMPCreation;
 	
 	// Sandro: Alternative weapon holding (rifles fired from hip / pistols fired one-handed)
 	UINT8 ubAllowAlternativeWeaponHolding;

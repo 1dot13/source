@@ -5,8 +5,8 @@
 	#include <stdio.h>
 	#include "Font Control.h" 
 	#include "renderworld.h"
-	#include "render dirty.h"
-	#include "loadscreen.h"
+	#include "Render Dirty.h"
+	#include "LoadScreen.h"
 	#include "selectwin.h"
 	#include "EditorDefines.h"
 	#include "messagebox.h"
@@ -173,7 +173,15 @@ void LoadSaveScreenEntry()
 		vfs::CVirtualProfile* prof = it.value();
 		memset(&FileInfo, 0, sizeof(GETFILESTRUCT));
 		strcpy(FileInfo.zFileName, "< ");
-		strcat(FileInfo.zFileName, prof->cName.utf8().c_str());
+		// Cut filename off if it's too long for the buffer
+		if (strlen(prof->cName.utf8().c_str()) > FILENAME_BUFLEN-4)
+		{
+			strncpy(FileInfo.zFileName+1, prof->cName.utf8().c_str(), FILENAME_BUFLEN-4);
+		}
+		else
+		{
+			strcat(FileInfo.zFileName, prof->cName.utf8().c_str());
+		}
 		strcat(FileInfo.zFileName, " >");
 		FileInfo.zFileName[FILENAME_BUFLEN] = 0;
 		FileInfo.uiFileAttribs = FILE_IS_DIRECTORY;

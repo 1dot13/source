@@ -1,16 +1,14 @@
-	#include "Types.h"
+	#include "types.h"
 	#include "ArmsDealerInvInit.h"
-	//#include "Item Types.h"
 	#include "Arms Dealer Init.h"
-	#include "DEbug.h"
-	#include "weapons.h"
+	#include "DEBUG.H"
+	#include "Weapons.h"
 	#include "Campaign.h"
 	#include "GameSettings.h"
 	#include "AIInternals.h"
 	#include "LaptopSave.h"
-	#include "bobbyr.h"
-	#include "Random.h"
-	#include "Shopkeeper Interface.h"
+	#include "BobbyR.h"
+	#include "random.h"
 	#include "connect.h"
 	#include "Rebel Command.h"
 
@@ -689,7 +687,7 @@ DEALER_POSSIBLE_INV gArmsDealerAdditional[ADDITIONAL_ARMS_DEALERS][MAXITEMS+1];
 
 // prototypes
 
-INT8 GetMaxItemAmount( DEALER_POSSIBLE_INV *pInv, UINT16 usItemIndex )
+static INT8 GetMaxItemAmount( DEALER_POSSIBLE_INV *pInv, UINT16 usItemIndex )
 {
 	UINT16	usCnt = 0;
 
@@ -927,7 +925,7 @@ DEALER_POSSIBLE_INV *GetPointerToDealersPossibleInventory( UINT16 ubArmsDealerID
 }
 
 //Madd: added boolean fUsed
-UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fUsed )
+static UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEAN fUsed )
 {
 	unsigned ubItemCoolness;
 	unsigned ubMinCoolness, ubMaxCoolness;
@@ -944,8 +942,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	}
 
 	// items normally not sold at shops are unsuitable
-//	if ( Item[ usItemIndex ].fFlags & ITEM_NOT_BUYABLE )
-	if ( Item[ usItemIndex ].notbuyable  )
+	if (ItemIsNotBuyable(usItemIndex))
 	{
 		return(ITEM_SUITABILITY_NONE);
 	}
@@ -971,7 +968,7 @@ UINT8 GetCurrentSuitabilityForItem( INT8 bArmsDealer, UINT16 usItemIndex, BOOLEA
 	//	case JAR:
 	//	case JAR_ELIXIR:
 	//	case JAR_CREATURE_BLOOD:
-		if ( Item[usItemIndex].medical || Item[usItemIndex].canteen || Item[usItemIndex].medicalkit || Item[usItemIndex].locksmithkit || Item[usItemIndex].toolkit || Item[usItemIndex].crowbar || Item[usItemIndex].jar )
+		if (ItemIsMedical(usItemIndex) || ItemIsCanteen(usItemIndex) || ItemIsMedicalKit(usItemIndex) || ItemIsLocksmithKit(usItemIndex) || ItemIsToolkit(usItemIndex) || ItemIsCrowbar(usItemIndex) || ItemIsJar(usItemIndex) )
 			return(ITEM_SUITABILITY_ALWAYS);
 	//}
 	
@@ -1455,8 +1452,7 @@ UINT8 GetDealerItemCategoryNumber( UINT16 usItemIndex )
 
 BOOLEAN CanDealerItemBeSoldUsed( UINT16 usItemIndex )
 {
-//	if ( !( Item[ usItemIndex ].fFlags & ITEM_DAMAGEABLE ) )
-	if ( !( Item[ usItemIndex ].damageable  ) )
+	if ( !ItemIsDamageable(usItemIndex) )
 		return(FALSE);
 
 	// certain items, although they're damagable, shouldn't be sold in a used condition

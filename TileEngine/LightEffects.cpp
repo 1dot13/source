@@ -1,9 +1,9 @@
 #include "builddefines.h"
 
-	#include "debug.h"
-	#include "animation control.h"
-	#include "lighteffects.h"
-	#include "isometric utils.h"
+	#include "DEBUG.H"
+	#include "Animation Control.h"
+	#include "LightEffects.h"
+	#include "Isometric Utils.h"
 	#include "lighting.h"
 	#include "Game Clock.h"
 	#include "opplist.h"
@@ -537,7 +537,7 @@ void ResetLightEffects()
 }
 
 // Flugente: create and destroy light sources tied to a person
-void CreatePersonalLight( INT32 sGridNo, UINT8 ubID )
+void CreatePersonalLight( INT32 sGridNo, SoldierID ubID )
 {
 	INT32 iLightIndex = NewLightEffectInternal( sGridNo, 0, 1 );
 
@@ -548,7 +548,7 @@ void CreatePersonalLight( INT32 sGridNo, UINT8 ubID )
 	}
 }
 
-void RemovePersonalLights( UINT8 ubID )
+void RemovePersonalLights( SoldierID ubID )
 {
 	LIGHTEFFECT *pLight;
 

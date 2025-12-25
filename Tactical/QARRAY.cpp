@@ -1,4 +1,4 @@
-	#include "sgp.h"
+	#include <types.h>
 	#include "qarray.h"
 
 QARRAY_VALUES QuoteExp[NUM_PROFILES];

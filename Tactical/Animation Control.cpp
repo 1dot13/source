@@ -1,19 +1,14 @@
-#include "builddefines.h"
-#include <stdio.h>
 #include <string.h>
-#include "stdlib.h"
-#include "debug.h"
+#include "DEBUG.H"
 #include "Animation Control.h"
 #include "Animation Data.h"
 #include "FileMan.h"
-#include "weapons.h"
 #include "message.h"
 #include "structure.h"
 #include "worlddef.h"
 #include "worldman.h"
-#include "rotting corpses.h"
+#include "Rotting Corpses.h"
 #include "Debug Control.h"
-#include "Random.h"
 #include "Soldier Control.h"
 
 #include "connect.h"
@@ -3730,7 +3725,7 @@ BOOLEAN LoadAnimationStateInstructions( )
 	}
 
 	//ddd Trick for loading more than 320 animation files (?)
-	UINT16 fuckTheBoundz[320][100];
+	UINT16 fuckTheBoundz[320][100] {};
 
 	//Read in block
 	//if ( !FileRead( hFile, gusAnimInst, sizeof( gusAnimInst ), &uiBytesRead ) ) //commentet by ddd
@@ -4297,10 +4292,10 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 			// ADJUST BASED ON ITEM IN HAND....
 			usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !Item[usItem].rocketlauncher)
+			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !ItemIsRocketLauncher(usItem) )
 			{
 				//				if ( (Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-				if ( (Item[ usItem ].twohanded ) )
+				if (ItemIsTwoHanded(usItem))
 				{
 					ubWaterHandIndex = 0;
 				}
@@ -4321,7 +4316,7 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 		// ADJUST BASED ON ITEM IN HAND....
 		usItem = pSoldier->inv[ HANDPOS ].usItem;
 
-		if ( !(Item[ usItem ].usItemClass == IC_GUN ) && !(Item[ usItem ].usItemClass == IC_LAUNCHER ) || Item[usItem].rocketlauncher )
+		if ( !(Item[ usItem ].usItemClass == IC_GUN ) && !(Item[ usItem ].usItemClass == IC_LAUNCHER ) || ItemIsRocketLauncher(usItem) )
 		{
 			if ( usAnimState == STANDING )
 			{
@@ -4342,10 +4337,10 @@ UINT16	DetermineSoldierAnimationSurface( SOLDIERTYPE *pSoldier, UINT16 usAnimSta
 		else
 		{
 			// CHECK FOR HANDGUN
-			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !Item[usItem].rocketlauncher )
+			if ( ( Item[ usItem ].usItemClass == IC_GUN || Item[ usItem ].usItemClass == IC_LAUNCHER ) && !ItemIsRocketLauncher(usItem) )
 			{
 				//				if ( !(Item[ usItem ].fFlags & ITEM_TWO_HANDED) )
-				if ( !(Item[ usItem ].twohanded ) )
+				if ( !ItemIsTwoHanded(usItem) )
 				{
 					// SANDRO - new anim for running with pistol by PasHancock
 					if ( usAnimState == RUNNING )

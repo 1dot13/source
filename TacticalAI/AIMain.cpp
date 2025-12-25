@@ -1,25 +1,25 @@
 #include "sgp.h"
 #include "ai.h"
 #include "Isometric Utils.h"
-#include "overhead.h"
+#include "Overhead.h"
 #include "math.h"
 #include "Event Pump.h"
 #include "Soldier Control.h"
 #include "Overhead Types.h"
 #include "opplist.h"
-#include "animation control.h"
-#include "font control.h"
-#include "interface.h"
+#include "Animation Control.h"
+#include "Font Control.h"
+#include "Interface.h"
 #include "screenids.h"
 #include "worldman.h"
-#include "pathai.h"
-#include "points.h"
-#include "weapons.h"
-#include "items.h"
+#include "PATHAI.H"
+#include "Points.h"
+#include "Weapons.h"
+#include "Items.h"
 #include "Handle Items.h"
 #include "AIInternals.h"
-#include "animation data.h"
-#include "los.h"
+#include "Animation Data.h"
+#include "LOS.h"
 #include "message.h"
 #include "TeamTurns.h"
 #include "NPC.h"
@@ -30,7 +30,7 @@
 #include "Soldier Create.h"
 #include "Explosion Control.h"
 #include "Interactive Tiles.h"
-#include "interface dialogue.h"
+#include "interface Dialogue.h"
 #include "Vehicles.h"
 #include "renderworld.h"
 #include "AIList.h"
@@ -39,13 +39,13 @@
 #include "physics.h"
 #include "GameSettings.h"
 #include "Debug Control.h"
-#include "interface panels.h"
+#include "Interface Panels.h"
 #include "Sound Control.h"
-#include "civ quotes.h"
+#include "Civ Quotes.h"
 #include "Quests.h"
 #include "Campaign Types.h"
 #include "Queen Command.h"
-#include "points.h"
+#include "Points.h"
 #include "Soldier Functions.h" // added by SANDRO
 #include "Text.h"	// sevenfm
 #include "english.h" // sevenfm: for ESC key
@@ -313,7 +313,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 
 	sprintf(msg, "");
 
-	sprintf(buf, "[%d] (%d)", pSoldier->ubID, pSoldier->sGridNo);
+	sprintf(buf, "[%d] (%d)", pSoldier->ubID.i, pSoldier->sGridNo);
 	strcat(msg, buf);
 
 	if (pSoldier->ubProfile != NO_PROFILE)
@@ -381,7 +381,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 	// also log to individual file for selected soldier
 	if (pSoldier)
 	{
-		sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID);
+		sprintf(buf, "Logs\\AI_Decisions [%d].txt", pSoldier->ubID.i);
 		if ((DebugFile = fopen(buf, "a+t")) != NULL)
 		{
 			if (bMsgType == AI_MSG_START)
@@ -492,7 +492,7 @@ BOOLEAN InitAI( void )
 
 	// remove all individual files
 	CHAR8	buf[1024];
-	for (UINT8 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++)
+	for (UINT16 cnt = 0; cnt < TOTAL_SOLDIERS; cnt++)
 	{
 		sprintf(buf, "Logs\\AI_Decisions [%d].txt", cnt);
 		remove(buf);
@@ -850,12 +850,12 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 				// display deadlock message
 				gfUIInDeadlock = TRUE;
 				gUIDeadlockedSoldier = pSoldier->ubID;
-				DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
+				DebugAI(  String("DEADLOCK soldier %d action %s ABC %d", pSoldier->ubID.i, gzActionStr[pSoldier->aiData.bAction], gTacticalStatus.ubAttackBusyCount ) );
 #else
 
 				// If we are in beta version, also report message!
 #ifdef JA2BETAVERSION
-				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID );
+				ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_ERROR, L"Aborting AI deadlock for %d. Please sent DEBUG.TXT file and SAVE.", pSoldier->ubID.i );
 #endif
 				// just abort
 				EndAIDeadlock();
@@ -1028,8 +1028,6 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 
 void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 {
-	UINT8					ubID;
-
 	if (gfTurnBasedAI)
 	{
 		if (gTacticalStatus.uiFlags & PLAYER_TEAM_DEAD)
@@ -1039,19 +1037,21 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 		}
 
 		// search for any player merc to say close call quote
-		for ( ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ubID++ )
+		for ( SoldierID ubID = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; ubID <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++ubID )
 		{
-			if ( OK_INSECTOR_MERC( MercPtrs[ ubID ] ) )
+			SOLDIERTYPE *pMerc = ubID;
+
+			if ( OK_INSECTOR_MERC( pMerc ) )
 			{
-				if ( MercPtrs[ ubID ]->flags.fCloseCall )
+				if ( pMerc->flags.fCloseCall )
 				{
-					if ( !gTacticalStatus.fSomeoneHit && MercPtrs[ ubID ]->bNumHitsThisTurn == 0 && !(MercPtrs[ ubID ]->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
+					if ( !gTacticalStatus.fSomeoneHit && pMerc->bNumHitsThisTurn == 0 && !(pMerc->usQuoteSaidExtFlags & SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL) && Random( 3 ) == 0 )
 					{
 						// say close call quote!
-						TacticalCharacterDialogue( MercPtrs[ ubID ], QUOTE_CLOSE_CALL );
-						MercPtrs[ ubID ]->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
+						TacticalCharacterDialogue( pMerc, QUOTE_CLOSE_CALL );
+						pMerc->usQuoteSaidExtFlags |= SOLDIER_QUOTE_SAID_EXT_CLOSE_CALL;
 					}
-					MercPtrs[ ubID ]->flags.fCloseCall = FALSE;
+					pMerc->flags.fCloseCall = FALSE;
 				}
 			}
 		}
@@ -1093,10 +1093,10 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier )
 #endif
 
 		// find the next AI guy
-		ubID = RemoveFirstAIListEntry();
+		SoldierID ubID = RemoveFirstAIListEntry();
 		if (ubID != NOBODY)
 		{
-			StartNPCAI( MercPtrs[ ubID ] );
+			StartNPCAI( ubID );
 			return;
 		}
 
@@ -1271,14 +1271,13 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 
 BOOLEAN DestNotSpokenFor(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 {
-	INT32 cnt;
 	SOLDIERTYPE *pOurTeam;
-
-	cnt = gTacticalStatus.Team[pSoldier->bTeam].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[pSoldier->bTeam].bFirstID;
 
 	// make a list of all of our team's mercs
-	for (pOurTeam = MercPtrs[cnt]; cnt <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; cnt++,pOurTeam++)
+	for ( ; cnt <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; ++cnt )
 	{
+		pOurTeam = cnt;
 		if ( pOurTeam->bActive )
 		{
 			if (pOurTeam->sGridNo == sGridNo || pOurTeam->aiData.usActionData == sGridNo)
@@ -1319,12 +1318,12 @@ INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 	return(sCheapestDest);
 }
 
-UINT8 GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
+SoldierID GetMostThreateningOpponent( SOLDIERTYPE *pSoldier )
 {
-	UINT32				uiLoop;
-	INT32				iThreatVal,iMinThreat = 30000;
-	SOLDIERTYPE			*pTargetSoldier;
-	UINT8					ubTargetSoldier = NOBODY;
+	UINT32			uiLoop;
+	INT32			iThreatVal,iMinThreat = 30000;
+	SOLDIERTYPE		*pTargetSoldier;
+	SoldierID		ubTargetSoldier = NOBODY;
 
 	// Loop through all mercs
 
@@ -1408,13 +1407,10 @@ void FreeUpNPCFromPendingAction( 	SOLDIERTYPE *pSoldier )
 	}
 }
 
-void FreeUpNPCFromAttacking(UINT8 ubID)
+void FreeUpNPCFromAttacking(SoldierID ubID)
 {
-	SOLDIERTYPE *pSoldier;
-
-	pSoldier = MercPtrs[ubID];
-	ActionDone(pSoldier);
-	pSoldier->pathing.bNeedToLook = TRUE;
+	ActionDone(ubID);
+	ubID->pathing.bNeedToLook = TRUE;
 }
 
 void FreeUpNPCFromLoweringGun( SOLDIERTYPE *pSoldier )
@@ -2017,7 +2013,7 @@ UINT32 GetTankCannonIndex()
 {
 	for ( UINT32 i = 0; i < gMAXITEMS_READ; ++i )
 	{
-		if (Item[i].cannon)
+		if (ItemIsCannon(i))
 		{
 			return Item[i].uiIndex;
 		}
@@ -2046,7 +2042,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 	UINT16 usHandItem = pSoldier->inv[HANDPOS].usItem;
 
 	INT8 bSlot;
-	UINT16 usSoldierIndex; // added by SANDRO
+	SoldierID usSoldierIndex; // added by SANDRO
 
 #ifdef TESTAICONTROL
 	if (gfTurnBasedAI || gTacticalStatus.fAutoBandageMode)
@@ -2368,23 +2364,24 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
             // fall through
         case AI_ACTION_FIRE_GUN:              // shoot at nearby opponent
-        case AI_ACTION_THROW_KNIFE:						// throw knife at nearby opponent
-            // randomly decide whether to say civ quote
-
-            if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_GUN )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_GUN, pSoldier->ubOppNum );
-            else if (Item[pSoldier->inv[HANDPOS].usItem].grenadelauncher || Item[pSoldier->inv[HANDPOS].usItem].mortar || Item[pSoldier->inv[HANDPOS].usItem].rocketlauncher )
-                PossiblyStartEnemyTaunt( pSoldier, TAUNT_FIRE_LAUNCHER, pSoldier->ubOppNum );
-            else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_THROWN && !Item[pSoldier->inv[HANDPOS].usItem].flare )
-				PossiblyStartEnemyTaunt( pSoldier, TAUNT_THROW_KNIFE, pSoldier->ubOppNum );
-            else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE )
-            {
-                if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_BLADE )
-                    PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_BLADE );
-                else if (Item[pSoldier->inv[HANDPOS].usItem].usItemClass == IC_PUNCH )
-					PossiblyStartEnemyTaunt( pSoldier, TAUNT_CHARGE_HTH );
-            }
-
+		case AI_ACTION_THROW_KNIFE:						// throw knife at nearby opponent
+			// randomly decide whether to say civ quote
+		{
+			UINT16 usItem = pSoldier->inv[HANDPOS].usItem;
+			if (Item[usItem].usItemClass == IC_GUN)
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_FIRE_GUN, pSoldier->ubOppNum);
+			else if (ItemIsGrenadeLauncher(usItem) || ItemIsMortar(usItem) || ItemIsRocketLauncher(usItem))
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_FIRE_LAUNCHER, pSoldier->ubOppNum);
+			else if (pSoldier->aiData.bAction == AI_ACTION_TOSS_PROJECTILE && Item[usItem].usItemClass == IC_THROWN && !ItemIsFlare(usItem))
+				PossiblyStartEnemyTaunt(pSoldier, TAUNT_THROW_KNIFE, pSoldier->ubOppNum);
+			else if (pSoldier->aiData.bAction == AI_ACTION_KNIFE_MOVE)
+			{
+				if (Item[usItem].usItemClass == IC_BLADE)
+					PossiblyStartEnemyTaunt(pSoldier, TAUNT_CHARGE_BLADE);
+				else if (Item[usItem].usItemClass == IC_PUNCH)
+					PossiblyStartEnemyTaunt(pSoldier, TAUNT_CHARGE_HTH);
+			}
+		}
             // CC, ATE here - I put in some TEMP randomness...
 			if (!is_networked)
 			{
@@ -2735,7 +2732,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
             usSoldierIndex = WhoIsThere2( pSoldier->aiData.usActionData, pSoldier->bTargetLevel);
             if ( usSoldierIndex != NOBODY )
 			{
-                MercStealFromMerc( pSoldier, MercPtrs[usSoldierIndex] );
+                MercStealFromMerc( pSoldier, usSoldierIndex );
 				PossiblyStartEnemyTaunt( pSoldier, TAUNT_STEAL, usSoldierIndex );
 			}
 
@@ -2769,7 +2766,7 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
 		case AI_ACTION_USE_SKILL:
 			{
-				UINT8 ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
+				SoldierID ubID = WhoIsThere2( pSoldier->aiData.usActionData, 0 );
 
 				BOOLEAN result = pSoldier->UseSkill(pSoldier->usAISkillUse, pSoldier->aiData.usActionData, ubID);
 

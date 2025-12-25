@@ -7,13 +7,12 @@
 	#include "Game Event Hook.h"
 	#include "GameSettings.h"
 	#include "Campaign Types.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Strategic Pathing.h"
 	#include "message.h"
 	#include "strategicmap.h"
 	#include "Game Clock.h"
 	#include "strategic.h"
-	#include "Explosion Control.h"
 	#include "Town Militia.h"
 	#include "Overhead.h"
 	#include "Squads.h"
@@ -26,15 +25,12 @@
 	#include "Campaign Init.h"
 	#include "Game Init.h"
 	#include "PreBattle Interface.h"
-	#include "Quests.h"
 	#include "Soldier Profile.h"
 	#include "Scheduling.h"
 	#include "Map Information.h"
-	#include "interface dialogue.h"
+	#include "interface Dialogue.h"
 	#include "ASD.h"		// added by Flugente
 	#include "Rebel Command.h"
-	#include "Game Event Hook.h"
-	#include "Strategic Town Loyalty.h"
 	#include "Strategic Transport Groups.h"
 
 #include "GameInitOptionsScreen.h"
@@ -470,9 +466,9 @@ BOOLEAN SendReinforcementsForPatrol( INT32 iPatrolID, GROUP **pOptionalGroup );
 
 void ClearPreviousAIGroupAssignment( GROUP *pGroup );
 
-void CalcNumTroopsBasedOnComposition( UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 ubTotal, INT32 iCompositionID );
+void CalcNumTroopsBasedOnComposition( UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 ubTotal, INT32 iCompositionID );
 void ConvertGroupTroopsToComposition( GROUP *pGroup, INT32 iCompositionID );
-void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT8 ubSize );
+void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT16 ubSize );
 
 //If there are any enemy groups that will be moving through this sector due, they will have to repath which
 //will cause them to avoid the sector.	Returns the number of redirected groups.
@@ -912,7 +908,6 @@ void RemovePlayersFromAllMismatchGroups( SOLDIERTYPE *pSoldier )
 #ifdef JA2BETAVERSION
 void ValidatePlayersAreInOneGroupOnly()
 {
-	INT32 i;
 	INT32 iGroups;
 	INT32 iMismatches;
 	INT32 iNumErrors;
@@ -923,10 +918,10 @@ void ValidatePlayersAreInOneGroupOnly()
 	UINT8 ubGroupID;
 	//Go through each merc slot in the player team
 	iNumErrors = 0;
-	for( i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; i++ )
+	for( SoldierID i = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; i <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++i )
 	{ //check to see if the merc has a group ID
 
-		pSoldier = MercPtrs[ i ];
+		pSoldier = i;
 
 		if( !pSoldier || !pSoldier->bActive || !pSoldier->stats.bLife || !pSoldier->ubGroupID )
 		{ //non-existant, dead, or in no group (don't care, skip to next merc)
@@ -1151,8 +1146,8 @@ void InitStrategicAI()
 	INT32 iStartPop, iDesiredPop, iPriority;
 	SECTORINFO *pSector = NULL;
 	GROUP *pGroup;
-	UINT8 ubNumTroops;
-	UINT8 ubNumRobots, ubNumTanks, ubNumJeeps;
+	UINT16 ubNumTroops;
+	UINT16 ubNumRobots, ubNumTanks, ubNumJeeps;
 	INT32 iPercentElitesBonus;
 	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
 	DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic3");
@@ -1538,9 +1533,9 @@ void InitStrategicAI()
 		//based on the difficulty settings in the above patrol table.
 		//if( gPatrolGroup[ i ].ubUNUSEDStartIfDifficulty <= gGameOptions.ubDifficultyLevel )
 		{
-			UINT8 troopCount = (UINT8)(gPatrolGroup[ i ].bSize + Random( 3 ) - 1);
-			troopCount = (UINT8)max( gubMinEnemyGroupSize, min( iMaxEnemyGroupSize, troopCount) );
-			UINT8 ubNumElites;
+			UINT16 troopCount = (UINT16)(gPatrolGroup[ i ].bSize + Random( 3 ) - 1);
+			troopCount = (UINT16)max( gubMinEnemyGroupSize, min( iMaxEnemyGroupSize, troopCount) );
+			UINT16 ubNumElites;
 			InitializeGroup(GROUP_TYPE_PATROL, troopCount, ubNumTroops, ubNumElites, ubNumRobots, ubNumJeeps, ubNumTanks, Random(10) < gGameOptions.ubDifficultyLevel && i != 3 && i != 4);
 
 			//Note on adding patrol groups...
@@ -1610,6 +1605,11 @@ void InitStrategicAI()
 				case 1:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						// (0,0) coordinates signify a not used cache sector
+						if ( gModSettings.ubWeaponCache1X == 0 || gModSettings.ubWeaponCache1Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;					
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);	
@@ -1628,6 +1628,10 @@ void InitStrategicAI()
 				case 2:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache2X == 0 || gModSettings.ubWeaponCache2Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
@@ -1646,6 +1650,10 @@ void InitStrategicAI()
 				case 3:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache3X == 0 || gModSettings.ubWeaponCache3Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
@@ -1664,6 +1672,10 @@ void InitStrategicAI()
 				case 4:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache4X == 0 || gModSettings.ubWeaponCache4Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
@@ -1682,6 +1694,10 @@ void InitStrategicAI()
 				case 5:	
 					if( ubPicked[0] != ubSector && ubPicked[1] != ubSector )
 					{
+						if ( gModSettings.ubWeaponCache5X == 0 || gModSettings.ubWeaponCache5Y == 0 )
+						{
+							break;
+						}
 						pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
 						pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
 						pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
@@ -1706,25 +1722,40 @@ void InitStrategicAI()
 	}
 	else
 	{
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
+		if ( gModSettings.ubWeaponCache1X != 0 && gModSettings.ubWeaponCache1Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y )]; //SEC_E11
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops1 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y ) ]; //SEC_H5
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
+		if ( gModSettings.ubWeaponCache2X != 0 && gModSettings.ubWeaponCache2Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache2X, gModSettings.ubWeaponCache2Y )]; //SEC_H5
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops2 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y ) ]; //SEC_H10
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
+		if ( gModSettings.ubWeaponCache3X != 0 && gModSettings.ubWeaponCache3Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache3X, gModSettings.ubWeaponCache3Y )]; //SEC_H10
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops3 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y ) ]; //SEC_J12
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
+		if ( gModSettings.ubWeaponCache4X != 0 && gModSettings.ubWeaponCache4Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache4X, gModSettings.ubWeaponCache4Y )]; //SEC_J12
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops4 * 2);
+		}
 
-		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y ) ]; //SEC_M9
-		pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
-		pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);		
+		if ( gModSettings.ubWeaponCache5X != 0 && gModSettings.ubWeaponCache5Y != 0 )
+		{
+			pSector = &SectorInfo[SECTOR( gModSettings.ubWeaponCache5X, gModSettings.ubWeaponCache5Y )]; //SEC_M9
+			pSector->uiFlags |= SF_USE_ALTERNATE_MAP;
+			pSector->ubNumTroops = (UINT8)(6 + zDiffSetting[gGameOptions.ubDifficultyLevel].iWeaponCacheTroops5 * 2);
+		}
 		
 		/*
 		pSector = &SectorInfo[ SECTOR( gModSettings.ubWeaponCache1X, gModSettings.ubWeaponCache1Y ) ]; //SEC_E11
@@ -2237,12 +2268,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 				if( gGarrisonGroup[ i ].ubSectorID != SECTOR( gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY ) )
 				{
 					EliminateSurplusTroopsForGarrison( pGroup, pSector );
-					pSector->ubNumAdmins = (UINT8)(pSector->ubNumAdmins + pGroup->pEnemyGroup->ubNumAdmins);
-					pSector->ubNumTroops = (UINT8)(pSector->ubNumTroops + pGroup->pEnemyGroup->ubNumTroops);
-					pSector->ubNumElites = (UINT8)(pSector->ubNumElites + pGroup->pEnemyGroup->ubNumElites);
-					pSector->ubNumRobots = (UINT8)(pSector->ubNumRobots + pGroup->pEnemyGroup->ubNumRobots);
-					pSector->ubNumTanks = (UINT8)(pSector->ubNumTanks + pGroup->pEnemyGroup->ubNumTanks);
-					pSector->ubNumJeeps = (UINT8)(pSector->ubNumJeeps + pGroup->pEnemyGroup->ubNumJeeps);
+					pSector->ubNumAdmins = (pSector->ubNumAdmins + pGroup->pEnemyGroup->ubNumAdmins);
+					pSector->ubNumTroops = (pSector->ubNumTroops + pGroup->pEnemyGroup->ubNumTroops);
+					pSector->ubNumElites = (pSector->ubNumElites + pGroup->pEnemyGroup->ubNumElites);
+					pSector->ubNumRobots = (pSector->ubNumRobots + pGroup->pEnemyGroup->ubNumRobots);
+					pSector->ubNumTanks = (pSector->ubNumTanks + pGroup->pEnemyGroup->ubNumTanks);
+					pSector->ubNumJeeps = (pSector->ubNumJeeps + pGroup->pEnemyGroup->ubNumJeeps);
 
 #ifdef JA2BETAVERSION
 					LogStrategicEvent( "%d reinforcements have arrived to garrison sector %c%d",
@@ -2325,7 +2356,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Strategic5");
 					pPatrolGroup->pEnemyGroup->ubNumRobots += pGroup->pEnemyGroup->ubNumRobots;
 					pPatrolGroup->pEnemyGroup->ubNumTanks += pGroup->pEnemyGroup->ubNumTanks;
 					pPatrolGroup->pEnemyGroup->ubNumJeeps += pGroup->pEnemyGroup->ubNumJeeps;
-					pPatrolGroup->ubGroupSize += (UINT8)(pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins 
+					pPatrolGroup->ubGroupSize += (pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins 
 														  + pGroup->pEnemyGroup->ubNumRobots + pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps);
 					#ifdef JA2BETAVERSION
 						LogStrategicEvent( "%d reinforcements have joined patrol group at sector %c%d (new size: %d)",
@@ -2678,7 +2709,7 @@ void CheckEnemyControlledSector( UINT8 ubSectorID )
 					{
 						if( pGroup->pEnemyGroup->ubPendingReinforcements > 4 )
 						{
-							UINT8 ubNum = (UINT8)(3 + Random( 3 ));
+							UINT16 ubNum = (UINT16)(3 + Random( 3 ));
 							pGroup->pEnemyGroup->ubNumTroops += ubNum;
 							pGroup->ubGroupSize += ubNum;
 							pGroup->pEnemyGroup->ubPendingReinforcements -= ubNum;
@@ -3044,7 +3075,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 	GROUP *pGroup;
 	UINT8 ubSrcSectorX, ubSrcSectorY, ubDstSectorX, ubDstSectorY;
 	UINT8 ubNumExtraReinforcements;
-	UINT8 ubGroupSize;
+	UINT16 ubGroupSize;
 	BOOLEAN fLimitMaxTroopsAllowable = FALSE;
 
 	Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
@@ -3171,7 +3202,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 		pGroup->ubMoveType = ONE_WAY;
 		gGarrisonGroup[ iDstGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
 
-		ubGroupSize = (UINT8)(pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumRobots + pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps);
+		ubGroupSize = (UINT16)(pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumRobots + pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps);
 
 		if( ubNumExtraReinforcements )
 		{
@@ -3261,7 +3292,7 @@ BOOLEAN SendReinforcementsForGarrison( INT32 iDstGarrisonID, UINT16 usDefencePoi
 			pGroup->ubOriginalSector = (UINT8)SECTOR( ubDstSectorX, ubDstSectorY );
 			pGroup->ubMoveType = ONE_WAY;
 			gGarrisonGroup[ iDstGarrisonID ].ubPendingGroupID = pGroup->ubGroupID;
-			ubGroupSize = (UINT8)(pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumRobots + pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps);
+			ubGroupSize = (UINT16)(pGroup->pEnemyGroup->ubNumTroops + pGroup->pEnemyGroup->ubNumElites + pGroup->pEnemyGroup->ubNumAdmins + pGroup->pEnemyGroup->ubNumRobots + pGroup->pEnemyGroup->ubNumTanks + pGroup->pEnemyGroup->ubNumJeeps);
 
 			if( ubNumExtraReinforcements )
 			{
@@ -4107,13 +4138,12 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 		}
 		else
 		{ //We are in the basement sector, relocate queen to proper position.
-			INT32 i;
-			for( i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; i++ )
+			for( SoldierID i = gTacticalStatus.Team[ CIV_TEAM ].bFirstID; i <= gTacticalStatus.Team[ CIV_TEAM ].bLastID; ++i )
 			{
-				if( MercPtrs[ i ]->ubProfile == QUEEN )
+				if( i->ubProfile == QUEEN )
 				{ //Found queen, relocate her to 16866
 					BumpAnyExistingMerc( 16866 );
-					TeleportSoldier( MercPtrs[ i ], 16866, TRUE );
+					TeleportSoldier( i, 16866, TRUE );
 					break;
 				}
 			}
@@ -4510,15 +4540,15 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 	UINT8 stagesector0, stagesector1, stagesector2, stagesector3;
 	UINT8 assaultsector0, assaultsector1, assaultsector2, assaultsector3;
 	unsigned ubNumSoldiers;
-	UINT8 ubNumRobots = 0;
-	UINT8 ubNumTanks = 0;
-	UINT8 ubNumJeeps = 0;
+	UINT16 ubNumRobots = 0;
+	UINT16 ubNumTanks = 0;
+	UINT16 ubNumJeeps = 0;
 	UINT32 totalusedsoldiers = 0;
-	UINT8 grouptroops[4] = {0,0,0,0};
-	UINT8 groupelites[4] = {0,0,0,0};
-	UINT8 grouprobots[4] = {0,0,0,0};
-	UINT8 grouptanks[4] = {0,0,0,0};
-	UINT8 groupjeeps[4] = {0, 0, 0, 0};
+	UINT16 grouptroops[4] = {0,0,0,0};
+	UINT16 groupelites[4] = {0,0,0,0};
+	UINT16 grouprobots[4] = {0,0,0,0};
+	UINT16 grouptanks[4] = {0,0,0,0};
+	UINT16 groupjeeps[4] = {0, 0, 0, 0};
 
 	UINT32 difficultyMod;
 	switch (gGameOptions.ubDifficultyLevel)
@@ -5211,12 +5241,12 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 						soldiersThisSquad = (unsigned)gGameExternalOptions.iMaxEnemyGroupSize;
 					}
 					ubNumSoldiers -= soldiersThisSquad;
-					UINT8 adminsThisSquad = 0;
-					UINT8 troopsThisSquad = 0;
-					UINT8 elitesThisSquad = 0;
-					UINT8 robotsThisSquad = 0;
-					UINT8 tanksThisSquad = 0;
-					UINT8 jeepsThisSquad = 0;
+					UINT16 adminsThisSquad = 0;
+					UINT16 troopsThisSquad = 0;
+					UINT16 elitesThisSquad = 0;
+					UINT16 robotsThisSquad = 0;
+					UINT16 tanksThisSquad = 0;
+					UINT16 jeepsThisSquad = 0;
 					// this is an attack group, but set it to patrol since we'll set the admin/regular/elite composition by hand here
 					InitializeGroup(GROUP_TYPE_PATROL, soldiersThisSquad, troopsThisSquad, elitesThisSquad, robotsThisSquad, jeepsThisSquad, tanksThisSquad, Random(10 * 100) < difficultyMod * direness);
 					if (direness < 25) {
@@ -5259,7 +5289,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				// Note:  1st optional parm is a count of troops to send
 				//        2nd optional parm is the composition of troops
 				if (option1 > 0 && option1 < 256) {
-					ubNumSoldiers = (UINT8)(option1);
+					ubNumSoldiers = option1;
 				} else {
 					// Something is goofy, just send a default sized squad
 					ubNumSoldiers = gubMinEnemyGroupSize;
@@ -5351,7 +5381,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 			if ( !gfUnlimitedTroops )
 				giReinforcementPool -= ubNumSoldiers;
 
-			UINT8 ubNumTroops, ubNumElites;
+			UINT16 ubNumTroops, ubNumElites;
 			// set the type to patrol as we're manually tuning the group composition here (100% elites + ASD upgrades)
 			InitializeGroup(GROUP_TYPE_PATROL, ubNumSoldiers, ubNumTroops, ubNumElites, ubNumRobots, ubNumJeeps, ubNumTanks, Random(10*100) < difficultyMod * HighestPlayerProgressPercentage());
 
@@ -5720,26 +5750,13 @@ void StrategicHandleQueenLosingControlOfSector( INT16 sSectorX, INT16 sSectorY, 
 	else
 		return;
 
-	//Madd: tweaked to increase attacks for experienced and expert to 8 and 12, and unlimited for insane
-		UINT8 value9;
-		if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
-			value9 = 1;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_MEDIUM )
-			value9 = 2;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_HARD )
-			value9 = 3;
-		else if( gGameOptions.ubDifficultyLevel == DIF_LEVEL_INSANE )
-			value9 = 4;
-		else
-		{
-			value9 = Random (4);
-			if (value9 == 0) value9 = 1;
-		}
-	
-	if( pSector->ubInvestigativeState >= ( 4 * value9 ) && !zDiffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector )
 	{
-		//This is the 4th time the player has conquered this sector.	We won't pester the player with probing attacks here anymore.
-		return;
+		const auto queenStopsAttacking = zDiffSetting[gGameOptions.ubDifficultyLevel].bQueenLosingControlOfSector;
+		if (queenStopsAttacking != 0 && pSector->ubInvestigativeState >= queenStopsAttacking) {
+			/* This is equal or higher than QueenAttackLosingControlOfSector number of times the player has conquered this sector.
+			   We won't pester the player with probing attacks here anymore. */
+			return;
+		}
 	}
 
 	if( sSectorX != gWorldSectorX || sSectorY != gWorldSectorY )
@@ -6751,7 +6768,7 @@ void ClearPreviousAIGroupAssignment( GROUP *pGroup )
 	}
 }
 
-void CalcNumTroopsBasedOnComposition( UINT8 *pubNumTroops, UINT8 *pubNumElites, UINT8 ubTotal, INT32 iCompositionID )
+void CalcNumTroopsBasedOnComposition( UINT16 *pubNumTroops, UINT16 *pubNumElites, UINT16 ubTotal, INT32 iCompositionID )
 {
 	*pubNumTroops = gArmyComp[ iCompositionID ].bTroopPercentage * ubTotal / 100;
 	*pubNumElites = gArmyComp[ iCompositionID ].bElitePercentage * ubTotal / 100;
@@ -6795,19 +6812,19 @@ void ConvertGroupTroopsToComposition( GROUP *pGroup, INT32 iCompositionID )
 	ValidateLargeGroup( pGroup );
 }
 
-void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT8 ubSize )
+void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT16 ubSize )
 {
 	SECTORINFO *pSector;
 	INT32 iCompositionID;
-	UINT8 ubNumTroops, ubNumElites;
+	UINT16 ubNumTroops, ubNumElites;
 
 	//debug stuff
-	UINT8 ubOrigSectorAdmins;
-	UINT8 ubOrigSectorTroops;
-	UINT8 ubOrigSectorElites;
-	UINT8 ubOrigNumElites;
-	UINT8 ubOrigNumTroops;
-	UINT8 ubOrigSize;
+	UINT16 ubOrigSectorAdmins;
+	UINT16 ubOrigSectorTroops;
+	UINT16 ubOrigSectorElites;
+	UINT16 ubOrigNumElites;
+	UINT16 ubOrigNumTroops;
+	UINT16 ubOrigSize;
 
  Ensure_RepairedGarrisonGroup( &gGarrisonGroup, &giGarrisonArraySize );	/* added NULL fix, 2007-03-03, Sgt. Kolja */
 	iCompositionID = gGarrisonGroup[ iGarrisonID ].ubComposition;
@@ -7084,12 +7101,12 @@ void ASDInitializePatrolGroup(GROUP *pGroup)
 	}
 }
 
-void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade )
+void InitializeGroup( const GROUP_TYPE groupType, const UINT16 groupSize, ENEMYGROUP& enemyGroup, const BOOLEAN asdUpgrade )
 {
 	InitializeGroup( groupType, groupSize, enemyGroup.ubNumTroops, enemyGroup.ubNumElites, enemyGroup.ubNumRobots, enemyGroup.ubNumJeeps, enemyGroup.ubNumTanks, asdUpgrade );
 }
 
-void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &troopCount, UINT8 &eliteCount, UINT8 &robotCount, UINT8 &jeepCount, UINT8 &tankCount, const BOOLEAN asdUpgrade )
+void InitializeGroup( const GROUP_TYPE groupType, const UINT16 groupSize, UINT16 &troopCount, UINT16 &eliteCount, UINT16 &robotCount, UINT16 &jeepCount, UINT16 &tankCount, const BOOLEAN asdUpgrade )
 {
 	troopCount = groupSize;
 	eliteCount = 0;
@@ -7115,15 +7132,16 @@ void InitializeGroup( const GROUP_TYPE groupType, const UINT8 groupSize, UINT8 &
 			tankCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsJeeps && ASDSoldierUpgradeToJeep( ) )
 		{
 			troopCount--;
 			jeepCount++;
 		}
 
-		if ( gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
+		if ( troopCount > 0 && gGameExternalOptions.fASDAssignsRobots && ASDSoldierUpgradeToRobot() )
 		{
-			const int numRobots = 1 + Random(difficultyMod);
+			// Limit amount of robots, if randomized difficulty bonus would cause us to go over the troopCount amount
+			const int numRobots = min( (1 + Random(difficultyMod)), troopCount); 
 			troopCount -= numRobots;
 			robotCount += numRobots;
 		}

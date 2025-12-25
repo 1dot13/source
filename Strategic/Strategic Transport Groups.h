@@ -2,7 +2,7 @@
 #define _STRATEGIC_TRANSPORT_GROUPS_H
 
 #include "Campaign Types.h"
-#include "Types.h"
+#include "types.h"
 #include <map>
 
 enum TransportGroupSectorInfo
@@ -22,7 +22,7 @@ void UpdateTransportGroupInventory();
 
 const std::map<UINT8, TransportGroupSectorInfo> GetTransportGroupSectorInfo();
 
-void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT8 amount);
+void AddToTransportGroupMap(UINT8 groupId, int soldierClass, UINT16 amount);
 void ClearTransportGroupMap();
 
 void NotifyTransportGroupDefeated();

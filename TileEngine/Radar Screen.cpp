@@ -6,8 +6,8 @@
 	#include "line.h"
 	#include "renderworld.h"
 	#include "lighting.h"
-	#include "wcheck.h"
-	#include "render dirty.h"
+	#include "WCheck.h"
+	#include "Render Dirty.h"
 	#include "overhead map.h"
 	#include "Squads.h"
 	#include "Text.h"
@@ -493,30 +493,21 @@ void RenderRadarScreen( )
 
 	if( !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
-		if(gbPixelDepth==16)
+		// WANNE: Correct radar rectangle size if it is too large to fit in radar screen [2007-05-14]
+		if (fAllowRadarMovementHor == FALSE)
 		{
-			// WANNE: Correct radar rectangle size if it is too large to fit in radar screen [2007-05-14]
-			if (fAllowRadarMovementHor == FALSE)
-			{
-				sRadarTLX = RADAR_WINDOW_TM_X;
-				sRadarBRX = RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH;
-			}
-
-			if (fAllowRadarMovementVer == FALSE)
-			{
-				sRadarTLY = RADAR_WINDOW_TM_Y;
-				sRadarBRY = RADAR_WINDOW_TM_Y + RADAR_WINDOW_HEIGHT;
-			}
-
-			usLineColor = Get16BPPColor( FROMRGB( 0, 255, 0 ) );
-			RectangleDraw( TRUE, sRadarTLX, sRadarTLY, sRadarBRX, sRadarBRY - 1, usLineColor, pDestBuf );
+			sRadarTLX = RADAR_WINDOW_TM_X;
+			sRadarBRX = RADAR_WINDOW_TM_X + RADAR_WINDOW_WIDTH;
 		}
-		else if(gbPixelDepth==8)
+
+		if (fAllowRadarMovementVer == FALSE)
 		{
-			// DB Need to change this to a color from the 8-but standard palette
-			usLineColor = COLOR_GREEN;
-			RectangleDraw8( TRUE, sRadarTLX + 1, sRadarTLY + 1, sRadarBRX + 1, sRadarBRY + 1, usLineColor, pDestBuf );
+			sRadarTLY = RADAR_WINDOW_TM_Y;
+			sRadarBRY = RADAR_WINDOW_TM_Y + RADAR_WINDOW_HEIGHT;
 		}
+
+		usLineColor = Get16BPPColor( FROMRGB( 0, 255, 0 ) );
+		RectangleDraw( TRUE, sRadarTLX, sRadarTLY, sRadarBRX, sRadarBRY - 1, usLineColor, pDestBuf );
 	}
 
 	// Cycle fFlash variable
@@ -556,24 +547,20 @@ void RenderRadarScreen( )
 			sXSoldRadar += RADAR_WINDOW_TM_X;
 			sYSoldRadar += gsRadarY;
 
-			// if we are in 16 bit mode....kind of redundant
-			if(gbPixelDepth==16)
+			if( ( fFlashHighLightInventoryItemOnradarMap ) )
 			{
-				if( ( fFlashHighLightInventoryItemOnradarMap ) )
-				{
-					usLineColor = Get16BPPColor( FROMRGB(	0,	255,	0 ) );
+				usLineColor = Get16BPPColor( FROMRGB(	0,	255,	0 ) );
 
-				}
-				else
-				{
-					// DB Need to add a radar color for 8-bit
-					usLineColor = Get16BPPColor( FROMRGB(	255,	255,	255 ) );
-				}
+			}
+			else
+			{
+				// DB Need to add a radar color for 8-bit
+				usLineColor = Get16BPPColor( FROMRGB(	255,	255,	255 ) );
+			}
 
-				if( iCurrentlyHighLightedItem == iCounter )
-				{
-					RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar + 1, sYSoldRadar + 1, usLineColor, pDestBuf );
-				}
+			if( iCurrentlyHighLightedItem == iCounter )
+			{
+				RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar + 1, sYSoldRadar + 1, usLineColor, pDestBuf );
 			}
 		}
 	}
@@ -632,77 +619,67 @@ void RenderRadarScreen( )
 				sXSoldRadar += gsRadarX;
 				sYSoldRadar += gsRadarY;
 				
-				if(gbPixelDepth==16)
-				{
-					// DB Need to add a radar color for 8-bit
 
-					// Are we a selected guy?
-					if ( pSoldier->ubID == gusSelectedSoldier )
+				// Are we a selected guy?
+				if ( pSoldier->ubID == gusSelectedSoldier )
+				{
+					if ( gfRadarCurrentGuyFlash )
 					{
-						if ( gfRadarCurrentGuyFlash )
-						{
-							usLineColor = 0;
-						}
-						else
-						{
-							// If on roof, make darker....
-							if ( pSoldier->pathing.bLevel > 0 )
-							{
-								usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
-							}
-							else
-							{
-								usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-							}
-						}
+						usLineColor = 0;
 					}
 					else
 					{
-						usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
-						
-						if ( pSoldier->bTeam == CIV_TEAM )
-						{
-							// Override civ team with red if hostile...
-							if ( pSoldier->bSide != gbPlayerNum && !pSoldier->aiData.bNeutral )
-								usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
-							// if uncovered, different colour (so the player doesn't have to search for us)
-							else if ( gGameExternalOptions.fKnownNPCsUseDifferentColour && pSoldier->ubProfile != NO_PROFILE && !zHiddenNames[pSoldier->ubProfile].Hidden )
-								usLineColor = Get16BPPColor( FROMRGB( 0, 0, 255 ) );
-						}
-
-						// Flugente 18-04-15: observed an odd bug: if we play with a release build and see a creature for the first time, their overhead/radar map pins do not have the correct colour.
-						// Bizarrely enough, the issue seems dependent on the colour value (pink, RGB: 255/0/255) itself.
-						// Saving and reloading solves the issue, but I am not sure why. As a fix we now use a slightly dampened pink.
-						if ( pSoldier->bTeam == CREATURE_TEAM )
-						{
-							usLineColor = Get16BPPColor( FROMRGB( 247, 0, 247 ) );
-						}
-
-						// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
-						if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
-							usLineColor = Get16BPPColor( gTacticalStatus.Team[ MILITIA_TEAM ].RadarColor );
-
-						// Render different color if an enemy and he's unconscious
-						if ( pSoldier->bTeam != gbPlayerNum && pSoldier->stats.bLife < OKLIFE )
-						{
-							usLineColor = Get16BPPColor( FROMRGB( 128, 128, 128 ) );
-						}
-
 						// If on roof, make darker....
-						if ( pSoldier->bTeam == gbPlayerNum && pSoldier->pathing.bLevel > 0 )
+						if ( pSoldier->pathing.bLevel > 0 )
 						{
 							usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
 						}
+						else
+						{
+							usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
+						}
+					}
+				}
+				else
+				{
+					usLineColor = Get16BPPColor( gTacticalStatus.Team[ pSoldier->bTeam ].RadarColor );
+						
+					if ( pSoldier->bTeam == CIV_TEAM )
+					{
+						// Override civ team with red if hostile...
+						if ( pSoldier->bSide != gbPlayerNum && !pSoldier->aiData.bNeutral )
+							usLineColor = Get16BPPColor( FROMRGB( 255, 0, 0 ) );
+						// if uncovered, different colour (so the player doesn't have to search for us)
+						else if ( gGameExternalOptions.fKnownNPCsUseDifferentColour && pSoldier->ubProfile != NO_PROFILE && !zHiddenNames[pSoldier->ubProfile].Hidden )
+							usLineColor = Get16BPPColor( FROMRGB( 0, 0, 255 ) );
 					}
 
-					RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );
+					// Flugente 18-04-15: observed an odd bug: if we play with a release build and see a creature for the first time, their overhead/radar map pins do not have the correct colour.
+					// Bizarrely enough, the issue seems dependent on the colour value (pink, RGB: 255/0/255) itself.
+					// Saving and reloading solves the issue, but I am not sure why. As a fix we now use a slightly dampened pink.
+					if ( pSoldier->bTeam == CREATURE_TEAM )
+					{
+						usLineColor = Get16BPPColor( FROMRGB( 247, 0, 247 ) );
+					}
+
+					// Flugente: if we are a (still covert) enemy assassin, colour us like militia, so that the player wont notice us
+					if ( pSoldier->usSoldierFlagMask & SOLDIER_ASSASSIN && pSoldier->usSoldierFlagMask & SOLDIER_COVERT_SOLDIER )
+						usLineColor = Get16BPPColor( gTacticalStatus.Team[ MILITIA_TEAM ].RadarColor );
+
+					// Render different color if an enemy and he's unconscious
+					if ( pSoldier->bTeam != gbPlayerNum && pSoldier->stats.bLife < OKLIFE )
+					{
+						usLineColor = Get16BPPColor( FROMRGB( 128, 128, 128 ) );
+					}
+
+					// If on roof, make darker....
+					if ( pSoldier->bTeam == gbPlayerNum && pSoldier->pathing.bLevel > 0 )
+					{
+						usLineColor = Get16BPPColor( FROMRGB( 150, 150, 0 ) );
+					}
 				}
-				else if(gbPixelDepth==8)
-				{
-					// DB Need to change this to a color from the 8-but standard palette
-					usLineColor = COLOR_BLUE;
-					RectangleDraw8( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );
-				}
+
+				RectangleDraw( TRUE, sXSoldRadar, sYSoldRadar, sXSoldRadar+1, sYSoldRadar+1, usLineColor, pDestBuf );
 			}
 		}
 	}

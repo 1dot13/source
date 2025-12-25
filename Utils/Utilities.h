@@ -1,11 +1,9 @@
 #ifndef _UTILITIES_H_
 #define _UTILITIES_H_
 
-#include "Overhead types.h"
+#include "Overhead Types.h"
 #include "sgp.h"
 
-
-#define GETPIXELDEPTH( )	( gbPixelDepth )
 
 // WANNE: Maximum number of characters in german description (German xml files)
 #define MAXLINE		200

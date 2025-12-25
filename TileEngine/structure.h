@@ -3,7 +3,7 @@
 
 #include "Structure Internals.h"
 #include "tiledef.h"
-#include "overhead types.h"
+#include "Overhead Types.h"
 
 #define NOTHING_BLOCKING							0
 #define BLOCKING_REDUCE_RANGE					1
@@ -37,7 +37,7 @@ BOOLEAN FreeStructureFile( STRUCTURE_FILE_REF * pStructureFile );
 //
 // functions at the structure instance level
 //
-BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, INT16 sSoldierID = NOBODY );
+BOOLEAN OkayToAddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, INT16 sExclusionID, BOOLEAN fAddingForReal = FALSE, SoldierID sSoldierID = NOBODY );
 
 // for the PTR argument of AddStructureToWorld, pass in a LEVELNODE * please!
 BOOLEAN AddStructureToWorld( INT32 sBaseGridNo, INT8 bLevel, DB_STRUCTURE_REF * pDBStructureRef, PTR pLevelN );
@@ -91,7 +91,7 @@ STRUCTURE* GetTallestStructureOnGridnoDrag( INT32 sGridNo, INT8 bLevel );
 // FUNCTIONS FOR DETERMINING STUFF THAT BLOCKS VIEW FOR TILE_bASED LOS
 INT8 GetBlockingStructureInfo( INT32 sGridNo, INT8 bDir, INT8 bNextDir, INT8 bLevel, INT8 *pStructHeight, STRUCTURE ** ppTallestStructure, BOOLEAN fWallsBlock );
 
-INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, UINT8 ubOwner, INT32 sAntiMaterialImpact = 0 );
+INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, INT32 sGridNo, INT16 sX, INT16 sY, SoldierID ubOwner, INT32 sAntiMaterialImpact = 0 );
 
 // Material armour type enumeration
 enum

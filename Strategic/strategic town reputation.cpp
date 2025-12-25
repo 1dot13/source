@@ -1,12 +1,10 @@
 	#include "types.h"
 	#include "strategic town reputation.h"
 	#include "soldier profile type.h"
-	#include "game event hook.h"
 	#include "Soldier Profile.h"
-	#include "Overhead.h"
 	#include "Game Clock.h"
-	#include "strategic town loyalty.h"
-	#include "Debug.h"
+	#include "Strategic Town Loyalty.h"
+	#include "DEBUG.H"
 	#include "message.h"
 
 

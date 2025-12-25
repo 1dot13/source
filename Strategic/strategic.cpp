@@ -1,24 +1,16 @@
-	#include "Strategic.h"
-	#include "Types.h"
+	#include "strategic.h"
+	#include "types.h"
 	#include "Squads.h"
-	#include "jascreens.h"
 	#include "Assignments.h"
 	#include "Interface Control.h"
 	#include "Overhead.h"
 	#include "Soldier Profile.h"
 	#include "Dialogue Control.h"
-	#include "personnel.h"
 	#include "Tactical Save.h"
 	#include "Isometric Utils.h"
 	#include "Vehicles.h"
 	#include "Game Clock.h"
-	#include "CampaignStats.h"		// added by Flugente
-	#include "militiasquads.h"		// added by Flugente
-	#include "Game Event Hook.h"	// added by Flugente
-	#include "message.h"			// added by Flugente
-	#include "Text.h"				// added by Flugente
-	#include "Queen Command.h"		// added by Flugente
-
+						
 #ifdef JA2UB
 #else
 	// anv: for playable Speck
@@ -101,16 +93,16 @@ BOOLEAN HandleStrategicDeath( SOLDIERTYPE *pSoldier )
 
 void HandleSoldierDeadComments( SOLDIERTYPE *pSoldier )
 {
-	INT32 cnt = 0;
 	SOLDIERTYPE *pTeamSoldier;
 	INT8 bBuddyIndex;
 
 	// IF IT'S THE SELECTED GUY, MAKE ANOTHER SELECTED!
-	cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ pSoldier->bTeam ].bFirstID;
 	
 	// see if this was the friend of a living merc
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; cnt++,pTeamSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ pSoldier->bTeam ].bLastID; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->bActive )
 		{
 			bBuddyIndex = WhichBuddy( pTeamSoldier->ubProfile, pSoldier->ubProfile );

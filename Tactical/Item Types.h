@@ -1,7 +1,7 @@
 #ifndef ITEM_TYPES_H
 #define ITEM_TYPES_H
 
-#include "types.h"
+#include "Overhead Types.h"
 #include <vector>
 #include <list>
 // THE_BOB : added for pocket popup definitions
@@ -247,7 +247,7 @@ public:
 
 	UINT32				lbeClass;
 	UINT16				lbeIndex;
-	UINT8				ubID;
+	SoldierID			ubID;
 	BOOLEAN				ZipperFlag;
 	int					uniqueID;
 	UINT32				uiNodeChecksum;
@@ -259,7 +259,7 @@ public:
 #define SIZEOF_LBENODE_POD (offsetof(LBENODE, endOfPOD))
 bool	checkLBEArrayIntegrity(bool verbose=false); // BOB: checks all worldItems for missing LBE info
 
-void	CreateLBE(OBJECTTYPE* pObj, UINT8 ubID, int numSubPockets);
+void	CreateLBE(OBJECTTYPE* pObj, SoldierID ubID, int numSubPockets);
 bool	DestroyLBEIfEmpty(OBJECTTYPE* pObj, int stackIndex = 0);
 void	DestroyLBE(OBJECTTYPE* pObj, int stackIndex = 0);
 void	GetLBESlots(UINT32 LBEType, std::vector<INT8>& LBESlots);
@@ -390,6 +390,7 @@ public:
 	UINT8		fUsed;				// flags for whether the item is used or not
 };
 
+
 namespace ObjectDataStructs {
 	struct OBJECT_GUN
 	{
@@ -408,15 +409,15 @@ namespace ObjectDataStructs {
 	struct OBJECT_BOMBS_AND_OTHER
 	{ // this is used by placed bombs, switches, and the action item
 		INT16		bBombStatus;		// % status
-		INT8		bDetonatorType;		// timed, remote, or pressure-activated
+		INT8			bDetonatorType;		// timed, remote, or pressure-activated
 		UINT16		usBombItem;			// the usItem of the bomb.
 		union
 		{
 			INT8		bDelay;			// >=0 values used only
 			INT8		bFrequency;		// >=0 values used only
 		};
-		UINT8	ubBombOwner;			// side which placed the bomb
-		UINT8	bActionValue;			// this is used by the ACTION_ITEM fake item
+		SoldierID	ubBombOwner;			// side which placed the bomb
+		UINT8		bActionValue;			// this is used by the ACTION_ITEM fake item
 		union
 		{
 			UINT8 ubTolerance;			// tolerance value for panic triggers
@@ -439,7 +440,56 @@ namespace ObjectDataStructs {
 		INT8	bLBE;				// Marks item as LBENODE
 		int		uniqueID;			// how the LBENODE is accessed
 	};
+
+	// Used to maintain compatibility with major map versions older than 8.0
+	struct OBJECT_BOMBS_AND_OTHER_PRE_ITS
+	{
+		INT16		bBombStatus;
+		INT8			bDetonatorType;
+		UINT16		usBombItem;
+		union
+		{
+			INT8		bDelay;
+			INT8		bFrequency;
+		};
+		UINT8	ubBombOwner; //<-- Data size changed
+		UINT8	bActionValue;
+		union
+		{
+			UINT8 ubTolerance;
+			UINT8 ubLocationID;
+		};
+	};
 };
+
+
+struct ObjectData_PRE_ITS
+{
+	union {
+		INT16												objectStatus;//holds the same value as bStatus[0]
+		UINT16												ubShotsLeft;//holds the same value as ubShotsLeft[0]
+		ObjectDataStructs::OBJECT_GUN						gun;
+		ObjectDataStructs::OBJECT_MONEY						money;
+		ObjectDataStructs::OBJECT_BOMBS_AND_OTHER_PRE_ITS	misc;
+		ObjectDataStructs::OBJECT_KEY						key;
+		ObjectDataStructs::OBJECT_OWNER						owner;
+		ObjectDataStructs::OBJECT_LBE						lbe;
+	};
+	INT8			bTrap;			// 1-10 exp_lvl to detect
+	UINT8		fUsed;			// flags for whether the item is used or not
+	UINT8		ubImprintID;		// ID of merc that item is imprinted on
+	char			endOfPOD;		// For WF maps
+	FLOAT		bTemperature;	// Flugente FTW 1.2: temperature of gun
+	UINT8		ubDirection;		// direction the bomb faces (for directional explosives)
+	UINT32		ubWireNetworkFlag;	// flags for the tripwire network
+	INT8			bDefuseFrequency;	// frequency for defusing, >=0 values used only
+	INT16		sRepairThreshold;	// repair only possible up to this value
+	FLOAT		bFiller;			// unused for now
+	UINT64		sObjectFlag;		// used to notify of various states that apply to this object, but not the item in general
+};
+// Flugente: needed for reading WF maps
+#define SIZEOF_OBJECTDATA_POD_PRE_ITS	(offsetof(ObjectData_PRE_ITS, endOfPOD))
+
 
 class ObjectData
 {
@@ -451,6 +501,8 @@ public:
 	ObjectData(const ObjectData&);
 	// Assignment operator
     ObjectData& operator=(const ObjectData&);
+	// Conversion operator
+	ObjectData& operator=(const ObjectData_PRE_ITS&);
 
 
 	void	initialize() {memset(this, 0, sizeof(ObjectData));};
@@ -474,7 +526,7 @@ public:
 	UINT8		fUsed;			// flags for whether the item is used or not
 	UINT8		ubImprintID;	// ID of merc that item is imprinted on
 
-	// Flugente: due do inconsistencies with WF maps, where data from a map is laoded differently, I had to add this marker. 
+	// Flugente: due do inconsistencies with WF maps, where data from a map is loaded differently, I had to add this marker. 
 	// New values, like bTemperature, have to come after this. And please, don't destroy ObjectData's POD-ness.
 	char		endOfPOD;
 
@@ -546,7 +598,7 @@ public:
 
 	bool	operator==(OBJECTTYPE& compare);
 	bool	operator==(const OBJECTTYPE& compare)const;
-	bool	exists();
+	bool	exists() const;
 	bool	IsActiveLBE(unsigned int index);
 	bool	HasAnyActiveLBEs(SOLDIERTYPE * pSoldier = NULL, UINT8 iter = 0);
 	LBENODE*	GetLBEPointer(unsigned int index);
@@ -738,18 +790,18 @@ extern OBJECTTYPE gTempObject;
 // note that these should not be used to determine what kind of an attachment an item is, that is determined by attachmentclass and the AC_xxx flags above
 #define BLOOD_BAG				0x00000001	//1			// this item is a blood bag can can be used to boost surgery
 #define MANPAD					0x00000002	//2			// this item is a MAn-Portable Air-Defense System
-#define BEARTRAP				0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
+#define BEARTRAP					0x00000004	//4			// a mechanical trap that does no explosion, but causes leg damage to whoever activates it
 #define CAMERA					0x00000008	//8
 
 #define WATER_DRUM				0x00000010	//16		// water drums allow to refill canteens in the sector they are in
 #define MEAT_BLOODCAT			0x00000020	//32		// retrieve this by gutting a bloodcat
 #define MEAT_COW   				0x00000040	//64		// retrieve this by gutting a cow
-#define BELT_FED				0x00000080	//128		// item can be fed externally
+#define BELT_FED					0x00000080	//128		// item can be fed externally
 
 #define AMMO_BELT				0x00000100	//256		// this item can be used to feed externally
 #define AMMO_BELT_VEST			0x00000200	//512		// this is a vest that can contain AMMO_BELT items in its medium slots
-#define CAMO_REMOVAL			0x00000400	//1024		// item can be used to remove camo
-#define CLEANING_KIT			0x00000800	//2048		// weapon cleaning kit
+#define CAMO_REMOVAL				0x00000400	//1024		// item can be used to remove camo
+#define CLEANING_KIT				0x00000800	//2048		// weapon cleaning kit
 
 #define ATTENTION_ITEM			0x00001000	//4096		// this item is 'interesting' to the AI. Dumb soldiers may try to pick it up
 #define GAROTTE					0x00002000	//8192		// this item is a garotte
@@ -758,18 +810,18 @@ extern OBJECTTYPE gTempObject;
 
 #define SKIN_BLOODCAT			0x00010000	//65536		// retrieve this by skinning (=decapitating) a bloodcat
 #define NO_METAL_DETECTION      0x00020000	//131072	// a planted bomb with this flag can NOT be detected via metal detector. Use sparingly!
-#define JUMP_GRENADE			0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
+#define JUMP_GRENADE				0x00040000	//262144	// add +25 heigth to explosion, used for bouncing grenades and jumping mines
 #define HANDCUFFS				0x00080000	//524288	// item can be used to capture soldiers
 
 #define TASER					0x00100000	//1048576	// item is a taser, melee hits with this will drain breath (if batteries are supplied)
-#define SCUBA_BOTTLE			0x00200000	//2097152	// item is a scuba gear air bottle
+#define SCUBA_BOTTLE				0x00200000	//2097152	// item is a scuba gear air bottle
 #define SCUBA_MASK				0x00400000	//4194304	// item is a scuba gear breathing mask
 #define SCUBA_FINS				0x00800000	//8388608	// this item speed up swimming, but slows walking and running
 
-#define TRIPWIREROLL			0x01000000	//16777216	// this item is a tripwire roll
+#define TRIPWIREROLL				0x01000000	//16777216	// this item is a tripwire roll
 #define RADIO_SET				0x02000000	//33554432	// item can be used to radio militia/squads in other sectors
-#define SIGNAL_SHELL			0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
-#define SODA					0x08000000	//134217728	// item is a can of soda, sold in vending machines
+#define SIGNAL_SHELL				0x04000000	//67108864	// this is a signal shell that precedes artillery barrages
+#define SODA						0x08000000	//134217728	// item is a can of soda, sold in vending machines
 
 #define ROOF_COLLAPSE_ITEM		0x10000000	//268435456	// this item is required in the collapsing of roof tiles. It is used internally and should never be seen by the player
 #define DISEASEPROTECTION_1		0x20000000	//536870912		// this item protects us from getting diseases by human contact if kept in inventory
@@ -779,6 +831,98 @@ extern OBJECTTYPE gTempObject;
 // extended flagmask to UINT64
 #define EMPTY_BLOOD_BAG			0x0000000100000000		// this item is a empty blood bag
 #define MEDICAL_SPLINT			0x0000000200000000		// this item is a medical splint that can be applied to some diseases
+#define ITEM_damageable			0x0000000400000000
+#define ITEM_repairable			0x0000000800000000
+
+#define ITEM_waterdamages		0x0000001000000000
+#define ITEM_metal				0x0000002000000000
+#define ITEM_sinks				0x0000004000000000
+#define ITEM_showstatus			0x0000008000000000
+
+#define ITEM_hiddenaddon			0x0000010000000000
+#define ITEM_twohanded			0x0000020000000000
+#define ITEM_notbuyable			0x0000040000000000
+#define ITEM_attachment			0x0000080000000000
+
+#define ITEM_hiddenattachment	0x0000100000000000
+#define ITEM_biggunlist			0x0000200000000000
+#define ITEM_notineditor			0x0000400000000000
+#define ITEM_defaultundroppable	0x0000800000000000
+
+#define ITEM_unaerodynamic		0x0001000000000000
+#define ITEM_electronic			0x0002000000000000
+#define ITEM_cannon				0x0004000000000000
+#define ITEM_rocketrifle			0x0008000000000000
+
+#define ITEM_fingerprintid		0x0010000000000000
+#define ITEM_metaldetector		0x0020000000000000
+#define ITEM_gasmask				0x0040000000000000
+#define ITEM_lockbomb			0x0080000000000000
+
+#define ITEM_flare				0x0100000000000000
+#define ITEM_grenadelauncher		0x0200000000000000
+#define ITEM_mortar				0x0400000000000000
+#define ITEM_duckbill			0x0800000000000000
+
+//UNUSED #define ITEM_detonator			0x1000000000000000
+//UNUSED #define ITEM_remotedetonator		0x2000000000000000
+#define ITEM_hidemuzzleflash		0x4000000000000000
+#define ITEM_rocketlauncher		0x8000000000000000
+
+// New UINT64 Item Flag => usItemFlag2
+#define ITEM_singleshotrocketlauncher	0x00000001
+#define ITEM_brassknuckles				0x00000002
+#define ITEM_crowbar						0x00000004
+#define ITEM_glgrenade					0x00000008
+
+#define ITEM_flakjacket					0x00000010
+#define ITEM_leatherjacket				0x00000020
+#define ITEM_batteries					0x00000040
+#define ITEM_needsbatteries				0x00000080
+
+#define ITEM_xray						0x00000100
+#define ITEM_wirecutters					0x00000200
+#define ITEM_toolkit						0x00000400
+#define ITEM_firstaidkit					0x00000800
+
+#define ITEM_medicalkit					0x00001000
+#define ITEM_canteen						0x00002000
+#define ITEM_jar							0x00004000
+#define ITEM_canandstring				0x00008000
+
+#define ITEM_marbles						0x00010000
+#define ITEM_walkman						0x00020000
+#define ITEM_remotetrigger				0x00040000
+#define ITEM_robotremotecontrol			0x00080000
+
+#define ITEM_camouflagekit				0x00100000
+#define ITEM_locksmithkit				0x00200000
+#define ITEM_mine						0x00400000
+#define ITEM_antitankmine				0x00800000
+
+#define ITEM_hardware					0x01000000
+#define ITEM_medical						0x02000000
+#define ITEM_gascan						0x04000000
+#define ITEM_containsliquid				0x08000000
+
+#define ITEM_rock						0x10000000
+#define ITEM_thermaloptics				0x20000000
+#define ITEM_scifi						0x40000000
+#define ITEM_newinv						0x80000000
+
+#define ITEM_DiseaseSystemExclusive		0x0000000100000000		// kitty: item exclusively available with disease feature 
+#define ITEM_barrel						0x0000000200000000		// item can be used on some guns as an exchange barrel
+#define ITEM_tripwireactivation			0x0000000400000000		// item (mine) can be activated by nearby tripwire
+#define ITEM_tripwire					0x0000000800000000		// item is tripwire
+
+#define ITEM_directional					0x0000001000000000		// item is a directional mine/bomb (actual direction is set upon planting)
+#define ITEM_blockironsight				0x0000002000000000		// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
+#define ITEM_fAllowClimbing				0x0000004000000000		// JMich: BackpackClimb does item allow climbing while wearing it
+#define ITEM_cigarette					0x0000008000000000		// Flugente: this item can be smoked
+
+#define ITEM_fProvidesRobotCamo			0x0000010000000000		// rftr: robot attachments
+#define ITEM_fProvidesRobotNightVision	0x0000020000000000		// rftr: robot attachments
+#define ITEM_fProvidesRobotLaserBonus	0x0000040000000000		// rftr: robot attachments
 
 // ----------------------------------------------------------------
 
@@ -947,162 +1091,47 @@ extern OBJECTTYPE gTempObject;
 // autofiretohitbonus,
 // bursttohitbonus
 
-// bitflags for usLimitedToSystem
-#define FOOD_SYSTEM_FLAG		1
-#define DISEASE_SYSTEM_FLAG		2
-
 typedef struct
 {
-	UINT32		usItemClass;
-	UINT64		nasAttachmentClass;	//CHRISL: Identify the class of attachment 
-	UINT64		nasLayoutClass;
-//Madd: Common Attachment Framework:  attach items based on matching connection points rather than using the old long attachmentinfo method
-	UINT64		ulAvailableAttachmentPoint; 
-	UINT64		ulAttachmentPoint; 
-	UINT8		ubAttachToPointAPCost; // cost to attach to any matching point
-	UINT16			ubClassIndex;
-	UINT8			ubCursor;
-	INT8			bSoundType;
-	UINT8			ubGraphicType;
-	UINT16			ubGraphicNum;
-	UINT16			ubWeight; //2 units per kilogram; roughly 1 unit per pound
-	UINT8			ubPerPocket;
-	UINT16			ItemSize;
-	UINT16		usPrice;
-	UINT8			ubCoolness;
-	INT8			bReliability;
-	INT8			bRepairEase;
-	UINT16		fFlags;
-
-	UINT32	uiIndex; // added
-	CHAR16	szItemName[80]; //+1 for the null terminator //added
-
-	BOOLEAN damageable;
-	BOOLEAN repairable;
-	BOOLEAN waterdamages;
-	BOOLEAN metal;
-	BOOLEAN sinks;
-	BOOLEAN showstatus;
-	BOOLEAN hiddenaddon;
-	BOOLEAN twohanded;
-	BOOLEAN notbuyable;
-	BOOLEAN attachment;
-	BOOLEAN hiddenattachment;
-	BOOLEAN biggunlist;
-	BOOLEAN notineditor;
-	BOOLEAN defaultundroppable;
-	BOOLEAN unaerodynamic;
-	BOOLEAN electronic;
-	UINT8 inseparable; //Madd:Normally, an inseparable attachment can never be removed.  
-						//But now we will make it so that these items can be replaced, but still not removed directly.
-						//0 = removeable (as before)
-						//1 = inseparable (as before)
-						//2 = inseparable, but replaceable
-
-	CHAR16 szLongItemName[80];
 	CHAR16 szItemDesc[400];
-	CHAR16 szBRName[80];
 	CHAR16 szBRDesc[400];
-
-	//TODO: quest items, boosters, money
-
-	// special item/attachment functions:
-	BOOLEAN cannon;
-	BOOLEAN rocketrifle;
-	BOOLEAN fingerprintid;
-	BOOLEAN metaldetector;
-	BOOLEAN gasmask;
-	BOOLEAN lockbomb;
-	BOOLEAN flare;
-	INT16 percentnoisereduction;
-	INT16 bipod;
-	INT16 tohitbonus;
-	INT16 bestlaserrange;
-	INT16 rangebonus;
-	INT16 percentrangebonus;
-	INT16 aimbonus;
-	INT16 minrangeforaimbonus;
-	INT16 percentapreduction;
-	INT16 percentstatusdrainreduction;
-	BOOLEAN grenadelauncher;
-	BOOLEAN mortar;
-	BOOLEAN duckbill;
-	BOOLEAN detonator;
-	BOOLEAN remotedetonator;
-	BOOLEAN hidemuzzleflash;
-	BOOLEAN rocketlauncher;
-	BOOLEAN singleshotrocketlauncher;
-	UINT16	discardedlauncheritem;
-	BOOLEAN brassknuckles;
-	//*** ddd UINT16  bloodieditem;
-	INT16  bloodieditem;
-	BOOLEAN crowbar;
-	BOOLEAN glgrenade;
-	BOOLEAN flakjacket;
-	INT16 hearingrangebonus;
-	INT16	visionrangebonus;
-	INT16	nightvisionrangebonus;
-	INT16	dayvisionrangebonus;
-	INT16	cavevisionrangebonus;
-	INT16	brightlightvisionrangebonus;
-	INT16	itemsizebonus;
-	BOOLEAN leatherjacket;
-	BOOLEAN batteries;
-	BOOLEAN needsbatteries;
-	BOOLEAN xray;
-	BOOLEAN wirecutters;
-	BOOLEAN toolkit;
-	BOOLEAN firstaidkit;
-	BOOLEAN medicalkit;
-	BOOLEAN canteen;
-	BOOLEAN jar;
-	BOOLEAN canandstring;
-	BOOLEAN marbles;
-	BOOLEAN walkman;
-	BOOLEAN remotetrigger;
-	BOOLEAN robotremotecontrol;
-	BOOLEAN camouflagekit;
-	BOOLEAN locksmithkit;
-	BOOLEAN mine;
-	BOOLEAN antitankmine;
-	FLOAT alcohol;
-	BOOLEAN hardware;
-	BOOLEAN medical;
-	BOOLEAN gascan;
-	BOOLEAN containsliquid;
-	BOOLEAN rock;
-	
-	INT16 damagebonus;
-	INT16 meleedamagebonus;
-	
-	INT16 magsizebonus;
-	INT16 percentautofireapreduction;
-	INT16 autofiretohitbonus;
-	INT16 APBonus;
-	INT16 rateoffirebonus;
-	INT16 burstsizebonus;
-	INT16 bursttohitbonus;
-	INT16 percentreadytimeapreduction;
-	INT16 bulletspeedbonus;
-	BOOLEAN thermaloptics;
-	UINT8 percenttunnelvision;
-	INT16 percentreloadtimeapreduction;
-	INT16 percentburstfireapreduction;
-
-	INT16 camobonus;
-	INT16 stealthbonus;
-	INT16 urbanCamobonus;
-	INT16 desertCamobonus;
-	INT16 snowCamobonus;
-
-	BOOLEAN scifi; // item only available in scifi mode
-	BOOLEAN newinv;	// item only available in new inventory mode
-	UINT8 ubAttachmentSystem; //Item availability per attachment system: 0 = both, 1 = OAS, 2 = NAS
-
+	CHAR16	szItemName[80]; //+1 for the null terminator //added
+	CHAR16 szLongItemName[80];
+	CHAR16 szBRName[80];
 	UINT16 defaultattachments[MAX_DEFAULT_ATTACHMENTS]; //Need more default attachments, chose an array to do so. (no vector / list just to keep this all plain data)
+
+	UINT64 nasAttachmentClass;	//CHRISL: Identify the class of attachment 
+	UINT64 nasLayoutClass;
+	UINT64 ulAvailableAttachmentPoint;
+	UINT64 ulAttachmentPoint;
+	FLAGS64 usItemFlag; // bitflags to store various item properties (better than introducing 64 BOOLEAN values). If I only had thought of this earlier....
+	FLAGS64 usItemFlag2; // bitflags to store various item properties
+
+	UINT32 uiIndex;
+	UINT32 usItemClass;
+	UINT32 attachmentclass; // attachmentclass used
+	UINT32 drugtype; // this flagmask determines what different components are used in a drug, which results in different effects
+	UINT32 foodtype;
+	UINT32 usActionItemFlag; // Flugente: a flag that is necessary for transforming action items to objects with new abilities (for now, tripwire networks and directional explosives)
+	UINT32 clothestype; // Flugente: clothes type that 'links' to an entry in Clothes.xml
 
 	//zilpin: pellet spread patterns externalized in XML
 	INT32 spreadPattern;
+
+	FLOAT alcohol;
+	// HEADROCK HAM 4: New modifiers that do not require a stance array, since they affect the gun objectively, not
+	// subjectively.
+	FLOAT RecoilModifierX;
+	FLOAT RecoilModifierY;
+	FLOAT scopemagfactor;
+	FLOAT projectionfactor;
+	FLOAT usOverheatingCooldownFactor;			// every turn/5 seconds, a gun's temperature is lowered by this amount
+	FLOAT overheatTemperatureModificator;			// percentage modifier of heat a shot generates (read from attachments)
+	FLOAT overheatCooldownModificator;			// percentage modifier of cooldown amount (read from attachments, applies to guns & barrels)
+	FLOAT overheatJamThresholdModificator;		// percentage modifier of a gun's jam threshold (read from attachments)
+	FLOAT overheatDamageThresholdModificator;		// percentage modifier of a gun's damage threshold (read from attachments)
+	FLOAT dirtIncreaseFactor; // Flugente: advanced repair/dirt system. One shot causes this much dirt on a gun
+	FLOAT fRobotDamageReductionModifier; // rftr: robot attachments
 
 	// HEADROCK HAM 4: New variable arrays for the New CTH system.
 	INT16 flatbasemodifier[3];
@@ -1116,114 +1145,98 @@ typedef struct
 	INT16 counterforceaccuracymodifier[3];
 	INT16 targettrackingmodifier[3];
 	INT16 aimlevelsmodifier[3];
-	// HEADROCK HAM 4: New modifiers that do not require a stance array, since they affect the gun objectively, not
-	// subjectively.
-	FLOAT RecoilModifierX;
-	FLOAT RecoilModifierY;
+
+	//Madd: Common Attachment Framework:  attach items based on matching connection points rather than using the old long attachmentinfo method
+	UINT16 ubClassIndex;
+	UINT16 ubGraphicNum;
+	UINT16 ubWeight; //2 units per kilogram; roughly 1 unit per pound
+	UINT16 ItemSize;
+	UINT16 usPrice;
+	UINT16 discardedlauncheritem;
+	UINT16 randomitem; // Flugente: a link to RandomItemsClass.xml. Out of such an item, a random object is created, depending on the entries in the xml
+	UINT16 usBuddyItem; // Flugente: item is connected to another item. Type of connection depends on item specifics
+	UINT16 usRiotShieldStrength;	// Flugente: riot shields. strength of shield
+	UINT16 usRiotShieldGraphic;	// Flugente: riot shields. graphic of shield (when deployed in tactical, taken from Tilecache/riotshield.sti)
+
+	INT16 percentnoisereduction;
+	INT16 bipod;
+	INT16 tohitbonus;
+	INT16 bestlaserrange;
+	INT16 rangebonus;
+	INT16 percentrangebonus;
+	INT16 aimbonus;
+	INT16 minrangeforaimbonus;
+	INT16 percentapreduction;
+	INT16 percentstatusdrainreduction;
+	INT16 bloodieditem;
+	INT16 hearingrangebonus;
+	INT16 visionrangebonus;
+	INT16 nightvisionrangebonus;
+	INT16 dayvisionrangebonus;
+	INT16 cavevisionrangebonus;
+	INT16 brightlightvisionrangebonus;
+	INT16 itemsizebonus;
+	INT16 damagebonus;
+	INT16 meleedamagebonus;
+	INT16 magsizebonus;
+	INT16 percentautofireapreduction;
+	INT16 autofiretohitbonus;
+	INT16 APBonus;
+	INT16 rateoffirebonus;
+	INT16 burstsizebonus;
+	INT16 bursttohitbonus;
+	INT16 percentreadytimeapreduction;
+	INT16 bulletspeedbonus;
+	INT16 percentreloadtimeapreduction;
+	INT16 percentburstfireapreduction;
+	INT16 camobonus;
+	INT16 stealthbonus;
+	INT16 urbanCamobonus;
+	INT16 desertCamobonus;
+	INT16 snowCamobonus;
 	INT16 PercentRecoilModifier;
 	INT16 percentaccuracymodifier;
-	FLOAT scopemagfactor;
-	FLOAT projectionfactor;
-	BOOLEAN speeddot;
+	INT16 usSpotting; // Flugente: spotting effectiveness
+	INT16 sBackpackWeightModifier; // JMich: BackpackClimb modifier to weight calculation to climb.
+	INT16 sFireResistance;
 
-	// Flugente
-	BOOLEAN	barrel;									// item can be used on some guns as an exchange barrel
-	FLOAT	usOverheatingCooldownFactor;			// every turn/5 seconds, a gun's temperature is lowered by this amount
-	FLOAT	overheatTemperatureModificator;			// percentage modifier of heat a shot generates (read from attachments)
-	FLOAT	overheatCooldownModificator;			// percentage modifier of cooldown amount (read from attachments, applies to guns & barrels)
-	FLOAT	overheatJamThresholdModificator;		// percentage modifier of a gun's jam threshold (read from attachments)
-	FLOAT	overheatDamageThresholdModificator;		// percentage modifier of a gun's damage threshold (read from attachments)
+	UINT8 ubAttachToPointAPCost; // cost to attach to any matching point
+	UINT8 ubCursor;
+	UINT8 ubGraphicType;
+	UINT8 ubPerPocket;
+	UINT8 ubCoolness;
+	UINT8 percenttunnelvision;
+	UINT8 ubAttachmentSystem; //Item availability per attachment system: 0 = both, 1 = OAS, 2 = NAS
+	UINT8 CrowbarModifier;
+	UINT8 DisarmModifier;
+	UINT8 usHackingModifier;
+	UINT8 usBurialModifier; // Flugente: a modifier for burial effectiveness
+	UINT8 usDamageChance; //  Flugente: advanced repair/dirt system. Chance that damage to the status will also damage the repair threshold
+	UINT8 usFlashLightRange; // Flugente: range of a flashlight (an item with usFlashLightRange > 0 is deemed a flashlight)
+	UINT8 usItemChoiceTimeSetting; // Flugente: determine wether the AI should pick this item for its choices only at certain times
+	UINT8 ubSleepModifier; // silversurfer: item provides breath regeneration bonus while resting
+	UINT8 usPortionSize;			// Flugente: for consumables: how much of this item is consumed at once
+	UINT8 usAdministrationModifier; // Flugente: a modifier for administration effectiveness
+	UINT8 inseparable; //Madd:Normally, an inseparable attachment can never be removed.  
+	//But now we will make it so that these items can be replaced, but still not removed directly.
+	//0 = removeable (as before)
+	//1 = inseparable (as before)
+	//2 = inseparable, but replaceable
 
-	UINT32	attachmentclass;						// attachmentclass used
-
-	BOOLEAN tripwireactivation;						// item (mine) can be activated by nearby tripwire
-	BOOLEAN tripwire;								// item is tripwire
-	BOOLEAN	directional;							// item is a directional mine/bomb (actual direction is set upon planting)
-	
-	UINT32	drugtype;								// this flagmask determines what different components are used in a drug, which results in different effects
-
-	BOOLEAN blockironsight;							// if a gun or any attachment have this property, the iron sight won't be usable (if there is at least one other usable sight)
-	
-	UINT64	usItemFlag;								// bitflags to store various item properties (better than introducing 32 BOOLEAN values). If I only had thought of this earlier....
-
-	// Flugente: food type
-	UINT32	foodtype;
-
-	//JMich_SkillModifiers: Adding new skill modifiers
-	INT8	LockPickModifier;
-	UINT8	CrowbarModifier;
-	UINT8	DisarmModifier;
-	INT8	RepairModifier;
-
-	// Flugente: a modifier to hacking
-	UINT8	usHackingModifier;
-
-	// Flugente: a modifier for burial effectiveness
-	UINT8	usBurialModifier;
-
-	// Flugente: advanced repair/dirt system
-	UINT8	usDamageChance;							// chance that damage to the status will also damage the repair threshold
-	FLOAT	dirtIncreaseFactor;						// one shot causes this much dirt on a gun
-
-	// Flugente: a flag that is necessary for transforming action items to objects with new abilities (for now, tripwire networks and directional explosives)
-	UINT32	usActionItemFlag;
-
-	// Flugente: clothes type that 'links' to an entry in Clothes.xml
-	UINT32	clothestype;
-
-	// Flugente: a link to RandomItemsClass.xml. Out of such an item, a random object is created, depending on the entries in the xml
-	UINT16	randomitem;
-	INT8	randomitemcoolnessmodificator;		// alters the allowed maximum coolness a random item can have
-
-	// Flugente: range of a flashlight (an item with usFlashLightRange > 0 is deemed a flashlight)
-	UINT8	usFlashLightRange;
-
-	// Flugente: determine wether the AI should pick this item for its choices only at certain times
-	UINT8	usItemChoiceTimeSetting;
-
-	// Flugente: item is connected to another item. Type of connection depends on item specifics
-	UINT16	usBuddyItem;
-
-	// silversurfer: item provides breath regeneration bonus while resting
-	UINT8	ubSleepModifier;
-
-	// Flugente: spotting effectiveness
-	INT16	usSpotting;
-
-	//JMich.BackpackClimb 
-	INT16	sBackpackWeightModifier; //modifier to weight calculation to climb.
-	BOOLEAN fAllowClimbing; //does item allow climbing while wearing it
-
-	BOOLEAN cigarette;				// Flugente: this item can be smoked
-	UINT8	usPortionSize;			// Flugente: for consumables: how much of this item is consumed at once
-
-	// Flugente: riot shields
-	UINT16	usRiotShieldStrength;	// strength of shield
-	UINT16	usRiotShieldGraphic;	// graphic of shield (when deployed in tactical, taken from Tilecache/riotshield.sti)
-
-	// Flugente: fire resistance
-	INT16	sFireResistance;
-
-	// Flugente: a modifier for administration effectiveness
-	UINT8	usAdministrationModifier;
-
-	// rftr: robot attachments
-	FLOAT	fRobotDamageReductionModifier;
-	INT8	bRobotStrBonus;
-	INT8	bRobotAgiBonus;
-	INT8	bRobotDexBonus;
-	INT8	bRobotTargetingSkillGrant;
-	INT8	bRobotChassisSkillGrant;
-	INT8	bRobotUtilitySkillGrant;
-	BOOLEAN	fProvidesRobotCamo;
-	BOOLEAN	fProvidesRobotNightVision;
-	BOOLEAN fProvidesRobotLaserBonus;
-	//shadooow: bitflag controlling what system needs to be in play for item to appear
-	UINT8	usLimitedToSystem;
-
-	// rftr: the progress bounds that allow a transport group to drop an item
-	INT8 iTransportGroupMinProgress;
-	INT8 iTransportGroupMaxProgress;
+	INT8 bSoundType;
+	INT8 bReliability;
+	INT8 bRepairEase;
+	INT8 LockPickModifier;
+	INT8 RepairModifier;
+	INT8 randomitemcoolnessmodificator; // Flugente: a link to RandomItemsClass.xml. alters the allowed maximum coolness a random item can have
+	INT8 bRobotStrBonus; // rftr: robot attachments
+	INT8 bRobotAgiBonus; // rftr: robot attachments
+	INT8 bRobotDexBonus; // rftr: robot attachments
+	INT8 bRobotTargetingSkillGrant; // rftr: robot attachments
+	INT8 bRobotChassisSkillGrant; // rftr: robot attachments
+	INT8 bRobotUtilitySkillGrant; // rftr: robot attachments
+	INT8 iTransportGroupMinProgress; // rftr: the progress bounds that allow a transport group to drop an item
+	INT8 iTransportGroupMaxProgress; // rftr: the progress bounds that allow a transport group to drop an item
 } INVTYPE;
 
 

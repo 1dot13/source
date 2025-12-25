@@ -1,24 +1,22 @@
 	#include "sgp.h"
-	#include "meanwhile.h"
+	#include "Meanwhile.h"
 	#include "PreBattle Interface.h"
-	#include "messageboxscreen.h"
+	#include "MessageBoxScreen.h"
 	#include "strategicmap.h"
-	#include "fade screen.h"
+	#include "Fade Screen.h"
 	#include "screenids.h"
 	#include "jascreens.h"
-	#include "npc.h"
-	#include "game event hook.h"
-	#include "game clock.h"
-	#include "tactical save.h"
-	#include "soldier profile.h"
-	#include "overhead.h"
-	#include "dialogue control.h"
-	#include "gameloop.h"
-	#include "npc.h"
-	#include "assignments.h"
+	#include "NPC.h"
+	#include "Game Event Hook.h"
+	#include "Game Clock.h"
+	#include "Tactical Save.h"
+	#include "Soldier Profile.h"
+	#include "Overhead.h"
+	#include "Dialogue Control.h"
+	#include "Assignments.h"
 	#include "strategic.h"
-	#include "text.h"
-	#include "interface control.h"
+	#include "Text.h"
+	#include "Interface Control.h"
 	#include "Interface Items.h"
 	#include "Map Information.h"
 	#include "Map Screen Interface Map.h"
@@ -28,11 +26,11 @@
 	#include "Game Events.h"
 	#include "GameSettings.h"
 	#include "Strategic AI.h"
-	#include "interface dialogue.h"
+	#include "interface Dialogue.h"
 	#include "Quests.h"
 	#include "Campaign Types.h"
 	#include "Squads.h"
-	#include "Random.h"
+	#include "random.h"
 
 #include "GameInitOptionsScreen.h"
 
@@ -418,7 +416,7 @@ void CheckForMeanwhileOKStart( )
 			SOLDIERTYPE *pSoldier;
 			BOOLEAN fFoundSoldierToInterrogate = FALSE;
 			UINT32 uiCount = 0;
-			for (pSoldier = MercPtrs[gCharactersList[uiCount].usSolID]; gCharactersList[uiCount].fValid; uiCount++, pSoldier++)
+			for (pSoldier = gCharactersList[uiCount].usSolID; gCharactersList[uiCount].fValid; uiCount++, pSoldier++)
 			{
 				if (pSoldier->sSectorX == gModSettings.ubMeanwhileInterrogatePOWSectorX && pSoldier->sSectorY == gModSettings.ubMeanwhileInterrogatePOWSectorY &&
 					pSoldier->bSectorZ == 0 && pSoldier->bAssignment == ASSIGNMENT_POW && pSoldier->stats.bLife > 0 && gMercProfiles[pSoldier->ubProfile].bMercStatus != MERC_FIRED_AS_A_POW)
@@ -864,7 +862,7 @@ void EndMeanwhile( )
 	{
 		// We leave this sector open for our POWs to escape!
 		// Set music mode to enemy present!
-		UseCreatureMusic(HostileZombiesPresent());
+		CheckForZombieMusic();
 
 		SetMusicMode( MUSIC_TACTICAL_ENEMYPRESENT );
 

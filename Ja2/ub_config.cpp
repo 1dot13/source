@@ -1,9 +1,9 @@
-	#include "Types.h"
 	#include "types.h"
-	#include "Random.h"
+	#include "types.h"
+	#include "random.h"
 	#include "Campaign Types.h"
 	#include "Queen Command.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "Strategic Movement.h"
 	#include "Strategic Status.h"
 	#include "GameSettings.h"
@@ -16,36 +16,36 @@
 	#include "laptop.h"
 	#include "worlddef.h"
 	#include "Soldier Control.h"
-	#include "overhead.h"
+	#include "Overhead.h"
 	#include "email.h"
-	#include "soldier profile.h"
+	#include "Soldier Profile.h"
 	#include "strategicmap.h"
-	#include "game init.h"
-	#include "animation data.h"
-	#include "soldier create.h"
+	#include "Game Init.h"
+	#include "Animation Data.h"
+	#include "Soldier Create.h"
 	#include "Soldier Init List.h"
 	#include "strategic.h"
 	#include "Squads.h"
 	#include "Strategic Town Loyalty.h"
 	#include "Strategic Mines.h"
 	#include "gameloop.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
 	#include "Campaign Types.h"
-	#include "Message.h"
+	#include "message.h"
 	#include "Game Event Hook.h"
 	#include "Strategic Movement.h"
 	#include "Quests.h"
 	#include "Strategic AI.h"
-	#include "dialogue control.h"
+	#include "Dialogue Control.h"
 	#include "GameSettings.h"
 	#include "INIReader.h"
 	#include "Soldier Profile.h"
 	#include "XML.h"
 	#include "Item Types.h"
 	#include "Items.h"
-	#include "text.h"
+	#include "Text.h"
 	#include "GameSettings.h"
 
 #ifdef JA2UB
@@ -200,7 +200,17 @@ void LoadGameUBOptions()
 	gGameUBOptions.BorderItem = iniReader.ReadBoolean("Unfinished Business Settings","BORDER_ITEM", TRUE);
 		
 	gGameUBOptions.EventAttackInitialSectorIfPlayerStillThere = iniReader.ReadBoolean("Unfinished Business Settings","EVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE", TRUE);	
-	gGameUBOptions.HandleAddingEnemiesToTunnelMaps = iniReader.ReadBoolean("Unfinished Business Settings","HANDLE_ADDING_ENEMIES_TO_TUNNEL_MAPS", TRUE);		
+	gGameUBOptions.HandleAddingEnemiesToTunnelMaps = iniReader.ReadBoolean("Unfinished Business Settings","HANDLE_ADDING_ENEMIES_TO_TUNNEL_MAPS", TRUE);	
+
+	//J14-1
+	gGameUBOptions.Tunnel1_SectorX = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_X", 14);
+	gGameUBOptions.Tunnel1_SectorY = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_Y", 10);
+	gGameUBOptions.Tunnel1_SectorZ = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL1_SECTOR_Z", 1);
+	//K14-1
+	gGameUBOptions.Tunnel2_SectorX = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_X", 14);
+	gGameUBOptions.Tunnel2_SectorY = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_Y", 11);
+	gGameUBOptions.Tunnel2_SectorZ = iniReader.ReadInteger("Unfinished Business Settings", "TUNNEL2_SECTOR_Z", 1);
+
 	gGameUBOptions.ubEndDefaultSectorX	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_X", 16, 1, 16);
 	gGameUBOptions.ubEndDefaultSectorY	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_Y", 11, 1, 16);
 	gGameUBOptions.ubEndDefaultSectorZ	= iniReader.ReadInteger("Unfinished Business Settings","DEFAULT_END_SECTOR_Z", 0, 0, 16);	
@@ -238,7 +248,8 @@ void LoadGameUBOptions()
 	gGameUBOptions.PowergenSectorGridNo3 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_3", 14155);	
 	gGameUBOptions.PowergenSectorGridNo4 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_GRIDNO_4", 13980);	
 	
-	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749);	
+	gGameUBOptions.PowergenSectorExitgridGridNo = iniReader.ReadInteger( "Unfinished Business Settings", "POWERGEN_SECTOR_EXITGRID_GRIDNO", 19749 );
+	gGameUBOptions.PowergenSectorExitgridSrcGridNo = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_SECTOR_EXITGRID_SRC_GRIDNO", 10979 );
 	gGameUBOptions.PowergenFanSoundGridNo1 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_1", 10979);	
 	gGameUBOptions.PowergenFanSoundGridNo2 = iniReader.ReadInteger("Unfinished Business Settings","POWERGEN_FAN_SOUND_GRIDNO_2", 19749);	
 	gGameUBOptions.StartFanbackupAgainGridNo = iniReader.ReadInteger("Unfinished Business Settings","START_FANBACKUP_AGAIN_GRIDNO", 10980);	
@@ -354,6 +365,11 @@ void LoadGameUBOptions()
 	gGameUBOptions.H10SectorPlayerQuoteX = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_X", 10); 	
 	gGameUBOptions.H10SectorPlayerQuoteY = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Y", 8); 
 	gGameUBOptions.H10SectorPlayerQuoteZ = iniReader.ReadInteger("Unfinished Business Settings","H10_SECTOR_PLAYER_QUOTE_Z", 0); 
+
+
+	gGameUBOptions.BettyBloodCatSectorX = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_X", 10 );
+	gGameUBOptions.BettyBloodCatSectorY = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Y", 9 );
+	gGameUBOptions.BettyBloodCatSectorZ = iniReader.ReadInteger( "Unfinished Business Settings", "BETTY_BLOODCAT_SECTOR_Z", 0 );
 
 
 	if ( gGameUBOptions.InGameHeli == TRUE ) 

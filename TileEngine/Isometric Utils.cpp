@@ -1,14 +1,14 @@
-	#include "debug.h"
+	#include "DEBUG.H"
 	#include "renderworld.h"
-	#include "interface.h"
+	#include "Interface.h"
 	#include "worldman.h"
 	#include "Structure Wrap.h"
-	#include "sys globals.h"
-	#include "overhead.h"
-	#include "Random.h"
-	#include "Pathai.h"
+	#include "Sys Globals.h"
+	#include "Overhead.h"
+	#include "random.h"
+	#include "PATHAI.H"
 #include "Map Information.h"
-#include "meanwhile.h"
+#include "Meanwhile.h"
 #include "strategicmap.h"
 
 UINT32 guiForceRefreshMousePositionCalculation = 0;
@@ -1336,10 +1336,11 @@ INT32 RandomGridNo()
 BOOLEAN GridNoNearPlayerMercs( INT32 sGridNo, INT16 sRadius )
 {
 	SOLDIERTYPE* pTeamSoldier = NULL;
-	INT32 cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
-	INT32 lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
-	for ( pTeamSoldier = MercPtrs[ cnt ]; cnt < lastid; ++cnt, ++pTeamSoldier)
+	SoldierID cnt = gTacticalStatus.Team[ OUR_TEAM ].bFirstID;
+	SoldierID lastid = gTacticalStatus.Team[ OUR_TEAM ].bLastID;
+	for ( ; cnt < lastid; ++cnt )
 	{
+		pTeamSoldier = cnt;
 		if ( pTeamSoldier && pTeamSoldier->bActive && pTeamSoldier->bInSector )
 		{
 			if ( PythSpacesAway(sGridNo, pTeamSoldier->sGridNo) < sRadius )

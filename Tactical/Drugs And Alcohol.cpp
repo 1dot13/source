@@ -1,18 +1,15 @@
 	#include "sgp.h"
-	#include "soldier control.h"
-	#include "soldier profile.h"
-	#include "drugs and alcohol.h"
-	#include "items.h"
-	#include "morale.h"
-	#include "points.h"
+	#include "Soldier Control.h"
+	#include "Soldier Profile.h"
+	#include "Drugs And Alcohol.h"
+	#include "Items.h"
+	#include "Points.h"
 	#include "message.h"
 	#include "GameSettings.h" // SANDRO - had to add this, dammit!
-	#include "Random.h"
+	#include "random.h"
 	#include "Text.h"
 	#include "Interface.h"
-	#include "Food.h"			// added by Flugente
-	#include "Animation data.h"	// added by Flugente for SoldierBodyTypes
-	#include "CampaignStats.h"	// added by Flugente
+	#include "Overhead.h"
 	#include "DynamicDialogue.h"// added by Flugente
 
 //forward declarations of common classes to eliminate includes
@@ -205,7 +202,7 @@ BOOLEAN ApplyDrugs_New( SOLDIERTYPE *pSoldier, UINT16 usItem, UINT16 uStatusUsed
 			gMercProfiles[pSoldier->ubProfile].ubNumTimesDrugUseInLifetime++;
 		}
 
-		if ( Item[usItem].cigarette )
+		if (ItemIsCigarette(usItem))
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, pMessageStrings[MSG_MERC_TOOK_CIGARETTE], pSoldier->GetName( ), ShortItemNames[usItem] );
 		}
@@ -319,7 +316,7 @@ INT8 GetDrunkLevel( SOLDIERTYPE *pSoldier )
 }
 
 // does a merc have a disability/personality, or is he under drugs that simulate this?
-BOOLEAN DoesMercHaveDisability( SOLDIERTYPE *pSoldier, UINT8 aVal )
+BOOLEAN DoesMercHaveDisability( const SOLDIERTYPE *pSoldier, UINT8 aVal )
 {
 	if ( pSoldier->ubProfile != NO_PROFILE )
 	{
@@ -407,16 +404,16 @@ BOOLEAN MercDrugged( SOLDIERTYPE *pSoldier )
 
 void HourlyDrugUpdate( )
 {
-	for ( UINT16 ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ubID )
+	for ( SoldierID ubID = gTacticalStatus.Team[OUR_TEAM].bFirstID; ubID <= gTacticalStatus.Team[OUR_TEAM].bLastID; ++ubID )
 	{
 		// every hour, we lower our alcohol counter
-		if ( MercPtrs[ubID]->newdrugs.drinkstaken > 0.0f )
+		if ( ubID->newdrugs.drinkstaken > 0.0f )
 		{
-			MercPtrs[ubID]->newdrugs.drinkstaken = max( 0.0, MercPtrs[ubID]->newdrugs.drinkstaken - 0.15f );
+			ubID->newdrugs.drinkstaken = max( 0.0, ubID->newdrugs.drinkstaken - 0.15f );
 
-			if ( MercPtrs[ubID]->newdrugs.drinkstaken <= 0.0f )
+			if ( ubID->newdrugs.drinkstaken <= 0.0f )
 			{
-				MercPtrs[ubID]->usSoldierFlagMask2 &= ~SOLDIER_HUNGOVER;
+				ubID->usSoldierFlagMask2 &= ~SOLDIER_HUNGOVER;
 			}
 		}
 	}

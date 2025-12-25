@@ -32,9 +32,8 @@ CREATED:	Feb 16, 1999
 #include "builddefines.h"
 #include <stdio.h>
 #include "types.h"
-#include "Language Defines.h"
-#include "debug.h"
-#include "Fileman.h"
+#include "DEBUG.H"
+#include "FileMan.h"
 
 //Currently in JA2's _EnglishText, these tokens make up all of the
 //format specifiers that are actually used.	Feel free to add more,

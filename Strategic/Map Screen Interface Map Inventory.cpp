@@ -1,7 +1,6 @@
 	#include "Map Screen Interface Map Inventory.h"
 	#include "Render Dirty.h"
 	#include "vobject.h"
-	#include "Utilities.h"
 	#include "WCheck.h"
 	#include "sysutil.h"
 	#include "Map Screen Interface Border.h"
@@ -20,15 +19,14 @@
 	#include "GameSettings.h"
 	#include "Radar Screen.h"
 	#include "message.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "finances.h"
 	#include "Game Clock.h"
 	#include "Sound Control.h"
-	#include "interface panels.h"
-	#include "wordwrap.h"
+	#include "Interface Panels.h"
+	#include "WordWrap.h"
 	#include "Soldier macros.h"
 	#include "rt time defines.h"
-	#include "Encyclopedia_new.h" //Moa: item visibility
 	#include "Town Militia.h"	// added by Flugente
 
 #include "ShopKeeper Interface.h"
@@ -36,10 +34,7 @@
 #include <algorithm>
 #include "InterfaceItemImages.h"
 #include "SaveLoadGame.h"//dnl ch51 081009
-#include "Map Information.h"//dnl ch51 091009
-#include "Interface Items.h"
 #include "Food.h"	// added by Flugente
-#include "Campaign Types.h"	// added by Flugente
 #include "mapscreen.h"
 
 //forward declarations of common classes to eliminate includes
@@ -201,7 +196,7 @@ INT32 iCurrentInventoryPoolPage = 0;
 INT32 iLastInventoryPoolPage = 0;
 
 INT32 sObjectSourceGridNo = -1;//shadooow: I don't see much of a sense in this, we have gpItemPointerSoldier and we can use gpItemPointerSoldier->sGridNo to do this, this is actually unused
-INT8  sObjectSourseSoldierID = -1;
+SoldierID  sObjectSourseSoldierID = NOBODY;
 
 // number of unseen items in sector
 UINT32 uiNumberOfUnSeenItems = 0;
@@ -683,9 +678,9 @@ BOOLEAN RenderItemInPoolSlot( INT32 iCurrentSlot, INT32 iFirstSlotOnPage )
 	// if the item is not reachable, or if the selected merc is not in the current sector
 	//
 	if( !( pInventoryPoolList[ iCurrentSlot + iFirstSlotOnPage ].usFlags & WORLD_ITEM_REACHABLE ) ||
-			!(( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX == sSelMapX ) &&
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY == sSelMapY ) &&
-				( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ == iCurrentMapSectorZ )
+			!(( gCharactersList[ bSelectedInfoChar ].usSolID->sSectorX == sSelMapX ) &&
+				( gCharactersList[ bSelectedInfoChar ].usSolID->sSectorY == sSelMapY ) &&
+				( gCharactersList[ bSelectedInfoChar ].usSolID->bSectorZ == iCurrentMapSectorZ )
 			) )
 	{
 		//Shade the item, but only if it is an active item!
@@ -1180,7 +1175,6 @@ void CreateMapInventoryPoolSlots( )
 	INT16 sXA = 0, sYA = 0;
 	INT16 sULX = 0, sULY = 0;
 	INT16 sBRX = 0, sBRY = 0;
-	extern MOUSE_REGION gMapViewRegion;
 	//Moa: removed MapInventoryPoolMask, instead we disable map mouseregion and enable again when deleting stash regions
 	MSYS_DisableRegion( &gMapViewRegion );
 	//MSYS_DefineRegion( &MapInventoryPoolMask,
@@ -1217,7 +1211,6 @@ void CreateMapInventoryPoolSlots( )
 void DestroyMapInventoryPoolSlots( void )
 {
 	INT32 iCounter = 0;
-	extern MOUSE_REGION gMapViewRegion;
 
 	for( iCounter = 0; iCounter < MAP_INVENTORY_POOL_SLOT_COUNT; iCounter++ )
 	{
@@ -1351,7 +1344,6 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 	UINT16 usOldItemIndex, usNewItemIndex;
 	INT32 iOldNumberOfObjects = 0;
 	INT16 sDistanceFromObject = 0;
-	SOLDIERTYPE *pSoldier = NULL;
 	CHAR16 sString[ 128 ];
 	extern OBJECTTYPE	*gpItemDescObject;
 
@@ -1370,11 +1362,16 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		{
 			//CHRISL: Make it possible to right click and pull up stack popup and/or item description boxes
 			WORLDITEM	* twItem = &(pInventoryPoolList[ ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ) + iCounter ]);
-			bool	fValidPointer = false;
+			bool fValidPointer = false;
+
 			//CHRISL: Try to update InSector value so we don't have to "activate" a sector
-			if(MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->sSectorX == sSelMapX && MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->sSectorY == sSelMapY && MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->bSectorZ == iCurrentMapSectorZ && !MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->flags.fBetweenSectors)
+			SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
+			const auto x = pSelectedSoldier->sSectorX;
+			const auto y = pSelectedSoldier->sSectorY;
+			const auto z = pSelectedSoldier->bSectorZ;
+			if(x == sSelMapX && y == sSelMapY && z == iCurrentMapSectorZ && !pSelectedSoldier->flags.fBetweenSectors)
 			{
-				MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->bInSector=TRUE;
+				pSelectedSoldier->bInSector = TRUE;
 			}
 			else
 			{
@@ -1388,7 +1385,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			}
 			if ( !InSectorStackPopup( ) && !InItemStackPopup( ) /*&& !InItemDescriptionBox( ) */ && !InKeyRingPopup( ) && twItem->object.exists() == true && (bSelectedInfoChar != -1 && gCharactersList[bSelectedInfoChar].fValid) )
 			{
-				if(OK_CONTROL_MERC( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] ))
+				if(OK_CONTROL_MERC( pSelectedSoldier ))
 				{
 					//CHRISL: The old setup had a flaw I didn't consider.  if, for some reason, the ItemSlotLimit = 0
 					//	nothing might happen.  Now we setup a flag to determine if our cursor is value for the item we're
@@ -1474,33 +1471,33 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 						}
 						
 						// HEADROCK HAM 5: Sector Inventory Item Desc Box no longer accessible during combat.
-						if( !CanPlayerUseSectorInventory( &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]) ) )
+						if( !CanPlayerUseSectorInventory(pSelectedSoldier) )
 						{
 							DoScreenIndependantMessageBox( New113HAMMessage[ 22 ], MSG_BOX_FLAG_OK, NULL );
 							return;
 						}
 						else
 						{
-							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && (twItem->object)[0]->data.gun.ubGunShotsLeft && !(Item[twItem->object.usItem].singleshotrocketlauncher))
+							if ( _KeyDown(SHIFT) && gpItemPointer == NULL && Item[twItem->object.usItem].usItemClass == IC_GUN && (twItem->object)[0]->data.gun.ubGunShotsLeft && !ItemIsSingleShotRocketLauncher(twItem->object.usItem))
 							{
 								EmptyWeaponMagazine( &twItem->object, &gItemPointer );
-								InternalMAPBeginItemPointer( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
+								InternalMAPBeginItemPointer( pSelectedSoldier );
 							}
 							else
-								MAPInternalInitItemDescriptionBox( &twItem->object, 0, MercPtrs[gCharactersList[bSelectedInfoChar].usSolID] );
+								MAPInternalInitItemDescriptionBox( &twItem->object, 0, pSelectedSoldier );
 						}
 					}
 					else if(fValidPointer)
 					{
 						// Sector Inventory Stack Popup no longer accessible during combat.
-						if( !CanPlayerUseSectorInventory( &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]) ) )
+						if( !CanPlayerUseSectorInventory(pSelectedSoldier) )
 						{
 							DoScreenIndependantMessageBox( New113HAMMessage[ 22 ], MSG_BOX_FLAG_OK, NULL );
 							return;
 						}
 						else
 						{
-							InitSectorStackPopup( MercPtrs[gCharactersList[bSelectedInfoChar].usSolID], twItem, iCounter, xResOffset, yResOffset - 10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
+							InitSectorStackPopup( pSelectedSoldier, twItem, iCounter, xResOffset, yResOffset - 10, 261, ( SCREEN_HEIGHT - PLAYER_INFO_Y ) );
 							fTeamPanelDirty=TRUE;
 							fInterfacePanelDirty = DIRTYLEVEL2;
 						}
@@ -1597,11 +1594,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 
 		//if( fShowInventoryFlag )
 		{
+			SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
+
 			// not in sector?
-			if( ( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorX != sSelMapX ) ||
-					( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].sSectorY != sSelMapY ) ||
-					( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].bSectorZ != iCurrentMapSectorZ ) ||
-					( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].flags.fBetweenSectors ) )
+			if( ( pSelectedSoldier->sSectorX != sSelMapX ) ||
+					( pSelectedSoldier->sSectorY != sSelMapY ) ||
+					( pSelectedSoldier->bSectorZ != iCurrentMapSectorZ ) ||
+					( pSelectedSoldier->flags.fBetweenSectors ) )
 			{
 				if ( gpItemPointer == NULL )
 				{
@@ -1633,13 +1632,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 					}
 					else
 					{
-						swprintf( sString, pMapInventoryErrorString[ 2 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+						swprintf( sString, pMapInventoryErrorString[ 2 ], pSelectedSoldier->name );
 						DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					}
 				}
 				else
 				{
-					swprintf( sString, pMapInventoryErrorString[ 5 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+					swprintf( sString, pMapInventoryErrorString[ 5 ], pSelectedSoldier->name );
 					DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				}				
 				return;
@@ -1650,6 +1649,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		// If we do not have an item in hand, start moving it
 		if ( gpItemPointer == NULL )
 		{
+			SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 
 			// Return if empty
@@ -1658,7 +1658,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 
 			// if in battle inform player they will have to do this in tactical
 //			if( ( ( gTacticalStatus.fEnemyInSector ) ||( ( sSelMapX == gWorldSectorX ) && ( sSelMapY == gWorldSectorY ) && ( iCurrentMapSectorZ == gbWorldSectorZ ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) ) )
-			if( !CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
+			if( !CanPlayerUseSectorInventory(pSelectedSoldier) )
 			{
 				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 3 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
@@ -1673,14 +1673,13 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 			if( ( sSelMapX == gWorldSectorX )&&( gWorldSectorY == sSelMapY ) &&(gbWorldSectorZ == iCurrentMapSectorZ ) )
 			{
 				// notify
-				pSoldier = &( Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] );
 
-				sDistanceFromObject = PythSpacesAway( sObjectSourceGridNo, pSoldier->sGridNo);
+				sDistanceFromObject = PythSpacesAway( sObjectSourceGridNo, pSelectedSoldier->sGridNo);
 
 			/*	if( sDistanceFromObject > MAX_DISTANCE_TO_PICKUP_ITEM )
 				{
 					// see for the loaded sector if the merc is cloase enough?
-					swprintf( sString, pMapInventoryErrorString[ 0 ], Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ].name );
+					swprintf( sString, pMapInventoryErrorString[ 0 ], pSelectedSoldier->name );
 					DoMapMessageBox( MSG_BOX_BASIC_STYLE, sString, MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 					return;
 				}
@@ -1718,10 +1717,11 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 		}
 		else
 		{//we have an item on cursor
+			SOLDIERTYPE* pSelectedSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 			// if in battle inform player they will have to do this in tactical
 //			if( ( gTacticalStatus.fEnemyInSector ) ||( ( sSelMapX == gWorldSectorX ) && ( sSelMapY == gWorldSectorY ) && ( iCurrentMapSectorZ == gbWorldSectorZ ) && ( gTacticalStatus.uiFlags & INCOMBAT ) ) )
-			if( !CanPlayerUseSectorInventory( &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ] ) )
+			if( !CanPlayerUseSectorInventory(pSelectedSoldier) )
 			{
 				DoMapMessageBox( MSG_BOX_BASIC_STYLE, pMapInventoryErrorString[ 4 ], MAP_SCREEN, MSG_BOX_FLAG_OK, NULL );
 				return;
@@ -1795,7 +1795,7 @@ void MapInvenPoolSlots(MOUSE_REGION * pRegion, INT32 iReason )
 /*
 				if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
 				{
-					ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+					ReevaluateItemHatches( gCharactersList[ bSelectedInfoChar ].usSolID, FALSE );
 				}
 				*/
 			}
@@ -2471,7 +2471,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 		if ( _KeyDown ( CTRL ))//MM: Pass item to selected merc.  Delete if none selected.
 		{
-			SOLDIERTYPE *pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+			SOLDIERTYPE *pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 			bool placedAllObjects = false;
 
 			if(pSoldier->exists() == true)
@@ -2575,7 +2575,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 						if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
 						{
-							ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+							ReevaluateItemHatches( gCharactersList[ bSelectedInfoChar ].usSolID, FALSE );
 							fTeamPanelDirty = TRUE;
 						}
 					}
@@ -2643,7 +2643,7 @@ void BeginInventoryPoolPtr( OBJECTTYPE *pInventorySlot )
 
 			if ( fShowInventoryFlag && bSelectedInfoChar >= 0 )
 			{
-				ReevaluateItemHatches( MercPtrs[ gCharactersList[ bSelectedInfoChar ].usSolID ], FALSE );
+				ReevaluateItemHatches( gCharactersList[ bSelectedInfoChar ].usSolID, FALSE );
 				fTeamPanelDirty = TRUE;
 			}
 		}
@@ -2660,7 +2660,7 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			// anv: swap ownerships too
 			if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
 			{
-				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 			}
 			pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;		
 		}
@@ -2674,10 +2674,10 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 			// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
 			if( iDestSlot != (-1) && iSrcSlot != (-1) )
 			{
-				pInventoryPoolList[ iDestSlot ].soldierID = (-1);
-				pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+				pInventoryPoolList[ iDestSlot ].soldierID = NOBODY;
+				pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 				iCurrentlyPickedUpItem = iDestSlot;
-				sObjectSourseSoldierID = (-1);
+				sObjectSourseSoldierID = NOBODY;
 			}
 			// stacking
 			pInventorySlot->AddObjectsToStack(*pItemPtr);
@@ -2689,9 +2689,9 @@ BOOLEAN PlaceObjectInInventoryStash( OBJECTTYPE *pInventorySlot, OBJECTTYPE *pIt
 				// anv: swap ownerships too
 				if( pInventoryPoolList[ iSrcSlot ].soldierID == sObjectSourseSoldierID )
 				{
-					pInventoryPoolList[ iSrcSlot ].soldierID = (-1);
+					pInventoryPoolList[ iSrcSlot ].soldierID = NOBODY;
 				}
-				INT32 iTempSoldierID = pInventoryPoolList[ iDestSlot ].soldierID;
+				SoldierID iTempSoldierID = pInventoryPoolList[ iDestSlot ].soldierID;
 				pInventoryPoolList[ iDestSlot ].soldierID = sObjectSourseSoldierID;
 				sObjectSourseSoldierID = iTempSoldierID;
 				iCurrentlyPickedUpItem = iDestSlot;
@@ -3015,7 +3015,7 @@ void TemplateNameInputCallBack(UINT8 ubResult)
 {
 	if (ubResult == MSG_BOX_RETURN_OK && wcscmp(gszMsgBoxInputString, L"") > 0)
 	{
-		SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+		SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 		if (pSoldier)
 		{
 			WriteEquipmentTemplate(pSoldier, gszMsgBoxInputString);
@@ -3047,7 +3047,7 @@ void MapInventoryWriteEquipmentTemplate(GUI_BUTTON *btn, INT32 reason)
 	{
 		if ( btn->uiFlags & (BUTTON_CLICKED_ON) )
 		{
-			SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+			SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 			if ( pSoldier )
 			{
 				DoMessageBox( MSG_BOX_BASIC_SMALL_BUTTONS, szGearTemplateText[0], guiCurrentScreen, MSG_BOX_FLAG_INPUTBOX, TemplateNameInputCallBack, NULL );
@@ -3072,7 +3072,7 @@ void MapInventoryReadEquipmentTemplate(GUI_BUTTON *btn, INT32 reason)
 	{
 		if ( btn->uiFlags & (BUTTON_CLICKED_ON) )
 		{
-			SOLDIERTYPE* pSoldier = &Menptr[gCharactersList[bSelectedInfoChar].usSolID];
+			SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 			if ( pSoldier &&
 				 pSoldier->sSectorX == sSelMapX && pSoldier->sSectorY == sSelMapY && pSoldier->bSectorZ == iCurrentMapSectorZ &&
 				 !pSoldier->flags.fBetweenSectors )
@@ -3525,11 +3525,12 @@ void HandleButtonStatesWhileMapInventoryActive( void )
 	}
 
 	// Selected Merc is in sector? Or is in combat?
-	if(MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->sSectorX != sSelMapX ||
-		MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->sSectorY != sSelMapY || 
-		MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->bSectorZ != iCurrentMapSectorZ ||
-		MercPtrs[gCharactersList[bSelectedInfoChar].usSolID]->flags.fBetweenSectors ||
-		!CanPlayerUseSectorInventory( &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]) ) ) 
+	SOLDIERTYPE* pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
+	if( pSoldier->sSectorX != sSelMapX ||
+		pSoldier->sSectorY != sSelMapY || 
+		pSoldier->bSectorZ != iCurrentMapSectorZ ||
+		pSoldier->flags.fBetweenSectors ||
+		!CanPlayerUseSectorInventory( pSoldier ) ) 
 	{
 		DisableButton( guiMapInvenSortButton[ 0 ] );
 		DisableButton( guiMapInvenSortButton[ 1 ] );
@@ -3640,7 +3641,7 @@ void HandleMouseInCompatableItemForMapSectorInventory( INT32 iCurrentSlot )
 	if( fShowInventoryFlag )
 	{
 		//Soldier inventory is shown, highlight those items
-		pSoldier = &Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ];
+		pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 		if( pSoldier )
 		{
 			if( HandleCompatibleAmmoUIForMapScreen( pSoldier, iCurrentSlot + ( iCurrentInventoryPoolPage * MAP_INVENTORY_POOL_SLOT_COUNT ), TRUE, FALSE ) )
@@ -4815,7 +4816,7 @@ void SortSectorInventoryAmmo(bool useBoxes)
 	OBJECTTYPE	newCrate;
 	int loopCount = 0;
 
-	SOLDIERTYPE * pSoldier = &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]);
+	SOLDIERTYPE * pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 	
 	AssertMsg( pSoldier != NULL, "Sector Inventory: Attempting ammo sort without valid selected soldier?" );
 
@@ -4957,7 +4958,7 @@ void SortSectorInventoryEjectAmmo()
 {
 	OBJECTTYPE gTempObject;
 	
-	SOLDIERTYPE * pSoldier = &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]);
+	SOLDIERTYPE * pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 
 	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ ) //for all items in sector
 	{
@@ -5006,7 +5007,7 @@ void SortSectorInventoryEmptyLBE() {
 	// current item
 	WORLDITEM * pInventoryItem = NULL;
 
-	SOLDIERTYPE * pSoldier = &(Menptr[gCharactersList[bSelectedInfoChar].usSolID]);
+	SOLDIERTYPE * pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 	for (UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++) //for all items in sector
 	{
@@ -5081,7 +5082,7 @@ void SortSectorInventorySeparateAttachments()
 	WORLDITEM * pInventoryItem = NULL;
 
 
-	SOLDIERTYPE * pSoldier = &(Menptr[gCharactersList[bSelectedInfoChar].usSolID]);
+	SOLDIERTYPE * pSoldier = gCharactersList[bSelectedInfoChar].usSolID;
 
 	for (UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++) //for all items in sector
 	{
@@ -5154,12 +5155,12 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 {
 	OBJECTTYPE * StackObject;
 	
-	SOLDIERTYPE * pSoldier = &(Menptr[ gCharactersList[ bSelectedInfoChar ].usSolID ]);
+	SOLDIERTYPE * pSoldier = gCharactersList[ bSelectedInfoChar ].usSolID;
 
 	for ( UINT32 uiLoop = 0; uiLoop < pInventoryPoolList.size(); uiLoop++ )
 	{
 		// anv: disable soldier's ownership, as otherwise stacked backpacks would share it
-		pInventoryPoolList[ uiLoop ].soldierID = (-1);
+		pInventoryPoolList[ uiLoop ].soldierID = NOBODY;
 	}
 
 	// Run through sector inventory.
@@ -6009,7 +6010,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 //original code by flugente, renamed variables to fit here, removed "min (OVERHEATING_MAX_TEMPERATURE, newValue)" for dirt to allow to go beyond maximum and deduct later the same amount if neccessary.
 	// ... if we use overheating and item is a gun, a launcher or a barrel ...
-	if ( gGameExternalOptions.fWeaponOverheating && ( Item[itemStack->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || Item[itemStack->usItem].barrel == TRUE ) )
+	if ( gGameExternalOptions.fWeaponOverheating && ( Item[itemStack->usItem].usItemClass & (IC_GUN|IC_LAUNCHER) || ItemIsBarrel(itemStack->usItem) ) )
 	{
 		for(INT16 i = 0; i < itemStack->ubNumberOfObjects; ++i)			// ... there might be multiple items here (item stack), so for each one ...
 		{
@@ -6017,7 +6018,7 @@ void HandleItemCooldownFunctions( OBJECTTYPE* itemStack, INT32 deltaSeconds, BOO
 
 			FLOAT cooldownfactor = GetItemCooldownFactor(itemStack);		// ... get item cooldown factor provided of attachments ...
 
-			if ( Item[itemStack->usItem].barrel == TRUE )	// ... a barrel lying around cools down a bit faster ...
+			if (ItemIsBarrel(itemStack->usItem))	// ... a barrel lying around cools down a bit faster ...
 				cooldownfactor *= gGameExternalOptions.iCooldownModificatorLonelyBarrel;
 
 			FLOAT newguntemperature = max(0.0f, guntemperature - tickspassed * cooldownfactor );	// ... calculate new temperature ...

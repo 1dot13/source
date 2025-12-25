@@ -1,16 +1,16 @@
 #include "worlddef.h"
-#include "tile animation.h"
-#include "debug.h"
+#include "Tile Animation.h"
+#include "DEBUG.H"
 #include "worldman.h"
 #include "lighting.h"
 #include "renderworld.h"
-#include "overhead.h"
+#include "Overhead.h"
 #include "ai.h"
 #include "Sound Control.h"
-#include "tile cache.h"
-#include "explosion control.h"
+#include "Tile Cache.h"
+#include "Explosion Control.h"
 #include "Keys.h"
-#include "bullets.h"
+#include "Bullets.h"
 #include "LightEffects.h"
 #include "SmokeEffects.h"
 
@@ -572,11 +572,11 @@ void UpdateAniTiles( )
 							{
 								// Do sound....
 								// PlayJA2Sample( AIR_ESCAPING_1, RATE_11025, SoundVolume( HIGHVOLUME, pNode->sGridNo ), 1, SoundDir( pNode->sGridNo ) );
-								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, (UINT8)pNode->ubUserData2 );
+								NewSmokeEffect( pNode->sGridNo, (UINT16)pNode->uiUserData, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, pNode->ubUserData2 );
 							}
 							else
 							{
-								SpreadEffect( pNode->sGridNo, (UINT8)Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, (UINT8)pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
+								SpreadEffect( pNode->sGridNo, (UINT8)Explosive[ Item[ (UINT16)pNode->uiUserData ].ubClassIndex ].ubRadius, (UINT16)pNode->uiUserData, pNode->ubUserData2, FALSE, gExplosionData[ pNode->uiUserData3 ].Params.bLevel, -1 );
 							}
 							// Forfait any other animations this frame....
 							return;

@@ -9,34 +9,34 @@
 	#include "vobject.h"
 	#include "mousesystem.h"
 	#include "Button System.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "vsurface.h"
 	#include "input.h"
 	#include "sysutil.h"
-	#include "font.h"
+	#include "Font.h"
 	#include "Font Control.h"
 	#include "editscreen.h"
 	#include "selectwin.h"
 	#include "video.h"
 	#include "vobject_blitters.h"
-	#include "interface panels.h"
-	#include "interface items.h"
-	#include "text.h"
-	#include "utilities.h"
+	#include "Interface Panels.h"
+	#include "Interface Items.h"
+	#include "Text.h"
+	#include "Utilities.h"
 	#include "Action Items.h"
 	#include "World Items.h"
 	#include "EditorDefines.h"
 	#include "EditorItems.h"
 	#include "EditorMercs.h"
-	#include "weapons.h"
+	#include "Weapons.h"
 	#include "Editor Taskbar Utils.h"
-	#include "wordwrap.h"
+	#include "WordWrap.h"
 	#include "Item Statistics.h"
 	#include "Simple Render Utils.h"
 	#include "worldman.h"
 	#include "random.h"
-	#include "Pits.h"
-	#include "keys.h"
+	#include "pits.h"
+	#include "Keys.h"
 	#include "InterfaceItemImages.h"
 	#include "Editor Undo.h"//dnl ch86 220214
 
@@ -152,7 +152,7 @@ void EntryInitEditorItemsInfo()
 			item = &Item[i];
 			//if( Item[i].fFlags & ITEM_NOT_EDITOR )
 			//	continue;
-			if(item->notineditor)
+			if(ItemIsNotInEditor(i))
 				continue;
 			if( i == SWITCH || i == ACTION_ITEM )
 			{
@@ -331,7 +331,7 @@ void InitEditorItemsInfo(UINT32 uiItemType)
 				continue;
 			}
 			item = &Item[usCounter];
-			if(item->notineditor)
+			if(ItemIsNotInEditor(usCounter))
 			{
 				usCounter++;
 				continue;

@@ -1,28 +1,24 @@
 	#include "Vehicles.h"
-	#include "String.h"
 	#include "Strategic Pathing.h"
 	#include "Assignments.h"
 	#include "Strategic Movement.h"
 	#include "Squads.h"
 	#include "Map Screen Helicopter.h"
 	#include "Game Clock.h"
-	#include "overhead.h"
-	#include "soldier profile.h"
+	#include "Overhead.h"
+	#include "Soldier Profile.h"
 	#include "Sound Control.h"
-	#include "soundman.h"
-	#include "soldier add.h"
-	#include "interface panels.h"
+	#include "Soldier Add.h"
+	#include "Interface Panels.h"
 	#include "strategic.h"
 	#include "worlddef.h"
 	#include "Isometric Utils.h"
-	#include "Mapscreen.h"
 	#include "message.h"
-	#include "interface.h"
-	#include "Random.h"
-	#include "text.h"
-	#include "explosion control.h"
-	#include "soldier create.h"
-	#include "animation control.h"
+	#include "Interface.h"
+	#include "random.h"
+	#include "Text.h"
+	#include "Explosion Control.h"
+	#include "Animation Control.h"
 	#include "strategicmap.h"
 	#include "Interface Control.h"
 	#include "Campaign Types.h"
@@ -33,10 +29,9 @@
 	#include "Tactical Save.h"
 	#include "Soldier macros.h"
 	#include "opplist.h"
-	#include "Soldier ani.h"
+	#include "Soldier Ani.h"
 	#include "GameSettings.h"
 	#include "Queen Command.h"
-
 #include "Points.h"
 #include "Init.h"
 
@@ -49,7 +44,7 @@ VEHICLETYPE *pVehicleList = NULL;
 // number of vehicle slots on the list
 UINT8 ubNumberOfVehicles = 0;
 
-// the sqaud mvt groups
+// the squad mvt groups
 extern INT8 SquadMovementGroups[ ];
 
 
@@ -176,7 +171,7 @@ INT16 sVehicleInternalOrigArmorValues[ NUMBER_OF_TYPES_OF_VEHICLES ][ NUMBER_OF_
 
 
 // set the driver of the vehicle
-void SetDriver( INT32 iID, UINT8 ubID );
+void SetDriver( INT32 iID, SoldierID ubID );
 
 //void RemoveSoldierFromVehicleBetweenSectors( pSoldier, iId );
 
@@ -665,7 +660,7 @@ BOOLEAN AddSoldierToVehicle( SOLDIERTYPE *pSoldier, INT32 iId, UINT8 ubSeatIndex
 			// anv: are we taking driver's seat
 			if( gNewVehicle[ pVehicleList[ iId ].ubVehicleType ].VehicleSeats[ubFinalSeatIndex].fDriver )
 			{
-				SetDriver( iId , pSoldier->ubID );
+				SetDriver( iId, pSoldier->ubID );
 			}
 			else
 			{
@@ -1556,7 +1551,7 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 	INT32 iCounter;
 	if( pVehicleList[ iID ].ubDriver != NOBODY )
 	{
-		return( MercPtrs[ pVehicleList[ iID ].ubDriver ] );
+		return( pVehicleList[ iID ].ubDriver );
 	}
 	else
 	{
@@ -1573,25 +1568,27 @@ SOLDIERTYPE *GetDriver( INT32 iID )
 }
 
 
-void SetDriver( INT32 iID, UINT8 ubID )
+void SetDriver( INT32 iID, SoldierID ubID )
 {
 	// anv: first make sure previous driver won't be driver anymore
-	if( pVehicleList[ iID ].ubDriver != NOBODY && MercPtrs[ pVehicleList[ iID ].ubDriver ]->iVehicleId == iID )
+	SOLDIERTYPE* prevDriver = pVehicleList[iID].ubDriver;
+
+	if( prevDriver != NOBODY && prevDriver->iVehicleId == iID )
 	{
-		if( MercPtrs[ pVehicleList[ iID ].ubDriver ] )
+		if( prevDriver )
 		{
-			MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags &= ~(SOLDIER_DRIVER);
-			if( GetSeatIndexFromSoldier( MercPtrs[ pVehicleList[ iID ].ubDriver ] ) != (-1) )
+			prevDriver->flags.uiStatusFlags &= ~(SOLDIER_DRIVER);
+			if( GetSeatIndexFromSoldier( prevDriver ) != (-1) )
 			{
-				MercPtrs[ pVehicleList[ iID ].ubDriver ]->flags.uiStatusFlags |= SOLDIER_PASSENGER;
+				prevDriver->flags.uiStatusFlags |= SOLDIER_PASSENGER;
 			}
 		}
 	}
 	// set proper flags
 	if( ubID != NOBODY )
 	{
-		MercPtrs[ ubID ]->flags.uiStatusFlags |= SOLDIER_DRIVER;
-		MercPtrs[ ubID ]->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
+		ubID->flags.uiStatusFlags |= SOLDIER_DRIVER;
+		ubID->flags.uiStatusFlags &= ~(SOLDIER_PASSENGER);
 	}
 	pVehicleList[ iID ].ubDriver = ubID;
 }
@@ -1716,15 +1713,15 @@ BOOLEAN EnterVehicle( SOLDIERTYPE *pVehicle, SOLDIERTYPE *pSoldier, UINT8 ubSeat
 
 SOLDIERTYPE *GetVehicleSoldierPointerFromPassenger( SOLDIERTYPE *pSrcSoldier )
 {
-	UINT32									cnt;
-	SOLDIERTYPE			 *pSoldier;
+	SOLDIERTYPE *pSoldier;
 
 	// End the turn of player charactors
-	cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
+	SoldierID cnt = gTacticalStatus.Team[ gbPlayerNum ].bFirstID;
 
 	// look for all mercs on the same team,
-	for ( pSoldier = MercPtrs[ cnt ]; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; cnt++,pSoldier++)
+	for ( ; cnt <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++cnt )
 	{
+		pSoldier = cnt;
 		if ( pSoldier->bActive && pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE )
 		{
 			// Check ubID....
@@ -1821,7 +1818,7 @@ BOOLEAN ExitVehicle( SOLDIERTYPE *pSoldier )
 			}
 			else
 			{
-				UINT16 usTempSelectedSoldier = gusSelectedSoldier;
+				SoldierID usTempSelectedSoldier = gusSelectedSoldier;
 
 				SetCurrentSquad( CurrentSquad(), TRUE );
 
@@ -1984,7 +1981,7 @@ void AddPassangersToTeamPanel( INT32 iId )
 }
 
 
-void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, UINT8 ubAttackerID )
+void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo, SoldierID ubAttackerID )
 {
 	if ( ubReason != TAKE_DAMAGE_GAS_FIRE && ubReason != TAKE_DAMAGE_GAS_NOTFIRE )
 	{
@@ -2013,7 +2010,7 @@ void VehicleTakeDamage( UINT8 ubID, UINT8 ubReason, INT16 sDamage, INT32 sGridNo
 }
 
 
-void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, UINT8 ubAttackerID )
+void HandleCriticalHitForVehicleInLocation( UINT8 ubID, INT16 sDmg, INT32 sGridNo, SoldierID ubAttackerID )
 {
 	// check state the armor was s'posed to be in vs. the current state..the difference / orig state is % chance
 	// that a critical hit will occur
@@ -2303,7 +2300,7 @@ BOOLEAN SaveVehicleInformationToSaveGameFile( HWFILE hFile )
 			//loop through the passengers
 			for( ubPassengerCnt=0; ubPassengerCnt<10; ubPassengerCnt++)
 			{
-		TempVehicle.pPassengers[ ubPassengerCnt ] = ( SOLDIERTYPE * )NO_PROFILE;
+				TempVehicle.pPassengers[ ubPassengerCnt ] = ( SOLDIERTYPE * )NO_PROFILE;
 
 				//if there is a passenger here
 				if( pVehicleList[cnt].pPassengers[ ubPassengerCnt ] )
@@ -2414,28 +2411,28 @@ BOOLEAN LoadVehicleInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGam
 				//loop through all the passengers
 				for(ubPassengerCnt=0; ubPassengerCnt<10; ubPassengerCnt++)
 				{
-			if ( uiSavedGameVersion < 86 )
-			{
-					if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != 0 )
+					if ( uiSavedGameVersion < 86 )
 					{
-						// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
-						// ! to a UINT8 so we can get the REAL pointer to the soldier.
-						pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
+						if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != 0 )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
 						}
-			}
-			else
-			{
-					if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != ( SOLDIERTYPE * )NO_PROFILE )
+					}
+					else
 					{
-						// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
-						// ! to a UINT8 so we can get the REAL pointer to the soldier.
-						pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
+						if( pVehicleList[cnt].pPassengers[ubPassengerCnt] != ( SOLDIERTYPE * )NO_PROFILE )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID( (UINT8)(pVehicleList[cnt].pPassengers[ ubPassengerCnt ]), FALSE );
 						}
-			else
-			{
-				pVehicleList[cnt].pPassengers[ubPassengerCnt] = NULL;
-			}
-			}
+						else
+						{
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = NULL;
+						}
+					}
 				}
 
 
@@ -2904,14 +2901,12 @@ BOOLEAN SoldierMustDriveVehicle( SOLDIERTYPE *pSoldier, INT32 iVehicleId, BOOLEA
 
 BOOLEAN OnlythisCanDriveVehicle( SOLDIERTYPE *pthis, INT32 iVehicleId )
 {
-	INT32 iCounter = 0;
 	SOLDIERTYPE *pSoldier = NULL;
 
-
-	for( iCounter = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; iCounter <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; iCounter++ )
+	for( SoldierID id = gTacticalStatus.Team[ OUR_TEAM ].bFirstID; id <= gTacticalStatus.Team[ OUR_TEAM ].bLastID; ++id )
 	{
 		// get the current soldier
-		pSoldier = &Menptr[ iCounter ];
+		pSoldier = id;
 
 		// skip checking THIS soldier, we wanna know about everyone else
 		if ( pSoldier == pthis )

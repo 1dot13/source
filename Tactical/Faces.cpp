@@ -1,52 +1,44 @@
 	#include "builddefines.h"
-	#include "math.h"
 	#include <stdio.h>
-	#include <errno.h>
-
+	
 	#include "worlddef.h"
-	#include "renderworld.h"
 	#include "vsurface.h"
 	#include "Render Dirty.h"
 	#include "sysutil.h"
-	#include "wcheck.h"
+	#include "WCheck.h"
 	#include "video.h"
 	#include "vobject_blitters.h"
 	#include "faces.h"
-	#include "utilities.h"
-	#include "overhead.h"
-	#include "gap.h"
+	#include "Overhead.h"
+	#include "GAP.H"
 	#include "Soldier Profile.h"
 	#include "Sound Control.h"
-	#include "teamturns.h"
-	#include "soldier macros.h"
-	#include "dialogue control.h"
-	#include "font control.h"
+	#include "TeamTurns.h"
+	#include "Soldier macros.h"
+	#include "Dialogue Control.h"
+	#include "Font Control.h"
 	#include "Assignments.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "line.h"
 	#include	"GameSettings.h"
-	#include "squads.h"
-	#include "interface.h"
-	#include "Quests.h"
-	#include "animation control.h"
-	#include "drugs and alcohol.h"
+	#include "Squads.h"
+	#include "Interface.h"
+	#include <strategicmap.h>
+	#include "Drugs And Alcohol.h"
 	#include "Interface Items.h"
-	#include "meanwhile.h"
-	#include "Map Screen Interface.h"
-	// HEADROCK HAM 3.2: Added two includes so that a function can read values of the Gun Range/hospital location
 	#include "Campaign Types.h"
-	#include "Strategic Event Handler.h"
 	#include "Food.h"	// added by Flugente
 	#include "Queen Command.h"		// added by Flugente for FindUnderGroundSector(...)
 	#include "strategic.h"			// added by Flugente
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
+#else
+#include "Meanwhile.h"
+#include "Map Screen Interface.h"
 #endif
 
 // Defines
-#define		NUM_FACE_SLOTS					50
-
 #define		END_FACE_OVERLAY_DELAY	2000
 
 
@@ -74,11 +66,11 @@ CAMO_FACE gCamoFace[NUM_PROFILES];
 FACE_GEAR_VALUES zNewFaceGear[MAXITEMS];
 FACE_GEAR_VALUES zNewFaceGearIMP[MAXITEMS];
 
-extern BOOLEAN	gfSMDisableForItems;
-extern INT16		gsCurInterfacePanel;
-extern UINT16		gusSMCurrentMerc;
-extern BOOLEAN	gfRerenderInterfaceFromHelpText;
-extern	BOOLEAN	gfInItemPickupMenu;
+extern BOOLEAN		gfSMDisableForItems;
+extern INT16			gsCurInterfacePanel;
+extern SoldierID		gusSMCurrentMerc;
+extern BOOLEAN		gfRerenderInterfaceFromHelpText;
+extern BOOLEAN		gfInItemPickupMenu;
 
 BOOLEAN FaceRestoreSavedBackgroundRect( INT32 iFaceIndex, INT16 sDestLeft, INT16 sDestTop, INT16 sSrcLeft, INT16 sSrcTop, INT16 sWidth, INT16 sHeight );
 void SetupFinalTalkingDelay( FACETYPE *pFace );
@@ -131,7 +123,7 @@ INT32	InitSoldierFace( SOLDIERTYPE *pSoldier )
 }
 
 
-INT32	InitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitFlags )
+INT32	InitFace( UINT8 usMercProfileID, SoldierID ubSoldierID, UINT32 uiInitFlags )
 {
 	UINT32	uiBlinkFrequency;
 	UINT32	uiExpressionFrequency;
@@ -184,7 +176,7 @@ void SetPalettes(HVOBJECT *hVObject, UINT32 uiIndex)
 	(*hVObject)->pShades[FLASH_PORTRAIT_GRAYSHADE] = Create16BPPPaletteShaded(Pal, 255, 255, 255, FALSE);
 }
 
-INT32	InternalInitFace( UINT8 usMercProfileID, UINT8 ubSoldierID, UINT32 uiInitFlags, INT32 iFaceFileID, UINT32 uiBlinkFrequency, UINT32 uiExpressionFrequency )
+INT32	InternalInitFace( UINT8 usMercProfileID, SoldierID ubSoldierID, UINT32 uiInitFlags, INT32 iFaceFileID, UINT32 uiBlinkFrequency, UINT32 uiExpressionFrequency )
 {
 	FACETYPE					*pFace;
 	VOBJECT_DESC			VObjectDesc;
@@ -556,15 +548,14 @@ void DeleteFace( INT32 iFaceIndex )
 
 }
 
-void	SetAutoFaceActiveFromSoldier( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, UINT8 ubSoldierID , UINT16 usFaceX, UINT16 usFaceY )
+void	 SetAutoFaceActiveFromSoldier( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, SoldierID ubSoldierID, UINT16 usFaceX, UINT16 usFaceY )
 {
-	if( ubSoldierID == NOBODY )
+	if( ubSoldierID >= NOBODY )
 	{
 		return;
 	}
 
-	SetAutoFaceActive( uiDisplayBuffer, uiRestoreBuffer, MercPtrs[ ubSoldierID ]->iFaceIndex, usFaceX, usFaceY );
-
+	SetAutoFaceActive( uiDisplayBuffer, uiRestoreBuffer, ubSoldierID->iFaceIndex, usFaceX, usFaceY );
 }
 
 void GetFaceRelativeCoordinates( FACETYPE *pFace, UINT16 *pusEyesX, UINT16 *pusEyesY, UINT16 *pusMouthX, UINT16 *pusMouthY )
@@ -755,17 +746,17 @@ void InternalSetAutoFaceActive( UINT32 uiDisplayBuffer, UINT32 uiRestoreBuffer, 
 	// Are we a soldier?
 	if ( pFace->ubSoldierID != NOBODY )
 	{
-		pFace->bOldSoldierLife = MercPtrs[ pFace->ubSoldierID ]->stats.bLife;
+		pFace->bOldSoldierLife = pFace->ubSoldierID->stats.bLife;
 	}
 }
 
 
-void SetAutoFaceInActiveFromSoldier( UINT8 ubSoldierID )
+void SetAutoFaceInActiveFromSoldier( SoldierID ubSoldierID )
 {
 	// Check for valid soldier
 	CHECKV( ubSoldierID != NOBODY );
 
-	SetAutoFaceInActive( MercPtrs[ ubSoldierID ]->iFaceIndex );
+	SetAutoFaceInActive( ubSoldierID->iFaceIndex );
 }
 
 
@@ -797,7 +788,7 @@ void SetAutoFaceInActive(INT32 iFaceIndex )
 		//
 		if ( pFace->ubSoldierID != NOBODY )
 		{
-			pSoldier = MercPtrs[ pFace->ubSoldierID ];
+			pSoldier = pFace->ubSoldierID;
 
 			// IF we are in tactical
 			if ( pSoldier->bAssignment == iCurrentTacticalSquad && guiCurrentScreen == GAME_SCREEN )
@@ -950,11 +941,11 @@ void BlinkAutoFace( INT32 iFaceIndex )
 		// CHECK IF BUDDY IS DEAD, UNCONSCIOUS, ASLEEP, OR POW!
 		if ( pFace->ubSoldierID != NOBODY )
 		{
-			uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
+			uiFaceShade = GetFaceShade(pFace->ubSoldierID, pFace, FALSE);
 
-			if ( ( MercPtrs[ pFace->ubSoldierID ]->stats.bLife < OKLIFE ) ||
-					( MercPtrs[ pFace->ubSoldierID ]->flags.fMercAsleep == TRUE ) ||
-					( MercPtrs[ pFace->ubSoldierID ]->bAssignment == ASSIGNMENT_POW ) )
+			if ( ( pFace->ubSoldierID->stats.bLife < OKLIFE ) ||
+					( pFace->ubSoldierID->flags.fMercAsleep == TRUE ) ||
+					( pFace->ubSoldierID->bAssignment == ASSIGNMENT_POW ) )
 			{
 				return;
 			}
@@ -1090,13 +1081,13 @@ void HandleFaceHilights( FACETYPE *pFace, UINT32 uiBuffer, INT16 sFaceX, INT16 s
 	 {
 		 if ( pFace->ubSoldierID != NOBODY )
 		 {
-			 if ( MercPtrs[ pFace->ubSoldierID ]->stats.bLife >= OKLIFE )
+			 if ( pFace->ubSoldierID->stats.bLife >= OKLIFE )
 			 {
 				 // Lock buffer
 				 pDestBuf = LockVideoSurface( uiBuffer, &uiDestPitchBYTES );
 				 SetClippingRegionAndImageWidth( uiDestPitchBYTES, sFaceX-2, sFaceY-1, sFaceX + pFace->usFaceWidth + 4, sFaceY + pFace->usFaceHeight + 4 );
 
-				 if ( MercPtrs[ pFace->ubSoldierID ]->bStealthMode )
+				 if ( pFace->ubSoldierID->bStealthMode )
 				 {
 					 usLineColor = Get16BPPColor( FROMRGB( 158, 158, 12 ) );
 				 }
@@ -1239,7 +1230,7 @@ void MouthAutoFace( INT32 iFaceIndex )
 							// Set shade
 							if (pFace->ubSoldierID != NOBODY)
 							{
-								uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
+								uiFaceShade = GetFaceShade(pFace->ubSoldierID, pFace, FALSE);
 							}
 
 							HandleRenderFaceAdjustments( pFace, TRUE, FALSE, 0, pFace->usFaceX, pFace->usFaceY, pFace->usEyesX, pFace->usEyesY, uiFaceShade);
@@ -1365,12 +1356,12 @@ UINT32 GetFaceShade(SOLDIERTYPE *pSoldier, FACETYPE *pFace, BOOLEAN fExternBlit)
 	return FLASH_PORTRAIT_NOSHADE;
 }
 
-BOOLEAN RenderAutoFaceFromSoldier( UINT8 ubSoldierID )
+BOOLEAN RenderAutoFaceFromSoldier( SoldierID ubSoldierID )
 {
 	// Check for valid soldier
 	CHECKF( ubSoldierID != NOBODY );
 
-	return( RenderAutoFace( MercPtrs[ ubSoldierID ]->iFaceIndex ) );
+	return( RenderAutoFace( ubSoldierID->iFaceIndex ) );
 }
 
 //---------------------------------------LEGION-------------------------------
@@ -1631,16 +1622,16 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 	// BLIT HATCH
 	if ( pFace->ubSoldierID != NOBODY )
 	{
-		pSoldier = MercPtrs[ pFace->ubSoldierID ];
+		pSoldier = pFace->ubSoldierID;
 
 		UINT8 faceProfileId = gMercProfiles[pSoldier->ubProfile].ubFaceIndex;
 		BOOLEAN isIMP = gMercProfiles[pSoldier->ubProfile].Type == PROFILETYPE_IMP;
 
-		if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR] && MercPtrs[pFace->ubSoldierID]->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
+		if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_GEAR] && pSoldier->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
 		{
-			if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+			if (pSoldier->inv[HELMETPOS].usItem > 0)
 			{
-				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+				uiFaceItemOne = pSoldier->inv[HELMETPOS].usItem;
 
 				if (uiFaceItemOne != NONE && zNewFaceGear[uiFaceItemOne].Type == 1) //back
 				{
@@ -1650,17 +1641,17 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 			// this section chooses the pictures for gas mask and NV goggles if the ini setting "SHOW_TACTICAL_FACE_GEAR" is TRUE
 			// and the merc actually wears something to be shown
-			if (MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem > 0)
+			if (pSoldier->inv[HEAD1POS].usItem + pSoldier->inv[HEAD2POS].usItem > 0)
 			{
 				// WANNE: Removed the limitation
 				// silversurfer: don't overwrite icons if they shall be shown!
 				//if ( !gGameSettings.fOptions[ SHOW_TACTICAL_FACE_ICONS ] )
 				{
-					uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
-					uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+					uiFaceItemOne = pSoldier->inv[HEAD1POS].usItem;
+					uiFaceItemTwo = pSoldier->inv[HEAD2POS].usItem;
 
-					uiFaceOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
-					uiFaceTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+					uiFaceOne = pSoldier->inv[HEAD1POS].usItem;
+					uiFaceTwo = pSoldier->inv[HEAD2POS].usItem;
 
 					// check first face slot
 					if (uiFaceItemOne != NONE)
@@ -1799,11 +1790,11 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
-			if (MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem > 0)
+			if (pSoldier->inv[HELMETPOS].usItem > 0)
 				// dirty hack for IMPs because they don't have pictures for face gear
-				// && ( MercPtrs[ pFace->ubSoldierID ]->ubProfile < 51 || MercPtrs[ pFace->ubSoldierID ]->ubProfile > 56 )
+				// && ( pSoldier->ubProfile < 51 || pSoldier->ubProfile > 56 )
 			{
-				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HELMETPOS].usItem;
+				uiFaceItemOne = pSoldier->inv[HELMETPOS].usItem;
 
 				if (uiFaceItemOne != NONE)
 				{
@@ -1817,7 +1808,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			//------------------------------------end of tactical face gear-----------------------------
 		}
 
-		if ( (MercPtrs[pFace->ubSoldierID]->stats.bLife < CONSCIOUSNESS || MercPtrs[pFace->ubSoldierID]->flags.fDeadPanel ) )
+		if ( (pSoldier->stats.bLife < CONSCIOUSNESS || pSoldier->flags.fDeadPanel ) )
 		{
 			// Blit Closed eyes here!
 			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 1, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1826,14 +1817,14 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			BltVideoObjectFromIndex( uiRenderBuffer, guiHATCH, 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
-		if( MercPtrs[ pFace->ubSoldierID ]->flags.fMercAsleep == TRUE )
+		if( pSoldier->flags.fMercAsleep == TRUE )
 		{
 			// blit eyes closed
 			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 1, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
 		}
 
 		// Flugente: frozen soldiers are, well, frozen
-		if ( MercPtrs[pFace->ubSoldierID]->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
+		if ( pSoldier->usSkillCooldown[SOLDIER_COOLDOWN_CRYO] )
 		{
 			// Blit Closed eyes here!
 			BltVideoObjectFromIndex( uiRenderBuffer, pFace->uiVideoObject, 2, usEyesX, usEyesY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1907,7 +1898,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 
 			}
 
-			if ( MercPtrs[ pFace->ubSoldierID ]->bInSector && ( ( ( gTacticalStatus.ubCurrentTeam != OUR_TEAM ) || !OK_INTERRUPT_MERC(	MercPtrs[ pFace->ubSoldierID ] ) ) && !gfHiddenInterrupt ) || ( ( gfSMDisableForItems && !gfInItemPickupMenu ) && gusSMCurrentMerc == pFace->ubSoldierID && gsCurInterfacePanel == SM_PANEL ) )
+			if ( pSoldier->bInSector && ( ( ( gTacticalStatus.ubCurrentTeam != OUR_TEAM ) || !OK_INTERRUPT_MERC(	pSoldier ) ) && !gfHiddenInterrupt ) || ( ( gfSMDisableForItems && !gfInItemPickupMenu ) && gusSMCurrentMerc == pSoldier && gsCurInterfacePanel == SM_PANEL ) )
 			{
 				// Blit hatch!
 				BltVideoObjectFromIndex( uiRenderBuffer, guiHATCH, 0, sFaceX, sFaceY, VO_BLT_SRCTRANSPARENCY, NULL );
@@ -1915,12 +1906,12 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 		}
 	
 		// sevenfm: only show for alive soldiers, no face icons for big faces
-		if (MercPtrs[pFace->ubSoldierID]->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
+		if (pSoldier->stats.bLife > 0 && !(pFace->uiFlags & FACE_BIGFACE))
 		{
 			// Check if a robot and is not controlled....
-			if (MercPtrs[pFace->ubSoldierID]->flags.uiStatusFlags & SOLDIER_ROBOT)
+			if (pSoldier->flags.uiStatusFlags & SOLDIER_ROBOT)
 			{
-				if (!MercPtrs[pFace->ubSoldierID]->CanRobotBeControlled())
+				if (!pSoldier->CanRobotBeControlled())
 				{
 					// Not controlled robot
 					sIconIndex = 5;
@@ -1928,7 +1919,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 			}
 
-			if (MercPtrs[pFace->ubSoldierID]->ControllingRobot())
+			if (pSoldier->ControllingRobot())
 			{
 				// controlling robot
 				sIconIndex = 4;
@@ -1941,16 +1932,16 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// this section chooses the icons for face gear if the ini setting "SHOW_TACTICAL_FACE_ICONS" is TRUE 
 			// and the merc actually wears something to be shown
 			if (gGameSettings.fOptions[TOPTION_SHOW_TACTICAL_FACE_ICONS] &&
-				(MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem + MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem) > 0)
+				(pSoldier->inv[HEAD1POS].usItem + pSoldier->inv[HEAD2POS].usItem) > 0)
 			{
-				uiFaceItemOne = MercPtrs[pFace->ubSoldierID]->inv[HEAD1POS].usItem;
-				uiFaceItemTwo = MercPtrs[pFace->ubSoldierID]->inv[HEAD2POS].usItem;
+				uiFaceItemOne = pSoldier->inv[HEAD1POS].usItem;
+				uiFaceItemTwo = pSoldier->inv[HEAD2POS].usItem;
 
 				//MM: fixing the hardcoded craziness here...
 				// check first face slot
 				if (uiFaceItemOne != NONE)
 				{
-					if (Item[uiFaceItemOne].gasmask)
+					if (ItemIsGasmask(uiFaceItemOne))
 						uiFaceItemOne = 1;
 					else if (Item[uiFaceItemOne].nightvisionrangebonus > 0)
 						uiFaceItemOne = 2;
@@ -1965,7 +1956,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				// check second face slot
 				if (uiFaceItemTwo != NONE)
 				{
-					if (Item[uiFaceItemTwo].gasmask)
+					if (ItemIsGasmask(uiFaceItemTwo))
 						uiFaceItemTwo = 21;
 					else if (Item[uiFaceItemTwo].nightvisionrangebonus > 0)
 						uiFaceItemTwo = 42;
@@ -2052,20 +2043,20 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// If blind...
-			if (MercPtrs[pFace->ubSoldierID]->bBlindedCounter > 0)
+			if (pSoldier->bBlindedCounter > 0)
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 6);
 				bNumRightIcons++;
 			}
 
 			// Flugente: add drug symbol if drugged (without alcohol)
-			if (MercDrugged(MercPtrs[pFace->ubSoldierID]))
+			if (MercDrugged(pSoldier))
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 7);
 				bNumRightIcons++;
 			}
 
-			if (GetDrunkLevel(MercPtrs[pFace->ubSoldierID]) != SOBER)
+			if (GetDrunkLevel(pSoldier) != SOBER)
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 8);
 				bNumRightIcons++;
@@ -2074,13 +2065,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// Flugente: food system - symbols used if hungry or thirsty
 			if (UsingFoodSystem())
 			{
-				if (MercPtrs[pFace->ubSoldierID]->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
+				if (pSoldier->bDrinkLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 9);
 					bNumRightIcons++;
 				}
 
-				if (MercPtrs[pFace->ubSoldierID]->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
+				if (pSoldier->bFoodLevel < FoodMoraleMods[FOOD_MERC_START_SHOW_HUNGER_SYMBOL].bThreshold)
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 10);
 					bNumRightIcons++;
@@ -2090,13 +2081,13 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			// Flugente: are we supplying ammo to someone else?
 			if (gGameExternalOptions.ubExternalFeeding > 0)
 			{
-				UINT8 ubID1 = 0;
+				SoldierID ubID1 = NOBODY;
 				UINT16 ubGunSlot1 = 0;
 				UINT16 ubFaceSlot1 = 0;
-				UINT8 ubID2 = 0;
+				SoldierID ubID2 = NOBODY;
 				UINT16 ubGunSlot2 = 0;
 				UINT16 ubFaceSlot2 = 0;
-				if (MercPtrs[pFace->ubSoldierID]->IsFeedingExternal(&ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2))
+				if (pSoldier->IsFeedingExternal(&ubID1, &ubGunSlot1, &ubFaceSlot1, &ubID2, &ubGunSlot2, &ubFaceSlot2))
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 11);
 					bNumRightIcons++;
@@ -2104,33 +2095,33 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: add an icon if we are currently in disguise
-			if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER))
+			if (pSoldier->usSoldierFlagMask & (SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER))
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 12);
 				bNumRightIcons++;
 			}
 
 			// Flugente: add an icon if we are performing a multi-turn action
-			if (MercPtrs[pFace->ubSoldierID]->GetMultiTurnAction() == MTA_HACK)
+			if (pSoldier->GetMultiTurnAction() == MTA_HACK)
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 30);
 				bNumRightIcons++;
 			}
-			else if (MercPtrs[pFace->ubSoldierID]->GetMultiTurnAction() > MTA_NONE)
+			else if (pSoldier->GetMultiTurnAction() > MTA_NONE)
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 14);
 				bNumRightIcons++;
 			}
 
 			// Flugente: icons for radio operator actions (not the assignment)
-			if (MercPtrs[pFace->ubSoldierID]->bAssignment != RADIO_SCAN)
+			if (pSoldier->bAssignment != RADIO_SCAN)
 			{
-				if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING | SOLDIER_RADIO_OPERATOR_LISTENING))
+				if (pSoldier->usSoldierFlagMask & (SOLDIER_RADIO_OPERATOR_SCANNING | SOLDIER_RADIO_OPERATOR_LISTENING))
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 19);
 					bNumRightIcons++;
 				}
-				else if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING)
+				else if (pSoldier->usSoldierFlagMask & SOLDIER_RADIO_OPERATOR_JAMMING)
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 20);
 					bNumRightIcons++;
@@ -2138,9 +2129,9 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: spotter
-			if (MercPtrs[pFace->ubSoldierID]->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0)
+			if (pSoldier->usSkillCounter[SOLDIER_COUNTER_SPOTTER] > 0)
 			{
-				if (MercPtrs[pFace->ubSoldierID]->IsSpotting())
+				if (pSoldier->IsSpotting())
 				{
 					DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 24);
 					bNumRightIcons++;
@@ -2153,21 +2144,21 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: focus trait
-			if (MercPtrs[pFace->ubSoldierID]->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS)
+			if (pSoldier->usSoldierFlagMask2 & SOLDIER_TRAIT_FOCUS)
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 17);
 				bNumRightIcons++;
 			}
 
 			// Flugente: disease
-			if (MercPtrs[pFace->ubSoldierID]->HasDisease(TRUE, FALSE, TRUE))
+			if (pSoldier->HasDisease(TRUE, FALSE, TRUE))
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 28);
 				bNumRightIcons++;
 			}
 
 			// Flugente: drag stuff
-			if (MercPtrs[pFace->ubSoldierID]->IsDragging())
+			if (pSoldier->IsDragging())
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 31);
 				++bNumRightIcons;
@@ -2180,7 +2171,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			case DOCTOR_MILITIA:
 				sIconIndex_Assignment = 1;
 				fDoIcon_Assignment = TRUE;
-				sPtsAvailable = CalculateHealingPointsForDoctor(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
+				sPtsAvailable = CalculateHealingPointsForDoctor(pSoldier, &usMaximumPts, FALSE);
 
 				fShowCustomText = TRUE;
 
@@ -2203,8 +2194,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 2;
 				fDoIcon_Assignment = TRUE;
 				// show current health / maximum health
-				sPtsAvailable = MercPtrs[pFace->ubSoldierID]->stats.bLife;
-				usMaximumPts = MercPtrs[pFace->ubSoldierID]->stats.bLifeMax;
+				sPtsAvailable = pSoldier->stats.bLife;
+				usMaximumPts = pSoldier->stats.bLifeMax;
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
 				break;
@@ -2220,27 +2211,27 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
 
-				switch (MercPtrs[pFace->ubSoldierID]->bAssignment)
+				switch (pSoldier->bAssignment)
 				{
 				case(TRAIN_SELF) :
-					sPtsAvailable = GetSoldierTrainingPts(MercPtrs[pFace->ubSoldierID], MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
+					sPtsAvailable = GetSoldierTrainingPts(pSoldier, pSoldier->bTrainStat, &usMaximumPts);
 					break;
 				case(TRAIN_BY_OTHER) :
-					sPtsAvailable = GetSoldierStudentPts(MercPtrs[pFace->ubSoldierID], MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
+					sPtsAvailable = GetSoldierStudentPts(pSoldier, pSoldier->bTrainStat, &usMaximumPts);
 					break;
 				case(TRAIN_TOWN) :
 				case DRILL_MILITIA:
-					sPtsAvailable = GetTownTrainPtsForCharacter(MercPtrs[pFace->ubSoldierID], &usMaximumPts);
+					sPtsAvailable = GetTownTrainPtsForCharacter(pSoldier, &usMaximumPts);
 					// divide both amounts by 10 to make the displayed numbers a little more user-palatable (smaller)
 					sPtsAvailable = (sPtsAvailable + 5) / 10;
 					usMaximumPts = (usMaximumPts + 5) / 10;
 					break;
 				case(TRAIN_TEAMMATE) :
-					sPtsAvailable = GetBonusTrainingPtsDueToInstructor(MercPtrs[pFace->ubSoldierID], NULL, MercPtrs[pFace->ubSoldierID]->bTrainStat, &usMaximumPts);
+					sPtsAvailable = GetBonusTrainingPtsDueToInstructor(pSoldier, NULL, pSoldier->bTrainStat, &usMaximumPts);
 					break;
 				case TRAIN_WORKERS:
 					fShowMaximum = FALSE;
-					sPtsAvailable = GetTrainWorkerPts(MercPtrs[pFace->ubSoldierID]);
+					sPtsAvailable = GetTrainWorkerPts(pSoldier);
 					break;
 				}
 				break;
@@ -2250,25 +2241,25 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 0;
 				fDoIcon_Assignment = TRUE;
 				// Show repair points if merc has a toolkit in his hand. Otherwise show cleaning points.
-				if (Item[pSoldier->inv[HANDPOS].usItem].toolkit)
-					sPtsAvailable = CalculateRepairPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
+				if (ItemIsToolkit(pSoldier->inv[HANDPOS].usItem))
+					sPtsAvailable = CalculateRepairPointsForRepairman(pSoldier, &usMaximumPts, FALSE);
 				else
-					sPtsAvailable = CalculateCleaningPointsForRepairman(MercPtrs[pFace->ubSoldierID], &usMaximumPts);
+					sPtsAvailable = CalculateCleaningPointsForRepairman(pSoldier, &usMaximumPts);
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
 
 				// check if we are repairing a vehicle
-				if (Menptr[pFace->ubSoldierID].bVehicleUnderRepairID != -1)
+				if (pSoldier->bVehicleUnderRepairID != -1)
 				{
 					// reduce to a multiple of VEHICLE_REPAIR_POINTS_DIVISOR.	This way skill too low will show up as 0 repair pts.
 					sPtsAvailable -= (sPtsAvailable % VEHICLE_REPAIR_POINTS_DIVISOR);
 					usMaximumPts -= (usMaximumPts	% VEHICLE_REPAIR_POINTS_DIVISOR);
 				}
-				else if (Menptr[pFace->ubSoldierID].flags.fFixingSAMSite)
+				else if (pSoldier->flags.fFixingSAMSite)
 				{
 					sPtsAvailable = (sPtsAvailable / SAM_SITE_REPAIR_DIVISOR);
 
-					INT16 sector = CALCULATE_STRATEGIC_INDEX(Menptr[pFace->ubSoldierID].sSectorX, Menptr[pFace->ubSoldierID].sSectorY);
+					INT16 sector = CALCULATE_STRATEGIC_INDEX(pSoldier->sSectorX, pSoldier->sSectorY);
 
 					usMaximumPts = 100 - StrategicMap[sector].bSAMCondition;
 				}
@@ -2338,7 +2329,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			case DISEASE_DOCTOR_SECTOR:
 				sIconIndex_Assignment = 1;
 				fDoIcon_Assignment = TRUE;
-				sPtsAvailable = CalculateHealingPointsForDoctor(MercPtrs[pFace->ubSoldierID], &usMaximumPts, FALSE);
+				sPtsAvailable = CalculateHealingPointsForDoctor(pSoldier, &usMaximumPts, FALSE);
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
 
@@ -2350,15 +2341,15 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			case FORTIFICATION:
 				sIconIndex_Assignment = 14;
 				fDoIcon_Assignment = TRUE;
-				sPtsAvailable = (INT16)(MercPtrs[pFace->ubSoldierID]->GetConstructionPoints());
+				sPtsAvailable = (INT16)(pSoldier->GetConstructionPoints());
 				fShowNumber = TRUE;
 				fShowMaximum = TRUE;
 
 				{
-					if (MercPtrs[pFace->ubSoldierID]->bSectorZ)
+					if (pSoldier->bSectorZ)
 					{
 						UNDERGROUND_SECTORINFO *pSectorInfo;
-						pSectorInfo = FindUnderGroundSector(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY, MercPtrs[pFace->ubSoldierID]->bSectorZ);
+						pSectorInfo = FindUnderGroundSector(pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ);
 
 						if (pSectorInfo)
 							usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
@@ -2366,7 +2357,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 					else
 					{
 						SECTORINFO *pSectorInfo;
-						pSectorInfo = &SectorInfo[SECTOR(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY)];
+						pSectorInfo = &SectorInfo[SECTOR(pSoldier->sSectorX, pSoldier->sSectorY)];
 
 						if (pSectorInfo)
 							usMaximumPts = (INT16)(pSectorInfo->dFortification_MaxPossible);
@@ -2386,8 +2377,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				}
 				else
 				{
-					bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetIntelGain();
-					usMaximumPts = (UINT16)(MercPtrs[pFace->ubSoldierID]->GetUncoverRisk());
+					bPtsAvailable = pSoldier->GetIntelGain();
+					usMaximumPts = (UINT16)(pSoldier->GetUncoverRisk());
 
 					swprintf(sString, L"%4.2f/%d%%%%", bPtsAvailable, usMaximumPts);
 
@@ -2399,7 +2390,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 35;
 				fDoIcon_Assignment = TRUE;
 				fShowCustomText = TRUE;
-				bPtsAvailable = MercPtrs[pFace->ubSoldierID]->GetBurialPoints(&usMaximumPts);
+				bPtsAvailable = pSoldier->GetBurialPoints(&usMaximumPts);
 
 				swprintf(sString, L"%3.1f/%d", bPtsAvailable, usMaximumPts);
 				break;
@@ -2408,8 +2399,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 36;
 				fDoIcon_Assignment = TRUE;
 				fShowCustomText = TRUE;
-				sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetAdministrationPoints();
-				bPtsAvailable = GetAdministrationPercentage(MercPtrs[pFace->ubSoldierID]->sSectorX, MercPtrs[pFace->ubSoldierID]->sSectorY);
+				sPtsAvailable = (INT16)pSoldier->GetAdministrationPoints();
+				bPtsAvailable = GetAdministrationPercentage(pSoldier->sSectorX, pSoldier->sSectorY);
 
 				swprintf(sString, L"%d/%3.1f", sPtsAvailable, bPtsAvailable);
 				break;
@@ -2418,7 +2409,7 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 				sIconIndex_Assignment = 34;
 				fDoIcon_Assignment = TRUE;
 				fShowCustomText = TRUE;
-				sPtsAvailable = (INT16)MercPtrs[pFace->ubSoldierID]->GetExplorationPoints();
+				sPtsAvailable = (INT16)pSoldier->GetExplorationPoints();
 
 				// we only show our points, not how far we are with the task, lest the player deduct how many items there are to find in the first place
 				swprintf( sString, L"%d", sPtsAvailable );
@@ -2426,14 +2417,14 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Check for being serviced...
-			if (MercPtrs[pFace->ubSoldierID]->ubServicePartner != NOBODY)
+			if (pSoldier->ubServicePartner != NOBODY)
 			{
 				// Doctor...
 				sIconIndex_Assignment = 1;
 				fDoIcon_Assignment = TRUE;
 			}
 
-			if (MercPtrs[pFace->ubSoldierID]->ubServiceCount != 0)
+			if (pSoldier->ubServiceCount != 0)
 			{
 				// Patient
 				sIconIndex_Assignment = 2;
@@ -2624,7 +2615,7 @@ BOOLEAN RenderAutoFace( INT32 iFaceIndex )
 	// Set shade
 	if ( pFace->ubSoldierID != NOBODY )
 	{
-		uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, FALSE);
+		uiFaceShade = GetFaceShade(pFace->ubSoldierID, pFace, FALSE);
 		SetFaceShade(pFace, uiFaceShade);
 	}
 
@@ -2657,12 +2648,12 @@ BOOLEAN RenderAutoFace( INT32 iFaceIndex )
 }
 
 
-BOOLEAN ExternRenderFaceFromSoldier( UINT32 uiBuffer, UINT8 ubSoldierID, INT16 sX, INT16 sY )
+BOOLEAN ExternRenderFaceFromSoldier( UINT32 uiBuffer, SoldierID ubSoldierID, INT16 sX, INT16 sY )
 {
 	// Check for valid soldier
 	CHECKF( ubSoldierID != NOBODY );
 
-	return( ExternRenderFace( uiBuffer, MercPtrs[ ubSoldierID ]->iFaceIndex, sX, sY ) );
+	return( ExternRenderFace( uiBuffer, ubSoldierID->iFaceIndex, sX, sY ) );
 }
 
 
@@ -2688,7 +2679,7 @@ BOOLEAN ExternRenderFace( UINT32 uiBuffer, INT32 iFaceIndex, INT16 sX, INT16 sY 
 	UINT32 uiFaceShade = FLASH_PORTRAIT_NOSHADE;
 	if ( pFace->ubSoldierID != NOBODY )
 	{
-		uiFaceShade = GetFaceShade(MercPtrs[pFace->ubSoldierID], pFace, TRUE);
+		uiFaceShade = GetFaceShade(pFace->ubSoldierID, pFace, TRUE);
 		SetFaceShade(pFace, uiFaceShade);
 	}
 
@@ -2850,7 +2841,7 @@ void HandleAutoFaces( )
 			if ( pFace->ubSoldierID != NOBODY )
 			{
 				// Get Life now
-				pSoldier	= MercPtrs[ pFace->ubSoldierID ];
+				pSoldier	= pFace->ubSoldierID;
 				bLife		= pSoldier->stats.bLife;
 				bInSector = pSoldier->bInSector;
 				bAPs		= pSoldier->bActionPoints;

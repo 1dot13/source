@@ -14,7 +14,7 @@
 	#include "Editor Undo.h"
 	#include "Structure Internals.h"
 	#include "environment.h"
-	#include "Random.h"
+	#include "random.h"
 	#include "Render Fun.h"
 
 
