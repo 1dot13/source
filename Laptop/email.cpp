@@ -833,7 +833,7 @@ void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender
 
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, -1, EmailType, TYPE_E_NONE);
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
+	// if we are in fact in the laptop, redraw icons, might be change in mail status
 	if( fCurrentlyInLaptop )
 	{
 		// redraw icons, might be new mail
@@ -853,6 +853,8 @@ static void AddEmailFromXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMP
 		ScreenMsg(FONT_LTRED, MSG_INTERFACE, L"%s%d %s", L"Tried to add email #", iMessageOffset, L"but could not find it in Emails.xml! If playing unmodded 1.13, please report this at https://github.com/1dot13/source/issues");
 	}
 }
+
+
 #ifdef JA2UB
 void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
 {
@@ -962,6 +964,7 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 	}
 #endif
 
+	// if we are in fact in the laptop, redraw icons, might be change in mail status
 	if( fCurrentlyInLaptop == TRUE )
 	{
 		// redraw icons, might be new mail
