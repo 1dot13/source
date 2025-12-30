@@ -22,6 +22,7 @@
 	#include <string>
 #include "soldier profile type.h"
 #include "strategicmap.h"
+#include "message.h"
 
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -261,6 +262,7 @@ EMAIL_OTHER_VALUES EmailOtherText[EMAIL_INDEX];
 EMAIL_MERC_INSURANCE_VALUES EmailInsuranceText[NUM_PROFILES];
 BOOLEAN ReadXMLEmail = TRUE; // TRUE - read email from XML, FALSE - read email from EDT
 EMAIL_TYPE gEmailT[EMAIL_VAL];
+std::vector<EMAIL_XML> gEmails{};
 BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile );
 
@@ -839,6 +841,18 @@ void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender
 	}
 }
 
+static void AddEmailFromXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, BOOLEAN alreadyRead)
+{
+	if ( iMessageOffset < gEmails.size() )
+	{
+		auto& email = gEmails[iMessageOffset];
+		AddEmailMessage(iMessageOffset, email.Messages.size(), email.Subject, iDate, email.Sender, alreadyRead, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_XML, TYPE_E_NONE);
+	}
+	else
+	{
+		ScreenMsg(FONT_LTRED, MSG_INTERFACE, L"%s%d %s", L"Tried to add email #", iMessageOffset, L"but could not find it in Emails.xml! If playing unmodded 1.13, please report this at https://github.com/1dot13/source/issues");
+	}
+}
 #ifdef JA2UB
 void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
 {
@@ -902,36 +916,51 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
 	//CHAR16 pMessageString[320];
+
 #ifdef JA2UB	
+	if ( EmailType == TYPE_EMAIL_XML )
+	{
+		AddEmailFromXML(iMessageOffset, iDate, iCurrentIMPPosition, iCurrentShipmentDestinationID, false);
+	}
+	else
+	{
+        if ( EmailType == TYPE_EMAIL_EMAIL_EDT )
+        {
+            if ( FileExists(EMAIL_EDT_FILE_JA25) )
+                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640 * (iMessageOffset), 640);
+            else
+                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+        }
+        else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
+        {
+            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+        }
+        else if ( EmailType == TYPE_EMAIL_BOBBY_R )
+        {
+            /*	if (EmailBobbyRText[0] !='\0')
+                    wcscpy( pSubject, EmailBobbyRText[0] );
+                else
+                    wcscpy( pSubject, L"None" );
+            */
+        }
+        // add message to list
+        AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE);
+	}
 
-	if ( EmailType == TYPE_EMAIL_EMAIL_EDT ) 
-	{
-		if (FileExists(EMAIL_EDT_FILE_JA25))
-			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640*(iMessageOffset), 640);
-		else
-			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640*(iMessageOffset), 640);
-	}
-	else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
-	{
-		LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640*(iMessageOffset), 640);
-	}
-	else if ( EmailType == TYPE_EMAIL_BOBBY_R )
-	{
-	/*	if (EmailBobbyRText[0] !='\0')
-			wcscpy( pSubject, EmailBobbyRText[0] );
-		else
-			wcscpy( pSubject, L"None" );
-	*/
-	}
-	
 #else
-	// WANNE: Short work in both ways
-	LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640*(iMessageOffset), 640);
-#endif
-	// add message to list
-	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE);
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
+	if ( EmailType == TYPE_EMAIL_XML )
+	{
+		AddEmailFromXML(iMessageOffset, iDate, iCurrentIMPPosition, iCurrentShipmentDestinationID, false);
+	}
+	else
+	{
+		// WANNE: Short work in both ways
+		LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640 * (iMessageOffset), 640);
+		// add message to list
+		AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE);
+	}
+#endif
 
 	if( fCurrentlyInLaptop == TRUE )
 	{
@@ -950,31 +979,49 @@ void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender,
 	//CHAR16 pMessageString[320];
 
 #ifdef JA2UB	
-	if ( EmailType == TYPE_EMAIL_EMAIL_EDT ) 
+	if ( EmailType == TYPE_EMAIL_XML )
 	{
-		if (FileExists(EMAIL_EDT_FILE_JA25) )
-			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640*(iMessageOffset), 640);
-		else
-			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640*(iMessageOffset), 640);
+		AddEmailFromXML(iMessageOffset, iDate, -1, -1, true);
 	}
-	else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
+	else
 	{
-		LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640*(iMessageOffset), 640);
+		if ( EmailType == TYPE_EMAIL_EMAIL_EDT )
+		{
+			if ( FileExists(EMAIL_EDT_FILE_JA25) )
+				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640 * (iMessageOffset), 640);
+			else
+				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+		}
+		else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
+		{
+			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+		}
+
+		// add message to list
+		AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, -1, -1, EmailType, TYPE_E_NONE);
 	}
-#else	
-	// starts at iSubjectOffset amd goes iSubjectLength, reading in string
-	LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640*(iMessageOffset), 640);
+
+#else
+
+	if ( EmailType == TYPE_EMAIL_XML )
+	{
+		AddEmailFromXML(iMessageOffset, iDate, -1, -1, true);
+	}
+	else
+	{
+        // starts at iSubjectOffset amd goes iSubjectLength, reading in string
+        LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640 * (iMessageOffset), 640);
+		// add message to list
+		AddEmailMessage( iMessageOffset,iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, -1, -1 , EmailType, TYPE_E_NONE );
+	}
 #endif
-	// add message to list
-	AddEmailMessage( iMessageOffset,iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, -1, -1 , EmailType, TYPE_E_NONE );
 
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop == TRUE )
-	{
-	// redraw icons, might be new mail
-	DrawLapTopIcons();
-	}
+	// if we are in fact in the laptop, redraw icons, might be change in mail status
+    if ( fCurrentlyInLaptop == TRUE )
+    {
+        // redraw icons, might be new mail
+        DrawLapTopIcons();
+    }
 
 	return;
 }
@@ -1688,7 +1735,7 @@ void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead, UINT8 EmailType)
 		else
 		mprintf(SENDER_X,(( UINT16 )( 4 + MIDDLE_Y + iCounter * MIDDLE_WIDTH ) ) ,L"None");
 	}
-	else if ( EmailType == TYPE_EMAIL_EMAIL_EDT || EmailType == TYPE_EMAIL_BOBBY_R || EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT ||  EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_OTHER )
+	else if ( EmailType == TYPE_EMAIL_EMAIL_EDT || EmailType == TYPE_EMAIL_BOBBY_R || EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT ||  EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_OTHER || EmailType == TYPE_EMAIL_XML )
 	{
 		mprintf(SENDER_X,(( UINT16 )( 4 + MIDDLE_Y + iCounter * MIDDLE_WIDTH ) ) ,pSenderNameList[ubSender]);
 	}
@@ -1783,7 +1830,9 @@ void DisplayEmailList()
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
 		else if ( pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT_NAME_MERC || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_OTHER )
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
-			
+		else if ( pEmail->EmailVersion == TYPE_EMAIL_XML )
+			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
+
 		DrawDate(iCounter, pEmail->iDate, pEmail->fRead );
 
 		++iCounter;
@@ -3194,7 +3243,7 @@ void DisplayEmailMessageSubjectDateFromLines( EmailPtr pMail , INT32 iViewerY)
 		else
 		mprintf( MESSAGE_HEADER_X+MESSAGE_HEADER_WIDTH-13, MESSAGE_FROM_Y + iViewerY, L"None");
 	}		
-	else if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_OTHER )
+	else if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_OTHER || pMail->EmailVersion == TYPE_EMAIL_XML)
 	{
 		mprintf( MESSAGE_HEADER_X+MESSAGE_HEADER_WIDTH-13, MESSAGE_FROM_Y + iViewerY, pSenderNameList[pMail->ubSender]);
 	}
@@ -5600,6 +5649,11 @@ void PreProcessEmail( EmailPtr pMail )
 				wcscat( pString, EmailOtherText[iEmailOther].szMessage[pMail->usLength]);	
 				//	wcscat( pString, EmailOtherText[0].szMessage[1]);	
 			}
+			else if ( pMail->EmailVersion == TYPE_EMAIL_XML )
+			{
+				wcscpy(pString, L"\0");
+				wcscat(pString, gEmails[pMail->usOffset].Messages[iCounter].c_str());
+			}
 
 			// ----------------
 			// New MERC Merc
@@ -5773,7 +5827,7 @@ void PreProcessEmail( EmailPtr pMail )
 
 //def removed
 	// pass the subject line
-	if( pTempRecord && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS)
+	if ( pTempRecord && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS && pMail->EmailVersion != TYPE_EMAIL_XML )
 	{
 		pTempRecord = pTempRecord->Next;
 	}
@@ -5825,7 +5879,7 @@ void PreProcessEmail( EmailPtr pMail )
 	{
 		fOnLastPageFlag = TRUE;
 
-		if( pTempRecord && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS)
+		if( pTempRecord && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS && pMail->EmailVersion != TYPE_EMAIL_XML )
 		{
 			pTempRecord = pTempRecord->Next;
 		}
@@ -5870,7 +5924,7 @@ void PreProcessEmail( EmailPtr pMail )
 		fOnLastPageFlag = FALSE;
 		pTempList = pMessageRecordList;
 
-		if( pTempList && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS)
+		if( pTempList && pMail->usOffset != IMP_EMAIL_PROFILE_RESULTS && pMail->EmailVersion != TYPE_EMAIL_XML )
 		{
 			pTempList = pTempList->Next;
 		}

@@ -408,6 +408,8 @@ static int l_AddEmail(lua_State* L);
 static int l_AddEmailXML(lua_State* L);
 static int l_AddEmailXML2(lua_State* L);
 static int l_AddEmailLevelUpXML(lua_State* L);
+static int l_AddEmailFromXML(lua_State* L);
+static int l_AddPreReadEmailFromXML(lua_State* L);
 
 static int l_EVENT_SoldierGotHit(lua_State* L);
 static int l_EVENT_InitNewSoldierAnim(lua_State* L);
@@ -1030,6 +1032,8 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
 	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
 	lua_register(L, "AddEmailXML", l_AddEmailXML2);
+	lua_register(L, "AddPreReadEmailFromXML", l_AddPreReadEmailFromXML);
+	lua_register(L, "AddEmailFromXML", l_AddEmailFromXML);
 
 	//------Time------
 
@@ -7526,6 +7530,41 @@ static int l_AddPreReadEmail(lua_State* L)
 		UINT8 ubSender = lua_tointeger(L, 3);
 
 		AddPreReadEmail(iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), TYPE_EMAIL_EMAIL_EDT);
+	}
+
+	return 0;
+}
+
+// New externalized emails
+//AddEmail
+static int l_AddEmailFromXML(lua_State* L)
+{
+	if (lua_gettop(L))
+	{
+		UINT8 index = lua_tointeger(L, 1);
+		INT32 iCurrentIMPPosition = -1;
+		INT16 iCurrentShipmentDestinationID = -1;
+		INT32 unused = 0;
+
+		if ( lua_gettop(L) >= 3 )
+		{
+			iCurrentIMPPosition = lua_tointeger(L, 2);
+			iCurrentShipmentDestinationID = lua_tointeger(L, 3);
+		}
+		AddEmail(index, unused, unused, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_XML);
+	}
+
+	return 0;
+}
+
+//AddPreReadEmail	
+static int l_AddPreReadEmailFromXML(lua_State* L)
+{
+	if (lua_gettop(L))
+	{
+		UINT8 index = lua_tointeger(L, 1);
+		INT32 unused = 0;
+		AddPreReadEmail(index, unused, unused, GetWorldTotalMin(), TYPE_EMAIL_XML);
 	}
 
 	return 0;
