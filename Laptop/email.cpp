@@ -913,7 +913,7 @@ void AddEmailWFMercAvailable(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 
 void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType)
 {
-	CHAR16 pSubject[320];
+	CHAR16 pSubject[640];
 	UINT8 subjectLine = 0;
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
@@ -976,7 +976,7 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate , UINT8 EmailType )
 {
-	CHAR16 pSubject[320];
+	CHAR16 pSubject[640];
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
 	//CHAR16 pMessageString[320];
