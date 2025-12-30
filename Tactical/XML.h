@@ -181,6 +181,7 @@ typedef PARSE_STAGE;
 #define LAPTOPFUNERALLOCATIONFILENAME			"Laptop\\FuneralPositions.xml"
 #define LAPTOPADDITIONALFILESFILENAME			"AdditionalFiles.xml"
 
+#define EMAILSFILENAME							"Email\\Emails.xml"
 #define EMAILSENDERNAMELIST						"Email\\EmailSenderNameList.xml"
 #define EMAILMERCAVAILABLE						"Email\\EmailMercAvailable.xml"
 #define EMAILMERCLEVELUP						"Email\\EmailMercLevelUp.xml"
@@ -558,7 +559,7 @@ extern BOOLEAN WriteInActionItems( STR fileName);
 
 extern BOOLEAN ReadInEmailMercAvailable(STR fileName, BOOLEAN localizedVersion);
 extern BOOLEAN ReadInEmailMercLevelUp(STR fileName, BOOLEAN localizedVersion);
-extern BOOLEAN ReadInEmailOther(STR fileName, BOOLEAN localizedVersion);
+extern BOOLEAN ReadInExternalizedEmails(STR fileName, BOOLEAN localizedVersion);
 
 extern BOOLEAN ReadInBriefingRoom(STR fileName, BOOLEAN localizedVersion, BRIEFINGROOM_M_DATA *Ency, UINT32 FileType2 );
 extern BOOLEAN ReadInMinerals(STR fileName, BOOLEAN localizedVersion);

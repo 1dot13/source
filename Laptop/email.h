@@ -596,6 +596,14 @@ void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, 
 
 typedef struct
 {
+	UINT8 Sender;
+	CHAR16 Subject[EMAIL_SUBJECT_LENGTH];
+	std::vector<std::wstring> Messages;
+} EMAIL_XML;
+extern std::vector<EMAIL_XML> gEmails;
+
+typedef struct
+{
 	UINT8 uiIndex;
 	CHAR16	szMessage[MAIL_STRING_SIZE];
 	CHAR16	szSubject[EMAIL_SUBJECT_LENGTH];
@@ -674,6 +682,7 @@ enum {
 	TYPE_EMAIL_KING_PIN,
 	TYPE_EMAIL_JOHN_KULBA,
 	TYPE_EMAIL_AIM_SITE,
+	TYPE_EMAIL_XML,
 	
 	TYPE_EMAIL_OTHER,
 };
