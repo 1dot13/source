@@ -409,7 +409,6 @@ static int l_AddEmailXML(lua_State* L);
 static int l_AddEmailXML2(lua_State* L);
 static int l_AddEmailLevelUpXML(lua_State* L);
 static int l_AddEmailFromXML(lua_State* L);
-static int l_AddPreReadEmailFromXML(lua_State* L);
 
 static int l_EVENT_SoldierGotHit(lua_State* L);
 static int l_EVENT_InitNewSoldierAnim(lua_State* L);
@@ -1032,7 +1031,6 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
 	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
 	lua_register(L, "AddEmailXML", l_AddEmailXML2);
-	lua_register(L, "AddPreReadEmailFromXML", l_AddPreReadEmailFromXML);
 	lua_register(L, "AddEmailFromXML", l_AddEmailFromXML);
 
 	//------Time------
@@ -7542,31 +7540,38 @@ static int l_AddEmailFromXML(lua_State* L)
 	if (lua_gettop(L))
 	{
 		UINT8 index = lua_tointeger(L, 1);
+		bool preReadMail = false;
 		INT32 iCurrentIMPPosition = -1;
 		INT16 iCurrentShipmentDestinationID = -1;
-		INT32 unused = 0;
+		INT32 specialData1 = -1;
+		UINT32 specialData2 = -1;
+		INT32 specialData3 = -1;
+		INT32 specialData4 = -1;
+		UINT32 specialData5 = -1;
+		UINT32 specialData6 = -1;
 
-		if ( lua_gettop(L) >= 3 )
+		if ( lua_gettop(L) >= 2 )
 		{
-			iCurrentIMPPosition = lua_tointeger(L, 2);
-			iCurrentShipmentDestinationID = lua_tointeger(L, 3);
+			preReadMail = lua_toboolean(L, 2);
 		}
-		AddEmail(index, unused, unused, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, TYPE_EMAIL_XML);
+		if ( lua_gettop(L) >= 7 )
+		{
+			iCurrentIMPPosition = lua_tointeger(L, 3);
+			iCurrentShipmentDestinationID = lua_tointeger(L, 4);
+			specialData1 = lua_tointeger(L, 5);
+			specialData2 = lua_tointeger(L, 6);
+			specialData3 = lua_tointeger(L, 7);
+		}
+
+		if ( specialData1 != -1 || specialData2 != -1 )
+		{
+			AddEmailWithSpecialDataXML(index, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, preReadMail, specialData1, specialData2, specialData3, specialData4, specialData5, specialData6);
+		}
+		else
+		{
+			AddEmailFromXML(index, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, preReadMail, specialData1, specialData2, specialData3, specialData4, specialData5, specialData6);
+		}
 	}
-
-	return 0;
-}
-
-//AddPreReadEmail	
-static int l_AddPreReadEmailFromXML(lua_State* L)
-{
-	if (lua_gettop(L))
-	{
-		UINT8 index = lua_tointeger(L, 1);
-		INT32 unused = 0;
-		AddPreReadEmail(index, unused, unused, GetWorldTotalMin(), TYPE_EMAIL_XML);
-	}
-
 	return 0;
 }
 

@@ -567,11 +567,10 @@ void RenderEmail();
 
 
 // message manipulation
-void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 uiFirstData, UINT32 uiSecondData, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType, UINT32 EmailAIM );
+void AddEmailMessage(INT32 iMessageOffset, INT32 iMessageLength,STR16 pSubject, INT32 iDate, UINT8 ubSender, BOOLEAN fAlreadyRead, INT32 iFirstData, UINT32 uiSecondData, INT32 iThirdData, INT32 iFourthData, UINT32 uiFifthData, UINT32 uiSixData, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType, UINT32 EmailAIM );
 void RemoveEmailMessage(INT32 iId);
 EmailPtr GetEmailMessage(INT32 iId);
 void LookForUnread();
-void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType);
 
 // WANNE: For the new WF merc, when they available again
 void AddEmailWFMercAvailable(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, UINT8 EmailType);
@@ -586,7 +585,6 @@ void ReDrawNewMailBox( void );
 void ReDisplayBoxes( void );
 void ShutDownEmailList();
 void AddMessageToPages(INT32 iMessageId);
-void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData, UINT8 EmailType, UINT32 EmailAIM );
 
 void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType);
 
@@ -706,6 +704,88 @@ enum {
 	TYPE_EMAIL_BOBBY_R_L1 = 11,
 };
 
+enum {
+	XML_NOEMAIL = -1,
+	XML_ENRICO_INQUIRY = 0,
+	XML_ENRICO_FOLLOWUP,
+	XML_ENRICO_CONFIRMED,
+	XML_ENRICO_GOODLUCK,
+	XML_ENRICO_GREATNEWS,
+	XML_ENRICO_PROGRESS,
+	XML_ENRICO_GOODWORK,
+	XML_ENRICO_FINALPUSH,
+	XML_ENRICO_SETBACK,
+	XML_ENRICO_BADNEWS,
+	XML_ENRICO_CREPITUS,
+	XML_ENRICO_CONCERNED,
+	XML_ENRICO_WORRIED,
+	XML_ENRICO_DISAPPOINTED,
+	XML_ENRICO_MILITIA_WEBSITE,
+	XML_ENRICO_INTEL,
+	XML_IMP_INTRO,
+	XML_IMP_INTROAGAIN,
+	XML_SPECK_INTRO,
+	XML_SPECK_NEWSITE,
+	XML_SPECK_NOTICE,
+	XML_SPECK_NEWPERSONNEL,
+	XML_SPECK_PLEASEPAY,
+	XML_SPECK_DELINQUENT,
+	XML_RISREPORT,
+	XML_INSURANCE_APPROVED,
+	XML_INSURANCE_SUSPICIOUS,
+	XML_INSURANCE_COMPLETED,
+	XML_INSURANCE_INVESTIGATION,
+	XML_INSURANCE_REFUSED,
+	XML_INSURANCE_POLICYVIOLATION,
+	XML_BR_VISITEDSITE,
+	XML_BR_SHIPMENTARRIVAL,
+	XML_BR_MEDUNA,
+	XML_KINGPIN_STOLEMONEY,
+	XML_KINGPIN_JOBOPPORTUNITY,
+	XML_KINGPIN_WELLDONE,
+	XML_KINGPIN_FAILURE,
+	XML_KINGPIN_FAILUREOBSTACLES,
+	XML_JOHNKULBA_SENTGUNS,
+	XML_JOHNKULBA_MISSEDTRANSFERFLIGHT,
+	XML_JOHNKULBA_CRASHLANDEDHELI,
+	XML_JOHNKULBA_AMBUSHEDBYCATS,
+	XML_AIM_NOTICE_OF_DEATH,
+	XML_AIM_REFUND,
+	XML_AIM_PARTIALREFUND,
+	XML_AIM_NOREFUND,
+	XML_KERBERUS_OFFER,
+	XML_DASILVA_THANKYOU,
+	XML_JA2UB_ENRICO_HELP,
+	XML_JA2UB_ENRICO_INQUIRY,
+	XML_JA2UB_ENRICO_STILLNOWORD,
+	XML_JA2UB_ENRICO_GOODNEWS,
+	XML_JA2UB_ENRICO_CONCERNED,
+	XML_JA2UB_ENRICO_URGENT,
+	XML_JA2UB_ENRICO_PILOTTROUBLE,
+	XML_JA2UB_ENRICO_PILOTFOUND,
+	XML_JA2UB_ENRICO_CONGRATS,
+	XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK,
+	XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK_MANUELDEAD,
+	XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK_MANUELALIVE,
+	XML_JA2UB_ENRICO_CONGRATS_MANUELDEAD,
+	XML_JA2UB_ENRICO_CONGRATS_MANUELALIVE,
+	XML_JA2UB_IMP_INTRO,
+	XML_JA2UB_IMP_INTROAGAIN,
+	XML_JA2UB_MIGUEL_HELLO,
+	XML_JA2UB_MIGUEL_SORRY,
+	XML_JA2UB_MIGUEL_SORRY_HIREDMANUEL,
+	XML_JA2UB_MIGUEL_SICK,
+	XML_JA2UB_MIGUEL_CIGARETTES,
+	XML_JA2UB_AIM_SPECIALOFFER,
+	XML_JA2UB_AIM_BONUSOFFER,
+	XML_JA2UB_AIM_SPECIALBONUSOFFER,
+	XML_JA2UB_AIM_DISMISSALREFUND,
+	XML_JA2UB_SPECK_EVENBETTEROFFER,
+	XML_JA2UB_SPECK_DISMISSALREFUND
+};
+void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType, UINT16 EnumEmailXML = XML_NOEMAIL);
+void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData, UINT8 EmailType, UINT32 EmailAIM, UINT16 EnumEmailXML = XML_NOEMAIL);
+
 extern EMAIL_MERC_AVAILABLE_VALUES EmailMercAvailableText[NUM_PROFILES];
 extern EMAIL_MERC_LEVEL_UP_VALUES EmailMercLevelUpText[NUM_PROFILES];
 extern EMAIL_MERC_INSURANCE_VALUES EmailInsuranceText[NUM_PROFILES];
@@ -714,7 +794,8 @@ extern EMAIL_OTHER_VALUES EmailOtherText[EMAIL_INDEX];
 extern BOOLEAN ReadXMLEmail;
 extern void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, UINT8 EmailType );
 extern void AddPreReadEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, UINT8 EmailType );
-extern void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iFirstData, UINT32 uiSecondData, UINT8 EmailTyp, UINT32 EmailAIMe );
+extern void AddEmailFromXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, BOOLEAN alreadyRead, INT32 iFirstData, UINT32 uiSecondData, INT32 iThirdData, INT32 iFourthData, UINT32 uiFifthData, UINT32 uiSixData);
+extern void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, BOOLEAN alreadyRead, INT32 iFirstData, UINT32 uiSecondData, INT32 iThirdData, INT32 iFourthData, UINT32 uiFifthData, UINT32 uiSixData);
 extern BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile );
 extern BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile );
 
@@ -723,9 +804,3 @@ extern void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 
 #endif
 
 #endif
-
-
-
- 
-
-
