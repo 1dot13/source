@@ -689,7 +689,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 #ifdef JA2UB
 // no UB
 #else						
-						AddEmail( KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT );
+						AddEmail(KING_PIN_LETTER, KING_PIN_LETTER_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KINGPIN_STOLEMONEY);
 #endif
 						StartQuest( QUEST_KINGPIN_MONEY, gMercProfiles[ KINGPIN ].sSectorX, gMercProfiles[ KINGPIN ].sSectorY );
 						// add event to send terrorists two days from now
@@ -795,7 +795,7 @@ void HandleNPCSystemEvent( UINT32 uiEvent )
 #ifdef JA2UB
 // no UB
 #else
-				AddEmail( ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
+				AddEmail(ENRICO_MIGUEL, ENRICO_MIGUEL_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_ENRICO_GREATNEWS);
 #endif
 				break;
 

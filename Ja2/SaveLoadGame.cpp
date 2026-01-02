@@ -6296,8 +6296,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2UB
 
 #else
-		if(!fBookMark && !fEmail)
-			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 , TYPE_EMAIL_EMAIL_EDT);
+		if ( !fBookMark && !fEmail )
+		{
+			AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_SPECK_INTRO);
+		}
 #endif
 	}
 

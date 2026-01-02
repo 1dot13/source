@@ -565,25 +565,35 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		
 		StopTimeCompression();
 #ifdef JA2UB
-
-//no UB		
 	if ( gGameUBOptions.fBobbyRSite == TRUE )
 	{
 			// Shipment from Bobby Ray
-			if (shs.sSenderID == BOBBYR_SENDER_ID)
-				AddBobbyREmailJA2( 198, 4, BOBBY_R, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT);	
+		if ( shs.sSenderID == BOBBYR_SENDER_ID )
+		{
+			if ( gEmails.size() > 0 )
+			{
+				AddEmailFromXML(XML_BR_SHIPMENTARRIVAL, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, false, -1, -1, 198, -1, -1, -1);
+			}
+			else
+			{
+				AddBobbyREmailJA2(198, 4, BOBBY_R, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT);
 				// Shipment from John Kulba
 			//else
 			//	AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT);
+			}
+		}
 	}
 #else
-
-			// Shipment from Bobby Ray
-			if (shs.sSenderID == BOBBYR_SENDER_ID)
-				AddEmail( BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT);	
-			// Shipment from John Kulba
-			else
-				AddEmail( JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT);
+		// Shipment from Bobby Ray
+		if ( shs.sSenderID == BOBBYR_SENDER_ID )
+		{
+			AddEmail(BOBBYR_SHIPMENT_ARRIVED, BOBBYR_SHIPMENT_ARRIVED_LENGTH, BOBBY_R, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT, XML_BR_SHIPMENTARRIVAL);
+		}
+		// Shipment from John Kulba
+		else
+		{
+			AddEmail(JOHN_KULBA_GIFT_IN_DRASSEN, JOHN_KULBA_GIFT_IN_DRASSEN_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, gusCurShipmentDestinationID, TYPE_EMAIL_EMAIL_EDT, XML_JOHNKULBA_SENTGUNS);
+		}
 #endif
 		}
 

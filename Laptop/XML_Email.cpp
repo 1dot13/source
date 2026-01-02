@@ -182,7 +182,7 @@ BOOLEAN ReadInExternalizedEmails(STR fileName, BOOLEAN localizedVersion)
     memset(&pData, 0, sizeof(pData));
     XML_SetUserData(parser, &pData);
 
-    gEmails.reserve(50);
+    gEmails.reserve(XML_JA2UB_SPECK_DISMISSALREFUND);
     if (!XML_Parse(parser, lpcBuffer, uiFSize, TRUE))
     {
         CHAR8 errorBuf[511];

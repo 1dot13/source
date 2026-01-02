@@ -249,7 +249,7 @@ BOOLEAN SetThisSectorAsPlayerControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, B
 #ifdef JA2UB
 // no UB
 #else
-				AddEmail( BOBBYR_NOW_OPEN, BOBBYR_NOW_OPEN_LENGTH, BOBBY_R, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+				AddEmail(BOBBYR_NOW_OPEN, BOBBYR_NOW_OPEN_LENGTH, BOBBY_R, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_BR_VISITEDSITE);
 #endif
 				LaptopSaveInfo.ubHaveBeenToBobbyRaysAtLeastOnceWhileUnderConstruction = BOBBYR_ALREADY_SENT_EMAIL;
 			}

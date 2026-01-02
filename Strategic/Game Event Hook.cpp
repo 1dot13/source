@@ -210,7 +210,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			#ifdef JA2UB
 			//No JA25 UB
 			#else
-				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin( ), -1, -1 ,TYPE_EMAIL_EMAIL_EDT );
+				AddEmail(MERC_INTRO, MERC_INTRO_LENGTH, SPECK_FROM_MERC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_SPECK_INTRO);
 			#endif	
 			}
 			break;
@@ -487,7 +487,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 		// No PCM in UB
 #else
 		case EVENT_PMC_EMAIL:
-			AddEmail( PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			AddEmail(PMC_INTRO, PMC_INTRO_LENGTH, PMC, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KERBERUS_OFFER);
 			break;
 #endif
 		
@@ -503,16 +503,14 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 				 gMercProfiles[MARIA].bMercStatus != MERC_IS_DEAD && gMercProfiles[ANGEL].bMercStatus != MERC_IS_DEAD )
 			{
 				StartQuest( QUEST_KINGPIN_ANGEL_MARIA, gWorldSectorX, gWorldSectorY );
-
-				AddEmail( KINGPIN_BOUNTY_INITIAL, KINGPIN_BOUNTY_INITIAL_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+				AddEmail(KINGPIN_BOUNTY_INITIAL, KINGPIN_BOUNTY_INITIAL_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KINGPIN_JOBOPPORTUNITY);
 			}
 			break;
 
 		case EVENT_KINGPIN_BOUNTY_END_KILLEDTHEM:
 			if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
 			{
-				AddEmail( KINGPIN_BOUNTY_KINGPIN_REWARD, KINGPIN_BOUNTY_KINGPIN_REWARD_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
-
+				AddEmail(KINGPIN_BOUNTY_KINGPIN_REWARD, KINGPIN_BOUNTY_KINGPIN_REWARD_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KINGPIN_WELLDONE);
 				// also authorise payment from kingpin to the player
 				AddTransactionToPlayersBook( ANONYMOUS_DEPOSIT, 0, GetWorldTotalMin( ), 10000 );
 			}
@@ -528,14 +526,13 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 			if ( gMercProfiles[MARIA].bMercStatus != MERC_IS_DEAD && gMercProfiles[ANGEL].bMercStatus != MERC_IS_DEAD
 				 && CheckFact( FACT_BOUNTYHUNTER_KILLED_1, NO_PROFILE ) && CheckFact( FACT_BOUNTYHUNTER_KILLED_2, NO_PROFILE ) )
 			{
-				AddEmail( KINGPIN_BOUNTY_ANGEL_THANKS, KINGPIN_BOUNTY_ANGEL_THANKS_LENGTH, ANGEL_DASILVA, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
-
-				AddEmail( KINGPIN_BOUNTY_TARGET_GOTAWAY, KINGPIN_BOUNTY_TARGET_GOTAWAY_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+				AddEmail(KINGPIN_BOUNTY_ANGEL_THANKS, KINGPIN_BOUNTY_ANGEL_THANKS_LENGTH, ANGEL_DASILVA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_DASILVA_THANKYOU);
+				AddEmail(KINGPIN_BOUNTY_TARGET_GOTAWAY, KINGPIN_BOUNTY_TARGET_GOTAWAY_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KINGPIN_FAILUREOBSTACLES);
 			}
 			// we can assume that the bounty hunters for to them first - Kingpin sends an email and states that someone else finished the job
 			else if ( gMercProfiles[KINGPIN].bMercStatus != MERC_IS_DEAD && !CheckFact( FACT_KINGPIN_DEAD, NO_PROFILE ) && !CheckFact( FACT_KINGPIN_IS_ENEMY, NO_PROFILE ) )
 			{
-				AddEmail( KINGPIN_BOUNTY_BH_GOTTARGET, KINGPIN_BOUNTY_BH_GOTTARGET_LENGTH, KING_PIN, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+				AddEmail(KINGPIN_BOUNTY_BH_GOTTARGET, KINGPIN_BOUNTY_BH_GOTTARGET_LENGTH, KING_PIN, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_KINGPIN_FAILURE);
 			}
 
 			// in any case, this quest is now over
@@ -601,7 +598,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 #ifndef JA2UB
 		case EVENT_MILITIAROSTER_EMAIL:
-			AddEmail( MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin( ), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			AddEmail(MILITIAROSTER_INTRO, MILITIAROSTER_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_ENRICO_MILITIA_WEBSITE);
 			break;
 #endif
 
@@ -628,7 +625,7 @@ BOOLEAN ExecuteStrategicEvent( STRATEGICEVENT *pEvent )
 
 #ifndef JA2UB
 		case EVENT_INTEL_ENRICO_EMAIL:
-			AddEmail( INTEL_ENRICO_INTRO, INTEL_ENRICO_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
+			AddEmail(INTEL_ENRICO_INTRO, INTEL_ENRICO_INTRO_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_ENRICO_INTEL);
 			break;
 #endif
 

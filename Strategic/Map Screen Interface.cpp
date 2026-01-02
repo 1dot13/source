@@ -6162,7 +6162,7 @@ BOOLEAN HandleTimeCompressWithTeamJackedInAndGearedToGo( void )
 //no ja25 UB
 #else
 	// Add e-mail message
-	AddEmail(ENRICO_CONGRATS,ENRICO_CONGRATS_LENGTH,MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT);
+	AddEmail(ENRICO_CONGRATS, ENRICO_CONGRATS_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_ENRICO_GOODLUCK);
 #endif
 
 	return( TRUE );
