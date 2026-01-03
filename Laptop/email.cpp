@@ -355,7 +355,7 @@ extern INT16 gusCurShipmentDestinationID;
 extern CPostalService gPostalService;
 
 
-void InitializeMouseRegions()
+static void InitializeMouseRegions()
 {
 	INT32 iCounter=0;
 
@@ -373,7 +373,7 @@ void InitializeMouseRegions()
 	CreateDestroyNextPreviousRegions();
 }
 
-void DeleteEmailMouseRegions()
+static void DeleteEmailMouseRegions()
 {
 
 	// this function will remove the mouse regions added
@@ -1242,7 +1242,7 @@ EmailPtr GetEmailMessage(INT32 iId)
 }
 
 
-void AddEmailPage()
+static void AddEmailPage()
 {
 	// simple adds a page to the list
 	PagePtr pPage=pPageList;
@@ -1282,7 +1282,7 @@ void AddEmailPage()
 }
 
 
-void RemoveEmailPage(INT32 iPageId)
+static void RemoveEmailPage(INT32 iPageId)
 {
 	PagePtr pPage=pPageList;
 	PagePtr pTempPage=NULL;
@@ -1567,7 +1567,7 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
     MemFree(pTemp);
 }
 
-void ClearPages()
+static void ClearPages()
 {
 	// run through list of message pages and set to -1
 	PagePtr pPage=pPageList;
@@ -1606,7 +1606,7 @@ void PlaceMessagesinPages()
 	return;
 }
 
-void DisplayMessageList(INT32 iPageNum)
+static void DisplayMessageList(INT32 iPageNum)
 {
 	// will display page with idNumber iPageNum
 	PagePtr pPage=pPageList;
@@ -1619,7 +1619,7 @@ void DisplayMessageList(INT32 iPageNum)
 	// found page show it
 }
 
-void DrawLetterIcon(INT32 iCounter, BOOLEAN fRead)
+static void DrawLetterIcon(INT32 iCounter, BOOLEAN fRead)
 {
 	HVOBJECT hHandle;
 	// will draw the icon for letter in mail list depending if the mail has been read or not
@@ -1634,7 +1634,7 @@ void DrawLetterIcon(INT32 iCounter, BOOLEAN fRead)
 		BltVideoObject(FRAME_BUFFER, hHandle, 1,INDIC_X, (MIDDLE_Y+iCounter*MIDDLE_WIDTH+2), VO_BLT_SRCTRANSPARENCY,NULL);
 }
 
-void DrawSubject(INT32 iCounter, STR16 pSubject, BOOLEAN fRead)
+static void DrawSubject(INT32 iCounter, STR16 pSubject, BOOLEAN fRead)
 {
 	CHAR16 pTempSubject[320];
 	
@@ -1676,7 +1676,7 @@ void DrawSubject(INT32 iCounter, STR16 pSubject, BOOLEAN fRead)
 	SetFontDestBuffer(FRAME_BUFFER, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, FALSE	);
 }
 
-void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead, UINT8 EmailType)
+static void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead, UINT8 EmailType)
 {
 	// draw name of sender in mail viewer
 	SetFontShadow(NO_SHADOW);
@@ -1717,7 +1717,7 @@ void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead, UINT8 EmailType)
 	SetFontShadow(DEFAULT_SHADOW);
 }
 
-void DrawDate(INT32 iCounter, INT32 iDate, BOOLEAN fRead)
+static void DrawDate(INT32 iCounter, INT32 iDate, BOOLEAN fRead)
 {
 	CHAR16 sString[20];
 
@@ -1947,7 +1947,7 @@ void EmailMvtCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 	}
 }
 
-void BtnMessageXCallback(GUI_BUTTON *btn,INT32 reason)
+static void BtnMessageXCallback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -2232,7 +2232,7 @@ INT32 DisplayEmailMessage(EmailPtr pMail)
 	return iViewerPositionY;
 }
 
-void BtnNewOkback(GUI_BUTTON *btn,INT32 reason)
+static void BtnNewOkback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -2488,7 +2488,7 @@ void ReDrawNewMailBox( void )
 	}
 }
 
-void SwitchEmailPages( void )
+static void SwitchEmailPages( void )
 {
 	// this function will switch current page
 
@@ -2672,7 +2672,7 @@ void PreviousRegionButtonCallback(GUI_BUTTON *btn,INT32 reason)
  }
 }
 
-void BtnDeleteNoback(GUI_BUTTON *btn,INT32 reason)
+static void BtnDeleteNoback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
@@ -2695,7 +2695,7 @@ void BtnDeleteNoback(GUI_BUTTON *btn,INT32 reason)
 	}
 }
 
-void BtnDeleteYesback(GUI_BUTTON *btn,INT32 reason)
+static void BtnDeleteYesback(GUI_BUTTON *btn,INT32 reason)
 {
 	if (!(btn->uiFlags & BUTTON_ENABLED))
 		return;
