@@ -31,8 +31,6 @@
 #define		EMAIL_EDT_FILE_JA2		"BINARYDATA\\Email.edt"
 #endif
 
-#define EMAIL_EDT_CUSTOM_FILE "BINARYDATA\\Email_Custom.edt"
-
 using namespace std;
 
 //static EmailPtr pEmailList;
@@ -654,24 +652,6 @@ void RenderEmail( void )
 	
 	InvalidateRegion(0,0,SCREEN_WIDTH, SCREEN_HEIGHT);
 	// invalidate region to force update
-}
-
-//-----------Custom email
-void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
-{
-	CHAR16 pSubject[MAIL_STRING_SIZE];
-	
-	LoadEncryptedDataFromFile(EMAIL_EDT_CUSTOM_FILE, pSubject, MAIL_STRING_SIZE*(iMessageOffset), MAIL_STRING_SIZE);
-	// add message to list
-	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, 0, 0, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE );
-
-	// if we are in fact int he laptop, redraw icons, might be change in mail status
-
-	if( fCurrentlyInLaptop )
-	{
-		// redraw icons, might be new mail
-		DrawLapTopIcons();
-	}
 }
 
 //--

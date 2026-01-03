@@ -586,8 +586,6 @@ void ReDisplayBoxes( void );
 void ShutDownEmailList();
 void AddMessageToPages(INT32 iMessageId);
 
-void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType);
-
 #ifdef JA2BETAVERSION
 	void AddAllEmails();
 #endif
@@ -681,8 +679,6 @@ enum {
 	TYPE_EMAIL_JOHN_KULBA,
 	TYPE_EMAIL_AIM_SITE,
 	TYPE_EMAIL_XML,
-	
-	TYPE_EMAIL_OTHER,
 };
 
 enum {
