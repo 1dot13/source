@@ -678,6 +678,7 @@ enum {
 	TYPE_EMAIL_KING_PIN,
 	TYPE_EMAIL_JOHN_KULBA,
 	TYPE_EMAIL_AIM_SITE,
+	//Read message from Email\Emails.xml and sender read from Email\EmailSenderNameList.xml
 	TYPE_EMAIL_XML,
 };
 
