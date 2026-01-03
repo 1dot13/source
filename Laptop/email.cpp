@@ -877,7 +877,7 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
     CHAR16 pSubject[MAIL_STRING_SIZE];
     UINT8 subjectLine = 0;
 
-	if ( EnumEmailXML != XML_NOEMAIL && gEmails.size() > 0 )
+	if ( EnumEmailXML != static_cast<UINT16>(XML_NOEMAIL) && gEmails.size() > 0 )
 	{
 		AddEmailFromXML(EnumEmailXML, iDate, iCurrentIMPPosition, iCurrentShipmentDestinationID, false, -1, -1, iMessageOffset, -1, -1, -1);
 	}
