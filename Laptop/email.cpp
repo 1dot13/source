@@ -34,7 +34,6 @@
 #endif
 
 #define EMAIL_EDT_CUSTOM_FILE "BINARYDATA\\Email_Custom.edt"
-void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition);
 
 using namespace std;
 
@@ -663,12 +662,12 @@ void RenderEmail( void )
 //-----------Custom email
 void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
 {
-	CHAR16 pSubject[320];
+	CHAR16 pSubject[MAIL_STRING_SIZE];
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
 	//CHAR16 pMessageString[320];
 	
-	LoadEncryptedDataFromFile(EMAIL_EDT_CUSTOM_FILE, pSubject, 640*(iMessageOffset), 640);
+	LoadEncryptedDataFromFile(EMAIL_EDT_CUSTOM_FILE, pSubject, MAIL_STRING_SIZE*(iMessageOffset), MAIL_STRING_SIZE);
 	// add message to list
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, 0, 0, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE );
 
@@ -691,7 +690,7 @@ void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 	}
 	else
 	{
-		CHAR16 pSubject[320];
+		CHAR16 pSubject[MAIL_STRING_SIZE];
 		Email	FakeEmail;
 		// starts at iSubjectOffset amd goes iSubjectLength, reading in string
 #ifdef JA2UB	
@@ -699,19 +698,19 @@ void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 		{
 			if ( FileExists(EMAIL_EDT_FILE_JA25) )
 			{
-				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640 * (iMessageOffset), 640);
+				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
 			}
 			else
 			{
-				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+				LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
 			}
 		}
 		else if ( EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
 		{
-			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+			LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
 		}
 #else
-		LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640 * (iMessageOffset), 640);
+		LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
 #endif	
 
 		//Make a fake email that will contain the codes ( ie the merc ID )
@@ -737,7 +736,7 @@ void AddEmailWithSpecialData(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 //--- XML Read Mail ---
 void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, BOOLEAN alreadyRead, INT32 iFirstData, UINT32 uiSecondData, INT32 iThirdData, INT32 iFourthData, UINT32 uiFifthData, UINT32 uiSixData)
 {
-	CHAR16 pSubject[640];
+	CHAR16 pSubject[MAIL_STRING_SIZE];
 	Email FakeEmail;
 	
 	if ( iMessageOffset < gEmails.size() )
@@ -861,13 +860,13 @@ void AddEmailFromXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPositio
 #ifdef JA2UB
 void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
 {
-	CHAR16 pSubject[640];
+	CHAR16 pSubject[MAIL_STRING_SIZE];
 	UINT8 subjectLine = 0;
 	//MessagePtr pMessageList;
 	//MessagePtr pMessage;
 	//CHAR16 pMessageString[320];
 	
-	LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640*(iMessageOffset), 640);
+	LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE*(iMessageOffset), MAIL_STRING_SIZE);
 	
 	// add message to list
     AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, -1, -1, -1, -1, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_EMAIL_BOBBY_R_L1);
@@ -916,7 +915,7 @@ void AddEmailWFMercAvailable(INT32 iMessageOffset, INT32 iMessageLength, UINT8 u
 
 void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType, UINT16 EnumEmailXML)
 {
-    CHAR16 pSubject[640];
+    CHAR16 pSubject[MAIL_STRING_SIZE];
     UINT8 subjectLine = 0;
 
 	if ( EnumEmailXML != XML_NOEMAIL && gEmails.size() > 0 )
@@ -929,13 +928,13 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
         if ( EmailType == TYPE_EMAIL_EMAIL_EDT )
         {
             if ( FileExists(EMAIL_EDT_FILE_JA25) )
-                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640 * (iMessageOffset), 640);
+                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
             else
-                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+                LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
         }
         else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
         {
-            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
         }
         else if ( EmailType == TYPE_EMAIL_BOBBY_R )
         {
@@ -951,7 +950,7 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 #else
 
         // WANNE: Short work in both ways
-        LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640 * (iMessageOffset), 640);
+        LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
         // add message to list
         AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, 0, 0, 0, 0, iCurrentIMPPosition, iCurrentShipmentDestinationID, EmailType, TYPE_E_NONE);
 #endif
@@ -968,19 +967,19 @@ void AddEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 
 
 void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, UINT8 EmailType)
 {
-    CHAR16 pSubject[640];
+    CHAR16 pSubject[MAIL_STRING_SIZE];
 
 #ifdef JA2UB	
     if ( EmailType == TYPE_EMAIL_EMAIL_EDT )
     {
         if ( FileExists(EMAIL_EDT_FILE_JA25) )
-            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, 640 * (iMessageOffset), 640);
+            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA25, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
         else
-            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+            LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
     }
     else if ( EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
     {
-        LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, 640 * (iMessageOffset), 640);
+        LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
     }
 
     // add message to list
@@ -989,7 +988,7 @@ void AddPreReadEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender,
 #else
 
     // starts at iSubjectOffset amd goes iSubjectLength, reading in string
-    LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, 640 * (iMessageOffset), 640);
+    LoadEncryptedDataFromFile("BINARYDATA\\Email.edt", pSubject, MAIL_STRING_SIZE * (iMessageOffset), MAIL_STRING_SIZE);
     // add message to list
     AddEmailMessage(iMessageOffset, iMessageLength, pSubject, iDate, ubSender, TRUE, 0, 0, 0, 0, 0, 0, -1, -1, EmailType, TYPE_E_NONE);
 #endif
