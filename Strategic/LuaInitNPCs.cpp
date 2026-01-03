@@ -406,7 +406,6 @@ static int l_AddToShouldBecomeHostileOrSayQuoteList(lua_State* L);
 static int l_AddPreReadEmail(lua_State* L);
 static int l_AddEmail(lua_State* L);
 static int l_AddEmailXML(lua_State* L);
-static int l_AddEmailXML2(lua_State* L);
 static int l_AddEmailLevelUpXML(lua_State* L);
 static int l_AddEmailFromXML(lua_State* L);
 
@@ -1030,7 +1029,6 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 	lua_register(L, "AddEmail", l_AddEmail);
 	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
 	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
-	lua_register(L, "AddEmailXML", l_AddEmailXML2);
 	lua_register(L, "AddEmailFromXML", l_AddEmailFromXML);
 
 	//------Time------
@@ -7450,20 +7448,6 @@ static int l_ExecuteStrategicAIAction(lua_State* L)
 	return 0;
 }
 
-//AddEmailXML
-static int l_AddEmailXML2(lua_State* L)
-{
-	if (lua_gettop(L) >= 3)
-	{
-		INT32 offset = lua_tointeger(L, 1);
-		INT32 messagelength = lua_tointeger(L, 2);
-		UINT8 sender = lua_tointeger(L, 3);
-
-		AddEmailTypeXML(offset, messagelength, sender, GetWorldTotalMin(), -1, TYPE_EMAIL_OTHER);
-	}
-
-	return 0;
-}
 
 //AddEmailXML
 static int l_AddEmailXML(lua_State* L)
