@@ -5537,11 +5537,6 @@ void PreProcessEmail( EmailPtr pMail )
 		iEmailAIMMessage = pMail->usLength;
 		pMail->usLength = 2;	
 	}	
-	else if ( pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY )
-	{
-		iEmailInsurance = pMail->usLength;
-		pMail->usLength = 2;	
-	}	
 
 	// list doesn't exist, reload
 	if( !pTempRecord )
@@ -5733,8 +5728,6 @@ void PreProcessEmail( EmailPtr pMail )
 			pMail->usLength = iEmailAIMMessage;		
 		else if ( pMail->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
 			pMail->usLength = iEmailMERCMessage;		
-		else if ( pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY )
-			pMail->usLength = iEmailInsurance;
 			
 		giPrevMessageId = giMessageId;
 	}
