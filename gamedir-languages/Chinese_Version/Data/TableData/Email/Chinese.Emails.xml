@@ -1,0 +1,587 @@
+<!--
+This file contains the email texts that appear ingame. Can be called in .lua scripts with functions AddEmailFromXML & AddPreReadEmailFromXML.
+The position of emails in this xml function as the index that need to be provided to the functions. 
+Eg. calling AddPreReadEmailFromXML(0) in lua script will add the first email that is present in this file as an already read email.
+
+
+An email consists of:
+Sender: 	This index referencees the sender defined in EmailSenderNameList.xml
+Subject:	The email subject text. Character limit is 128
+Message:	The email message body. One message maximum character limit is 640. One email can contain multiple message bodies
+
+Message formatting notes:
+ ² Text ² -> Bolded
+ ³ Text ³ -> Centered text in its own line
+ ± -> Line change
+&amp; -> "&" character
+&lt; -> "<" character
+&gt; -> ">" character
+
+SPECIAL CASES:
+$MERCNAME$ 		-> gets replaced by a merc name during runtime. MUST be called with AddEmailFromXML with specialdata2 defining the merc ID
+$AMOUN$ 		-> gets replaced by a dollar amount during runtime. MUST be called with AddEmailFromXML with specialdata1 defining the value
+$DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. Proper shippingdestination must be provided via iCurrentShipmentDestinationID when using AddEmailFromXML
+-->
+
+<EMAILS>
+	<!-- ############################## -->
+	<!-- Enrico Chivaldori -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>询问</Subject>
+		<Message>你并不认识我，不过，我得知你是个能够帮助我的人。我不想通过电子邮件泄露我的困境，不知你可否在方便的时候尽早与我会面。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>继续</Subject>
+		<Message>仔细考虑了我们昨晚所讨论的内容，我认为你的条件可以接受。我需要几天时间来筹集钱。等我准备好了，我相信你已经仔细看了我的“故事”，这样我们就可以很快成交了。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>确认</Subject>
+		<Message>我可以在布拉格的Petrinska Kavarna与你会面，时间如你所约。我会带去所需现金。 ± ± 谢谢。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝你在Arulco好运</Subject>
+		<Message>只想说我的心和你们在一起。好运。记得找到Miguel然后把我的信交给他。我确信你会发现他对你很有帮助。 ±</Message>
+		<Message>Enrico ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>好消息</Subject>
+		<Message>我很高兴听到Miguel Cordona还活着，并且你已经联系到他。请告诉他我永远不会忘记他为我做的一切，并且一旦我有了钱或者其它方法我会尽快回去。 ± ± 谢谢你让我了解这些。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>RE：进展</Subject>
+		<Message>就我理解，好像你已经在我的国家建立了落脚点。考虑到你所面对的敌人以及她已经经营这些堡垒很长时间了，这是个值得称赞的开始。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>继续你杰出的工作</Subject>
+		<Message>你的消息很令人振奋。我开始认为这件事不是毫无希望的。不要曲解我的意思，我一直信任你，否则我不会给你我的全部家底。然而，过了这么多年，很难让我相信 ± Arulco还可以解放。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>最后冲刺</Subject>
+		<Message>这是我接到的最好的消息了。我迫切希望你不要过早地进行庆祝，要抓紧时间继续进行。在Deidranna没有被解除权利前，没人可以休息。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>RE：挫败</Subject>
+		<Message>我相信你会从挫败中恢复过来。这个消息，尽管让人难过，我希望只会更加坚定你的决心。Deidranna是个可怕的对手，这是我很清楚的。不要绝望。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>坏消息</Subject>
+		<Message>不要丧失信心，困境是暂时的。Deidranna的军队进行必要的调整只是个时间问题。我对你和你的队伍有信心。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>大问题</Subject>
+		<Message>我必须说，很难相信这种野兽的存在。如果确实存在，我坚信Deidranna是幕后黑手，我相信我们的协议中也包括把它们从这个国家中清除掉。 ±</Message>
+		<Message>我希望你能够幸运地发现这些野兽的老巢。 ± 你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>注意</Subject>
+		<Message>我明白这项工作不轻松。但是你迟迟没有进展仍然使我很关注。我希望这种境况是暂时的，你的队伍会很快采取主动的。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>担忧</Subject>
+		<Message>你必须理解我的人民的需求是迫切的，他们忍受着无法估量的痛苦。 她统治下的每一天都会有无辜的生命消逝。我恳求你采取更为主动的行动。 ±</Message>
+		<Message>提前谢过， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>非常重要</Subject>
+		<Message>我已经逐渐失去耐心。早知如此我就雇佣别人了。你的缺乏主动是无法接受的。我很遗憾我糟糕的判断力使我的人民再次受苦。 ±</Message>
+		<Message>极度失望的 ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>组织你的队伍</Subject>
+		<Message>我刚刚得到消息，你开始训练Arulco的人民来反击军队。 ±</Message>
+		<Message>这是非常重要的一步。为了你能组织并且扩大你的队伍，我已经建立了一个网站，你可以查看你的军事进展。希望能够帮到你。 ±</Message>
+		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>获取第一手情报</Subject>
+		<Message>我发现你获得了一些情报，在与我妻子对抗的过程中，这些情报可能会起到一定作用。希望你能保持下去。 ±</Message>
+		<Message>你可以通过几种途径获利。为了更好地标记重要的目标，你可能会需要Recon情报服务公司的帮助（就是他们给你提供了初始情报）。 ±</Message>
+		<Message>我还联系了一个团体，他们愿意...收购...各种关于机密设备的情报。你可以在San Mona找到他们的联系人。不过小心些，黑市不是那么好糊弄的。 ±</Message>
+		<Message>再次提醒小心，我的朋友。 ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- IMP Emails -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>我们知道你在想什么</Subject>
+		<Message>² ³ ***了解自己*** ³ ³ 你最大的敌人是否就是自己？怎样最大限度的利用你的天赋？ ³</Message>
+		<Message>² ³ 发现你真实的自我…… ³</Message>
+		<Message>² ³ I.M.P ³ ³ 佣兵心理剖析研究所 ³ ³ http://www.I.M.P.com ³</Message>
+		<Message>IMP了解佣兵行业。我们了解您承受的压力，并且我们知道这会带来什么——这些建议您不会在其它任何提供Candyass歌曲专集之类的“PC”网站找到。我们的测试经过严格设计可以用来获得最诚实的答案，以及你需要了解的精确的结果和信息。 ±</Message>
+		<Message>² 为什么您需要我们： ² 作为职业武装人员，您需要心理上的剖析（以及偶尔的咨询），这可以使您成为佣兵中的佼佼者并把上帝和枪炮给你的天分发挥得淋漓尽致。IMP可以做到这些。 ±</Message>
+		<Message>² 你将得到： ² IMP会对您进行科学的分析。我们着眼于您的性格、技能、基本属性……甚至您的嗓音和肖像。我们深入地分析了您真实的自我，您的长处和短处，您可以从我们提供的分析资料中全面了解您自己。 ±</Message>
+		<Message>² 价格： ² 有了这封邮件，你仅用3000美元就可以得到这一切！比通常报价便宜2500美元！ ±</Message>
+		<Message>这是一个限量优惠举措。你的激活密码是：XEP624 ±</Message>
+		<Message>执法机构请注意这只是娱乐，IMP不以任何可以从技术上作为呈堂证供的方式提供真实的佣兵服务。 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>缺少知识是非常危险的事情...</Subject>
+		<Message>³ ² ***嘿！！！你在等什么？*** ³ ± ± ³  了解你自己³  ± ± ³ 我们已经做了！ ² ³ ± ±</Message>
+		<Message>在IMP（佣兵心理剖析研究所），我们已经了解到你打算放弃这个绝好的机会，这也许会决定你在这个行当里的生死存亡。我们知道你想在还没了解所有可能性之前就冲杀出去。 ±</Message>
+		<Message>也许你只是想稍微缓一下。 ±</Message>
+		<Message>只要3000美元，我们将告诉你很多关于你个性的东西！ ±</Message>
+		<Message>这是你最后的机会！（Ok，不是真的，但假装是的） ± ± 现在就访问IMP，使用你的激活密码：XEP624 ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Speck -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>雇主的新选择</Subject>
+		<Message>这不是一封垃圾邮件！ ±</Message>
+		<Message>我从一个朋友的朋友那里听到了你的名字，我是Speck T. Kline，一个新成立的佣兵雇佣中心－M.E.R.C（廉价佣兵中心）的合伙人，我想你会在这里发现很多令你感兴趣的东西。 ±</Message>
+		<Message>作为A.I.M的前雇员，我非常熟悉他们的运作模式，我确信可以提供和他们同样的服务。事实上，我知道我们可以全面超过A.I.M。 ± ± 如果想了解更多信息，请光临我们的网站http://www.M.E.R.C.com。 ±</Message>
+		<Message>Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>新网址</Subject>
+		<Message>请注意，为了改善连接速度，我们的网站已经迁移到新地址： ± ± http://www.M.E.R.C.net ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>重要通知！</Subject>
+		<Message>我高兴地邀请您光临M.E.R.C网站。自从我们上次会谈已经过了很长时间，我非常愿意再次与您会谈。 ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>新佣兵！</Subject>
+		<Message>我非常高兴地宣布M.E.R.C组织的进一步壮大。我们最近得到了这个行业中的一些顶级人才。所以，我邀请您访问我们的网站，取您所需。 ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>请付帐</Subject>
+		<Message>显然，您有些疏漏。您的帐户上有债务未清。我迫切地请求您尽快访问M.E.R.C网站消除这个麻烦。您可以通过帐户页面便利直接地进行支付。 ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>拖欠通知！</Subject>
+		<Message>我注意到你的帐户有拖欠债务。如果我不得不取消你的权利我将非常难过，所以花点时间到M.E.R.C支付你的帐单。 ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- RIS Emails -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>5</Sender>
+		<Subject>R.I.S 报告</Subject>
+		<Message>按照您的要求，您可以在这个邮件的附件里找到Arulco的背景资料文件。谢谢您选择我们的服务。 ± ± R.I.S ± ± <附件已移至文件区> ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- MIS Insurance -->
+	<!-- ############################## -->
+	<!-- NOTE! The following emails contain special data, ie. string variables that get replaced during runtime. For them to work correctly, provide valid data to MoneyAmount & MercID parameters when adding them via lua scripts. -->
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>我们已经收到了一份来自A.I.M.的有关您的权益的索赔，是与$MERCNAME$的不幸死亡相关的。这个索赔已被核准，$AMOUN$现金已经直接存入您的帐户。 ±</Message>
+		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>我们收到了一份关于$MERCNAME$死亡的索赔文件。 ± ± 由于死亡原因可疑，这个索赔需要经过进一步调查。当调查结束您会接到通知以及赔偿决定。 ±</Message>
+		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>我们的调查已经结束。虽然有关$MERCNAME$的死亡某些细节尚不清楚，但我们决定支付全额赔偿金。 ± 请查收$AMOUN$现金已存入您的帐户。 ±</Message>
+		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>我们已经收到$MERCNAME$死亡索赔。由于您可疑的历史记录，您的此次索赔已经被定为需要完全彻底的调查。 ± ± 我们希望您保持耐心。在合理的期限内我们会做出决定。 ±</Message>
+		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>经过全面的调查，我们遗憾地通知您，您的关于$MERCNAME$的死亡索赔已经被否决了。您可能知道，也可能不知道，您的保单中包含一些免责条款。请参照保单的相关条款了解详细内容。 ±</Message>
+		<Message>您忠实的， ± Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>保险索赔：$MERCNAME$</Subject>
+		<Message>经过仔细调查，我们很遗憾地通知您，您对 $MERCNAME$ 的死亡抚恤金索赔已被拒绝。原因为所述对象死因违反了您签署的合同协议。有关详细信息，请参阅您保单的保单详情。±</Message>
+		<Message>您忠实的， ± Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- BOBBY RAY'S GUNS'N'THINGS -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>47</Sender>
+		<Subject>感谢访问我们站点</Subject>
+		<Message>您的Email地址在最近访问Bobby Ray网站时被记录了。 ±</Message>
+		<Message>现在通知您，前段时间我们的网站短期关闭，现在恢复运营。我们盼望您下一次光临。 ±</Message>
+	</EMAIL>
+	<!-- Bobby Rays shipment arrival -->
+	<EMAIL>
+		<!-- NOTE! This email contains special data that gets replaced during runtime. For it to work correctly, provide a valid iCurrentShipmentDestinationID when adding it via lua scripts. -->
+		<Sender>47</Sender>
+		<Subject>来自Bobby Ray网上武器店的发货通知</Subject>
+		<Message>这是由我们的发货系统软件自动产生的Email，在您的订货预定到达时间发出。 ±</Message>
+		<Message>您的订单已经准时发出，现在应该已经到达 $DESTINATIONNAME$ 机场的货物收发部门。 ±</Message>
+		<Message>谢谢您的光顾！ ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>47</Sender>
+		<Subject>来自Bobby Ray网上武器店的发货通知</Subject>
+		<Message>这是由我们的发货系统软件自动产生的Email，在您的订货预定到达时间发出。 ±</Message>
+		<Message>您的订单已经准时发出，现在应该已经到达 Meduna 机场的货物收发部门。 ±</Message>
+		<Message>谢谢您的光顾！ ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Kingpin -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>立即阅读！</Subject>
+		<Message>让我们直奔主题，我知道你拿了我的钱。你有48小时时间来到我的房间把钱亲自还给我，并且你要多付25％的钱来平息我的愤怒。 ±</Message>
+		<Message>如果你敢于违抗，我的人会跟踪找到你并把你象鹌鹑一样杀死。我们都清楚，我现在不难找到你，将来他们也不难找到你。 ±</Message>
+		<Message>等着你准时来访， ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>工作机会</Subject>
+		<Message>根据我的雇员报告，你最近取得了相当瞩目的进展。或许我们能够互相帮助一下。 ±</Message>
+		<Message>说起来很尴尬，我最近丢了点东西。一些对我来说很重要的东西被偷走了。目前我还不知道幕后操纵的人是谁，但我很快就会搞清楚。你能想象，我是绝对不能容忍这种事的。 ±</Message>
+		<Message>单刀直入的说：一对兄妹，Angel DaSilva和Maria DaSilva，正在试图逃离这个国家。他们最可能藏身于Arulco北部的一个农场里。我要他们在一个星期之内人间蒸发，希望你能处理。 ±</Message>
+		<Message>帮我料理他们的人会获得一大笔赏金。不过由于我们以前并没有合作过，所以为了以防万一，我也给其他感兴趣的势力发了相同的邮件。请回信告诉我你是否有兴趣接下这个工作。 ±</Message>
+		<Message>此致， ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>干得漂亮</Subject>
+		<Message>我十分高兴你能按照我的要求完成了这个工作。我已经将钱转账给你了。  ±</Message>
+		<Message>这是合作的开始，我们会互惠互利的。 ±</Message>
+		<Message>此致， ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>任务失败</Subject>
+		<Message>看起来我一开始对你的信任大错特错了。我给了你充足的时间来完成它，但是你仍然失败了。 ±</Message>
+		<Message>不过还好，另一个比你更厉害的家伙完成了这个工作。 ±</Message>
+		<Message>来自失望的， ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>任务失败</Subject>
+		<Message>看起来我一开始对你的信任大错特错了。我给了你充足的时间来完成它，但是你仍然失败了。 ±</Message>
+		<Message>我的线人告诉我，其他我联系的势力由于...某些阻碍也没有完成任务。我衷心希望这件事与你没有任何关系。 ±</Message>
+		<Message>来自失望的， ± ± Kingpin ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- John Kulba -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>嘿</Subject>
+		<Message>是我，来自俄亥俄州克里夫兰的John Kulba。只想感谢你为我做的一切，我无法告诉你我回到美国时有多高兴，一个足够理性并从未让一个女人做过总统的国家。 ±</Message>
+		<Message>我把这些答应给你的枪发给了你。用特快专递发的，所以它们应该现在就在Drassen机场了。小心使用它们，我已经给这些宝贝儿做了一些改动，让你能够射出致命一击，你最好确定你已经站稳了。 ±</Message>
+		<Message>无论如何，五大湖对你敞开大门了，你来这里观光，我会做你的导游。 ± ± 再次致谢， ± John Kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>呃，这真的很尴尬</Subject>
+		<Message>是我，俄亥俄州克利夫兰的John Kulba。谢谢你给我这个实现梦想的机会。± ± 还有个小问题，我在飞往Arulco的班机上不小心睡着了，错过了中转航班。 ±</Message>
+		<Message>我被困在了Tracona。尽快到你那儿，不过这可能会耽误一些时间。我可是费了九牛二虎之力才发出这条讯息，这个鬼地方连台能上网的电脑都找不到！, ± ± 回头见！， ± john kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>就快到了！</Subject>
+		<Message>是我，俄亥俄州克利夫兰的John Kulba。看来还得再迟一会。± ± 我雇了一个直升飞机员带我过Arulco边境，没想到那个智障在不知道什么鸟地方给我失事迫降了。再也不相信那些该死的嬉皮士了！ ±</Message>
+		<Message>幸好坠机没有毁掉我的电脑设备，我才能给你发这条短讯。我得想出别的法子才能过去。± ± 回头见， ± John Kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>好险啊！</Subject>
+		<Message>是我，俄亥俄州克利夫兰的John Kulba。 ± ± 好吧，这回我雇了个导游带我徒步前往Arulco，没想到途中被一群巨大的肥猫围困，那个白痴居然丢下我溜之大吉！我可是大美利坚公民！竟然被丢下，成了猫的盘中餐！ ±</Message>
+		<Message>我躲在树上大半天才逃过一劫。我想还是回到市里等下一架直达航班吧。不用担心。顺便问一下在Traconian，Arulco应该也拼作"Arulco"是吧？ ± ± 回头见，± john kulba ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- AIM -->
+	<!-- ############################## -->
+	<EMAIL>
+		<!-- NOTE! This email contains special data that gets replaced during runtime. -->
+		<Sender>50</Sender>
+		<Subject>A.I.M - 死亡通知</Subject>
+		<Message>A.I.M关注您规划未来作战需求的能力，您作为A.I.M一个值得尊敬的客户，我们必须通知您我们的成员的意外离去。 ±</Message>
+		<Message>我们遗憾地宣布$MERCNAME$在菲律宾的行动中勇敢的阵亡了。 ±</Message>
+		<Message>W我们希望这个消息不会给您带来困难，并希望在此提醒您A.I.M有大量的多样的佣兵可供选择。 ±</Message>
+		<Message>我们相信可以继续满足您的需求，希望与您进一步合作。 ± ± Hans Yorgan ± 雇员主管 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>帐目结算</Subject>
+		<Message>已将现款$AMOUN$打入您的帐户，这是$MERCNAME$的医疗保险的返款。 ±</Message>
+		<Message>Hans Yorgan ± A.I.M雇员主管 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>部分返款</Subject>
+		<Message>此邮件确认将$AMOUN$现金打入您的帐户，这是$MERCNAME$的医疗保险的部分返还。 ± ± 根据A.I.M政策，由于此人在返回时已受伤，医疗费用从您的保险金中支付，所以您无权获得全部金额的返还。 ±</Message>
+		<Message>Hans Yorgan ± A.I.M雇员主管 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>医疗保险抵扣</Subject>
+		<Message>由于在您的雇佣过程间$MERCNAME$死亡，我们遗憾地通知您相关的保险金已经按照A.I.M规章的9.4款进行抵扣。 ±</Message>
+		<Message>Hans Yorgan ± A.I.M雇员主管 ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Kerberus PMC -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>51</Sender>
+		<Subject>令人兴奋的好消息</Subject>
+		<Message>我们Kerberus安保公司拥有大批训练有素的安保人员，并提供各种安保人员训练服务。通过最近的消息，我们了解到您迫切需要增强您的执法团队。 ±</Message>
+		<Message>如果确实是这样，我们非常乐意给您提供我们的服务。请在方便的时候登陆我们的主页http://www.kerberus.com 查看详细信息。 ± ± 总经理， ± Stan Duke, 竭诚为您服务 ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Angel & Maria DaSilva -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>52</Sender>
+		<Subject>感谢（再次）</Subject>
+		<Message>谢谢，再次感谢您，我的朋友。我们不知道Kingpin是如何知道的，但是他派了赏金猎人来追杀我们。他们差一点就得手了，但是却凭空消失了。 ±</Message>
+		<Message>也许您已经把他们都处理掉了，也许我们走了狗屎运（我坚信是前者）。我们终于离开了这个国家，如今我们生活在更安全的地方。 ±</Message>
+		<Message>希望您在您的战斗中所向披靡。 ± Angel &amp; Maria DaSilva ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- JA2 UB Emails -->
+	<!-- ############################## -->
+	<!-- Enrico Chivaldori -->
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>求救!!!</Subject>
+		<Message>抱歉打扰，但我不得不再次请求您的帮助。 Arulco目前正笼罩在新的威胁之下。Tixa昨天遭到导弹袭击并被摧毁，幸好那座监狱已被闲置，只有少量人员受伤。±</Message>
+		<Message>几小时后，Ricci矿业公司给我打了个电话，就是那家垄断周边国家采矿行业的公司，之前一直霸占着Arulco的矿产资源，直到女王被推翻才滚蛋。±</Message>
+		<Message>这次他们通过肮脏的贿赂手段和佣兵的武装力量，在Arulco北方邻国Tracona建立了一座基地，对于一个主要军事力量是民兵的小国来说，控制起来易如反掌。±</Message>
+		<Message>他们在电话里声称，要我立刻交出矿物开采权，让他们重返 Arulco，否则就要用导弹攻击其他城镇甚至全境；我的线人也确认在Tracona境内发现了新建的导弹设施。±</Message>
+		<Message>我手上没有正规军，我的人民也厌倦了战争，我也不愿把此事升级到国家冲突的层面，但是战争威胁必须消除，导弹设施必须摧毁，您是我能想到的最好的人选。 ±</Message>
+		<Message>我已安排一驾能容纳6人小队的直升机潜入Tracona，足够6人的经费已经打入以前那个银行账号，有情况的话请跟我联系。±</Message>
+		<Message>祝您好运，我的朋友。 ± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>担忧</Subject>
+		<Message>还没有收到飞行员Jerry Melo上尉的消息，他现在应该已经驾机返回了才对，希望一切进展顺利，速回复。 ± ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>任然没有消息</Subject>
+		<Message>没有飞行员的消息，没有您的消息，不知您是否已经平安到达Tracona。整个国家的命运都在您手上了，请一定告诉我进展的情况，速回复。 ±</Message>
+		<Message>有谣言说您卷款潜逃了，我已澄清谣言，但是心里很不踏实± ± 希望一切进展顺利。 ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>终于有好消息了</Subject>
+		<Message>我听Omerta说您已顺利潜入了Tracona并且见到了Manuel.他是一个好人，为帮助Arulco人民不惜牺牲自己和家人的好人。 但是我还是很担心，为什么您没有直接联系我? 情况比预计中的更危险么? ±</Message>
+		<Message>我也听说Manuel自愿加入这个任务，他能帮上多少忙我说不上,但是可以用我们全国人民的名义保证， 他是个值得信赖的人。±</Message>
+		<Message>最后，我很高兴您已经到达目的地，再一次为解放我国人民而战。 ± ±祝好运。± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>担心.</Subject>
+		<Message>未知的末日随时可能落在我们头上,这感觉真是度日如年，恳求您尽快结束这一切。 ± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>紧急</Subject>
+		<Message>Ricci矿业发现您了，估计也猜到了是我请您来的，Arulco已经成了他们的优先目标，您得加快进度了， 恐怕他们很快就会发动袭击，轰炸我们的同时警告周边国家不准轻举妄动。±</Message>
+		<Message>我知道这是并不轻松，但是情况紧急，请不惜代价阻止他们。. ± ± 诚心恳求, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>我了解了</Subject>
+		<Message>邮件已收到，很抱歉飞行员添了不少麻烦，还有通讯不畅的事情，这个飞行员收费昂贵，不是本地人，也从未露过面，但是是当时我能找到的唯一一个飞行员。 ±</Message>
+		<Message>只要平安无事就好。 ± ± 您真诚的 ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>我了解了</Subject>
+		<Message>邮件已收到，很抱歉飞行员添了不少麻烦，还有通讯不畅的事情，这个飞行员收费昂贵，不是本地人，也从未露过面，但是是当时我能找到的唯一一个飞行员。 ±</Message>
+		<Message>我会弥补这个飞行员给任务带来的意外风险， 我已经把钱打入了原来的银行账号，好在坠机的时候没有人员损失。±</Message>
+		<Message>只要平安无事就好。 ± ± 您真诚的 ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>飞行员找到了</Subject>
+		<Message>在血猫巢穴里发现了疑似飞行护目镜的东西，旁边还有骨头和少量毒品，不知道您对此事做何感想。± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>M我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
+		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而, Fatima是个坚强的妻子. 她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲, 他是英雄的儿子。 ±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
+		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次. 这样的好人真的很少。 ±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而, Fatima是个坚强的妻子. 她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲, 他是英雄的儿子。 ±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>祝贺您</Subject>
+		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次. 这样的好人真的很少。 ±</Message>
+		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<!-- IMP Emails -->
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>我们知道你在想什么</Subject>
+		<Message>² ³ ***了解自己*** ³ ³ 你最大的敌人是否就是自己？怎样最大限度的利用你的天赋？ ³</Message>
+		<Message>² ³ 发现你真实的自我…… ³</Message>
+		<Message>² ³ I.M.P. ³ ³ 佣兵心理剖析研究所 ³ ³ http://www.I.M.P.com ³</Message>
+		<Message>五年以来我们一直分析雇佣军并得出准确的结果，我们提供国内和国外的军事服务，无论客户是财富500强公司，还是部落首领，我们知道你需要了解什么。 ±</Message>
+		<Message>你需要了解如何在战场生存，通过我们经过长时间考验的方法，不管是长处和弱点，还是冲锋撤退的时机，你都能像了解手中武器一样了解你自己。简单，可靠，实惠。 ±</Message>
+		<Message>通过五年来的不断探索和用户的回馈，再加上最新的科学分析法，我们简化了测试过程，再也不用填写大量表格回答各种问题。±</Message>
+		<Message>佣兵生涯随时伴随着生死考验，只需要一小笔费用，就能享受我们最新技术提供的安全保障，超过80%的客户能从战场上安全返回。 ±</Message>
+		<Message>² 你的激活密码是: GP97SL ² ± ± 为保障安全，此密码仅供你个人使用。 ±</Message>
+		<Message>执法机构请注意这只是娱乐，IMP不以任何可以从技术上作为呈堂证供的方式提供真实的佣兵服务。 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>来自IMP的重要提示.</Subject>
+		<Message>我们的自动的跟踪系统发现你并没有访问我们的网站， 你的激活密码GP97SL将很快过期， 我们建议你尽快访问网站，不要错失时机。±</Message>
+		<Message>我们佣兵心理剖析研究所诊断认为你对听起来太美好的事物持怀疑态度，希望你能正确评估我们的服务并把握住挽救自己生命的机会。 ±</Message>
+		<Message>我们知道你是个有主见的人，只需花费$3000, 再访问网站，我们就能提供更多的分析。 ±</Message>
+		<Message>立刻访问吧! ± ± 你不会后悔的. ± 我们已经在帮你了。 ±</Message>
+	</EMAIL>
+	<!-- Miguel Cordona -->
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>好久不见老朋友</Subject>
+		<Message>不好意思这么晚才联系你，Enrico说你经常联系不上，很感激你这次能站在我们这边，你一定能解决这一切的，祝你好运。 ±</Message>
+		<Message>听说你会来处理这事的时候我的睡眠质量都提高了。± 衷心感谢, ± ± Miguel Cordona ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>抱歉.</Subject>
+		<Message>我病了，当不成领导了，Enrico暂时取代我的职位，现在医生还没有对我的身体情况作出明确的评价。 ±</Message>
+		<Message>等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切, ± Miguel Cordona</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>抱歉.</Subject>
+		<Message>我病了，当不成领导了，Enrico暂时取代我的职位，现在医生还没有对我的身体情况作出明确的评价。 ±</Message>
+		<Message>听说Manuel加入了你的队伍,. 他是个狠角色，对Arulco很忠诚，冒着生命危险在Tracona参军，到现在也没暴露。 ±</Message>
+		<Message>医生很快就要给出结果了，等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切, ± Miguel Cordona</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>情况不妙</Subject>
+		<Message>医生说情况不妙，说我没救了，活不了多久了。 具体说的是啥我认真听了，但是真听不懂，真是讽刺啊，枪林弹雨我都过来了，却栽在抽烟上。 ±</Message>
+		<Message>现在没什么好做的了，让上帝和时间决定我的命运吧。 希望你能尽快解决这件事，在我死掉之前给我来点好消息。± ± Miguel Cordona</Message>
+	</EMAIL>
+	<!-- AIM -->
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>A Special Offer from A.I.M.</Subject>
+		<Message>± Dear valued client, ± ± Due to recent changes in the market place, A.I.M. has decided to reward its past clients with a unique offer. Unlike certain competitors, which offer low-end talent for low prices, we are introducing a totally new concept. ±</Message>
+		<Message>Our entire roster - every truly-gifted member - is now available for a limited time for the duration of an entire mission for one simple payment. That's right! You can have the services of any of our mercenaries until the job is done, simply by paying a single fee in advance. ±</Message>
+		<Message>And, as if that wasn't enough, as part of the same promotion A.I.M. is currently throwing in, at no extra charge, each mercenary's personal equipment. You read that correctly! One single charge covers the mercenary and their starting equipment for the duration of the mission! ±</Message>
+		<Message>I urge you to visit A.I.M.'s official web site now and take advantage of this incredible offer before time runs out. It's simply too good to pass on.</Message>
+		<Message>Yours truly, ± ± Howard "Carp" Melfield ± Marketing Manager ± Association of International Mercenaries ±</Message>
+		<Message>N.B. Offer applies to former clients only. ± Void in countries where prohibited. ± Cannot be used in conjunction with any other promotions. ± Mercenaries engagements are offered on a first come - first served basis.</Message>
+		<Message></Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>来自A.I.M.的限时优惠</Subject>
+		<Message>± 亲爱的贵宾, ± ± 非常荣幸的通知您，我们的限时优惠活动开始了！ 在指定之间内，凡是雇佣佣兵的客户都将获得限量版“切 · 格瓦拉“水壶一枚！ ±</Message>
+		<Message>锡制纯手工打造，附带羊毛水壶套， 装满来自阿尔卑斯山的清凉泉水！只要下次雇佣我们的佣兵，立刻免费赠送！ ±</Message>
+		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>来自A.I.M.的限时优惠</Subject>
+		<Message>± 亲爱的贵宾, ±±我们知道，在目前市场竞争如此激烈的情况下，作为客户有时会被各种宣传弄昏头。 ±</Message>
+		<Message>所以，我们在此作出新的优惠，您肯定想象不到这次的礼物：来自Sam Garver's短吻鳄牧场礼品店的、正宗原版的战斗匕首， 由Sam Garver亲笔签名的限量版。±</Message>
+		<Message>锋利的镀锌刀身，经典的鲨皮刀柄，这把匕首就像我们的佣兵一样可靠，记住，只要下次在A.I.M.雇佣佣兵，就能获得这份礼物！ ±</Message>
+		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>费用支取通知</Subject>
+		<Message>根据A.I.M合约中关于出发前解雇的条款，$MERCNAME$的所有费用已从你的账户中支取。 ±</Message>
+		<Message>对此引起的任何不便，我们深表歉意。± ± Hans Yorgan ± Director of A.I.M. Personnel ±</Message>
+	</EMAIL>
+	<!-- Speck -->
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>来自 M.E.R.C.的大优惠</Subject>
+		<Message>你好，± ±成为 M.E.R.C 客户的好处是，由创始人直接为你服务，而像其他机构，只有冷冰冰的接待员、前佣兵、客户经理。 ±</Message>
+		<Message>我现在直接向你提供优惠，只要你下次雇佣了M.E.R.C的佣兵，即获得纪念手表一枚。 ±</Message>
+		<Message>在技能高超的宝岛钟表技师的精心打造下， 表盘上的身穿比基尼的Flo将用四肢来指示时间，把心爱的女孩带在手腕上冲锋陷阵吧，防水、防震、日历功能样样不缺。±</Message>
+		<Message>9点15分是福利，相信我。. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>优柔寡断</Subject>
+		<Message>对于你在雇佣$MERCNAME$的事情上优柔寡断， 我表示很遗憾，你支付的款项已退回，并扣除$10的手续费。 ±</Message>
+		<Message>如果以后不再发生这种乌龙事件，我将十分感激。 ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+</EMAILS>

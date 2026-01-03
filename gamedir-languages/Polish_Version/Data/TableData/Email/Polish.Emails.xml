@@ -1,0 +1,587 @@
+<!--
+This file contains the email texts that appear ingame. Can be called in .lua scripts with functions AddEmailFromXML & AddPreReadEmailFromXML.
+The position of emails in this xml function as the index that need to be provided to the functions. 
+Eg. calling AddPreReadEmailFromXML(0) in lua script will add the first email that is present in this file as an already read email.
+
+
+An email consists of:
+Sender: 	This index referencees the sender defined in EmailSenderNameList.xml
+Subject:	The email subject text. Character limit is 128
+Message:	The email message body. One message maximum character limit is 640. One email can contain multiple message bodies
+
+Message formatting notes:
+ ² Text ² -> Bolded
+ ³ Text ³ -> Centered text in its own line
+ ± -> Line change
+&amp; -> "&" character
+&lt; -> "<" character
+&gt; -> ">" character
+
+SPECIAL CASES:
+$MERCNAME$ 		-> gets replaced by a merc name during runtime. MUST be called with AddEmailFromXML with specialdata2 defining the merc ID
+$AMOUN$ 		-> gets replaced by a dollar amount during runtime. MUST be called with AddEmailFromXML with specialdata1 defining the value
+$DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. Proper shippingdestination must be provided via iCurrentShipmentDestinationID when using AddEmailFromXML
+-->
+
+<EMAILS>
+	<!-- ############################## -->
+	<!-- Enrico Chivaldori -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Zapytanie</Subject>
+		<Message>Nie znasz mnie, zostałem jednakże poinformowany, że jesteś osobą, która może udzielić mi pomocy. Wolałbym nie wywnętrzać się za bardzo za pomocą całej tej elektroniki; zastanawiam się czy moglibyśmy się spotkać - możliwie jak najprędzej. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Uzupełnienie</Subject>
+		<Message>W nawiązaniu do naszej wczorajszej rozmowy, akceptuję Twoje warunki. Będę potrzebował paru dni, aby zdobyć pieniądze. Mam nadzieję, że Ty w tym czasie przyjrzysz się nieco mojej historii i już wkrótce będziemy mogli sfinalizować ten interes. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Potwierdzenie</Subject>
+		<Message>Mogę się z Tobą spotkać w Petrinskej Kavarne w Pradze, w terminie dogodnym dla Ciebie. Przyniosę pieniądze, o których mówiliśmy. ± ± Dziękuję. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Powodzenia w Arulco.</Subject>
+		<Message>Chciałem tylko powiedzieć, że jestem z Tobą i wierzę w Twoje możliwości. Pamiętaj aby odnaleźć Miguela i doręczyć mu mój list. Jestem pewien, że okaże Ci sympatię i wesprze w odpowiednim momencie. ±</Message>
+		<Message>Enrico ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Dobre wieści</Subject>
+		<Message>Cieszę się, że Miguel Cordona żyje i udało Ci się z nim skontaktować. Proszę mu przekazać, że nigdy nie zapomnę co dla mnie zrobił. I że wróciłbym wcześniej, gdybym tylko miał na to odpowiednie fundusze. ± ± Dziękuję za informacje na temat operacji. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Odp: Postęp</Subject>
+		<Message>O ile rozumiem, wygląda na to, że stoisz pewnie na nogach w moim kraju. To jedynie początek, raczej chwalebny, biorąc pod uwagę przeciwko komu walczysz i jak długo 'ONA' musiała umacniać swoje pozycje. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Tak trzymaj.</Subject>
+		<Message>Twoja wiadomość była całkiem optymistyczna. W końcu zaczynam wierzyć, że ta sytuacja nie jest całkowicie beznadziejna. Nie zrozum mnie źle. Zawsze w Ciebie wierzyłem, inaczej nie oddałbym Ci wszystkiego co posiadam. Jednakże, po tylu latach ciężko jest uwierzyć, że Arulco zostanie wyzwolone. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Ostateczny cios</Subject>
+		<Message>Nie mogłem otrzymać lepszych wiadomości. Nalegam, posuń się jeszcze dalej i nie osiądź na laurach. Dopóki Deidranna nie zostanie odsunięta od władzy nikt nie może spocząć. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Odp: Niepowodzenie</Subject>
+		<Message>Ufam, że już niedługo przezwyciężysz złą passę. Wieści chociaż niepomyślne, mam nadzieje, zmobilizują Cię do dalszej stanowczości. Deidranna to groźny przeciwnik, jestem tego świadom. Nie załamuj się. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Złe wieści</Subject>
+		<Message>Nie dopuść do tego, że zwątpisz w swoje możliwości. Ta sytuacja jest przejściowa. To była tylko kwestia czasu, aby oddziały Deidranny przegrupowały się. ± ± Pokładam nadzieje w Tobie i w Twojej ekipie. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Bardzo niepokojące</Subject>
+		<Message>Muszę powiedzieć, że gdybyś nie zamieścił dowodów potwierdzających obecność tych stworzeń, nigdy bym nie uwierzył w ich istnienie. Nie wątpię, że Deidranna w jakiś sposób za tym stoi. Ufam, że nasza umowa obejmuje również usunięcie tych stworzeń z kraju. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Zaniepokojony</Subject>
+		<Message>Rozumiem, że operacja ta nie należy do prostych. Jednak ten brak postępów mnie niepokoi. Mam nadzieję, że to sytuacja przejściowa i wkrótce twój oddział podejmie ofensywne kroki. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Zaczynam się martwić</Subject>
+		<Message>Musisz zrozumieć, że moi rodacy potrzebują pomocy natychmiast. Ich cierpienie jest nie do zniesienia. Każdego dnia giną niewinni ludzie. Błagam cię, spróbuj podjąć bardziej agresywne kroki. ±</Message>
+		<Message>Z góry dziękuję, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>BARDZO WAŻNE</Subject>
+		<Message>Zaczynam tracić cierpliwość. Gdybym wiedział, że postępujesz tak ostrożnie nająłbym kogoś innego. Twój brak inicjatywy jest nie do przyjęcia. Żałuję, że po raz drugi moi rodacy cierpią przez to, że dokonałem złego wyboru. ±</Message>
+		<Message>Strasznie zawiedziony, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Organizing your team</Subject>
+		<Message>I have learned that you have begun training the people of Arulco in fighting back the army. ±</Message>
+		<Message>This is a very important step. To help you organize your (hopefully expanding) forces, I've set up a small website. There you can look through your militia's records. I hope this will be useful to you. ±</Message>
+		<Message>Szczerze oddany, ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Your first steps in handling delicate information</Subject>
+		<Message>It has come to my attention that you have obtained information that might help you to strike against my estranged wife in indirect fashion. I hope you will continue to do so. ±</Message>
+		<Message>There are several ways for you to profit from this development. In order to better identify important targets, you might find the services of RIS (they made your initial Recon Report) worthwhile. ±</Message>
+		<Message>I have also contacted a group willing to... trade... any information you provide them for classified equipment. You can find an associate of theirs in San Mona. Be careful though, the black market is none to be trifled with. ±</Message>
+		<Message>Be careful, my friend. ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- IMP Emails -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>Znamy Twoje myśli.</Subject>
+		<Message>² ³ *** POZNAJ SWÓJ CHARAKTER *** ³ ³ Czy możesz być swoim największym wrogiem? ³ ³ Na ile wykorzystujesz swoje talenty? ³</Message>
+		<Message>² ³ ODKRYJ KIM NAPRAWDĘ JESTEŚ Z POMOCĄ... ³</Message>
+		<Message>² ³ I.M.P. ³ ³ - Instytutu Badań Najemników ³ ³ http://www.I.M.P.com ³</Message>
+		<Message>W IMP znamy rynek najemników. Znamy presję, pod którą się znajdujesz i wiemy ile znaczą rady, których nie znajdziesz na żadnej stronie internetowej. Nasze badania są zaprojektowane tak, aby w ich trakcie zdobyć prawdziwe odpowiedzi i rzetelne informacje, których poszukujesz. ±</Message>
+		<Message>² Dlaczego nas potrzebujesz: ² Jako profesjonalista potrzebujesz badań psychologicznych (a czasami konsultacji) aby móc rozwijać swoje umiejętności, zwłaszcza w posługiwaniu się bronią. Chcesz dać z siebie wszystko? IMP zapewni Ci powodzenie. ±</Message>
+		<Message>² Co otrzymujesz: ² IMP poddaje cię naukowej analizie. Przyglądamy się Twojej osobowości, Twoim umiejętnościom, uwarunkowaniom fizycznym... począwszy od głosu po identyfikację wizualną. Przyjrzysz się swojemu charakterowi, wewnętrznemu ja, poznasz jakie są motory Twojego działania. ±</Message>
+		<Message>² Za ile: ² SPECJALNA OFERTA INTERNETOWA: za jedyne 3000$! Oszczędzasz 2500$ w stosunku do ceny poza promocją! ±</Message>
+		<Message>Oferta *ograniczona*. ² Twój osobisty, tajny kod dostępu: ² XEP624 ±</Message>
+		<Message>Organizacje Porządku Publicznego i Prawa informujemy, że niniejsze usługi są rozpatrywane w kategoriach rozrywki, IMP nie wspiera (w sposób możliwy do udowodnienia przed sądem) ugrupowań najemników. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>*Pewna* wiedza to bardzo niebezpieczna broń...</Subject>
+		<Message>³ ² *** HEJ!!! TO TWOJA OSTATNIA SZANSA! *** ³ ± ± ³ POZNAJ SWÓJ CHARAKTER ³ ± ± ³ My już go znamy! ² ³ ± ±</Message>
+		<Message>W IMP - Instytucie Badań Najemników, udało się nam odkryć, że często omijasz świetne okazje - takie, które pomogłyby Ci wybić się w jakiejś dziedzinie. Wiemy, że masz zwyczaj rzucać się w wir spraw, nie sprawdzając wcześniej wszystkich możliwości. ±</Message>
+		<Message>Zwykle odwlekasz rozwiązywanie problemów. ±</Message>
+		<Message>ZA JEDYNE 3000$ powiemy Ci znacznie więcej o Twoim charakterze! ±</Message>
+		<Message>To twoja ostatnia szansa! ± ± Odwiedx IMP natychmiast, ²Twój osobisty kod dostępu: ² XEP624 ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Speck -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Nowi najemnicy</Subject>
+		<Message>To nie żaden kit! ±</Message>
+		<Message>Wybacz. Otrzymaliśmy Twoje imię od znajomego naszego znajomego. Jestem Speck T. Kline, współwłaściciel M.E.R.C - nowopowstałego centrum rekrutacji najemników. Mam nadzieję, że się tym zainteresujesz. ±</Message>
+		<Message>Jako były członek A.I.M., jestem świetnie zaznajomiony z metodami ich działań. Jestem pewien, że możemy zapewnić ci usługi na takim samym poziomie. De facto, wiem, że prześcigamy A.I.M. w większości dziedzin. Więcej informacji znajdziesz na naszej stronie w Internecie,  http://www.M.E.R.C.com ±</Message>
+		<Message>Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Adresy Nowej Strony</Subject>
+		<Message>W odpowiedzi na mój ostatni email, informujemy, że aby poprawić prędkość połączeń, zmieniliśmy lokalizację naszej strony. Aktualny adres: http://www.M.E.R.C.net ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Ważna informacja!</Subject>
+		<Message>Chciałbym skorzystać z okazji i zaprosić Cię do odwiedzenia strony M.E.R.C.. Minęło trochę czasu od naszego ostatniego kontaktu i miło by mi było, gdybym miał okazję porozmawiać z Tobą ponownie. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Nowy personel!</Subject>
+		<Message>Z największą przyjemnością informuję o rozwoju M.E.R.C.. Ostatnio pozyskaliśmy do współpracy niezwykle utalentowanych, czołowych uczestników naszej branży. Zatem zapraszamy do przejrzenia naszej strony i skorzystania z najatrakcyjniejszych ofert dzisiejszego rynku. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Prosimy o zapłatę.</Subject>
+		<Message>Z całą pewnością to tylko przeoczenia z Twojej strony. Na Twoim koncie wisi dosyć znaczne saldo. Nalegam, aby odwiedzić stronę M.E.R.C. jak naszybciej i wyjaśnić tą kłopotliwą sytuację. Wystarczy tylko dokonać wpłaty - bezpośrednio i wygodnie - korzystając z naszej strony. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Ostrzeżenie!</Subject>
+		<Message>Doszło do moich uszu, że Twoje konto jest zdebetowane. Sprawiłoby nam przykrość, jeśli musielibyśmy wstrzymać wszelkie nasze przywileje względem Ciebie, zatem znajdź chwilę czasu i dokonaj wpłaty na rzecz M.E.R.C. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- RIS Emails -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>5</Sender>
+		<Subject>R.I.S. RAPORT</Subject>
+		<Message>W związku z wcześniejszą prośbą, przesyłamy plik z informacjami na temat Arulco. ± ± Dziękujemy za skorzystanie z naszych usług. ± ± R.I.S. ± ± &lt;załącznik przeniesiony do przeglądarki plików&gt; ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- MIS Insurance -->
+	<!-- ############################## -->
+	<!-- NOTE! The following emails contain special data, ie. string variables that get replaced during runtime. For them to work correctly, provide valid data to MoneyAmount & MercID parameters when adding them via lua scripts. -->
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>Dotarło do nas roszczenie w stosunku do środków przetrzymywanych w Pani/Pana imieniu przez A.I.M. - w związku z nieprzewidzianą śmiercią: $MERCNAME$. Roszczenie zaakceptowano i kwota $AMOUN$ została przelana bezpośrednio na wskazane konto. ±</Message>
+		<Message>Brian Smily ± Claims Manager ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>Mamy u siebie roszczenie na wypadek śmierci - w związku z odejściem: $MERCNAME$. Z uwagi na podejrzane okoliczności zdarzeń, wypłata roszczenia poprzedzona zostanie dochodzeniem. Po zakończeniu śledztwa, przekażemy informacje o jego wynikach i powziętej, w tej sprawie, decyzji. ±</Message>
+		<Message>Brian Smily ± Claims Manager ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>Prowadzone przez nas dochodzenie zostało zakończone. Mimo, że pewne okoliczności śmierci: $MERCNAME$ pozostają niejasne, zdecydowaliśmy się na wypłatę pełnej kwoty wspomnianego roszczenia. ± ± Czek na $AMOUN$ został zdeponowany bezpośrednio na Pani/Pana konto. ±</Message>
+		<Message>Brian Smily ± Claims Manager ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>Mamy zgłoszenie do wypłaty ubezpieczenia za śmierć: $MERCNAME$. Z uwagi na przypadki niejasnych spraw wykonanie roszczenia zostało zawieszone, do czasu przeprowadzenia pełnego dochodzenia. ± ± Prosimy o cierpliwość. O naszej decyzji poinformujemy po zakończeniu dochodzenia. ±</Message>
+		<Message>Brian Smily ± Claims Manager ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>Po gruntownym zbadaniu sprawy, z żalem informujemy, że wniosek o wypłatę odszkodowania z powodu śmierci najemnika: $MERCNAME$ został odrzucony. Polisa jest nieważna przez jedną godzinę. Więcej szczegółów można znaleźć w rozdziale Warunki polisy ubezpieczeniowej. ±</Message>
+		<Message>Brian Smily ± Kierownik działu odszkodowań ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>46</Sender>
+		<Subject>Roszczenie ubezpieczeniowe: $MERCNAME$</Subject>
+		<Message>After a thorough investigation, we regret to inform you that your death benefit claim for $MERCNAME$ has been refused. The particular nature of said death violates the contract you agreed upon. Please refer to the Policy Regulations section of your policy for further details. ±</Message>
+		<Message>Brian Smily ± Kierownik działu odszkodowań ± Malleus, Incus and Stapes ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- BOBBY RAY'S GUNS'N'THINGS -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>47</Sender>
+		<Subject>Dziękujemy za wizytę na naszej stronie.</Subject>
+		<Message>Twój adres e-mail został odnotowany podczas ostatniej wizyty na stronie Bobby Ray's - Broń i Akcesoria. ±</Message>
+		<Message>Informujemy, że z powodów technicznych, nasz serwer był odłączony przez jakiś czas, ale w tej chwili jest już w pełni sprawny. ± ± Serdecznie zapraszamy do odwiedzania naszej strony. ±</Message>
+	</EMAIL>
+	<!-- Bobby Rays shipment arrival -->
+	<EMAIL>
+		<!-- NOTE! This email contains special data that gets replaced during runtime. For it to work correctly, provide a valid iCurrentShipmentDestinationID when adding it via lua scripts. -->
+		<Sender>47</Sender>
+		<Subject>Dostawa od Bobby Ray's Guns and Things</Subject>
+		<Message>Ta wiadomość została wygenerowana automatycznie, przez system obsługujący zamówienia, aby odbiorca otrzymał ją w zakładanym terminie dostarczenia przesyłki.  ±</Message>
+		<Message>Twoje przesyłka dotarła bez opóźnień i powinna być już na lotnisku w $DESTINATIONNAME$.</Message>
+		<Message>Dziękujemy za korzystanie z naszych usług! ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>47</Sender>
+		<Subject>Dostawa od Bobby Ray's Guns and Things</Subject>
+		<Message>Ta wiadomość została wygenerowana automatycznie, przez system obsługujący zamówienia, aby odbiorca otrzymał ją w zakładanym terminie dostarczenia przesyłki. ±</Message>
+		<Message>Twoje przesyłka dotarła bez opóźnień i powinna być już na lotnisku w Medunie.</Message>
+		<Message>Dziękujemy za korzystanie z naszych usług! ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Kingpin -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>WAŻNE!</Subject>
+		<Message>Informuję Cię, że wiem, iż zabrałeś moje pieniądze. Masz 48 godzin na to, żeby zjawić się w moim domu i oddać mi je osobiście. Dołóż ekstra 25 procent żeby uspokoić moje nerwy. ±</Message>
+		<Message>Żeby wszystko było jasne - jeśli tego nie zrobisz, moi ludzie znajdą Cię i zabiją jak psa. Bez problemów odnalazłem Cię teraz, wiec moi ludzie bez problemu odnajdą Cię później. ±</Message>
+		<Message>Czekam na Ciebie, ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>Job Opportunity</Subject>
+		<Message>My associates have informed me that you are beginning to make quite an impression as of lately. Perhaps we can be of mutual assistance. ±</Message>
+		<Message>I am embarrassed to say that I have recently been the victim of a theft. Something quite valuable to me has been stolen. I am - for the moment - not sure who pulled the strings behind this one, but I soon will be. As you can imagine, I cannot let this stand.  ±</Message>
+		<Message>To get to the point: two siblings - Angel and Maria DaSilva - are trying to leave the country. They are likely hiding out in some farm in northern Arulco. I want them dead. You have one week. ±</Message>
+		<Message>I am offering a significant reward to whoever cleans up this problem for me. As we do not yet have an exclusive business relation, I also made this offer to other interest groups. Let me know if you are interested. ±</Message>
+		<Message>Regards, ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>Well done</Subject>
+		<Message>I am impressed. You carried out the job as I wanted. I've released the promised funds to you.  ±</Message>
+		<Message>This could be the beginning of a mutually beneficial cooperation. ±</Message>
+		<Message>Regards, ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>Failure</Subject>
+		<Message>It seems my initial assessment of your abilities was wrong. You had ample time to give me what I wanted, yet you failed. ±</Message>
+		<Message>Thankfully, someone more capable than you finished the job. ±</Message>
+		<Message>Disappointed, ± ± Kingpin ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>48</Sender>
+		<Subject>Failure</Subject>
+		<Message>It seems my initial assessment of your abilities was wrong. You had ample time to give me what I wanted, yet you failed. ±</Message>
+		<Message>My contacts inform me that other parties on the same job ran into some... obstacles. I hope for your sake you had nothing to do with it. ±</Message>
+		<Message>Disappointed, ± ± Kingpin. ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- John Kulba -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>Witaj</Subject>
+		<Message>To ja, John Kulba z Cleveland w Ohio. Chciałem ci podziękować za wszystko. ± ± Nawet nie wiesz jak jestem szczęśliwy, że jestem z powrotem w Stanach Zjednoczonych - kraju na tyle normalnym, że nigdy nie wybrano kobiety na prezydenta. ±</Message>
+		<Message>Wysłałem wczoraj ekspresem tą broń, którą ci obiecałem. Powinna być już w Drassen. Uważaj na nią. Trochę ją zmodyfikowałem i dają niezłego kopa. Upewnij się, że stoisz mocno na nogach zanim pociągniesz za spust. ±</Message>
+		<Message>Jeśli będziesz kiedyś w okolicy Wielkich Jezior, wpadnij do mnie. Pokażę ci okolicę. ± ± Jeszcze raz dziękuję, ± John Kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>Well, It's embarrassing</Subject>
+		<Message>It's me. John Kulba from Cleveland, Ohio. Thanks for giving me chance to fulfill my dream. Unfortunately, there's a small problem. ± ± I was just flying to Arulco to help you out, when I fell asleep on the plane, and missed the connecting flight. ±</Message>
+		<Message>Now I'm stuck in Tracona. I'll try to get to you as soon as possible, but it might take some time. I barely even managed to send this message, there's like a single laptop device with working network transmitter in an entire country. ± ± See ya soon, ± John Kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>Almost there</Subject>
+		<Message>It's me. John Kulba from Cleveland, Ohio. Looks like we've got another delay. ± ± I hired a helicopter pilot to fly me over the border to Arulco. But that punk crash-landed us in the middle of a goddamn nowhere! Never should've trust a damn hippie. ±</Message>
+		<Message>Good thing I didn't break my computer device during crash, so I can send you this message. Gotta figure out another mean of transportation. ± ± See ya soon, ± John Kulba ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>49</Sender>
+		<Subject>So close</Subject>
+		<Message>It's me. John Kulba from Cleveland, Ohio. ± ± OK, so this time I hired a guide to get me to Arulco on foot. Next thing I know, we're surrounded by a pack of overgrown kitties, and that punk just makes a run for it, leaving me behind. Me, an American citizen, left as a cat treat! ±</Message>
+		<Message>Had to spend half a day on a tree before they were gone. I think this time I'll just get back to city and wait for the next direct flight. No need to worry. By the way, Arulco is spelled "Arulco" in Traconian too, right? ± ± See ya soon, ± John Kulba ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- AIM -->
+	<!-- ############################## -->
+	<EMAIL>
+		<!-- NOTE! This email contains special data that gets replaced during runtime. -->
+		<Sender>50</Sender>
+		<Subject>A.I.M. - Informacja o śmierci</Subject>
+		<Message>Jako wartościowego klienta A.I.M. chcemy cię poinformować, że odszedł jeden z członków naszej organizacji. ±</Message>
+		<Message>$MERCNAME$ nie żyje. Ten tragiczny wypadek miał miejsce podczas akcji na Filipinach. ±</Message>
+		<Message>Mamy nadzieję, że nie komplikuje to twoich planów i chcemy przypomnieć, że A.I.M. wciąż oferuje szeroki wybór najlepszych najemników.</Message>
+		<Message>Mamy nadzieję, iż nadal będziemy mogli spełniać twoje wymagania i oczekujemy dalszej współpracy. ± ± Hans Yorgan ± Kierownik Działu Kadr. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Zwrot na podane konto</Subject>
+		<Message>Niniejszym potwierdzamy przelew $AMOUN$ na Twoje konto; przelewana kwota stanowi zwrot depozytu medycznego za: $MERCNAME$. ±</Message>
+		<Message>Hans Yorgan ± kierownik ds. personelu A.I.M. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Częściowy zwrot przelany na konto</Subject>
+		<Message>To jest potwierdzenie transferu $AMOUN$ na wasze konto. Kwota ta stanowi częściowy zwrot zastawu na życie najemnika: $MERCNAME$. ± ± Jak stanowią przepisy A.I.M. częściowy zwrot wynika z faktu, iż najemnik został ranny poczas operacji. ±</Message>
+		<Message>Hans Yorgan ± kierownik ds. personelu A.I.M. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Zastaw na życie przejęty</Subject>
+		<Message>W związku ze śmiercią najemnika: $MERCNAME$, z żalem zawiadamiamy, że kwota wpłacona jako zastaw na życie zostaje przejęta w myśl punktu 9.4 umowy z A.I.M. ±</Message>
+		<Message>Hans Yorgan ± kierownik ds. personelu A.I.M. ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Kerberus PMC -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>51</Sender>
+		<Subject>An exciting offer</Subject>
+		<Message>We at Kerberus Inc. offer a wide range of security personnel training and employ a significant number of trained security professionals. It has come to our attention that, in light of recent events, you might be needing to considerably expand your law enforcement forces. ±</Message>
+		<Message>Should that be the case, we would gladly be of service to you. Feel free to visit our website at http://www.kerberus.com for more information. ± ± Regards, ± Stan Duke, Chairman ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- Angel & Maria DaSilva -->
+	<!-- ############################## -->
+	<EMAIL>
+		<Sender>52</Sender>
+		<Subject>Thank you (again)</Subject>
+		<Message>Thank you, oh thank you again, my friend! We don't know how he learned, but Kingpin must have sent bounty hunters after us. They almost had us, but then disappeared. ±</Message>
+		<Message>Perhaps you kept them occupied, perhaps it was sheer luck (I believe the former). We've finally left the country and are now in a safer place. ±</Message>
+		<Message>May you be successful in your struggle. ± Angel &amp; Maria DaSilva ±</Message>
+	</EMAIL>
+	<!-- ############################## -->
+	<!-- JA2 UB Emails -->
+	<!-- ############################## -->
+	<!-- Enrico Chivaldori -->
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Na pomoc!!!Subject>
+		<Message>Wybacz, ale jeszcze raz muszę błagać o Twoją pomoc. Nad Arulco wisi nowa groźba. Wczoraj, w czasie ataku rakietowego, zostało zniszczone więzienie Tixa. Na szczęście obiekt ten nie jest już wykorzystywany, dlatego rannych nie zostało zbyt wielu ludzi. ±</Message>
+		<Message>Parę godzin później otrzymałem telefon od Korporacji Wydobywczej Ricciego. To właśnie ta organizacja doprowadziła do wyczerpania zasobów Arulco, prowadząc rabunkowe wydobycie na rzecz Deidranny. Korporacja Ricciego słynie z tego, że wyczerpała zasoby większości krajów w naszym rejonie. ±</Message>
+		<Message>Wszyscy wiedzą, że Ricci i jego organizacja korumpuje urzędników, miesza się do lokalnej polityki i zatrudnia najemników. Wygląda na to, że tym razem Korporacja zbudowała bazę w Traconie, kraju na północ od Arulco. Było to tym łatwiejsze, że w Traconie, po niedawnym puczu, rządzi armia. ±</Message>
+		<Message>Mam na terenie tego kraju człowieka, który potwierdził informacje o powstaniu wyrzutni pocisków. Korporacja Ricciego chce przejąć kopalnie Arulco, w przeciwnym razie będzie niszczyć kolejne miasta. Ricci grozi, że jeśli nie wpuścimy go do Arulco, to zasypie nas deszczem rakiet. ±</Message>
+		<Message>Nie mamy żadnej armii, a moi ludzie są już zmęczeni i mają dość wojny. Nie pragnę konfliktu z Traconą, ale wyrzutnia pocisków musi zostać zniszczona. Trzeba usunąć groźbę, wiszącą nad moim krajem. Kiedy pomyślałem, kto mógłby to zrobić, to pierwszą osobą, która przyszła mi do głowy, byłeś Ty. ±</Message>
+		<Message>Zorganizowałem helikopter, który przerzuci na teren Tracony sześcioosobową drużynę najemników. Sumę, która powinna wystarczyć na pokrycie wszystkich wydatków, przelałem na to konto, co zwykle. Będę z Tobą w kontakcie. ±</Message>
+		<Message>Powodzenia, przyjacielu. ± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Zapytanie</Subject>
+		<Message>Nie mam żadnych wiadomości od pilota, kapitana Jerry'ego Melo. Mam nadzieję, że nic mu się nie stało. Powinien już wrócić, a ciągle nie odezwał się ani słowem. Co byś radził zrobić w tej sytuacji. ± ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Ciągle żadnych wieści</Subject>
+		<Message>Od czasu Twojego wylotu z Arulco nie mam od ciebie żadnych wieści, a wasz pilot do tej pory nie wrócił. Nie wiem, co robić. Wylądowaliście na terenie Tracony? Los mojego kraju jest w waszych rękach. Muszę wiedzieć o postępach waszej misji. Niektórzy twierdzą, że uciekliście z naszymi pieniędzmi. ±</Message>
+		<Message>Zaprzeczyłem tym pogłoskom, ale ciągle bardzo mnie martwi brak jakichkolwiek wieści. ± ± Mam nadzieję, że z wami wszystko w porządku. ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Słyszałem Dobrą Nowinę.</Subject>
+		<Message>Z Omerta donoszą, że jesteście w Traconie i spotkaliście się z Manuelem. To dobry człowiek. Dla dobra Arulco poświęcił całe swoje życie, a nawet rodzinę. Wciąż się martwię. Dlaczego nie skontaktowaliście się ze mną od waszego przybycia. Napotykacie na większy opór, niż to przewidywaliśmy? ±</Message>
+		<Message>Słyszałem też, że Manuel pomaga wam w misji. Nie wiem, na ile się przyda, ale co do jego lojalności nie ma wątpliwości, a dzięki swojemu oddaniu zasłużył na miano bohatera. To człowiek, któremu z pewnością możesz zaufać. ±</Message>
+		<Message>Kończąc ten list, chcę Ci powiedzieć, że cieszy mnie, że jednak dotarliście do Tracony i znowu próbujecie uratować mój kraj przed tymi, którzy chcą naszej krzywdy. ± ± Powodzenia. ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Zaniepokojenie..</Subject>
+		<Message>To prawda, że nie wiem, kiedy przeciwnik rozpocznie atak na mój kraj, ale z każdą mijającą chwilą boję się, że całkowita zagłada Arulco jest już coraz bliżej. Błagam Cię, zażegnaj to niebezpieczeństwo jak najszybciej. ± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Pilne</Subject>
+		<Message>Korporacja Ricciego zagraża nam coraz bardziej. Wiedzą już, że jesteście w Traconie, i to na nas zrzucają winę za ten stan rzeczy. Musisz się pośpieszyć. Obawiam się, że już niedługo wystrzelą pociski, żeby dać nauczkę nam i sąsiednim krajom. ±</Message>
+		<Message>Wiem, że to nie jest łatwe, ale musisz znaleźć jakiś sposób, żeby jak najszybciej zakończyć całą misję. ± ± Błagam, pomóż, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Teraz rozumiem</Subject>
+		<Message>Otrzymałem Twój email. Przykro mi, że mieliście tyle kłopotów przez mojego pilota. Rozumiem, że brak komunikacji musiał wszystko jeszcze bardziej utrudnić. Nie mogłem znaleźć innego pilota w tak krótkim czasie. On nie był z Arulco. Zresztą tani też nie był. Wciąż nikt o nim nie słyszał. ±</Message>
+		<Message>Mam nadzieję, że kiedy będziesz czytać ten list, będziesz bezpieczny. ± ± Oddany, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Teraz rozumiem</Subject>
+		<Message>Otrzymałem Twój email. Przykro mi, że mieliście tyle kłopotów przez mojego pilota. Rozumiem, że brak komunikacji musiał wszystko jeszcze bardziej utrudnić. Nie mogłem znaleźć innego pilota w tak krótkim czasie. On nie był z Arulco. Zresztą tani też nie był. Wciąż nikt o nim nie słyszał. ±</Message>
+		<Message>Chcę Ci wynagrodzić dodatkowe kłopoty, które Ci sprawił. Przelałem na Twoje konto kolejną sumę pieniędzy. Mam nadzieję, że tyle wystarczy. Dobrze, że nikt z Twojej drużyny nie zginął, kiedy rozbił się helikopter. ±</Message>
+		<Message>Mam nadzieję, że kiedy będziesz czytać ten list, będziesz bezpieczny. ± ± Oddany, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>Znaleziono pilota</Subject>
+		<Message>Nie wiem, jak na to zareagujesz, ale okulary podobne do tych, które nosił wasz pilot, zostały znalezione w legowisku tygrysów. Podobno leżały obok kupki kości i małej ilości narkotyków. ± ± Enrico Chivaldori ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Powiadomiliśmy o Twoich wyczynach Miguela Cordonę. Biedak jest już bardzo osłabiony. Najprawdopodobniej nie dożyje jutra. Mimo tego, na dźwięk Twego imienia, na jego twarzy pojawił się uśmiech. Jestem pewien, że jego imię, podobnie jak Twoje, zapisze się złotymi literami w historii mojego kraju. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Powiadomiliśmy o Twoich wyczynach Miguela Cordonę. Biedak jest już bardzo osłabiony. Najprawdopodobniej nie dożyje jutra. Mimo tego, na dźwięk Twego imienia, na jego twarzy pojawił się uśmiech. Jestem pewien, że jego imię, podobnie jak Twoje, zapisze się złotymi literami w historii mojego kraju. ±</Message>
+		<Message>Śmierć Manuela rzuciła smutny cień na miasto Omerta. Ale Fatima to silna kobieta. Rozumie, że czasami trzeba się poświęcić dla dobra kraju. Zresztą sama robiła to w przeszłości wielokrotnie. Żal mi Pacosa, ale na pewno wyrośnie na syna godnego swojego bohaterskiego ojca. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Powiadomiliśmy o Twoich wyczynach Miguela Cordonę. Biedak jest już bardzo osłabiony. Najprawdopodobniej nie dożyje jutra. Mimo tego, na dźwięk Twego imienia, na jego twarzy pojawił się uśmiech. Jestem pewien, że jego imię, podobnie jak Twoje, zapisze się złotymi literami w historii mojego kraju. ±</Message>
+		<Message>Niedawno rozmawiałem z Fatimą. Nie może się doczekać powrotu męża, Manuela. Manuel, podobnie jak i Ty, wiele razy pomagał mojemu krajowi. Niełatwo teraz znaleźć takich ludzi. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Śmierć Manuela rzuciła smutny cień na miasto Omerta. Ale Fatima to silna kobieta. Rozumie, że czasami trzeba się poświęcić dla dobra kraju. Zresztą sama robiła to w przeszłości wielokrotnie. Żal mi Pacosa, ale na pewno wyrośnie na syna godnego swojego bohaterskiego ojca. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>0</Sender>
+		<Subject>GRATULACJE</Subject>
+		<Message>Mój kraj jeszcze raz zawdzięcza Ci przetrwanie. Po raz kolejny udowodniłeś, że dzięki swojemu doświadczeniu i zaangażowaniu potrafisz pomóc tym, którzy nie potrafią obronić się sami. Mieszkańcy Arulco są wdzięczni, że na świecie istnieją tacy żołnierze, jak Ty. ±</Message>
+		<Message>Niedawno rozmawiałem z Fatimą. Nie może się doczekać powrotu męża, Manuela. Manuel, podobnie jak i Ty, wiele razy pomagał mojemu krajowi. Niełatwo teraz znaleźć takich ludzi. ±</Message>
+		<Message>Także wiele krajów w naszym rejonie wyraziło ulgę z powodu zniszczenia wyrzutni pocisków. Wszyscy obawialiśmy się, że nic dobrego z tych rakiet nie wyniknie. Groźby Korporacji Wydobywczej Ricciego z pewnością niejednemu z przywódców spędziłyby sen z powiek. ±</Message>
+		<Message>Jeszcze raz dziękuję za pomoc. Chyba nie obrazisz się, jeśli powiem, że mam nadzieję, iż nigdy nie będę już zmuszony korzystać z Twoich usług. ± ± Przyjmij moje wielkie podziękowania, ± Enrico Chivaldori</Message>
+	</EMAIL>
+	<!-- IMP Emails -->
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>My wiemy, czego potrzebujesz.</Subject>
+		<Message>² ³ *** CHCESZ POZNAĆ SIEBIE *** ³ ³ Zrozumieć swój charakter, umiejętności i talenty, ³ ³ i wykorzystać wiedzę o własnych ograniczeniach. ³</Message>
+		<Message>² ³ Odkryj, kim naprawdę jesteś, ³ ³ i wykorzystaj tę wiedzę. ³ ³ Musisz tylko odwiedzić nasz serwis internetowy pod adresem: ³</Message>
+		<Message>² ³ I.M.P. ³ ³ Instytut Charakterystyki Najemników ³ ³ http://www.I.M.P.com ³ ± ³ Wystarczy tylko jedno kliknięcie... ³</Message>
+		<Message>Nasz Instytut zajmuje się charakterystyką najemników, a także analizą wyników tych badań, od ponad pięciu lat. Z naszych usług skorzystało wiele armii, firm typu Fortune 500, a nawet wojowników z plemion Afryki. Wiemy TO, co TY musisz wiedzieć. ±</Message>
+		<Message>A musisz wiedzieć, jak wyjść z walki bez szwanku. Stosując nasze sprawdzone metody, nauczysz się rozumieć samego siebie, tak jak rozumiesz swoją broń. Dowiesz się o swoich zaletach i wadach, zrozumiesz, kiedy pójść na całość, a kiedy poszukać ukrycia. Nasze metody są proste, skuteczne i tanie. ±</Message>
+		<Message>Opierając się na informacjach od naszych klientów, przez ponad pięć lat zbieraliśmy doświadczenie i ulepszaliśmy nasze metody, oparte na naukowych podstawach charakterystyki osób. Zrezygnowaliśmy z długich formularzy i szczegółowych przesłuchań. ±</Message>
+		<Message>Dzięki temu nasze usługi stały się równie bezbolesne, jak codzienna zmiana bielizny, a analiza charakterystyki stała się bardziej precyzyjna. W Twojej branży stawką jest życie - dzięki nam wszystko skończy się szczęśliwie. Ponad 80%% naszych klientów przeżyło misje, w których brali udział. ±</Message>
+		<Message>² Twój osobisty kod aktywacji to: GP97SL ² ± ± Kod ten został nadany tylko Tobie i tylko Ty możesz z niego korzystać. To dodatkowe zabezpieczenie zostało przez nas wprowadzone, by zapewnić naszym klientom jeszcze większe bezpieczeństwo. ±</Message>
+		<Message>Organa ścigania powiadamia się niniejszym, że ta informacja i dane w niej zawarte służą jedynie celom ROZRYWKOWYM, a IMP nie zajmuje się prawdziwymi najemnikami, ani nie stosuje nielegalnych praktyk. ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>1</Sender>
+		<Subject>Ważne przypomnienie od IMP.</Subject>
+		<Message>Nasz system powiadomił nas o fakcie, że nie odwiedziłeś naszego serwisu internetowego i nie skorzystałeś z naszych usług. Twój osobisty kod aktywacji, GP97SL, niedługo straci ważność. Stanowczo zalecamy, byś złożył nam wizytę, co pozwoli Ci odkryć niezwykłe możliwości, które oferujemy. ±</Message>
+		<Message>Nasz Instytut Charakterystyki Najemników określił już, że jesteś nastawiony bardzo sceptycznie do okazji, które wydają się zbyt dobre, by były realne. Obawiasz się nieznanych terenów, ale tak bardzo ciągnie Cię do walki, że nie doceniasz szczegółów, mogących w przyszłości uratować Ci życie. ±</Message>
+		<Message>Jesteś też, o czym od dawna wiemy, idealną osobą, by skorzystać z naszych usług. Za niewielką opłatą, w wysokości 3000 dolarów, możemy Ci powiedzieć wiele o Tobie samym i o Twoich umiejętnościach. Wystarczy, żebyś poświęcił trochę czasu na wizytę na naszej stronie internetowej. ±</Message>
+		<Message>ODWIEDŹ NAS TERAZ! ± ± Nie pożałujesz, że to zrobiłeś. ± A my postaramy się udzielić Ci najlepszej możliwej pomocy. ±</Message>
+	</EMAIL>
+	<!-- Miguel Cordona -->
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>Witaj stary przyjacielu.</Subject>
+		<Message>Wybacz, że przesyłać Ci tę wiadomość z opóźnieniem. Enrico powiedzieć, że być problemy z kontaktem z Twoja drużyna. Chcę Ci życzyć szczęścia. Wdzięczny Ci jestem, że nam pomagasz. Może dzięki Twoim umiejętnościom, marzenie mojego kraju zostanie spełnione. ±</Message>
+		<Message>Ja spać spokojnie bo wiedzieć, że Ty się tym zająłeś. ± Jeszcze raz stokrotne dzięki, ± ± Miguel Cordona ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>Przepraszam.</Subject>
+		<Message>Przykro mi, że ja nie sprawdzić się jako przywódca. Nie czuć się dobrze. Moje obowiązki przejąć Enrico. Więcej o moim położeniu ja dowiedzieć się w najbliższym czasie. Szkoda, że nie mogę być z Tobą i walczyć za tę ważną sprawę. ±</Message>
+		<Message>Kiedy mi się poprawi, ja wyruszyć do Tracony i pomóc Ci w walce. Nie mogę się tego doczekać. ± ± Jeszcze raz, stokrotne dzięki, ± Miguel Cordona</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>Przepraszam.</Subject>
+		<Message>Przykro mi, że ja nie sprawdzić się jako przywódca. Nie czuć się dobrze. Moje obowiązki przejąć Enrico. Więcej o moim położeniu ja dowiedzieć się w najbliższym czasie. Szkoda, że nie mogę być z Tobą i walczyć za tę ważną sprawę. ±</Message>
+		<Message>Podobno mój dobry przyjaciel być w Twojej drużynie. To wspaniały człowiek. Nikt nie poświęcił dla Arulco tyle co on. Wiedział, ile ryzykuje, zanim on wstąpić do wojska. Trudne musi być życie ze świadomością, że jeśli wróg się o wszystkim dowie, może cię zabić. ±</Message>
+		<Message>Już niedługo mi będę wiedział, co mi jest. Wtedy ja wyruszyć do Tracony i pomóc Ci w walce. Nie mogę się tego doczekać. ± ± Jeszcze raz, stokrotne dzięki, ± Miguel Cordona</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>53</Sender>
+		<Subject>Niedobre wieści.</Subject>
+		<Message>Ja rozmawiać z lekarzem. Wieści nie być dobre. On mi powiedzieć, że ja nie mieć dużo życia przed sobą. Już nie wyzdrowieję. Ja próbować zrozumieć, co oni do mnie mówić, ale to trudne. To dziwne, że mi nie dać rady pociski i bomby, a teraz ja umierać przez papierosy. ±</Message>
+		<Message>Nic nie da się zrobić. Tylko Bóg i czas mogą coś zmienić. Proszę Cię, pomóż Arulco, niech ja wiedzieć, że mój kraj znowu być wolny od zagrożenia. ± ± Miguel Cordona</Message>
+	</EMAIL>
+	<!-- AIM -->
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Oferta specjalna z A.I.M.</Subject>
+		<Message>± Drogi kliencie! ± ± W związku z ostatnimi zmianami na rynku, A.I.M. postanowiło nagrodzić swoich klientów, oferując im niezwykłą okazję. Podczas gdy konkurencja, oferuje podrzędnych najemników za niską cenę, my proponujemy coś nowego. ±</Message>
+		<Message>Wszyscy nasi niezwykle utalentowani członkowie są teraz dostępni na czas całej misji po uiszczeniu jednej tylko opłaty. Tak, to prawda! Możesz korzystać z usług naszych najemników aż do zakończenia misji. Wystarczy tylko z góry uiścić opłatę. ±</Message>
+		<Message>A jeśli i to dla Ciebie za mało, to w ramach promocji, A.I.M. dorzuca teraz dodatkowo pełne wyposażenie każdego najemnika. Tak, nie pomyliliśmy się! Jedna opłata pokrywa koszty wynajęcia najemnika i jego wyposażenia początkowego na okres trwania całej misji! ±</Message>
+		<Message>Odwiedź oficjalną stronę internetową A.I.M. teraz i skorzystaj z naszej wspaniałej oferty, zanim ulegnie ona wyczerpaniu. To po prostu zbyt dobra okazja, by ją przegapić!</Message>
+		<Message>Z poważaniem, ± ± Howard "Carp" Melfield ± Menadżer ds. Marketingu ± Międzynarodowe Stowarzyszenie Najemników ±</Message>
+		<Message>WAŻNE: Oferta dotyczy wyłącznie dotychczasowych klientów. ± Nie dotyczy krajów, w których działalność taka jest zabroniona. ± Nie można jej łączyć z innymi akcjami promocyjnymi. ± Werbunek odbywa się zgodnie z zasadą "kto pierwszy, ten lepszy".</Message>
+		<Message></Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Promocja w A.I.M. - Oferta dodatkowa</Subject>
+		<Message>Drogi kliencie! ± ± Z wielką przyjemnością informujemy, że w ramach trwającej obecnie akcji promocyjnej, proponujemy ofertę dodatkową. Przez ograniczony okres, A.I.M dodaje do każdego zatrudnionego najemnika oryginalną menażkę typu "Che Guevara". ±</Message>
+		<Message>Ta wykonana z ręcznie kształtowanej blachy menażka znajduje się w pokrowcu z wełny andyjskich owiec. W jej wnętrzu znajdziesz świeżą wodę z alpejskich źródeł. To prawdziwa okazja. Możesz ją mieć zupełnie za darmo. Wystarczy, że werbując kolejnego najemnika, skorzystasz z usług A.I.M. ±</Message>
+		<Message>Z poważaniem, ± ± Howard "Carp" Melfield ± Menadżer ds. marketingu ± Międzynarodowe Stowarzyszenie Najemników ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Promocja w A.I.M. - Oferta dodatkowa</Subject>
+		<Message>± Drogi kliencie! ± ± Rozumiemy, że teraz, gdy na rynku panuje coraz większa konkurencja, klient może czuć się zagubiony. Jest dostępnych tak wiele ofert, że wszystko to może się po prostu wydawać bardzo zagmatwane. ±</Message>
+		<Message>Skup się na tym, co naprawdę jest ważne - czyli na PROFESJONALNYCH NAJEMNIKACH z naprawdę PRZYDATNYMI dodatkami. To prawda! Właśnie dlatego pragniemy Cię poinformować o naszej nowej ofercie promocyjnej - autentyczny nóż bojowy z Farmy Aligatorów i Sklepu z Podarunkami Sama Garvera. ±</Message>
+		<Message>Nóż ten, słynny na całym świecie ze swojego galwanizowanego ostrza i rękojeści pokrytej skórą aligatora, pomoże Ci wykonać każdą misję do końca. W tym samym pomogą Ci nasi najemnicy. Pamiętaj, ta oferta jest dostępna TYLKO w A.I.M. Wystarczy, że to u nas zwerbujesz kolejnego najemnika. ±</Message>
+		<Message>Z poważaniem, ± ± Howard "Carp" Melfield ± Menadżer ds. marketingu ± Międzynarodowe Stowarzyszenie Najemników ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>50</Sender>
+		<Subject>Zwrot pieniędzy na konto</Subject>
+		<Message>Zgodnie z nowo ustalonym protokołem dotyczącym rezygnacji z usług naszych członków jeszcze przed rozpoczęciem misji, A.I.M przelało na Twoje konto pełną kwotę opłaty, pobranej wcześniej za usługi najemnika $MERCNAME$. ±</Message>
+		<Message>Przepraszamy za niedogodności, które mogły wyniknąć z zaistniałej sytuacji. ± ± Hans Yorgan ± Dyrektor ds. personelu A.I.M. ±</Message>
+	</EMAIL>
+	<!-- Speck -->
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Jeszcze lepsza oferta z M.E.R.C.</Subject>
+		<Message>Witamy! ± ± Prowadzenie interesów z M.E.R.C ma swoje zalety. Na przykład to, że można otrzymać zaproszenie do odwiedzenia naszej strony internetowej od samego właściciela agencji, a nie od jakiegoś podrzędnego eks-najemnika! ±</Message>
+		<Message>Jesteśmy po to, by zaspakajać Twoje potrzeby. Właśnie dlatego, jeśli skorzystasz z oferty M.E.R.C., czyli Bardziej Ekonomicznego Centrum Rekrutacji (More Economical Recruitment Center), otrzymasz nasz oryginalny wielofunkcyjny zegarek. ±</Message>
+		<Message>Nasza Flo zgodziła się pozować w bardzo skąpym bikini. Potem tajwańscy zegarmistrzowie umieścili jej wizerunek na tarczy zegarka. A nogi wstawili jako wskazówki. Wynik jest, krótko mówiąc, zaskakujący. Teraz możesz zabrać wstrząsoodporną Flo do walki i pozwolić jej, by pokazywała Ci czas. ±</Message>
+		<Message>Uwierz mi, wciąż nie będziesz się mógł doczekać, aż będzie 9:15. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+	<EMAIL>
+		<Sender>4</Sender>
+		<Subject>Przedwczesne rozwiązanie kontraktu</Subject>
+		<Message>Wygląda na to, że nie chcesz już korzystać z usług najemnika: $MERCNAME$. Choć nie jestem zadowolony z tego nieoczekiwanego obrotu sprawy, to niechętnie, ale zwracam zapłaconą przez Ciebie kwotę minus 10 dolarów na pokrycie kosztów administracyjnych. ±</Message>
+		<Message>Byłoby dobrze, gdybyś w przyszłości nie traktował moich ludzi jak zabawki. ± ± Speck T. Kline ±</Message>
+	</EMAIL>
+</EMAILS>
