@@ -84,6 +84,15 @@ http://legion.itzg.pl/mzgb/pmwiki/pmwiki.php?n=JaggedAlliance2UBV1.Jav113lua
 		ubSender - uiIndex from SenderNameList.xml
 		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
 		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
+
+	- AddEmailFromXML (uiIndex, PreRead, iCurrentIMPPosition, iCurrentShipmentDestinationID, MoneyAmount, MercID, specialData)
+		uiIndex - Position of email in Emails.xml 
+		PreRead - true/false whether the email shows up as already read or not. Default value is false.
+		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
+		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
+		MoneyAmount - Default = -1, or the value that replaces special string variable $AMOUN$.
+		MercID - Default = -1, or the merc ID that is used to replace the special string variable $MERCNAME$ with the merc name.
+		specialData3 - Default = -1, or the offset of a special email event data, such as IMP_EMAIL_INTRO, which will add IMP website to bookmarks after opening the email.
 	
 	- HireMerc (MercID)
 		hires the merc with the specified MercID
@@ -504,15 +513,23 @@ function InitNewGame()
   	
 	  if ( is_networked == 0 ) then
 		-- Setup two new messages!
-		AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,Sender.MAIL_ENRICO)
-		AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,Sender.MAIL_ENRICO)
-		AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,Sender.RIS_EMAIL)
-		AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,Sender.MAIL_ENRICO )
+		--AddPreReadEmail(OLD_ENRICO_1,OLD_ENRICO_1_LENGTH,Sender.MAIL_ENRICO)
+		--AddPreReadEmail(OLD_ENRICO_2,OLD_ENRICO_2_LENGTH,Sender.MAIL_ENRICO)
+		--AddPreReadEmail(RIS_REPORT,RIS_REPORT_LENGTH,Sender.RIS_EMAIL)
+		--AddPreReadEmail(OLD_ENRICO_3,OLD_ENRICO_3_LENGTH,Sender.MAIL_ENRICO )
 
-		AddEmail (IMP_EMAIL_INTRO, IMP_EMAIL_INTRO_LENGTH, Sender.CHAR_PROFILE_SITE, -1, -1)
+		-- Using externalized emails instead of old .EDT data
+		AddEmailFromXML(0, true)
+		AddEmailFromXML(1, true)
+		AddEmailFromXML(24, true) --RIS Report
+		AddEmailFromXML(2, true)
+
+		--AddEmail (IMP_EMAIL_INTRO, IMP_EMAIL_INTRO_LENGTH, Sender.CHAR_PROFILE_SITE, -1, -1)
+		AddEmailFromXML(16, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --IMP offer email
 		
 		if( iniMERC_WEBSITE_IMMEDIATELY_AVAILABLE == true ) then
-			AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1, -1)
+			--AddEmail (MERC_INTRO, MERC_INTRO_LENGTH, Sender.SPECK_FROM_MERC, -1, -1)
+			AddEmailFromXML(18, false, -1, -1, -1, -1, MERC_INTRO)
 		end
 	end
 	

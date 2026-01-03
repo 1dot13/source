@@ -84,6 +84,15 @@ http://legion.itzg.pl/mzgb/pmwiki/pmwiki.php?n=JaggedAlliance2UBV1.Jav113lua
 		ubSender - uiIndex from SenderNameList.xml
 		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
 		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
+
+	- AddEmailFromXML (uiIndex, PreRead, iCurrentIMPPosition, iCurrentShipmentDestinationID, MoneyAmount, MercID, specialData)
+		uiIndex - Position of email in Emails.xml 
+		PreRead - true/false whether the email shows up as already read or not. Default value is false.
+		iCurrentIMPPosition - Default = -1, or the profile ID of the IMP 
+		iCurrentShipmentDestinationID - Default = -1, or the Bobby Ray shipment destination ID
+		MoneyAmount - Default = -1, or the value that replaces special string variable $AMOUN$.
+		MercID - Default = -1, or the merc ID that is used to replace the special string variable $MERCNAME$ with the merc name.
+		specialData3 - Default = -1, or the offset of a special email event data, such as IMP_EMAIL_INTRO, which will add IMP website to bookmarks after opening the email.
 	
 	- HireMerc (MercID)
 		hires the merc with the specified MercID
@@ -903,12 +912,17 @@ function InitNewGame()
   	if ( is_networked == 0 ) then
 
 		--Add the initial email from enrico
-		AddEmail( EMAIL_STARTGAME, EMAIL_STARTGAME_LENGTH, Sender.MAIL_ENRICO, -1 , -1 )
+		--AddEmail( EMAIL_STARTGAME, EMAIL_STARTGAME_LENGTH, Sender.MAIL_ENRICO, -1 , -1 )
 
 		--Add the initial email from AIM
-		AddEmail( EMAIL_AIMDISCOUNT, EMAIL_AIMDISCOUNT_LENGTH, Sender.AIM_SITE, -1 , -1 )
+		--AddEmail( EMAIL_AIMDISCOUNT, EMAIL_AIMDISCOUNT_LENGTH, Sender.AIM_SITE, -1 , -1 )
 		
-		AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,Sender.CHAR_PROFILE_SITE,  -1 , -1 )
+		--AddEmail(IMP_EMAIL_INTRO,IMP_EMAIL_INTRO_LENGTH,Sender.CHAR_PROFILE_SITE,  -1 , -1 )
+
+		-- Using externalized emails instead of old .EDT data
+		AddEmailFromXML(49, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --Enrico help request
+		AddEmailFromXML(71, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --AIM offer email
+		AddEmailFromXML(64, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --IMP offer email
 		
 	end	
 	
