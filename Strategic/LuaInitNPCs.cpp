@@ -405,7 +405,7 @@ static int l_AddToShouldBecomeHostileOrSayQuoteList(lua_State* L);
 
 static int l_AddPreReadEmail(lua_State* L);
 static int l_AddEmail(lua_State* L);
-static int l_AddEmailXML(lua_State* L);
+static int l_AddEmailMercAvailableXML(lua_State* L);
 static int l_AddEmailLevelUpXML(lua_State* L);
 static int l_AddEmailFromXML(lua_State* L);
 
@@ -1027,7 +1027,7 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 
 	lua_register(L, "AddPreReadEmail", l_AddPreReadEmail);
 	lua_register(L, "AddEmail", l_AddEmail);
-	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
+	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailMercAvailableXML);
 	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
 	lua_register(L, "AddEmailFromXML", l_AddEmailFromXML);
 
@@ -7450,7 +7450,7 @@ static int l_ExecuteStrategicAIAction(lua_State* L)
 
 
 //AddEmailXML
-static int l_AddEmailXML(lua_State* L)
+static int l_AddEmailMercAvailableXML(lua_State* L)
 {
 	if (lua_gettop(L))
 	{
