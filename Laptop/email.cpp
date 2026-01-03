@@ -1370,217 +1370,208 @@ void AddMessageToPages(INT32 iMessageId)
 	return;
 }
 
-void SortMessages(INT32 iCriteria)
+static void SortMessages(INT32 iCriteria)
 {
-	EmailPtr pA=pEmailList;
-	EmailPtr pB=pEmailList;
-	CHAR16 pSubjectA[256];
-	CHAR16 pSubjectB[256];
+    EmailPtr pA = pEmailList;
+    EmailPtr pB = pEmailList;
+    CHAR16 pSubjectA[256];
+    CHAR16 pSubjectB[256];
 
-	// no messages to sort?
-	if( ( pA == NULL) ||( pB == NULL ) )
-	{
-		return;
-	}
+    // no messages to sort?
+    if ( (pA == NULL) || (pB == NULL) )
+    {
+        return;
+    }
 
-	// nothing here either?
-	if(!pA->Next)
-		return;
+    // nothing here either?
+    if ( !pA->Next )
+        return;
 
-	pB=pA->Next;
-	switch(iCriteria)
-	{
-		case RECEIVED:
-		while(pA)
-			{
+    pB = pA->Next;
+    switch ( iCriteria )
+    {
+        case RECEIVED:
+            while ( pA )
+            {
+                // set B to next in A
+                pB = pA->Next;
+                while ( pB )
+                {
 
-				// set B to next in A
-				pB=pA->Next;
-				while(pB)
-				{
-
-					if( fSortDateUpwards )
-					{
-							// if date is lesser, swap
-					if(pA->iDate > pB->iDate)
-						SwapMessages(pA->iId, pB->iId);
-					}
-					else
-					{
-						// if date is lesser, swap
-					if(pA->iDate < pB->iDate)
-						SwapMessages(pA->iId, pB->iId);
-					}
-
-
-					// next in B's list
-					pB=pB->Next;
-				}
-
-				// next in A's List
-		pA=pA->Next;
-			}
-			break;
-		case SENDER:
-			while(pA)
-			{
-
-				pB = pA->Next;
-				while(pB)
-				{
-			// lesser string?...need sorting
-					if( fSortSenderUpwards )
-					{
-					if(( wcscmp( pSenderNameList[pA->ubSender] , pSenderNameList[pB->ubSender] ) ) < 0 )
-						SwapMessages(pA->iId, pB->iId);
-					}
-					else
-					{
-						if(( wcscmp( pSenderNameList[pA->ubSender] , pSenderNameList[pB->ubSender] ) ) > 0 )
-						SwapMessages(pA->iId, pB->iId);
-					}
-					// next in B's list
-					pB=pB->Next;
-				}
-			// next in A's List
-				pA=pA->Next;
-			}
-			break;
-	case SUBJECT:
-			while(pA)
-			{
-
-				pB = pA->Next;
-				while(pB)
-				{
-					// clear out control codes
-					CleanOutControlCodesFromString( pA->pSubject,	pSubjectA );
-			CleanOutControlCodesFromString( pB->pSubject,	pSubjectB );
-
-					// lesser string?...need sorting
-					if( fSortSubjectUpwards )
-					{
-					if( ( wcscmp( pA->pSubject ,pB->pSubject ) ) < 0)
-						SwapMessages(pA->iId, pB->iId);
-			}
-					else
-					{
-						if( ( wcscmp( pA->pSubject ,pB->pSubject ) ) > 0)
-						SwapMessages(pA->iId, pB->iId);
-					}
-					// next in B's list
-					pB=pB->Next;
-				}
-				// next in A's List
-		pA=pA->Next;
-			}
-			break;
-
-	case READ:
-			while(pA)
-			{
-
-				pB = pA->Next;
-				while(pB)
-				{
-					// one read and another not?...need sorting
-					if( ( pA->fRead ) && ( ! ( pB->fRead ) ) )
-						SwapMessages(pA->iId, pB->iId);
-
-					// next in B's list
-					pB=pB->Next;
-				}
-				// next in A's List
-		pA=pA->Next;
-			}
-			break;
-	}
+                    if ( fSortDateUpwards )
+                    {
+                        // if date is lesser, swap
+                        if ( pA->iDate > pB->iDate )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
+                    else
+                    {
+                        // if date is lesser, swap
+                        if ( pA->iDate < pB->iDate )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
 
 
-	// place new list into pages of email
-	//PlaceMessagesinPages();
+                    // next in B's list
+                    pB = pB->Next;
+                }
 
-	// redraw the screen
-	fReDrawScreenFlag=TRUE;
+                // next in A's List
+                pA = pA->Next;
+            }
+            break;
+        case SENDER:
+            while ( pA )
+            {
+                pB = pA->Next;
+                while ( pB )
+                {
+                    // lesser string?...need sorting
+                    if ( fSortSenderUpwards )
+                    {
+                        if ( (wcscmp(pSenderNameList[pA->ubSender], pSenderNameList[pB->ubSender])) < 0 )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
+                    else
+                    {
+                        if ( (wcscmp(pSenderNameList[pA->ubSender], pSenderNameList[pB->ubSender])) > 0 )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
+                    // next in B's list
+                    pB = pB->Next;
+                }
+                // next in A's List
+                pA = pA->Next;
+            }
+            break;
+        case SUBJECT:
+            while ( pA )
+            {
+                pB = pA->Next;
+                while ( pB )
+                {
+                    // clear out control codes
+                    CleanOutControlCodesFromString(pA->pSubject, pSubjectA);
+                    CleanOutControlCodesFromString(pB->pSubject, pSubjectB);
+
+                    // lesser string?...need sorting
+                    if ( fSortSubjectUpwards )
+                    {
+                        if ( (wcscmp(pA->pSubject, pB->pSubject)) < 0 )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
+                    else
+                    {
+                        if ( (wcscmp(pA->pSubject, pB->pSubject)) > 0 )
+                            SwapMessages(pA->iId, pB->iId);
+                    }
+                    // next in B's list
+                    pB = pB->Next;
+                }
+                // next in A's List
+                pA = pA->Next;
+            }
+            break;
+
+        case READ:
+            while ( pA )
+            {
+                pB = pA->Next;
+                while ( pB )
+                {
+                    // one read and another not?...need sorting
+                    if ( (pA->fRead) && (!(pB->fRead)) )
+                        SwapMessages(pA->iId, pB->iId);
+
+                    // next in B's list
+                    pB = pB->Next;
+                }
+                // next in A's List
+                pA = pA->Next;
+            }
+            break;
+    }
+
+    // place new list into pages of email
+    //PlaceMessagesinPages();
+
+    // redraw the screen
+    fReDrawScreenFlag = TRUE;
 }
 
 void SwapMessages(INT32 iIdA, INT32 iIdB)
 {
- // swaps locations of messages in the linked list
- EmailPtr pA=pEmailList;
- EmailPtr pB=pEmailList;
- EmailPtr pTemp= (EmailPtr) MemAlloc(sizeof(Email) );
- pTemp->pSubject = (STR16) MemAlloc( 128 * sizeof(CHAR16) );
+    // swaps locations of messages in the linked list
+    EmailPtr pA = pEmailList;
+    EmailPtr pB = pEmailList;
+    EmailPtr pTemp = (EmailPtr)MemAlloc(sizeof(Email));
+    pTemp->pSubject = (STR16)MemAlloc(128 * sizeof(CHAR16));
 
- memset( pTemp->pSubject, 0, sizeof( CHAR16 ) * 128 );
+    memset(pTemp->pSubject, 0, sizeof(CHAR16) * 128);
 
- if(!pA->Next)
-	return;
- //find pA
- while(pA->iId!=iIdA)
-	pA=pA->Next;
- // find pB
- while(pB->iId!=iIdB)
-	pB=pB->Next;
+    if ( !pA->Next )
+        return;
+    //find pA
+    while ( pA->iId != iIdA )
+        pA = pA->Next;
+    // find pB
+    while ( pB->iId != iIdB )
+        pB = pB->Next;
 
- // swap
+    // swap
 
- // pTemp becomes pA
- pTemp->iId=pA->iId;
- pTemp->fRead=pA->fRead;
- pTemp->fNew=pA->fNew;
- pTemp->usOffset=pA->usOffset; 
- pTemp->EmailVersion=pA->EmailVersion;
- pTemp->usLength=pA->usLength;
- pTemp->iDate=pA->iDate;
- pTemp->ubSender=pA->ubSender;
- 
- if ( pA->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
-  wcscpy(pTemp->pSubject,EmailMercAvailableText[pA->ubSender].szSubject);
- else if ( pA->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
-  wcscpy(pTemp->pSubject,EmailMercLevelUpText[pA->ubSender].szSubject);
- else if ( pA->EmailVersion == TYPE_EMAIL_OTHER )
-	wcscpy(pTemp->pSubject,EmailOtherText[pA->usLength].szSubject);
- else if ( pA->EmailVersion == TYPE_EMAIL_BOBBY_R || pA->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT )				
- wcscpy(pTemp->pSubject,pA->pSubject);
- else if ( pA->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pA->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pA->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
- wcscpy(pTemp->pSubject,pA->pSubject);
+    // pTemp becomes pA
+    pTemp->iId = pA->iId;
+    pTemp->fRead = pA->fRead;
+    pTemp->fNew = pA->fNew;
+    pTemp->usOffset = pA->usOffset;
+    pTemp->EmailVersion = pA->EmailVersion;
+    pTemp->usLength = pA->usLength;
+    pTemp->iDate = pA->iDate;
+    pTemp->ubSender = pA->ubSender;
 
- // pA becomes pB
- pA->iId=pB->iId;
- pA->fRead=pB->fRead;
- pA->fNew=pB->fNew;
- pA->usOffset=pB->usOffset;
- pA->EmailVersion=pB->EmailVersion;
- pA->usLength=pB->usLength;
- pA->iDate=pB->iDate;
- pA->ubSender=pB->ubSender;
- wcscpy(pA->pSubject, pB->pSubject);
+    if ( pA->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
+        wcscpy(pTemp->pSubject, EmailMercAvailableText[pA->ubSender].szSubject);
+    else if ( pA->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
+        wcscpy(pTemp->pSubject, EmailMercLevelUpText[pA->ubSender].szSubject);
+    else if ( pA->EmailVersion == TYPE_EMAIL_OTHER )
+        wcscpy(pTemp->pSubject, EmailOtherText[pA->usLength].szSubject);
+    else
+        wcscpy(pTemp->pSubject, pA->pSubject);
 
-// pB becomes pTemp
- pB->iId=pTemp->iId;
- pB->fRead=pTemp->fRead;
- pB->fNew=pTemp->fNew;
- pB->usOffset=pTemp->usOffset;
- pB->EmailVersion=pTemp->EmailVersion;
- pB->usLength=pTemp->usLength;
- pB->iDate=pTemp->iDate;
- pB->ubSender=pTemp->ubSender;
- 
- if ( pB->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
-  wcscpy(pB->pSubject,EmailMercAvailableText[pTemp->ubSender].szSubject);
- else if ( pB->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
-  wcscpy(pB->pSubject,EmailMercLevelUpText[pTemp->ubSender].szSubject);
- else if ( pB->EmailVersion == TYPE_EMAIL_OTHER )
-	wcscpy(pB->pSubject,EmailOtherText[pTemp->usLength].szSubject);
- else if ( pB->EmailVersion == TYPE_EMAIL_BOBBY_R || pB->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT )
- wcscpy(pB->pSubject, pTemp->pSubject);
- else if ( pB->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pB->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pB->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
- wcscpy(pB->pSubject, pTemp->pSubject);
+    // pA becomes pB
+    pA->iId = pB->iId;
+    pA->fRead = pB->fRead;
+    pA->fNew = pB->fNew;
+    pA->usOffset = pB->usOffset;
+    pA->EmailVersion = pB->EmailVersion;
+    pA->usLength = pB->usLength;
+    pA->iDate = pB->iDate;
+    pA->ubSender = pB->ubSender;
+    wcscpy(pA->pSubject, pB->pSubject);
 
- // free up memory
- MemFree(pTemp->pSubject);
- MemFree( pTemp );
+    // pB becomes pTemp
+    pB->iId = pTemp->iId;
+    pB->fRead = pTemp->fRead;
+    pB->fNew = pTemp->fNew;
+    pB->usOffset = pTemp->usOffset;
+    pB->EmailVersion = pTemp->EmailVersion;
+    pB->usLength = pTemp->usLength;
+    pB->iDate = pTemp->iDate;
+    pB->ubSender = pTemp->ubSender;
+
+    if ( pB->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
+        wcscpy(pB->pSubject, EmailMercAvailableText[pTemp->ubSender].szSubject);
+    else if ( pB->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
+        wcscpy(pB->pSubject, EmailMercLevelUpText[pTemp->ubSender].szSubject);
+    else if ( pB->EmailVersion == TYPE_EMAIL_OTHER )
+        wcscpy(pB->pSubject, EmailOtherText[pTemp->usLength].szSubject);
+    else
+        wcscpy(pB->pSubject, pTemp->pSubject);
+
+    // free up memory
+    MemFree(pTemp->pSubject);
+    MemFree(pTemp);
 }
 
 void ClearPages()
