@@ -663,9 +663,6 @@ void RenderEmail( void )
 void AddCustomEmail(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType )
 {
 	CHAR16 pSubject[MAIL_STRING_SIZE];
-	//MessagePtr pMessageList;
-	//MessagePtr pMessage;
-	//CHAR16 pMessageString[320];
 	
 	LoadEncryptedDataFromFile(EMAIL_EDT_CUSTOM_FILE, pSubject, MAIL_STRING_SIZE*(iMessageOffset), MAIL_STRING_SIZE);
 	// add message to list
@@ -862,9 +859,6 @@ void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSende
 {
 	CHAR16 pSubject[MAIL_STRING_SIZE];
 	UINT8 subjectLine = 0;
-	//MessagePtr pMessageList;
-	//MessagePtr pMessage;
-	//CHAR16 pMessageString[320];
 	
 	LoadEncryptedDataFromFile(EMAIL_EDT_FILE_JA2, pSubject, MAIL_STRING_SIZE*(iMessageOffset), MAIL_STRING_SIZE);
 	
