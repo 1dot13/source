@@ -112,8 +112,6 @@ static int l_CheckMission(lua_State* L);
 
 void FatigueCharacter(SOLDIERTYPE* pSoldier);
 
-static int l_AddCustomEmail(lua_State* L);
-
 static int l_SetDefaultArrivalSector(lua_State* L);
 static int l_GetDefaultArrivalSector(lua_State* L);
 static int l_SetMercArrivalLocation(lua_State* L);
@@ -1642,8 +1640,6 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 
 	lua_register(L, "ReStartingGame", l_ReStartingGame);
 
-	lua_register(L, "AddCustomEmail", l_AddCustomEmail);
-
 	lua_register(L, "SetDefaultArrivalSector", l_SetDefaultArrivalSector);
 	lua_register(L, "GetDefaultArrivalSector", l_GetDefaultArrivalSector);
 	lua_register(L, "SetDefaultArrivalGridNo", l_SetMercArrivalLocation);
@@ -1997,20 +1993,6 @@ static int l_SetHandleGlobalLoyaltyEvent(lua_State* L)
 		INT8 bSectorZ = lua_tointeger(L, 4);
 
 		HandleGlobalLoyaltyEvent(ubEventType, sSectorX, sSectorY, bSectorZ);
-	}
-
-	return 0;
-}
-
-static int l_AddCustomEmail(lua_State* L)
-{
-	if (lua_gettop(L) >= 3)
-	{
-		INT32 iMessageOffset = lua_tointeger(L, 1);
-		INT32 iMessageLength = lua_tointeger(L, 2);
-		UINT8 ubSender = lua_tointeger(L, 3);
-
-		AddCustomEmail(iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_OTHER);
 	}
 
 	return 0;
