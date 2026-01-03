@@ -256,7 +256,6 @@ INT16 giCurrentIMPSlot = PLAYER_GENERATED_CHARACTER_ID;
 EMAIL_MERC_AVAILABLE_VALUES EmailMercAvailableText[NUM_PROFILES];
 EMAIL_MERC_LEVEL_UP_VALUES EmailMercLevelUpText[NUM_PROFILES];
 EMAIL_OTHER_VALUES EmailOtherText[EMAIL_INDEX];
-EMAIL_MERC_INSURANCE_VALUES EmailInsuranceText[NUM_PROFILES];
 BOOLEAN ReadXMLEmail = TRUE; // TRUE - read email from XML, FALSE - read email from EDT
 EMAIL_TYPE gEmailT[EMAIL_VAL];
 std::vector<EMAIL_XML> gEmails{};
@@ -807,18 +806,6 @@ void AddEmailTypeXML( INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender
 	{
 		if (EmailMercLevelUpText[ubSender].szSubject !='\0')
 			wcscpy( pSubject, EmailMercLevelUpText[ubSender].szSubject );
-	}
-	/*
-	else if ( EmailType == TYPE_EMAIL_BOBBY_R )
-	{
-		if (EmailBobbyRText[0] !='\0')
-			wcscpy( pSubject, EmailBobbyRText[0] );
-	}
-	*/
-	else if ( EmailType == TYPE_EMAIL_OTHER )
-	{
-		if (EmailOtherText[ubSender].szSubject !='\0')
-			wcscpy( pSubject, EmailOtherText[ubSender].szSubject );
 	}
 
 	AddEmailMessage(iMessageOffset,iMessageLength, pSubject, iDate, ubSender, FALSE, 0, 0, 0, 0, 0, 0, iCurrentIMPPosition, -1, EmailType, TYPE_E_NONE);
@@ -1525,8 +1512,6 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
         wcscpy(pTemp->pSubject, EmailMercAvailableText[pA->ubSender].szSubject);
     else if ( pA->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
         wcscpy(pTemp->pSubject, EmailMercLevelUpText[pA->ubSender].szSubject);
-    else if ( pA->EmailVersion == TYPE_EMAIL_OTHER )
-        wcscpy(pTemp->pSubject, EmailOtherText[pA->usLength].szSubject);
     else
         wcscpy(pTemp->pSubject, pA->pSubject);
 
@@ -1555,8 +1540,6 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
         wcscpy(pB->pSubject, EmailMercAvailableText[pTemp->ubSender].szSubject);
     else if ( pB->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
         wcscpy(pB->pSubject, EmailMercLevelUpText[pTemp->ubSender].szSubject);
-    else if ( pB->EmailVersion == TYPE_EMAIL_OTHER )
-        wcscpy(pB->pSubject, EmailOtherText[pTemp->usLength].szSubject);
     else
         wcscpy(pB->pSubject, pTemp->pSubject);
 
@@ -1699,7 +1682,7 @@ static void DrawSender(INT32 iCounter, UINT8 ubSender, BOOLEAN fRead, UINT8 Emai
 		else
 		mprintf(SENDER_X,(( UINT16 )( 4 + MIDDLE_Y + iCounter * MIDDLE_WIDTH ) ) ,L"None");
 	}
-	else if ( EmailType == TYPE_EMAIL_EMAIL_EDT || EmailType == TYPE_EMAIL_BOBBY_R || EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT ||  EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_OTHER || EmailType == TYPE_EMAIL_XML )
+	else if ( EmailType == TYPE_EMAIL_EMAIL_EDT || EmailType == TYPE_EMAIL_BOBBY_R || EmailType == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT ||  EmailType == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || EmailType == TYPE_EMAIL_XML )
 	{
 		mprintf(SENDER_X,(( UINT16 )( 4 + MIDDLE_Y + iCounter * MIDDLE_WIDTH ) ) ,pSenderNameList[ubSender]);
 	}
@@ -1792,7 +1775,7 @@ void DisplayEmailList()
 		
 		if ( pEmail->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE || pEmail->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
-		else if ( pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT_NAME_MERC || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_OTHER )
+		else if ( pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pEmail->EmailVersion == TYPE_EMAIL_EMAIL_EDT_NAME_MERC || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R || pEmail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pEmail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT )
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
 		else if ( pEmail->EmailVersion == TYPE_EMAIL_XML )
 			DrawSender(iCounter, pEmail->ubSender, pEmail->fRead, pEmail->EmailVersion);
@@ -3211,7 +3194,7 @@ void DisplayEmailMessageSubjectDateFromLines( EmailPtr pMail , INT32 iViewerY)
 		else
 		mprintf( MESSAGE_HEADER_X+MESSAGE_HEADER_WIDTH-13, MESSAGE_FROM_Y + iViewerY, L"None");
 	}		
-	else if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_OTHER || pMail->EmailVersion == TYPE_EMAIL_XML)
+	else if ( pMail->EmailVersion == TYPE_EMAIL_EMAIL_EDT || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R || pMail->EmailVersion == TYPE_EMAIL_BOBBY_R_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT || pMail->EmailVersion == TYPE_EMAIL_XML)
 	{
 		mprintf( MESSAGE_HEADER_X+MESSAGE_HEADER_WIDTH-13, MESSAGE_FROM_Y + iViewerY, pSenderNameList[pMail->ubSender]);
 	}
@@ -5579,11 +5562,6 @@ void PreProcessEmail( EmailPtr pMail )
 		iEmailInsurance = pMail->usLength;
 		pMail->usLength = 2;	
 	}	
-	else if ( pMail->EmailVersion == TYPE_EMAIL_OTHER )	
-	{	
-		iEmailOther = pMail->usLength;
-		//pMail->usLength = 6;
-	}
 
 	// list doesn't exist, reload
 	if( !pTempRecord )
@@ -5615,13 +5593,6 @@ void PreProcessEmail( EmailPtr pMail )
 				LoadEncryptedDataFromFile( "BINARYDATA\\Email.edt", pString, MAIL_STRING_SIZE * ( iOffSet + iCounter ), MAIL_STRING_SIZE );
 #endif
 			
-			else if ( pMail->EmailVersion == TYPE_EMAIL_OTHER )	
-			{
-				//if ( iCounter != 29 )
-				wcscpy(pString, L"\0");
-				wcscat( pString, EmailOtherText[iEmailOther].szMessage[pMail->usLength]);	
-				//	wcscat( pString, EmailOtherText[0].szMessage[1]);	
-			}
 			else if ( pMail->EmailVersion == TYPE_EMAIL_XML )
 			{
 				wcscpy(pString, L"\0");
@@ -5735,11 +5706,6 @@ void PreProcessEmail( EmailPtr pMail )
 					wcscpy(pString, L"\0");
 					wcscpy( pString, EmailMercLevelUpText[iEmailMERCMessage].szMessage);				
 				}
-				else if ( pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY )
-				{
-					wcscpy(pString, L"\0");
-					wcscpy( pString, EmailInsuranceText[iEmailMERCMessage].szMessage);		
-				}
 				/*
 				else if ( pMail->EmailVersion == TYPE_EMAIL_BOBBY_R)
 				{
@@ -5787,8 +5753,6 @@ void PreProcessEmail( EmailPtr pMail )
 			pMail->usLength = iEmailAIMMessage;		
 		else if ( pMail->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
 			pMail->usLength = iEmailMERCMessage;		
-		else if ( pMail->EmailVersion == TYPE_EMAIL_OTHER )
-			pMail->usLength = iEmailOther;		
 		else if ( pMail->EmailVersion == TYPE_EMAIL_INSURANCE_COMPANY )
 			pMail->usLength = iEmailInsurance;
 			
