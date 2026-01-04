@@ -5,8 +5,7 @@
 #include "soldier profile type.h"
 
 // defines
-#define MAX_EMAIL_LINES 10 //max number of lines can be shown in a message
-#define MAX_MESSAGES_PAGE 18 // max number of messages per page
+#define MAX_MESSAGES_PAGE 18 // max number of emails per page in inbox
 
 //---ja25 ub
 #ifdef JA2UB
