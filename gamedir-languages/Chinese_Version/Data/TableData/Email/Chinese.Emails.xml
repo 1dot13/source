@@ -539,13 +539,13 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<!-- AIM -->
 	<EMAIL>
 		<Sender>50</Sender>
-		<Subject>A Special Offer from A.I.M.</Subject>
-		<Message>± Dear valued client, ± ± Due to recent changes in the market place, A.I.M. has decided to reward its past clients with a unique offer. Unlike certain competitors, which offer low-end talent for low prices, we are introducing a totally new concept. ±</Message>
-		<Message>Our entire roster - every truly-gifted member - is now available for a limited time for the duration of an entire mission for one simple payment. That's right! You can have the services of any of our mercenaries until the job is done, simply by paying a single fee in advance. ±</Message>
-		<Message>And, as if that wasn't enough, as part of the same promotion A.I.M. is currently throwing in, at no extra charge, each mercenary's personal equipment. You read that correctly! One single charge covers the mercenary and their starting equipment for the duration of the mission! ±</Message>
-		<Message>I urge you to visit A.I.M.'s official web site now and take advantage of this incredible offer before time runs out. It's simply too good to pass on.</Message>
-		<Message>Yours truly, ± ± Howard "Carp" Melfield ± Marketing Manager ± Association of International Mercenaries ±</Message>
-		<Message>N.B. Offer applies to former clients only. ± Void in countries where prohibited. ± Cannot be used in conjunction with any other promotions. ± Mercenaries engagements are offered on a first come - first served basis.</Message>
+		<Subject>A.I.M.老用户大优惠</Subject>
+		<Message>± 亲爱的贵宾, ± ± 介于目前市场行情变化， A.I.M. 决定给以前的老客户提供一个特殊的优惠. 我们提供一种全新的理念，不像某些竞争对手，提供低价格的低端人才。 ±</Message>
+		<Message>我们旗下所有高素质的佣兵，现在开始接受不限时任务！是的！不再按时计费，只需一次付费，即服务到任务结束为止。±</Message>
+		<Message>如果不够的话，还有优惠：一次付费包含佣兵的装备。是的，你没听错，现在佣兵的装备不另外收费了，一次付费，连人带抢都是你的了，直到任务结束。 ±</Message>
+		<Message>这是限时优惠哦，还在犹豫什么，赶紧访问 A.I.M. 的网站吧，你一定不会错过的。±</Message>
+		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
+		<Message>注：本优惠只适用于老用户。 ± 在法律不允许的国家无效。± 不能与任何其他优惠同时使用。 ±佣兵数量有限，先到先得。</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>
