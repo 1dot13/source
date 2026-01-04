@@ -546,7 +546,6 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>I urge you to visit A.I.M.'s official web site now and take advantage of this incredible offer before time runs out. It's simply too good to pass on.</Message>
 		<Message>Yours truly, ± ± Howard "Carp" Melfield ± Marketing Manager ± Association of International Mercenaries ±</Message>
 		<Message>N.B. Offer applies to former clients only. ± Void in countries where prohibited. ± Cannot be used in conjunction with any other promotions. ± Mercenaries engagements are offered on a first come - first served basis.</Message>
-		<Message></Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>
