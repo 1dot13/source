@@ -187,9 +187,11 @@ UINT32 guiEmailWarning;
 #define SUBJECT_LINE_Y VIEWER_Y+42
 #define SUBJECT_LINE_WIDTH 278-47
 
-
+//max number of lines can be shown in an opened email messagebox
+#define MAX_EMAIL_LINES 20
 // maximum size of a email message page, so not to overrun the bottom of the screen
-#define MAX_EMAIL_MESSAGE_PAGE_SIZE ( GetFontHeight( MESSAGE_FONT ) + MESSAGE_GAP ) * 20
+#define MAX_EMAIL_MESSAGE_PAGE_SIZE ( GetFontHeight( MESSAGE_FONT ) + MESSAGE_GAP ) * MAX_EMAIL_LINES
+
 enum{
 	PREVIOUS_BUTTON=0,
 	NEXT_BUTTON,
@@ -5475,7 +5477,7 @@ UINT32  cnt;
 void PreProcessEmail( EmailPtr pMail )
 {
 	RecordPtr pTempRecord, pCurrentRecord, pLastRecord , pTempList;
-	CHAR16 pString[ 512 ];
+	CHAR16 pString[MAIL_STRING_SIZE];
 	INT32 iCounter = 0, iHeight = 0, iOffSet = 0;
 	BOOLEAN fGoingOffCurrentPage = FALSE;
 	INT32 iYPositionOnPage = 0;
