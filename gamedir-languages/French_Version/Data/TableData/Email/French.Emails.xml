@@ -545,7 +545,6 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Nous vous recommandons vivement de visiter notre site web AIM dès maintenant pour profiter de cette offre unique avant qu'elle se termine. Une promotion à ne pas manquer !</Message>
 		<Message>Cordialement, ± ± Melfield H. ± Chargé de communication ± Association Internationale des Mercenaires. ±</Message>
 		<Message>N.B. : L'offre ne s'applique qu'aux anciens clients. ± Nul dans les pays où prohibé. ± Offre non cumulable avec une autre promotion. ± Les contrats des mercenaires sont offerts sur le mode du "premier arrivé, premier servi".</Message>
-		<Message></Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>

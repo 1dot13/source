@@ -546,7 +546,6 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>НастоВтельно рекомендуБ посетить страницу A.I.M. и воспользоватьсВ Атим уникальным предложением, пока есть времВ. Такое пропускать нельзВ!</Message>
 		<Message>Искренне ваш, ± ± Говард "Карп" Мелфилд ± Менеджер ± Association of International Mercenaries ±</Message>
 		<Message>Внимание! Предложение действительно только длВ бывших клиентов. ± ОтменВетсВ местным законодательством. ± Не действует при использовании иных льгот. ± Услуги наемников предоставлВБтсВ в порВдке живой очереди.</Message>
-		<Message></Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>

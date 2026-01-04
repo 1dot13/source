@@ -546,7 +546,6 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Ich kann Ihnen nur raten, A.I.M.'s offizielle Homepage aufzusuchen und dieses unglaubliche Angebot zu nutzen, bevor die Zeit abgelaufen ist. Das Angebot ist einfach zu gut, um es verstreichen zu lassen.</Message>
 		<Message>Hochachtungsvoll, ± ± Howard "Carp" Melfield ± Marketing Manager ± Association of International Mercenaries ±</Message>
 		<Message>P.S. Dieses Angebot gilt nur für Kunden. ± Nur in anerkannten Ländern gültig. ± Kann nicht in Verbindung mit anderen Werbeangeboten genutzt werden. ± Wer zuerst kommt, erhält auch als erster den gewünschten Söldner.</Message>
-		<Message></Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>

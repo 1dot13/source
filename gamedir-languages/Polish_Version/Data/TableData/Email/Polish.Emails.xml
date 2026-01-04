@@ -546,7 +546,6 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Odwiedź oficjalną stronę internetową A.I.M. teraz i skorzystaj z naszej wspaniałej oferty, zanim ulegnie ona wyczerpaniu. To po prostu zbyt dobra okazja, by ją przegapić!</Message>
 		<Message>Z poważaniem, ± ± Howard "Carp" Melfield ± Menadżer ds. Marketingu ± Międzynarodowe Stowarzyszenie Najemników ±</Message>
 		<Message>WAŻNE: Oferta dotyczy wyłącznie dotychczasowych klientów. ± Nie dotyczy krajów, w których działalność taka jest zabroniona. ± Nie można jej łączyć z innymi akcjami promocyjnymi. ± Werbunek odbywa się zgodnie z zasadą "kto pierwszy, ten lepszy".</Message>
-		<Message></Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>
