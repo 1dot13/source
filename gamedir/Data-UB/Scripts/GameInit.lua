@@ -921,7 +921,7 @@ function InitNewGame()
 
 		-- Using externalized emails instead of old .EDT data
 		AddEmailFromXML(49, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --Enrico help request
-		AddEmailFromXML(71, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --AIM offer email
+		AddEmailFromXML(70, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --AIM offer email
 		AddEmailFromXML(64, false, -1, -1, -1, -1, IMP_EMAIL_INTRO) --IMP offer email
 		
 	end	
