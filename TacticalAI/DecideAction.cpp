@@ -8765,14 +8765,7 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 			 (fExtraClip || pSoldier->inv[BestShot.bWeaponIn][0]->data.gun.ubGunShotsLeft > gGameExternalOptions.ubAISuppressionMinimumMagSize) )
 		{
 			// then do it!
-
-			// if necessary, swap the usItem from holster into the hand position
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, "ArmedVehicleDecideActionRed: suppression fire possible!" );
-
-			if ( BestShot.bWeaponIn != HANDPOS )
-			{
-				RearrangePocket( pSoldier, HANDPOS, BestShot.bWeaponIn, FOREVER );
-			}
 
 			pSoldier->aiData.usActionData = BestShot.sTarget;
 			pSoldier->bTargetLevel = BestShot.bTargetLevel;
@@ -8781,33 +8774,42 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 			pSoldier->bDoBurst = 1;
 
 			INT16 ubBurstAPs = 0;
+			INT16 totalUsedAPs = 0;
 			FLOAT dTotalRecoil = 0;
+			auto& weapon = pSoldier->inv[BestShot.bWeaponIn];
+			const auto remainingAmmo = weapon[0]->data.gun.ubGunShotsLeft;
 
 			if ( UsingNewCTHSystem( ) )
 			{
 				do
 				{
 					pSoldier->bDoAutofire++;
-					dTotalRecoil += AICalcRecoilForShot( pSoldier, &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire );
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
-				} while ( pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs && pSoldier->inv[pSoldier->ubAttackingHand][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire
-						 && dTotalRecoil <= 10.0f );
+					dTotalRecoil += AICalcRecoilForShot( pSoldier, &weapon, pSoldier->bDoAutofire );
+					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &weapon, pSoldier->bDoAutofire, pSoldier );
+					totalUsedAPs = BestShot.ubAPCost + ubBurstAPs;
+				} while ( pSoldier->bActionPoints >= totalUsedAPs && remainingAmmo >= pSoldier->bDoAutofire && dTotalRecoil <= 10.0f );
 			}
 			else
 			{
 				do
 				{
 					pSoldier->bDoAutofire++;
-					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
-				} while ( pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs &&
-						 pSoldier->inv[pSoldier->ubAttackingHand][0]->data.gun.ubGunShotsLeft >= pSoldier->bDoAutofire &&
-						 GetAutoPenalty( &pSoldier->inv[pSoldier->ubAttackingHand], gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE )*pSoldier->bDoAutofire <= 80 );
+					ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &weapon, pSoldier->bDoAutofire, pSoldier );
+					totalUsedAPs = BestShot.ubAPCost + ubBurstAPs;
+				} while ( pSoldier->bActionPoints >= totalUsedAPs && remainingAmmo >= pSoldier->bDoAutofire &&
+						 GetAutoPenalty( &weapon, gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE )*pSoldier->bDoAutofire <= 80 );
 			}
 
 			pSoldier->bDoAutofire--;
 
 			// Make sure we decided to fire at least one shot!
-			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &(pSoldier->inv[BestShot.bWeaponIn]), pSoldier->bDoAutofire, pSoldier );
+			ubBurstAPs = CalcAPsToAutofire( pSoldier->CalcActionPoints( ), &weapon, pSoldier->bDoAutofire, pSoldier );
+
+			// if necessary, swap the usItem from holster into the hand position
+			if ( BestShot.bWeaponIn != HANDPOS )
+			{
+				RearrangePocket( pSoldier, HANDPOS, BestShot.bWeaponIn, FOREVER );
+			}
 
 			// minimum 5 bullets
 			if ( pSoldier->bDoAutofire >= 5 && pSoldier->bActionPoints >= BestShot.ubAPCost + ubBurstAPs )

@@ -458,13 +458,12 @@ void MercArrivesCallback( SoldierID ubSoldierID )
 		{			
 			pSoldier->uiTimeSoldierWillArrive = pSoldier->uiTimeSoldierWillArrive + 720 + Random ( 720 );
 			AddStrategicEvent( EVENT_DELAYED_HIRING_OF_MERC, pSoldier->uiTimeSoldierWillArrive,	pSoldier->ubID );
-			if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 3 )
-				AddEmail( JOHN_KULBA_MISSED_FLIGHT_1, JOHN_KULBA_MISSED_FLIGHT_1_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
-			else if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 2 )
-				AddEmail( JOHN_KULBA_MISSED_FLIGHT_2, JOHN_KULBA_MISSED_FLIGHT_2_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
-			else if(LaptopSaveInfo.ubJohnPossibleMissedFlights == 1 )
-				AddEmail( JOHN_KULBA_MISSED_FLIGHT_3, JOHN_KULBA_MISSED_FLIGHT_3_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT );
-
+			if ( LaptopSaveInfo.ubJohnPossibleMissedFlights == 3 )
+				AddEmail(JOHN_KULBA_MISSED_FLIGHT_1, JOHN_KULBA_MISSED_FLIGHT_1_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JOHNKULBA_MISSEDTRANSFERFLIGHT);
+			else if ( LaptopSaveInfo.ubJohnPossibleMissedFlights == 2 )
+				AddEmail(JOHN_KULBA_MISSED_FLIGHT_2, JOHN_KULBA_MISSED_FLIGHT_2_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JOHNKULBA_CRASHLANDEDHELI);
+			else if ( LaptopSaveInfo.ubJohnPossibleMissedFlights == 1 )
+				AddEmail(JOHN_KULBA_MISSED_FLIGHT_3, JOHN_KULBA_MISSED_FLIGHT_3_LENGTH, JOHN_KULBA, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JOHNKULBA_AMBUSHEDBYCATS);
 			LaptopSaveInfo.ubJohnPossibleMissedFlights--;
 			return;
 		}

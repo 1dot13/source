@@ -1184,40 +1184,61 @@ if( g_lang != i18n::Lang::en ) {
 		}
 }
 
-if ( ReadXMLEmail == TRUE )
-{
+	if ( ReadXMLEmail == TRUE )
+	{
+		// Externalized emails
+		strcpy(fileName, directoryName);
+		strcat(fileName, EMAILSFILENAME);
+		// Only load external emails if we find the file
+		if ( FileExists(fileName) )
+		{
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+			SGP_THROW_IFFALSE(ReadInExternalizedEmails(fileName, FALSE), EMAILSFILENAME);
+
+			if ( g_lang != i18n::Lang::en )
+			{
+				AddLanguagePrefix(fileName);
+				if ( FileExists(fileName) )
+				{
+					DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+					if ( !ReadInExternalizedEmails(fileName, TRUE) )
+						return FALSE;
+				}
+			}
+		}
+
 		// EMAIL MERC AVAILABLE by Jazz
 		strcpy(fileName, directoryName);
 		strcat(fileName, EMAILMERCAVAILABLE);
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInEmailMercAvailable(fileName,FALSE), EMAILMERCAVAILABLE);
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInEmailMercAvailable(fileName, FALSE), EMAILMERCAVAILABLE);
 
-if( g_lang != i18n::Lang::en ) {
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
+		if ( g_lang != i18n::Lang::en )
 		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInEmailMercAvailable(fileName,TRUE))
-				return FALSE;
+			AddLanguagePrefix(fileName);
+			if ( FileExists(fileName) )
+			{
+				DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+				if ( !ReadInEmailMercAvailable(fileName, TRUE) )
+					return FALSE;
+			}
 		}
-}
 
 		// EMAIL MERC LEVEL UP by Jazz
 		strcpy(fileName, directoryName);
 		strcat(fileName, EMAILMERCLEVELUP);
-		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-		SGP_THROW_IFFALSE(ReadInEmailMercLevelUp(fileName,FALSE), EMAILMERCLEVELUP);
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+		SGP_THROW_IFFALSE(ReadInEmailMercLevelUp(fileName, FALSE), EMAILMERCLEVELUP);
 
-if( g_lang != i18n::Lang::en ) {
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInEmailMercLevelUp(fileName,TRUE))
-				return FALSE;
+		if ( g_lang != i18n::Lang::en ) {
+			AddLanguagePrefix(fileName);
+			if ( FileExists(fileName) )
+			{
+				DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExternalGameplayData, fileName = %s", fileName));
+				if ( !ReadInEmailMercLevelUp(fileName, TRUE) )
+					return FALSE;
+			}
 		}
-}
-}
 /*
 		// EMAIL OTHER by Jazz
 		strcpy(fileName, directoryName);
@@ -1225,16 +1246,18 @@ if( g_lang != i18n::Lang::en ) {
 		DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
 		SGP_THROW_IFFALSE(ReadInEmailOther(fileName,FALSE), EMAILOTHER);
 
-if( g_lang != i18n::Lang::en ) {
-		AddLanguagePrefix(fileName);
-		if ( FileExists(fileName) )
-		{
-			DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
-			if(!ReadInEmailOther(fileName,TRUE))
-				return FALSE;
+		if( g_lang != i18n::Lang::en ) {
+			AddLanguagePrefix(fileName);
+			if ( FileExists(fileName) )
+			{
+				DebugMsg (TOPIC_JA2,DBG_LEVEL_3,String("LoadExternalGameplayData, fileName = %s", fileName));
+				if(!ReadInEmailOther(fileName,TRUE))
+					return FALSE;
+			}
 		}
-}
 */
+	}
+
 	//new vehicles by Jazz	
 	
 	InitNewVehicles ();

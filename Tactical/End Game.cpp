@@ -507,37 +507,37 @@ void HandleAddingTheEndGameEmails()
 	// email # 12a - Miguel dead, Manuel never recruited
 	if( !fMiguelAlive && !fManuelHired )
 	{
-		AddEmail( EMAIL_CONGRATS, EMAIL_CONGRATS_LENGTH, MAIL_ENRICO,  GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATS, EMAIL_CONGRATS_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS);
 	}
 		
 	// email # 12b - Miguel alive, Manuel never recruited
 	else if( fMiguelAlive && !fManuelHired )
 	{
-		AddEmail( EMAIL_CONGRATSICK, EMAIL_CONGRATSICK_LENGTH, MAIL_ENRICO,  GetWorldTotalMin(),-1 ,-1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATSICK, EMAIL_CONGRATSICK_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK);
 	}
 
 	// email # 12c - Miguel alive, Manuel dead
 	else if( fMiguelAlive && !fManuelAlive )
 	{
-		AddEmail( EMAIL_CONGRATMIGMANUELDEAD, EMAIL_CONGRATMIGMANUELDEAD_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() , -1, -1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATMIGMANUELDEAD, EMAIL_CONGRATMIGMANUELDEAD_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK_MANUELDEAD);
 	}
 
 	// email # 12d - Miguel alive, Manuel recruited and alive
 	else if( fMiguelAlive && fManuelAlive && fManuelHired )
 	{
-		AddEmail( EMAIL_CONGRATMIGMANUELALIVE, EMAIL_CONGRATMIGMANUELALIVE_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() , -1, -1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATMIGMANUELALIVE, EMAIL_CONGRATMIGMANUELALIVE_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS_MIGUELSICK_MANUELALIVE);
 	}
 
 	// email # 12e - Miguel dead, Manuel dead
 	else if( !fMiguelAlive && !fManuelAlive )
 	{
-		AddEmail( EMAIL_CONGRATMANUELDEAD, EMAIL_CONGRATMANUELDEAD_LENGTH, MAIL_ENRICO,  GetWorldTotalMin(), -1 , -1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATMANUELDEAD, EMAIL_CONGRATMANUELDEAD_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS_MANUELDEAD);
 	}
 
 	// email # 12f -  Miguel dead, Manuel recruited and alive
 	else if( !fMiguelAlive && fManuelAlive && fManuelHired )
 	{
-		AddEmail( EMAIL_CONGRATMANUELALIVE, EMAIL_CONGRATMANUELALIVE_LENGTH, MAIL_ENRICO,  GetWorldTotalMin() , -1, -1, TYPE_EMAIL_EMAIL_EDT);
+		AddEmail(EMAIL_CONGRATMANUELALIVE, EMAIL_CONGRATMANUELALIVE_LENGTH, MAIL_ENRICO, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_EMAIL_EDT, XML_JA2UB_ENRICO_CONGRATS_MANUELALIVE);
 	}
 
 	else

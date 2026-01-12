@@ -1350,7 +1350,8 @@ BOOLEAN AddLifeInsurancePayout( SOLDIERTYPE *pSoldier )
 
 void StartInsuranceInvestigation( UINT16	ubPayoutID )
 {
-	UINT8 ubDays;
+	const auto mercID = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID;
+	const auto payoutPrice = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice;
 
 	// send an email telling player an investigation is taking place
 	if (gStrategicStatus.ubInsuranceInvestigationsCnt == 0)
@@ -1361,10 +1362,12 @@ void StartInsuranceInvestigation( UINT16	ubPayoutID )
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( 173, INSUR_SUSPIC_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L4 );
+		{
+			AddEmailWithSpecialData(173, INSUR_SUSPIC_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L4, XML_INSURANCE_SUSPICIOUS);
+		}
 	}
 #else
-		AddEmailWithSpecialData( INSUR_SUSPIC, INSUR_SUSPIC_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_SUSPIC, INSUR_SUSPIC_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_SUSPICIOUS);
 #endif
 	}
 	else
@@ -1375,14 +1378,17 @@ void StartInsuranceInvestigation( UINT16	ubPayoutID )
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( 179, INSUR_SUSPIC_2_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L5 );
+		{
+			AddEmailWithSpecialData(179, INSUR_SUSPIC_2_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L5, XML_INSURANCE_INVESTIGATION);
+		}
 	}
 #else
-		AddEmailWithSpecialData( INSUR_SUSPIC_2, INSUR_SUSPIC_2_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_SUSPIC_2, INSUR_SUSPIC_2_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_INVESTIGATION);
 #endif
 	}
 
-	if ( gMercProfiles[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )
+	UINT8 ubDays;
+	if ( gMercProfiles[ mercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )
 	{
 		// the fact that you tried to cheat them gets realized very quickly. :-)
 		ubDays = 1;
@@ -1403,42 +1409,47 @@ void StartInsuranceInvestigation( UINT16	ubPayoutID )
 
 void EndInsuranceInvestigation( UINT16	ubPayoutID )
 {
+	const auto mercID = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID;
+	const auto payoutPrice = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice;
+
 	// send an email telling player the investigation is over
-	if ( gMercProfiles[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )
+	if ( gMercProfiles[ mercID ].ubSuspiciousDeath == VERY_SUSPICIOUS_DEATH )
 	{
 		// fraud, no payout!
 #ifdef JA2UB
-// no UB
-	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
-	{
-		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L2 );
-	}		
+        if ( gubQuest[QUEST_FIX_LAPTOP] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
+        {
+            if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
+            {
+                AddEmailWithSpecialData(INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L2, XML_INSURANCE_REFUSED);
+            }
+        }
 #else
-		AddEmailWithSpecialData( INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_1HOUR_FRAUD, INSUR_1HOUR_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_REFUSED);
 #endif
 	}
 	// Flugente: also don't pay out if the death was suspicious. I mean, we get this if there were no enemies of the player straight up shot the guy...
-	else if ( gMercProfiles[LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID].ubSuspiciousDeath == SUSPICIOUS_DEATH )
+	else if ( gMercProfiles[mercID].ubSuspiciousDeath == SUSPICIOUS_DEATH )
 	{
 #ifdef JA2UB
 		// WANNE: I really don't know if we should call something here. At least it fixed the compilation error when compiling UB version.
 #else
 		// fraud, no payout!
-		AddEmailWithSpecialData( INSUR_CHEAT_FRAUD, INSUR_CHEAT_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_CHEAT_FRAUD, INSUR_CHEAT_FRAUD_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_POLICYVIOLATION);
 #endif 
 	}
 	else
 	{
 #ifdef JA2UB
-// No UB
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( 176, INSUR_INVEST_OVER_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L6 );
+		{
+			AddEmailWithSpecialData(176, INSUR_INVEST_OVER_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L6, XML_INSURANCE_COMPLETED);
+		}
 	}
 #else
-		AddEmailWithSpecialData( INSUR_INVEST_OVER, INSUR_INVEST_OVER_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_INVEST_OVER, INSUR_INVEST_OVER_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_COMPLETED);
 #endif
 
 		// only now make a payment (immediately)
@@ -1450,6 +1461,9 @@ void EndInsuranceInvestigation( UINT16	ubPayoutID )
 //void InsuranceContractPayLifeInsuranceForDeadMerc( LIFE_INSURANCE_PAYOUT *pPayoutStruct )
 void InsuranceContractPayLifeInsuranceForDeadMerc( UINT16 ubPayoutID )
 {
+	const auto mercID = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].ubMercID;
+	const auto payoutPrice = LaptopSaveInfo.pLifeInsurancePayouts[ubPayoutID].iPayOutPrice;
+
 	//if the mercs id number is the same what is in the soldier array
 	if( LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID == LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubSoldierID->ubID )
 	{
@@ -1459,24 +1473,25 @@ void InsuranceContractPayLifeInsuranceForDeadMerc( UINT16 ubPayoutID )
 	}
 
 	//add transaction to players account
-	AddTransactionToPlayersBook( INSURANCE_PAYOUT, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice );
+	AddTransactionToPlayersBook( INSURANCE_PAYOUT, mercID, GetWorldTotalMin(), payoutPrice );
 
 	//add to the history log the fact that the we paid the insurance claim
-	AddHistoryToPlayersLog( HISTORY_INSURANCE_CLAIM_PAYOUT, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, GetWorldTotalMin(), -1, -1 );
+	AddHistoryToPlayersLog( HISTORY_INSURANCE_CLAIM_PAYOUT, mercID, GetWorldTotalMin(), -1, -1 );
 
 	//if there WASNT an investigation
-	if( gMercProfiles[ LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID ].ubSuspiciousDeath == 0 )
+	if( gMercProfiles[ mercID ].ubSuspiciousDeath == 0 )
 	{
 		//Add an email telling the user that he received an insurance payment
 #ifdef JA2UB
-// no UB
 	if( gubQuest[ QUEST_FIX_LAPTOP ] == QUESTDONE || gGameUBOptions.LaptopQuestEnabled == FALSE )
 	{
 		if ( gGameUBOptions.LaptopLinkInsurance == TRUE )
-			AddEmailWithSpecialData( 170, INSUR_PAYMENT_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L3 );
+		{
+			AddEmailWithSpecialData(170, INSUR_PAYMENT_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_INSURANCE_COMPANY_EMAIL_JA2_EDT, TYPE_E_INSURANCE_L3, XML_INSURANCE_APPROVED);
+		}
 	}
 #else
-		AddEmailWithSpecialData( INSUR_PAYMENT, INSUR_PAYMENT_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].iPayOutPrice, LaptopSaveInfo.pLifeInsurancePayouts[ ubPayoutID ].ubMercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+		AddEmailWithSpecialData(INSUR_PAYMENT, INSUR_PAYMENT_LENGTH, INSURANCE_COMPANY, GetWorldTotalMin(), payoutPrice, mercID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_INSURANCE_APPROVED);
 #endif
 	}
 

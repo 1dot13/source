@@ -1352,13 +1352,13 @@ void HandleUnhiredMercDeaths( INT32 iProfileID )
 	{
 		if ( gMercProfiles[iProfileID].Type == PROFILETYPE_AIM && gGameUBOptions.fDeadMerc == TRUE )  //new profiles by Jazz
 			//send an email to the player telling the player that a merc died
-			AddEmailWithSpecialData(206, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT, TYPE_E_AIM_L1 );
+			AddEmailWithSpecialData(206, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_DEAD_MERC_AIM_SITE_EMAIL_JA2_EDT, TYPE_E_AIM_L1, XML_AIM_NOTICE_OF_DEATH);
 	}
 #else
 		if ( gMercProfiles[iProfileID].Type == PROFILETYPE_AIM )
 		{
 			//send an email to the player telling the player that a merc died
-			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+			AddEmailWithSpecialData(MERC_DIED_ON_OTHER_ASSIGNMENT, MERC_DIED_ON_OTHER_ASSIGNMENT_LENGTH, AIM_SITE, GetWorldTotalMin(), 0, iProfileID, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE, XML_AIM_NOTICE_OF_DEATH);
 		}
 #endif
 	}

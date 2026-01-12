@@ -112,8 +112,6 @@ static int l_CheckMission(lua_State* L);
 
 void FatigueCharacter(SOLDIERTYPE* pSoldier);
 
-static int l_AddCustomEmail(lua_State* L);
-
 static int l_SetDefaultArrivalSector(lua_State* L);
 static int l_GetDefaultArrivalSector(lua_State* L);
 static int l_SetMercArrivalLocation(lua_State* L);
@@ -405,9 +403,9 @@ static int l_AddToShouldBecomeHostileOrSayQuoteList(lua_State* L);
 
 static int l_AddPreReadEmail(lua_State* L);
 static int l_AddEmail(lua_State* L);
-static int l_AddEmailXML(lua_State* L);
-static int l_AddEmailXML2(lua_State* L);
+static int l_AddEmailMercAvailableXML(lua_State* L);
 static int l_AddEmailLevelUpXML(lua_State* L);
+static int l_AddEmailFromXML(lua_State* L);
 
 static int l_EVENT_SoldierGotHit(lua_State* L);
 static int l_EVENT_InitNewSoldierAnim(lua_State* L);
@@ -1027,9 +1025,9 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 
 	lua_register(L, "AddPreReadEmail", l_AddPreReadEmail);
 	lua_register(L, "AddEmail", l_AddEmail);
-	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailXML);
+	lua_register(L, "AddEmailMercAvailableXML", l_AddEmailMercAvailableXML);
 	lua_register(L, "AddEmailMercLevelUpXML", l_AddEmailLevelUpXML);
-	lua_register(L, "AddEmailXML", l_AddEmailXML2);
+	lua_register(L, "AddEmailFromXML", l_AddEmailFromXML);
 
 	//------Time------
 
@@ -1642,8 +1640,6 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 
 	lua_register(L, "ReStartingGame", l_ReStartingGame);
 
-	lua_register(L, "AddCustomEmail", l_AddCustomEmail);
-
 	lua_register(L, "SetDefaultArrivalSector", l_SetDefaultArrivalSector);
 	lua_register(L, "GetDefaultArrivalSector", l_GetDefaultArrivalSector);
 	lua_register(L, "SetDefaultArrivalGridNo", l_SetMercArrivalLocation);
@@ -1997,20 +1993,6 @@ static int l_SetHandleGlobalLoyaltyEvent(lua_State* L)
 		INT8 bSectorZ = lua_tointeger(L, 4);
 
 		HandleGlobalLoyaltyEvent(ubEventType, sSectorX, sSectorY, bSectorZ);
-	}
-
-	return 0;
-}
-
-static int l_AddCustomEmail(lua_State* L)
-{
-	if (lua_gettop(L) >= 3)
-	{
-		INT32 iMessageOffset = lua_tointeger(L, 1);
-		INT32 iMessageLength = lua_tointeger(L, 2);
-		UINT8 ubSender = lua_tointeger(L, 3);
-
-		AddCustomEmail(iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), -1, -1, TYPE_EMAIL_OTHER);
 	}
 
 	return 0;
@@ -7448,23 +7430,9 @@ static int l_ExecuteStrategicAIAction(lua_State* L)
 	return 0;
 }
 
-//AddEmailXML
-static int l_AddEmailXML2(lua_State* L)
-{
-	if (lua_gettop(L) >= 3)
-	{
-		INT32 offset = lua_tointeger(L, 1);
-		INT32 messagelength = lua_tointeger(L, 2);
-		UINT8 sender = lua_tointeger(L, 3);
-
-		AddEmailTypeXML(offset, messagelength, sender, GetWorldTotalMin(), -1, TYPE_EMAIL_OTHER);
-	}
-
-	return 0;
-}
 
 //AddEmailXML
-static int l_AddEmailXML(lua_State* L)
+static int l_AddEmailMercAvailableXML(lua_State* L)
 {
 	if (lua_gettop(L))
 	{
@@ -7528,6 +7496,48 @@ static int l_AddPreReadEmail(lua_State* L)
 		AddPreReadEmail(iMessageOffset, iMessageLength, ubSender, GetWorldTotalMin(), TYPE_EMAIL_EMAIL_EDT);
 	}
 
+	return 0;
+}
+
+// New externalized emails
+//AddEmail
+static int l_AddEmailFromXML(lua_State* L)
+{
+	if (lua_gettop(L))
+	{
+		UINT8 index = lua_tointeger(L, 1);
+		bool preReadMail = false;
+		INT32 iCurrentIMPPosition = -1;
+		INT16 iCurrentShipmentDestinationID = -1;
+		INT32 specialData1 = -1;
+		UINT32 specialData2 = -1;
+		INT32 specialData3 = -1;
+		INT32 specialData4 = -1;
+		UINT32 specialData5 = -1;
+		UINT32 specialData6 = -1;
+
+		if ( lua_gettop(L) >= 2 )
+		{
+			preReadMail = lua_toboolean(L, 2);
+		}
+		if ( lua_gettop(L) >= 7 )
+		{
+			iCurrentIMPPosition = lua_tointeger(L, 3);
+			iCurrentShipmentDestinationID = lua_tointeger(L, 4);
+			specialData1 = lua_tointeger(L, 5);
+			specialData2 = lua_tointeger(L, 6);
+			specialData3 = lua_tointeger(L, 7);
+		}
+
+		if ( specialData1 != -1 || specialData2 != -1 )
+		{
+			AddEmailWithSpecialDataXML(index, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, preReadMail, specialData1, specialData2, specialData3, specialData4, specialData5, specialData6);
+		}
+		else
+		{
+			AddEmailFromXML(index, GetWorldTotalMin(), iCurrentIMPPosition, iCurrentShipmentDestinationID, preReadMail, specialData1, specialData2, specialData3, specialData4, specialData5, specialData6);
+		}
+	}
 	return 0;
 }
 
