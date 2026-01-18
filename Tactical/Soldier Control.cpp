@@ -19046,7 +19046,7 @@ BOOLEAN SOLDIERTYPE::IsJamming( )
 	{
 		if ( CanUseRadio( FALSE ) )
 			return TRUE;
-		// if we cannot use the radio, remove that flag hile we're at it
+		// if we cannot use the radio, remove that flag while we're at it
 		else
 			usSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_JAMMING;
 	}
