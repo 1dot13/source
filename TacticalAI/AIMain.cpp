@@ -336,7 +336,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 		strcat(msg, buf);
 	}
 
-	if (bAction >= AI_ACTION_NONE && bAction <= AI_ACTION_LAST)
+	if (bAction >= AI_ACTION_NONE && bAction < AI_ACTION_INVALID)
 	{
 		strcat(msg, " ");
 		strcat(msg, szAction[bAction]);

@@ -106,7 +106,7 @@ typedef enum
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
 	AI_ACTION_STOP_MEDIC,			// sevenfm: stop giving aid animation
-	AI_ACTION_LAST = AI_ACTION_STOP_MEDIC
+	AI_ACTION_INVALID
 } ActionType;
 
 
@@ -181,11 +181,26 @@ enum { AI_MSG_START, AI_MSG_DECIDE, AI_MSG_INFO, AI_MSG_TOPIC };
 void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog = true, INT8 bAction = -1);
 void DebugQuestInfo(STR szOutput);
 INT8 DecideAction(SOLDIERTYPE *pSoldier);
-INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
-INT8 DecideActionEscort(SOLDIERTYPE *pSoldier);
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier);
-INT8 DecideActionRed(SOLDIERTYPE *pSoldier);
 INT8 DecideActionYellow(SOLDIERTYPE *pSoldier);
+INT8 DecideActionRed(SOLDIERTYPE *pSoldier);
+INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
+INT8 DecideActionGreenBoxer(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackBoxer(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackRobot(SOLDIERTYPE* pSoldier);
+
+INT8 DecideActionBlackSoldierUtilityAI(SOLDIERTYPE* pSoldier);
 
 INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier );
 
@@ -240,7 +255,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier);
 void NewDest(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 INT32 NextPatrolPoint(SOLDIERTYPE *pSoldier);
 
-INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove);
+ActionType PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove);
 void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier);
 
 INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier);

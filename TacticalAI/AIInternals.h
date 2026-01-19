@@ -4,7 +4,7 @@
 #include "Overhead.h"
 #include "random.h"
 #include "Points.h"
-
+#include "ai.h"
 #include <iostream>
 #include <iomanip>
 
@@ -239,7 +239,7 @@ INT32 GetInterveningClimbingLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo,
 UINT8 GetTraversalQuoteActionID( INT8 bDirection );
 INT32 GoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, INT8 bAction);
 
-INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier );
+ActionType HeadForTheStairCase( SOLDIERTYPE * pSoldier );
 
 BOOLEAN InSmoke(INT32 sGridNo, INT8 bLevel);
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
