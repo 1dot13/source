@@ -680,47 +680,31 @@ static void CalculateCoverValue(SOLDIERTYPE* pSoldier, const INT32 sGridNo, cons
 	}
 }
 
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter, INT32 targetGridNo)
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter, INT32 targetGridNo, bool ignoreSearchRange)
 {
 	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 	{
 		ResetDebugInfoValues();
 	}
-
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
 
 	// all 32-bit integers for max. speed
-	UINT32 uiLoop;
 	INT32 iCurrentCoverValue, iCoverValue, iBestCoverValue;
 	INT32	iCurrentScale = -1, iCoverScale = -1, iBestCoverScale = -1;
 	INT32	iDistFromOrigin, iDistCoverFromOrigin;
-	//INT32 iThreatCertainty;
 	INT32 sGridNo, sBestCover = NOWHERE;
 	INT32 iPathCost;
-	INT32	iThreatRange, iClosestThreatRange = 1500;
-//	INT16 sClosestThreatGridno = NOWHERE;
 	INT32	iMyThreatValue;
-	//INT32	sThreatLoc;
-	//INT32 iMaxThreatRange;
 	UINT32	uiThreatCnt = 0;
 	INT32 iMaxMoveTilesLeft, iSearchRange, iRoamRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT32	sOrigin;	// has to be a short, need a pointer
-	INT32	*		pusLastLoc;
-	INT8 *		pbPersOL;
-	INT8 *		pbPublOL;
-	//SOLDIERTYPE *pOpponent;
 	UINT16 usMovementMode;
-
 	UINT8	ubBackgroundLightLevel;
 	UINT8	ubBackgroundLightPercent = 0;
-	UINT8	ubLightPercentDifference;
 	BOOLEAN fNight;
 
-	// sevenfm
-	UINT8 ubNearbyFriends;
-	BOOLEAN fProneCover;
-	UINT8 ubDiff = SoldierDifficultyLevel( pSoldier );
+	const UINT8 ubDiff = SoldierDifficultyLevel( pSoldier );
 
 	if (targetGridNo == NOWHERE)
 	{
@@ -753,19 +737,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 	}
 
-	iBestCoverValue = -1;
-
-
-	//NameMessage(pSoldier,"looking for some cover...");
-
-	// BUILD A LIST OF THREATENING GRID #s FROM PERSONAL & PUBLIC opplists
-
-	pusLastLoc = &(gsLastKnownOppLoc[pSoldier->ubID][0]);
-
-	// hang a pointer into personal opplist
-	pbPersOL = &(pSoldier->aiData.bOppList[0]);
-	// hang a pointer into public opplist
-	pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][0]);
 
 	// decide how far we're gonna be looking
 	iSearchRange = gbDiff[DIFF_MAX_COVER_RANGE][ SoldierDifficultyLevel( pSoldier ) ];
@@ -795,6 +766,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	usMovementMode = DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER );
 
+#if 1
 	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
 		// must be able to reach the cover, so it can't possibly be more than
@@ -814,6 +786,12 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			// then limit the search range to only as far as we CAN go
 			iSearchRange = iMaxMoveTilesLeft;
 		}
+	}
+#endif
+	if (ignoreSearchRange)
+	{
+		// For debugging
+		iSearchRange = 16;
 	}
 
 	if (iSearchRange <= 0)
@@ -837,32 +815,25 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	// calculate our current cover value in the place we are now, since the
 	// cover we are searching for must be better than what we have now!
 	CalculateCoverValue(pSoldier, targetGridNo, 0, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCurrentCoverValue, iCurrentScale);
+	// the initial cover value to beat is our current cover value
+	iBestCoverValue = iCurrentCoverValue;
 
 	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 	{
 		gRenderDebugInfoValues[targetGridNo] = (INT32)(iCurrentCoverValue / 100);
 	}
 
-#ifdef DEBUGCOVER
-//	AINumMessage("Search Range = ",iSearchRange);
-#endif
-
 	// determine maximum horizontal limits
 	sMaxLeft  = min(iSearchRange,(targetGridNo % MAXCOL));
-	//NumMessage("sMaxLeft = ",sMaxLeft);
 	sMaxRight = min(iSearchRange,MAXCOL - ((targetGridNo % MAXCOL) + 1));
-	//NumMessage("sMaxRight = ",sMaxRight);
-
 	// determine maximum vertical limits
 	sMaxUp   = min(iSearchRange,(targetGridNo / MAXROW));
-	//NumMessage("sMaxUp = ",sMaxUp);
 	sMaxDown = min(iSearchRange,MAXROW - ((targetGridNo / MAXROW) + 1));
-	//NumMessage("sMaxDown = ",sMaxDown);
 
 	iRoamRange = RoamingRange(pSoldier,&sOrigin);
-
 	// if status isn't black (life & death combat), and roaming range is limited	
-	if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
+	//if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
+	if ((pSoldier->aiData.bAlertStatus < STATUS_RED) && (iRoamRange < MAX_ROAMING_RANGE) &&
 		(!TileIsOutOfBounds(sOrigin)))
 	{
 		// must try to stay within or return to the point of origin
@@ -874,19 +845,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		iDistFromOrigin = -1;
 	}
 
-
-#ifdef DEBUGCOVER
-	DebugAI( String( "FBNC: iRoamRange %d, sMaxLeft %d, sMaxRight %d, sMaxUp %d, sMaxDown %d\n",iRoamRange,sMaxLeft,sMaxRight,sMaxUp,sMaxDown) );
-#endif
-
-	// the initial cover value to beat is our current cover value
-	iBestCoverValue = iCurrentCoverValue;
-
-#ifdef DEBUGDECISIONS
-	STR tempstr="";
-	sprintf( tempstr, "FBNC: CURRENT iCoverValue = %d\n",iCurrentCoverValue );
-	DebugAI( tempstr );
-#endif
 
 	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
@@ -921,7 +879,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
 		}
 	}
-
 	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );//dnl ch50 071009
 
 	// Turn off the "reachable" flag for his current location
@@ -933,7 +890,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	{
 		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 		{
-			//HandleMyMouseCursor(KEYBOARDALSO);
 
 			// calculate the next potential gridno
 			sGridNo = targetGridNo + sXOffset + (MAXCOL * sYOffset);
@@ -1042,13 +998,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			// EVALUATE EACH GRID #, remembering the BEST PROTECTED ONE
 			CalculateCoverValue(pSoldier, sGridNo, iPathCost, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCoverValue, iCoverScale);
 
-#ifdef DEBUGCOVER
-			// if there ARE multiple opponents
-			if (uiThreatCnt > 1)
-			{
-				DebugAI( String( "FBNC: Total iCoverValue at gridno %d is %d\n\n",sGridNo,iCoverValue ) );
-			}
-#endif
 
 			if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 			{
@@ -1056,7 +1005,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			}
 
 			// if this is better than the best place found so far
-
 			if (iCoverValue > iBestCoverValue)
 			{
 				// ONLY DO THIS CHECK HERE IF WE'RE WAITING FOR OPPCHANCETODECIDE,
@@ -1074,11 +1022,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				}
 				*/
 
-#ifdef DEBUGDECISIONS
-				STR tempstr;
-				sprintf( tempstr,"FBNC: NEW BEST iCoverValue at gridno %d is %d\n",sGridNo,iCoverValue );
-				DebugAI( tempstr );
-#endif
 				// remember it instead
 				sBestCover = sGridNo;
 				iBestCoverValue = iCoverValue;
@@ -1107,16 +1050,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// if best cover value found was at least 5% better than our current cover
 		if (*piPercentBetter >= MIN_PERCENT_BETTER)
 		{
-#ifdef DEBUGDECISIONS
-			STR tempstr;
-			sprintf( tempstr,"Found Cover: current %ld, best %ld, %%%%Better %ld\n", iCurrentCoverValue,iBestCoverValue,*piPercentBetter  );
-			DebugAI( tempstr );
-#endif
-
-#ifdef BETAVERSION
-			SnuggleDebug(pSoldier,"Found Cover");
-#endif
-
 			return(sBestCover);       // return the gridno of that cover
 		}
 	}
@@ -3035,7 +2968,11 @@ INT32 FindAdvanceSpot(SOLDIERTYPE *pSoldier, INT32 sTargetSpot, INT8 bAction, UI
 	{
 		if (usMovementMode == RUNNING || usMovementMode == WALKING)
 		{
-			ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);
+			ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE) +GetAPsProne(pSoldier, TRUE);
+			if (pSoldier->bActionPoints <= ubReserveAP)
+			{
+				ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE);
+			}
 		}
 		else
 		{

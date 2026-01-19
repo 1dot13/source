@@ -535,7 +535,7 @@ void HandleRenderDebugInfoModes()
 					GetSoldier(&pSoldier, usSoldierIndex);
 					if (previousSoldier != pSoldier || previousLocation != pSoldier->sGridNo || previousStance != gAnimControl[pSoldier->usAnimState].ubEndHeight)
 					{
-						FindBestNearbyCover(pSoldier, pSoldier->aiData.bAIMorale, &iPercentBetter);
+						FindBestNearbyCover(pSoldier, pSoldier->aiData.bAIMorale, &iPercentBetter, NOWHERE, false);
 						previousSoldier = pSoldier;
 						previousLocation = pSoldier->sGridNo;
 						previousStance = gAnimControl[pSoldier->usAnimState].ubEndHeight;
