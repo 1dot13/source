@@ -134,18 +134,17 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 
 BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 {
-	INT32		sOpponentGridNo;
+	INT32	sOpponentGridNo;
 	INT8		bOpponentLevel;
-	INT32		iRange;
+	INT32	iRangeInCellCoords;
 
 	if (pSoldier->aiData.bAIMorale >= MORALE_NORMAL)
 	{
 		return( FALSE );
 	}
 	// We don't want to go prone if there is a nearby enemy
-	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel );
-	iRange = PythSpacesAway( pSoldier->sGridNo, sOpponentGridNo );
-	if (iRange > 10)
+	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel, nullptr, &iRangeInCellCoords);
+	if ( iRangeInCellCoords > 10*CELL_X_SIZE)
 	{
 		return( TRUE );
 	}
@@ -397,7 +396,11 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 			// sevenfm: movement mode tweaks
 			if (gGameExternalOptions.fAIMovementMode)
 			{
-				INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL);				
+				INT32 distanceToThreat;
+				const INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL, NULL, &distanceToThreat);
+				const auto mediumRange = TACTICAL_RANGE_CELL_COORDS / 2;
+				const auto close = TACTICAL_RANGE_CELL_COORDS / 4;
+                const auto reallyClose = TACTICAL_RANGE_CELL_COORDS / 8;
 
 				// use walking mode if no enemy known
 				if (pSoldier->aiData.bAlertStatus < STATUS_RED &&
@@ -423,6 +426,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 					(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM))
 				{
 					INT16 sDistanceVisible = VISION_RANGE;
+					const auto beyondVisionRange = (CELL_X_SIZE * 3 * sDistanceVisible) / 2;
 					INT32 iRCD = RangeChangeDesire(pSoldier);
 
 					// use running when in light at night
@@ -445,7 +449,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						!GuySawEnemy(pSoldier) &&
 						(NightTime() || gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH) &&
 						CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4) < 3 &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						distanceToThreat < beyondVisionRange &&
 						CountFriendsBlack(pSoldier) == 0 &&
 						bAction == AI_ACTION_SEEK_OPPONENT)
 					{
@@ -454,7 +458,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 
 					// use swatting for taking cover
 					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8 &&
+						distanceToThreat > reallyClose &&
 						(pSoldier->aiData.bUnderFire && iRCD < 4 ||
 						pSoldier->aiData.bShock > 2 * iRCD ||
 						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE) &&
@@ -466,9 +470,9 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 
 					// use SWATTING when under fire 
 					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
-						(pSoldier->aiData.bShock > iRCD && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 2 ||
-						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						(pSoldier->aiData.bShock > iRCD && distanceToThreat > mediumRange ||
+						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && distanceToThreat > close) &&
+						distanceToThreat < beyondVisionRange &&
 						gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH &&
 						!pSoldier->aiData.bLastAttackHit &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
@@ -485,7 +489,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						(pSoldier->aiData.bOrders == SNIPER ||
 						pSoldier->aiData.bOrders == STATIONARY ||
 						(GuySawEnemy(pSoldier) || pSoldier->aiData.bShock > 0) && iRCD < 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						distanceToThreat > close &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
 						bAction == AI_ACTION_GET_CLOSER ||
 						bAction == AI_ACTION_SEEK_FRIEND ||
@@ -501,7 +505,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						(pSoldier->aiData.bOrders == SNIPER ||
 						pSoldier->aiData.bOrders == STATIONARY ||
 						pSoldier->aiData.bShock > 0 && iRCD < 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						distanceToThreat > close &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
 						bAction == AI_ACTION_GET_CLOSER ||
 						bAction == AI_ACTION_SEEK_FRIEND ||
@@ -515,7 +519,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 					if (!pSoldier->aiData.bUnderFire &&
 						bAction == AI_ACTION_TAKE_COVER &&
 						pSoldier->bInitialActionPoints > APBPConstants[AP_MINIMUM] &&
-						(!InARoom(pSoldier->sGridNo, NULL) || PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > sDistanceVisible * 2) &&
+						(!InARoom(pSoldier->sGridNo, NULL) || distanceToThreat > sDistanceVisible * 20) &&
 						pSoldier->aiData.bAIMorale >= MORALE_NORMAL &&
 						pSoldier->bBreath > 25 &&
 						pSoldier->pathing.bLevel == 0 &&
@@ -539,14 +543,14 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH)
 						{
 							if (WeaponReady(pSoldier) && !pSoldier->aiData.bUnderFire && pSoldier->aiData.bAlertStatus == STATUS_BLACK ||
-								pSoldier->aiData.bUnderFire && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+								pSoldier->aiData.bUnderFire && distanceToThreat > reallyClose )
 								return SWATTING;
 							else
 								return RUNNING;
 						}
 						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 						{
-							if (pSoldier->aiData.bUnderFire && !pSoldier->aiData.bLastAttackHit && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+							if (pSoldier->aiData.bUnderFire && !pSoldier->aiData.bLastAttackHit && distanceToThreat > reallyClose )
 								return SWATTING;
 							else
 								return RUNNING;
@@ -1379,7 +1383,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 }
 
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID * pubOpponentID)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID * pubOpponentID, INT32 * distanceInCellCoords)
 {
 	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
@@ -1502,6 +1506,10 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 	if (pubOpponentID && pClosestOpponent)
 	{
 		*pubOpponentID = pClosestOpponent->ubID;
+	}
+	if ( distanceInCellCoords )
+	{
+		*distanceInCellCoords = iClosestRange;
 	}
 	return( sClosestOpponent );
 }

@@ -171,7 +171,7 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier );
 
 INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier );
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID *pubOpponentID = NULL);
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID *pubOpponentID = NULL, INT32 * distanceInCellCoords = NULL);
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );
 INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
@@ -431,6 +431,7 @@ INT8 KnownPublicLevel(UINT8 bTeam, SoldierID ubOpponentID);
 
 // sevenfm: distance for tactical AI checks, roughly equal to normal day vision range
 #define TACTICAL_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
+#define TACTICAL_RANGE_CELL_COORDS TACTICAL_RANGE*CELL_X_SIZE
 #define BOMB_DETECTION_RANGE (TACTICAL_RANGE / 4)
 
 #endif

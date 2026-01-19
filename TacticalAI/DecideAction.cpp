@@ -9637,7 +9637,8 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 	{
 		// determine the location of the known closest opponent
 		// (don't care if he's conscious, don't care if he's reachable at all)
-		sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL );
+		INT32 distanceToOpponent;
+		sClosestOpponent = ClosestKnownOpponent( pSoldier, NULL, NULL, NULL, &distanceToOpponent );
 
 		if ( !TileIsOutOfBounds( sClosestOpponent ) )
 		{
@@ -9647,9 +9648,9 @@ INT8 ArmedVehicleDecideActionRed( SOLDIERTYPE *pSoldier)
 			// if soldier is not already facing in that direction,
 			// and the opponent is close enough that he could possibly be seen
 			// note, have to change this to use the level returned from ClosestKnownOpponent
-			sDistVisible = pSoldier->GetMaxDistanceVisible( sClosestOpponent, 0, CALC_FROM_ALL_DIRS );
+			sDistVisible = pSoldier->GetMaxDistanceVisible( sClosestOpponent, 0, CALC_FROM_ALL_DIRS ) * CELL_X_SIZE;
 
-			if ( (pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway( pSoldier->sGridNo, sClosestOpponent ) <= sDistVisible) )
+			if ( (pSoldier->ubDirection != ubOpponentDir) && (distanceToOpponent <= sDistVisible) )
 			{
 				// set base chance according to orders
 				if ( (pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD) )
