@@ -7286,7 +7286,7 @@ L_NEWAIM:
 			pSoldier->name,sBestCover,iCoverPercentBetter);
 		DebugAI( tempstr ) ;
 #endif
-		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"AI %d taking cover, morale %d, from %d to %d", pSoldier->ubID, pSoldier->aiData.bAIMorale, pSoldier->sGridNo, sBestCover );
+		//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d taking cover, morale %d, from %d to %d", pSoldier->ubID, pSoldier->aiData.bAIMorale, pSoldier->sGridNo, sBestCover );
 		pSoldier->aiData.usActionData = sBestCover;
 		if(!TileIsOutOfBounds(sClosestOpponent))//dnl ch58 150913 After taking cover change facing toward recent target or closest enemy, currently such turn not charge APs and seems because AI is still in moving animation from take cover action
 		{
@@ -10207,7 +10207,7 @@ INT8 ArmedVehicleDecideActionBlack( SOLDIERTYPE *pSoldier )
 			if ( ((pSoldier->bTeam == MILITIA_TEAM) && ((INT16)(PreRandom( 20 )) > BestAttack.ubChanceToReallyHit))
 				 || ((pSoldier->bTeam != MILITIA_TEAM) && ((INT16)(PreRandom( 40 )) > BestAttack.ubChanceToReallyHit)) )
 			{
-				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_TESTVERSION, L"AI %d allowing cover check, chance to hit is only %d, at range %d", BestAttack.ubChanceToReallyHit, PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) );
+				//ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d allowing cover check, chance to hit is only %d, at range %d", BestAttack.ubChanceToReallyHit, PythSpacesAway( pSoldier->sGridNo, BestAttack.sTarget ) );
 				// maybe taking cover would be better!
 				fAllowCoverCheck = TRUE;
 				if ( (INT16)(PreRandom( 10 )) > BestAttack.ubChanceToReallyHit )
@@ -10747,6 +10747,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 		if (!TileIsOutOfBounds(pSoldier->aiData.usActionData))
 		{
 			DebugAI(AI_MSG_INFO, pSoldier, String("Move out of water towards closest opponent"));
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d in deep water. Move towards closest opponent at grid %d", pSoldier->ubID.i, pSoldier->aiData.usActionData);
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 	}
@@ -10764,6 +10765,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 #endif
 
 			DebugAI(AI_MSG_INFO, pSoldier, String("Leave for nearest (ungassed) land"));
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d in water or gas. Move towards nearest safe grid %d", pSoldier->ubID.i, pSoldier->aiData.usActionData);
 			return(AI_ACTION_LEAVE_WATER_GAS);
 		}
 
@@ -10780,6 +10782,7 @@ ActionType DecideActionStuckInWaterOrGas(SOLDIERTYPE *pSoldier, BOOLEAN ubCanMov
 #endif
 
 			DebugAI(AI_MSG_INFO, pSoldier, String("NO LAND NEAR, RUNNING AWAY to grid %d", pSoldier->aiData.usActionData));
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d NO LAND NEAR, RUNNING AWAY to grid %d", pSoldier->ubID.i, pSoldier->aiData.usActionData);
 			return(AI_ACTION_RUN_AWAY);
 		}
 
