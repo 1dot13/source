@@ -1688,10 +1688,10 @@ static void CycleThroughTileDebugInfo()
 {
 	const STR16 modeStrings[] =
 	{
-		L"Pathfinding",
-		L"Threat values",
-		L"Cover values",
-		L"Off",
+		L"Debug draw mode: Pathfinding",
+		L"Debug drawmode: Threat values",
+		L"Debug drawmode: Cover values",
+		L"Debug drawmode: Off",
 	};
 
 	gRenderDebugInfoMode += 1;
