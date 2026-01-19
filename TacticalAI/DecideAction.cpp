@@ -41,6 +41,7 @@
 //////////////////////////////////////////////////////////////////////
 
 extern bool gLogDecideActionRed;
+extern bool gLogDecideActionBlack;
 extern BOOLEAN gfHiddenInterrupt;
 extern BOOLEAN gfUseAlternateQueenPosition;
 extern UINT16 PickSoldierReadyAnimation( SOLDIERTYPE *pSoldier, BOOLEAN fEndReady, BOOLEAN fHipStance );

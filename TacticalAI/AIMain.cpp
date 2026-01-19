@@ -286,7 +286,8 @@ STR16 wszAction[] = {
 UINT32 guiAIStartCounter = 0, guiAILastCounter = 0;
 //UINT8 gubAISelectedSoldier = NOBODY;
 BOOLEAN gfLogsEnabled = TRUE;
-bool gLogDecideActionRed = false;
+bool gLogDecideActionRed = true;
+bool gLogDecideActionBlack = true;
 
 void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, INT8 bAction)
 {
