@@ -2240,6 +2240,31 @@ INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 	return( sMinDist );
 }
 
+BOOLEAN InSmoke(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE) )
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN InTearGas(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_TEARGAS))
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN InMustardGas(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_BURNABLEGAS | MAPELEMENT_EXT_CREATUREGAS | MAPELEMENT_EXT_MUSTARDGAS) )
+		return TRUE;
+
+	return FALSE;
+}
+
+
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	if (WaterTooDeepForAttacks( sGridNo, pSoldier->pathing.bLevel ))
