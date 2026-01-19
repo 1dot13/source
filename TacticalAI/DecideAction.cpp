@@ -815,7 +815,7 @@ INT8 DecideActionNamedNPC( SOLDIERTYPE * pSoldier )
 
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier)
 {
-	DOUBLE iChance, iSneaky = 10;
+	INT32 iChance, iSneaky = 10;
 	INT8  bInWater, bInDeepWater, bInGas;
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
@@ -7774,7 +7774,7 @@ INT8 ArmedVehicleDecideAction( SOLDIERTYPE *pSoldier )
 
 INT8 ArmedVehicleDecideActionGreen( SOLDIERTYPE *pSoldier )
 {
-	DOUBLE iChance, iSneaky = 10;
+	INT32 iChance, iSneaky = 10;
 	INT8  bInWater;
 #ifdef DEBUGDECISIONS
 	STR16 tempstr;
