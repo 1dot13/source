@@ -3941,8 +3941,6 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 		bMoraleCategory ++;
 	}
 
-	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
-
 	// if last attack of this soldier hit enemy - increase morale
 	if( pSoldier->aiData.bLastAttackHit )
 	{
