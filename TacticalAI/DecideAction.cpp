@@ -3004,7 +3004,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				if (BestThrow.ubOpponent != NOBODY && !BestThrow.ubOpponent->IsFlanking())
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("start retreat counter for %d", BestThrow.ubOpponent), gLogDecideActionRed);
-					MercPtrs[BestThrow.ubOpponent]->RetreatCounterStart(2);
+					BestThrow.ubOpponent->RetreatCounterStart(2);
 				}
 
 				// if necessary, swap the usItem from holster into the hand position
