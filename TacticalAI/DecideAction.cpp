@@ -16,7 +16,6 @@
 #include "PATHAI.H"
 #include "Render Fun.h"
 #include "Boxing.h"
-//	#include "Air Raid.h"
 #include "Soldier Profile.h"
 #include "soldier profile type.h"
 #include "Soldier macros.h"
@@ -28,12 +27,12 @@
 #include "Soldier Ani.h"
 #include "Rotting Corpses.h"
 #include "GameSettings.h"
-#include "Dialogue Control.h"
 #include "connect.h"
 #include "Text.h"
 #include "Exit Grids.h"		// added by Flugente
 #include "Game Clock.h"		// sevenfm
 #include "SkillCheck.h"		// sevenfm
+#include "UtilityAI.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
