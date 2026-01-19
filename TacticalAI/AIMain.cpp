@@ -295,8 +295,7 @@ void DebugAI( INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog, IN
 	CHAR8	msg[1024];
 	CHAR8	buf[1024];
 
-
-	if (!gfLogsEnabled || !doLog || pSoldier == nullptr)
+	if (!gfTurnBasedAI || !gfLogsEnabled || !doLog || pSoldier == nullptr)
 		return;
 
 	memset(buf, 0, 1024 * sizeof(char));
