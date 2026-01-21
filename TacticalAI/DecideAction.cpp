@@ -20220,10 +20220,6 @@ INT8 DecideActionRedSoldier(SOLDIERTYPE* pSoldier)
 				if (pSoldier->aiData.bAttitude == DEFENSIVE)
 					iChance += 25;
 
-				if (ARMED_VEHICLE(pSoldier))
-				{
-					iChance += 50;
-				}
 
 				if ((INT16)PreRandom(100) < iChance && pSoldier->InternalIsValidStance(ubOpponentDir, gAnimControl[pSoldier->usAnimState].ubEndHeight))
 				{
