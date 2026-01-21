@@ -18414,13 +18414,10 @@ INT8 DecideActionRedSoldier(SOLDIERTYPE* pSoldier)
 
 
 	// determine if we happen to be in water (in which case we're in BIG trouble!)
-	INT8 bInWater = Water(pSoldier->sGridNo, pSoldier->pathing.bLevel);
-	INT8 bInDeepWater = DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel);
+	const bool bInWater = Water(pSoldier->sGridNo, pSoldier->pathing.bLevel);
+	const bool bInDeepWater = DeepWater(pSoldier->sGridNo, pSoldier->pathing.bLevel);
+	const bool bInGas = DecideActionWearGasmask(pSoldier);
 
-	////////////////////////////////////////////////////////////////////////////
-	// WHEN LEFT IN GAS, WEAR GAS MASK IF AVAILABLE AND NOT WORN
-	////////////////////////////////////////////////////////////////////////////
-	INT8 bInGas = DecideActionWearGasmask(pSoldier);
 
 	////////////////////////////////////////////////////////////////////////////
 	// WHEN IN GAS, GO TO NEAREST REACHABLE SPOT OF UNGASSED LAND
