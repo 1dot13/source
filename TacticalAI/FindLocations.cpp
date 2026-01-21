@@ -15,7 +15,6 @@
 	#include "Render Fun.h"
 	#include "Boxing.h"
 	#include "Text.h"
-	#include "renderworld.h"
 	#include "worldman.h"
 	#include "strategicmap.h"
 	#include "environment.h"
