@@ -21366,7 +21366,7 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 		if (!TileIsOutOfBounds(sRetreatSpot))
 		{
 			DebugAI(AI_MSG_TOPIC, pSoldier, String("found retreat spot %d", sRetreatSpot));
-			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d status black retreat, target grid %d", pSoldier->ubID.i, sRetreatSpot);
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d BLACK retreat, target grid %d", pSoldier->ubID.i, sRetreatSpot);
 
 			//BeginMultiPurposeLocator(sRetreatSpot, pSoldier->pathing.bLevel, FALSE);
 
@@ -21426,11 +21426,10 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 				if (pSoldier->aiData.usActionData != NOWHERE)
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("cover advance spot ok"));
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d status black advance to cover, target grid %d", pSoldier->ubID.i, sAdvanceSpot);
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d BLACK advance to cover, target grid %d", pSoldier->ubID.i, sAdvanceSpot);
 					pSoldier->aiData.usActionData = sAdvanceSpot;
 
-					//ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"[%d] found cover advance spot %d", pSoldier->ubID, sAdvanceSpot);
-					BeginMultiPurposeLocator(sAdvanceSpot, pSoldier->pathing.bLevel, FALSE);
+					BeginMultiPurposeLocator(sAdvanceSpot, pSoldier->pathing.bLevel, FALSE); // For AI debugging
 
 					return AI_ACTION_GET_CLOSER;
 				}
@@ -21500,7 +21499,7 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 						if (BestThrow.ubPossible)
 						{
 							DebugAI(AI_MSG_INFO, pSoldier, String("prepare throw at spot %d level %d aimtime %d", BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime));
-							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d status black advance to cover, throw smoke at target grid %d level %d aimtime %d", pSoldier->ubID.i, BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime);
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d BLACK advance to cover, throw smoke at target grid %d level %d aimtime %d", pSoldier->ubID.i, BestThrow.sTarget, BestThrow.bTargetLevel, BestThrow.ubAimTime);
 
 							// if necessary, swap the usItem from holster into the hand position
 							if (BestThrow.bWeaponIn != HANDPOS)
@@ -21569,7 +21568,7 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 				{
 					DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "DecideActionBlack: can't hit so screw the attack");
 					DebugAI(AI_MSG_INFO, pSoldier, String("can't hit, screw the attack"));
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d status black can't hit with chance %d, forget attack and allow cover check", pSoldier->ubID.i, BestAttack.ubChanceToReallyHit);
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d BLACK can't hit with chance %d, forget attack and allow cover check", pSoldier->ubID.i, BestAttack.ubChanceToReallyHit);
 					// screw the attack!
 					ubBestAttackAction = AI_ACTION_NONE;
 				}
@@ -21596,7 +21595,7 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 		if ( sBestCover != NOWHERE )
 		{
             DebugAI(AI_MSG_INFO, pSoldier, String("Found cover spot %d percent better %d movement mode %d", sBestCover, iCoverPercentBetter, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER)));
-            ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d Found cover spot %d percent better %d movement mode %d", pSoldier->ubID.i, sBestCover, iCoverPercentBetter, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER));
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_BETAVERSION, L"AI %d Found cover spot %d percent better %d movement mode %d", pSoldier->ubID.i, sBestCover, iCoverPercentBetter, DetermineMovementMode(pSoldier, AI_ACTION_TAKE_COVER));
 		}
 	}
 
