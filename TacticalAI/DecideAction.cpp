@@ -20542,12 +20542,8 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 	const BOOLEAN fAnyCover = AnyCoverAtSpot(pSoldier, pSoldier->sGridNo);
 	//const BOOLEAN fDangerousSpot = DangerousSpot(pSoldier);
 	//const BOOLEAN fSafeSpot = SafeSpot(pSoldier);
+	const bool fDangerousSpot = (!fProneSightCover || (pSoldier->aiData.bUnderFire && !fAnyCover));
 
-	BOOLEAN fDangerousSpot = FALSE;
-	if ( !fProneSightCover || (pSoldier->aiData.bUnderFire && !fAnyCover) )
-	{
-		fDangerousSpot = TRUE;
-	}
 
 	DebugAI(AI_MSG_INFO, pSoldier, String("prone sight cover %d", fProneSightCover), gLogDecideActionBlack);
 	DebugAI(AI_MSG_INFO, pSoldier, String("any cover %d", fAnyCover), gLogDecideActionBlack);
