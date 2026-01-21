@@ -18480,16 +18480,18 @@ INT8 DecideActionRedSoldier(SOLDIERTYPE* pSoldier)
 		if (BestThrow.ubPossible)
 		{
 			DebugAI(AI_MSG_INFO, pSoldier, String("throw possible"), gLogDecideActionRed);
+
+			const auto item = pSoldier->inv[BestThrow.bWeaponIn].usItem;
+
 			// sevenfm: allow using mortars, grenade launchers, flares and grenades in RED state
-			if (ItemIsMortar(pSoldier->inv[BestThrow.bWeaponIn].usItem) ||
-				//Item[pSoldier->inv[ BestThrow.bWeaponIn ].usItem].cannon ||
-				ItemIsRocketLauncher(pSoldier->inv[BestThrow.bWeaponIn].usItem) ||
-				ItemIsGrenadeLauncher(pSoldier->inv[BestThrow.bWeaponIn].usItem) ||
-				ItemIsFlare(pSoldier->inv[BestThrow.bWeaponIn].usItem) ||
-				Item[pSoldier->inv[BestThrow.bWeaponIn].usItem].usItemClass & IC_GRENADE)
+			if (ItemIsMortar(item) ||
+				ItemIsRocketLauncher(item) ||
+				ItemIsGrenadeLauncher(item) ||
+				ItemIsFlare(item) ||
+				Item[item].usItemClass & IC_GRENADE)
 			{
 				// if firing mortar make sure we have room
-				if (ItemIsMortar(pSoldier->inv[BestThrow.bWeaponIn].usItem))
+				if (ItemIsMortar(item))
 				{
 					DebugAI(AI_MSG_INFO, pSoldier, String("using mortar, check room to deploy"), gLogDecideActionRed);
 					ubOpponentDir = AIDirection(pSoldier->sGridNo, BestThrow.sTarget);
