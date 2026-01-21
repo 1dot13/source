@@ -655,7 +655,7 @@ static void CalculateCoverValue(SOLDIERTYPE* pSoldier, const INT32 sGridNo, cons
 		}
 
 		// sevenfm: check for nearby friends, add bonus/penalty 10%
-		UINT8 ubNearbyFriends = __max(0, CountNearbyFriends(pSoldier, sGridNo, 7));
+		UINT8 ubNearbyFriends = __max(0, CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_CLOSE));
 		iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (6 - ubDiff);
 
 		// sevenfm: penalize locations with fresh corpses
@@ -960,6 +960,13 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				!RedSmokeDanger(targetGridNo, pSoldier->pathing.bLevel))
 			{
 				//DebugCover(pSoldier, String("moving into red smoke, skip"));
+				continue;
+			}
+
+			// Avoid overcrowding
+			const auto nearbyFriends = CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_VERYCLOSE);
+			if ( nearbyFriends > 1 && !pSoldier->IsZombie() )
+			{
 				continue;
 			}
 
@@ -3122,7 +3129,8 @@ INT32 FindAdvanceSpot(SOLDIERTYPE *pSoldier, INT32 sTargetSpot, INT8 bAction, UI
 			}
 
 			// avoid overcrowding
-			if (!pSoldier->IsZombie() && NumberOfTeamMatesAdjacent(pSoldier, sGridNo) > 1)
+			const auto nearbyFriends = CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_VERYCLOSE);
+			if ( nearbyFriends > 1 && !pSoldier->IsZombie() )
 			{
 				continue;
 			}
