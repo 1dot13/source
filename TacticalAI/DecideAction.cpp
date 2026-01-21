@@ -21391,11 +21391,11 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 		(ubBestAttackAction == AI_ACTION_NONE || ubBestAttackAction == AI_ACTION_FIRE_GUN && BestAttack.ubChanceToReallyHit < 5 * RangeChangeDesire(pSoldier)) &&
 		AIGunRange(pSoldier) < DAY_VISION_RANGE &&
 		pSoldier->aiData.bAIMorale >= MORALE_NORMAL &&
-		(!fAnyCover || !fProneSightCover || AIGunRange(pSoldier)*10 < distanceToOpponent) &&
+		(!fAnyCover || !fProneSightCover || AIGunRange(pSoldier)*CELL_X_SIZE < distanceToOpponent) &&
 		distanceToOpponent < 10*MAX_VISION_RANGE &&
 		//DetermineMovementMode(pSoldier, AI_ACTION_GET_CLOSER) != CRAWLING &&
 		pSoldier->aiData.bShock < RangeChangeDesire(pSoldier) * 2 &&
-		(AIGunRange(pSoldier)*10 < distanceToOpponent ||
+		(AIGunRange(pSoldier)*CELL_X_SIZE < distanceToOpponent ||
 			pSoldier->aiData.bLastAttackHit && pSoldier->sLastTarget != NOWHERE ||
 			pSoldier->aiData.bAIMorale == MORALE_FEARLESS ||
 			ubBestAttackAction == AI_ACTION_NONE ||
