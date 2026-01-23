@@ -2744,7 +2744,6 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 
         case AI_ACTION_JUMP_WINDOW:
             {
-                pSoldier->BeginSoldierClimbWindow();
 				pSoldier->BeginSoldierJumpWindowAI();
 				if ( gfTurnBasedAI )
 				{
