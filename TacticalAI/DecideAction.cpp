@@ -20667,6 +20667,56 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 	}
 
 
+	////////////////////////////////////////////////////////////////////////////
+	// WHEN IN DEEP WATER, CREATE SCUBA FINS
+	////////////////////////////////////////////////////////////////////////////
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[when in deep water, create scuba fins]"));
+
+	if ( bInDeepWater &&
+		ubCanMove &&
+		pSoldier->ubSoldierClass == SOLDIER_CLASS_ELITE && // Only elites get to play with tacticool toys
+		pSoldier->IsFlanking() &&
+		pSoldier->CheckInitialAP() &&
+		Chance(25) &&
+		20 * SoldierDifficultyLevel(pSoldier) >= 100 - gStrategicStatus.ubHighestProgress &&
+		!FindNotDeepWaterNearby(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+		!pSoldier->inv[LEGPOS].exists() )
+	{
+		// create scuba fins and place in the inventory
+		UINT16 usItem;
+		if ( GetFirstItemWithFlag(&usItem, SCUBA_FINS) )
+		{
+			OBJECTTYPE newobj;
+			CreateItem(usItem, 80 + Random(20), &newobj);
+			newobj.fFlags |= OBJECT_UNDROPPABLE;
+
+			// try to place item in inventory
+			int slot = LEGPOS;
+			if ( TryToPlaceInSlot(pSoldier, &newobj, false, slot, slot) )
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("successfully created and placed scuba fins in inventory"));
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////////////////////
+	// WHEN NOT IN WATER, DROP SCUBA FINS
+	////////////////////////////////////////////////////////////////////////////
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[when not in water, drop scuba fins]"));
+
+	if ( !bInWater &&
+		pSoldier->CheckInitialAP() &&
+		pSoldier->inv[LEGPOS].exists() &&
+		HasItemFlag(pSoldier->inv[LEGPOS].usItem, SCUBA_FINS) &&
+		IsActionAffordable(pSoldier, AI_ACTION_DROP_ITEM) )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("found scuba fins in LEGPOS, drop to the ground"));
+		pSoldier->inv[LEGPOS].fFlags |= OBJECT_AI_UNUSABLE;
+		pSoldier->aiData.usActionData = LEGPOS;
+
+		return AI_ACTION_DROP_ITEM;
+	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// STUCK IN WATER OR GAS, NO COVER, GO TO NEAREST SPOT OF UNGASSED LAND
