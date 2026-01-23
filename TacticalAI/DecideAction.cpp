@@ -1,3 +1,4 @@
+//#pragma optimize("", off)
 #include "ai.h"
 #include "AIInternals.h"
 #include "Isometric Utils.h"
@@ -10729,6 +10730,19 @@ INT8 DecideActionWearGasmask(SOLDIERTYPE *pSoldier)
 
 	//Only put mask on in gas
 	if (bInGas && WearGasMaskIfAvailable(pSoldier))	{ bInGas = InGasOrSmoke(pSoldier, pSoldier->sGridNo); }
+
+	// Chance to wear gas mask if soldier sees gas nearby
+	INT32 sSmokeSpot = NOWHERE;
+	INT8 bSmokeLevel = 0;
+
+	if ( SoldierAI(pSoldier) &&
+		pSoldier->CheckInitialAP() &&
+		!DoesSoldierWearGasMask(pSoldier) &&
+		FindClosestVisibleSmoke(pSoldier, sSmokeSpot, bSmokeLevel, TRUE) &&
+		Chance(30 + SoldierDifficultyLevel(pSoldier) * 10) )
+	{
+		WearGasMaskIfAvailable(pSoldier);
+	}
 
 	return bInGas;
 }

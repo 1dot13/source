@@ -299,6 +299,7 @@ SoldierID GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 
 // sevenfm:
 BOOLEAN NightLight(void);
 BOOLEAN DuskLight(void);
+BOOLEAN FindClosestVisibleSmoke(SOLDIERTYPE* pSoldier, INT32& sSpot, INT8& bLevel, BOOLEAN fOnlyGas);
 BOOLEAN InSmokeNearby(INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalVisionDistance( void );
 UINT8 MinFlankDirections( SOLDIERTYPE *pSoldier );

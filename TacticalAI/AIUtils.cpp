@@ -4619,6 +4619,61 @@ UINT8 RedSmokeDanger(INT32 sGridNo, INT8 bLevel)
 	return ubDangerPercent;
 }
 
+BOOLEAN FindClosestVisibleSmoke(SOLDIERTYPE* pSoldier, INT32& sSpot, INT8& bLevel, BOOLEAN fOnlyGas)
+{
+	CHECKF(pSoldier);
+
+	INT32	sDist;
+	INT32   sClosestDist = INT32_MAX;
+	INT32	sCheckSpot;
+	INT8		bCheckLevel;
+
+	sSpot = NOWHERE;
+	bLevel = 0;
+
+	//loop through all smoke effects and find closest visible
+	for ( UINT32 uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++ )
+	{
+		if ( gSmokeEffectData[uiCnt].fAllocated &&
+			!TileIsOutOfBounds(gSmokeEffectData[uiCnt].sGridNo) )
+		{
+			// ignore smoke if not dangerous
+			if ( fOnlyGas &&
+				gSmokeEffectData[uiCnt].bType != TEARGAS_SMOKE_EFFECT &&
+				gSmokeEffectData[uiCnt].bType != MUSTARDGAS_SMOKE_EFFECT &&
+				gSmokeEffectData[uiCnt].bType != CREATURE_SMOKE_EFFECT )
+			{
+				continue;
+			}
+
+			sCheckSpot = gSmokeEffectData[uiCnt].sGridNo;
+
+			if ( gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF )
+				bCheckLevel = 1;
+			else
+				bCheckLevel = 0;
+
+			sDist = PythSpacesAway(sCheckSpot, pSoldier->sGridNo);
+
+			if ( sDist < DAY_VISION_RANGE &&
+				SoldierToVirtualSoldierLineOfSightTest(pSoldier, sCheckSpot, bCheckLevel, ANIM_PRONE, 0, CALC_FROM_ALL_DIRS) &&
+				(sSpot == NOWHERE || sDist < sClosestDist) )
+			{
+				sClosestDist = sDist;
+				sSpot = sCheckSpot;
+				bLevel = bCheckLevel;
+			}
+		}
+	}
+
+	if ( !TileIsOutOfBounds(sSpot) )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 // check if artillery strike was ordered by any team
 BOOLEAN CheckArtilleryStrike(void)
 {
