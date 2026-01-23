@@ -4,7 +4,7 @@
 #include "Overhead.h"
 #include "random.h"
 #include "Points.h"
-
+#include "ai.h"
 #include <iostream>
 #include <iomanip>
 
@@ -190,7 +190,6 @@ typedef enum
 
 INT16 AdvanceToFiringRange( SOLDIERTYPE * pSoldier, INT16 sClosestOpponent );
 
-BOOLEAN AimingGun(SOLDIERTYPE *pSoldier);
 void CalcBestShot(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestShot);
 void CalcBestStab(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestStab, BOOLEAN fBladeAttack);
 void CalcBestThrow(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow);
@@ -223,7 +222,6 @@ INT8 ArmedVehicleDecideAction( SOLDIERTYPE* pSoldier );
 // a variant of ClosestSeenOpponent(...), that allows to find enemies on a roof 
 INT32 ClosestSeenOpponentWithRoof(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel);
 
-INT8 CrowDecideAction( SOLDIERTYPE * pSoldier );
 void DecideAlertStatus( SOLDIERTYPE *pSoldier );
 INT8 DecideAutoBandage( SOLDIERTYPE * pSoldier );
 UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction );
@@ -241,9 +239,12 @@ INT32 GetInterveningClimbingLocation( SOLDIERTYPE * pSoldier, INT32 sDestGridNo,
 UINT8 GetTraversalQuoteActionID( INT8 bDirection );
 INT32 GoAsFarAsPossibleTowards(SOLDIERTYPE *pSoldier, INT32 sDesGrid, INT8 bAction);
 
-INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier );
+ActionType HeadForTheStairCase( SOLDIERTYPE * pSoldier );
 
 BOOLEAN InSmoke(INT32 sGridNo, INT8 bLevel);
+BOOLEAN InSmoke(SOLDIERTYPE* pSoldier, INT32 sGridNo);
+BOOLEAN InTearGas(SOLDIERTYPE* pSoldier, INT32 sGridNo);
+BOOLEAN InMustardGas(SOLDIERTYPE* pSoldier, INT32 sGridNo);
 BOOLEAN InGas( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo );

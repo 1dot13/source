@@ -7,6 +7,10 @@
 #include "../include/LegacyCreaturePlan.h"
 #include "../include/LegacyZombiePlan.h"
 #include "../include/LegacyArmedVehiclePlan.h"
+#include "../include/BoxerPlan.h"
+#include "../include/CivilianPlan.h"
+#include "../include/RobotPlan.h"
+#include "../include/SoldierPlan.h"
 #include "../include/CrowPlan.h"
 #include "../include/PlanList.h"
 
@@ -14,8 +18,7 @@
 #include "../../Tactical/Soldier Control.h" // For SOLDIERTYPE definition
 #include "../../Tactical/Animation Data.h"  // For the definition of, wait for it... BLOODCAT!
 #include "Soldier macros.h"
-
-#include <stdio.h>
+#include "ai.h"
 
 
 namespace AI
@@ -42,6 +45,11 @@ namespace AI
 
             if(npc->IsZombie())
                 return new LegacyZombiePlan(npc);
+
+            if (BOXER(npc)) { return new LegacyAIBoxerPlan(npc); }
+            if (IS_CIV_BODY_TYPE(npc)) { return new CivilianPlan(npc); }
+            if (ENEMYROBOT(npc)) { return new RobotPlan(npc); }
+            if (SoldierAI(npc)) { return new SoldierPlan(npc); }
 
             return new LegacyAIPlan(npc);               // no special plan for other cases yet, return default legacy AI wrapper
         }

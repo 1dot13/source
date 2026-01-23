@@ -456,7 +456,7 @@ INT16 ArmourVersusFirePercent( SOLDIERTYPE * pSoldier );
 extern BOOLEAN FireWeapon( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo );
 extern void WeaponHit( SoldierID usSoldierID, UINT16 usWeaponIndex, INT16 sDamage, INT16 sBreathLoss, UINT16 usDirection, INT16 sXPos, INT16 sYPos, INT16 sZPos, INT16 sRange, SoldierID ubAttackerID, BOOLEAN fHit, UINT8 ubSpecial, UINT8 ubHitLocation );
 extern void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, SoldierID ubAttackerID, UINT16 sXPos, INT16 sYPos, INT16 sZPos, UINT16 usStructureID, INT32 iImpact, BOOLEAN fStopped );
-extern void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce );
+void WindowHit(INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce, BOOLEAN fSound = TRUE);
 // HEADROCK HAM 5.1: Moved to Bullets.h
 extern BOOLEAN InRange( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 extern void ShotMiss( SoldierID ubAttackerID, INT32 iBullet );

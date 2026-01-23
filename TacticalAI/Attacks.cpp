@@ -4234,3 +4234,687 @@ void CheckTossGrenadeAt(SOLDIERTYPE *pSoldier, ATTACKTYPE *pBestThrow, INT32 sTa
 
 	pSoldier->bWeaponMode = WM_NORMAL;
 }
+
+
+static void CalculatePossibleShots(SOLDIERTYPE* pSoldier, INT8 gun, std::vector<ATTACKTYPE> &possibleShots)
+{
+	UINT32 uiLoop;
+	INT32 iAttackValue, iThreatValue, iHitRate, iBestHitRate, iPercentBetter, iEstDamage, iTrueLastTarget;
+	UINT16 usTrueState, usTurningCost, usRaiseGunCost;
+	INT16 sMinAPcost;
+	INT16 sRawAPCost;
+	INT16 sAimAPCost;
+	INT16 sBestAPcost;
+	INT16 sChanceToHit;
+	INT16 sAimTime;
+	INT16 sBestAimTime;
+	INT16 sMaxPossibleAimTime;
+	UINT8 ubChanceToGetThrough;
+	UINT8 ubBestChanceToGetThrough;
+	UINT8 ubFriendlyFireChance;
+	UINT8 ubBestFriendlyFireChance;
+	INT16 sBestChanceToHit;
+	INT16 sStanceAPcost;
+	BOOLEAN fAddingTurningCost, fAddingRaiseGunCost;
+	UINT8 ubStance, ubBestStance, ubChanceToReallyHit;
+	INT8 bScopeMode;
+	SOLDIERTYPE* pOpponent;
+
+	// sevenfm:
+	BOOLEAN fSuppression = FALSE;
+	BOOLEAN fReturnFire = FALSE;
+	INT32 sTarget = NOWHERE;
+	INT8 bLevel;
+
+	INT8 bKnowledge;
+	INT8 bPersonalKnowledge;
+	INT8 bPublicKnowledge;
+
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "CalcBestShot");
+
+
+	sBestChanceToHit = sBestAimTime = sChanceToHit = ubBestChanceToGetThrough = ubBestFriendlyFireChance = ubChanceToReallyHit = 0;
+
+	// sevenfm: set attacking hand and target
+	pSoldier->ubAttackingHand = HANDPOS;
+	pSoldier->ubTargetID = NOBODY;
+
+	pSoldier->usAttackingWeapon = pSoldier->inv[HANDPOS].usItem;
+	pSoldier->bWeaponMode = WM_NORMAL;
+
+	std::map<INT8, OBJECTTYPE*> ObjList;
+	GetScopeLists(pSoldier, &pSoldier->inv[HANDPOS], ObjList);
+	pSoldier->bScopeMode = USE_BEST_SCOPE;
+	pSoldier->bDoBurst = 0;
+	pSoldier->bDoAutofire = 0;
+
+	// determine which attack against which target has the greatest attack value
+	for (uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
+	{
+		ATTACKTYPE pBestShot;
+		pBestShot.ubPossible = FALSE;
+		pBestShot.ubChanceToReallyHit = 0;
+		pBestShot.iAttackValue = 0;
+		pBestShot.ubOpponent = NOBODY;
+		pBestShot.ubFriendlyFireChance = 0;
+		pBestShot.bWeaponIn = gun;
+
+		pOpponent = MercSlots[uiLoop];
+		fSuppression = FALSE;
+		fReturnFire = FALSE;
+
+		// if this merc is inactive, at base, on assignment, or dead
+		if (!pOpponent || !pOpponent->stats.bLife)
+			continue;			// next merc
+
+		if (!ValidOpponent(pSoldier, pOpponent))
+		{
+			continue;
+		}
+
+		// determine return fire
+		if (pSoldier->aiData.bUnderFire &&
+			!pSoldier->bBlindedCounter &&
+			pSoldier->ubPreviousAttackerID == pOpponent->ubID)
+		{
+			fReturnFire = TRUE;
+		}
+
+		bKnowledge = Knowledge(pSoldier, pOpponent->ubID);
+		bPersonalKnowledge = PersonalKnowledge(pSoldier, pOpponent->ubID);
+		bPublicKnowledge = PublicKnowledge(pSoldier->bTeam, pOpponent->ubID);
+
+		// check knowledge
+		if (bKnowledge != SEEN_CURRENTLY &&
+			bKnowledge != SEEN_THIS_TURN &&
+			bKnowledge != SEEN_LAST_TURN &&
+			bKnowledge != HEARD_THIS_TURN &&
+			bKnowledge != HEARD_LAST_TURN &&
+			!((bKnowledge == SEEN_2_TURNS_AGO || bKnowledge == SEEN_3_TURNS_AGO || bKnowledge == HEARD_2_TURNS_AGO) && Weapon[pSoldier->usAttackingWeapon].ubWeaponType == GUN_LMG))
+		{
+			continue;	// next opponent
+		}
+
+		// sevenfm: blind soldier can only attack seen/heard personally
+		if (pSoldier->bBlindedCounter > 0 &&
+			bPersonalKnowledge != SEEN_THIS_TURN &&
+			bPersonalKnowledge != HEARD_THIS_TURN)
+		{
+			continue;	// next opponent
+		}
+
+		// sevenfm: determine if we shoot on unseen target for suppression		
+		if (bPersonalKnowledge != SEEN_CURRENTLY &&
+			bPublicKnowledge != SEEN_CURRENTLY &&
+			//!SoldierToSoldierLineOfSightTest(pSoldier, pOpponent, TRUE, CALC_FROM_ALL_DIRS))
+			!LOS_Raised(pSoldier, pOpponent, CALC_FROM_ALL_DIRS))
+		{
+			fSuppression = TRUE;
+		}
+
+		// sevenfm: shooting at unseen opponents is optional
+		if (fSuppression && !gGameExternalOptions.fAIShootUnseen)
+		{
+			continue;	// next opponent
+		}
+
+		// determine enemy location
+		if (fSuppression)
+		{
+			// personal/public knowledge
+			sTarget = KnownLocation(pSoldier, pOpponent->ubID);
+			bLevel = KnownLevel(pSoldier, pOpponent->ubID);
+			// try to randomize location
+			sTarget = RandomizeLocation(sTarget, bLevel, 1, pSoldier);
+		}
+		else
+		{
+			// we know exact enemy location
+			sTarget = pOpponent->sGridNo;
+			bLevel = pOpponent->pathing.bLevel;
+		}
+
+		// safety check
+		if (TileIsOutOfBounds(sTarget))
+		{
+			continue;
+		}
+
+		// skip if we can see location and location is empty
+		if (SoldierToVirtualSoldierLineOfSightTest(pSoldier, sTarget, bLevel, ANIM_PRONE, TRUE, CALC_FROM_ALL_DIRS) &&
+			WhoIsThere2(sTarget, bLevel) == NOBODY)
+		{
+			continue;
+		}
+
+		// no fire on unseen opponents with throwing knives
+		if ((Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) &&
+			bPersonalKnowledge != SEEN_CURRENTLY &&
+			//!SoldierToSoldierLineOfSightTest(pSoldier, pOpponent, TRUE, CALC_FROM_ALL_DIRS))
+			!LOS_Raised(pSoldier, pOpponent, CALC_FROM_ALL_DIRS))
+		{
+			continue;
+		}
+
+		// sevenfm: only enemy team can use blind suppression fire
+		if (fSuppression &&
+			pSoldier->bTeam != ENEMY_TEAM)
+		{
+			continue;
+		}
+
+		// sevenfm: only try to suppress alive and conscious human targets
+		if (fSuppression &&
+			(pOpponent->stats.bLife < OKLIFE ||
+				pOpponent->bCollapsed && pOpponent->bBreath == 0 ||
+				pOpponent->IsCowering() ||
+				pOpponent->IsZombie() ||
+				!IS_MERC_BODY_TYPE(pOpponent)))
+		{
+			continue;
+		}
+
+		// shoot through wall check
+		if (bPersonalKnowledge != SEEN_CURRENTLY &&
+			//!SoldierToSoldierLineOfSightTest(pSoldier, pOpponent, TRUE, CALC_FROM_ALL_DIRS) &&
+			!LOS_Raised(pSoldier, pOpponent, CALC_FROM_ALL_DIRS) &&
+			!SoldierToVirtualSoldierLineOfSightTest(pSoldier, sTarget, bLevel, ANIM_STAND, TRUE, NO_DISTANCE_LIMIT) &&
+			!LocationToLocationLineOfSightTest(pSoldier->sGridNo, pSoldier->pathing.bLevel, sTarget, bLevel, TRUE, NO_DISTANCE_LIMIT) &&
+			!fReturnFire &&
+			!(InARoom(sTarget, NULL) && bLevel == 0 && Weapon[pSoldier->usAttackingWeapon].ubWeaponType == GUN_LMG) &&	// bPublicKnowledge == SEEN_CURRENTLY && 
+			!(InARoom(sTarget, NULL) && bLevel == 0 && TeamPercentKilled(pSoldier->bTeam) > (100 - 20 * SoldierDifficultyLevel(pSoldier))))
+		{
+			continue;
+		}
+
+#ifdef DEBUGATTACKS
+		DebugAI(String("%s sees %s at gridno %d\n", pSoldier->GetName(), ExtMen[pOpponent->ubID].GetName(), pOpponent->sGridNo));
+#endif
+		sMinAPcost = MinAPsToAttack(pSoldier, sTarget, DONTADDTURNCOST, 0);
+		// later will be decide if shoot is possible this here is just best guess so ignore turnover
+
+		// if we don't have enough APs left to shoot even a snap-shot at this guy
+		if (sMinAPcost > pSoldier->bActionPoints)
+			continue;			// next opponent
+
+		// sevenfm: check CTGT and friendly fire for each stance instead since they can be different
+		// calculate chance to get through the opponent's cover (if any)
+		//dnl ch61 180813
+		/*gUnderFire.Clear();
+		gUnderFire.Enable();
+		ubChanceToGetThrough = AISoldierToSoldierChanceToGetThrough( pSoldier, pOpponent );
+		ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+		gUnderFire.Disable();
+
+		// if we can't possibly get through all the cover
+		if (ubChanceToGetThrough == 0)
+			continue;			// next opponent
+
+		// sevenfm: ignore opponent if we can hit friend
+		if (ubFriendlyFireChance > MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+			continue;*/
+
+		if ((pSoldier->flags.uiStatusFlags & SOLDIER_MONSTER) && (pSoldier->ubBodyType != QUEENMONSTER))
+		{
+			STRUCTURE_FILE_REF* pStructureFileRef;
+			UINT16								usAnimSurface;
+
+			usAnimSurface = DetermineSoldierAnimationSurface(pSoldier, pSoldier->usUIMovementMode);
+			pStructureFileRef = GetAnimationStructureRef(pSoldier->ubID, usAnimSurface, pSoldier->usUIMovementMode);
+
+			if (pStructureFileRef)
+			{
+				UINT16		usStructureID;
+				INT8			bDir;
+
+				// must make sure that structure data can be added in the direction of the target
+				bDir = (INT8)GetDirectionToGridNoFromGridNo(pSoldier->sGridNo, sTarget);
+
+				// ATE: Only if we have a levelnode...
+				if (pSoldier->pLevelNode != NULL && pSoldier->pLevelNode->pStructureData != NULL)
+				{
+					usStructureID = pSoldier->pLevelNode->pStructureData->usStructureID;
+				}
+				else
+				{
+					usStructureID = INVALID_STRUCTURE_ID;
+				}
+
+				if (!OkayToAddStructureToWorld(pSoldier->sGridNo, pSoldier->pathing.bLevel, &(pStructureFileRef->pDBStructureRef[gOneCDirection[bDir]]), usStructureID))
+				{
+					// can't turn in that dir.... next opponent
+					continue;
+				}
+			}
+		}
+
+		iBestHitRate = 0;					 // reset best hit rate to minimum
+
+		//dnl ch69 130913 Hoping to optimize
+		// consider alternate holding mode and different scopes
+		// sevenfm: alt weapon holding scope mode is used only when ubAllowAlternativeWeaponHolding == 3
+		for (pSoldier->bScopeMode = (gGameExternalOptions.ubAllowAlternativeWeaponHolding == 3 ? USE_ALT_WEAPON_HOLD : USE_BEST_SCOPE);
+			pSoldier->bScopeMode <= (gGameExternalOptions.fScopeModes ? NUM_SCOPE_MODES - 1 : USE_BEST_SCOPE);
+			pSoldier->bScopeMode++)
+		{
+			if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD)
+			{
+				//dnl ch71 180913 throwing knives cannot be used in fire from hip
+				if (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE)
+					continue;
+
+				// sevenfm: hip firing allowed only for human bodytypes
+				if (!IS_MERC_BODY_TYPE(pSoldier))
+					continue;
+			}
+
+			if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || (pSoldier->bScopeMode >= USE_BEST_SCOPE && ObjList[pSoldier->bScopeMode] != NULL))
+			{
+				usTrueState = pSoldier->usAnimState;		// because is used in CalculateRaiseGunCost, CalcAimingLevelsAvailableWithAP, CalculateTurningCost
+				iTrueLastTarget = pSoldier->sLastTarget;	// because is used in MinAPsToShootOrStab
+
+				// --------- Standing ---------
+				ubStance = ANIM_STAND;
+				// sevenfm: take into account direction when checking stance
+				// sevenfm: shoot heavy guns in standing stance only when using hip fire
+				if (pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, sTarget), ubStance) &&
+					(pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || !Weapon[pSoldier->usAttackingWeapon].HeavyGun || !ItemIsTwoHanded(pSoldier->usAttackingWeapon) || !gGameExternalOptions.ubAllowAlternativeWeaponHolding))
+				{
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if (sStanceAPcost)
+					{
+						// Going up so first is stance change then turnover, do animation change before APs calculation
+						pSoldier->usAnimState = STANDING;
+						pSoldier->sLastTarget = NOWHERE;
+					}
+					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, sTarget, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, sTarget, 0);
+					if (fAddingTurningCost && fAddingRaiseGunCost)//dnl ch71 180913
+					{
+						if (usRaiseGunCost > usTurningCost)
+							usTurningCost = 0;
+						else
+							usRaiseGunCost = 0;
+					}
+					sRawAPCost = MinAPsToShootOrStab(pSoldier, sTarget, 0, FALSE, 2);
+					sMinAPcost = sRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+
+					if (pSoldier->bActionPoints - sMinAPcost >= 0)
+					{
+						// calc next attack's minimum shooting cost (excludes readying & turning & raise gun)
+						sMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, sTarget, pSoldier->bActionPoints - sMinAPcost);
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						if (fSuppression)
+							ubChanceToGetThrough = SoldierToLocationChanceToGetThrough(pSoldier, sTarget, bLevel, 3, NOBODY);
+						else
+							ubChanceToGetThrough = SoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+						{
+							for (sAimTime = 0; sAimTime <= sMaxPossibleAimTime; sAimTime++)
+							{
+								sChanceToHit = AICalcChanceToHitGun(pSoldier, sTarget, sAimTime, AIM_SHOT_TORSO, bLevel, STANDING);
+								sAimAPCost = CalcAPCostForAiming(pSoldier, sTarget, (INT8)sAimTime);
+								iHitRate = sChanceToHit * (pSoldier->bActionPoints - (sMinAPcost - sRawAPCost)) / (sRawAPCost + sAimAPCost);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough ||
+									(Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE) && sChanceToHit > sBestChanceToHit)// rather take best chance for throwing knives
+								{
+									iBestHitRate = iHitRate;
+									sBestAimTime = sAimTime;
+									sBestChanceToHit = sChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = sMinAPcost;
+									ubBestStance = ubStance;
+								}
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+
+				// no crouched/prone if we are tank/using throwing knife/hip firing
+				if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD || ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier) || (Item[pSoldier->usAttackingWeapon].usItemClass & IC_THROWING_KNIFE))
+					continue;
+
+				// --------- Crouched ---------
+				ubStance = ANIM_CROUCH;
+				// sevenfm: take into account direction
+				if (pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, sTarget), ubStance))
+				{
+					// change stance then turn
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if (sStanceAPcost)
+					{
+						pSoldier->usAnimState = CROUCHING;
+						pSoldier->sLastTarget = NOWHERE;
+					}
+					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, sTarget, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, sTarget, 0);
+					if (fAddingTurningCost && fAddingRaiseGunCost)//dnl ch71 180913
+					{
+						if (usRaiseGunCost > usTurningCost)
+							usTurningCost = 0;
+						else
+							usRaiseGunCost = 0;
+					}
+					sRawAPCost = MinAPsToShootOrStab(pSoldier, sTarget, 0, FALSE, 2);
+					sMinAPcost = sRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+
+					if (pSoldier->bActionPoints - sMinAPcost >= 0)
+					{
+						sMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, sTarget, pSoldier->bActionPoints - sMinAPcost);
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						if (fSuppression)
+							ubChanceToGetThrough = SoldierToLocationChanceToGetThrough(pSoldier, sTarget, bLevel, 3, NOBODY);
+						else
+							ubChanceToGetThrough = SoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+						{
+							for (sAimTime = 0; sAimTime <= sMaxPossibleAimTime; sAimTime++)
+							{
+								sChanceToHit = AICalcChanceToHitGun(pSoldier, sTarget, sAimTime, AIM_SHOT_TORSO, bLevel, CROUCHING);
+								sAimAPCost = CalcAPCostForAiming(pSoldier, sTarget, (INT8)sAimTime);
+								iHitRate = sChanceToHit * (pSoldier->bActionPoints - (sMinAPcost - sRawAPCost)) / (sRawAPCost + sAimAPCost);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough)
+								{
+									iBestHitRate = iHitRate;
+									sBestAimTime = sAimTime;
+									sBestChanceToHit = sChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = sMinAPcost;
+									ubBestStance = ubStance;
+								}
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+
+				// no prone stance if we have to change direction and stance at the same time
+				if (pSoldier->ubDirection != AIDirection(pSoldier->sGridNo, sTarget) &&
+					gAnimControl[pSoldier->usAnimState].ubEndHeight > ANIM_PRONE)
+				{
+					continue;
+				}
+
+				// --------- Prone ---------
+				ubStance = ANIM_PRONE;
+				if (pSoldier->InternalIsValidStance(AIDirection(pSoldier->sGridNo, sTarget), ubStance))
+				{
+					sStanceAPcost = GetAPsToChangeStance(pSoldier, ubStance);
+					if (sStanceAPcost)
+					{
+						pSoldier->usAnimState = PRONE;
+						pSoldier->sLastTarget = NOWHERE;
+					}
+					GetAPChargeForShootOrStabWRTGunRaises(pSoldier, sTarget, TRUE, &fAddingTurningCost, &fAddingRaiseGunCost, 0);
+					usTurningCost = CalculateTurningCost(pSoldier, pSoldier->usAttackingWeapon, fAddingTurningCost);
+					usRaiseGunCost = CalculateRaiseGunCost(pSoldier, fAddingRaiseGunCost, sTarget, 0);
+					sRawAPCost = MinAPsToShootOrStab(pSoldier, sTarget, 0, FALSE, 2);
+					sMinAPcost = sRawAPCost + usTurningCost + sStanceAPcost + usRaiseGunCost;
+
+					if (pSoldier->bActionPoints - sMinAPcost >= 0)
+					{
+						sMaxPossibleAimTime = CalcAimingLevelsAvailableWithAP(pSoldier, sTarget, pSoldier->bActionPoints - sMinAPcost);
+
+						// sevenfm: check CTGT and friendly fire chance for every stance
+						gUnderFire.Clear();
+						gUnderFire.Enable();
+						if (fSuppression)
+							ubChanceToGetThrough = SoldierToLocationChanceToGetThrough(pSoldier, sTarget, bLevel, 3, NOBODY);
+						else
+							ubChanceToGetThrough = SoldierToSoldierChanceToGetThrough(pSoldier, pOpponent);
+						ubFriendlyFireChance = gUnderFire.Chance(pSoldier->bTeam, pSoldier->bSide, TRUE);
+						gUnderFire.Disable();
+
+						// sevenfm: only use this stance if we can hit target and cannot hit friends
+						if (ubChanceToGetThrough > 0 && ubFriendlyFireChance <= MIN_CHANCE_TO_ACCIDENTALLY_HIT_SOMEONE)
+						{
+							for (sAimTime = 0; sAimTime <= sMaxPossibleAimTime; sAimTime++)
+							{
+								sChanceToHit = AICalcChanceToHitGun(pSoldier, sTarget, sAimTime, AIM_SHOT_TORSO, bLevel, PRONE);
+								sAimAPCost = CalcAPCostForAiming(pSoldier, sTarget, (INT8)sAimTime);
+								iHitRate = sChanceToHit * (pSoldier->bActionPoints - (sMinAPcost - sRawAPCost)) / (sRawAPCost + sAimAPCost);
+								// sevenfm: take into account CTGT for every stance
+								if (iHitRate * ubChanceToGetThrough > iBestHitRate * ubBestChanceToGetThrough)
+								{
+									iBestHitRate = iHitRate;
+									sBestAimTime = sAimTime;
+									sBestChanceToHit = sChanceToHit;
+									ubBestChanceToGetThrough = ubChanceToGetThrough;
+									ubBestFriendlyFireChance = ubFriendlyFireChance;
+									bScopeMode = pSoldier->bScopeMode;
+									sBestAPcost = sMinAPcost;
+									ubBestStance = ubStance;
+								}
+							}
+						}
+					}
+					pSoldier->usAnimState = usTrueState;
+					pSoldier->sLastTarget = iTrueLastTarget;
+				}
+			}
+		}
+
+		// if we can't get any kind of hit rate at all
+		if (iBestHitRate == 0)
+			continue;			// next opponent
+
+		// calculate chance to REALLY hit: shoot accurately AND get past cover
+		ubChanceToReallyHit = (UINT8)ceil((sBestChanceToHit * ubBestChanceToGetThrough) / 100.0f);
+
+		// if we can't REALLY hit at all
+		if (ubChanceToReallyHit == 0)
+			continue;			// next opponent
+
+		// really limit knife throwing so it doesn't look wrong
+		if (Item[pSoldier->usAttackingWeapon].usItemClass == IC_THROWING_KNIFE &&
+			(ubChanceToReallyHit < 25 || (PythSpacesAway(pSoldier->sGridNo, sTarget) > CalcMaxTossRange(pSoldier, pSoldier->usAttackingWeapon, FALSE))))// Madd / 2 ) ) ) //dnl ch69 160913 was ubChanceToReallyHit < 30
+			continue; // don't bother... next opponent
+
+		// calculate this opponent's threat value (factor in my cover from him)
+		iThreatValue = CalcManThreatValue(pOpponent, pSoldier->sGridNo, TRUE, pSoldier);
+
+		// estimate the damage this shot would do to this opponent
+		iEstDamage = EstimateShotDamage(pSoldier, pOpponent, sBestChanceToHit);
+		//NumMessage("SHOT EstDamage = ",iEstDamage);
+
+		// calculate the combined "attack value" for this opponent
+		// highest possible value before division should be about 1.8 billion...
+		// normal value before division should be about 5 million...
+		iAttackValue = (iEstDamage * iBestHitRate * ubChanceToReallyHit * iThreatValue) / 1000;
+		//NumMessage("SHOT AttackValue = ",iAttackValue / 1000);
+
+		// sevenfm: penalize suppression fire
+		if (fSuppression)
+		{
+			// 25% penalty for shooting at invisible target
+			iAttackValue = iAttackValue / 2;
+		}
+
+		// special stuff for assassins to ignore militia more
+		if (pSoldier->IsAssassin() && pOpponent->bTeam == MILITIA_TEAM)
+		{
+			iAttackValue /= 2;
+		}
+
+		// sevenfm: empty vehicles have very low priority
+		if (pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle(pOpponent->bVehicleID) == 0)
+		{
+			iAttackValue /= 4;
+		}
+
+		// sevenfm: dying, cowering or unconscious soldiers have very low priority
+		if (pOpponent->stats.bLife < OKLIFE || pOpponent->bCollapsed || pOpponent->bBreathCollapsed)
+		{
+			iAttackValue /= 4;
+		}
+
+#ifdef DEBUGATTACKS
+		DebugAI(String("CalcBestShot: best AttackValue vs %d = %d\n", uiLoop, iAttackValue));
+#endif
+
+		// if we can hurt the guy, OR probably not, but at least it's our best
+		// chance to actually hit him and maybe scare him, knock him down, etc.
+		if ((iAttackValue > 0) || (ubChanceToReallyHit > pBestShot.ubChanceToReallyHit))
+		{
+#if 0			// if there already was another viable target
+			if (pBestShot.ubChanceToReallyHit > 0)
+			{
+				// OK, how does our chance to hit him compare to the previous best one?
+				iPercentBetter = ((ubChanceToReallyHit * 100) / pBestShot.ubChanceToReallyHit) - 100;
+
+				//dnl ch62 180813 ignore firing into breathless targets if there are targets in better condition
+				// sevenfm: check that best opponent exists
+				if (pBestShot.ubOpponent != NOBODY &&
+					(Menptr[pBestShot.ubOpponent].bCollapsed || Menptr[pBestShot.ubOpponent].bBreathCollapsed) &&
+					Menptr[pBestShot.ubOpponent].bBreath < OKBREATH
+					&& Menptr[pBestShot.ubOpponent].bBreath < pOpponent->bBreath)
+				{
+					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
+				}
+
+				// sevenfm: if best opponent is dying and new opponent is ok, use new opponent
+				if (pBestShot.ubOpponent != NOBODY &&
+					Menptr[pBestShot.ubOpponent].stats.bLife < OKLIFE &&
+					pOpponent->stats.bLife >= OKLIFE)
+				{
+					iPercentBetter = PERCENT_TO_IGNORE_THREAT;
+				}
+
+				// if this chance to really hit is more than 50% worse, and the other
+				// guy is conscious at all
+				if (iPercentBetter < -PERCENT_TO_IGNORE_THREAT &&
+					pBestShot.ubOpponent != NOBODY &&
+					Menptr[pBestShot.ubOpponent].stats.bLife >= OKLIFE)
+				{
+					// then stick with the older guy as the better target
+					continue;
+				}
+
+				// if this chance to really hit between 50% worse to 50% better
+				if (iPercentBetter < PERCENT_TO_IGNORE_THREAT)
+				{
+					// then the one with the higher ATTACK VALUE is the better target
+					if (iAttackValue < pBestShot.iAttackValue)
+						// the previous guy is more important since he's more dangerous
+						continue;			// next opponent
+				}
+			}
+
+			// sevenfm: if new opponent is dying and best opponent is ok, ignore new opponent
+			if (pBestShot.ubOpponent != NOBODY &&
+				Menptr[pBestShot.ubOpponent].stats.bLife >= OKLIFE &&
+				pOpponent->stats.bLife < OKLIFE)
+			{
+				//DebugShot(pSoldier, String("new opponent is dying, best opponent is ok - skip"));
+				continue;
+			}
+#endif
+			// OOOF!	That was a lot of work!	But we've got a new viable target!
+			pBestShot.ubPossible = TRUE;
+			pBestShot.ubOpponent = pOpponent->ubID;
+			pBestShot.ubAimTime = sBestAimTime;
+			pBestShot.ubChanceToReallyHit = ubChanceToReallyHit;
+			pBestShot.sTarget = sTarget;
+			pBestShot.bTargetLevel = bLevel;
+			pBestShot.iAttackValue = iAttackValue;
+			pBestShot.ubAPCost = sBestAPcost;
+			pBestShot.ubStance = ubBestStance;
+			pBestShot.bScopeMode = bScopeMode;
+			pBestShot.ubFriendlyFireChance = ubBestFriendlyFireChance;
+
+			possibleShots.push_back(pBestShot);
+		}
+	}
+
+	pSoldier->bScopeMode = USE_BEST_SCOPE; // better reset this back
+}
+
+bool CompareAttacks(const ATTACKTYPE& a, const ATTACKTYPE& b)
+{
+	if (a.iAttackValue > b.iAttackValue)
+		return true;
+	else if (a.iAttackValue < b.iAttackValue)
+		return false;
+
+	if (a.ubChanceToReallyHit > b.ubChanceToReallyHit)
+		return true;
+	else if (a.ubChanceToReallyHit < b.ubChanceToReallyHit)
+		return false;
+
+	if (a.ubFriendlyFireChance < b.ubFriendlyFireChance)
+		return true;
+	else if (a.ubFriendlyFireChance > b.ubFriendlyFireChance)
+		return false;
+
+	if (a.ubAPCost < b.ubAPCost)
+		return true;
+	else if (a.ubAPCost > b.ubAPCost)
+		return false;
+
+	return false;
+}
+
+void CheckIfShotsPossible(SOLDIERTYPE* pSoldier, std::vector<ATTACKTYPE>& possibleShots)
+{
+	INT8 guns[] = { FindAIUsableObjClass(pSoldier, IC_GUN),  FindAIUsableObjClass(pSoldier, IC_GUN, TRUE) };
+	// Only merc bodytypes can use a sidearm, also don't bother to check for targets if found sidearm is the same as main gun
+	if (!IS_MERC_BODY_TYPE(pSoldier) || guns[0] == guns[1])
+	{
+		guns[1] = NO_SLOT;
+	}
+
+	for (size_t i = 0; i < 2; i++)
+	{
+		const auto gun = guns[i];
+		// if the soldier does have a gun
+		if (gun != NO_SLOT)
+		{
+			// if it's in his holster, swap it into his hand temporarily
+			if (gun != HANDPOS)
+			{
+				RearrangePocket(pSoldier, HANDPOS, gun, TEMPORARILY);
+			}
+
+			// get the minimum cost to attack with this item
+			INT16 ubMinAPcost = MinAPsToAttack(pSoldier, pSoldier->sLastTarget, ADDTURNCOST, 0);
+
+			// if we can afford the minimum AP cost
+			if (pSoldier->bActionPoints >= ubMinAPcost)
+			{
+				// then look around for worthy targets
+				CalculatePossibleShots(pSoldier, gun, possibleShots);
+			}
+
+			// if it was in his holster, swap it back into his holster for now
+			if (gun != HANDPOS)
+			{
+				RearrangePocket(pSoldier, HANDPOS, gun, TEMPORARILY);
+			}
+		}
+	}
+}
