@@ -758,6 +758,29 @@ void EatFromInventory( SOLDIERTYPE *pSoldier, BOOLEAN fcanteensonly )
 	}
 }
 
+void DrinkFromInventory(SOLDIERTYPE* pSoldier)
+{
+	if ( !pSoldier )
+		return;
+
+	INT8 invsize = pSoldier->inv.size();
+
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( pSoldier->inv[bLoop].exists() && ItemIsCanteen(pSoldier->inv[bLoop].usItem) )
+		{
+			OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);
+
+			if ( pObj && TotalPoints(pObj) > 1 )
+			{
+				//ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_DRINKS], pSoldier->GetName());
+				ApplyConsumable(pSoldier, pObj, false, true);
+				return;
+			}
+		}
+	}
+}
+
 void HourlyFoodUpdate( void )
 {
 	SoldierID bMercID, bLastTeamID;

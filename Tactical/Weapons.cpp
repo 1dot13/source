@@ -6089,7 +6089,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, Sol
 	}
 }
 
-void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce )
+void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce, BOOLEAN fSound)
 {
 	STRUCTURE *			pWallAndWindow;
 	DB_STRUCTURE *	pWallAndWindowInDB;
@@ -6210,10 +6210,12 @@ void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, B
 
 	pNode = CreateAnimationTile( &AniParams );
 	//ddd window{
-CompileWorldMovementCosts();
-//ddd window}
-	PlayJA2Sample( GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir( sGridNo ) );
-
+	CompileWorldMovementCosts();
+	//ddd window}
+	if ( fSound )
+	{
+		PlayJA2Sample(GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir(sGridNo));
+	}
 }
 
 

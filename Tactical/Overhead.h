@@ -261,6 +261,9 @@ void SelectNextAvailSoldier( SOLDIERTYPE *pSoldier );
 BOOLEAN TeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange);
 BOOLEAN IsValidTargetMerc( SoldierID ubSoldierID );
 
+BOOLEAN NotDeafTeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange);
+BOOLEAN PlayerCanHearNoise(SOLDIERTYPE* pSoldier);
+
 // FUNCTIONS FOR MANIPULATING MERC SLOTS - A LIST OF ALL ACTIVE MERCS
 INT32 GetFreeMercSlot( );
 INT32 AddMercSlot( SOLDIERTYPE *pSoldier );
@@ -433,4 +436,3 @@ BOOLEAN IsFreeSlotAvailable( int aTeam );
 void AttemptToCapturePlayerSoldiers();
 
 #endif
-

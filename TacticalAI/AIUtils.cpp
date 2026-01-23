@@ -27,6 +27,7 @@
 	#include "SmokeEffects.h"		// sevenfm
 
 #include "GameInitOptionsScreen.h"
+#include "Structure Wrap.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -810,6 +811,18 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier, INT8 bAction)
 
 		case AI_ACTION_SELFDETONATE:
 			bMinPointsNeeded = 20;	// TODO
+			break;
+
+		case AI_ACTION_DRINK_CANTEEN:
+			bMinPointsNeeded = APBPConstants[AP_DRINK];
+			break;
+
+		case AI_ACTION_HANDLE_ITEM:
+			bMinPointsNeeded = 0;
+			break;
+
+		case AI_ACTION_PLANT_BOMB:
+			bMinPointsNeeded = APBPConstants[AP_INVENTORY_ARM] + APBPConstants[AP_DROP_BOMB];
 			break;
 
 		default:
@@ -6326,4 +6339,222 @@ BOOLEAN CheckSuppressionDirection(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, IN
 	}
 
 	return TRUE;
+}
+
+UINT8 CountKnownEnemies(SOLDIERTYPE* pSoldier, INT32 sSpot, INT16 sDistance, INT8 bLevel)
+{
+	CHECKF(pSoldier);
+
+	SOLDIERTYPE* pOpponent;
+	INT32 sThreatLoc;
+	INT8 bThreatLevel;
+	UINT8 ubNum = 0;
+
+	// loop through all the enemies
+	for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
+		{
+			continue;
+		}
+
+		if ( !ValidOpponent(pSoldier, pOpponent) )
+		{
+			continue;
+		}
+
+		// check knowledge
+		if ( Knowledge(pSoldier, pOpponent->ubID) == NOT_HEARD_OR_SEEN )
+		{
+			continue;
+		}
+
+		sThreatLoc = KnownLocation(pSoldier, pOpponent->ubID);
+		bThreatLevel = KnownLevel(pSoldier, pOpponent->ubID);
+
+		if ( TileIsOutOfBounds(sThreatLoc) )
+		{
+			continue;
+		}
+
+		if ( PythSpacesAway(sSpot, sThreatLoc) > sDistance )
+		{
+			continue;
+		}
+
+		if ( bLevel >= 0 && bThreatLevel != bLevel )
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
+}
+
+UINT8 CountKnownEnemiesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom)
+{
+	CHECKF(pSoldier);
+
+	UINT8 ubNum = 0;
+	for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+	{
+		SOLDIERTYPE* pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
+		{
+			continue;
+		}
+
+		if ( !ValidOpponent(pSoldier, pOpponent) )
+		{
+			continue;
+		}
+
+		// check public knowledge
+		if ( Knowledge(pSoldier, pOpponent->ubID) == NOT_HEARD_OR_SEEN )
+		{
+			continue;
+		}
+
+		INT32 sThreatLoc = KnownLocation(pSoldier, pOpponent->ubID);
+
+		if ( TileIsOutOfBounds(sThreatLoc) )
+		{
+			continue;
+		}
+
+		// check room
+		UINT16 usRoomNo;
+		if ( !InARoom(sThreatLoc, &usRoomNo) )
+		{
+			continue;
+		}
+
+		if ( usRoomNo != usRoom )
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
+}
+
+UINT8 CountFriendsInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom)
+{
+	CHECKF(pSoldier);
+
+	SOLDIERTYPE* pFriend;
+	UINT8		 ubFriendCount = 0;
+	UINT16		usRoomNo;
+
+	// Run through each friendly.
+	for ( SoldierID iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; ++iCounter )
+	{
+		pFriend = iCounter;
+
+		if ( pFriend &&
+			pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			InARoom(pFriend->sGridNo, &usRoomNo) &&
+			usRoomNo == usRoom )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+INT32 CountCorpsesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoomNo, INT8 bLevel)
+{
+	CHECKF(pSoldier);
+
+	ROTTING_CORPSE* pCorpse;
+	INT32	iCount = 0;
+
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+	{
+		pCorpse = &(gRottingCorpse[cnt]);
+
+		if ( pCorpse &&
+			pCorpse->fActivated &&
+			pCorpse->def.ubType < ROTTING_STAGE2 &&
+			pCorpse->def.ubBodyType <= REGFEMALE &&
+			pCorpse->def.ubAIWarningValue > 0 &&
+			pCorpse->def.bLevel == bLevel &&
+			!TileIsOutOfBounds(pCorpse->def.sGridNo) &&
+			RoomNo(pCorpse->def.sGridNo) == usRoomNo &&
+			(pSoldier->bTeam == ENEMY_TEAM && CorpseEnemyTeam(pCorpse) || pSoldier->bTeam == MILITIA_TEAM && CorpseMilitiaTeam(pCorpse) || pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral) )
+		{
+			iCount++;
+		}
+	}
+
+	return iCount;
+}
+
+BOOLEAN FindFenceAroundSpot(INT32 sSpot)
+{
+	if ( TileIsOutOfBounds(sSpot) )
+	{
+		return FALSE;
+	}
+
+	INT32 sTempSpot;
+
+	// check adjacent locations
+	for ( UINT8 ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++ )
+	{
+		sTempSpot = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+		if ( sTempSpot != sSpot && IsCuttableWireFenceAtGridNo(sTempSpot) )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SameRoom(INT32 sSpot1, INT32 sSpot2)
+{
+	if ( RoomNo(sSpot1) == RoomNo(sSpot2) && sSpot1 != NO_ROOM )
+		return TRUE;
+
+	return FALSE;
+}
+
+UINT16 RoomNo(INT32 sSpot)
+{
+	if ( TileIsOutOfBounds(sSpot) )
+		return NO_ROOM;
+
+	return gusWorldRoomInfo[sSpot];
+}
+
+BOOLEAN CheckWindow(INT32 sSpot, UINT8 ubDirection, BOOLEAN fAllowClosed)
+{
+	CHECKF(!TileIsOutOfBounds(sSpot));
+
+	// find window spot
+	INT32 sWindowSpot = sSpot;
+	if ( ubDirection == NORTH || ubDirection == WEST )
+		sWindowSpot = NewGridNo(sSpot, (UINT16)DirectionInc(ubDirection));
+
+	//if (IsJumpableWindowPresentAtGridNo(sWindowSpot, ubDirection, gGameExternalOptions.fCanJumpThroughClosedWindows))
+	if ( IsJumpableWindowPresentAtGridNo(sWindowSpot, ubDirection, fAllowClosed) )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
 }

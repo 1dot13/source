@@ -5031,11 +5031,11 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
     BOOLEAN fOKCheckStruct;
 
     // Allow civilians and NPCs with profile to go off screen, and also enemies if tactical retreat is enabled
-    auto destinationOffscreen = !(GridNoOnVisibleWorldTile(sGridNo));
-    auto hasProfile = pCurrSoldier->ubProfile != NO_PROFILE;
-    auto isCivilian = pCurrSoldier->bTeam == CIV_TEAM;
-    auto isEnemy = pCurrSoldier->bTeam == ENEMY_TEAM;
-    auto retreatAllowed = gGameExternalOptions.fAITacticalRetreat == true;
+    const auto destinationOffscreen = !(GridNoOnVisibleWorldTile(sGridNo));
+    const auto hasProfile = pCurrSoldier->ubProfile != NO_PROFILE;
+    const auto isCivilian = pCurrSoldier->bTeam == CIV_TEAM;
+    const auto isEnemy = pCurrSoldier->bTeam == ENEMY_TEAM;
+    const auto retreatAllowed = gGameExternalOptions.fAITacticalRetreat == TRUE;
 
     if (destinationOffscreen && !(isCivilian || hasProfile || (isEnemy && retreatAllowed)))
     {
@@ -5398,6 +5398,34 @@ BOOLEAN TeamMemberNear( INT8 bTeam, INT32 sGridNo, INT32 iRange )
 	}
 
 	return(FALSE);
+}
+
+BOOLEAN NotDeafTeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange)
+{
+    for ( SoldierID pSoldier = gTacticalStatus.Team[bTeam].bFirstID; pSoldier <= gTacticalStatus.Team[bTeam].bLastID; ++pSoldier )
+    {
+        if ( pSoldier->bActive &&
+            pSoldier->bInSector &&
+            pSoldier->stats.bLife >= OKLIFE &&
+            pSoldier->bDeafenedCounter == 0 )
+        {
+            if ( PythSpacesAway(pSoldier->sGridNo, sGridNo) <= iRange )
+            {
+                return(TRUE);
+            }
+        }
+    }
+
+    return(FALSE);
+}
+
+BOOLEAN PlayerCanHearNoise(SOLDIERTYPE* pSoldier)
+{
+    if ( pSoldier &&
+        (pSoldier->bVisible == TRUE || NotDeafTeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE / 2) || NightLight() && !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && NotDeafTeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE)) )
+        return TRUE;
+
+    return FALSE;
 }
 
 INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirection, INT32 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor, bool allow_diagonal )

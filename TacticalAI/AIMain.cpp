@@ -49,6 +49,7 @@
 #include "Soldier Functions.h" // added by SANDRO
 #include "Text.h"	// sevenfm
 #include "english.h" // sevenfm: for ESC key
+#include "Food.h"
 
 #include "connect.h"
 // needed to use the modularized tactical AI:
@@ -2744,6 +2745,30 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
         case AI_ACTION_JUMP_WINDOW:
             {
                 pSoldier->BeginSoldierClimbWindow();
+				pSoldier->BeginSoldierJumpWindowAI();
+				if ( gfTurnBasedAI )
+				{
+					//if (pSoldier->bActionPoints >= GetAPsToJumpThroughWindows(pSoldier, FALSE) + GetAPsToLook(pSoldier))
+					if ( pSoldier->bActionPoints >= GetAPsToLook(pSoldier) )
+					{
+						pSoldier->aiData.bNextAction = AI_ACTION_CHANGE_FACING;
+						INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+						if ( !TileIsOutOfBounds(sClosestOpponent) )
+							pSoldier->aiData.usNextActionData = AIDirection(pSoldier->sGridNo, sClosestOpponent);
+						else
+							pSoldier->aiData.usNextActionData = PreRandom(8);
+					}
+					else
+					{
+						pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+						pSoldier->aiData.usNextActionData = 0;
+					}
+				}
+				else
+				{
+					pSoldier->aiData.bNextAction = AI_ACTION_WAIT;
+					pSoldier->aiData.usNextActionData = REALTIME_AI_DELAY / 10;
+				}
 				ActionDone( pSoldier );
             }
             break;
@@ -2806,7 +2831,73 @@ INT8 ExecuteAction(SOLDIERTYPE *pSoldier)
 			}
 			break;
 
-        default:
+		case AI_ACTION_DRINK_CANTEEN:
+			DrinkFromInventory(pSoldier);
+			ActionDone(pSoldier);
+			break;
+
+		case AI_ACTION_HANDLE_ITEM:
+			iRetCode = HandleItem(pSoldier, pSoldier->aiData.usActionData, pSoldier->pathing.bLevel, pSoldier->inv[HANDPOS].usItem, FALSE);
+			if ( iRetCode != ITEM_HANDLE_OK )
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction (AI_ACTION_HANDLE_ITEM): HandleItem error code %d", iRetCode));
+				CancelAIAction(pSoldier, FORCE);
+				EndAIGuysTurn(pSoldier);
+			}
+			break;
+
+		case AI_ACTION_PLANT_BOMB:
+			if ( pSoldier->inv[HANDPOS].exists() &&
+				(Item[pSoldier->inv[HANDPOS].usItem].usItemClass & IC_BOMB) )
+			{
+				OBJECTTYPE bombobj;
+				INT32 sSpot = pSoldier->sGridNo;
+
+				if ( !TileIsOutOfBounds(sSpot) &&
+					pSoldier->inv[HANDPOS].MoveThisObjectTo(bombobj, 1) == 0 )
+				{
+					bombobj.fFlags |= OBJECT_ARMED_BOMB;
+					bombobj[0]->data.misc.bDetonatorType = BOMB_TIMED;
+					bombobj[0]->data.misc.usBombItem = bombobj.usItem;
+					//bombobj[0]->data.misc.ubBombOwner = pSoldier->ubID + 2;
+					bombobj[0]->data.misc.ubBombOwner = 1;
+					bombobj[0]->data.misc.bDelay = 1 + Random(2);
+					//pSoldier->inv[HANDPOS][0]->data.bTrap = EffectiveExplosive(pSoldier) / 20 + EffectiveExpLevel(pSoldier, TRUE) / 2;
+					pSoldier->inv[HANDPOS][0]->data.bTrap = 6 + SoldierDifficultyLevel(pSoldier);
+					AddItemToPool(sSpot, &bombobj, INVISIBLE, pSoldier->pathing.bLevel, WORLD_ITEM_ARMED_BOMB, 0);
+					NotifySoldiersToLookforItems();
+					DeductPoints(pSoldier, APBPConstants[AP_INVENTORY_ARM] + APBPConstants[AP_DROP_BOMB], APBPConstants[BP_INVENTORY_ARM] + APBPConstants[BP_DROP_BOMB]);
+					if ( gAnimControl[pSoldier->usAnimState].ubHeight == ANIM_STAND )
+					{
+						pSoldier->EVENT_InitNewSoldierAnim(DROP_ITEM, 0, FALSE);
+					}
+					else if ( gAnimControl[pSoldier->usAnimState].ubHeight == ANIM_CROUCH )
+					{
+						pSoldier->EVENT_InitNewSoldierAnim(CUTTING_FENCE, 0, FALSE);
+					}
+					if ( pSoldier->bVisible != -1 )
+					{
+						PlayJA2Sample(THROW_IMPACT_2, RATE_11025, SoundVolume(MIDVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+					}
+					ActionDone(pSoldier);
+				}
+				else
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction (AI_ACTION_PLANT_BOMB): failed to move object"));
+					CancelAIAction(pSoldier, FORCE);
+					EndAIGuysTurn(pSoldier);
+				}
+			}
+			else
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("CancelAIAction (AI_ACTION_PLANT_BOMB): failed to find bomb in hand"));
+				CancelAIAction(pSoldier, FORCE);
+				EndAIGuysTurn(pSoldier);
+			}
+
+			break;
+
+		default:
 #ifdef BETAVERSION
             NumMessage("ExecuteAction - Illegal action type = ",pSoldier->aiData.bAction);
 #endif

@@ -106,6 +106,9 @@ typedef enum
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
 	AI_ACTION_STOP_MEDIC,			// sevenfm: stop giving aid animation
+	AI_ACTION_DRINK_CANTEEN,		// sevenfm: drink from canteen in inventory
+	AI_ACTION_HANDLE_ITEM,			// sevenfm: use item in hand
+	AI_ACTION_PLANT_BOMB,			// sevenfm: plant bomb using item in hand
 	AI_ACTION_INVALID
 } ActionType;
 
@@ -215,6 +218,7 @@ INT32 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT32 FindNearestEdgePoint( INT32 sGridNo );
 INT32 FindNearestPassableSpot( INT32 sGridNo, UINT8 usSearchRadius = 5 );
+BOOLEAN FindFenceAroundSpot(INT32 sSpot);
 
 //Kris:	Added these as I need specific searches on certain sides.
 enum
@@ -312,6 +316,13 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE
 UINT16 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
 UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance);
 UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier);
+UINT8 CountKnownEnemies(SOLDIERTYPE* pSoldier, INT32 sSpot, INT16 sDistance, INT8 bLevel = HEARD_THIS_TURN);
+UINT8 CountKnownEnemiesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom);
+UINT8 CountFriendsInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom);
+INT32 CountCorpsesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoomNo, INT8 bLevel);
+UINT16 RoomNo(INT32 sSpot);
+BOOLEAN SameRoom(INT32 sSpot1, INT32 sSpot2);
+BOOLEAN CheckWindow(INT32 sSpot, UINT8 ubDirection, BOOLEAN fAllowClosed);
 
 UINT8 SectorCurfew(BOOLEAN fNight);
 UINT8 TeamPercentKilled(INT8 bTeam);
@@ -434,6 +445,7 @@ INT8 KnownPublicLevel(UINT8 bTeam, SoldierID ubOpponentID);
 #define TACTICAL_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
 #define TACTICAL_RANGE_CELL_COORDS TACTICAL_RANGE*CELL_X_SIZE
 #define BOMB_DETECTION_RANGE (TACTICAL_RANGE / 4)
+#define TACTICAL_RANGE_HALF (TACTICAL_RANGE / 2)
 #define TACTICAL_RANGE_CLOSE (TACTICAL_RANGE / 4)
 #define TACTICAL_RANGE_VERYCLOSE (TACTICAL_RANGE / 6)
 

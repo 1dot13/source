@@ -11065,7 +11065,7 @@ static ActionType DecideActionVIPretreat(SOLDIERTYPE* pSoldier, bool logAction)
 ////////////////////////////////////////////////////////////////////////////
 // CHANGE STANCE
 ////////////////////////////////////////////////////////////////////////////
-ActionType DecideActionChangeStance(SOLDIERTYPE* pSoldier, UINT8 ubCanMove, ATTACKTYPE BestAttack, UINT8 ubBestAttackAction, bool logAction)
+static ActionType DecideActionChangeStance(SOLDIERTYPE* pSoldier, UINT8 ubCanMove, ATTACKTYPE BestAttack, UINT8 ubBestAttackAction, bool logAction)
 {
 	// if not in water and not already crouched, try to crouch down first
 	if (!gfTurnBasedAI || GetAPsToChangeStance(pSoldier, ANIM_CROUCH) <= pSoldier->bActionPoints)
@@ -11168,6 +11168,180 @@ static ActionType MoveCloserBeforeShooting(SOLDIERTYPE* pSoldier, ATTACKTYPE att
 	}
 
 	return(AI_ACTION_INVALID);
+}
+
+
+static ActionType DecideBlowUpObstacle(SOLDIERTYPE* pSoldier, INT32 sClosestOpponent)
+{
+	INT8 bTNTSlot = FindTNT(pSoldier);
+
+	if ( bTNTSlot != NO_SLOT &&
+		pSoldier->bTeam == ENEMY_TEAM &&
+		IsActionAffordable(pSoldier, AI_ACTION_PLANT_BOMB) &&
+		pSoldier->pathing.bLevel == 0 &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		(Chance(SoldierDifficultyLevel(pSoldier) * 10) ||
+			InARoom(sClosestOpponent, NULL) &&
+			CountFriendsInRoom(pSoldier, RoomNo(sClosestOpponent)) == 0 &&
+			!SameRoom(sClosestOpponent, pSoldier->sGridNo) &&
+			(CountCorpsesInRoom(pSoldier, RoomNo(sClosestOpponent), 0) > 0 || TeamHighPercentKilled(pSoldier->bTeam) || EstimatePathCostToLocation(pSoldier, sClosestOpponent, pSoldier->pathing.bLevel, FALSE, NULL, NULL) == 0)) )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("found TNT in slot %d, check to plant bomb", bTNTSlot));
+
+		const INT8 bLevel = pSoldier->pathing.bLevel;
+		UINT8 ubDesiredDir = AIDirection(pSoldier->sGridNo, sClosestOpponent);
+		INT32 sCheckSpot;
+		INT32 sPathCost, sNewPathCost;
+		INT32 sOriginalGridNo;
+		UINT16 usRoom;
+
+		for ( UINT8 ubCheckDir = 0; ubCheckDir < NUM_WORLD_DIRECTIONS; ubCheckDir++ )
+		{
+			INT32 sNewSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(ubCheckDir));
+			INT32 sNextSpot = NewGridNo(sNewSpot, DirectionInc(ubCheckDir));
+
+			if ( sNewSpot == pSoldier->sGridNo ||
+				sNextSpot == sNewSpot ||
+				gpWorldLevelData[sNewSpot].sHeight != gpWorldLevelData[pSoldier->sGridNo].sHeight ||
+				gpWorldLevelData[sNextSpot].sHeight != gpWorldLevelData[pSoldier->sGridNo].sHeight ||
+				//ubCheckDir != ubDesiredDir && ubCheckDir != gOneCDirection[ubDesiredDir] && ubCheckDir != gOneCCDirection[ubDesiredDir] ||
+				gubWorldMovementCosts[sNewSpot][ubCheckDir][bLevel] < TRAVELCOST_BLOCKED )
+			{
+				continue;
+			}
+
+			sCheckSpot = NOWHERE;
+
+			if ( (IsCuttableWireFenceAtGridNo(sNewSpot) && !IsCutWireFenceAtGridNo(sNewSpot) || gubWorldMovementCosts[sNewSpot][ubCheckDir][bLevel] == TRAVELCOST_OBSTACLE) &&
+				IsLocationSittable(sNextSpot, bLevel) && NewOKDestination(pSoldier, sNextSpot, TRUE, bLevel) && !Water(sNextSpot, bLevel) )
+			{
+				// found fence, jump 2 tiles
+				sCheckSpot = sNextSpot;
+			}
+			else if ( (gubWorldMovementCosts[sNewSpot][ubCheckDir][bLevel] == TRAVELCOST_WALL || gubWorldMovementCosts[sNewSpot][ubCheckDir][bLevel] == TRAVELCOST_DOOR) &&
+				IsLocationSittable(sNewSpot, bLevel) && NewOKDestination(pSoldier, sNewSpot, TRUE, bLevel) && !Water(sNewSpot, bLevel) )
+			{
+				// found wall, jump 1 tile
+				sCheckSpot = sNewSpot;
+			}
+
+			if ( !TileIsOutOfBounds(sCheckSpot) )
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("check if jumping to %d improves path cost", sCheckSpot));
+
+				// check if removing obstacle improves situation
+				sPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				sOriginalGridNo = pSoldier->sGridNo;
+				pSoldier->sGridNo = sCheckSpot;
+				sNewPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				pSoldier->sGridNo = sOriginalGridNo;
+
+				if ( sNewPathCost > 0 &&
+					(sPathCost == 0 ||
+						sPathCost > sNewPathCost && sPathCost - sNewPathCost > APBPConstants[AP_MAXIMUM] ||
+						InARoom(sCheckSpot, &usRoom) &&
+						!SameRoom(sCheckSpot, pSoldier->sGridNo) &&
+						CountFriendsInRoom(pSoldier, usRoom) == 0 &&
+						CountKnownEnemiesInRoom(pSoldier, usRoom) > 0 &&
+						(CountCorpsesInRoom(pSoldier, usRoom, 0) > 0 || TeamHighPercentKilled(pSoldier->bTeam))) )
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("blowing up fence/wall/obstacle improves path cost, plant bomb"));
+
+					RearrangePocket(pSoldier, HANDPOS, bTNTSlot, FOREVER);
+					pSoldier->aiData.usActionData = 0;
+
+					return AI_ACTION_PLANT_BOMB;
+				}
+			}
+		}
+	}
+
+	return AI_ACTION_INVALID;
+}
+
+
+static ActionType DecideJumpWindow(SOLDIERTYPE* pSoldier, INT32 sClosestOpponent)
+{
+	if ( gGameExternalOptions.fCanJumpThroughWindows &&
+		!pSoldier->bBlindedCounter &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		pSoldier->pathing.bLevel == 0 &&
+		pSoldier->AnimEndHeight() >= ANIM_CROUCH &&
+		IsActionAffordable(pSoldier, AI_ACTION_JUMP_WINDOW) )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("check if we can jump through window"));
+
+		const INT8 bLevel = pSoldier->pathing.bLevel;
+
+		for ( UINT8 ubCheckDir = 0; ubCheckDir < NUM_WORLD_DIRECTIONS; ubCheckDir++ )
+		{
+			// cannot jump diagonally
+			if ( ubCheckDir % 2 != 0 )
+			{
+				continue;
+			}
+
+			INT32 sNewSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(ubCheckDir));
+
+			if ( sNewSpot != pSoldier->sGridNo &&
+				CheckWindow(pSoldier->sGridNo, ubCheckDir, gGameExternalOptions.fCanJumpThroughClosedWindows) &&
+				!Water(sNewSpot, bLevel) &&
+				IsLocationSittable(sNewSpot, bLevel) &&
+				NewOKDestination(pSoldier, sNewSpot, TRUE, bLevel) )
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("found jumpable window at %d", sNewSpot));
+
+				// check if jumping improves situation
+				INT32 sPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				INT32 sOriginalGridNo = pSoldier->sGridNo;
+				pSoldier->sGridNo = sNewSpot;
+				INT32 sNewPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				pSoldier->sGridNo = sOriginalGridNo;
+
+				if ( sNewPathCost > 0 && (sPathCost == 0 || sPathCost > sNewPathCost && sPathCost - sNewPathCost > APBPConstants[AP_MAXIMUM] || SameRoom(sClosestOpponent, sNewSpot)) )
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("jumping improves path cost"));
+
+					if ( gfTurnBasedAI && pSoldier->bActionPoints < pSoldier->bInitialActionPoints )
+					{
+						if ( pSoldier->ubDirection != ubCheckDir &&
+							pSoldier->InternalIsValidStance(ubCheckDir, gAnimControl[pSoldier->usAnimState].ubEndHeight) &&
+							pSoldier->bActionPoints >= GetAPsToLook(pSoldier) )
+						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("turn to window, end turn before jumping"));
+							pSoldier->aiData.usActionData = ubCheckDir;
+							pSoldier->aiData.bNextAction = AI_ACTION_END_TURN;
+							pSoldier->aiData.usNextActionData = 0;
+							return AI_ACTION_CHANGE_FACING;
+						}
+						else
+						{
+							DebugAI(AI_MSG_INFO, pSoldier, String("already facing window, end turn before jumping"));
+							pSoldier->aiData.usActionData = 0;
+							return AI_ACTION_END_TURN;
+						}
+					}
+
+					if ( pSoldier->ubDirection == ubCheckDir )
+					{
+						pSoldier->aiData.usActionData = 0;
+						return AI_ACTION_JUMP_WINDOW;
+					}
+					else if ( pSoldier->InternalIsValidStance(ubCheckDir, gAnimControl[pSoldier->usAnimState].ubEndHeight) &&
+						pSoldier->bActionPoints >= GetAPsToJumpThroughWindows(pSoldier, FALSE) + GetAPsToLook(pSoldier) )
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("turn before jumping"));
+						pSoldier->aiData.usActionData = ubCheckDir;
+						pSoldier->aiData.bNextAction = AI_ACTION_JUMP_WINDOW;
+						pSoldier->aiData.usNextActionData = 0;
+						return AI_ACTION_CHANGE_FACING;
+					}
+				}
+			}
+		}
+	}
+
+	return AI_ACTION_INVALID;
 }
 
 //-----------------------------------------------------------------
@@ -20533,6 +20707,7 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 	INT8 bOpponentLevel;
 	INT32 distanceToOpponent;
 	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, &sOpponentGridNo, &bOpponentLevel, NULL, &distanceToOpponent);
+	INT32 sClosestSeenOpponent = ClosestSeenOpponent(pSoldier, NULL, NULL);
 	DebugAI(AI_MSG_INFO, pSoldier, String("sClosestOpponent %d", sClosestOpponent));
 
 
@@ -20621,6 +20796,25 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 	const bool bInGas = DecideActionWearGasmask(pSoldier);
 
 	pSoldier->aiData.bAIMorale = CalcMorale(pSoldier);
+
+
+	////////////////////////////////////////////////////////////////////////
+	// DRINK IF LOW IN BREATH
+	////////////////////////////////////////////////////////////////////////
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[drink if low on breath]"));
+
+	if (
+		!bInWater &&
+		!fDangerousSpot &&
+		pSoldier->bBreath < OKBREATH &&
+		pSoldier->CheckInitialAP() &&
+		Chance(30 - 10 * pSoldier->aiData.bUnderFire) &&
+		IsActionAffordable(pSoldier, AI_ACTION_DRINK_CANTEEN) &&
+		FindCanteen(pSoldier) != NO_SLOT )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("drink from canteen"));
+		return AI_ACTION_DRINK_CANTEEN;
+	}
 
 
 	////////////////////////////////////////////////////////////////////////////
@@ -20825,6 +21019,148 @@ INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier)
 			fTryPunching = TRUE;
 		}
 	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// USE EXPLOSIVES
+	////////////////////////////////////////////////////////////////////////////
+	INT8 bTNTSlot = FindTNT(pSoldier);
+	if ( bTNTSlot != NO_SLOT &&
+		(pSoldier->CheckInitialAP() || gfTurnBasedAI) &&
+		IsActionAffordable(pSoldier, AI_ACTION_PLANT_BOMB) &&
+		!pSoldier->aiData.bUnderFire &&
+		//(pSoldier->aiData.bOrders == SEEKENEMY || pSoldier->RushAttackActive()) &&
+		pSoldier->aiData.bOrders == SEEKENEMY &&
+		!TileIsOutOfBounds(sClosestSeenOpponent) &&
+		PythSpacesAway(pSoldier->sGridNo, sClosestSeenOpponent) > TACTICAL_RANGE_HALF &&
+		CountKnownEnemies(pSoldier, pSoldier->sGridNo, 2) > 0 &&
+		(Chance(SoldierDifficultyLevel(pSoldier) * 10) || InARoom(pSoldier->sGridNo, nullptr) && CountKnownEnemies(pSoldier, pSoldier->sGridNo, 2) > 0) )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("found TNT in slot %d, plant bomb", bTNTSlot));
+
+		RearrangePocket(pSoldier, HANDPOS, bTNTSlot, FOREVER);
+		pSoldier->aiData.usActionData = 0;
+		return AI_ACTION_PLANT_BOMB;
+	}
+
+
+	if ( pSoldier->bTeam == ENEMY_TEAM &&
+		!pSoldier->bBlindedCounter &&
+		(pSoldier->CheckInitialAP() || gfTurnBasedAI) &&
+		!pSoldier->aiData.bUnderFire &&
+		pSoldier->aiData.bAIMorale >= MORALE_CONFIDENT &&
+		//(pSoldier->aiData.bOrders == SEEKENEMY || pSoldier->RushAttackActive()) &&
+		pSoldier->aiData.bOrders == SEEKENEMY &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		(Chance(SoldierDifficultyLevel(pSoldier) * 10) ||
+			InARoom(sClosestOpponent, nullptr) &&
+			CountFriendsInRoom(pSoldier, RoomNo(sClosestOpponent)) == 0 &&
+			!SameRoom(sClosestOpponent, pSoldier->sGridNo) &&
+			(CountCorpsesInRoom(pSoldier, RoomNo(sClosestOpponent), 0) > 0 || TeamHighPercentKilled(pSoldier->bTeam) || EstimatePathCostToLocation(pSoldier, sClosestOpponent, pSoldier->pathing.bLevel, FALSE, NULL, NULL) == 0)) )
+	{
+		decision = DecideBlowUpObstacle(pSoldier, sClosestOpponent);
+		if ( decision != AI_ACTION_INVALID )
+		{
+			return decision;
+		}
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// CUT A FENCE WITH WIRECUTTERS
+	////////////////////////////////////////////////////////////////////////////
+	INT8 bWirecutterSlot = FindWirecutters(pSoldier);
+	if (
+		(pSoldier->CheckInitialAP() || gfTurnBasedAI) &&
+		!pSoldier->aiData.bUnderFire &&
+		bWirecutterSlot != NO_SLOT &&
+		pSoldier->pathing.bLevel == 0 &&
+		pSoldier->aiData.bAIMorale >= MORALE_CONFIDENT &&
+		//(pSoldier->aiData.bOrders == SEEKENEMY || pSoldier->RushAttackActive()) &&
+		pSoldier->aiData.bOrders == SEEKENEMY &&
+		!TileIsOutOfBounds(sClosestOpponent) &&
+		Chance(SoldierDifficultyLevel(pSoldier) * 20) &&
+		pSoldier->bActionPoints >= GetAPsToCutFence(pSoldier) + GetAPsToLook(pSoldier) &&
+		FindFenceAroundSpot(pSoldier->sGridNo) )
+	{
+		DebugAI(AI_MSG_INFO, pSoldier, String("found wire cutter, check if we can find fence to cut"));
+
+		UINT8 ubDesiredDir = AIDirection(pSoldier->sGridNo, sClosestOpponent);
+		INT32 sNewSpot;
+		INT32 sNextSpot;
+		INT32 sPathCost, sNewPathCost;
+		INT32 sOriginalGridNo;
+
+		for ( UINT8 ubCheckDir = 0; ubCheckDir < NUM_WORLD_DIRECTIONS; ubCheckDir++ )
+		{
+			// cannot cut fence diagonally, check desired dir
+			if ( ubCheckDir % 2 != 0 ||
+				ubCheckDir != ubDesiredDir &&
+				ubCheckDir != gOneCDirection[ubDesiredDir] &&
+				ubCheckDir != gOneCCDirection[ubDesiredDir] )
+			{
+				continue;
+			}
+
+			sNewSpot = NewGridNo(pSoldier->sGridNo, DirectionInc(ubCheckDir));
+			sNextSpot = NewGridNo(sNewSpot, DirectionInc(ubCheckDir));
+
+			if ( sNewSpot != pSoldier->sGridNo &&
+				sNextSpot != sNewSpot &&
+				!Water(sNewSpot, pSoldier->pathing.bLevel) &&
+				!Water(sNextSpot, pSoldier->pathing.bLevel) &&
+				IsCuttableWireFenceAtGridNo(sNewSpot) &&
+				!IsCutWireFenceAtGridNo(sNewSpot) &&
+				IsLocationSittable(sNextSpot, pSoldier->pathing.bLevel) )
+			{
+				DebugAI(AI_MSG_INFO, pSoldier, String("found cuttable fence at %d", sNewSpot));
+
+				// check if cutting the fence improves situation
+				sPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				sOriginalGridNo = pSoldier->sGridNo;
+				pSoldier->sGridNo = sNewSpot;
+				sNewPathCost = EstimatePlotPath(pSoldier, sClosestOpponent, FALSE, FALSE, FALSE, RUNNING, pSoldier->bStealthMode, FALSE, 0);
+				pSoldier->sGridNo = sOriginalGridNo;
+
+				if ( sNewPathCost > 0 && (sPathCost == 0 || sPathCost > sNewPathCost && sPathCost - sNewPathCost > APBPConstants[AP_MAXIMUM]) )
+				{
+					DebugAI(AI_MSG_INFO, pSoldier, String("cutting fence improves path cost, use wire cutter"));
+					if ( pSoldier->ubDirection == ubCheckDir )
+					{
+						RearrangePocket(pSoldier, HANDPOS, bWirecutterSlot, FOREVER);
+						pSoldier->aiData.usActionData = sNewSpot;
+						return AI_ACTION_HANDLE_ITEM;
+					}
+					else if ( pSoldier->InternalIsValidStance(ubCheckDir, gAnimControl[pSoldier->usAnimState].ubEndHeight) )
+					{
+						DebugAI(AI_MSG_INFO, pSoldier, String("turn before cutting fence"));
+						RearrangePocket(pSoldier, HANDPOS, bWirecutterSlot, FOREVER);
+						pSoldier->aiData.usActionData = ubCheckDir;
+						pSoldier->aiData.bNextAction = AI_ACTION_HANDLE_ITEM;
+						pSoldier->aiData.usNextActionData = sNewSpot;
+						return AI_ACTION_CHANGE_FACING;
+					}
+				}
+			}
+		}
+	}
+
+
+	////////////////////////////////////////////////////////////////////////////
+	// JUMP THROUGH WINDOW
+	////////////////////////////////////////////////////////////////////////////
+	DebugAI(AI_MSG_TOPIC, pSoldier, String("[try to jump into window]"));
+	if ( (pSoldier->CheckInitialAP() || gfTurnBasedAI) &&
+		!pSoldier->aiData.bUnderFire &&
+		pSoldier->aiData.bAIMorale >= MORALE_CONFIDENT &&
+		pSoldier->aiData.bOrders == SEEKENEMY &&
+		!TileIsOutOfBounds(sClosestOpponent) )
+	{
+		decision = DecideJumpWindow(pSoldier, sClosestOpponent);
+		if ( decision != AI_ACTION_INVALID )
+			return decision;
+	}
+
 
 	////////////////////////////////////////////////////////////////////////////
 	// THROW A SMOKE GRENADE FOR COVER

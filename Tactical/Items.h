@@ -249,6 +249,7 @@ BOOLEAN ItemIsOnlyInDisease(UINT16 usItem);
 BOOLEAN ItemProvidesRobotCamo(UINT16 usItem);
 BOOLEAN ItemProvidesRobotNightvision(UINT16 usItem);
 BOOLEAN ItemProvidesRobotLaserBonus(UINT16 usItem);
+BOOLEAN ItemIsTNT(UINT16 usItem);
 
 //Existing functions without header def's, added them here, just incase I'll need to call
 //them from the editor.
@@ -479,9 +480,13 @@ INT8 FindFirstAidKit( SOLDIERTYPE * pSoldier );
 INT8 FindDisarmKit( SOLDIERTYPE * pSoldier );	//JMich_SkillsModifiers: Added function to check for disarm bonus
 INT8 FindLocksmithKit( SOLDIERTYPE * pSoldier );
 INT8 FindCamoKit( SOLDIERTYPE * pSoldier );
+INT8 FindCanteen(SOLDIERTYPE* pSoldier);
 INT8 FindWalkman( SOLDIERTYPE * pSoldier );
 INT8 FindTrigger( SOLDIERTYPE * pSoldier );
 INT8 FindRemoteControl( SOLDIERTYPE * pSoldier );
+INT8 FindWirecutters(SOLDIERTYPE* pSoldier);
+INT8 FindTNT(SOLDIERTYPE* pSoldier);
+
 INT16 GetWornCamo( SOLDIERTYPE * pSoldier );
 INT16 GetCamoBonus( OBJECTTYPE * pObj );
 INT16 GetWornStealth( SOLDIERTYPE * pSoldier );
