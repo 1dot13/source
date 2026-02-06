@@ -453,11 +453,14 @@ BOOLEAN BoxerAvailable( void )
 	return( FALSE );
 }
 
-// NOTE THIS IS NOW BROKEN BECAUSE NPC.C ASSUMES THAT BOXERSAVAILABLE < 3 IS A
-// SEQUEL FIGHT.   Maybe we could check Kingpin's location instead!
 UINT8 BoxersAvailable( void )
 {
 	UINT8 ubCount = 0;
+    // Should also run CheckOnBoxers to make sure boxer IDs are set for this function similarly to BoxerAvailable
+	if (CheckOnBoxers() == FALSE)
+	{
+		return(ubCount);
+	}
 
 	for (UINT8 ubLoop = 0; ubLoop < NUM_BOXERS; ++ubLoop)
 	{
