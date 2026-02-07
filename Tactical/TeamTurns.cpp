@@ -1218,10 +1218,9 @@ void EndInterrupt( BOOLEAN fMarkInterruptOccurred )
 	else
 	{
 		ubInterruptedSoldier = LATEST_INTERRUPT_GUY;
-
-		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: interrupt over, %d's team regains control", ubInterruptedSoldier ) );
-
 		pSoldier = ubInterruptedSoldier;
+
+		DebugMsg( TOPIC_JA2INTERRUPT, DBG_LEVEL_3, String("INTERRUPT: interrupt over, soldier %d's team %d regains control", ubInterruptedSoldier, pSoldier->bTeam ) );
 
 		for ( SoldierID id = 0; id < MAX_NUM_SOLDIERS; ++id)
 		{

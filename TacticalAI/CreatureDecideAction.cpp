@@ -844,7 +844,8 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 	{
 		// determine the location of the known closest opponent
 		// (don't care if he's conscious, don't care if he's reachable at all)
-		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+		INT32 distanceToThreat;
+		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL, NULL, &distanceToThreat);
 		
 		if (!TileIsOutOfBounds(sClosestOpponent))
 			{
@@ -854,9 +855,9 @@ INT8 CreatureDecideActionRed(SOLDIERTYPE *pSoldier, UINT8 ubUnconsciousOK)
 			 // if soldier is not already facing in that direction,
 			 // and the opponent is close enough that he could possibly be seen
 			 // note, have to change this to use the level returned from ClosestKnownOpponent
-			 sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0 );
+			 sDistVisible = pSoldier->GetMaxDistanceVisible(sClosestOpponent, 0 ) * CELL_X_SIZE;
 
-			if ((pSoldier->ubDirection != ubOpponentDir) && (PythSpacesAway(pSoldier->sGridNo,sClosestOpponent) <= sDistVisible))
+			if ((pSoldier->ubDirection != ubOpponentDir) && (distanceToThreat <= sDistVisible))
 				{
 				// set base chance according to orders
 				if ((pSoldier->aiData.bOrders == STATIONARY) || (pSoldier->aiData.bOrders == ONGUARD))
@@ -1380,11 +1381,12 @@ INT8 CreatureDecideActionBlack( SOLDIERTYPE * pSoldier )
 	{
 		// determine the location of the known closest opponent
 		// (don't care if he's conscious, don't care if he's reachable at all)
-		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
+		INT32 distanceToThreat;
+		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL, NULL, &distanceToThreat);
 		// if we have a closest reachable opponent		
 		if (!TileIsOutOfBounds(sClosestOpponent))
 		{
-				if ( ubCanMove && PythSpacesAway( pSoldier->sGridNo, sClosestOpponent ) > 2 )
+				if ( ubCanMove && distanceToThreat > 20 ) // 2 tiles -> 20 in fractional Cell Coordinates
 				{
 					if ( bSpitIn != NO_SLOT )
 					{

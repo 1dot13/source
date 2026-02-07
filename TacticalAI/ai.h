@@ -12,10 +12,6 @@
 extern INT16	gubAIPathCosts[19][19];
 #define AI_PATHCOST_RADIUS 9
 
-extern BOOLEAN gfDisplayCoverValues;
-//extern INT16 gsCoverValue[WORLD_MAX];
-extern INT16 * gsCoverValue;
-
 // AI actions
 
 enum CreatureCalls
@@ -110,7 +106,10 @@ typedef enum
 	AI_ACTION_DOCTOR_SELF,			// added by Flugente: AI-ONLY! bandage/surgery on self. DO NOT USE THIS FOR MERCS!!!
 	AI_ACTION_SELFDETONATE,			// added by Flugente: blow up an explosive in own inventory
 	AI_ACTION_STOP_MEDIC,			// sevenfm: stop giving aid animation
-	AI_ACTION_LAST = AI_ACTION_STOP_MEDIC
+	AI_ACTION_DRINK_CANTEEN,		// sevenfm: drink from canteen in inventory
+	AI_ACTION_HANDLE_ITEM,			// sevenfm: use item in hand
+	AI_ACTION_PLANT_BOMB,			// sevenfm: plant bomb using item in hand
+	AI_ACTION_INVALID
 } ActionType;
 
 
@@ -175,21 +174,36 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier );
 
 INT8 ClosestPanicTrigger( SOLDIERTYPE * pSoldier );
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID *pubOpponentID = NULL);
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID *pubOpponentID = NULL, INT32 * distanceInCellCoords = NULL);
 INT32 ClosestPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );
 INT32 ClosestUnDisguisedPC( SOLDIERTYPE *pSoldier, INT32 * psDistance );	// Flugente: like ClosestPC(...), but does not account for covert or not visible mercs
 BOOLEAN CanAutoBandage( BOOLEAN fDoFullCheck );
 
 void DebugAI( STR szOutput );
 enum { AI_MSG_START, AI_MSG_DECIDE, AI_MSG_INFO, AI_MSG_TOPIC };
-void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, INT8 bAction = -1);
+void DebugAI(INT8 bMsgType, SOLDIERTYPE *pSoldier, STR szOutput, bool doLog = true, INT8 bAction = -1);
 void DebugQuestInfo(STR szOutput);
 INT8 DecideAction(SOLDIERTYPE *pSoldier);
-INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
-INT8 DecideActionEscort(SOLDIERTYPE *pSoldier);
 INT8 DecideActionGreen(SOLDIERTYPE *pSoldier);
-INT8 DecideActionRed(SOLDIERTYPE *pSoldier);
 INT8 DecideActionYellow(SOLDIERTYPE *pSoldier);
+INT8 DecideActionRed(SOLDIERTYPE *pSoldier);
+INT8 DecideActionBlack(SOLDIERTYPE *pSoldier);
+INT8 DecideActionGreenBoxer(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackBoxer(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackCivilian(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackSoldier(SOLDIERTYPE* pSoldier);
+INT8 DecideActionGreenRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionYellowRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionRedRobot(SOLDIERTYPE* pSoldier);
+INT8 DecideActionBlackRobot(SOLDIERTYPE* pSoldier);
+
+INT8 DecideActionBlackSoldierUtilityAI(SOLDIERTYPE* pSoldier);
 
 INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier );
 
@@ -199,11 +213,12 @@ void EndAIGuysTurn( SOLDIERTYPE *pSoldier );
 INT8	ExecuteAction(SOLDIERTYPE *pSoldier);
 
 INT32 FindAdjacentSpotBeside(SOLDIERTYPE *pSoldier, INT32 sGridNo);
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter);
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *pPercentBetter, INT32 targetGridNo = NOWHERE, bool ignoreSearchRange = false);
 INT32 FindClosestDoor( SOLDIERTYPE * pSoldier );
 INT32 FindNearbyPointOnEdgeOfMap( SOLDIERTYPE * pSoldier, INT8 * pbDirection );
 INT32 FindNearestEdgePoint( INT32 sGridNo );
 INT32 FindNearestPassableSpot( INT32 sGridNo, UINT8 usSearchRadius = 5 );
+BOOLEAN FindFenceAroundSpot(INT32 sSpot);
 
 //Kris:	Added these as I need specific searches on certain sides.
 enum
@@ -244,7 +259,7 @@ void ManChecksOnFriends(SOLDIERTYPE *pSoldier);
 void NewDest(SOLDIERTYPE *pSoldier, INT32 sGridNo);
 INT32 NextPatrolPoint(SOLDIERTYPE *pSoldier);
 
-INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove);
+ActionType PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove);
 void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier);
 
 INT32 RandDestWithinRange(SOLDIERTYPE *pSoldier);
@@ -288,6 +303,7 @@ SoldierID GetClosestMedicSoldierID( SOLDIERTYPE * pSoldier, INT16 aRange, UINT8 
 // sevenfm:
 BOOLEAN NightLight(void);
 BOOLEAN DuskLight(void);
+BOOLEAN FindClosestVisibleSmoke(SOLDIERTYPE* pSoldier, INT32& sSpot, INT8& bLevel, BOOLEAN fOnlyGas);
 BOOLEAN InSmokeNearby(INT32 sGridNo, INT8 bLevel);
 INT16 MaxNormalVisionDistance( void );
 UINT8 MinFlankDirections( SOLDIERTYPE *pSoldier );
@@ -300,6 +316,13 @@ UINT8 CountFriendsBlack( SOLDIERTYPE *pSoldier, INT32 sClosestOpponent = NOWHERE
 UINT16 CountTeamUnderAttack(INT8 bTeam, INT32 sGridNo, INT16 sDistance);
 UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier, INT32 sGridNo, INT16 sDistance);
 UINT16 CountPublicKnownEnemies(SOLDIERTYPE *pSoldier);
+UINT8 CountKnownEnemies(SOLDIERTYPE* pSoldier, INT32 sSpot, INT16 sDistance, INT8 bLevel = HEARD_THIS_TURN);
+UINT8 CountKnownEnemiesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom);
+UINT8 CountFriendsInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom);
+INT32 CountCorpsesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoomNo, INT8 bLevel);
+UINT16 RoomNo(INT32 sSpot);
+BOOLEAN SameRoom(INT32 sSpot1, INT32 sSpot2);
+BOOLEAN CheckWindow(INT32 sSpot, UINT8 ubDirection, BOOLEAN fAllowClosed);
 
 UINT8 SectorCurfew(BOOLEAN fNight);
 UINT8 TeamPercentKilled(INT8 bTeam);
@@ -420,6 +443,10 @@ INT8 KnownPublicLevel(UINT8 bTeam, SoldierID ubOpponentID);
 
 // sevenfm: distance for tactical AI checks, roughly equal to normal day vision range
 #define TACTICAL_RANGE (gGameExternalOptions.ubStraightSightRange * STRAIGHT_RATIO * 2)
+#define TACTICAL_RANGE_CELL_COORDS TACTICAL_RANGE*CELL_X_SIZE
 #define BOMB_DETECTION_RANGE (TACTICAL_RANGE / 4)
+#define TACTICAL_RANGE_HALF (TACTICAL_RANGE / 2)
+#define TACTICAL_RANGE_CLOSE (TACTICAL_RANGE / 4)
+#define TACTICAL_RANGE_VERYCLOSE (TACTICAL_RANGE / 6)
 
 #endif
