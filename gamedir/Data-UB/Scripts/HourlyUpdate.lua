@@ -12,20 +12,20 @@ function HourlyQuestUpdate()
 
 -- JA2 
 --[[
-	if (cHour >= 4 or cHour < 20) then
+	if (guiHour == 4) then
 		SetFactFalse( Facts.FACT_BROTHEL_OPEN )
-	else
+	elseif (guiHour == 20) then
 		SetFactTrue( Facts.FACT_BROTHEL_OPEN )
 	end
 
 	-- Bar/night club
-	if ( cHour > 15 or cHour < 2) then
+	if ( guiHour == 15 ) then
 	
 		SetFactTrue( Facts.FACT_CLUB_OPEN )
 		SetFactFalse( Facts.FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED )
 
 		-- Reset boxes fought
-		for i = 0,3 do
+		for i = 0,2 do
 			-- Set false
 			gfBoxerFought(i,false)
 		end
@@ -36,25 +36,24 @@ function HourlyQuestUpdate()
 		if ( gfBoxersResting == true ) then
 			
 			-- Done resting now!
-			gfBoxersResting = false
-			gubBoxersRests = gubBoxersRests + 1
+			SetgfBoxersResting(false)
+			SetgubBoxersRests(gubBoxersRests + 1)
+			HealBoxers()
 			
-			p = gubBoxingMatchesWon / 3
-			
-		elseif ( p > gubBoxersRests ) then
+		elseif ( gubBoxingMatchesWon / 3 > gubBoxersRests ) then
 			-- Time for the boxers to rest!
-			 gfBoxersResting = true
+			SetgfBoxersResting(true)
 		end
 
-	else
+	elseif ( guiHour == 2 ) then
 		SetFactFalse( Facts.FACT_CLUB_OPEN )
 	end
 
 	-- Museum
-	if ( cHour >= 9 or cHour < 18 ) then
-	SetFactTrue( Facts.FACT_MUSEUM_OPEN )
-	else
-	SetFactFalse( Facts.FACT_MUSEUM_OPEN )
+	if ( guiHour == 9 ) then
+		SetFactTrue( Facts.FACT_MUSEUM_OPEN )
+	elseif ( guiHour == 18 ) then
+		SetFactFalse( Facts.FACT_MUSEUM_OPEN )
 	end
 ]]
 end
