@@ -6,18 +6,16 @@ Facts =
 	FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED = 107,
 }
 
-local p = 0
-
 function HourlyQuestUpdate()
 
-	if (cHour == 4) then
+	if (guiHour == 4) then
 		SetFactFalse( Facts.FACT_BROTHEL_OPEN )
-	elseif (cHour == 20) then
+	elseif (guiHour == 20) then
 		SetFactTrue( Facts.FACT_BROTHEL_OPEN )
 	end
 
 	-- Bar/night club
-	if ( cHour == 15 ) then
+	if ( guiHour == 15 ) then
 	
 		SetFactTrue( Facts.FACT_CLUB_OPEN )
 		SetFactFalse( Facts.FACT_PAST_CLUB_CLOSING_AND_PLAYER_WARNED )
@@ -36,20 +34,21 @@ function HourlyQuestUpdate()
 			-- Done resting now!
 			SetgfBoxersResting(false)
 			SetgubBoxersRests(gubBoxersRests + 1)
+			HealBoxers()
 			
 		elseif ( gubBoxingMatchesWon / 3 > gubBoxersRests ) then
 			-- Time for the boxers to rest!
 			SetgfBoxersResting(true)
 		end
 
-	elseif ( cHour == 2 ) then
+	elseif ( guiHour == 2 ) then
 		SetFactFalse( Facts.FACT_CLUB_OPEN )
 	end
 
 	-- Museum
-	if ( cHour == 9 ) then
+	if ( guiHour == 9 ) then
 		SetFactTrue( Facts.FACT_MUSEUM_OPEN )
-	elseif ( cHour == 18 ) then
+	elseif ( guiHour == 18 ) then
 		SetFactFalse( Facts.FACT_MUSEUM_OPEN )
 	end
 
