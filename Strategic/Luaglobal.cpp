@@ -510,15 +510,6 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushinteger(L, gubBoxingMatchesWon);
 	lua_setglobal(L, "gubBoxingMatchesWon");
 	
-	lua_pushinteger(L, uiHourLua);
-	lua_setglobal(L, "cHour");
-	
-	lua_pushinteger(L, uiDayLua);
-	lua_setglobal(L, "cDay");
-	
-	lua_pushinteger(L, uiMinLua);
-	lua_setglobal(L, "cMin");
-	
 	lua_pushinteger(L, gbPlayerNum);
 	lua_setglobal(L, "gbPlayerNum");
 	
