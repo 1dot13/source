@@ -26,9 +26,6 @@ typedef struct
 
 extern ACTION_ITEM_VALUES ActionItemsValues[500];
 
-extern UINT32 uiHourLua;
-extern UINT32 uiDayLua;
-extern UINT32 uiMinLua;
 extern UINT16 PROFILLUA_sSectorX;
 extern UINT16 PROFILLUA_sSectorY;
 extern UINT8 PROFILLUA_bSectorZ;

@@ -859,6 +859,7 @@ static int l_PlayerTeamFull(lua_State* L);
 
 static int l_ProfilesStrategicInsertionData(lua_State* L);
 
+static int l_HealBoxers(lua_State* L);
 static int l_ResetBoxers(lua_State* L);
 
 static int l_AddVolunteers(lua_State* L);
@@ -912,9 +913,6 @@ static int l_SetIntelAndQuestMapDataForSector(lua_State* L);
 using namespace std;
 
 UINT16 idProfil;
-UINT32 uiHourLua;
-UINT32 uiDayLua;
-UINT32 uiMinLua;
 
 UINT16 PROFILLUA_sSectorX;
 UINT16 PROFILLUA_sSectorY;
@@ -1189,6 +1187,7 @@ static void IniFunction(lua_State* L, BOOLEAN bQuests)
 	lua_register(L, "TacticalCharacterDialogueWithSpecialEvent", l_TacticalCharacterDialogueWithSpecialEvent);
 	lua_register(L, "SetSalary", l_MercSalary);
 	lua_register(L, "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData);
+	lua_register(L, "HealBoxers", l_HealBoxers);
 
 	//Get  merc
 	lua_register(L, "GetDirection", l_GetDirection); //new
@@ -9314,6 +9313,27 @@ static int l_ResetBoxers(lua_State* L)
 
 	return 0;
 }
+
+// heal boxers back to max health in case the player stays in sector while the boxers are resting
+static int l_HealBoxers(lua_State* L)
+{
+	for (UINT8 i = 0; i < NUM_BOXERS; ++i)
+	{
+		// Get breath back
+		gubBoxerID[i]->bBreath = gubBoxerID[i]->bBreathMax;
+		gubBoxerID[i]->sBreathRed = 0;
+		// Get life back
+		gubBoxerID[i]->stats.bLife = gubBoxerID[i]->stats.bLifeMax;
+		gubBoxerID[i]->bBleeding = 0;
+		// erase insta-healable injury 
+		gubBoxerID[i]->iHealableInjury = 0;
+
+		DebugQuestInfo(String("Lua: healed gubBoxerID[%d] %d back to full health", i, gubBoxerID[i]));
+	}
+
+	return 0;
+}
+
 
 //Set character to sector Y
 static int l_SetCharacterSectorY(lua_State* L)
