@@ -3537,7 +3537,7 @@ BOOLEAN SaveGame( int ubSaveGameID, STR16 pGameDesc )
 	
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("starting SaveCurrentSectorsInformationToTempItemFile" ) );
 	//Save the current sectors open temp files to the disk
-	if( !SaveCurrentSectorsInformationToTempItemFile() )
+	if( !SaveCurrentSectorsInformationToTempItemFile( TRUE ) )
 	{
 		ScreenMsg( FONT_MCOLOR_WHITE, MSG_ERROR, L"ERROR in SaveCurrentSectorsInformationToTempItemFile()");
 		goto FAILED_TO_SAVE;
