@@ -1483,7 +1483,7 @@ void CalculateTrackerRange()
 	if ( gusSelectedSoldier == NOBODY || !GetSoldier(&pSoldier, gusSelectedSoldier) || !pSoldier->bInSector )
 		return;
 
-	FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS(pSoldier, SURVIVAL_NT) * gSkillTraitValues.usSVTrackerAbility + pSoldier->GetBackgroundValue(BG_TRACKER_ABILITY)) / 100.0f;
+	const FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS(pSoldier, SURVIVAL_NT) * gSkillTraitValues.usSVTrackerAbility + pSoldier->GetBackgroundValue(BG_TRACKER_ABILITY)) / 100.0f;
 
 	if ( trackerskill < 0.01f )
 		return;
