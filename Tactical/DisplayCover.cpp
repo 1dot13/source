@@ -81,7 +81,7 @@ void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius=2 );
 
 BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
-BOOLEAN HasAdjTile(const INT32 startIndex, const INT32 onRoof);
+BOOLEAN HasAdjTile(const INT32 startIndex, const bool onRoof);
 
 
 static TileDefines GetOverlayIndex( INT8 bOverlayType )
@@ -330,7 +330,7 @@ void RemoveCoverObjectFromWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof 
 }
 
 
-static BOOLEAN HasAdjTile(const INT32 startIndex, const INT32 onRoof)
+static BOOLEAN HasAdjTile(const INT32 startIndex, const bool onRoof)
 {
 	const auto rowLength = 1 + gsMaxCellX - gsMinCellX;
 
@@ -1440,7 +1440,7 @@ void AddTraitObjectsToViewArea()
 	}
 }
 
-static BOOLEAN TraitTileHasAdjTile(const INT32 startIndex, const INT32 onRoof)
+static BOOLEAN TraitTileHasAdjTile(const INT32 startIndex, const bool onRoof)
 {
 	const auto rowLength = 1 + gsMaxCellX - gsMinCellX;
 
