@@ -703,7 +703,7 @@ void CalculateCover()
 
 void CalculateCoverFromSoldier( SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier )
 {
-	UINT16 usSightLimit = pFromSoldier->GetMaxDistanceVisible(sTargetGridNo, (INT8)fRoof, CALC_FROM_WANTED_DIR);
+	const UINT16 usSightLimit = pFromSoldier->GetMaxDistanceVisible(sTargetGridNo, (INT8)fRoof, CALC_FROM_WANTED_DIR);
 
 	for ( int i = 0; i<sizeof(animArr); ++i )
 	{
