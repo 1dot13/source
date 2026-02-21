@@ -1594,8 +1594,7 @@ void CalculateFortify()
 	// simply get all fortified gridnos and colour them
 	const auto vec = GetAllForticationGridNo();
 
-	auto itend = vec.end();
-	for ( auto it = vec.begin(); it != itend; ++it )
+	for ( auto it = vec.begin(); it != vec.end(); ++it )
 	{
 		const auto sGridNo = (*it).first;
 		const auto bOverlayType = (*it).second.first;
