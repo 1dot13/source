@@ -21,6 +21,7 @@
 	#include "GameSettings.h" // added by SANDRO
 #include <Font Control.h>
 #include <message.h>
+#include "Soldier macros.h"
 
 INT32		gsBoxerGridNo[ NUM_BOXERS ] = { 11393, 11233, 11073 };
 SoldierID	gubBoxerID[ NUM_BOXERS ] = { NOBODY, NOBODY, NOBODY };
@@ -54,7 +55,7 @@ void ExitBoxing( void )
 
 			if ( pSoldier != NULL )
 			{
-				if ( ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) && InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING )
+				if ( BOXER(pSoldier) && InARoom( pSoldier->sGridNo, &usRoom ) && usRoom == BOXING_RING )
 				{
 					if ( pSoldier->flags.uiStatusFlags & SOLDIER_PC )
 					{
@@ -238,7 +239,7 @@ static void CountPeopleInBoxingRingAndDoActions( void )
 				{
 					++ubPlayersInRing;
 
-					if ( !pNonBoxingPlayer && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
+					if ( !pNonBoxingPlayer && !BOXER(pSoldier) )
 					{
 						pNonBoxingPlayer = pSoldier;
 					}
@@ -290,7 +291,7 @@ static void CountPeopleInBoxingRingAndDoActions( void )
 				// ladieees and gennleman, we have a fight!
 				for (uiLoop = 0; uiLoop < 2; ++uiLoop)
 				{
-					if (!(pInRing[uiLoop]->flags.uiStatusFlags & SOLDIER_BOXER))
+					if (!BOXER(pInRing[uiLoop]))
 					{
 						// set as boxer!
 						pInRing[uiLoop]->flags.uiStatusFlags |= SOLDIER_BOXER;
@@ -514,7 +515,7 @@ void BoxingMovementCheck( SOLDIERTYPE * pSoldier )
 		// someone moving in/into the ring
 		CountPeopleInBoxingRingAndDoActions();
 	}
-	else if ( ( gTacticalStatus.bBoxingState == BOXING ) && ( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) )
+	else if ( ( gTacticalStatus.bBoxingState == BOXING ) && BOXER(pSoldier) )
 	{
 		// boxer stepped out of the ring!
 		BoxingPlayerDisqualified( pSoldier, BOXER_OUT_OF_RING );
@@ -564,7 +565,7 @@ void ClearAllBoxerFlags( void )
 {
 	for (UINT32 uiSlot = 0; uiSlot < guiNumMercSlots; ++uiSlot)
 	{
-		if ( MercSlots[ uiSlot ] && MercSlots[ uiSlot ]->flags.uiStatusFlags & SOLDIER_BOXER )
+		if ( MercSlots[ uiSlot ] && BOXER(MercSlots[ uiSlot ]) )
 		{
 			// Flugente: nuke the entire opponent count, remove boxing flag, reevaluate opponent list
 			DecayIndividualOpplist(MercSlots[uiSlot]);

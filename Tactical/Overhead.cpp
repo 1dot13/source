@@ -3026,7 +3026,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 
 	// sevenfm: check all nearby enemy boxers for opportunity attack
 	if (IS_MERC_BODY_TYPE(pSoldier) &&
-		(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		BOXER(pSoldier) &&
 		gTacticalStatus.bBoxingState == BOXING &&
 		pSoldier->aiData.bAlertStatus >= STATUS_RED)
 	{
@@ -3047,7 +3047,7 @@ BOOLEAN HandleAtNewGridNo( SOLDIERTYPE *pSoldier, BOOLEAN *pfKeepMoving )
 				pOpponent->bCollapsed ||
 				pOpponent->bBreathCollapsed ||
 				!IS_MERC_BODY_TYPE(pOpponent) ||
-				!(pOpponent->flags.uiStatusFlags & SOLDIER_BOXER) ||
+				!BOXER(pOpponent) ||
 				gAnimControl[pOpponent->usAnimState].ubEndHeight < ANIM_STAND ||
 				pOpponent->pathing.bLevel != pSoldier->pathing.bLevel ||
 				!SoldierToSoldierLineOfSightTest(pOpponent, pSoldier, TRUE, CALC_FROM_WANTED_DIR) ||
@@ -5031,11 +5031,11 @@ BOOLEAN NewOKDestination( SOLDIERTYPE * pCurrSoldier, INT32 sGridNo, BOOLEAN fPe
     BOOLEAN fOKCheckStruct;
 
     // Allow civilians and NPCs with profile to go off screen, and also enemies if tactical retreat is enabled
-    auto destinationOffscreen = !(GridNoOnVisibleWorldTile(sGridNo));
-    auto hasProfile = pCurrSoldier->ubProfile != NO_PROFILE;
-    auto isCivilian = pCurrSoldier->bTeam == CIV_TEAM;
-    auto isEnemy = pCurrSoldier->bTeam == ENEMY_TEAM;
-    auto retreatAllowed = gGameExternalOptions.fAITacticalRetreat == true;
+    const auto destinationOffscreen = !(GridNoOnVisibleWorldTile(sGridNo));
+    const auto hasProfile = pCurrSoldier->ubProfile != NO_PROFILE;
+    const auto isCivilian = pCurrSoldier->bTeam == CIV_TEAM;
+    const auto isEnemy = pCurrSoldier->bTeam == ENEMY_TEAM;
+    const auto retreatAllowed = gGameExternalOptions.fAITacticalRetreat == TRUE;
 
     if (destinationOffscreen && !(isCivilian || hasProfile || (isEnemy && retreatAllowed)))
     {
@@ -5398,6 +5398,34 @@ BOOLEAN TeamMemberNear( INT8 bTeam, INT32 sGridNo, INT32 iRange )
 	}
 
 	return(FALSE);
+}
+
+BOOLEAN NotDeafTeamMemberNear(INT8 bTeam, INT32 sGridNo, INT32 iRange)
+{
+    for ( SoldierID pSoldier = gTacticalStatus.Team[bTeam].bFirstID; pSoldier <= gTacticalStatus.Team[bTeam].bLastID; ++pSoldier )
+    {
+        if ( pSoldier->bActive &&
+            pSoldier->bInSector &&
+            pSoldier->stats.bLife >= OKLIFE &&
+            pSoldier->bDeafenedCounter == 0 )
+        {
+            if ( PythSpacesAway(pSoldier->sGridNo, sGridNo) <= iRange )
+            {
+                return(TRUE);
+            }
+        }
+    }
+
+    return(FALSE);
+}
+
+BOOLEAN PlayerCanHearNoise(SOLDIERTYPE* pSoldier)
+{
+    if ( pSoldier &&
+        (pSoldier->bVisible == TRUE || NotDeafTeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE / 2) || NightLight() && !(gTacticalStatus.uiFlags & TURNBASED && gTacticalStatus.uiFlags & INCOMBAT) && NotDeafTeamMemberNear(gbPlayerNum, pSoldier->sGridNo, TACTICAL_RANGE)) )
+        return TRUE;
+
+    return FALSE;
 }
 
 INT32 FindAdjacentGridEx( SOLDIERTYPE *pSoldier, INT32 sGridNo, UINT8 *pubDirection, INT32 *psAdjustedGridNo, BOOLEAN fForceToPerson, BOOLEAN fDoor, bool allow_diagonal )
@@ -7175,7 +7203,7 @@ static void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 
 				//if ( pTeamSoldier->stats.bLife >= OKLIFE && pTeamSoldier->stats.bLife != 0 )
 				{
 					// officers and generals are 'special' prisoners...
-					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
+					if (ISVIP(pTeamSoldier))
 						++sNumPrisoner[PRISONER_GENERAL];
 					// downed pilots count as officers too, even though they are civilians. This makes capturing them more rewarding
 					else if ( (pTeamSoldier->usSoldierFlagMask & SOLDIER_ENEMY_OFFICER) || pTeamSoldier->ubCivilianGroup == DOWNEDPILOT_CIV_GROUP )
@@ -7204,7 +7232,7 @@ static void RemoveCapturedEnemiesFromSectorInfo( INT16 sMapX, INT16 sMapY, INT8 
 					}
 
 					// Flugente: VIPs
-					if ( pTeamSoldier->usSoldierFlagMask & SOLDIER_VIP )
+					if (ISVIP(pTeamSoldier))
 						DeleteVIP( pTeamSoldier->sSectorX, pTeamSoldier->sSectorY );
 
 					// Flugente: turncoats
@@ -9251,10 +9279,10 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
     if ( gTacticalStatus.bBoxingState == BOXING )
     {
         // should have a check for "in boxing ring", no?
-        if ( ( pSoldier->usAttackingWeapon != NOTHING && !ItemIsBrassKnuckles(pSoldier->usAttackingWeapon)) || !( pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ) || pSoldier->IsRiotShieldEquipped() )
+        if ( ( pSoldier->usAttackingWeapon != NOTHING && !ItemIsBrassKnuckles(pSoldier->usAttackingWeapon)) || !BOXER(pSoldier) || pSoldier->IsRiotShieldEquipped() )
         {
             // someone's cheating!
-            if ( (Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_BLADE || Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_PUNCH) && (pTarget->flags.uiStatusFlags & SOLDIER_BOXER) )
+            if ( (Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_BLADE || Item[ pSoldier->usAttackingWeapon ].usItemClass == IC_PUNCH) && BOXER(pTarget) )
             {
                 // knife or brass knuckles disqualify the player!
                 BoxingPlayerDisqualified( pSoldier, BAD_ATTACK );
@@ -9265,7 +9293,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
                 //gTacticalStatus.bBoxingState = NOT_BOXING;
                 SetBoxingState( NOT_BOXING );
                 // if we are attacking a boxer we should set them to neutral (temporarily) so that the rest of the civgroup code works...
-                if ( (pTarget->bTeam == CIV_TEAM) && (pTarget->flags.uiStatusFlags & SOLDIER_BOXER) )
+                if ( (pTarget->bTeam == CIV_TEAM) && BOXER(pTarget) )
                 {
                     SetSoldierNeutral( pTarget );
                 }
@@ -9412,7 +9440,7 @@ BOOLEAN ProcessImplicationsOfPCAttack( SOLDIERTYPE * pSoldier, SOLDIERTYPE ** pp
                 //TriggerNPCWithIHateYouQuote( pTarget->ubProfile );
             }
         }
-        else if ( pTarget->ubCivilianGroup != NON_CIV_GROUP && !( pTarget->flags.uiStatusFlags & SOLDIER_BOXER ) )
+        else if ( pTarget->ubCivilianGroup != NON_CIV_GROUP && !BOXER(pTarget) )
         {
             // Firing at a civ in a civ group who isn't hostile... if anyone in that civ group can see this
             // going on they should become hostile.
@@ -10848,7 +10876,7 @@ static void TurnCoatAttemptMessageBoxCallBack( UINT8 ubExitValue )
 	UINT8 approachchance = gusSelectedSoldier->GetTurncoatConvinctionChance( prisonerdialoguetargetID, approachselected );
 
 	// you can never turn a VIP (though we don't tell the player if someone is a VIP, lest they have an exploit to find out)
-	if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
+	if (ISVIP(pSoldier))
 		approachchance = 0;
 
 	// as using random numbers to pass the check would result in players savescumming, use a number based on the soldier's stats

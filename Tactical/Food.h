@@ -108,5 +108,6 @@ void SoldierAutoFillCanteens(SOLDIERTYPE *pSoldier);
 BOOLEAN HasFoodInInventory( SOLDIERTYPE *pSoldier, BOOLEAN fCheckFood, BOOLEAN fCheckDrink );
 
 void DrinkFromWaterTap( SOLDIERTYPE *pSoldier );
+void DrinkFromInventory(SOLDIERTYPE* pSoldier);
 
 #endif

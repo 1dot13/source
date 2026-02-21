@@ -18,6 +18,7 @@
 	#include "opplist.h"
 	#include "Interface.h"
 	#include "Tactical Save.h"
+#include <Soldier macros.h>
 
 #define AI_LIST_SIZE TOTAL_SOLDIERS
 
@@ -180,7 +181,7 @@ BOOLEAN InsertIntoAIList( SoldierID ubID, INT8 bPriority )
 
 BOOLEAN SatisfiesAIListConditions( SOLDIERTYPE * pSoldier, UINT16 * pubDoneCount, BOOLEAN fDoRandomChecks )
 {
-	if ( (gTacticalStatus.bBoxingState == BOXING) && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) )
+	if ( (gTacticalStatus.bBoxingState == BOXING) && !BOXER(pSoldier) )
 	{
 		return( FALSE );
 	}

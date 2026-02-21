@@ -73,7 +73,7 @@
 #include "TeamTurns.h"
 #include "Map Screen Interface.h"	// added by Flugente for SquadNames
 #include "Keys.h"	// added by silversurfer for door handling from the side
-
+#include "Cheats.h"
 #include "AIInternals.h"
 extern BOOLEAN gubWorldTileInLight[MAX_ALLOWED_WORLD_MAX];
 extern BOOLEAN gubIsCorpseThere[MAX_ALLOWED_WORLD_MAX];
@@ -372,7 +372,7 @@ BOOLEAN									gfDisplayTimerCursor = FALSE;
 UINT32									guiTimerCursorID = 0;
 UINT32									guiTimerLastUpdate = 0;
 UINT32									guiTimerCursorDelay = 0;
-
+UINT8 gRenderDebugInfoMode = DEBUG_OFF;
 
 CHAR16			gzLocation[ 20 ];
 BOOLEAN		gfLocation = FALSE;
@@ -500,6 +500,54 @@ void GetMercOknoDirection( SoldierID ubSoldierID, BOOLEAN *pfGoDown, BOOLEAN *pf
 }
 //----------------------------------------------------------------------------------
 
+void HandleRenderDebugInfoModes()
+{
+	if (DEBUG_CHEAT_LEVEL())
+	{
+		switch (gRenderDebugInfoMode)
+		{
+		case DEBUG_PATHFINDING:
+			// Nothing to do here, pathfinding info is filled in the pathing functions.
+			break;
+		case DEBUG_THREATVALUE:
+			break;
+		case DEBUG_COVERVALUE:
+			// Calculate cover values for pSoldier under cursor, or for currently selected merc, if nobody is under the cursor.
+			if (gTacticalStatus.Team[OUR_TEAM].bTeamActive)
+			{
+				static SOLDIERTYPE* previousSoldier = nullptr;
+				static INT32 previousLocation = NOWHERE;
+				static UINT8 previousStance = 0;
+
+				SoldierID usSoldierIndex = NOBODY;
+				UINT32 uiMercFlags;
+				FindSoldierFromMouse(&usSoldierIndex, &uiMercFlags);
+				if (usSoldierIndex == NOBODY)
+				{
+					usSoldierIndex = gusSelectedSoldier;
+				}
+
+				if (usSoldierIndex != NOBODY)
+				{
+					// Get Soldier
+					INT32 iPercentBetter;
+					SOLDIERTYPE* pSoldier;
+					GetSoldier(&pSoldier, usSoldierIndex);
+					if (previousSoldier != pSoldier || previousLocation != pSoldier->sGridNo || previousStance != gAnimControl[pSoldier->usAnimState].ubEndHeight)
+					{
+						FindBestNearbyCover(pSoldier, pSoldier->aiData.bAIMorale, &iPercentBetter, NOWHERE, false);
+						previousSoldier = pSoldier;
+						previousLocation = pSoldier->sGridNo;
+						previousStance = gAnimControl[pSoldier->usAnimState].ubEndHeight;
+					}
+				}
+			}
+			break;
+		default: // off
+			break;
+		}
+	}
+}
 
 void PreventFromTheFreezingBug(SOLDIERTYPE* pSoldier)
 {
@@ -673,6 +721,7 @@ UINT32	HandleTacticalUI( void )
 		}
 	}
 
+	HandleRenderDebugInfoModes();
 	// Check if current event has changed and clear event if so, to prepare it for execution
 	// Clearing it does things like set first time flag, param variables, etc
 	if ( uiNewEvent != guiOldEvent )

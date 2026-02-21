@@ -332,6 +332,7 @@ BOOLEAN LoadGameSettings()
 
 		gGameSettings.fOptions[TOPTION_ALT_START_AIM]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_START_AIM"				   , TRUE); // Start at max aiming level instead of default no aiming
 		gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_ALT_PATHFINDING"				   , FALSE); // A* pathfinding
+		gGameSettings.fOptions[TOPTION_USE_LEGACY_TACTICALAI]			= iniReader.ReadBoolean("JA2 Game Settings", "TOPTION_USE_LEGACY_TACTICALAI", FALSE); // A* pathfinding
 		gGameSettings.fOptions[TOPTION_MERCENARY_FORMATIONS]            = iniReader.ReadBoolean("JA2 Game Settings","TOPTION_MERCENARY_FORMATIONS"             ,  FALSE ); // Flugente: mercenary formations
 		gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_SHOW_ENEMY_LOCATION"			   ,  FALSE); // sevenfm: show locations of known enemies
 		gGameSettings.fOptions[TOPTION_REPORT_MISS_MARGIN]				= iniReader.ReadBoolean("JA2 Game Settings","TOPTION_REPORT_MISS_MARGIN"			   ,  FALSE ); // HEADROCK HAM 4: Shot offset report
@@ -616,6 +617,7 @@ BOOLEAN	SaveGameSettings()
 		settings << "TOPTION_SHOW_ENEMY_LOCATION			  = " << (gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]				?	 "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_ALT_START_AIM					  = " << (gGameSettings.fOptions[TOPTION_ALT_START_AIM]						?	 "TRUE" : "FALSE") << endl;
 		settings << "TOPTION_ALT_PATHFINDING				  = " << (gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]					?	 "TRUE" : "FALSE") << endl;
+		settings << "TOPTION_USE_LEGACY_TACTICALAI			  = " << (gGameSettings.fOptions[TOPTION_USE_LEGACY_TACTICALAI]			? "TRUE" : "FALSE") << endl;
 
 		settings << "TOPTION_CHEAT_MODE_OPTIONS_HEADER        = " << (gGameSettings.fOptions[TOPTION_CHEAT_MODE_OPTIONS_HEADER]			?    "TRUE" : "FALSE" ) << endl;
 		settings << "TOPTION_FORCE_BOBBY_RAY_SHIPMENTS        = " << (gGameSettings.fOptions[TOPTION_FORCE_BOBBY_RAY_SHIPMENTS]			?    "TRUE" : "FALSE" ) << endl;
@@ -846,6 +848,7 @@ void InitGameSettings()
 	gGameSettings.fOptions[TOPTION_SHOW_ENEMY_LOCATION]					= FALSE;	// sevenfm: show locations of known enemies
 	gGameSettings.fOptions[TOPTION_ALT_START_AIM]						= TRUE;
 	gGameSettings.fOptions[TOPTION_ALT_PATHFINDING]						= FALSE;
+	gGameSettings.fOptions[TOPTION_USE_LEGACY_TACTICALAI]				= FALSE;
 
 	// arynn: Cheat/Debug Menu
 	gGameSettings.fOptions[ TOPTION_CHEAT_MODE_OPTIONS_HEADER ]			= FALSE;	

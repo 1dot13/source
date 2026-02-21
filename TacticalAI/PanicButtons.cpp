@@ -244,7 +244,7 @@ void PossiblyMakeThisEnemyChosenOne( SOLDIERTYPE * pSoldier )
 }
 
 
-INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
+ActionType PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 {
 	BOOLEAN	fFoundRoute = FALSE;
 	INT8	bSlot;
@@ -307,7 +307,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 			if (bPanicTrigger == -1)
 			{
 				// augh!
-				return( -1 );
+				return( AI_ACTION_INVALID );
 			}
 
 			sPanicTriggerGridNo = gTacticalStatus.sPanicTriggerGridNo[ bPanicTrigger ];
@@ -430,7 +430,7 @@ INT8 PanicAI(SOLDIERTYPE *pSoldier, UINT8 ubCanMove)
 	}
 
 	// no action decided
-	return(-1);
+	return(AI_ACTION_INVALID);
 }
 
 void InitPanicSystem( void )
@@ -534,7 +534,7 @@ BOOLEAN NeedToRadioAboutPanicTrigger( void )
 #define STAIRCASE_GRIDNO 12067
 #define STAIRCASE_DIRECTION 0
 
-INT8 HeadForTheStairCase( SOLDIERTYPE * pSoldier )
+ActionType HeadForTheStairCase( SOLDIERTYPE * pSoldier )
 {
 	UNDERGROUND_SECTORINFO * pBasementInfo;
 
