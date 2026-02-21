@@ -1,4 +1,3 @@
-#include "builddefines.h"
 #include "types.h"
 #include "Isometric Utils.h"
 #include "Overhead.h"
@@ -22,19 +21,16 @@
 #include "Interface Cursors.h"	// added by Flugente for UICursorDefines
 #include "Rebel Command.h"
 
-//forward declarations of common classes to eliminate includes
-class OBJECTTYPE;
-class SOLDIERTYPE;
 
 //*******	Local Defines **************************************************
-
 
 struct CoverCell
 {
 	INT32	sGridNo;
-	INT8	bOverlayType;
+	INT8		bOverlayType;
+	bool		onRoof;
 
-	CoverCell( ) : sGridNo( NOWHERE ), bOverlayType( INVALID_COVER ) {}
+	CoverCell( ) : sGridNo( NOWHERE ), bOverlayType( INVALID_COVER ), onRoof( false ) {}
 };
 
 const UINT8 animArr[3] = {
@@ -43,16 +39,12 @@ const UINT8 animArr[3] = {
 	ANIM_STAND
 };
 
-// yea way too big... but some bytes more memory is cheap
-#define COVER_X_CELLS WORLD_COLS_MAX
-#define COVER_Y_CELLS WORLD_ROWS_MAX
-#define COVER_Z_CELLS 2 // roof or no roof
 
 //******	Local Variables	*********************************************
 
 INT16 gsMinCellX, gsMinCellY, gsMaxCellX, gsMaxCellY = -1;
 
-CoverCell gCoverViewArea[ COVER_X_CELLS ][ COVER_Y_CELLS ][ COVER_Z_CELLS ];
+std::vector<CoverCell> gCoverViewArea;
 
 DWORD guiCoverNextUpdateTime = 0;
 
@@ -73,13 +65,13 @@ void	RemoveCoverObjectFromWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof 
 void	AddCoverObjectsToViewArea();
 void	RemoveCoverObjectsFromViewArea();
 
-void	CalculateCover();
-void	CalculateCoverFromEnemies();
-void	CalculateMines();
-void	CalculateTraitRange();
-void	CalculateTrackerRange();
-void	CalculateFortify();
-void	CalculateWeapondata();
+void	 CalculateCover();
+void	 CalculateCoverFromEnemies();
+void	 CalculateMines();
+void	 CalculateTraitRange();
+void	 CalculateTrackerRange();
+void	 CalculateFortify();
+void	 CalculateWeapondata();
 
 void CalculateCoverFromEnemySoldier(SOLDIERTYPE* pFromSoldier, const INT32& sTargetGridNo, const BOOLEAN& fRoof, INT8& bOverlayType, SOLDIERTYPE* pToSoldier, const BOOLEAN& bFromSoldierCowering, const UINT8& tunnelVision, const INT8 ToSoldierStealth, const INT8 ToSoldierLBeSightAdjustment);
 
@@ -89,7 +81,7 @@ void	GetGridNoForViewPort( const INT32& ubX, const INT32& ubY, INT32& sGridNo );
 BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius=2 );
 
 BOOLEAN IsTheRoofVisible( const INT32& sGridNo );
-BOOLEAN HasAdjTile(const INT32& ubX, const INT32& ubY, const INT32& ubZ);
+BOOLEAN HasAdjTile(const INT32 startIndex, const INT32 onRoof);
 
 
 static TileDefines GetOverlayIndex( INT8 bOverlayType )
@@ -337,101 +329,90 @@ void RemoveCoverObjectFromWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof 
 	}
 }
 
-BOOLEAN HasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+
+static BOOLEAN HasAdjTile(const INT32 startIndex, const INT32 onRoof)
 {
-	INT32 ubTX, ubTY;
+	const auto rowLength = 1 + gsMaxCellX - gsMinCellX;
 
-	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
-	{
-		if ( ubTX < 0 || ubTX > WORLD_COLS )
-		{
-			continue;
-		}
+    for ( INT32 ubTY = -1; ubTY <= 1; ++ubTY )
+    {
+        for ( INT32 ubTX = -1; ubTX <= 1; ++ubTX )
+        {
+			const auto i = startIndex + ubTY * rowLength + ubTX;
+            if ( i > 0 && i < gCoverViewArea.size() )
+            {
+                const auto& cell = gCoverViewArea[i];
 
-		for ( ubTY = ubY-1; ubTY <= ubY+1; ++ubTY )
-		{
-			if ( ubTY < 0 || ubTY > WORLD_ROWS )
-			{
-				continue;
-			}
-			
-			if ( gCoverViewArea[ubTX][ubTY][ubZ].bOverlayType > INVALID_COVER && gCoverViewArea[ubTX][ubTY][ubZ].bOverlayType != MAX_COVER && gCoverViewArea[ubTX][ubTY][ubZ].bOverlayType != NO_SEE )
-			{
-				return TRUE;
-			}
-		}
-	}
+                if ( cell.bOverlayType > INVALID_COVER && cell.bOverlayType != MAX_COVER && cell.bOverlayType != NO_SEE && cell.onRoof == onRoof )
+                {
+                    return TRUE;
+                }
+            }
+        }
+    }
 
 	return FALSE;
 }
 
-void AddCoverObjectsToViewArea()
+static void AddCoverObjectsToViewArea()
 {
-	INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
+	const BOOLEAN fNightTime = NightTime();
 
-	BOOLEAN fNightTime = NightTime( );
-	
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	INT32 index = 0;
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		const auto bOverlayType = cell.bOverlayType;
+		const auto sGridNo = cell.sGridNo;
+		const auto onRoof = cell.onRoof;
+
+		if ( bOverlayType != INVALID_COVER && ((bOverlayType != MAX_COVER && bOverlayType != NO_SEE) || HasAdjTile(index, onRoof)) )
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER && ((gCoverViewArea[ubX][ubY][ubZ].bOverlayType != MAX_COVER && gCoverViewArea[ubX][ubY][ubZ].bOverlayType != NO_SEE) || HasAdjTile( ubX, ubY, ubZ )) )
-				{
-					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
-				}
-			}
+			AddCoverObjectToWorld(sGridNo, GetOverlayIndex(bOverlayType), onRoof, fNightTime);
+			fChanged = TRUE;
 		}
+
+		++index;
 	}
 
 	// Re-render the scene!
 	if ( fChanged )
 	{
-		SetRenderFlags( RENDER_FLAG_FULL );
+		SetRenderFlags(RENDER_FLAG_FULL);
 	}
 }
 
-void RemoveCoverObjectsFromViewArea()
+static void RemoveCoverObjectsFromViewArea()
 {
 	if ( gubDrawMode == DRAW_MODE_OFF && gNoRedraw )
 		return;
 
-	// Go through the whole gCoverViewArea when removing cover objects. Otherwise we don't clean up tiles that are not in the viewport which results in an annoying visual bug.
-	INT32 ubX, ubY, ubZ;
 	BOOLEAN fChanged = FALSE;
 
-	for ( ubX = 0; ubX < COVER_X_CELLS; ++ubX )
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY = 0; ubY < COVER_Y_CELLS; ++ubY )
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
+
+		if ( sGridNo != NOWHERE && bOverlayType != INVALID_COVER )
 		{
-			for ( ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ )
-			{
-				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+			TileDefines tile = GetOverlayIndex(bOverlayType);
+			RemoveCoverObjectFromWorld(sGridNo, tile, cell.onRoof);
+			bOverlayType = INVALID_COVER;
+			sGridNo = NOWHERE;
+			onRoof = false;
 
-				GetGridNoForViewPort( ubX, ubY, sGridNo );
-
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				if ( bOverlayType != INVALID_COVER && sGridNo != -1 )
-				{
-					TileDefines tile = GetOverlayIndex( bOverlayType );
-					RemoveCoverObjectFromWorld( sGridNo, tile, (BOOLEAN) ubZ );
-					bOverlayType = INVALID_COVER;
-					fChanged = TRUE;
-				}
-			}
+			fChanged = TRUE;
 		}
 	}
-		
+
 	// Re-render the scene!
 	if ( fChanged )
 	{
-		SetRenderFlags( RENDER_FLAG_FULL );
+		SetRenderFlags(RENDER_FLAG_FULL);
 	}
-	
+
 	gNoRedraw = (gubDrawMode == DRAW_MODE_OFF);
 }
 
@@ -446,9 +427,26 @@ static void updateCoverViewArea()
 
 	// Sanity check because of array access
 	gsMinCellX = max(0, gsMinCellX);
-	gsMaxCellX = min(COVER_X_CELLS, gsMaxCellX);
+	gsMaxCellX = min(WORLD_COLS_MAX, gsMaxCellX);
 	gsMinCellY = max(0, gsMinCellY);
-	gsMaxCellY = min(COVER_Y_CELLS, gsMaxCellY);
+	gsMaxCellY = min(WORLD_ROWS_MAX, gsMaxCellY);
+
+
+	auto i = 0;
+	for ( INT32 y = gsMinCellY; y <= gsMaxCellY; ++y )
+	{
+		for ( INT32 x = gsMinCellX; x <= gsMaxCellX; ++x )
+		{
+			if ( i < gCoverViewArea.size() )
+			{
+				auto& cell = gCoverViewArea[i];
+				INT32& sGridNo = cell.sGridNo;
+				GetGridNoForViewPort(x, y, sGridNo);
+			}
+
+			++i;
+		}
+	}
 }
 
 // ubRadius in times of y or x cell sizes
@@ -478,6 +476,28 @@ BOOLEAN GridNoOnScreenAndAround( const INT32& sGridNo, const UINT8& ubRadius )
 
 void DisplayCover( BOOLEAN forceUpdate )
 {
+	// Initialize gCoverArea size
+	static bool firstTime = true;
+	if ( firstTime )
+	{
+		INT16 usTmp;
+		GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, &gsMinCellX, &usTmp);
+		GetScreenXYWorldCell(gsVIEWPORT_END_X, gsVIEWPORT_END_Y, &gsMaxCellX, &usTmp);
+		GetScreenXYWorldCell(gsVIEWPORT_END_X, gsVIEWPORT_START_Y, &usTmp, &gsMinCellY);
+		GetScreenXYWorldCell(gsVIEWPORT_START_X, gsVIEWPORT_END_Y, &usTmp, &gsMaxCellY);
+
+		// Sanity check because of array access
+		gsMinCellX = max(0, gsMinCellX);
+		gsMaxCellX = min(WORLD_COLS_MAX, gsMaxCellX);
+		gsMinCellY = max(0, gsMinCellY);
+		gsMaxCellY = min(WORLD_ROWS_MAX, gsMaxCellY);
+
+		const auto cols = 1 + gsMaxCellX - gsMinCellX;
+		const auto rows = 1 + gsMaxCellY - gsMinCellY;
+		gCoverViewArea.resize(rows*cols);
+		firstTime = false;
+	}
+
 	if ( gGameExternalOptions.ubCoverDisplayUpdateWait == (UINT16)-1 )
 		return;
 
@@ -529,10 +549,9 @@ void DisplayCover( BOOLEAN forceUpdate )
 }
 
 
-
 static void CalculateCoverFromEnemies()
 {
-	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
+	if ( gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false )
 		return;
 
 	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
@@ -540,17 +559,10 @@ static void CalculateCoverFromEnemies()
 	const INT8 OurSoldierLBESightAdjustment = GetSightAdjustmentBasedOnLBE(pSoldier);
 
 
-	// Loop through the grid and reset cover
-	for (INT32 ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
+	// reset cover values
+	for ( auto& cell : gCoverViewArea )
 	{
-		for (INT32 ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
-		{
-			for (INT8 ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
-			{
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-				bOverlayType = MAX_COVER;
-			}
-		}
+		cell.bOverlayType = MAX_COVER;
 	}
 
 
@@ -562,27 +574,27 @@ static void CalculateCoverFromEnemies()
 	bCowering.reserve(TOTAL_SOLDIERS);
 	tunnelVision.reserve(TOTAL_SOLDIERS);
 
-	for (UINT32 i = 0; i < guiNumMercSlots; ++i)
+	for ( UINT32 i = 0; i < guiNumMercSlots; ++i )
 	{
-		SOLDIERTYPE *pOpponent = MercSlots[i];
+		SOLDIERTYPE* pOpponent = MercSlots[i];
 
 		// if this merc is inactive, at base, on assignment, dead, unconscious
-		if (!pOpponent || pOpponent->stats.bLife < OKLIFE)
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
 		{
 			continue;			// next merc
 		}
 
 		// if this man is neutral / on the same side, he's not an opponent
-		if (CONSIDERED_NEUTRAL(pSoldier, pOpponent) || (pSoldier->bSide == pOpponent->bSide))
+		if ( CONSIDERED_NEUTRAL(pSoldier, pOpponent) || (pSoldier->bSide == pOpponent->bSide) )
 		{
 			continue;			// next merc
 		}
 
-		INT8 *pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
-		INT8 *pbPublOL = gbPublicOpplist[OUR_TEAM] + pOpponent->ubID;
+		INT8* pbPersOL = pSoldier->aiData.bOppList + pOpponent->ubID;
+		INT8* pbPublOL = gbPublicOpplist[OUR_TEAM] + pOpponent->ubID;
 
 		// if this opponent is unknown personally and publicly
-		if (*pbPersOL != SEEN_CURRENTLY && *pbPublOL != SEEN_CURRENTLY)
+		if ( *pbPersOL != SEEN_CURRENTLY && *pbPublOL != SEEN_CURRENTLY )
 		{
 			continue;			// next merc
 		}
@@ -594,60 +606,34 @@ static void CalculateCoverFromEnemies()
 
 
 	// Calculate cover for the whole grid, one opponent at a time.
-	for (UINT32 i = 0; i < pOpponents.size(); ++i)
+	for ( UINT32 i = 0; i < pOpponents.size(); ++i )
 	{
-		SOLDIERTYPE *pOpponent = pOpponents[i];
+		SOLDIERTYPE* pOpponent = pOpponents[i];
 		const BOOLEAN isCowering = bCowering[i];
 		const UINT8 tunnelVisionPercentage = tunnelVision[i];
 
 
-		for (INT32 ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
+		for ( auto& cell : gCoverViewArea )
 		{
-			for (INT32 ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
+			INT32& sGridNo = cell.sGridNo;
+			INT8& bOverlayType = cell.bOverlayType;
+			bool& onRoof = cell.onRoof;
+
+			if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+				continue;
+
+			onRoof = IsTheRoofVisible(sGridNo);
+			if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+				continue;
+
+			//Skip cover calculation if there already is no cover.
+			if ( bOverlayType == NO_COVER )
 			{
-				for (INT8 ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
-				{
-					INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-					if (!GridNoOnScreenAndAround(sGridNo, 2))
-						continue;
-
-
-					INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-					if (IsTheRoofVisible(sGridNo))
-					{
-						// do not show stuff on ground if roof is shown
-						if (ubZ == I_GROUND_LEVEL) 
-						{
-							bOverlayType = INVALID_COVER;
-							continue;
-						}
-					}
-					else
-					{
-						// do not show stuff on roofs if ground is shown
-						if (ubZ == I_ROOF_LEVEL)
-						{
-							bOverlayType = INVALID_COVER;
-							continue;
-						}
-					}
-
-
-					if (!NewOKDestination(pSoldier, sGridNo, false, ubZ))
-						continue;
-
-
-					//Skip cover calculation if there already is no cover.
-					if (bOverlayType == NO_COVER)
-					{
-						continue;
-					}
-					else
-					{
-						CalculateCoverFromEnemySoldier(pOpponent, sGridNo, ubZ, bOverlayType, pSoldier, isCowering, tunnelVisionPercentage, OurSoldierStealth, OurSoldierLBESightAdjustment);
-					}
-				}
+				continue;
+			}
+			else
+			{
+				CalculateCoverFromEnemySoldier(pOpponent, sGridNo, onRoof, bOverlayType, pSoldier, isCowering, tunnelVisionPercentage, OurSoldierStealth, OurSoldierLBESightAdjustment);
 			}
 		}
 	}
@@ -662,75 +648,53 @@ static void CalculateCoverFromEnemies()
 
 void CalculateCover()
 {
-	INT32 ubX, ubY;
-	INT8 ubZ;
-	SOLDIERTYPE* pSoldier;
-
-	if (gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false)
+	if ( gusSelectedSoldier == NOBODY || gusSelectedSoldier->bActive == false )
 		return;
 
-	pSoldier = gusSelectedSoldier;
+	SOLDIERTYPE* pSoldier = gusSelectedSoldier;
 
-	for (ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX)
+	for ( auto& cell : gCoverViewArea )
 	{
-		for (ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY)
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
+
+		if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+			continue;
+
+		onRoof = IsTheRoofVisible(sGridNo);
+		if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+			continue;
+
+		// reset cover value
+		bOverlayType = MAX_COVER;
+		if ( gTacticalStatus.fAtLeastOneGuyOnMultiSelect ) // view of selected mercs
 		{
-			for (ubZ = 0; ubZ < COVER_Z_CELLS; ++ubZ)
+			// OK, loop through all guys who are 'multi-selected' and
+			SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+			for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
 			{
-				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-
-				if (!GridNoOnScreenAndAround(sGridNo, 2))
-					continue;
-
-				if (IsTheRoofVisible(sGridNo))
+				pSoldier = cnt;
+				if ( pSoldier->bActive && pSoldier->bInSector )
 				{
-					// do not show stuff on ground if roof is shown
-					if (ubZ == I_GROUND_LEVEL)
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if (ubZ == I_ROOF_LEVEL)
-						continue;
-				}
-
-				if (!NewOKDestination(pSoldier, sGridNo, false, ubZ))
-					continue;
-
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				// reset cover value
-				bOverlayType = MAX_COVER;
-				if (gTacticalStatus.fAtLeastOneGuyOnMultiSelect) // view of selected mercs
-				{
-					// OK, loop through all guys who are 'multi-selected' and
-					SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID;
-					for ( ; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
+					if ( pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED )
 					{
-						pSoldier = cnt;
-						if (pSoldier->bActive && pSoldier->bInSector)
-						{
-							if (pSoldier->flags.uiStatusFlags & SOLDIER_MULTI_SELECTED)
-							{
-								CalculateCoverFromSoldier(pSoldier, sGridNo, ubZ, bOverlayType);
+						CalculateCoverFromSoldier(pSoldier, sGridNo, onRoof, bOverlayType);
 
-								// if the tile is already NO_COVER, there's no need to continue
-								if (NO_COVER == bOverlayType)
-									break;
-							}
-						}
+						// if the tile is already NO_COVER, there's no need to continue
+						if ( NO_COVER == bOverlayType )
+							break;
 					}
 				}
-				else // single view from your merc
-				{
-					CalculateCoverFromSoldier(pSoldier, sGridNo, ubZ, bOverlayType);
-				}
-
-				// we use different enums for our merc's sight to avoid confusing inverse sight
-				bOverlayType = MAX_SEE - bOverlayType;
 			}
 		}
+		else // single view from your merc
+		{
+			CalculateCoverFromSoldier(pSoldier, sGridNo, onRoof, bOverlayType);
+		}
+
+		// we use different enums for our merc's sight to avoid confusing inverse sight
+		bOverlayType = MAX_SEE - bOverlayType;
 	}
 
 	AddCoverObjectsToViewArea();
@@ -1044,9 +1008,8 @@ BOOLEAN IsTheRoofVisible( const INT32& sGridNo )
 
 //*******	Local Function Prototypes ***********************************
 
-void	AddMinesObjectsToViewArea();
-
-void	DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType, BOOLEAN fWithMineDetector = FALSE );
+void	 AddMinesObjectsToViewArea();
+void DetermineMineDisplayInTile( const INT32 sGridNo, const INT8 bLevel, INT8& bOverlayType, const BOOLEAN fWithMineDetector = FALSE );
 
 //*******	Functions **************************************************
 
@@ -1135,35 +1098,32 @@ void ToggleTrapNetworkView()
 
 void AddMinesObjectsToViewArea()
 {
-	if ( gsMaxCellY < 0 )
-		return;
-	
-	INT32 ubX, ubY, ubZ;
-	BOOLEAN fChanged = FALSE;
-
-	BOOLEAN fNightTime = NightTime( );
-
 	BOOLEAN fSearchAdjTile = TRUE;
 	// no search for adjacent tiles when looking at a specific network (we have only 4 colours, need them all :-)
 	if ( gubDrawMode == MINES_DRAW_NETWORKCOLOURING || gubDrawMode == MINES_DRAW_NET_A || gubDrawMode == MINES_DRAW_NET_B || gubDrawMode == MINES_DRAW_NET_C || gubDrawMode == MINES_DRAW_NET_D )
 		fSearchAdjTile = FALSE;
 
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+
+	const BOOLEAN fNightTime = NightTime();
+	INT32 index = 0;
+	BOOLEAN fChanged = FALSE;
+
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		const auto bOverlayType = cell.bOverlayType;
+		const auto sGridNo = cell.sGridNo;
+		const auto onRoof = cell.onRoof;
+
+		if ( bOverlayType != INVALID_COVER && (bOverlayType != MAX_MINES || (fSearchAdjTile && HasAdjTile(index, onRoof))) )
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
+			if ( !TileIsOutOfBounds(sGridNo) )
 			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER && (gCoverViewArea[ubX][ubY][ubZ].bOverlayType != MAX_MINES || (fSearchAdjTile && HasAdjTile( ubX, ubY, ubZ ))) )
-				{
-					if ( !TileIsOutOfBounds( gCoverViewArea[ubX][ubY][ubZ].sGridNo ) )
-					{
-						AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-						fChanged = TRUE;
-					}
-				}
+				AddCoverObjectToWorld(sGridNo, GetOverlayIndex(bOverlayType), onRoof, fNightTime);
+				fChanged = TRUE;
 			}
 		}
+
+		++index;
 	}
 
 	// Re-render the scene!
@@ -1175,11 +1135,9 @@ void AddMinesObjectsToViewArea()
 
 void CalculateMines()
 {
-	INT32 ubX, ubY;
-	INT8  ubZ;
 	SOLDIERTYPE* pSoldier;
-	
-	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
+
+	if ( gusSelectedSoldier == NOBODY || !GetSoldier(&pSoldier, gusSelectedSoldier) || !pSoldier->bInSector )
 		return;
 
 	// if we want to detect hostile mines and we have an metal detector in our hands, allow seeking
@@ -1192,57 +1150,38 @@ void CalculateMines()
 		else
 			return;
 	}
-	
+
 	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
-		
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
+
+		if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+			continue;
+
+		onRoof = IsTheRoofVisible(sGridNo);
+		if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+			continue;
+
+		// if we are looking for hostile mines, but the tile is out of our' detectors range, skip looking for mines
+		if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
-
-				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
-					continue;
-
-				if ( IsTheRoofVisible( sGridNo ) )
-				{
-					// do not show stuff on ground if roof is shown
-					if ( ubZ == I_GROUND_LEVEL )
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if ( ubZ == I_ROOF_LEVEL )
-						continue;
-				}
-																
-				// if we are looking for hostile mines, but the tile is out of our' detectors range, skip looking for mines
-				if ( gubDrawMode == MINES_DRAW_DETECT_ENEMY && fWithMineDetector )
-				{
-					if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) > 4 )
-						continue;
-				}
-
-				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
-					continue;
-
-				INT8& bOverlayType = gCoverViewArea[ubX][ubY][ubZ].bOverlayType;
-
-				bOverlayType = INVALID_COVER;
-
-				DetermineMineDisplayInTile( sGridNo, ubZ, bOverlayType, fWithMineDetector );
-			}
+			if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) > 4 )
+				continue;
 		}
+
+		bOverlayType = INVALID_COVER;
+		DetermineMineDisplayInTile(sGridNo, onRoof, bOverlayType, fWithMineDetector);
 	}
 
 	AddMinesObjectsToViewArea();
 }
 
 
-void DetermineMineDisplayInTile( INT32 sGridNo, INT8 bLevel, INT8& bOverlayType, BOOLEAN fWithMineDetector )
+void DetermineMineDisplayInTile( const INT32 sGridNo, const INT8 bLevel, INT8& bOverlayType, const BOOLEAN fWithMineDetector )
 {
 	// if there is a bomb at that grid and level, and it isn't disabled
 	for (UINT32 uiWorldBombIndex = 0; uiWorldBombIndex < guiNumWorldBombs; ++uiWorldBombIndex)
@@ -1418,102 +1357,79 @@ void SetGridNoForTraitDisplay( INT32 sGridNo )
 
 void CalculateTraitRange()
 {
-	INT32 ubX, ubY;
-	INT8  ubZ;
 	SOLDIERTYPE* pSoldier;
-		
-	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
+
+	if ( gusSelectedSoldier == NOBODY || !GetSoldier(&pSoldier, gusSelectedSoldier) || !pSoldier->bInSector )
 		return;
 
 	UINT16 range1 = 0;
 	UINT16 range2 = 0;
 	switch ( usDisplayTrait )
 	{
-	case RADIO_OPERATOR_NT:
+		case RADIO_OPERATOR_NT:
 		{
 			// we 'mark' the map position with which we called the menu, so that the player sees where he is targetting
-
 		}
 		break;
 
-	case VARIOUSSKILLS:
+		case VARIOUSSKILLS:
 		{
 			range1 = gGameExternalOptions.usSpotterRange;
 			range2 = gGameExternalOptions.usSpotterRange * 2;
 		}
 		break;
 
-	default:
-		return;
+		default:
+			return;
 	}
-				
+
 	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
-	
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+
+
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
-		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				INT32& sGridNo = gCoverViewArea[ ubX ][ ubY ][ ubZ ].sGridNo;
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
 
-				if( !GridNoOnScreenAndAround( sGridNo, 2 ) )
-					continue;
-				
-				if ( IsTheRoofVisible( sGridNo ) )
-				{
-					// do not show stuff on ground if roof is shown
-					if ( ubZ == I_GROUND_LEVEL )
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if ( ubZ == I_ROOF_LEVEL )
-						continue;
-				}
+		if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+			continue;
 
-				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
-					continue;
-				
-				if ( range1 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range1 )
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRAIT_1;
-				else if ( range2 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range2 )
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRAIT_2;
-				// mark the gridno we are targetting
-				else if ( PythSpacesAway(sTraitgridNo, sGridNo) == 1 )
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRAIT_1;
-				else
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MAX_TRAIT;
-			}
-		}
+		onRoof = IsTheRoofVisible(sGridNo);
+		if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+			continue;
+
+
+		if ( range1 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range1 )
+			bOverlayType = TRAIT_1;
+		else if ( range2 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) == range2 )
+			bOverlayType = TRAIT_2;
+		// mark the gridno we are targeting
+		else if ( PythSpacesAway(sTraitgridNo, sGridNo) == 1 )
+			bOverlayType = TRAIT_1;
+		else
+			bOverlayType = MAX_TRAIT;
 	}
 
 	AddTraitObjectsToViewArea();
 }
 
+
 void AddTraitObjectsToViewArea()
 {
-	if ( gsMaxCellY < 0 )
-		return;
-	
-	INT32 ubX, ubY, ubZ;
+	const BOOLEAN fNightTime = NightTime( );
 	BOOLEAN fChanged = FALSE;
 
-	BOOLEAN fNightTime = NightTime( );
-
-	for ( ubX=gsMinCellX; ubX<=gsMaxCellX; ++ubX )
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY=gsMinCellY; ubY<=gsMaxCellY; ++ubY )
+		const auto bOverlayType = cell.bOverlayType;
+		const auto sGridNo = cell.sGridNo;
+		const auto onRoof = cell.onRoof;
+
+		if ( bOverlayType == TRAIT_1 || bOverlayType == TRAIT_2 )
 		{
-			for ( ubZ=0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRAIT_1 || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRAIT_2 )
-				{
-					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
-				}
-			}
+			AddCoverObjectToWorld(sGridNo, GetOverlayIndex(bOverlayType), onRoof, fNightTime);
+			fChanged = TRUE;
 		}
 	}
 
@@ -1524,37 +1440,28 @@ void AddTraitObjectsToViewArea()
 	}
 }
 
-static BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TraitTileHasAdjTile(const INT32 startIndex, const INT32 onRoof)
 {
-	INT32 ubTX, ubTY;
+	const auto rowLength = 1 + gsMaxCellX - gsMinCellX;
 
-	for ( ubTX = ubX-1; ubTX <= ubX+1; ++ubTX )
+	for ( INT32 ubTY = -1; ubTY <= 1; ++ubTY )
 	{
-		if ( ubTX < 0 || ubTX > WORLD_COLS )
+		for ( INT32 ubTX = -1; ubTX <= 1; ++ubTX )
 		{
-			continue;
-		}
+			const auto i = startIndex + ubTY * rowLength + ubTX;
 
-		for ( ubTY = ubY-1; ubTY <= ubY+1; ++ubTY )
-		{
-			if ( ubTY < 0 || ubTY > WORLD_ROWS )
+			if ( i > 0 && i < gCoverViewArea.size() )
 			{
-				continue;
-			}
+				const auto& cell = gCoverViewArea[i];
 
-			INT8& bOverlayType = gCoverViewArea[ubTX][ubTY][ubZ].bOverlayType;
-
-			if ( bOverlayType == TRAIT_1 || bOverlayType == TRAIT_2 )
-			{
-				return TRUE;
+				if ( (cell.bOverlayType == TRAIT_1 || cell.bOverlayType == TRAIT_2) && cell.bOverlayType != NO_SEE && cell.onRoof == onRoof )
+				{
+					return TRUE;
+				}
 			}
 		}
 	}
-
-	return FALSE;
 }
-
-
 
 // ----------------------------- tracker display after this ----------------------------------------
 // added by Flugente
@@ -1567,107 +1474,84 @@ static BOOLEAN TraitTileHasAdjTile( const INT32& ubX, const INT32& ubY, const IN
 
 //*******	Local Function Prototypes ***********************************
 
-void	AddTrackerObjectsToViewArea( );
+void	 AddTrackerObjectsToViewArea( );
 
-void CalculateTrackerRange( )
+void CalculateTrackerRange()
 {
-	INT32 ubX, ubY;
-	INT8 ubZ;
 	SOLDIERTYPE* pSoldier;
-	
-	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) ||  !pSoldier->bInSector )
+
+	if ( gusSelectedSoldier == NOBODY || !GetSoldier(&pSoldier, gusSelectedSoldier) || !pSoldier->bInSector )
 		return;
 
-	FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS( pSoldier, SURVIVAL_NT ) * gSkillTraitValues.usSVTrackerAbility + pSoldier->GetBackgroundValue( BG_TRACKER_ABILITY )) / 100.0f;
-	
+	FLOAT trackerskill = (FLOAT)(NUM_SKILL_TRAITS(pSoldier, SURVIVAL_NT) * gSkillTraitValues.usSVTrackerAbility + pSoldier->GetBackgroundValue(BG_TRACKER_ABILITY)) / 100.0f;
+
 	if ( trackerskill < 0.01f )
 		return;
 
-	UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 
+	const UINT16 range = gSkillTraitValues.usSVTrackerMaxRange * trackerskill;
 	const INT32& sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
-	
-	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
+
+		if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+			continue;
+
+		onRoof = IsTheRoofVisible(sGridNo);
+		if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+			continue;
+
+		// no tracks in water or on roads
+		const auto terrain = GetTerrainType(sGridNo);
+		if ( (!onRoof && terrain == PAVED_ROAD || terrain == FLAT_FLOOR) || TERRAIN_IS_WATER(terrain) )
+			continue;
+
+		if ( PythSpacesAway(sSelectedSoldierGridNo, sGridNo) <= range )
 		{
-			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			if ( gpWorldLevelData[sGridNo].ubBloodInfo )
+				bOverlayType = TRACKS_BLOOD;
+			// blood can be seen on a roof, but other tracks can't
+			else if ( !onRoof && gpWorldLevelData[sGridNo].ubSmellInfo )
 			{
-				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
-
-				if ( !GridNoOnScreenAndAround( sGridNo, 2 ) )
-					continue;
-								
-				if ( IsTheRoofVisible( sGridNo ) )
-				{
-					// do not show stuff on ground if roof is shown
-					if ( ubZ == I_GROUND_LEVEL )
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if ( ubZ == I_ROOF_LEVEL )
-						continue;
-				}
-
-				// no tracks in water or on roads
-				if ( (!ubZ && GetTerrainType( sGridNo ) == PAVED_ROAD || GetTerrainType( sGridNo ) == FLAT_FLOOR) || TERRAIN_IS_WATER( GetTerrainType( sGridNo ) ) )
-					continue;
-
-				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
-					continue;
-								
-				if ( PythSpacesAway( sSelectedSoldierGridNo, sGridNo ) <= range )
-				{
-					if ( gpWorldLevelData[sGridNo].ubBloodInfo )
-						gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRACKS_BLOOD;
-					// blood can be seen on a roof, but other tracks can't
-					else if ( !ubZ && gpWorldLevelData[sGridNo].ubSmellInfo )
-					{
-						if ( gpWorldLevelData[sGridNo].ubSmellInfo < 10 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRACKS_VERYOLD;
-						else if ( gpWorldLevelData[sGridNo].ubSmellInfo < 20 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRACKS_OLD;
-						else //if ( gpWorldLevelData[sGridNo].ubSmellInfo < 24 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = TRACKS_RECENT;
-					}
-
-					// we need to be able to see the floor
-					// this check is relatively expensive, we don't want to do this unless we have to. 
-					// Thus we check afterwards, and only if a display value was found we reset it
-					if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER && !CanSoldierSeeFloor( pSoldier, sGridNo, ubZ ) )
-						gCoverViewArea[ubX][ubY][ubZ].bOverlayType = INVALID_COVER;
-				}
+				if ( gpWorldLevelData[sGridNo].ubSmellInfo < 10 )
+					bOverlayType = TRACKS_VERYOLD;
+				else if ( gpWorldLevelData[sGridNo].ubSmellInfo < 20 )
+					bOverlayType = TRACKS_OLD;
+				else //if ( gpWorldLevelData[sGridNo].ubSmellInfo < 24 )
+					bOverlayType = TRACKS_RECENT;
 			}
+
+			// we need to be able to see the floor
+			// this check is relatively expensive, we don't want to do this unless we have to. 
+			// Thus we check afterwards, and only if a display value was found we reset it
+			if ( bOverlayType != INVALID_COVER && !CanSoldierSeeFloor(pSoldier, sGridNo, onRoof) )
+				bOverlayType = INVALID_COVER;
 		}
 	}
 
-	AddTrackerObjectsToViewArea( );
+	AddTrackerObjectsToViewArea();
 }
+
 
 void AddTrackerObjectsToViewArea( )
 {
-	if ( gsMaxCellY < 0 )
-		return;
-
-	INT32 ubX, ubY, ubZ;
+	const BOOLEAN fNightTime = NightTime();
 	BOOLEAN fChanged = FALSE;
 
-	BOOLEAN fNightTime = NightTime();
-
-	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		const auto bOverlayType = cell.bOverlayType;
+		const auto sGridNo = cell.sGridNo;
+		const auto onRoof = cell.onRoof;
+
+		if ( bOverlayType == TRACKS_VERYOLD || bOverlayType == TRACKS_OLD || bOverlayType == TRACKS_RECENT || bOverlayType == TRACKS_BLOOD )
 		{
-			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_VERYOLD || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_OLD || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_RECENT || gCoverViewArea[ubX][ubY][ubZ].bOverlayType == TRACKS_BLOOD )
-				{
-					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
-				}
-			}
+			AddCoverObjectToWorld(sGridNo, GetOverlayIndex(bOverlayType), onRoof, fNightTime);
+			fChanged = TRUE;
 		}
 	}
 
@@ -1678,122 +1562,116 @@ void AddTrackerObjectsToViewArea( )
 	}
 }
 
-static BOOLEAN TrackerTileHasAdjTile( const INT32& ubX, const INT32& ubY, const INT32& ubZ )
+static BOOLEAN TrackerTileHasAdjTile( const INT32 startIndex )
 {
-	INT32 ubTX, ubTY;
+	const auto rowLength = 1 + gsMaxCellX - gsMinCellX;
 
-	for ( ubTX = ubX - 1; ubTX <= ubX + 1; ++ubTX )
+	for ( INT32 ubTY = -1; ubTY <= 1; ++ubTY )
 	{
-		if ( ubTX < 0 || ubTX > WORLD_COLS )
+		for ( INT32 ubTX = -1; ubTX <= 1; ++ubTX )
 		{
-			continue;
-		}
+			const auto i = startIndex + ubTY * rowLength + ubTX;
 
-		for ( ubTY = ubY - 1; ubTY <= ubY + 1; ++ubTY )
-		{
-			if ( ubTY < 0 || ubTY > WORLD_ROWS )
+			if ( i > 0 && i < gCoverViewArea.size() )
 			{
-				continue;
-			}
+				const auto& cell = gCoverViewArea[i];
+				const auto bOverlayType = cell.bOverlayType;
 
-			INT8& bOverlayType = gCoverViewArea[ubTX][ubTY][ubZ].bOverlayType;
-
-			if ( bOverlayType == TRACKS_VERYOLD || bOverlayType == TRACKS_OLD || bOverlayType == TRACKS_RECENT || bOverlayType == TRACKS_BLOOD )
-			{
-				return TRUE;
+				if ( bOverlayType == TRACKS_VERYOLD || bOverlayType == TRACKS_OLD || bOverlayType == TRACKS_RECENT || bOverlayType == TRACKS_BLOOD )
+				{
+					return TRUE;
+				}
 			}
 		}
 	}
 
 	return FALSE;
+
 }
 
-void CalculateFortify( )
+void CalculateFortify()
 {
 	// simply get all fortified gridnos and colour them
 	auto vec = GetAllForticationGridNo();
 
 	auto itend = vec.end();
-	for (auto it = vec.begin(); it != itend; ++it)
+	for ( auto it = vec.begin(); it != itend; ++it )
 	{
-		INT16 sX, sY;
-		ConvertGridNoToXY( (*it).first, &sX, &sY );
+		const auto sGridNo = (*it).first;
+		const auto bOverlayType = (*it).second.first;
+		const auto onRoof = (*it).second.second;
 
-		gCoverViewArea[sX][sY][(*it).second.second].bOverlayType = (*it).second.first;
-	}
-	
-	if ( gsMaxCellY < 0 )
-		return;
-
-	INT32 ubX, ubY, ubZ;
-	BOOLEAN fChanged = FALSE;
-
-	BOOLEAN fNightTime = NightTime( );
-
-	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
-	{
-		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		for ( auto& cell : gCoverViewArea ) // Linear search for matching GridNo
 		{
-			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			if ( cell.sGridNo == sGridNo )
 			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER )
-				{
-					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
-				}
+				cell.bOverlayType = bOverlayType;
+				cell.onRoof = onRoof;
 			}
+		}
+	}
+
+
+	BOOLEAN fChanged = FALSE;
+	const BOOLEAN fNightTime = NightTime();
+
+	for ( auto& cell : gCoverViewArea )
+	{
+		const auto bOverlayType = cell.bOverlayType;
+		const auto sGridNo = cell.sGridNo;
+		const auto onRoof = cell.onRoof;
+
+		if ( bOverlayType != INVALID_COVER )
+		{
+			AddCoverObjectToWorld(sGridNo, GetOverlayIndex(bOverlayType), onRoof, fNightTime);
+			fChanged = TRUE;
 		}
 	}
 
 	// Re-render the scene!
 	if ( fChanged )
 	{
-		SetRenderFlags( RENDER_FLAG_FULL );
+		SetRenderFlags(RENDER_FLAG_FULL);
 	}
 }
+
 
 extern INT32 gsPhysicsImpactPointGridNo;
 extern UINT32 guiNewUICursor;
 
 void CalculateWeapondata()
 {
-	if ( gsMaxCellY < 0 )
-		return;
-
-	INT32 ubX, ubY;
-	INT8  ubZ;
 	SOLDIERTYPE* pSoldier;
 
-	if ( gusSelectedSoldier == NOBODY || !GetSoldier( &pSoldier, gusSelectedSoldier ) || !pSoldier->bInSector )
+	if ( gusSelectedSoldier == NOBODY || !GetSoldier(&pSoldier, gusSelectedSoldier) || !pSoldier->bInSector )
 		return;
 
-	BOOLEAN guninhand = WeaponInHand( pSoldier );
+	const BOOLEAN guninhand = WeaponInHand(pSoldier);
+	const INT32 sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
 
-	INT32 sSelectedSoldierGridNo = gusSelectedSoldier->sGridNo;
-
-	if ( TileIsOutOfBounds( sSelectedSoldierGridNo ) )
+	if ( TileIsOutOfBounds(sSelectedSoldierGridNo) )
 		return;
 
 	//Get the gridno the cursor is at
-	INT32 sMouseGridNo = NOWHERE;		
-	GetMouseMapPos( &sMouseGridNo );
+	INT32 sMouseGridNo = NOWHERE;
+	GetMouseMapPos(&sMouseGridNo);
 
 	// depending on whether we have a grenade fire or a bomb to plant, different gridnos are relevant for explosives
 	INT32 explosivetargetgridno = NOWHERE;
 
 	// grenade cursor is stored in gsPhysicsImpactPointGridNo, we have to check whether that's valid, and whether we use that cursor right now
 	BOOLEAN tosscursorisvalid = FALSE;
-	if ( !TileIsOutOfBounds( gsPhysicsImpactPointGridNo ) && (guiNewUICursor == GOOD_THROW_UICURSOR || guiNewUICursor == BAD_THROW_UICURSOR) )
+	if ( !TileIsOutOfBounds(gsPhysicsImpactPointGridNo) && (guiNewUICursor == GOOD_THROW_UICURSOR || guiNewUICursor == BAD_THROW_UICURSOR) )
 	{
 		tosscursorisvalid = TRUE;
 
 		explosivetargetgridno = gsPhysicsImpactPointGridNo;
 	}
-	else if ( !TileIsOutOfBounds( sMouseGridNo ) && (guiNewUICursor == PLACE_BOMB_GREY_UICURSOR || guiNewUICursor == PLACE_BOMB_RED_UICURSOR) )
+	else if ( !TileIsOutOfBounds(sMouseGridNo) && (guiNewUICursor == PLACE_BOMB_GREY_UICURSOR || guiNewUICursor == PLACE_BOMB_RED_UICURSOR) )
 	{
-		 tosscursorisvalid = TRUE;
+		tosscursorisvalid = TRUE;
 
-		 explosivetargetgridno = sMouseGridNo;
+		explosivetargetgridno = sMouseGridNo;
 	}
 
 	UINT16 gunrange = 0;
@@ -1806,24 +1684,24 @@ void CalculateWeapondata()
 
 	if ( &pSoldier->inv[HANDPOS] && Item[(pSoldier->inv[HANDPOS]).usItem].usItemClass & IC_WEAPON )
 	{
-		pObjPlatform = pSoldier->GetUsedWeapon( &pSoldier->inv[HANDPOS] );
+		pObjPlatform = pSoldier->GetUsedWeapon(&pSoldier->inv[HANDPOS]);
 
 		if ( pSoldier->bWeaponMode == WM_ATTACHED_GL || pSoldier->bWeaponMode == WM_ATTACHED_GL_BURST || pSoldier->bWeaponMode == WM_ATTACHED_GL_AUTO )
 		{
-			pObjUsed = FindAttachment_GrenadeLauncher( &pSoldier->inv[HANDPOS] );
+			pObjUsed = FindAttachment_GrenadeLauncher(&pSoldier->inv[HANDPOS]);
 		}
 		else
 		{
 			pObjUsed = pObjPlatform;
 		}
 
-		gunrange = GunRange( pObjUsed, pSoldier ) / CELL_X_SIZE;
-		laserrange = GetBestLaserRange( pObjPlatform ) / CELL_X_SIZE;
+		gunrange = GunRange(pObjUsed, pSoldier) / CELL_X_SIZE;
+		laserrange = GetBestLaserRange(pObjPlatform) / CELL_X_SIZE;
 
 		if ( Item[pObjUsed->usItem].usItemClass & IC_LAUNCHER )
 		{
-			OBJECTTYPE *pAttachment = FindLaunchableAttachment( pObjPlatform, pObjUsed->usItem );
-			
+			OBJECTTYPE* pAttachment = FindLaunchableAttachment(pObjPlatform, pObjUsed->usItem);
+
 			if ( pAttachment )
 			{
 				explosionradius = Explosive[Item[pAttachment->usItem].ubClassIndex].ubRadius;
@@ -1842,90 +1720,69 @@ void CalculateWeapondata()
 
 		fragrange = Explosive[Item[pObjUsed->usItem].ubClassIndex].ubFragRange / 10;
 	}
-	
+
 	// we have to store and later reset the soldier's target level
 	INT8 bTempTargetLevel = pSoldier->bTargetLevel;
 
-	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		INT32& sGridNo = cell.sGridNo;
+		INT8& bOverlayType = cell.bOverlayType;
+		bool& onRoof = cell.onRoof;
+
+		if ( !GridNoOnScreenAndAround(sGridNo, 2) )
+			continue;
+
+		onRoof = IsTheRoofVisible(sGridNo);
+		if ( !NewOKDestination(pSoldier, sGridNo, false, onRoof) )
+			continue;
+
+		if ( tosscursorisvalid && explosionradius > 0 && PythSpacesAway(explosivetargetgridno, sGridNo) <= explosionradius )
+			bOverlayType = NO_COVER;
+		else if ( tosscursorisvalid && fragrange > 0 && PythSpacesAway(explosivetargetgridno, sGridNo) <= fragrange )
+			bOverlayType = MIN_COVER;
+		else
 		{
-			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
+			if ( GetDirectionToGridNoFromGridNo(sSelectedSoldierGridNo, sGridNo) != pSoldier->ubDirection )
+				continue;
+
+			if ( guninhand && gunrange > 0 && PythSpacesAway(sSelectedSoldierGridNo, sGridNo) <= gunrange )
 			{
-				INT32& sGridNo = gCoverViewArea[ubX][ubY][ubZ].sGridNo;
+				pSoldier->bTargetLevel = onRoof;
+				UINT32 uiHitChance = CalcChanceToHitGun(pSoldier, sGridNo, (INT8)(pSoldier->aiData.bShownAimTime), pSoldier->bAimShotLocation);
 
-				if ( !GridNoOnScreenAndAround( sGridNo, 2 ) )
-					continue;
-
-				if ( IsTheRoofVisible( sGridNo ) )
-				{
-					// do not show stuff on ground if roof is shown
-					if ( ubZ == I_GROUND_LEVEL )
-						continue;
-				}
-				else
-				{
-					// do not show stuff on roofs if ground is shown
-					if ( ubZ == I_ROOF_LEVEL )
-						continue;
-				}
-
-				if ( !NewOKDestination( pSoldier, sGridNo, false, ubZ ) )
-					continue;
-				
-				if ( tosscursorisvalid && explosionradius > 0 && PythSpacesAway( explosivetargetgridno, sGridNo ) <= explosionradius )
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = NO_COVER;
-				else if ( tosscursorisvalid && fragrange > 0 && PythSpacesAway( explosivetargetgridno, sGridNo ) <= fragrange )
-					gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MIN_COVER;
-				else
-				{
-					if ( GetDirectionToGridNoFromGridNo( sSelectedSoldierGridNo, sGridNo ) != pSoldier->ubDirection )
-						continue;
-
-					if ( guninhand && gunrange > 0 && PythSpacesAway( sSelectedSoldierGridNo, sGridNo ) <= gunrange )
-					{
-						pSoldier->bTargetLevel = ubZ;
-						UINT32 uiHitChance = CalcChanceToHitGun( pSoldier, sGridNo, (INT8)(pSoldier->aiData.bShownAimTime), pSoldier->bAimShotLocation );
-
-						if ( uiHitChance > 75 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MAX_COVER;
-						else if ( uiHitChance > 50 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MED_COVER;
-						else if ( uiHitChance > 25 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = MIN_COVER;
-						else if ( uiHitChance > 0 )
-							gCoverViewArea[ubX][ubY][ubZ].bOverlayType = NO_COVER;
-					}
-				}
+				if ( uiHitChance > 75 )
+					bOverlayType = MAX_COVER;
+				else if ( uiHitChance > 50 )
+					bOverlayType = MED_COVER;
+				else if ( uiHitChance > 25 )
+					bOverlayType = MIN_COVER;
+				else if ( uiHitChance > 0 )
+					bOverlayType = NO_COVER;
 			}
 		}
 	}
 
 	// important: reset target level to what it really was
 	pSoldier->bTargetLevel = bTempTargetLevel;
-	
+
+
 	BOOLEAN fChanged = FALSE;
+	const BOOLEAN fNightTime = NightTime();
 
-	BOOLEAN fNightTime = NightTime( );
-
-	for ( ubX = gsMinCellX; ubX <= gsMaxCellX; ++ubX )
+	for ( auto& cell : gCoverViewArea )
 	{
-		for ( ubY = gsMinCellY; ubY <= gsMaxCellY; ++ubY )
+		if ( cell.bOverlayType != INVALID_COVER )
 		{
-			for ( ubZ = 0; ubZ<COVER_Z_CELLS; ++ubZ )
-			{
-				if ( gCoverViewArea[ubX][ubY][ubZ].bOverlayType != INVALID_COVER )
-				{
-					AddCoverObjectToWorld( gCoverViewArea[ubX][ubY][ubZ].sGridNo, GetOverlayIndex( gCoverViewArea[ubX][ubY][ubZ].bOverlayType ), (BOOLEAN)ubZ, fNightTime );
-					fChanged = TRUE;
-				}
-			}
+			AddCoverObjectToWorld(cell.sGridNo, GetOverlayIndex(cell.bOverlayType), cell.onRoof, fNightTime);
+			fChanged = TRUE;
 		}
 	}
 
 	// Re-render the scene!
 	if ( fChanged )
 	{
-		SetRenderFlags( RENDER_FLAG_FULL );
+		SetRenderFlags(RENDER_FLAG_FULL);
 	}
 }
