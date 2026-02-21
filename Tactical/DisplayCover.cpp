@@ -1592,7 +1592,7 @@ static BOOLEAN TrackerTileHasAdjTile( const INT32 startIndex )
 void CalculateFortify()
 {
 	// simply get all fortified gridnos and colour them
-	auto vec = GetAllForticationGridNo();
+	const auto vec = GetAllForticationGridNo();
 
 	auto itend = vec.end();
 	for ( auto it = vec.begin(); it != itend; ++it )
