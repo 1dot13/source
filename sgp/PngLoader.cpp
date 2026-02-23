@@ -836,8 +836,11 @@ void Load32bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 	hImage->p32BPPData = (UINT32*)MemAlloc(SIZE);
 	if(!hImage->p32BPPData)
 	{
+		CHAR8 errorText[512];
+		sprintf(errorText, "Bad allocation loading image. Filename: %s", hImage->ImageFile);
+
 		MemFree(hImage->pETRLEObject);
-		SGP_THROW(L"bad alloc");
+		SGP_THROW(errorText);
 	}
 	memset(hImage->p32BPPData, 0, SIZE);
 
@@ -878,8 +881,11 @@ void Load24bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 	hImage->p16BPPData = (UINT16*)MemAlloc(SIZE);
 	if(!hImage->p16BPPData)
 	{
+		CHAR8 errorText[512];
+		sprintf(errorText, "Bad allocation loading image. Filename: %s", hImage->ImageFile);
+
 		MemFree(hImage->pETRLEObject);
-		SGP_THROW(L"bad alloc");
+		SGP_THROW(errorText);
 	}
 	memset(hImage->p16BPPData, 0, SIZE);
 
@@ -899,11 +905,15 @@ void Load24bppPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 
 void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop info)
 {
+	CHAR8 errorText[512];
 	UINT32 SIZE = info->height * info->width * sizeof(UINT8);
 	UINT8 *data = (UINT8*)MemAlloc(SIZE);
 	if(!data)
 	{
-		SGP_THROW(L"bad alloc");
+		sprintf(errorText, "Bad allocation loading image. Filename: %s", hImage->ImageFile);
+
+		MemFree(hImage->pETRLEObject);
+		SGP_THROW(errorText);
 	}
 	memset(data,0,SIZE);
 	for(unsigned int i = 0; i < info->height; ++i)
@@ -915,8 +925,10 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	hImage->pETRLEObject = (ETRLEObject*)MemAlloc(hImage->usNumberOfObjects * sizeof(ETRLEObject));
 	if(!hImage->pETRLEObject)
 	{
+		sprintf(errorText, "Bad allocation for ETRLEObject. Filename: %s", hImage->ImageFile);
+
 		MemFree(data);
-		SGP_THROW(L"bad alloc");
+		SGP_THROW(errorText);
 	}
 	memset(hImage->pETRLEObject,0, hImage->usNumberOfObjects * sizeof(ETRLEObject));
 
@@ -931,9 +943,11 @@ void LoadPalettedPNGImage(HIMAGE hImage, png::png_bytepp rows, png::png_infop in
 	hImage->p8BPPData = (UINT8*)MemAlloc( RESIZE );
 	if(!hImage->p8BPPData)
 	{
+		sprintf(errorText, "Bad allocation for image pixel data. Filename: %s", hImage->ImageFile);
+
 		MemFree(hImage->pETRLEObject);
 		MemFree(data);
-		SGP_THROW(L"bad alloc");
+		SGP_THROW(errorText);
 	}
 	UINT8 *compressed = hImage->p8BPPData;
 	memset(hImage->p8BPPData,0,RESIZE);
