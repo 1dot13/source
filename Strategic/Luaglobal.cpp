@@ -581,6 +581,16 @@ void IniGlobalGameSetting(lua_State *L)
 	lua_pushinteger(L, guiMin);
 	lua_setglobal(L, "guiMin");
 	
+	lua_pushinteger(L, guiDay);
+	lua_setglobal(L, "cDay");
+	
+	lua_pushinteger(L, guiHour);
+	lua_setglobal(L, "cHour");
+	
+	lua_pushinteger(L, guiMin);
+	lua_setglobal(L, "cMin");
+	
+	
 	lua_pushinteger(L, guiCurrentScreen);
 	lua_setglobal(L, "guiCurrentScreen");
 
