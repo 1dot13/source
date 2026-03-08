@@ -14,4 +14,6 @@ set(TacticalAISrc
 "${CMAKE_CURRENT_SOURCE_DIR}/QuestDebug.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Realtime.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/ZombieDecideAction.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/UtilityAI.cpp"
+"${CMAKE_CURRENT_SOURCE_DIR}/UtilityAI_ResponseCurve.cpp"
 PARENT_SCOPE)

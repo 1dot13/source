@@ -27,6 +27,7 @@
 	#include "SmokeEffects.h"		// sevenfm
 
 #include "GameInitOptionsScreen.h"
+#include "Structure Wrap.h"
 
 //////////////////////////////////////////////////////////////////////////////
 // SANDRO - In this file, all APBPConstants[AP_CROUCH] and APBPConstants[AP_PRONE] were changed to GetAPsCrouch() and GetAPsProne()
@@ -134,18 +135,17 @@ INT8 OKToAttack(SOLDIERTYPE * pSoldier, int target)
 
 BOOLEAN ConsiderProne( SOLDIERTYPE * pSoldier )
 {
-	INT32		sOpponentGridNo;
+	INT32	sOpponentGridNo;
 	INT8		bOpponentLevel;
-	INT32		iRange;
+	INT32	iRangeInCellCoords;
 
 	if (pSoldier->aiData.bAIMorale >= MORALE_NORMAL)
 	{
 		return( FALSE );
 	}
 	// We don't want to go prone if there is a nearby enemy
-	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel );
-	iRange = PythSpacesAway( pSoldier->sGridNo, sOpponentGridNo );
-	if (iRange > 10)
+	ClosestKnownOpponent( pSoldier, &sOpponentGridNo, &bOpponentLevel, nullptr, &iRangeInCellCoords);
+	if ( iRangeInCellCoords > 10*CELL_X_SIZE)
 	{
 		return( TRUE );
 	}
@@ -397,7 +397,11 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 			// sevenfm: movement mode tweaks
 			if (gGameExternalOptions.fAIMovementMode)
 			{
-				INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL);				
+				INT32 distanceToThreat;
+				const INT32 sClosestThreat = ClosestKnownOpponent(pSoldier, NULL, NULL, NULL, &distanceToThreat);
+				const auto mediumRange = TACTICAL_RANGE_CELL_COORDS / 2;
+				const auto close = TACTICAL_RANGE_CELL_COORDS / 4;
+                const auto reallyClose = TACTICAL_RANGE_CELL_COORDS / 8;
 
 				// use walking mode if no enemy known
 				if (pSoldier->aiData.bAlertStatus < STATUS_RED &&
@@ -418,11 +422,12 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 				if (IS_MERC_BODY_TYPE(pSoldier) &&
 					pSoldier->aiData.bAlertStatus >= STATUS_YELLOW &&
 					!InWaterGasOrSmoke(pSoldier, pSoldier->sGridNo) &&
-					!(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					!BOXER(pSoldier) &&
 					!TileIsOutOfBounds(sClosestThreat) &&
 					(pSoldier->bTeam == ENEMY_TEAM || pSoldier->bTeam == MILITIA_TEAM))
 				{
 					INT16 sDistanceVisible = VISION_RANGE;
+					const auto beyondVisionRange = (CELL_X_SIZE * 3 * sDistanceVisible) / 2;
 					INT32 iRCD = RangeChangeDesire(pSoldier);
 
 					// use running when in light at night
@@ -445,7 +450,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						!GuySawEnemy(pSoldier) &&
 						(NightTime() || gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH) &&
 						CountNearbyFriends(pSoldier, pSoldier->sGridNo, TACTICAL_RANGE / 4) < 3 &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						distanceToThreat < beyondVisionRange &&
 						CountFriendsBlack(pSoldier) == 0 &&
 						bAction == AI_ACTION_SEEK_OPPONENT)
 					{
@@ -454,7 +459,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 
 					// use swatting for taking cover
 					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8 &&
+						distanceToThreat > reallyClose &&
 						(pSoldier->aiData.bUnderFire && iRCD < 4 ||
 						pSoldier->aiData.bShock > 2 * iRCD ||
 						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE) &&
@@ -466,9 +471,9 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 
 					// use SWATTING when under fire 
 					if (pSoldier->aiData.bAlertStatus >= STATUS_RED &&
-						(pSoldier->aiData.bShock > iRCD && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 2 ||
-						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) < 3 * sDistanceVisible / 2 &&
+						(pSoldier->aiData.bShock > iRCD && distanceToThreat > mediumRange ||
+						pSoldier->aiData.bShock > 0 && gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE && distanceToThreat > close) &&
+						distanceToThreat < beyondVisionRange &&
 						gAnimControl[pSoldier->usAnimState].ubEndHeight <= ANIM_CROUCH &&
 						!pSoldier->aiData.bLastAttackHit &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
@@ -485,7 +490,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						(pSoldier->aiData.bOrders == SNIPER ||
 						pSoldier->aiData.bOrders == STATIONARY ||
 						(GuySawEnemy(pSoldier) || pSoldier->aiData.bShock > 0) && iRCD < 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						distanceToThreat > close &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
 						bAction == AI_ACTION_GET_CLOSER ||
 						bAction == AI_ACTION_SEEK_FRIEND ||
@@ -501,7 +506,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						(pSoldier->aiData.bOrders == SNIPER ||
 						pSoldier->aiData.bOrders == STATIONARY ||
 						pSoldier->aiData.bShock > 0 && iRCD < 4) &&
-						PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 4 &&
+						distanceToThreat > close &&
 						(bAction == AI_ACTION_SEEK_OPPONENT ||
 						bAction == AI_ACTION_GET_CLOSER ||
 						bAction == AI_ACTION_SEEK_FRIEND ||
@@ -515,7 +520,7 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 					if (!pSoldier->aiData.bUnderFire &&
 						bAction == AI_ACTION_TAKE_COVER &&
 						pSoldier->bInitialActionPoints > APBPConstants[AP_MINIMUM] &&
-						(!InARoom(pSoldier->sGridNo, NULL) || PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > sDistanceVisible * 2) &&
+						(!InARoom(pSoldier->sGridNo, NULL) || distanceToThreat > sDistanceVisible * 20) &&
 						pSoldier->aiData.bAIMorale >= MORALE_NORMAL &&
 						pSoldier->bBreath > 25 &&
 						pSoldier->pathing.bLevel == 0 &&
@@ -539,14 +544,14 @@ UINT16 DetermineMovementMode( SOLDIERTYPE * pSoldier, INT8 bAction )
 						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_CROUCH)
 						{
 							if (WeaponReady(pSoldier) && !pSoldier->aiData.bUnderFire && pSoldier->aiData.bAlertStatus == STATUS_BLACK ||
-								pSoldier->aiData.bUnderFire && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+								pSoldier->aiData.bUnderFire && distanceToThreat > reallyClose )
 								return SWATTING;
 							else
 								return RUNNING;
 						}
 						else if (gAnimControl[pSoldier->usAnimState].ubEndHeight == ANIM_PRONE)
 						{
-							if (pSoldier->aiData.bUnderFire && !pSoldier->aiData.bLastAttackHit && PythSpacesAway(pSoldier->sGridNo, sClosestThreat) > (INT16)TACTICAL_RANGE / 8)
+							if (pSoldier->aiData.bUnderFire && !pSoldier->aiData.bLastAttackHit && distanceToThreat > reallyClose )
 								return SWATTING;
 							else
 								return RUNNING;
@@ -806,6 +811,18 @@ BOOLEAN IsActionAffordable(SOLDIERTYPE *pSoldier, INT8 bAction)
 
 		case AI_ACTION_SELFDETONATE:
 			bMinPointsNeeded = 20;	// TODO
+			break;
+
+		case AI_ACTION_DRINK_CANTEEN:
+			bMinPointsNeeded = APBPConstants[AP_DRINK];
+			break;
+
+		case AI_ACTION_HANDLE_ITEM:
+			bMinPointsNeeded = 0;
+			break;
+
+		case AI_ACTION_PLANT_BOMB:
+			bMinPointsNeeded = APBPConstants[AP_INVENTORY_ARM] + APBPConstants[AP_DROP_BOMB];
 			break;
 
 		default:
@@ -1379,7 +1396,7 @@ INT32 ClosestReachableDisturbance(SOLDIERTYPE *pSoldier, BOOLEAN * pfChangeLevel
 }
 
 
-INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID * pubOpponentID)
+INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLevel, SoldierID * pubOpponentID, INT32 * distanceInCellCoords)
 {
 	INT32 *psLastLoc,sGridNo, sClosestOpponent = NOWHERE;
 	UINT32 uiLoop;
@@ -1475,7 +1492,7 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 
 		if (sClosestOpponent == NOWHERE ||
 			iRange < iClosestRange ||
-			pClosestOpponent && !pClosestOpponent->IsZombie() && !(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && pClosestOpponent->stats.bLife < OKLIFE && pOpponent->stats.bLife >= OKLIFE)
+			pClosestOpponent && !pClosestOpponent->IsZombie() && !BOXER(pSoldier) && pClosestOpponent->stats.bLife < OKLIFE && pOpponent->stats.bLife >= OKLIFE)
 		{
 			iClosestRange = iRange;
 			sClosestOpponent = sGridNo;
@@ -1502,6 +1519,10 @@ INT32 ClosestKnownOpponent(SOLDIERTYPE *pSoldier, INT32 * psGridNo, INT8 * pbLev
 	if (pubOpponentID && pClosestOpponent)
 	{
 		*pubOpponentID = pClosestOpponent->ubID;
+	}
+	if ( distanceInCellCoords )
+	{
+		*distanceInCellCoords = iClosestRange;
 	}
 	return( sClosestOpponent );
 }
@@ -2232,6 +2253,31 @@ INT16 DistanceToClosestFriend( SOLDIERTYPE * pSoldier )
 	return( sMinDist );
 }
 
+BOOLEAN InSmoke(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE) )
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN InTearGas(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( (gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & MAPELEMENT_EXT_TEARGAS))
+		return TRUE;
+
+	return FALSE;
+}
+
+BOOLEAN InMustardGas(SOLDIERTYPE* pSoldier, INT32 sGridNo)
+{
+	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_BURNABLEGAS | MAPELEMENT_EXT_CREATUREGAS | MAPELEMENT_EXT_MUSTARDGAS) )
+		return TRUE;
+
+	return FALSE;
+}
+
+
 BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
 	if (WaterTooDeepForAttacks( sGridNo, pSoldier->pathing.bLevel ))
@@ -2250,6 +2296,12 @@ BOOLEAN InWaterGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 
 BOOLEAN InGasOrSmoke( SOLDIERTYPE *pSoldier, INT32 sGridNo )
 {
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
+
 	// smoke
 	if ( gpWorldLevelData[sGridNo].ubExtFlags[pSoldier->pathing.bLevel] & (MAPELEMENT_EXT_SMOKE | MAPELEMENT_EXT_SIGNAL_SMOKE | MAPELEMENT_EXT_DEBRIS_SMOKE | MAPELEMENT_EXT_FIRERETARDANT_SMOKE ) )
 		return TRUE;
@@ -2296,6 +2348,12 @@ BOOLEAN InGas(SOLDIERTYPE *pSoldier, INT32 sGridNo)
 
 	if (TileIsOutOfBounds(sGridNo))
 		return FALSE;
+
+	// Armed vehicles and robots do not care about gas or smoke
+	if (ARMED_VEHICLE(pSoldier) || ENEMYROBOT(pSoldier))
+	{
+		return FALSE;
+	}
 
 	if (InGasSpot(pSoldier, sGridNo, pSoldier->pathing.bLevel))
 	{
@@ -2655,7 +2713,7 @@ INT32 CalcManThreatValue( SOLDIERTYPE *pEnemy, INT32 sMyGrid, UINT8 ubReduceForC
 	}
 
 	// in boxing mode, let only a boxer be considered a threat.
-	if ( (gTacticalStatus.bBoxingState == BOXING) && !(pEnemy->flags.uiStatusFlags & SOLDIER_BOXER) )
+	if ( (gTacticalStatus.bBoxingState == BOXING) && !BOXER(pEnemy) )
 	{
 		iThreatValue = -999;
 		return( iThreatValue );
@@ -3896,8 +3954,6 @@ INT8 CalcMoraleNew(SOLDIERTYPE *pSoldier)
 		bMoraleCategory ++;
 	}
 
-	INT32 sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL);
-
 	// if last attack of this soldier hit enemy - increase morale
 	if( pSoldier->aiData.bLastAttackHit )
 	{
@@ -4576,6 +4632,61 @@ UINT8 RedSmokeDanger(INT32 sGridNo, INT8 bLevel)
 	return ubDangerPercent;
 }
 
+BOOLEAN FindClosestVisibleSmoke(SOLDIERTYPE* pSoldier, INT32& sSpot, INT8& bLevel, BOOLEAN fOnlyGas)
+{
+	CHECKF(pSoldier);
+
+	INT32	sDist;
+	INT32   sClosestDist = INT32_MAX;
+	INT32	sCheckSpot;
+	INT8		bCheckLevel;
+
+	sSpot = NOWHERE;
+	bLevel = 0;
+
+	//loop through all smoke effects and find closest visible
+	for ( UINT32 uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++ )
+	{
+		if ( gSmokeEffectData[uiCnt].fAllocated &&
+			!TileIsOutOfBounds(gSmokeEffectData[uiCnt].sGridNo) )
+		{
+			// ignore smoke if not dangerous
+			if ( fOnlyGas &&
+				gSmokeEffectData[uiCnt].bType != TEARGAS_SMOKE_EFFECT &&
+				gSmokeEffectData[uiCnt].bType != MUSTARDGAS_SMOKE_EFFECT &&
+				gSmokeEffectData[uiCnt].bType != CREATURE_SMOKE_EFFECT )
+			{
+				continue;
+			}
+
+			sCheckSpot = gSmokeEffectData[uiCnt].sGridNo;
+
+			if ( gSmokeEffectData[uiCnt].bFlags & SMOKE_EFFECT_ON_ROOF )
+				bCheckLevel = 1;
+			else
+				bCheckLevel = 0;
+
+			sDist = PythSpacesAway(sCheckSpot, pSoldier->sGridNo);
+
+			if ( sDist < DAY_VISION_RANGE &&
+				SoldierToVirtualSoldierLineOfSightTest(pSoldier, sCheckSpot, bCheckLevel, ANIM_PRONE, 0, CALC_FROM_ALL_DIRS) &&
+				(sSpot == NOWHERE || sDist < sClosestDist) )
+			{
+				sClosestDist = sDist;
+				sSpot = sCheckSpot;
+				bLevel = bCheckLevel;
+			}
+		}
+	}
+
+	if ( !TileIsOutOfBounds(sSpot) )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
+}
+
 // check if artillery strike was ordered by any team
 BOOLEAN CheckArtilleryStrike(void)
 {
@@ -4784,7 +4895,7 @@ BOOLEAN ValidOpponent(SOLDIERTYPE* pSoldier, SOLDIERTYPE* pOpponent)
 		pSoldier->bSide == pOpponent->bSide ||
 		pSoldier->aiData.bAttitude == ATTACKSLAYONLY && pOpponent->ubProfile != SLAY ||
 		(pOpponent->ubWhatKindOfMercAmI == MERC_TYPE__VEHICLE && GetNumberInVehicle(pOpponent->bVehicleID) == 0) ||
-		gTacticalStatus.bBoxingState == BOXING && (pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) && !(pOpponent->flags.uiStatusFlags & SOLDIER_BOXER) ||
+		gTacticalStatus.bBoxingState == BOXING && BOXER(pSoldier) && !BOXER(pOpponent) ||
 		pOpponent->ubBodyType == CROW)
 	{
 		return FALSE;
@@ -4893,7 +5004,7 @@ BOOLEAN SoldierAI(SOLDIERTYPE *pSoldier)
 	if (!IS_MERC_BODY_TYPE(pSoldier) || 
 		pSoldier->aiData.bNeutral || 
 		fCivilian ||
-		pSoldier->flags.uiStatusFlags & SOLDIER_BOXER ||
+		BOXER(pSoldier) ||
 		ARMED_VEHICLE(pSoldier) ||
 		pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ||
 		AM_A_ROBOT(pSoldier) ||
@@ -6228,4 +6339,222 @@ BOOLEAN CheckSuppressionDirection(SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, IN
 	}
 
 	return TRUE;
+}
+
+UINT8 CountKnownEnemies(SOLDIERTYPE* pSoldier, INT32 sSpot, INT16 sDistance, INT8 bLevel)
+{
+	CHECKF(pSoldier);
+
+	SOLDIERTYPE* pOpponent;
+	INT32 sThreatLoc;
+	INT8 bThreatLevel;
+	UINT8 ubNum = 0;
+
+	// loop through all the enemies
+	for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+	{
+		pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
+		{
+			continue;
+		}
+
+		if ( !ValidOpponent(pSoldier, pOpponent) )
+		{
+			continue;
+		}
+
+		// check knowledge
+		if ( Knowledge(pSoldier, pOpponent->ubID) == NOT_HEARD_OR_SEEN )
+		{
+			continue;
+		}
+
+		sThreatLoc = KnownLocation(pSoldier, pOpponent->ubID);
+		bThreatLevel = KnownLevel(pSoldier, pOpponent->ubID);
+
+		if ( TileIsOutOfBounds(sThreatLoc) )
+		{
+			continue;
+		}
+
+		if ( PythSpacesAway(sSpot, sThreatLoc) > sDistance )
+		{
+			continue;
+		}
+
+		if ( bLevel >= 0 && bThreatLevel != bLevel )
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
+}
+
+UINT8 CountKnownEnemiesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom)
+{
+	CHECKF(pSoldier);
+
+	UINT8 ubNum = 0;
+	for ( UINT32 uiLoop = 0; uiLoop < guiNumMercSlots; ++uiLoop )
+	{
+		SOLDIERTYPE* pOpponent = MercSlots[uiLoop];
+
+		// if this merc is inactive, at base, on assignment, dead, unconscious
+		if ( !pOpponent || pOpponent->stats.bLife < OKLIFE )
+		{
+			continue;
+		}
+
+		if ( !ValidOpponent(pSoldier, pOpponent) )
+		{
+			continue;
+		}
+
+		// check public knowledge
+		if ( Knowledge(pSoldier, pOpponent->ubID) == NOT_HEARD_OR_SEEN )
+		{
+			continue;
+		}
+
+		INT32 sThreatLoc = KnownLocation(pSoldier, pOpponent->ubID);
+
+		if ( TileIsOutOfBounds(sThreatLoc) )
+		{
+			continue;
+		}
+
+		// check room
+		UINT16 usRoomNo;
+		if ( !InARoom(sThreatLoc, &usRoomNo) )
+		{
+			continue;
+		}
+
+		if ( usRoomNo != usRoom )
+		{
+			continue;
+		}
+
+		ubNum++;
+	}
+
+	return ubNum;
+}
+
+UINT8 CountFriendsInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoom)
+{
+	CHECKF(pSoldier);
+
+	SOLDIERTYPE* pFriend;
+	UINT8		 ubFriendCount = 0;
+	UINT16		usRoomNo;
+
+	// Run through each friendly.
+	for ( SoldierID iCounter = gTacticalStatus.Team[pSoldier->bTeam].bFirstID; iCounter <= gTacticalStatus.Team[pSoldier->bTeam].bLastID; ++iCounter )
+	{
+		pFriend = iCounter;
+
+		if ( pFriend &&
+			pFriend != pSoldier &&
+			pFriend->bActive &&
+			pFriend->stats.bLife >= OKLIFE &&
+			InARoom(pFriend->sGridNo, &usRoomNo) &&
+			usRoomNo == usRoom )
+		{
+			ubFriendCount++;
+		}
+	}
+
+	return ubFriendCount;
+}
+
+INT32 CountCorpsesInRoom(SOLDIERTYPE* pSoldier, UINT16 usRoomNo, INT8 bLevel)
+{
+	CHECKF(pSoldier);
+
+	ROTTING_CORPSE* pCorpse;
+	INT32	iCount = 0;
+
+	for ( INT32 cnt = 0; cnt < giNumRottingCorpse; ++cnt )
+	{
+		pCorpse = &(gRottingCorpse[cnt]);
+
+		if ( pCorpse &&
+			pCorpse->fActivated &&
+			pCorpse->def.ubType < ROTTING_STAGE2 &&
+			pCorpse->def.ubBodyType <= REGFEMALE &&
+			pCorpse->def.ubAIWarningValue > 0 &&
+			pCorpse->def.bLevel == bLevel &&
+			!TileIsOutOfBounds(pCorpse->def.sGridNo) &&
+			RoomNo(pCorpse->def.sGridNo) == usRoomNo &&
+			(pSoldier->bTeam == ENEMY_TEAM && CorpseEnemyTeam(pCorpse) || pSoldier->bTeam == MILITIA_TEAM && CorpseMilitiaTeam(pCorpse) || pSoldier->bTeam == CIV_TEAM && !pSoldier->aiData.bNeutral) )
+		{
+			iCount++;
+		}
+	}
+
+	return iCount;
+}
+
+BOOLEAN FindFenceAroundSpot(INT32 sSpot)
+{
+	if ( TileIsOutOfBounds(sSpot) )
+	{
+		return FALSE;
+	}
+
+	INT32 sTempSpot;
+
+	// check adjacent locations
+	for ( UINT8 ubDirection = 0; ubDirection < NUM_WORLD_DIRECTIONS; ubDirection++ )
+	{
+		sTempSpot = NewGridNo(sSpot, DirectionInc(ubDirection));
+
+		if ( sTempSpot != sSpot && IsCuttableWireFenceAtGridNo(sTempSpot) )
+		{
+			return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
+BOOLEAN SameRoom(INT32 sSpot1, INT32 sSpot2)
+{
+	if ( RoomNo(sSpot1) == RoomNo(sSpot2) && sSpot1 != NO_ROOM )
+		return TRUE;
+
+	return FALSE;
+}
+
+UINT16 RoomNo(INT32 sSpot)
+{
+	if ( TileIsOutOfBounds(sSpot) )
+		return NO_ROOM;
+
+	return gusWorldRoomInfo[sSpot];
+}
+
+BOOLEAN CheckWindow(INT32 sSpot, UINT8 ubDirection, BOOLEAN fAllowClosed)
+{
+	CHECKF(!TileIsOutOfBounds(sSpot));
+
+	// find window spot
+	INT32 sWindowSpot = sSpot;
+	if ( ubDirection == NORTH || ubDirection == WEST )
+		sWindowSpot = NewGridNo(sSpot, (UINT16)DirectionInc(ubDirection));
+
+	//if (IsJumpableWindowPresentAtGridNo(sWindowSpot, ubDirection, gGameExternalOptions.fCanJumpThroughClosedWindows))
+	if ( IsJumpableWindowPresentAtGridNo(sWindowSpot, ubDirection, fAllowClosed) )
+	{
+		return TRUE;
+	}
+
+	return FALSE;
 }
