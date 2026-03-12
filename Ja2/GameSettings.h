@@ -2145,6 +2145,7 @@ typedef struct
 	UINT8 ubTERepairRobotPenaltyReduction;
 	UINT8 ubTETraitsNumToRepairRobot;
 	BOOLEAN fTETraitsCanRestoreItemThreshold;
+    UINT8 ubTraitsNeededForAdvancedRepair; // if we have enough traits, we can repair items above the normal threshold (1 for technician, 2 for engineer)
 
 	// DOCTOR
 	UINT8 ubDONumberTraitsNeededForSurgery;

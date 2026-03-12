@@ -2749,6 +2749,7 @@ void LoadSkillTraitsExternalSettings()
 	gSkillTraitValues.ubTERepairRobotPenaltyReduction = iniReader.ReadInteger("Technician","REPAIR_SPEED_ROBOT_PENALTY_REDUCTION", 30, 0, 100);
 	if (gSkillTraitValues.ubTETraitsNumToRepairRobot == 2) {gSkillTraitValues.ubTERepairRobotPenaltyReduction /= 2; }
 	gSkillTraitValues.fTETraitsCanRestoreItemThreshold = iniReader.ReadBoolean( "Technician", "MERCS_CAN_DO_ADVANCED_REPAIRS", FALSE );
+    gSkillTraitValues.ubTraitsNeededForAdvancedRepair = iniReader.ReadInteger("Technician", "NUMBER_TRAITS_NEEDED_FOR_ADVANCED_REPAIR", 2, 1, 2);
 
 	// DOCTOR
 	gSkillTraitValues.ubDONumberTraitsNeededForSurgery = iniReader.ReadInteger("Doctor","NUMBER_OF_TRAITS_NEEDED_FOR_SURGERY", 1, 0, 2);
