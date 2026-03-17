@@ -5171,8 +5171,12 @@ BOOLEAN RepairObject( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pOwner, OBJECTTYPE *
 		INT16 threshold = 100;
 		if ( gGameExternalOptions.fAdvRepairSystem && (Item[pObj->usItem].usItemClass & (IC_WEAPON|IC_ARMOUR)) )
 		{
-			if ( !gSkillTraitValues.fTETraitsCanRestoreItemThreshold || !HAS_SKILL_TRAIT( pSoldier, TECHNICIAN_NT ) )
+			if (gSkillTraitValues.fTETraitsCanRestoreItemThreshold && NUM_SKILL_TRAITS(pSoldier, TECHNICIAN_NT) >= gSkillTraitValues.ubTechLevelNeededForAdvancedRepair) // Greysa: added skill check for advanced repair. If we have a high enough technician level, we can repair items above the normal threshold (1 for technician, 2 for engineer)
 			{
+				threshold = 100;
+			}
+			else
+            {
 				threshold = (*pObj)[ubLoop]->data.sRepairThreshold;
 			}
 		}
