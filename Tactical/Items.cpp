@@ -3879,58 +3879,118 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
-
-	// Greysa: Check if weapon is jammed and unjam it first
-	// Greysa: need to implement and test duel wield jamming and unjamming
-	if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0)
+    if (pSoldier->IsValidSecondHandShotForReloadingPurposes()) //check for valid second hand weapon for reloading purposes (ie, not a launcher or something that doesn't use ammo)
 	{
-        //borrowed from Weapons.cpp
-		if (EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
+		pObj2 = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
+	}
+	else
+	{
+        pObj2 = NULL;
+	}
+	// Greysa: Check if weapon is jammed and unjam it first
+	// Greysa: need to implement and test duel wield unjamming
+	if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0))
+	{
+		if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0)
 		{
-			DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
-
-			INT8 bChanceMod;
-
-			if (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].EasyUnjam)
-				bChanceMod = 100;
-			else
-				bChanceMod = (INT8)(GetReliability(pObj) * 4);
-
-			int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
-
-			// sevenfm: AI always unjams successfully
-			// Greysa: no AI check required here
-			if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+			//borrowed from Weapons.cpp
+			if (EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
 			{
-				// yay! unjammed the gun 
-				(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
+				DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
 
-				// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+				INT8 bChanceMod;
 
-				if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+				if (Weapon[pObj->usItem].EasyUnjam)
+					bChanceMod = 100;
+				else
+					bChanceMod = (INT8)(GetReliability(pObj) * 4);
+
+				int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
+
+				// sevenfm: AI always unjams successfully
+				// Greysa: no AI check required here
+				if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
 				{
-					StatChange(pSoldier, MECHANAMT, 5, FALSE);
-					StatChange(pSoldier, DEXTAMT, 5, FALSE);
-				}
+					// yay! unjammed the gun 
+					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
 
-				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
-				PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
-				//print unjam message and merc voice feedback
-				// Greysa: We want to skip reloading if we unjammed
-				return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
+					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+
+					if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+					{
+						StatChange(pSoldier, MECHANAMT, 5, FALSE);
+						StatChange(pSoldier, DEXTAMT, 5, FALSE);
+					}
+
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
+					PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+					// merc voice feedback?
+					// Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome
+					//return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
+				}
+				else
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+					//return FALSE;
+				}
 			}
 			else
 			{
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+				//return FALSE;
+			}
+		}
+		if ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0)
+		{
+			if (EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
+			{
+				DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
+
+				INT8 bChanceMod;
+
+				if (Weapon[pObj2->usItem].EasyUnjam)
+					bChanceMod = 100;
+				else
+					bChanceMod = (INT8)(GetReliability(pObj2) * 4);
+
+				int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
+
+				// sevenfm: AI always unjams successfully
+				// Greysa: no AI check required here
+				if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+				{
+					// yay! unjammed the gun 
+					(*pObj2)[0]->data.gun.bGunAmmoStatus *= -1;
+
+					// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+
+					if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+					{
+						StatChange(pSoldier, MECHANAMT, 5, FALSE);
+						StatChange(pSoldier, DEXTAMT, 5, FALSE);
+					}
+
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
+					PlayJA2Sample(Weapon[Item[pObj2->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
+					// merc voice feedback?
+					// Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome
+					return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
+				}
+				else
+				{
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
+					return FALSE;
+				}
+			}
+			else
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
 				return FALSE;
 			}
 		}
-		else
-		{
-			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
-			return FALSE;
-		}
+		return FALSE;
 	}
 
 //<SB> manual recharge
@@ -3968,9 +4028,9 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 		PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
-		if ( pSoldier->IsValidSecondHandShot( ) )
+		if (pObj2 != NULL)//( pSoldier->IsValidSecondHandShot( ) )
 		{
-			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+			//pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
 
 			if ((*pObj2)[0]->data.gun.ubGunShotsLeft && !((*pObj2)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 			{
@@ -3983,9 +4043,9 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 	}
 	else
 	{
-		if ( pSoldier->IsValidSecondHandShot( ) )
+		if (pObj2 != NULL)//( pSoldier->IsValidSecondHandShot( ) )
 		{
-			pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
+			//pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
 
 			if ((*pObj2)[0]->data.gun.ubGunShotsLeft && !((*pObj2)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 			{
@@ -4042,21 +4102,21 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 		// if we are valid for two-pistol shooting (reloading) and we have enough APs still
 		// then do a reload of both guns!
 		// Flugente: only reload if it's empty, or we really want to
-		if ( pSoldier->IsValidSecondHandShotForReloadingPurposes()
+		if ( pObj2 != NULL //pSoldier->IsValidSecondHandShotForReloadingPurposes()
 			&& ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS ) ) )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
-			pObj = pSoldier->GetUsedWeapon( &( pSoldier->inv[SECONDHANDPOS] ) );
+			//pObj2 = pSoldier->GetUsedWeapon( &( pSoldier->inv[SECONDHANDPOS] ) );
 
 			bSlot = FindAmmoToReload( pSoldier, SECONDHANDPOS, NO_SLOT );
 			if ( bSlot != NO_SLOT )
 			{
 				// ce would reload using this ammo!
-				bAPCost = GetAPsToReloadGunWithAmmo( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+				bAPCost = GetAPsToReloadGunWithAmmo( pSoldier, pObj2, &( pSoldier->inv[bSlot] ) );
 				if ( EnoughPoints( pSoldier, (INT16)bAPCost, 0, FALSE ) )
 				{
 					// reload the 2nd gun too
-					fRet = ReloadGun( pSoldier, pObj, &( pSoldier->inv[bSlot] ) );
+					fRet = ReloadGun( pSoldier, pObj2, &( pSoldier->inv[bSlot] ) );
 				}
 				else
 				{
