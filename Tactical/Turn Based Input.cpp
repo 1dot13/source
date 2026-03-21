@@ -4319,6 +4319,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 					//	else
 					//		HandleTBReload();
 					//}
+					
 					// Remove this once testing and above commenting finished with.
 					if( fAlt )
 					{
