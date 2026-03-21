@@ -4309,15 +4309,21 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			case 'r':
 				if( gusSelectedSoldier != NOBODY )
 				{
-					if( fAlt ) //reload selected merc's weapon
+					// Greysa: Commented out for testing purposes.
+					//if( fAlt ) //reload selected merc's weapon
+					//{
+					//	if ( CHEATER_CHEAT_LEVEL( ) )
+					//	{
+					//		ReloadWeapon( gusSelectedSoldier, gusSelectedSoldier->ubAttackingHand );
+					//	}
+					//	else
+					//		HandleTBReload();
+					//}
+					// Remove this once testing and above commenting finished with.
+					if( fAlt )
 					{
-						if ( CHEATER_CHEAT_LEVEL( ) )
-						{
-							ReloadWeapon( gusSelectedSoldier, gusSelectedSoldier->ubAttackingHand );
-						}
-						else
-							HandleTBReload();
-					}
+						HandleTBReload();
+                    }
 					else if( fCtrl )
 					{
 						if ( INFORMATION_CHEAT_LEVEL( ) )

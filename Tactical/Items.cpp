@@ -3872,13 +3872,66 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 {
 	OBJECTTYPE *pObj, *pObj2;
 	INT8		bSlot;
-	INT16 bAPCost;
+	INT16		bAPCost;
 	BOOLEAN		fRet = FALSE;
 
 	CHECKF( pSoldier );
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
+
+	// Greysa: Check if weapon is jammed and unjam it first
+	// Greysa: need to implement and test duel wield jamming and unjamming
+	if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0)
+	{
+        //borrowed from Weapons.cpp
+		if (EnoughPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM], FALSE))
+		{
+			DeductPoints(pSoldier, APBPConstants[AP_UNJAM], APBPConstants[BP_UNJAM]);
+
+			INT8 bChanceMod;
+
+			if (Weapon[pSoldier->inv[pSoldier->ubAttackingHand].usItem].EasyUnjam)
+				bChanceMod = 100;
+			else
+				bChanceMod = (INT8)(GetReliability(pObj) * 4);
+
+			int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
+
+			// sevenfm: AI always unjams successfully
+			// Greysa: no AI check required here
+			if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+			{
+				// yay! unjammed the gun 
+				(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
+
+				// MECHANICAL/DEXTERITY GAIN: Unjammed a gun 
+
+				if (bChanceMod < 100) // don't give exp for unjamming an easily unjammable gun
+				{
+					StatChange(pSoldier, MECHANAMT, 5, FALSE);
+					StatChange(pSoldier, DEXTAMT, 5, FALSE);
+				}
+
+				DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
+				PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+				//print unjam message and merc voice feedback
+				// Greysa: We want to skip reloading if we unjammed
+				return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
+			}
+			else
+			{
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+				return FALSE;
+			}
+		}
+		else
+		{
+			ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+			return FALSE;
+		}
+	}
 
 //<SB> manual recharge
 	if ((*pObj)[0]->data.gun.ubGunShotsLeft && !((*pObj)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
