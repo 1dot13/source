@@ -3921,17 +3921,17 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this even do?
 					PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_UNJAMMED], pSoldier->GetName(), ItemNames[pObj->usItem]);
 					// merc voice feedback?
 				}
 				else
 				{
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_FAILED_UNJAM], pSoldier->GetName(), ItemNames[pObj->usItem]);
 				}
 			}
 			else
 			{
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_NO_AP_NO_UNJAM], pSoldier->GetName(), ItemNames[pObj->usItem]);
 			}
 		}
 		if ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0)
