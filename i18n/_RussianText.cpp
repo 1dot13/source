@@ -2361,6 +2361,11 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"No militia that can be drilled present.",
 
 	L"%s has fully explored %s.",	// TODO.Translate
+
+	// The first %s is a merc name and the second %s is an item name
+	L"%s unjammed %s.",
+	L"%s failed to unjam %s.",
+	L"%s does not have enough APs to unjam %s."
 };
 
 // the country and its noun in the game
