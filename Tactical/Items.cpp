@@ -3919,7 +3919,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 						StatChange(pSoldier, DEXTAMT, 5, FALSE);
 					}
 
-					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this even do?
 					PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
 					// merc voice feedback?
@@ -3962,25 +3962,22 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 						StatChange(pSoldier, DEXTAMT, 5, FALSE);
 					}
 
-					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do? 
 					PlayJA2Sample(Weapon[Item[pObj2->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_UNJAMMED], pSoldier->GetName(), ItemNames[pObj2->usItem]);
 					// merc voice feedback?
-                    return FALSE; //do I need this?
 				}
 				else
 				{
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_FAILED_UNJAM], pSoldier->GetName(), ItemNames[pObj2->usItem]);
-					return FALSE; //do I need this?
 				}
 			}
 			else
 			{
 				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_NO_AP_NO_UNJAM], pSoldier->GetName(), ItemNames[pObj2->usItem]);
-				return FALSE; //do I need this?
 			}
 		}
-		return FALSE; // Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome. Return value doesn't seem to matter as there doesn't seem to be any actual checks on the returned value
+		return FALSE; // Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome. Return value doesn't seem to matter as there doesn't seem to be any actual checks on the returned value. I picked FALSE as actual reload hasn't occurred
 	}
 
 //<SB> manual recharge
