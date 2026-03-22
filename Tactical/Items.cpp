@@ -3879,7 +3879,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
-    if (pSoldier->IsValidSecondHandShotForReloadingPurposes()) //check for valid second hand weapon for reloading purposes (ie, not a launcher or something that doesn't use ammo)
+    if (pSoldier->IsValidSecondHandShotForReloadingPurposes()) //check for valid second hand weapon for reloading purposes (something that doesn't use ammo)
 	{
 		pObj2 = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
 	}
@@ -3888,7 +3888,6 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
         pObj2 = NULL;
 	}
 	// Greysa: Check if weapon is jammed and unjam it first
-	// Greysa: need to implement and test duel wield unjamming
 	if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0))
 	{
 		if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0)
@@ -3907,9 +3906,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 				int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
 
-				// sevenfm: AI always unjams successfully
-				// Greysa: no AI check required here
-				if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+				if (iResult > 0)
 				{
 					// yay! unjammed the gun 
 					(*pObj)[0]->data.gun.bGunAmmoStatus *= -1;
@@ -3926,19 +3923,15 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 					PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
 					// merc voice feedback?
-					// Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome
-					//return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
 				}
 				else
 				{
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
-					//return FALSE;
 				}
 			}
 			else
 			{
 				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj->usItem]);
-				//return FALSE;
 			}
 		}
 		if ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0)
@@ -3956,9 +3949,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 				int iResult = SkillCheck(pSoldier, UNJAM_GUN_CHECK, bChanceMod);
 
-				// sevenfm: AI always unjams successfully
-				// Greysa: no AI check required here
-				if (iResult > 0)// || !(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
+				if (iResult > 0)
 				{
 					// yay! unjammed the gun 
 					(*pObj2)[0]->data.gun.bGunAmmoStatus *= -1;
@@ -3973,24 +3964,23 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do?
 					PlayJA2Sample(Weapon[Item[pObj2->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s unjammed %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_UNJAMMED], pSoldier->GetName(), ItemNames[pObj2->usItem]);
 					// merc voice feedback?
-					// Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome
-					return FALSE; // Greysa: Do we return false or true here to skip rest of reload?  I think true, but test this! Also, need to figure out animation
+                    return FALSE; //do I need this?
 				}
 				else
 				{
-					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s failed to unjam %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
-					return FALSE;
+					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_FAILED_UNJAM], pSoldier->GetName(), ItemNames[pObj2->usItem]);
+					return FALSE; //do I need this?
 				}
 			}
 			else
 			{
-				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s does not have enough APs to unjam %s.", pSoldier->GetName(), ItemNames[pObj2->usItem]);
-				return FALSE;
+				ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_NO_AP_NO_UNJAM], pSoldier->GetName(), ItemNames[pObj2->usItem]);
+				return FALSE; //do I need this?
 			}
 		}
-		return FALSE;
+		return FALSE; // Greysa: We want to skip reloading if we attempted to unjam, regardless of outcome. Return value doesn't seem to matter as there doesn't seem to be any actual checks on the returned value
 	}
 
 //<SB> manual recharge
