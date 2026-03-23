@@ -6076,7 +6076,8 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 		gfItemAmmoDown = FALSE;
 
 		//CHRISL: We dont' want to be able to reload guns using the ammo crate from this function
-		if((gpItemPointer != NULL && Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubMagType >= AMMO_BOX) || !EnoughPoints(gpItemDescSoldier, APBPConstants[AP_RELOAD_GUN], 0, TRUE))//dnl ch65 040913
+		//Greysa: add check for ammo item
+		if( gpItemPointer != NULL && ( (Item[gpItemPointer->usItem].usItemClass != IC_AMMO || Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubMagType >= AMMO_BOX) ) || !EnoughPoints(gpItemDescSoldier, APBPConstants[AP_RELOAD_GUN], 0, TRUE) )//dnl ch65 040913
 		{
 			fInterfacePanelDirty = DIRTYLEVEL2;
 			btn->uiFlags &= (~BUTTON_CLICKED_ON );
@@ -6099,7 +6100,8 @@ void ItemDescAmmoCallback(GUI_BUTTON *btn,INT32 reason)
 			else
 			{
 				//holding an item
-				if(Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubCalibre == Weapon[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre)
+				//Greysa: add check for ammo item
+				if( Item[gpItemPointer->usItem].usItemClass == IC_AMMO && Magazine[Item[gpItemPointer->usItem].ubClassIndex].ubCalibre == Weapon[Item[gpItemDescObject->usItem].ubClassIndex].ubCalibre )
 				{
 					ReloadGun(gpItemDescSoldier, gpItemDescObject, gpItemPointer, ubStatusIndex);
 				}
