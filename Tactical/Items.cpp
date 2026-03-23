@@ -3919,7 +3919,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 						StatChange(pSoldier, DEXTAMT, 5, FALSE);
 					}
 
-					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this even do?
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
 					PlayJA2Sample(Weapon[Item[pObj->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_UNJAMMED], pSoldier->GetName(), ItemNames[pObj->usItem]);
 					// merc voice feedback?
@@ -3962,7 +3962,7 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 						StatChange(pSoldier, DEXTAMT, 5, FALSE);
 					}
 
-					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2); // Greysa: what does this do? 
+					DirtyMercPanelInterface(pSoldier, DIRTYLEVEL2);
 					PlayJA2Sample(Weapon[Item[pObj2->usItem].ubClassIndex].ManualReloadSound, RATE_11025, SoundVolume(HIGHVOLUME, pSoldier->sGridNo), 1, SoundDir(pSoldier->sGridNo));
 					ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, Message[STR_UNJAMMED], pSoldier->GetName(), ItemNames[pObj2->usItem]);
 					// merc voice feedback?
