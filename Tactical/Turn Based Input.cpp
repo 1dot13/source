@@ -4303,21 +4303,25 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 
 				// Make auto reload with magazines from sector inventory
 			case 'R':
-				HandleTBReloadAll();
-
+                if (fAlt && gusSelectedSoldier != NOBODY ) // Greysa: Moved here from 'r' to retain all functionality during testing.
+				{
+					if (CHEATER_CHEAT_LEVEL())
+					{
+                        ReloadWeapon(gusSelectedSoldier, gusSelectedSoldier->ubAttackingHand);
+					}
+				}
+				else
+				{
+					HandleTBReloadAll();
+				}
 				break;
 			case 'r':
 				if( gusSelectedSoldier != NOBODY )
 				{
-					if( fAlt ) //reload selected merc's weapon
+					if( fAlt )
 					{
-						if ( CHEATER_CHEAT_LEVEL( ) )
-						{
-							ReloadWeapon( gusSelectedSoldier, gusSelectedSoldier->ubAttackingHand );
-						}
-						else
-							HandleTBReload();
-					}
+						HandleTBReload();
+                    }
 					else if( fCtrl )
 					{
 						if ( INFORMATION_CHEAT_LEVEL( ) )
