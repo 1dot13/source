@@ -27,7 +27,7 @@ if(ADDRESS_SANITIZER)
 endif()
 
 if(MSVC)
-  add_compile_options("/wd4838")
+  add_compile_options("/wd4838") # silence implicit narrowing conversion warnings
 endif()
 
 # whether we are using MSBuild as a generator
