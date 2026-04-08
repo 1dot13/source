@@ -163,5 +163,5 @@ foreach(app IN LISTS ApplicationTargets)
   # for SGP only
   target_link_libraries(${app}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
   target_link_libraries(${app}_sgp PRIVATE libpng)
-  target_compile_definitions(${app}_sgp PRIVATE NO_ZLIB_COMPRESSION)
+  target_compile_definitions(${app}_sgp PRIVATE ${compilationFlags} ${debugFlags} NO_ZLIB_COMPRESSION)
 endforeach()
