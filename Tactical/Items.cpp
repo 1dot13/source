@@ -12426,6 +12426,51 @@ INT8 FindCamoKit( SOLDIERTYPE * pSoldier )
 	return( NO_SLOT );
 }
 
+INT8 FindCanteen(SOLDIERTYPE* pSoldier)
+{
+	const INT8 invsize = pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( pSoldier->inv[bLoop].exists() && ItemIsCanteen(pSoldier->inv[bLoop].usItem) )
+		{
+			OBJECTTYPE* pObj = &(pSoldier->inv[bLoop]);
+			if ( pObj && TotalPoints(pObj) > 1 )
+			{
+				return(bLoop);
+			}
+		}
+	}
+	return(NO_SLOT);
+}
+
+INT8 FindWirecutters(SOLDIERTYPE* pSoldier)
+{
+	const INT8 invsize = pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( pSoldier->inv[bLoop].exists() && ItemIsWirecutters(pSoldier->inv[bLoop].usItem) )
+		{
+			return(bLoop);
+		}
+	}
+
+	return NO_SLOT;
+}
+
+INT8 FindTNT(SOLDIERTYPE* pSoldier)
+{
+	const INT8 invsize = pSoldier->inv.size();
+	for ( INT8 bLoop = 0; bLoop < invsize; ++bLoop )
+	{
+		if ( pSoldier->inv[bLoop].exists() && ItemIsTNT(pSoldier->inv[bLoop].usItem) )
+		{
+			return(bLoop);
+		}
+	}
+
+	return NO_SLOT;
+}
+
 //JMich_SkillModifiers: Adding a function to see if we have an item with disarm bonus
 INT8 FindDisarmKit( SOLDIERTYPE * pSoldier )
 {
@@ -16043,6 +16088,20 @@ BOOLEAN FindAttachmentRange(UINT16 usAttachment, UINT32* pStartIndex, UINT32* pE
 	}
 
 	return result;
+}
+
+
+BOOLEAN ItemIsTNT(UINT16 usItem)
+{
+	if ( Item[usItem].usItemClass == IC_BOMB &&
+		!ItemIsMine(usItem) &&
+		!ItemIsTripwire(usItem) &&
+		Explosive[Item[usItem].ubClassIndex].ubType == EXPLOSV_NORMAL &&
+		Explosive[Item[usItem].ubClassIndex].ubDamage > 40 &&
+		GetLauncherFromLaunchable(usItem) == NOTHING )
+		return TRUE;
+
+	return FALSE;
 }
 
 ////////////////////////////////////

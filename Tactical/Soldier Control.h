@@ -1788,10 +1788,13 @@ public:
 	void ChangeToFallbackAnimation( UINT8 fallBackDirection );
 
 	// sevenfm
+	void BeginSoldierJumpWindowAI(void);
 	void BreakWindow(void);
 	BOOLEAN CanBreakWindow(void);
 	BOOLEAN CanStartDrag(void);
 	void StartDrag(void);
+	UINT8 AnimHeight(void) const;
+	UINT8 AnimEndHeight(void) const;
 
 	void UpdateRobotControllerGivenController( void );
 	void UpdateRobotControllerGivenRobot( void );
