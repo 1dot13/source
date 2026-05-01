@@ -199,7 +199,10 @@ WRAPPED_STRING *LineWrap(INT32 iFont, UINT16 usLineWidthPixels, UINT16 *pusLineW
 		usCurrentWidthPixels = usCurrentWidthPixels + WFStringPixLength( OneChar, iFont);
 
 		//If we are at the end of the string
-		if(TempString[ usCurIndex	] == 0)
+
+		//Juqi: Add NEWLINE_CHAR detect
+		//      NEWLINE_CHAR "±" is only used to handle Chinese ITMES.XML file.
+		if (TempString[ usCurIndex ] == 0 && !fNewLine) 
 		{
 			//get to next WrappedString structure
 			pWrappedString = &FirstWrappedString;
@@ -224,10 +227,13 @@ WRAPPED_STRING *LineWrap(INT32 iFont, UINT16 usLineWidthPixels, UINT16 *pusLineW
 
 		}
 
-
-		if( (g_lang != i18n::Lang::zh && usCurrentWidthPixels > usLineWidthPixels)
-		    ||
-		    (g_lang == i18n::Lang::zh && usCurrentWidthPixels > usLineWidthPixels
+		//Juqi: Allow manual line breaks to be added in XML, 
+		//      rather than relying solely on width for automatic line breaks.
+		if((usCurrentWidthPixels > usLineWidthPixels || fNewLine) 
+		    &&
+		    ((g_lang != i18n::Lang::zh)
+		     ||
+		     (g_lang == i18n::Lang::zh
 		  && TempString[usCurIndex] != L'，'
 		  && TempString[usCurIndex] != L'。'
 		  && TempString[usCurIndex] != L'；'
@@ -239,8 +245,9 @@ WRAPPED_STRING *LineWrap(INT32 iFont, UINT16 usLineWidthPixels, UINT16 *pusLineW
 		  && TempString[usCurIndex] != L'？'
 		  && TempString[usCurIndex] != L')'
 		  && TempString[usCurIndex] != L'）'
-			)//||(DestString[ usDestIndex ]==NEWLINE_CHAR )||(fNewLine))
-)
+			))
+		)
+
 		{
 
 			//if an error has occured, and the string is too long
@@ -251,51 +258,55 @@ WRAPPED_STRING *LineWrap(INT32 iFont, UINT16 usLineWidthPixels, UINT16 *pusLineW
 			// Fix really long unbroken strings, the above code dosent work for it
 			usLastMaxWidthIndex = usDestIndex;
 
-			//Go back to begining of word
-			while(
-			      (g_lang != i18n::Lang::zh && DestString[ usDestIndex ] != L' ' && usCurIndex > 0 && usDestIndex > 0)
-			      ||
-			      (g_lang == i18n::Lang::zh && DestString[ usDestIndex ] != L' ' && usCurIndex > 0 && usDestIndex > 0 && DestString[usDestIndex] < 255))
-			{
-				OneChar[0] = DestString[ usDestIndex ];
+			//Juqi: if NEWLINE_CHAR, don't go back
+			if (!fNewLine)
+			{ 
+				//Go back to begining of word
+				while(
+					(g_lang != i18n::Lang::zh && DestString[ usDestIndex ] != L' ' && usCurIndex > 0 && usDestIndex > 0)
+					||
+					(g_lang == i18n::Lang::zh && DestString[ usDestIndex ] != L' ' && usCurIndex > 0 && usDestIndex > 0 && DestString[usDestIndex] < 255))
+				{
+					OneChar[0] = DestString[ usDestIndex ];
 
-				usCurrentWidthPixels = usCurrentWidthPixels - WFStringPixLength( OneChar, iFont);
+					usCurrentWidthPixels = usCurrentWidthPixels - WFStringPixLength( OneChar, iFont);
 
-				usCurIndex--;
-				usDestIndex--;
-			}
-	  if (g_lang == i18n::Lang::zh && DestString[usDestIndex] > 255)
-	    {
-	     if (DestString[usDestIndex] == L'，'
-		  || DestString[usDestIndex] == L','
-		  || DestString[usDestIndex] == L'。'
-		  || DestString[usDestIndex] == L'；'
-		  || DestString[usDestIndex] == L'”'
-		  || DestString[usDestIndex] == L'’'
-		  || DestString[usDestIndex] == L'：'
-		  || DestString[usDestIndex] == L'、'
-	  	  || DestString[usDestIndex] == L'?'
-		  || DestString[usDestIndex] == L'？'
-		  || DestString[usDestIndex] == L')'
-		  || DestString[usDestIndex] == L'）')
-	     	{usDestIndex++;}
-	     else 
-	      {usCurIndex--;}
-	    }
+					usCurIndex--;
+					usDestIndex--;
+				}
+				if (g_lang == i18n::Lang::zh && DestString[usDestIndex] > 255)
+				{
+					if (DestString[usDestIndex] == L'，'
+					|| DestString[usDestIndex] == L','
+					|| DestString[usDestIndex] == L'。'
+					|| DestString[usDestIndex] == L'；'
+					|| DestString[usDestIndex] == L'”'
+					|| DestString[usDestIndex] == L'’'
+					|| DestString[usDestIndex] == L'：'
+					|| DestString[usDestIndex] == L'、'
+					|| DestString[usDestIndex] == L'?'
+					|| DestString[usDestIndex] == L'？'
+					|| DestString[usDestIndex] == L')'
+					|| DestString[usDestIndex] == L'）')
+						{usDestIndex++;}
+					else 
+					{usCurIndex--;}
+				}
 
-			usEndIndex = usDestIndex;
+				usEndIndex = usDestIndex;
 
-			// OJW - 20090427
-			// Fix really long unbroken strings
-			if( usEndIndex <= 0 )
-			{
-				usEndIndex = usLastMaxWidthIndex;
-				usDestIndex = usLastMaxWidthIndex;
-				usCurIndex += usLastMaxWidthIndex - 1;
-			}
+				// OJW - 20090427
+				// Fix really long unbroken strings
+				if( usEndIndex <= 0 )
+				{
+					usEndIndex = usLastMaxWidthIndex;
+					usDestIndex = usLastMaxWidthIndex;
+					usCurIndex += usLastMaxWidthIndex - 1;
+				}
 
-			// put next line into temp buffer
-			DestString[usEndIndex] = 0;
+				// put next line into temp buffer
+				DestString[usEndIndex] = 0;
+			} //Juqi: endif
 
 			//get to next WrappedString structure
 			pWrappedString = &FirstWrappedString;
