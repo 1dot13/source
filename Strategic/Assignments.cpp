@@ -11089,7 +11089,8 @@ void DetermineWhichAssignmentMenusCanBeShown( void )
 	CreateDestroyMouseRegionForFacilityMenu();
 	CreateDestroyMouseRegionsForFacilityAssignmentMenu();
 
-	if( ( ( gCharactersList[ bSelectedInfoChar ].usSolID->stats.bLife == 0 )||( gCharactersList[bSelectedInfoChar].usSolID->bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
+	const auto selectedCharacter = gCharactersList[bSelectedInfoChar].usSolID;
+	if( selectedCharacter < NOBODY && ( (selectedCharacter->stats.bLife == 0 )||(selectedCharacter->bAssignment == ASSIGNMENT_POW ) ) && ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) ) )
 	{
 		// show basic assignment menu
 		ShowBox( ghRemoveMercAssignBox );
