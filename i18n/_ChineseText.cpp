@@ -7551,7 +7551,7 @@ STR16 gzLateLocalizedString[] =
 	L"%s用完了医药箱里的药品！",	//"%s ran out of medical kits!",
 	L"%s没有所需技能来医疗他人！",	//"%s lacks the necessary skill to doctor anyone!",
 	L"%s用完工具箱里的工具！",	//"%s ran out of tool kits!",
-	L"%s没有所需技能来修理物品！",	//"%s lacks the necessary skill to repair anything!",
+	L"%s没有所需技能或属性来修理物品！",	//"%s lacks the necessary skill to repair anything!",
 
 	//44-45
 	L"修理时间",  //L"Repair Time",
@@ -9482,8 +9482,8 @@ STR16		szNationalityText[]=
 	L"古巴人",			// 5
 	L"丹麦人",
 	L"法国人",
-	L"俄国人",
-	L"Tracona人",      // (UB takes place in Tracona)
+	L"俄罗斯人",
+	L"特拉科纳人",      // (UB takes place in Tracona)
 	L"瑞士人",			// 10
 	L"牙买加人",
 	L"波兰人",
@@ -9492,103 +9492,103 @@ STR16		szNationalityText[]=
 	L"南非人",	       // 15
 	L"匈牙利人",
 	L"苏格兰人",
-	L"Arulco人",
+	L"阿鲁科人",
 	L"德国人",
 	L"非洲人",			// 20
 	L"意大利人",
 	L"荷兰人",
-	L"罗马利亚人",
-	L"Metavira人",
+	L"罗马尼亚人",
+	L"梅塔维拉人",
 
 	// newly added from here on
-	L"Afghan",       // 25 
-	L"Albanian",
-	L"Argentinian",
-	L"Armenian",
-	L"Azerbaijani",
-	L"Bangladeshi ", // 30
+	L"阿富汗人",       // 25 
+	L"阿尔巴尼亚人",
+	L"阿根廷人",
+	L"亚美尼亚人",
+	L"阿塞拜疆人",
+	L"孟加拉国人", // 30
     L"白俄罗斯人",
     L"比利时人",
-	L"Beninese",
-	L"Bolivian",
-	L"Bosnian",     // 35
+	L"贝宁人",
+	L"玻利维亚人",
+	L"波斯尼亚人",     // 35
     L"巴西人",
     L"保加利亚人",
-	L"Cambodian",
-	L"Chadian",
-	L"Chilean",     // 40
-	L"Columbian",
-	L"Congolese",
-	L"Croatian",
-	L"Ecuadorian",
-	L"Egyptian",    // 45 
-	L"English",
-	L"Eritrean",
+	L"柬埔寨人",
+	L"乍得人",
+	L"智利人",     // 40
+	L"哥伦比亚人",
+	L"刚果人",
+	L"克罗地亚人",
+	L"厄瓜多尔人",
+	L"埃及人",    // 45 
+	L"英格兰人",
+	L"厄立特里亚人",
 	L"爱沙尼亚人",
-	L"Ethiopian",
-	L"Filipino",    // 50
+	L"埃塞俄比亚人",
+	L"菲律宾人",    // 50
 	L"芬兰人",
-	L"Georgian",
+	L"格鲁吉亚人",
 	L"希腊人",
-	L"Guatemalan",
-	L"Haitian",      // 55
-	L"Honduran",
+	L"危地马拉人",
+	L"海地人",      // 55
+	L"洪都拉斯人",
 	L"印度人",
-	L"Indonesian",
+	L"印度尼西亚人",
 	L"伊朗人",
 	L"伊拉克人",	     // 60
-	L"Islandic",
+	L"冰岛人",
 	L"以色列人",
 	L"日本人",
-	L"Jordanian",
-	L"Kazakhstani",  // 65
-	L"Korean",
-	L"Kyrgyzstani",
-	L"Laotian",
-	L"Latvian",
-	L"Lebanese",    // 70
-	L"Lithuanian",
-	L"Lybian",
-	L"Macedonian",
-	L"Malaysian",
+	L"约旦人",
+	L"哈萨克斯坦人",  // 65
+	L"韩国人和朝鲜人",
+	L"吉尔吉斯斯坦人",
+	L"老挝人",
+	L"拉脱维亚人",
+	L"黎巴嫩人",    // 70
+	L"立陶宛人",
+	L"利比亚人",
+	L"马其顿人",
+	L"马来西亚人",
 	L"墨西哥人",    // 75
-	L"Mongolian",
-	L"Moroccan",
-	L"Mozambican",
-	L"Myanma",
-	L"Namibian",   // 80
-	L"Nicaraguan",
+	L"蒙古人",
+	L"摩洛哥人",
+	L"莫桑比克人",
+	L"缅甸人",
+	L"纳米比亚人",   // 80
+	L"尼加拉瓜人",
 	L"尼日利亚人",
-	L"Nigerien",
+	L"尼日尔人",
 	L"挪威人",
-	L"Pakistani",   // 85
-	L"Panamanian",
+	L"巴基斯坦人",   // 85
+	L"巴拿马人",
 	L"葡萄牙人",
-	L"Rwandanese",
-	L"Salvadoran",
-	L"Saudi",     // 90
+	L"卢旺达人",
+	L"萨尔瓦多人",
+	L"沙特人",     // 90
 	L"塞尔维亚人",
-	L"Slovakian",
-	L"Slovenian",
-	L"Somali",
+	L"斯洛伐克人",
+	L"斯洛文尼亚人",
+	L"索马里人",
 	L"西班牙人",     // 95
-	L"Sudanese",
+	L"苏丹人",
 	L"瑞典人",
 	L"叙利亚人",
-	L"Thai",
-	L"Togolese",    // 100
-	L"Tunisian",
+	L"泰国人",
+	L"多哥人",    // 100
+	L"突尼斯人",
 	L"土耳其人",
-	L"Ugandan",
-	L"Ukrainian",
-	L"Uruguayan",   // 105
-	L"Uzbekistani",
+	L"乌干达人",
+	L"乌克兰人",
+	L"乌拉圭人",   // 105
+	L"乌兹别克斯坦人",
 	L"委内瑞拉人",
-	L"Vietnamese",
-	L"Welsh",
-	L"Yemeni",     // 110
-	L"Zamundan",   // Zamunda 
-	L"Zimbabwean",
+	L"越南人",
+	L"威尔士人",
+	L"也门人",     // 110
+	L"扎蒙达人",   // Zamunda 
+	L"津巴布韦人",
 };
 
 STR16		szNationalityTextAdjective[] =
@@ -9601,8 +9601,8 @@ STR16		szNationalityTextAdjective[] =
 	L"古巴人",			// 5
 	L"丹麦人",
 	L"法国人",
-	L"俄国人",
-	L"traconia人"       // UB takes place in Tracona
+	L"俄罗斯人",
+	L"特拉科纳人"       // UB takes place in Tracona
 	L"瑞士人",			// 10
 	L"牙买加人",
 	L"波兰人",
@@ -9611,103 +9611,103 @@ STR16		szNationalityTextAdjective[] =
 	L"南非人",	       // 15
 	L"匈牙利人",
 	L"苏格兰人",
-	L"Arulco人",
+	L"阿鲁科人",
 	L"德国人",
 	L"非洲人",			// 20
 	L"意大利人",
 	L"荷兰人",
-	L"罗马利亚人",
-	L"Metavira人",
+	L"罗马尼亚人",
+	L"梅塔维拉人",
 
 	// newly added from here on
-	L"afghans",      // 25 
-	L"albanians",
-	L"argentinians",
-	L"armenians",
-	L"azerbaijani",
-	L"bangladeshi", // 30
+	L"阿富汗人",      // 25 
+	L"阿尔巴尼亚人",
+	L"阿根廷人",
+	L"亚美尼亚人",
+	L"阿塞拜疆人",
+	L"孟加拉国人", // 30
 	L"白俄罗斯人",
 	L"比利时人",
-	L"beninese",
-	L"bolivians",
-	L"bosnians",     // 35
+	L"贝宁人",
+	L"玻利维亚人",
+	L"波斯尼亚人",     // 35
 	L"巴西人",
 	L"保加利亚人",
-	L"cambodians",
-	L"chadians",
-	L"chileans",     // 40
-	L"columbians",
-	L"congolese",
-	L"croatians",
-	L"ecuadorians",
-	L"egyptians",    // 45 
-	L"englishmen",
-	L"eritreans",
+	L"柬埔寨人",
+	L"乍得人",
+	L"智利人",     // 40
+	L"哥伦比亚人",
+	L"刚果人",
+	L"克罗地亚人",
+	L"厄瓜多尔人",
+	L"埃及人",    // 45 
+	L"英格兰人",
+	L"厄立特里亚人",
 	L"爱沙尼亚人",
-	L"ethiopians",
-	L"filipinos",    // 50
+	L"埃塞俄比亚人",
+	L"菲律宾人",    // 50
 	L"芬兰人",
-	L"georgians",
+	L"格鲁吉亚人",
 	L"希腊人",
-	L"guatemalans",
-	L"haitians",      // 55
-	L"hondurans",
+	L"危地马拉人",
+	L"海地人",      // 55
+	L"洪都拉斯人",
 	L"印度人",
-	L"indonesians",
+	L"印度尼西亚人",
 	L"伊朗人",
 	L"伊拉克人",     // 60
-	L"islandics",
+	L"冰岛人",
 	L"以色列人",
 	L"日本人",
-	L"jordanians",
-	L"kazakhstani",  // 65
-	L"koreans",
-	L"kyrgyzstani",
-	L"laotians",
-	L"latvians",
-	L"lebanese",    // 70
-	L"lithuanians",
-	L"lybians",
-	L"macedonians",
-	L"malaysians",
+	L"约旦人",
+	L"哈萨克斯坦人",  // 65
+	L"韩国人和朝鲜人",
+	L"吉尔吉斯斯坦人",
+	L"老挝人",
+	L"拉脱维亚人",
+	L"黎巴嫩人",    // 70
+	L"立陶宛人",
+	L"利比亚人",
+	L"马其顿人",
+	L"马来西亚人",
 	L"墨西哥人",   // 75
-	L"mongolians",
-	L"moroccans",
-	L"mozambicans",
-	L"myanmarians",
-	L"namibians",   // 80
-	L"nicaraguans",
+	L"蒙古人",
+	L"摩洛哥人",
+	L"莫桑比克人",
+	L"缅甸人",
+	L"纳米比亚人",   // 80
+	L"尼加拉瓜人",
 	L"尼日利亚人",
-	L"nigeriens",
+	L"尼日尔人",
 	L"挪威人",
 	L"巴基斯坦人",   // 85
-	L"panamanians",
+	L"巴拿马人",
 	L"葡萄牙人",
-	L"rwandanese",
-	L"salvadorans",
-	L"saudis",     // 90
+	L"卢旺达人",
+	L"萨尔瓦多人",
+	L"沙特人",     // 90
 	L"塞尔维亚人",
-	L"slovakians",
-	L"slovenians",
-	L"somali",
+	L"斯洛伐克人",
+	L"斯洛文尼亚人",
+	L"索马里人",
 	L"西班牙人",    // 95
-	L"sudanese",
+	L"苏丹人",
 	L"瑞典人",
 	L"叙利亚人",
-	L"thais",
-	L"togolese",    // 100
-	L"tunisians",
+	L"泰国人",
+	L"多哥人",    // 100
+	L"突尼斯人",
 	L"土耳其人",
-	L"ugandans",
-	L"ukrainians",
-	L"uruguayans",   // 105
-	L"uzbekistani",
+	L"乌干达人",
+	L"乌克兰人",
+	L"乌拉圭人",   // 105
+	L"乌兹别克斯坦人",
 	L"委内瑞拉人",
-	L"vietnamese",
-	L"welshs",
-	L"yemenites",     // 110
-	L"zamundans",   // Zamunda 
-	L"zimbabweans",
+	L"越南人",
+	L"威尔士人",
+	L"也门人",     // 110
+	L"扎蒙达人",   // Zamunda 
+	L"津巴布韦人",
 };
 
 // special text used if we do not hate any nation (value of -1)
