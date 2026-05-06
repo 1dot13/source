@@ -649,7 +649,23 @@ void popupCallbackItem(INT16 itemId){
 			if( bestStack->RemoveObjectAtIndex(leastDamagedIndex, &pObjTmp) ){
 				gpItemPointer = &pObjTmp;									// pick up the object (or stack)
 				DoAttachment((UINT8)gubPopupStatusIndex, guiPopupItemPos);	// try to attach it
-				//gpItemPointer = NULL;										// dont drop it!
+
+				// If attaching failed, change mouse cursor to item as we're still holding it
+				if ( gpItemPointer->exists() ) {
+					// Set mouse
+					guiExternVo = GetInterfaceGraphicForItem(&(Item[gpItemPointer->usItem]));
+					gusExternVoSubIndex = Item[gpItemPointer->usItem].ubGraphicNum;
+
+					MSYS_ChangeRegionCursor(&gMPanelRegion, EXTERN_CURSOR);
+					MSYS_SetCurrentCursor(EXTERN_CURSOR);
+					fMapInventoryItem = TRUE;
+					fTeamPanelDirty = TRUE;
+
+					//Dirty interface
+					fInterfacePanelDirty = DIRTYLEVEL2;
+
+					UpdateItemHatches();
+				}
 
 				gItemDescAttachmentPopups[giActiveAttachmentPopup]->hide();
 				RenderItemDescriptionBox();
