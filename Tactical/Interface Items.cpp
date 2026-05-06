@@ -643,7 +643,7 @@ void popupCallbackItem(INT16 itemId){
 				i++;p++;
 			}
 
-			OBJECTTYPE pObjTmp;
+			static OBJECTTYPE pObjTmp;
 			pObjTmp.initialize();
 
 			if( bestStack->RemoveObjectAtIndex(leastDamagedIndex, &pObjTmp) ){
