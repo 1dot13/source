@@ -713,6 +713,10 @@ void RemoveCorpse( INT32 iCorpseID )
 	DeleteAniTile( gRottingCorpse[ iCorpseID ].pAniTile );
 
 	FreeCorpsePalettes( &( gRottingCorpse[ iCorpseID ] ) );
+
+	const auto sGridNo = gRottingCorpse[iCorpseID].def.sGridNo;
+	auto pStructure = FindLastStructure(sGridNo, STRUCTURE_CORPSE);
+	DeleteStructureFromWorld(pStructure);
 }
 
 BOOLEAN CreateCorpsePalette( ROTTING_CORPSE *pCorpse )
