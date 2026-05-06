@@ -1428,6 +1428,7 @@ STRUCTURE * SwapStructureForPartnerForcingGraphicalChange( INT32 sGridNo, STRUCT
 }
 #endif
 
+// Finds the first structure with matching flag
 STRUCTURE * FindStructure( INT32 sGridNo, UINT32 fFlags )
 {
 	// finds a structure that matches any of the given flags
@@ -1449,6 +1450,33 @@ STRUCTURE * FindStructure( INT32 sGridNo, UINT32 fFlags )
 		pCurrent = pCurrent->pNext;
 	}
 	return( NULL );
+}
+
+// Finds the last structure with matching flag
+STRUCTURE* FindLastStructure(INT32 sGridNo, UINT32 fFlags)
+{
+	// finds a structure that matches any of the given flags
+	STRUCTURE* pCurrent;
+	STRUCTURE* pLastMatch = nullptr;
+
+	//bug fix for win98 crash when traveling between sectors
+	if ( TileIsOutOfBounds(sGridNo) )
+	{
+		return(NULL);
+	}
+
+	pCurrent = gpWorldLevelData[sGridNo].pStructureHead;
+	while ( pCurrent != NULL )
+	{
+		if ( (pCurrent->fFlags & fFlags) != 0 )
+		{
+			pLastMatch = pCurrent;
+			//return(pCurrent);
+		}
+		pCurrent = pCurrent->pNext;
+	}
+
+	return(pLastMatch);
 }
 
 STRUCTURE * FindNextStructure( STRUCTURE * pStructure, UINT32 fFlags )

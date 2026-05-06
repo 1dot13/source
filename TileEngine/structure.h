@@ -47,6 +47,7 @@ BOOLEAN DeleteStructureFromWorld( STRUCTURE * pStructure );
 // functions to find a structure in a location
 //
 STRUCTURE * FindStructure( INT32 sGridNo, UINT32 fFlags );
+STRUCTURE* FindLastStructure(INT32 sGridNo, UINT32 fFlags);
 STRUCTURE * FindNextStructure( STRUCTURE * pStructure, UINT32 fFlags );
 STRUCTURE * FindStructureByID( INT32 sGridNo, UINT16 usStructureID );
 STRUCTURE * FindBaseStructure( STRUCTURE * pStructure );
