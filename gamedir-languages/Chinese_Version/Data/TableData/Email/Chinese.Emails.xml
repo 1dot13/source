@@ -59,7 +59,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
-		<Subject>RE：进展</Subject>
+		<Subject>关于：进展</Subject>
 		<Message>就我理解，好像你已经在我的国家建立了落脚点。考虑到你所面对的敌人以及她已经经营这些堡垒很长时间了，这是个值得称赞的开始。 ±</Message>
 		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
 	</EMAIL>
@@ -77,7 +77,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
-		<Subject>RE：挫败</Subject>
+		<Subject>关于：挫败</Subject>
 		<Message>我相信你会从挫败中恢复过来。这个消息，尽管让人难过，我希望只会更加坚定你的决心。Deidranna是个可怕的对手，这是我很清楚的。不要绝望。 ±</Message>
 		<Message>你忠实的， ± Enrico Chivaldori ±</Message>
 	</EMAIL>
@@ -193,47 +193,47 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<EMAIL>
 		<Sender>5</Sender>
 		<Subject>R.I.S 报告</Subject>
-		<Message>按照您的要求，您可以在这个邮件的附件里找到Arulco的背景资料文件。谢谢您选择我们的服务。 ± ± R.I.S ± ± <附件已移至文件区> ±</Message>
+		<Message>按照您的要求，您可以在这个邮件的附件里找到Arulco的背景资料文件。谢谢您选择我们的服务。 ± ± R.I.S ± ± &lt;附件已移至文件区&gt; ±</Message>
 	</EMAIL>
 	<!-- ############################## -->
 	<!-- MIS Insurance -->
 	<!-- ############################## -->
-	<!-- NOTE! The following emails contain special data, ie. string variables that get replaced during runtime. For them to work correctly, provide valid data to MoneyAmount & MercID parameters when adding them via lua scripts. -->
+	<!-- NOTE! The following emails contain special data，ie. string variables that get replaced during runtime. For them to work correctly，provide valid data to MoneyAmount & MercID parameters when adding them via lua scripts. -->
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>我们已经收到了一份来自A.I.M.的有关您的权益的索赔，是与$MERCNAME$的不幸死亡相关的。这个索赔已被核准，$AMOUN$现金已经直接存入您的帐户。 ±</Message>
-		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>我们收到了一份关于$MERCNAME$死亡的索赔文件。 ± ± 由于死亡原因可疑，这个索赔需要经过进一步调查。当调查结束您会接到通知以及赔偿决定。 ±</Message>
-		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>我们的调查已经结束。虽然有关$MERCNAME$的死亡某些细节尚不清楚，但我们决定支付全额赔偿金。 ± 请查收$AMOUN$现金已存入您的帐户。 ±</Message>
-		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>我们已经收到$MERCNAME$死亡索赔。由于您可疑的历史记录，您的此次索赔已经被定为需要完全彻底的调查。 ± ± 我们希望您保持耐心。在合理的期限内我们会做出决定。 ±</Message>
-		<Message>Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>经过全面的调查，我们遗憾地通知您，您的关于$MERCNAME$的死亡索赔已经被否决了。您可能知道，也可能不知道，您的保单中包含一些免责条款。请参照保单的相关条款了解详细内容。 ±</Message>
-		<Message>您忠实的， ± Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>您忠实的， ± Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>46</Sender>
 		<Subject>保险索赔：$MERCNAME$</Subject>
 		<Message>经过仔细调查，我们很遗憾地通知您，您对 $MERCNAME$ 的死亡抚恤金索赔已被拒绝。原因为所述对象死因违反了您签署的合同协议。有关详细信息，请参阅您保单的保单详情。±</Message>
-		<Message>您忠实的， ± Brian Smily ± Malleus, Incus and Stapes公司理赔经理 ±</Message>
+		<Message>您忠实的， ± Brian Smily ± Malleus，Incus and Stapes公司理赔经理 ±</Message>
 	</EMAIL>
 	<!-- ############################## -->
 	<!-- BOBBY RAY'S GUNS'N'THINGS -->
@@ -246,7 +246,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	</EMAIL>
 	<!-- Bobby Rays shipment arrival -->
 	<EMAIL>
-		<!-- NOTE! This email contains special data that gets replaced during runtime. For it to work correctly, provide a valid iCurrentShipmentDestinationID when adding it via lua scripts. -->
+		<!-- NOTE! This email contains special data that gets replaced during runtime. For it to work correctly，provide a valid iCurrentShipmentDestinationID when adding it via lua scripts. -->
 		<Sender>47</Sender>
 		<Subject>来自Bobby Ray网上武器店的发货通知</Subject>
 		<Message>这是由我们的发货系统软件自动产生的Email，在您的订货预定到达时间发出。 ±</Message>
@@ -314,7 +314,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Sender>49</Sender>
 		<Subject>呃，这真的很尴尬</Subject>
 		<Message>是我，俄亥俄州克利夫兰的John Kulba。谢谢你给我这个实现梦想的机会。± ± 还有个小问题，我在飞往Arulco的班机上不小心睡着了，错过了中转航班。 ±</Message>
-		<Message>我被困在了Tracona。尽快到你那儿，不过这可能会耽误一些时间。我可是费了九牛二虎之力才发出这条讯息，这个鬼地方连台能上网的电脑都找不到！, ± ± 回头见！， ± john kulba ±</Message>
+		<Message>我被困在了Tracona。尽快到你那儿，不过这可能会耽误一些时间。我可是费了九牛二虎之力才发出这条讯息，这个鬼地方连台能上网的电脑都找不到！，± ± 回头见！， ± john kulba ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>49</Sender>
@@ -365,7 +365,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Sender>51</Sender>
 		<Subject>令人兴奋的好消息</Subject>
 		<Message>我们Kerberus安保公司拥有大批训练有素的安保人员，并提供各种安保人员训练服务。通过最近的消息，我们了解到您迫切需要增强您的执法团队。 ±</Message>
-		<Message>如果确实是这样，我们非常乐意给您提供我们的服务。请在方便的时候登陆我们的主页http://www.kerberus.com 查看详细信息。 ± ± 总经理， ± Stan Duke, 竭诚为您服务 ±</Message>
+		<Message>如果确实是这样，我们非常乐意给您提供我们的服务。请在方便的时候登陆我们的主页http://www.kerberus.com 查看详细信息。 ± ± 总经理， ± Stan Duke，竭诚为您服务 ±</Message>
 	</EMAIL>
 	<!-- ############################## -->
 	<!-- Angel & Maria DaSilva -->
@@ -412,14 +412,14 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
-		<Subject>担心.</Subject>
+		<Subject>担心</Subject>
 		<Message>未知的末日随时可能落在我们头上,这感觉真是度日如年，恳求您尽快结束这一切。 ± ± Enrico Chivaldori ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>紧急</Subject>
 		<Message>Ricci矿业发现您了，估计也猜到了是我请您来的，Arulco已经成了他们的优先目标，您得加快进度了， 恐怕他们很快就会发动袭击，轰炸我们的同时警告周边国家不准轻举妄动。±</Message>
-		<Message>我知道这是并不轻松，但是情况紧急，请不惜代价阻止他们。. ± ± 诚心恳求, ± Enrico Chivaldori</Message>
+		<Message>我知道这是并不轻松，但是情况紧急，请不惜代价阻止他们。 ± ± 诚心恳求，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
@@ -442,51 +442,51 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Arulco，我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Arulco，我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
 		<Message>我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Arulco，我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
 		<Message>M我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
-		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而, Fatima是个坚强的妻子. 她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲, 他是英雄的儿子。 ±</Message>
+		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而，Fatima是个坚强的妻子。她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲，他是英雄的儿子。 ±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Arulco， 我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
 		<Message>我已经把好消息告诉了Miguel Cordona 他现在已经非常虚弱，估计过不了今晚了。但是，他面带微笑，非常平静，他将被永远铭记在Arulco的历史中。±</Message>
-		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次. 这样的好人真的很少。 ±</Message>
+		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次。这样的好人真的很少。 ±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
-		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而, Fatima是个坚强的妻子. 她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲, 他是英雄的儿子。 ±</Message>
+		<Message>Arulco，我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>Manuel的去世给Omerta带来了不可磨灭的阴影，然而，Fatima是个坚强的妻子。她能理解就像以往一样，要奋斗就会有牺牲。Pacos失去了父亲，他是英雄的儿子。 ±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>祝贺您</Subject>
-		<Message>Arulco, 我的国家, 在您的帮助下再次解放了. 您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
-		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次. 这样的好人真的很少。 ±</Message>
+		<Message>Arulco，我的国家，在您的帮助下再次解放了。您再次证明了您的经验和承诺能帮助那些弱小无助的国家。 我的人们都很感激像您这样优秀的士兵站在我们这边。 ±</Message>
+		<Message>我最近见到了Fatima， 她还在焦急的等待丈夫Manuel回来。和您一样，Manuel在不同的时间地点拯救了Arulco两次。这样的好人真的很少。 ±</Message>
 		<Message>周边国家得知导弹设施被摧毁后纷纷表示松了一口气，毫无疑问，导弹这种危险品只能带来灾难，现在，Ricci矿业公司不得不自己去处理手里那些危险的导弹。±</Message>
-		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意, ± Enrico Chivaldori</Message>
+		<Message>我以我最诚挚的谢意，感谢您的英勇表现，希望我们以后不再发生类似的事情，再也不用麻烦您来解决问题。 ± ± 最诚挚的谢意，± Enrico Chivaldori</Message>
 	</EMAIL>
 	<!-- IMP Emails -->
 	<EMAIL>
@@ -494,7 +494,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Subject>我们知道你在想什么</Subject>
 		<Message>² ³ ***了解自己*** ³ ³ 你最大的敌人是否就是自己？怎样最大限度的利用你的天赋？ ³</Message>
 		<Message>² ³ 发现你真实的自我…… ³</Message>
-		<Message>² ³ I.M.P. ³ ³ 佣兵心理剖析研究所 ³ ³ http://www.I.M.P.com ³</Message>
+		<Message>² ³ I.M.P ³ ³ 佣兵心理剖析研究所 ³ ³ http://www.I.M.P.com ³</Message>
 		<Message>五年以来我们一直分析雇佣军并得出准确的结果，我们提供国内和国外的军事服务，无论客户是财富500强公司，还是部落首领，我们知道你需要了解什么。 ±</Message>
 		<Message>你需要了解如何在战场生存，通过我们经过长时间考验的方法，不管是长处和弱点，还是冲锋撤退的时机，你都能像了解手中武器一样了解你自己。简单，可靠，实惠。 ±</Message>
 		<Message>通过五年来的不断探索和用户的回馈，再加上最新的科学分析法，我们简化了测试过程，再也不用填写大量表格回答各种问题。±</Message>
@@ -504,31 +504,31 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	</EMAIL>
 	<EMAIL>
 		<Sender>1</Sender>
-		<Subject>来自IMP的重要提示.</Subject>
+		<Subject>来自IMP的重要提示</Subject>
 		<Message>我们的自动的跟踪系统发现你并没有访问我们的网站， 你的激活密码GP97SL将很快过期， 我们建议你尽快访问网站，不要错失时机。±</Message>
 		<Message>我们佣兵心理剖析研究所诊断认为你对听起来太美好的事物持怀疑态度，希望你能正确评估我们的服务并把握住挽救自己生命的机会。 ±</Message>
-		<Message>我们知道你是个有主见的人，只需花费$3000, 再访问网站，我们就能提供更多的分析。 ±</Message>
-		<Message>立刻访问吧! ± ± 你不会后悔的. ± 我们已经在帮你了。 ±</Message>
+		<Message>我们知道你是个有主见的人，只需花费$3000，再访问网站，我们就能提供更多的分析。 ±</Message>
+		<Message>立刻访问吧! ± ± 你不会后悔的。± 我们已经在帮你了。 ±</Message>
 	</EMAIL>
 	<!-- Miguel Cordona -->
 	<EMAIL>
 		<Sender>53</Sender>
 		<Subject>好久不见老朋友</Subject>
 		<Message>不好意思这么晚才联系你，Enrico说你经常联系不上，很感激你这次能站在我们这边，你一定能解决这一切的，祝你好运。 ±</Message>
-		<Message>听说你会来处理这事的时候我的睡眠质量都提高了。± 衷心感谢, ± ± Miguel Cordona ±</Message>
+		<Message>听说你会来处理这事的时候我的睡眠质量都提高了。± 衷心感谢，± ± Miguel Cordona ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>53</Sender>
-		<Subject>抱歉.</Subject>
+		<Subject>抱歉</Subject>
 		<Message>我病了，当不成领导了，Enrico暂时取代我的职位，现在医生还没有对我的身体情况作出明确的评价。 ±</Message>
-		<Message>等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切, ± Miguel Cordona</Message>
+		<Message>等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切，± Miguel Cordona</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>53</Sender>
-		<Subject>抱歉.</Subject>
+		<Subject>抱歉</Subject>
 		<Message>我病了，当不成领导了，Enrico暂时取代我的职位，现在医生还没有对我的身体情况作出明确的评价。 ±</Message>
-		<Message>听说Manuel加入了你的队伍,. 他是个狠角色，对Arulco很忠诚，冒着生命危险在Tracona参军，到现在也没暴露。 ±</Message>
-		<Message>医生很快就要给出结果了，等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切, ± Miguel Cordona</Message>
+		<Message>听说Manuel加入了你的队伍。他是个狠角色，对Arulco很忠诚，冒着生命危险在Tracona参军，到现在也没暴露。 ±</Message>
+		<Message>医生很快就要给出结果了，等身体好些了,我就到Tracona来跟你并肩作战，想一想都激动啊。± ± 衷心感谢你所做的一切，± Miguel Cordona</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>53</Sender>
@@ -539,25 +539,25 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<!-- AIM -->
 	<EMAIL>
 		<Sender>50</Sender>
-		<Subject>A.I.M.老用户大优惠</Subject>
-		<Message>± 亲爱的贵宾, ± ± 介于目前市场行情变化， A.I.M. 决定给以前的老客户提供一个特殊的优惠. 我们提供一种全新的理念，不像某些竞争对手，提供低价格的低端人才。 ±</Message>
+		<Subject>A.I.M老用户大优惠</Subject>
+		<Message>± 亲爱的贵宾，± ± 介于目前市场行情变化， A.I.M 决定给以前的老客户提供一个特殊的优惠。我们提供一种全新的理念，不像某些竞争对手，提供低价格的低端人才。 ±</Message>
 		<Message>我们旗下所有高素质的佣兵，现在开始接受不限时任务！是的！不再按时计费，只需一次付费，即服务到任务结束为止。±</Message>
 		<Message>如果不够的话，还有优惠：一次付费包含佣兵的装备。是的，你没听错，现在佣兵的装备不另外收费了，一次付费，连人带抢都是你的了，直到任务结束。 ±</Message>
-		<Message>这是限时优惠哦，还在犹豫什么，赶紧访问 A.I.M. 的网站吧，你一定不会错过的。±</Message>
+		<Message>这是限时优惠哦，还在犹豫什么，赶紧访问 A.I.M 的网站吧，你一定不会错过的。±</Message>
 		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
 		<Message>注：本优惠只适用于老用户。 ± 在法律不允许的国家无效。± 不能与任何其他优惠同时使用。 ±佣兵数量有限，先到先得。</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>
-		<Subject>来自A.I.M.的限时优惠</Subject>
-		<Message>± 亲爱的贵宾, ± ± 非常荣幸的通知您，我们的限时优惠活动开始了！ 在指定之间内，凡是雇佣佣兵的客户都将获得限量版“切 · 格瓦拉“水壶一枚！ ±</Message>
+		<Subject>来自A.I.M的优惠</Subject>
+		<Message>± 亲爱的贵宾，± ± 非常荣幸的通知您，我们的限时优惠活动开始了！ 在指定之间内，凡是雇佣佣兵的客户都将获得限量版“切 · 格瓦拉“水壶一枚！ ±</Message>
 		<Message>锡制纯手工打造，附带羊毛水壶套， 装满来自阿尔卑斯山的清凉泉水！只要下次雇佣我们的佣兵，立刻免费赠送！ ±</Message>
 		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>50</Sender>
-		<Subject>来自A.I.M.的限时优惠</Subject>
-		<Message>± 亲爱的贵宾, ±±我们知道，在目前市场竞争如此激烈的情况下，作为客户有时会被各种宣传弄昏头。 ±</Message>
+		<Subject>来自A.I.M的限时优惠</Subject>
+		<Message>± 亲爱的贵宾，±±我们知道，在目前市场竞争如此激烈的情况下，作为客户有时会被各种宣传弄昏头。 ±</Message>
 		<Message>所以，我们在此作出新的优惠，您肯定想象不到这次的礼物：来自Sam Garver's短吻鳄牧场礼品店的、正宗原版的战斗匕首， 由Sam Garver亲笔签名的限量版。±</Message>
 		<Message>锋利的镀锌刀身，经典的鲨皮刀柄，这把匕首就像我们的佣兵一样可靠，记住，只要下次在A.I.M.雇佣佣兵，就能获得这份礼物！ ±</Message>
 		<Message>你真诚的， ± ± Howard "Carp" Melfield ± 营销经理 ± 国际佣兵协会 ±</Message>
@@ -566,16 +566,16 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Sender>50</Sender>
 		<Subject>费用支取通知</Subject>
 		<Message>根据A.I.M合约中关于出发前解雇的条款，$MERCNAME$的所有费用已从你的账户中支取。 ±</Message>
-		<Message>对此引起的任何不便，我们深表歉意。± ± Hans Yorgan ± Director of A.I.M. Personnel ±</Message>
+		<Message>对此引起的任何不便，我们深表歉意。± ± Hans Yorgan ± Director of A.I.M Personnel ±</Message>
 	</EMAIL>
 	<!-- Speck -->
 	<EMAIL>
 		<Sender>4</Sender>
-		<Subject>来自 M.E.R.C.的大优惠</Subject>
+		<Subject>来自 M.E.R.C的大优惠</Subject>
 		<Message>你好，± ±成为 M.E.R.C 客户的好处是，由创始人直接为你服务，而像其他机构，只有冷冰冰的接待员、前佣兵、客户经理。 ±</Message>
 		<Message>我现在直接向你提供优惠，只要你下次雇佣了M.E.R.C的佣兵，即获得纪念手表一枚。 ±</Message>
 		<Message>在技能高超的宝岛钟表技师的精心打造下， 表盘上的身穿比基尼的Flo将用四肢来指示时间，把心爱的女孩带在手腕上冲锋陷阵吧，防水、防震、日历功能样样不缺。±</Message>
-		<Message>9点15分是福利，相信我。. ± ± Speck T. Kline ±</Message>
+		<Message>9点15分是福利，相信我。 ± ± Speck T. Kline ±</Message>
 	</EMAIL>
 	<EMAIL>
 		<Sender>4</Sender>

@@ -508,7 +508,7 @@
 		<uiIndex>63</uiIndex>
 		<szItemName>火焰喷射器</szItemName>
 		<szLongItemName>火焰喷射器</szLongItemName>
-		<szItemDesc>对不起，我们没让这样一种大杀器进入到游戏里。</szItemDesc>
+		<szItemDesc>一款使用凝固汽油为燃料的便携式火焰喷射器。它或许不是市面上最可靠的武器，但无疑是一种可怕且极具破坏力的武器。</szItemDesc>
 		<szBRName>火焰喷射器</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
@@ -7275,7 +7275,7 @@
 	<ITEM>
 		<uiIndex>909</uiIndex>
 		<szItemName>AICW榴弹发射器</szItemName>
-		<szLongItemName>AICW榴弹发射器</szLongItemName>
+		<szLongItemName>AICW榴弹发射器(内置)</szLongItemName>
 		<szItemDesc>操作起来就象是用电脑去触发焰火筒一样，金属风暴榴弹系统或许是最轻、体积最小巧的多发榴弹发射器。</szItemDesc>
 		<szBRName>AICW榴弹发射器</szBRName>
 		<szBRDesc>与AICW整合在一起的40mm榴弹发射器。</szBRDesc>
@@ -7283,7 +7283,7 @@
 	<ITEM>
 		<uiIndex>910</uiIndex>
 		<szItemName>F2000榴弹发射器</szItemName>
-		<szLongItemName>F2000榴弹发射器</szLongItemName>
+		<szLongItemName>F2000榴弹发射器(内置)</szLongItemName>
 		<szItemDesc>与FN F2000整合在一起的40mm榴弹发射器。</szItemDesc>
 		<szBRName>F2000榴弹发射器</szBRName>
 		<szBRDesc>与FN F2000整合在一起的40mm榴弹发射器。</szBRDesc>
@@ -7291,7 +7291,7 @@
 	<ITEM>
 		<uiIndex>911</uiIndex>
 		<szItemName>GP-25榴弹发射器</szItemName>
-		<szLongItemName>GP-25“Kostyor”榴弹发射器</szLongItemName>
+		<szLongItemName>GP-25“Kostyor”榴弹发射器(内置)</szLongItemName>
 		<szItemDesc>与Groza整合在一起的40mmGP-25 Kostyor榴弹发射器。可发射40mmVOG-25和VOG-25P榴弹。</szItemDesc>
 		<szBRName>GP-25榴弹发射器</szBRName>
 		<szBRDesc>与Groza整合在一起的40mmGP-25 Kostyor榴弹发射器。</szBRDesc>
@@ -7299,7 +7299,7 @@
 	<ITEM>
 		<uiIndex>912</uiIndex>
 		<szItemName>OICW榴弹发射器</szItemName>
-		<szLongItemName>OICW榴弹发射器</szLongItemName>
+		<szLongItemName>OICW榴弹发射器(内置)</szLongItemName>
 		<szItemDesc>与XM-29 OICW整合在一起的20mm榴弹发射器。</szItemDesc>
 		<szBRName>OICW榴弹发射器</szBRName>
 		<szBRDesc>与XM-29 OICW整合在一起的20mm榴弹发射器。</szBRDesc>
@@ -7954,10 +7954,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>994</uiIndex>
-		<szItemName>闪光手弹</szItemName>
-		<szLongItemName>闪光手弹</szLongItemName>
+		<szItemName>闪光手雷</szItemName>
+		<szLongItemName>闪光手雷</szLongItemName>
 		<szItemDesc>可以使目标瞬间致盲5秒，最好在室内使用，夜间在室外也有一定的效果。</szItemDesc>
-		<szBRName>闪光手弹</szBRName>
+		<szBRName>闪光手雷</szBRName>
 		<szBRDesc>强烈的闪光刺激视网膜，瞬间致盲，大概5秒后才逐渐恢复视力。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12195,10 +12195,10 @@
 	<ITEM>
 		<uiIndex>1524</uiIndex>
 		<szItemName>绊线</szItemName>
-		<szLongItemName>绊线</szLongItemName>
+		<szLongItemName>绊线(标准)</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
 		<szBRName>绊线</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRDesc>标准绊线，引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1525</uiIndex>
@@ -12274,10 +12274,10 @@
 	</ITEM>
 	<ITEM>
 		<uiIndex>1534</uiIndex>
-		<szItemName>绊线烟雾手弹</szItemName>
-		<szLongItemName>绊线烟雾手弹</szLongItemName>
+		<szItemName>绊线烟雾手雷</szItemName>
+		<szLongItemName>绊线烟雾手雷</szLongItemName>
 		<szItemDesc>装配了绊线的烟雾弹，构造简单，但是十分有效的特殊地雷。</szItemDesc>
-		<szBRName>绊线烟雾手弹</szBRName>
+		<szBRName>绊线烟雾手雷</szBRName>
 		<szBRDesc>BR不卖这个,如果你看到了说明这物品来自于黑市。</szBRDesc>
 	</ITEM>
 	<ITEM>
@@ -12678,56 +12678,56 @@
 		<szItemName>东北M18阔刀地雷</szItemName>
 		<szLongItemName>东北M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>东北M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1585</uiIndex><!-->东方向（仅用于地图编辑器）-->
 		<szItemName>东M18阔刀地雷</szItemName>
 		<szLongItemName>东M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>东M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1586</uiIndex><!-->东南方向（仅用于地图编辑器）-->
 		<szItemName>东南M18阔刀地雷</szItemName>
 		<szLongItemName>东南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>东南M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1587</uiIndex><!-->南方向（仅用于地图编辑器）-->
 		<szItemName>南M18阔刀地雷</szItemName>
 		<szLongItemName>南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>南M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1588</uiIndex><!-->西南方向（仅用于地图编辑器）-->
 		<szItemName>西南M18阔刀地雷</szItemName>
 		<szLongItemName>西南M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>西南M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1589</uiIndex><!-->西方向（仅用于地图编辑器）-->
 		<szItemName>西M18阔刀地雷</szItemName>
 		<szLongItemName>西M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>西M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1590</uiIndex><!-->西北方向（仅用于地图编辑器）-->
 		<szItemName>西北M18阔刀地雷</szItemName>
 		<szLongItemName>西北M18阔刀地雷</szLongItemName>
 		<szItemDesc>M18定向反步兵地雷既可以由绊线引爆，也可以远程引爆，也可以作为普通地雷被引爆。引爆后内置的700颗钢珠会从设定的60度范围内发射出去，最大高度可达2米。小贴士：正面向敌人。</szItemDesc>
-		<szBRName>西北M18阔刀地雷</szBRName>
-		<szBRDesc>用绊线网和这些可爱的小家伙们布置下天罗地网吧。可以远程引爆。设错方向导致自己人伤亡我们可不负责任。</szBRDesc>
+		<szBRName>M18阔刀地雷非卖品</szBRName>
+		<szBRDesc>在地图编辑器中作为定向炸弹或作为敌人绊网网络的一部分使用。若被发现并拆除，可变回标准阔剑。</szBRDesc>
 	</ITEM>
 	<!-- 绊线物品项，这些仅用于地图编辑器，不应在其他情况下使用。-->
 	<ITEM>
@@ -12735,120 +12735,120 @@
 		<szItemName>绊线A</szItemName>
 		<szLongItemName>绊线A</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线A</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线A非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1592</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线B</szItemName>
 		<szLongItemName>绊线B</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线B</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线B非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1593</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线C</szItemName>
 		<szLongItemName>绊线C</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线C</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线C非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1594</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线D</szItemName>
 		<szLongItemName>绊线D</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线D</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线D非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1595</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线E</szItemName>
 		<szLongItemName>绊线E</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线E</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线E非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1596</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线F</szItemName>
 		<szLongItemName>绊线F</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线F</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线F非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1597</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线G</szItemName>
 		<szLongItemName>绊线G</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线G</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线G非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1598</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线H</szItemName>
 		<szLongItemName>绊线H</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线H</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线H非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1599</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线I</szItemName>
 		<szLongItemName>绊线I</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线I</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线I非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1600</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线J</szItemName>
 		<szLongItemName>绊线J</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线J</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线J非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1601</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线K</szItemName>
 		<szLongItemName>绊线K</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线K</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线K非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1602</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线L</szItemName>
 		<szLongItemName>绊线L</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线L</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线L非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1603</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线M</szItemName>
 		<szLongItemName>绊线M</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线M</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线M非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1604</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线N</szItemName>
 		<szLongItemName>绊线N</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线N</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线N非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1605</uiIndex>   <!--（仅用于地图编辑器）-->
 		<szItemName>绊线O</szItemName>
 		<szLongItemName>绊线O</szLongItemName>
 		<szItemDesc>如果你想布置一个错综复杂的地雷网，那么你需要绊线连接各种设备。你知道你该怎么做。</szItemDesc>
-		<szBRName>绊线O</szBRName>
-		<szBRDesc>引爆地雷专用绊线。每米仅售10刀，本周特价！</szBRDesc>
+		<szBRName>绊线O非卖品</szBRName>
+		<szBRDesc>在铺设绊网时使用内部构件，但也可能作为此类网络的（剩余）物品被发现。如果被发现，可以将其恢复为标准绊网。</szBRDesc>
 	</ITEM>
 	<ITEM>
 		<uiIndex>1606</uiIndex>
@@ -13126,7 +13126,7 @@
 		<uiIndex>1640</uiIndex>
 		<szItemName>绊线卷</szItemName>
 		<szLongItemName>绊线卷</szLongItemName>
-		<szItemDesc>可以直接从这个线卷中拉取并设置绊线。</szItemDesc>
+		<szItemDesc>这卷绊线可直接部署，用于构建精密复杂的连环地雷系统。也可根据需要剪裁所需长度，用于其他战术用途。</szItemDesc>
 		<szBRName>绊线卷</szBRName>
 		<szBRDesc>一卷绊线，你可以用它们将你的房子，车子和熟睡的猫团团围住。</szBRDesc>
 	</ITEM>
@@ -14201,5 +14201,13 @@
 		<szItemDesc>轻便野战帽</szItemDesc>
 		<szBRName>轻便野战帽</szBRName>
 		<szBRDesc>这款轻便野战帽舒适实用，休闲活动或准军事行动皆宜，多色可选。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1775</uiIndex>
+		<szItemName>M82A1</szItemName>
+		<szLongItemName>Barrett M82A1</szLongItemName>
+		<szItemDesc>82A1型步枪正是你所期待的巴雷特步枪。它性能可靠，设计精良。</szItemDesc>
+		<szBRName>Barrett M82A1</szBRName>
+		<szBRDesc>M82A1型步枪是一款结实耐用、性能可靠的半自动步枪。简而言之，它之所以备受推崇，是因为其在战场环境中表现卓绝。这款步枪采用.50 BMG弹药，威力十足。</szBRDesc>
 	</ITEM>
 </ITEMLIST>

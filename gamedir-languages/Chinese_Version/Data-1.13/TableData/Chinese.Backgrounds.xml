@@ -437,9 +437,9 @@
 	<!-- Robot -->
 	<BACKGROUND>
 		<uiIndex>62</uiIndex>
-		<szName>空的</szName>
-		<szShortName>空的</szShortName>
-		<szDescription>无背景</szDescription>
+		<szName>Robot</szName>
+		<szShortName>Robot</szShortName>
+		<szDescription>诞生于谷仓，仅凭一堆破烂零件拼装而成的这台机械作战单元，在它的创造者眼中，至少代表着未来战争的全新形态……</szDescription>
 	</BACKGROUND>
 	<!-- Hamous -->
 	<BACKGROUND>

@@ -248,4 +248,8 @@
 		<uiSlotIndex>61</uiSlotIndex>
 		<szSlotName>MOLLE背包第4排中</szSlotName>
 	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>62</uiSlotIndex>
+		<szSlotName>电池</szSlotName>
+	</ATTACHMENTSLOT>
 </ATTACHMENTSLOTLIST>
