@@ -396,8 +396,8 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 
 	L"疾病抗性 %s%d%%\n",//L" %s%d%% disease resistance\n",
 	L"食物消耗 %s%d%%\n",//L" %s%d%% food consumption\n",
-	L"水 消 耗 %s%d%%\n",//L" %s%d%% water consumption\n",
-	L"回避几率 +%d%%\n",	//L"+%d%% snake evasion\n", 
+	L"水消耗 %s%d%%\n",//L" %s%d%% water consumption\n",
+	L"闪避蛇类 +%d%%\n",	//L"+%d%% snake evasion\n", 
     L"迷彩涂装效果 +%d%%\n",// L"+%d%s camouflage effectiveness\n",
 };
 

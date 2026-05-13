@@ -9385,7 +9385,7 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%％ 对人员治疗疾病的效率 \n", //L" %s%d%% effectiveness at treating population against diseases\n",
 	L" 能够发现%d格之内的脚印 \n", //L"Can spot tracks up to %d tiles away\n",
 	L" %s%d%％ 被伏击时的初始距离 \n", //L" %s%d%% initial distance to enemy in ambush\n",
-	L" %s%d%％ 几率回避攻击 \n",	//L" %s%d%% chance to evade snake attacks\n",
+	L" %s%d%％ 闪避蛇类攻击 \n",	//L" %s%d%% chance to evade snake attacks\n",
 
 	L" 对某些其他背景的厌恶 \n", //L" dislikes some other backgrounds\n",
 	L" 吸烟者", //L"Smoker",
