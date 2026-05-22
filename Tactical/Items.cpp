@@ -3879,13 +3879,11 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 	// Flugente: check for underbarrel weapons and use that object if necessary
 	pObj = pSoldier->GetUsedWeapon( &(pSoldier->inv[HANDPOS]) );
+	pObj2 = NULL;
+
     if (pSoldier->IsValidSecondHandShotForReloadingPurposes()) //check for valid second hand weapon for reloading purposes (something that doesn't use ammo)
 	{
 		pObj2 = pSoldier->GetUsedWeapon( &(pSoldier->inv[SECONDHANDPOS]) );
-	}
-	else
-	{
-        pObj2 = NULL;
 	}
 	// Greysa: Check if weapon is jammed and unjam it first
 	if ((*pObj)[0]->data.gun.bGunAmmoStatus < 0 || ((pObj2 != NULL) && (*pObj2)[0]->data.gun.bGunAmmoStatus < 0))
@@ -4015,10 +4013,8 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 
 		PlayJA2Sample( Weapon[ Item[pObj->usItem].ubClassIndex ].ManualReloadSound, RATE_11025, SoundVolume( HIGHVOLUME, pSoldier->sGridNo ), 1, SoundDir( pSoldier->sGridNo ) );
 
-		if (pObj2 != NULL)//( pSoldier->IsValidSecondHandShot( ) )
+		if (pObj2 != NULL)
 		{
-			//pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
-
 			if ((*pObj2)[0]->data.gun.ubGunShotsLeft && !((*pObj2)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 			{
 				(*pObj2)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
@@ -4030,10 +4026,8 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 	}
 	else
 	{
-		if (pObj2 != NULL)//( pSoldier->IsValidSecondHandShot( ) )
+		if (pObj2 != NULL)
 		{
-			//pObj2 = &(pSoldier->inv[SECONDHANDPOS]);
-
 			if ((*pObj2)[0]->data.gun.ubGunShotsLeft && !((*pObj2)[0]->data.gun.ubGunState & GS_CARTRIDGE_IN_CHAMBER) )
 			{
 				(*pObj2)[0]->data.gun.ubGunState |= GS_CARTRIDGE_IN_CHAMBER;
@@ -4089,11 +4083,9 @@ BOOLEAN AutoReload( SOLDIERTYPE * pSoldier, bool aReloadEvenIfNotEmpty )
 		// if we are valid for two-pistol shooting (reloading) and we have enough APs still
 		// then do a reload of both guns!
 		// Flugente: only reload if it's empty, or we really want to
-		if ( pObj2 != NULL //pSoldier->IsValidSecondHandShotForReloadingPurposes()
-			&& ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS ) ) )
+		if ( pObj2 != NULL && ( aReloadEvenIfNotEmpty || !EnoughAmmo( pSoldier, FALSE, SECONDHANDPOS ) ) )
 		{
 			// Flugente: check for underbarrel weapons and use that object if necessary
-			//pObj2 = pSoldier->GetUsedWeapon( &( pSoldier->inv[SECONDHANDPOS] ) );
 
 			bSlot = FindAmmoToReload( pSoldier, SECONDHANDPOS, NO_SLOT );
 			if ( bSlot != NO_SLOT )
