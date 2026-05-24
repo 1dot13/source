@@ -2363,9 +2363,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"%s 已经完全的探索了 %s。",	//L"%s has fully explored %s."
 
 	// The first %s is a merc name and the second %s is an item name
-	L"%s unjammed %s.",
-	L"%s failed to unjam %s.",
-	L"%s does not have enough APs to unjam %s."
+	L"%s 排除了 %s 的故障。",	//L"%s unjammed %s.",
+	L"%s 未能排除 %s 的故障。",	//L"%s failed to unjam %s.",
+	L"%s 的行动点数不足以排除 %s 的故障。",	//L"%s does not have enough APs to unjam %s.",
 };
 
 // the country and its noun in the game
