@@ -2158,7 +2158,8 @@ void HandleRenderFaceAdjustments( FACETYPE *pFace, BOOLEAN fDisplayBuffer, BOOLE
 			}
 
 			// Flugente: drag stuff
-			if (pSoldier->IsDragging())
+			// pass false: this is a UI query, it must not cancel the drag / reposition the body
+			if (pSoldier->IsDragging( false ))
 			{
 				DoRightIcon(uiRenderBuffer, pFace, sFaceX, sFaceY, bNumRightIcons, 31);
 				++bNumRightIcons;

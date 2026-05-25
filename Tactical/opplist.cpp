@@ -5427,7 +5427,8 @@ UINT8 MovementNoise(SOLDIERTYPE *pSoldier)
 	}
 
 	// sevenfm: if dragging something, add dragging sound volume
-	if(pSoldier->IsDragging())
+	// pass false: this is a noise query, it must not cancel the drag / reposition the body
+	if(pSoldier->IsDragging( false ))
 	{
 		sVolume = max(sVolume, MAX_MOVEMENT_NOISE / 2 + Random(MAX_MOVEMENT_NOISE) + bGroundVolumeModifier);
 	}

@@ -3157,7 +3157,8 @@ UINT32 CalculateCarriedWeight( SOLDIERTYPE * pSoldier, BOOLEAN fConsiderDragging
 	UINT32	uiTotalWeight = GetTotalWeight( pSoldier );
 
 	// Flugente: if we drag someone, add their weight to ours
-	if ( fConsiderDragging && pSoldier->IsDragging() )
+	// pass false: this is a weight query, it must not cancel the drag / reposition the body
+	if ( fConsiderDragging && pSoldier->IsDragging( false ) )
 	{
 		if (pSoldier->usDragPersonID != NOBODY)
 		{
