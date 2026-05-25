@@ -3356,7 +3356,8 @@ if(!GridNoOnVisibleWorldTile(iDestination))
 				}
 
 				// Flugente: dragging someone
-				if ( s->IsDragging( ) )
+				// pass false: this is a cost query, it must not cancel the drag / reposition the body mid-pathfind
+				if ( s->IsDragging( false ) )
 				{
 					ubAPCost *= gItemSettings.fDragAPCostModifier;
 				}
@@ -4472,7 +4473,8 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 					}
 				
 					// Flugente: dragging someone
-					if ( pSold->IsDragging( ) )
+					// pass false: this is a cost query, it must not cancel the drag / reposition the body mid-pathfind
+					if ( pSold->IsDragging( false ) )
 					{
 						sMovementAPsCost *= gItemSettings.fDragAPCostModifier;
 					}
@@ -4583,7 +4585,8 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 				}
 
 				// Flugente: dragging someone
-				if ( pSold->IsDragging() )
+				// pass false: this is a cost query, it must not cancel the drag / reposition the body mid-pathfind
+				if ( pSold->IsDragging( false ) )
 				{
 					sPointsWalk *= gItemSettings.fDragAPCostModifier;
 					sPointsCrawl *= gItemSettings.fDragAPCostModifier;

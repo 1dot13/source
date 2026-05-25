@@ -553,7 +553,8 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			sPoints *= gItemSettings.fShieldMovementAPCostModifier;
 
 		// Flugente: dragging someone
-		if ( pSoldier->IsDragging( ) )
+		// pass false: this is a cost query, it must not cancel the drag / reposition the body
+		if ( pSoldier->IsDragging( false ) )
 			sPoints *= gItemSettings.fDragAPCostModifier;
 
 		// Flugente: scuba fins reduce movement cost in water, but increase cost on land
@@ -4006,7 +4007,8 @@ INT16 GetAPsStartRun( SOLDIERTYPE *pSoldier )
 	if ( pSoldier->IsRiotShieldEquipped( ) )
 		val *= gItemSettings.fShieldMovementAPCostModifier;
 
-	if ( pSoldier->IsDragging( ) )
+	// pass false: this is a cost query, it must not cancel the drag / reposition the body
+	if ( pSoldier->IsDragging( false ) )
 		val *= gItemSettings.fDragAPCostModifier;
 
 	// Athletics trait
