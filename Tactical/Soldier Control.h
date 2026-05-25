@@ -2056,7 +2056,7 @@ public:
 	BOOLEAN		CanDragPerson(SoldierID usID, BOOLEAN fCheckStance = FALSE);
 	BOOLEAN		CanDragCorpse(UINT16 usCorpseNum, BOOLEAN fCheckStance = FALSE);
 	BOOLEAN		CanDragStructure(INT32 sGridNo, BOOLEAN fCheckStance = FALSE);
-	BOOLEAN		IsDragging(bool aStopIfConditionNotSatisfied = true);
+	BOOLEAN		IsDragging(bool aStopIfConditionNotSatisfied = false);
 	void		SetDragOrderPerson( SoldierID usID );
 	void		SetDragOrderCorpse( UINT32 uiCorpseID );
 	void		SetDragOrderStructure( INT32 sGridNo );
