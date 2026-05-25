@@ -2221,7 +2221,7 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 			// sevenfm: also stop dragging
 			if (gusSelectedSoldier != NOBODY &&
 				gusSelectedSoldier &&
-				gusSelectedSoldier->IsDragging(false))
+				gusSelectedSoldier->IsDragging())
 			{
 				gusSelectedSoldier->CancelDrag();
 				DirtyMercPanelInterface(gusSelectedSoldier, DIRTYLEVEL2);

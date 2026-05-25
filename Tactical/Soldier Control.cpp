@@ -9046,7 +9046,7 @@ void CalculateSoldierAniSpeed( SOLDIERTYPE *pSoldier, SOLDIERTYPE *pStatsSoldier
 	}
 
 	// Flugente: drag people
-	if ( pSoldier->IsDragging( false ) )
+	if ( pSoldier->IsDragging() )
 	{
 		pSoldier->sAniDelay = gItemSettings.fDragAPCostModifier * pSoldier->sAniDelay;
 	}
@@ -11516,7 +11516,7 @@ void SOLDIERTYPE::MoveMerc( FLOAT dMovementChange, FLOAT dAngle, BOOLEAN fCheckR
 
 	// Flugente: as we move a tile, we would now be too far away to drag someone.
 	// So remember whether we were dragging (we have to set our position now, otherwise the person we drag woul soon occupy our gridno).
-	BOOLEAN currentlydragging = this->IsDragging();
+	BOOLEAN currentlydragging = this->IsDragging(true);
 	INT32 sOldGridNo = this->sGridNo;
 
 	// OK, set new position
@@ -24226,7 +24226,7 @@ BOOLEAN SOLDIERTYPE::CanBreakWindow(void)
 
 BOOLEAN SOLDIERTYPE::CanStartDrag(void)
 {
-	if (!this->IsDragging(false) && this->CanDragInPrinciple())
+	if (!this->IsDragging() && this->CanDragInPrinciple())
 	{
 		INT32 sNewGridNo = NewGridNo(this->sGridNo, DirectionInc(this->ubDirection));
 

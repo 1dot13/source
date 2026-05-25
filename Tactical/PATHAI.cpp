@@ -1380,7 +1380,7 @@ INT16 AStarPathfinder::CalcAP(int const terrainCost, UINT8 const direction)
 	}
 
 	// Flugente: dragging someone
-	if ( pSoldier->IsDragging( false ) )
+	if ( pSoldier->IsDragging() )
 	{
 		movementAPCost *= gItemSettings.fDragAPCostModifier;
 	}
