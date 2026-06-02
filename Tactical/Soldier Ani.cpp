@@ -4223,7 +4223,7 @@ BOOLEAN HandleSoldierDeath( SOLDIERTYPE *pSoldier , BOOLEAN *pfMadeCorpse )
 		}
 
 		// Flugente: VIPs
-		if ( pSoldier->usSoldierFlagMask & SOLDIER_VIP )
+		if (ISVIP(pSoldier))
 		{
 			DeleteVIP( pSoldier->sSectorX, pSoldier->sSectorY );
 		}
