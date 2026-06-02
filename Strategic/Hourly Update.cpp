@@ -158,7 +158,6 @@ CHAR16	zString[128];
 	
 	HourlyDrugUpdate();
 
-	RebelCommand::HourlyUpdate();
 
 	// WANNE: This check should avoid the resaving of a loaded auto-save game, when entering tactical
 	BOOLEAN doAutoSave = TRUE;
@@ -169,6 +168,10 @@ CHAR16	zString[128];
 
 	if (doAutoSave)
 	{
+		// We're also using the doAutoSave check to prevent RebelCommand::DailyUpdate() from running a second time when loading an autosave at 00:00
+		RebelCommand::HourlyUpdate();
+
+
 		if ( AutoSaveToSlot[1] == FALSE && AutoSaveToSlot[2] == FALSE && AutoSaveToSlot[3] == FALSE && AutoSaveToSlot[4] == FALSE )
 			AutoSaveToSlot[0] = TRUE;
 
