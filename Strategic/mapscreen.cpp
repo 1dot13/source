@@ -8472,6 +8472,12 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 											if ( HandleNailsVestFetish( pSoldier, i, NOTHING ) )
 												continue;
 
+											// tais: never strip Madlab's robot of its installed components (ammo,
+											// targeting, chassis/armour, utility) - the player can't re-install them
+											// and the robot would be left defenceless. Only its cargo slot may be emptied.
+											if ( AM_A_ROBOT( pSoldier ) && i != ROBOT_INVENTORY_SLOT )
+												continue;
+
 											AutoPlaceObjectInInventoryStash(&pSoldier->inv[i], pSoldier->sGridNo, pSoldier->pathing.bLevel);
 											DeleteObj(&pSoldier->inv[i]);
 										}
