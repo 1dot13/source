@@ -4948,7 +4948,7 @@ static void CollectRepairableItems(SOLDIERTYPE* pRepairSoldier, SOLDIERTYPE* pSo
 			// Check for attachments (are there stackable items that can take attachments though?)
 			UINT8 attachmentIndex = 0;
 			for (attachmentList::const_iterator iter = (*pObj)[stackIndex]->attachments.begin(); iter != (*pObj)[stackIndex]->attachments.end(); ++iter, ++attachmentIndex) {
-				if (IsItemRepairable(pRepairSoldier, iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
+				if ( iter->exists() && IsItemRepairable(pRepairSoldier, iter->usItem, (*iter)[attachmentIndex]->data.objectStatus, (*iter)[attachmentIndex]->data.sRepairThreshold )) {
 					// Send the main item, not the attachment
 					RepairItem item(pObj, pSoldier, (INVENTORY_SLOT) pocketIndex);
 					itemsToFix.push(item);

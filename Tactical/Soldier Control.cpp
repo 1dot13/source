@@ -14668,7 +14668,7 @@ void SOLDIERTYPE::SoldierInventoryCoolDown( void )
 				attachmentList::iterator iterend = (*pObj)[0]->attachments.end( );
 				for ( attachmentList::iterator iter = (*pObj)[0]->attachments.begin( ); iter != iterend; ++iter )
 				{
-					if ( Item[iter->usItem].usFlashLightRange )
+					if ( iter->exists() && Item[iter->usItem].usFlashLightRange )
 						flashlightfound = TRUE;
 				}
 			}

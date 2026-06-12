@@ -10073,7 +10073,7 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 			UINT16 iFinalProtectionValue = iProtectionValue;
 			for (attachmentList::iterator iter = (*gpItemDescObject)[0]->attachments.begin(); iter != (*gpItemDescObject)[0]->attachments.end(); ++iter) 
 			{
-				if (Item[ iter->usItem ].usItemClass == IC_ARMOUR)
+				if ( iter->exists() && Item[ iter->usItem ].usItemClass == IC_ARMOUR)
 				{
 					iFinalProtectionValue += Armour[Item[iter->usItem].ubClassIndex].ubProtection;
 				}
@@ -10099,7 +10099,7 @@ void DrawArmorValues( OBJECTTYPE * gpItemDescObject )
 				UINT16 iComparedFinalProtectionValue = iComparedProtectionValue;
 				for (attachmentList::iterator iter = (*gpComparedItemDescObject)[0]->attachments.begin(); iter != (*gpComparedItemDescObject)[0]->attachments.end(); ++iter) 
 				{
-					if (Item[ iter->usItem ].usItemClass == IC_ARMOUR)
+					if ( iter->exists() && Item[ iter->usItem ].usItemClass == IC_ARMOUR)
 					{
 						iComparedFinalProtectionValue += Armour[Item[iter->usItem].ubClassIndex].ubProtection;
 					}

@@ -2162,7 +2162,7 @@ BOOLEAN ItemHasAttachments( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier, UINT8 ite
 				{
 					for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
 					{
-						if ( att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
+						if ( att->exists() && att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
 						{
 							attachmentHidden = FALSE;
 							break;
@@ -2178,7 +2178,7 @@ BOOLEAN ItemHasAttachments( OBJECTTYPE * pObj, SOLDIERTYPE * pSoldier, UINT8 ite
 			{
 				for(attachmentList::iterator att = (*pObj)[iter]->attachments.begin(); att != (*pObj)[iter]->attachments.end(); ++att)
 				{
-					if ( att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
+					if ( att->exists() && att->usItem != 0 && !ItemIsHiddenAttachment(att->usItem) )
 					{
 						attachmentHidden = FALSE;
 						break;
@@ -5658,7 +5658,7 @@ BOOLEAN OBJECTTYPE::AttachObjectNAS( SOLDIERTYPE * pSoldier, OBJECTTYPE * pAttac
 
 				//Madd: if the attaching/merging item had any attachments on it, then try to move them to the first result
 				for (attachmentList::iterator iter = (*pAttachment)[0]->attachments.begin(); iter != (*pAttachment)[0]->attachments.end();) {
-					if( ValidItemAttachmentSlot(this, iter->usItem, TRUE, FALSE, subObject )){
+					if( iter->exists() && ValidItemAttachmentSlot(this, iter->usItem, TRUE, FALSE, subObject )){
 						//This seems to be rather valid. Can't be 100% sure though.
 						OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
 						CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
@@ -5995,7 +5995,7 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 
 				//Start by trying to re-attach inseperable items.  They take precedence over items that can normally be removed
 				for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
-					if(Item[iter->usItem].inseparable && ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, 0, -1, 0, NULL, usAttachmentSlotIndexVector)){
+					if( iter->exists() && Item[iter->usItem].inseparable && ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, 0, -1, 0, NULL, usAttachmentSlotIndexVector)){
 						//This seems to be rather valid. Can't be 100% sure though.
 						if(pObj->AttachObject(NULL, &(*iter), FALSE, 0, -1, FALSE, usAttachmentSlotIndexVector)){
 							//Ok now we can be sure, lets remove this object so we don't try to drop it later.
@@ -6009,7 +6009,7 @@ void RemoveProhibitedAttachments(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16
 				}
 				//Try to attach all the other attachments that didn't fit their current slot.
 				for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
-					if(ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, 0, -1, 0, NULL, usAttachmentSlotIndexVector)){
+					if( iter->exists() && ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, 0, -1, 0, NULL, usAttachmentSlotIndexVector)){
 						//This seems to be rather valid. Can't be 100% sure though.
 						if(pObj->AttachObject(NULL, &(*iter), FALSE, 0, -1, FALSE, usAttachmentSlotIndexVector)){
 							//Ok now we can be sure, lets remove this object so we don't try to drop it later.
@@ -6185,7 +6185,7 @@ attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 
 
 	//First re-attach any slot-changing attachments.
 	for (attachmentList::iterator iter = tempSlotChangingAttachList.begin(); iter != tempSlotChangingAttachList.end();) {
-		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex )){
+		if( iter->exists() && ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex )){
 			//This seems to be rather valid. Can't be 100% sure though.
 			OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
 			CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
@@ -6202,7 +6202,7 @@ attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 
 
 	//Time to re-attach the other attachments, if we can. I am the king of copy pasta.
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end();) {
-		if( ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex)){
+		if( iter->exists() && ValidItemAttachmentSlot(pObj, iter->usItem, TRUE, FALSE, ubStatusIndex)){
 			//This seems to be rather valid. Can't be 100% sure though.
 			OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
 			CreateItem(iter->usItem, (*iter)[0]->data.objectStatus, &tempAttachment);
@@ -6219,7 +6219,7 @@ attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 
 
 	//drop all items we couldn't re-attach.
 	for (attachmentList::iterator iter = tempSlotChangingAttachList.begin(); iter != tempSlotChangingAttachList.end(); ++iter) {
-		if ( Item[iter->usItem].inseparable != 1)
+		if ( iter->exists() && Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
 				OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
@@ -6237,7 +6237,7 @@ attachmentList ReInitMergedItem(SOLDIERTYPE* pSoldier, OBJECTTYPE* pObj, UINT16 
 	}
 	//and the rest too
 	for (attachmentList::iterator iter = tempAttachList.begin(); iter != tempAttachList.end(); ++iter) {
-		if ( Item[iter->usItem].inseparable != 1)
+		if ( iter->exists() && Item[iter->usItem].inseparable != 1)
 		{//WarmSteel - Couldn't re-attach this item, try to drop it.
 			if (pSoldier) {
 				OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
@@ -13223,7 +13223,7 @@ INT16 GetMinRangeForAimBonus( SOLDIERTYPE* pSoldier, OBJECTTYPE * pObj )
 		attachmentList::iterator iterend = (*pObj)[0]->attachments.end();
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != iterend; ++iter) 
 		{
-			if ( !gGameExternalOptions.fScopeModes || !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT ) )
+			if ( !gGameExternalOptions.fScopeModes || (iter->exists() && !IsAttachmentClass(iter->usItem, AC_SCOPE|AC_SIGHT|AC_IRONSIGHT )) )
 				bonus += Item[iter->usItem].minrangeforaimbonus;
 		}
 	}
@@ -15180,7 +15180,7 @@ BOOLEAN OBJECTTYPE::TransformObject( SOLDIERTYPE * pSoldier, UINT8 ubStatusIndex
 			// I am the prince of copy pasta ;)
 			for (attachmentList::iterator iter = unattachableList.begin(); iter != unattachableList.end();)
 			{
-				if( ValidItemAttachmentSlot(&gTempObject, iter->usItem, TRUE, FALSE, ubStatusIndex ))
+				if( iter->exists() && ValidItemAttachmentSlot(&gTempObject, iter->usItem, TRUE, FALSE, ubStatusIndex ))
 				{
 					//This seems to be rather valid. Can't be 100% sure though.
 					OBJECTTYPE tempAttachment; // Madd:  we must recreate the attachments because they may themselves have default inseparable attachments...
@@ -15868,7 +15868,7 @@ INT32 GetPercentRangeBonus( OBJECTTYPE * pObj )
 			bonus = ( bonus * ( 100 +  Item[(*pObj)[0]->data.gun.usGunAmmoItem].percentrangebonus ) ) / 100;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ))
+			if ( iter->exists() && !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ))
 				bonus = ( bonus * ( 100 +  BonusReduce( Item[iter->usItem].percentrangebonus, (*iter)[0]->data.objectStatus ) ) ) / 100;
 		}
 	}

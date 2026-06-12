@@ -1062,7 +1062,7 @@ INT32 EffectiveArmourLBE( OBJECTTYPE * pObj )
 	iValue = 0;
 	
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 		{
 			INT32 iValue2;
 
@@ -1088,7 +1088,7 @@ INT32 ExplosiveEffectiveArmourLBE( OBJECTTYPE * pObj )
 	iValue = 0;
 	
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 		{
 			INT32 iValue2;
 
@@ -2560,7 +2560,7 @@ BOOLEAN UseGunNCTH( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			for (attachmentList::iterator iter = (*pObjAttHand)[0]->attachments.begin(); iter != (*pObjAttHand)[0]->attachments.end(); ++iter) 
 			{
-				if (ItemHasHiddenMuzzleFlash(iter->usItem))
+				if ( iter->exists() && ItemHasHiddenMuzzleFlash(iter->usItem))
 				{
 					OBJECTTYPE* pA=	&(*iter);
 					if ( (*pA)[0]->data.objectStatus >=USABLE)
@@ -3346,7 +3346,7 @@ BOOLEAN UseGun( SOLDIERTYPE *pSoldier , INT32 sTargetGridNo )
 		{
 			for (attachmentList::iterator iter = (*pObjUsed)[0]->attachments.begin(); iter != (*pObjUsed)[0]->attachments.end(); ++iter) 
 			{
-				if (ItemHasHiddenMuzzleFlash(iter->usItem))
+				if ( iter->exists() && ItemHasHiddenMuzzleFlash(iter->usItem))
 				{
 					OBJECTTYPE* pA=	&(*iter);
 					if ( (*pA)[0]->data.objectStatus >=USABLE)
@@ -7993,7 +7993,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 		if (iSlot == VESTPOS && pVestPack->exists() == true)
 		{
 			for (attachmentList::iterator iter = (*pVestPack)[0]->attachments.begin(); iter != (*pVestPack)[0]->attachments.end(); ++iter) {
-				if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
+				if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 				{
 					INT32 protection = ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
 
