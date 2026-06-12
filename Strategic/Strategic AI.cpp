@@ -4886,7 +4886,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				BOOLEAN fAttack_Grumm		= !(SectorInfo[ SEC_H3 ].ubNumTroops > 0);
 				BOOLEAN fAttack_Cambria		= !(SectorInfo[ SEC_H8 ].ubNumTroops > 0);
 				BOOLEAN fCambriaSAMOccupied	= !(SectorInfo[ SEC_I8 ].ubNumTroops > 0);
-				BOOLEAN fAttack_Alma		= !(SectorInfo[ SEC_I13 ].ubNumTroops > 0);
+				BOOLEAN fAttack_Alma			= !(SectorInfo[ SEC_I13 ].ubNumTroops > 0);
 				BOOLEAN fAttack_Balime		= !(SectorInfo[ SEC_L11 ].ubNumTroops > 0);
 				BOOLEAN fAttack_Chitzena 	= !(SectorInfo[ SEC_B2 ].ubNumTroops > 0);
 			
