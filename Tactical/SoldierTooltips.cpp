@@ -147,7 +147,7 @@ void SoldierTooltip( SOLDIERTYPE* pSoldier )
 		{
 			OBJECTTYPE* pObject = &(gusSelectedSoldier->inv[HANDPOS]);
 			for (attachmentList::iterator iter = (*pObject)[0]->attachments.begin(); iter != (*pObject)[0]->attachments.end(); ++iter) {
-				if ( Item[iter->usItem].visionrangebonus > 0 && iter->exists())
+				if ( iter->exists() && Item[iter->usItem].visionrangebonus > 0 )
 				{
 					fMercIsUsingScope = TRUE;
 					break;

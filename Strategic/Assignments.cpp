@@ -5081,7 +5081,7 @@ OBJECTTYPE* FindRepairableItemInSpecificPocket(SOLDIERTYPE * pSoldier, OBJECTTYP
 	// have to check for attachments after...
 	for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
 		// if it's repairable and NEEDS repairing
-		if ( IsItemRepairable( pSoldier, iter->usItem, (*iter)[subObject]->data.objectStatus, (*iter)[subObject]->data.sRepairThreshold ) && iter->exists() ) {
+		if ( iter->exists() && IsItemRepairable( pSoldier, iter->usItem, (*iter)[subObject]->data.objectStatus, (*iter)[subObject]->data.sRepairThreshold ) ) {
 			return( &(*iter) );
 		}
 	}

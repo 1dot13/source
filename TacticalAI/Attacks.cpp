@@ -2207,7 +2207,7 @@ INT32 EstimateShotDamage(SOLDIERTYPE *pSoldier, SOLDIERTYPE *pOpponent, INT16 ub
 
 	// check for ceramic plates; these do affect monster spit
 	for (attachmentList::iterator iter = pOpponent->inv[VESTPOS][0]->attachments.begin(); iter != pOpponent->inv[VESTPOS][0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists() )
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 		{
 			iTorsoProt += (INT32) Armour[Item[iter->usItem].ubClassIndex].ubProtection *
 				(INT32) (*iter)[0]->data.objectStatus / 100;
