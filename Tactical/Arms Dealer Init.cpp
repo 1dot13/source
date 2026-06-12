@@ -1423,7 +1423,7 @@ void AddObjectToArmsDealerInventory( UINT8 ubArmsDealer, OBJECTTYPE *pObject )
 		for (attachmentList::iterator iter = seperateObject[0]->attachments.begin(); iter != seperateObject[0]->attachments.end();) {
 			// ARM: Note: this is only used for selling, not repairs, so attachmentes are seperated when sold to a dealer
 			// If the attachment is detachable
-			if (! (Item[ iter->usItem ].inseparable	) && iter->exists())
+			if (! (iter->exists() && Item[ iter->usItem ].inseparable))
 			{
 				// add this particular attachment (they can't be imprinted, or themselves have attachments!)
 				AddObjectToArmsDealerInventory( ubArmsDealer, &(*iter) );
@@ -1931,7 +1931,7 @@ UINT32 CalculateObjectItemRepairTime( UINT8 ubArmsDealer, OBJECTTYPE *pItemObjec
 		// add time to repair any attachments on it
 		for (attachmentList::iterator iter = (*pItemObject)[x]->attachments.begin(); iter != (*pItemObject)[x]->attachments.end(); ++iter) {
 			// if damaged and repairable
-			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) && iter->exists())
+			if ( iter->exists() && ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) )
 			{
 				//uiRepairTime += CalculateSimpleItemRepairTime( ubArmsDealer, iter->usItem, (*iter)[x]->data.objectStatus );
 				uiRepairTime += CalculateObjectItemRepairTime( ubArmsDealer, &(*iter) );
@@ -1988,7 +1988,7 @@ UINT32 CalculateObjectItemRepairCost( UINT8 ubArmsDealer, OBJECTTYPE *pItemObjec
 		// add cost of repairing any attachments on it
 		for (attachmentList::iterator iter = (*pItemObject)[x]->attachments.begin(); iter != (*pItemObject)[x]->attachments.end(); ++iter) {
 			// if damaged and repairable
-			if ( ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) && iter->exists())
+			if ( iter->exists() && ( (*iter)[x]->data.objectStatus < 100 ) && CanDealerRepairItem( ubArmsDealer, iter->usItem ) )
 			{
 				uiRepairCost += CalculateObjectItemRepairCost( ubArmsDealer, &(*iter));
 			}

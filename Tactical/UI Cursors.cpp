@@ -2081,7 +2081,7 @@ UINT8 HandleNonActivatedTossCursor( SOLDIERTYPE *pSoldier, INT32 sGridNo, BOOLEA
 				//sevenfm this should be checked only for guns because we can throw items with attached explosives
 				if(Item[pObj->usItem].usItemClass & IC_WEAPON )
 				for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-					if ( Item[ iter->usItem ].usItemClass & IC_EXPLOSV && iter->exists())
+					if ( iter->exists() && Item[ iter->usItem ].usItemClass & IC_EXPLOSV )
 					{
 						pObject = &(*iter);
 						break;

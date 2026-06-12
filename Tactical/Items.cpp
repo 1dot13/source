@@ -1995,7 +1995,7 @@ OBJECTTYPE* FindAttachment( OBJECTTYPE * pObj, UINT16 usItem, UINT8 subObject )
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
-			if (iter->usItem == usItem && iter->exists())
+			if ( iter->exists() && iter->usItem == usItem )
 			{
 				return &(*iter);
 			}
@@ -2008,7 +2008,7 @@ OBJECTTYPE* FindAttachmentByClass( OBJECTTYPE * pObj, UINT32 uiItemClass, UINT8 
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].usItemClass == uiItemClass && iter->exists())
+			if ( iter->exists() && Item[iter->usItem].usItemClass == uiItemClass )
 			{
 				return &(*iter);
 			}
@@ -2021,7 +2021,7 @@ OBJECTTYPE* FindAttachmentByAttachmentClass( OBJECTTYPE * pObj, UINT32 uiAttachm
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[subObject]->attachments.begin(); iter != (*pObj)[subObject]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].attachmentclass == uiAttachmentClass && iter->exists())
+			if ( iter->exists() && Item[iter->usItem].attachmentclass == uiAttachmentClass )
 			{
 				return &(*iter);
 			}
@@ -2139,7 +2139,7 @@ OBJECTTYPE* FindNonSmokeLaunchableAttachment( OBJECTTYPE * pObj, UINT16 usWeapon
 
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ValidLaunchable( iter->usItem, usWeapon) && Explosive[Item[iter->usItem].ubClassIndex].ubType != EXPLOSV_SMOKE && iter->exists())
+			if ( iter->exists() && ValidLaunchable( iter->usItem, usWeapon) && Explosive[Item[iter->usItem].ubClassIndex].ubType != EXPLOSV_SMOKE )
 			{
 				return &(*iter);
 			}
@@ -10422,7 +10422,7 @@ BOOLEAN NCTHIsScoped( OBJECTTYPE * pObj )
 			return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( Item[iter->usItem].scopemagfactor > 1.0 && iter->exists() )
+			if ( iter->exists() && Item[iter->usItem].scopemagfactor > 1.0 )
 				return TRUE;
 		}
 	}
@@ -10441,7 +10441,7 @@ BOOLEAN IsScoped( OBJECTTYPE * pObj )
 			return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( Item[iter->usItem].aimbonus > 0  && iter->exists())
+			if ( iter->exists() && Item[iter->usItem].aimbonus > 0 )
 				return TRUE;
 		}
 	}
@@ -10528,7 +10528,7 @@ INT16 GetBaseScopeAimBonus( OBJECTTYPE * pObj, INT32 iRange )
 	//Search for the most powerful scope we can use.
 	for(attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); iter++)
 	{
-		if(Item[iter->usItem].aimbonus > bonus && iRange >= Item[iter->usItem].minrangeforaimbonus && iter->exists())
+		if( iter->exists() && Item[iter->usItem].aimbonus > bonus && iRange >= Item[iter->usItem].minrangeforaimbonus )
 		{
 			bonus = Item[iter->usItem].aimbonus;
 		}
@@ -10606,7 +10606,7 @@ UINT32 FindRangeBonusAttachment( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (Item[iter->usItem].rangebonus > 0  && iter->exists())
+			if ( iter->exists() && Item[iter->usItem].rangebonus > 0 )
 			{
 				return( Item[iter->usItem].uiIndex );
 			}
@@ -10627,7 +10627,7 @@ INT16 GetRangeBonus( OBJECTTYPE * pObj )
 			bonus += Item[(*pObj)[0]->data.gun.usGunAmmoItem].rangebonus;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ) && iter->exists())
+			if ( iter->exists() && !ItemIsDuckbill(iter->usItem) || (ItemIsDuckbill(iter->usItem) && (*pObj)[0]->data.gun.ubGunAmmoType == AMMO_BUCKSHOT ) )
 				bonus += BonusReduce( Item[iter->usItem].rangebonus, (*iter)[0]->data.objectStatus );
 		}
 	}
@@ -12053,7 +12053,7 @@ BOOLEAN HasThermalOptics( SOLDIERTYPE * pSoldier )
 		OBJECTTYPE* pObj = &pSoldier->inv[HANDPOS];
 		if (pObj->exists() == true) {
 			for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-				if (ItemIsThermalOptics(iter->usItem) && iter->exists() )
+				if ( iter->exists() && ItemIsThermalOptics(iter->usItem) )
 					return TRUE;
 			}
 		}
@@ -12110,7 +12110,7 @@ BOOLEAN IsDuckbill( OBJECTTYPE * pObj )
 			return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsDuckbill(iter->usItem) && iter->exists() )
+			if ( iter->exists() && ItemIsDuckbill(iter->usItem) )
 			{
 				return( TRUE );
 			}
@@ -12161,7 +12161,7 @@ BOOLEAN IsDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( IsAttachmentClass( iter->usItem, AC_DETONATOR ) && iter->exists() )
+			if ( iter->exists() && IsAttachmentClass( iter->usItem, AC_DETONATOR ) )
 			{
 				return( TRUE );
 			}
@@ -12177,7 +12177,7 @@ BOOLEAN IsRemoteDetonatorAttached( OBJECTTYPE * pObj )
 		//	return TRUE;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if ( IsAttachmentClass( iter->usItem, AC_REMOTEDET ) && iter->exists() )
+			if ( iter->exists() && IsAttachmentClass( iter->usItem, AC_REMOTEDET ) )
 			{
 				return( TRUE );
 			}
@@ -12449,7 +12449,7 @@ OBJECTTYPE* FindAttachedBatteries( OBJECTTYPE * pObj )
 {
 	if (pObj->exists() == true) {
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (ItemIsBatteries(iter->usItem) && iter->exists())
+			if ( iter->exists() && ItemIsBatteries(iter->usItem) )
 			{
 				return( &(*iter) );
 			}
@@ -12681,7 +12681,7 @@ INT16 GetCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].camobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
+			if ( iter->exists() && !ItemIsCamoKit(iter->usItem) )
 				bonus += (INT16) (Item[iter->usItem].camobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12694,7 +12694,7 @@ INT16 GetUrbanCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].urbanCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
+			if ( iter->exists() && !ItemIsCamoKit(iter->usItem) )
 				bonus += (INT16) (Item[iter->usItem].urbanCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12707,7 +12707,7 @@ INT16 GetDesertCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].desertCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
+			if ( iter->exists() && !ItemIsCamoKit(iter->usItem) )
 				bonus += (INT16) (Item[iter->usItem].desertCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -12720,7 +12720,7 @@ INT16 GetSnowCamoBonus( OBJECTTYPE * pObj )
 		bonus = (Item[pObj->usItem].snowCamobonus);// * (WEAPON_STATUS_MOD((*pObj)[0]->data.objectStatus) / 100)) ;
 
 		for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-			if (!ItemIsCamoKit(iter->usItem) && iter->exists())
+			if ( iter->exists() && !ItemIsCamoKit(iter->usItem) )
 				bonus += (INT16) (Item[iter->usItem].snowCamobonus);// * (WEAPON_STATUS_MOD((*iter)[0]->data.objectStatus) / 100));
 		}
 	}
@@ -13165,7 +13165,7 @@ OBJECTTYPE* FindNightGogglesInInv( SOLDIERTYPE * pSoldier, INT8 * bSlot, BOOLEAN
 				if (searchAllInventory) {
 					for (UINT8 loop = 0; loop < pSoldier->inv[bLoop].ubNumberOfObjects; loop ++){
 						for (attachmentList::iterator iter = pSoldier->inv[bLoop][loop]->attachments.begin(); iter != pSoldier->inv[bLoop][loop]->attachments.end(); ++iter) {
-							if ( Item[ iter->usItem ].cavevisionrangebonus > bonusToBeat && Item[ iter->usItem ].usItemClass == IC_FACE && iter->exists() ) {
+							if ( iter->exists() && Item[ iter->usItem ].cavevisionrangebonus > bonusToBeat && Item[ iter->usItem ].usItemClass == IC_FACE ) {
 								pGoggles = &(*iter);
 								*bSlot = bLoop;
 								*isAttach = TRUE;
@@ -14141,7 +14141,7 @@ INT16 GetAverageBestLaserRange( OBJECTTYPE * pObj )
 	}
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 	{
-		if (Item[iter->usItem].bestlaserrange > 0 && iter->exists())
+		if ( iter->exists() && Item[iter->usItem].bestlaserrange > 0 )
 		{
 			numModifiers++;
 			bonus += (FLOAT) Item[iter->usItem].bestlaserrange;
@@ -14167,7 +14167,7 @@ INT16 GetBestLaserRange( OBJECTTYPE * pObj )
 	}
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 	{
-		if (Item[iter->usItem].bestlaserrange > range && iter->exists())
+		if ( iter->exists() && Item[iter->usItem].bestlaserrange > range )
 		{
 			range = Item[iter->usItem].bestlaserrange;
 		}

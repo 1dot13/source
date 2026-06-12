@@ -3031,7 +3031,7 @@ BOOLEAN RepairIsDone(DEALER_SPECIAL_ITEM* pSpecial)
 
 	// max condition of all permanent attachments on it
 	for (attachmentList::iterator iter = RepairItem.ItemObject[0]->attachments.begin(); iter != RepairItem.ItemObject[0]->attachments.end(); ++iter) {
-		if ( CanDealerRepairItem( gbSelectedArmsDealerID, iter->usItem ) && iter->exists())
+		if ( iter->exists() && CanDealerRepairItem( gbSelectedArmsDealerID, iter->usItem ) )
 		{
 			// fix it up
 			(*iter)[0]->data.objectStatus = 100;

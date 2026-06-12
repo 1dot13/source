@@ -6770,7 +6770,7 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 					pObj = &(pTeamSoldier->inv[gear]);
 					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						if ( Item[ iter->usItem ].nightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE && iter->exists())
+						if ( iter->exists() && Item[ iter->usItem ].nightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
 						{
 							pGoggles = &(*iter);
 							bestBonus = Item[ iter->usItem ].nightvisionrangebonus;
@@ -6818,7 +6818,7 @@ void SwapGogglesUniformly(SOLDIERTYPE *pTeamSoldier, BOOLEAN fToNightVision)
 					pObj = &(pTeamSoldier->inv[gear]);
 					for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter)
 					{
-						if ( Item[ iter->usItem ].brightlightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE && iter->exists())
+						if ( iter->exists() && Item[ iter->usItem ].brightlightvisionrangebonus > bestBonus && Item[ iter->usItem ].usItemClass == IC_FACE )
 						{
 							pGoggles = &(*iter);
 							bestBonus = Item[ iter->usItem ].brightlightvisionrangebonus;

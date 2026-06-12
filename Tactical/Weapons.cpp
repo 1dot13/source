@@ -1036,7 +1036,7 @@ INT32 EffectiveArmour( OBJECTTYPE * pObj )
 	iValue = iValue * (*pObj)[0]->data.objectStatus * Armour[ Item[pObj->usItem].ubClassIndex ].ubCoverage / 10000;
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 		{
 			INT32 iValue2;
 
@@ -1214,7 +1214,7 @@ INT32 ExplosiveEffectiveArmour( OBJECTTYPE * pObj )
 	}
 
 	for (attachmentList::iterator iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 		{
 			INT32 iValue2;
 
@@ -1295,7 +1295,7 @@ INT16 FireEffectiveArmour( OBJECTTYPE * pObj )
 	
 	for ( attachmentList::iterator iter = ( *pObj )[0]->attachments.begin(); iter != ( *pObj )[0]->attachments.end(); ++iter )
 	{
-		if ( Item[iter->usItem].usItemClass == IC_ARMOUR && ( *iter )[0]->data.objectStatus > 0 && iter->exists() )
+		if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && ( *iter )[0]->data.objectStatus > 0 )
 		{
 			iValue += Item[iter->usItem].sFireResistance * ( *iter )[0]->data.objectStatus / 100;
 		}
@@ -5111,7 +5111,7 @@ BOOLEAN UseLauncher( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo )
 	pObj = &(pSoldier->inv[HANDPOS]);
 	attachmentList::iterator iter;
 	for (iter = (*pObj)[0]->attachments.begin(); iter != (*pObj)[0]->attachments.end(); ++iter) {
-		if ( Item[ iter->usItem ].usItemClass & IC_EXPLOSV && iter->exists())
+		if ( iter->exists() && Item[ iter->usItem ].usItemClass & IC_EXPLOSV )
 		{
 			break;
 		}
@@ -8025,7 +8025,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 			if (pArmour->exists() == true)
 			{
 				for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-					if (Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 && iter->exists())
+					if ( iter->exists() && Item[iter->usItem].usItemClass == IC_ARMOUR && (*iter)[0]->data.objectStatus > 0 )
 					{
 						// bullet got through jacket; apply ceramic plate armour
 						INT32 protection = ArmourProtection( pTarget, Item[iter->usItem].ubClassIndex, &((*iter)[0]->data.objectStatus), iImpact, ubAmmoType, &plateHit );
@@ -8071,7 +8071,7 @@ INT32 TotalArmourProtection( SOLDIERTYPE * pTarget, UINT8 ubHitLocation, INT32 i
 					{
 						//Madd: put any attachments that someone might have added to the armour in the merc's inventory
 						for (attachmentList::iterator iter = (*pArmour)[0]->attachments.begin(); iter != (*pArmour)[0]->attachments.end(); ++iter) {
-							if ( !AutoPlaceObject( pTarget, &(*iter), FALSE ) && iter->exists())
+							if ( iter->exists() && !AutoPlaceObject( pTarget, &(*iter), FALSE ) )
 							{   // put it on the ground
 								AddItemToPool( pTarget->sGridNo, &(*iter), 1, pTarget->pathing.bLevel, 0 , -1 );
 							}

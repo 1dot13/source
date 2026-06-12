@@ -171,7 +171,7 @@ INT32 GetSpreadPattern( OBJECTTYPE * pObj )
 	//If there are attachments, check them.  Stop on the first one with something defined.
 	//Dear God, I hate C++ iterators.  What a fugly mess. //WarmSteel - I made it even messier ;3
 	for (attachmentList::iterator iter = pObj[0][0]->attachments.begin(); iter != pObj[0][0]->attachments.end(); ++iter){
-		if( (n=Item[ iter->usItem ].spreadPattern) && iter->exists()){
+		if( iter->exists() && (n=Item[ iter->usItem ].spreadPattern) ){
 				//An attachment has it, and it trumps everything, so return it's value.
 			return n;}
 	}
