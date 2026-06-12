@@ -4881,7 +4881,7 @@ void ExecuteStrategicAIAction( UINT16 usActionCode, INT16 sSectorX, INT16 sSecto
 				}
 								
 				// depending on which cities the player currently holds, we send out attack on multiple cities. We try to make these attacks occur simultaneously, so the player will have to fend off
-				// multiple gigantic attacks on different cities. Ideally, the attacks will be timed so well that the player cannot use a sqaud in both battles, even with use of the helicopter
+				// multiple gigantic attacks on different cities. Ideally, the attacks will be timed so well that the player cannot use a squad in both battles, even with use of the helicopter
 				// we first have to check which cities we have to attack. For that, we simply check wether there are troops in the target sector. If not, we will attack here
 				BOOLEAN fAttack_Grumm		= !(SectorInfo[ SEC_H3 ].ubNumTroops > 0);
 				BOOLEAN fAttack_Cambria		= !(SectorInfo[ SEC_H8 ].ubNumTroops > 0);
