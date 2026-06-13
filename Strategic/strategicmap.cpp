@@ -6461,7 +6461,7 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 			TeamDropAll( MILITIA_TEAM );
 
 			// Save the current sectors Item list to a temporary file, if its not the first time in
-			SaveCurrentSectorsInformationToTempItemFile( );
+			SaveCurrentSectorsInformationToTempItemFile( FALSE );
 
 			// Update any mercs currently in sector, their profile info...
 			UpdateSoldierPointerDataIntoProfile( FALSE );
@@ -6477,7 +6477,7 @@ BOOLEAN HandleDefiniteUnloadingOfWorld( UINT8 ubUnloadCode )
 		}
 
 		//Save the current sectors open temp files to the disk
-		if ( !SaveCurrentSectorsInformationToTempItemFile( ) )
+		if ( !SaveCurrentSectorsInformationToTempItemFile( FALSE ) )
 		{
 			ScreenMsg( FONT_MCOLOR_WHITE, MSG_TESTVERSION, L"ERROR in SaveCurrentSectorsInformationToTempItemFile()" );
 			return FALSE;
@@ -6624,7 +6624,7 @@ BOOLEAN CheckAndHandleUnloadingOfCurrentWorld( )
 			TeamDropAll( MILITIA_TEAM, TRUE );
 
 			// Save the current sectors Item list to a temporary file, if its not the first time in
-			SaveCurrentSectorsInformationToTempItemFile( );
+			SaveCurrentSectorsInformationToTempItemFile( FALSE );
 
 			return FALSE;
 		}

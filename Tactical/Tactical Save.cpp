@@ -992,7 +992,7 @@ BOOLEAN AddItemsToUnLoadedSector(INT16 sMapX, INT16 sMapY, INT8 bMapZ, INT32 sGr
 extern BOOLEAN gfInMeanwhile;
 extern BOOLEAN EnableModifiedFileSetCache(BOOLEAN value);
 
-BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
+BOOLEAN SaveCurrentSectorsInformationToTempItemFile(BOOLEAN saveGame)
 {
 	BOOLEAN fShouldBeInMeanwhile = FALSE;
 	if( gfWasInMeanwhile )
@@ -1026,7 +1026,11 @@ BOOLEAN SaveCurrentSectorsInformationToTempItemFile( )
 	// handle all reachable before save
 	HandleAllReachAbleItemsInTheSector( gWorldSectorX, gWorldSectorY, gbWorldSectorZ );
 	UpdateWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ, guiNumWorldItems, gWorldItems);
-	PruneWorldItems();
+
+	if (saveGame)
+	{
+		PruneWorldItems();
+	}
 
 	std::vector<ROTTING_CORPSE_DEFINITION> corpsedefvector;
 

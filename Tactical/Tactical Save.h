@@ -44,7 +44,7 @@ BOOLEAN GetNumberOfWorldItemsFromTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bM
 UINT32 GetNumberOfMovableItems( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 //Saves the Current Sectors, ( world Items, rotting corpses, ... )  to the temporary file used to store the sectors items
-BOOLEAN SaveCurrentSectorsInformationToTempItemFile( );
+BOOLEAN SaveCurrentSectorsInformationToTempItemFile( BOOLEAN saveGame );
 
 //Loads the Currents Sectors information ( world Items, rotting corpses, ... ) from the temporary file used to store the sectores items
 BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile();
