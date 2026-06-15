@@ -113,6 +113,7 @@ BOOLEAN FindFenceJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStar
 
 //Simply chooses a random gridno within valid boundaries (for dropping things in unloaded sectors)
 INT32 RandomGridNo();
+INT32 RandomGridNoUnloadedSector(INT32 worldRows, INT32 worldCols);
 
 extern UINT32 guiForceRefreshMousePositionCalculation;
 
