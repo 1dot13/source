@@ -138,7 +138,8 @@ void SaveMapLights( HWFILE hfile );
 void LoadMapLights( INT8 **hBuffer );
 
 // Global Variables
-MAP_ELEMENT			*gpWorldLevelData;
+MAP_ELEMENT* gpWorldLevelData;
+MAP_ELEMENT *gpWorldLevelDataAutoResolve;
 INT32						*gpDirtyData;
 UINT32					gSurfaceMemUsage;
 //UINT8						gubWorldMovementCosts[ WORLD_MAX ][MAXDIR][2];
@@ -3311,6 +3312,296 @@ BOOLEAN LoadWorld(const STR8 puiFilename, FLOAT* pMajorMapVersion, UINT8* pMinor
 	MemFree(bCounts);
 	return(TRUE);
 }
+
+// A stub LoadWorld function so we can read a sector's tile height values into gpWorldLevelDataAutoResolve[].sHeight and entrypoint gridnos into gMapInformationAutoResolve
+// They are needed when placing corpses and dropped items into a random gridno in an unloaded sector when we're finished with autoresolve battle.
+BOOLEAN LoadWorldInfoForAutoResolve(const STR8 puiFilename, INT32& iRowSize, INT32& iColSize)
+{
+	HWFILE hfile;
+	FLOAT dMajorMapVersion;
+	UINT8 ubMinorMapVersion;
+	UINT32 uiFlags;
+	UINT32 uiBytesRead;
+	UINT32 uiFileSize;
+	INT32 i, cnt, cnt2;
+	UINT8 ubType;
+	CHAR8 aFilename[2 * FILENAME_BUFLEN];
+	UINT8 ubCombine;
+	UINT8(*bCounts)[8] = NULL;
+	INT8* pBuffer;
+	INT8* pBufferHead;
+
+
+	// Append exension to filename!
+	if ( gfForceLoad )
+		sprintf(aFilename, "MAPS\\%s", gzForceLoadFile);
+	else
+		sprintf(aFilename, "MAPS\\%s", puiFilename);
+
+	// Open file
+	hfile = FileOpen(aFilename, FILE_ACCESS_READ);
+
+	if ( !hfile )
+	{
+#ifndef JA2EDITOR
+		SET_ERROR("Could not load map file %S", aFilename);
+#endif
+		return(FALSE);
+	}
+
+
+	// Get the file size and alloc one huge buffer for it. We will use this buffer to transfer all of the data from.
+	uiFileSize = FileGetSize(hfile);
+	pBuffer = (INT8*)MemAlloc(uiFileSize);
+	pBufferHead = pBuffer;
+	FileRead(hfile, pBuffer, uiFileSize, &uiBytesRead);
+	FileClose(hfile);
+
+
+	// Read JA2 Version ID
+	LOADDATA(&dMajorMapVersion, pBuffer, sizeof(FLOAT));
+	LOADDATA(&ubMinorMapVersion, pBuffer, sizeof(UINT8));
+
+	iRowSize = OLD_WORLD_ROWS;
+	iColSize = OLD_WORLD_COLS;
+	if ( dMajorMapVersion >= 7.00 )
+	{
+		LOADDATA(&iRowSize, pBuffer, sizeof(INT32));
+		LOADDATA(&iColSize, pBuffer, sizeof(INT32));
+	}
+
+	// Actual world size of the map we loaded!
+	INT32 iWorldSize = iRowSize * iColSize;
+	gMapTrn.ResizeTrnCfg(WORLD_ROWS, WORLD_COLS, iRowSize, iColSize);
+
+
+	// Initialize world data
+	if ( gpWorldLevelDataAutoResolve != NULL )
+		MemFree(gpWorldLevelDataAutoResolve);
+	gpWorldLevelDataAutoResolve = (MAP_ELEMENT*)MemAlloc(sizeof(MAP_ELEMENT) * WORLD_MAX);
+	memset(gpWorldLevelDataAutoResolve, 0, sizeof(MAP_ELEMENT) * WORLD_MAX);
+
+	bCounts = (UINT8(*)[8])MemAlloc(WORLD_MAX * 8);
+	memset(bCounts, 0, sizeof(UINT8) * WORLD_MAX * 8);
+
+
+	// Read FLAGS FOR WORLD
+	LOADDATA(&uiFlags, pBuffer, sizeof(INT32));
+	SKIPDATA(pBuffer, pBuffer, sizeof(INT32)); // TilesetID
+
+	// Load soldier size
+	SKIPDATA(pBuffer, pBuffer, sizeof(INT32));
+
+	// NOTE! We need this!
+	// Read height values
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		LOADDATA(&gpWorldLevelDataAutoResolve[cnt].sHeight, pBuffer, sizeof(INT16));
+	}
+
+	// Read layer counts
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		// Read combination of land/world flags
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][0] = (UINT8)(ubCombine & 0x0F);
+		gpWorldLevelDataAutoResolve[cnt].uiFlags |= (UINT8)((ubCombine & 0xF0) >> 4);
+		// Read #objects, structs
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][1] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][2] = (UINT8)((ubCombine & 0xF0) >> 4);
+		// Read shadows, roof
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][3] = (UINT8)(ubCombine & 0x0F);
+		bCounts[cnt][4] = (UINT8)((ubCombine & 0xF0) >> 4);
+		// Read OnRoof, nothing
+		LOADDATA(&ubCombine, pBuffer, sizeof(UINT8));
+		// Split
+		bCounts[cnt][5] = (UINT8)(ubCombine & 0x0F);
+	}
+
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][0]; cnt2++ )
+		{
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+		}
+	}
+
+	// New load require UINT16 for the type subindex due to the fact that ROADPIECES contain over 300 type subindices.
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		// Set objects
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][1]; cnt2++ )
+		{
+			LOADDATA(&ubType, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT16));
+
+			if ( ubType >= FIRSTPOINTERS )
+				continue;
+		}
+	}
+
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		// Set structs
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][2]; cnt2++ )
+		{
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+		}
+	}
+
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][3]; cnt2++ )
+		{
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+		}
+	}
+
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][4]; cnt2++ )
+		{
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+		}
+	}
+
+	for ( i = 0; i < iWorldSize; i++ )
+	{
+		gMapTrn.GetTrnCnt(cnt = i);
+		for ( cnt2 = 0; cnt2 < bCounts[cnt][5]; cnt2++ )
+		{
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+		}
+	}
+
+	// For old Russian Maps which have version 6.0
+	if ( dMajorMapVersion == 6.00 && ubMinorMapVersion < 27 )
+	{
+		UINT32 uiNums[37];
+		LOADDATA(uiNums, pBuffer, sizeof(INT32) * 37);
+		dMajorMapVersion = 5.00;
+	}
+	// For new maps
+	else if ( dMajorMapVersion == 6.00 && ubMinorMapVersion < 27 && MAJOR_MAP_VERSION == 6.00 )
+	{
+		UINT32 uiNums[37];
+		LOADDATA(uiNums, pBuffer, sizeof(UINT32) * 37);
+	}
+	//now the data is discarded and when saved, as 6.27, you won't have this problem!
+
+
+	for ( i = 0; i < iWorldSize; i++ ) {
+		// Read room information, 2 byte for new files
+		if ( ubMinorMapVersion < 29 ) {
+			SKIPDATA(pBuffer, pBuffer, sizeof(INT8));
+		}
+		else {
+			SKIPDATA(pBuffer, pBuffer, sizeof(UINT16));
+		}
+	}
+
+	// Load out item information
+	if ( uiFlags & MAP_WORLDITEMS_SAVED )
+	{
+		WORLDITEM dummyItem;
+		UINT32 uiNumWorldItems;
+
+		//Read the number of items that were saved in the map.
+		LOADDATA(&uiNumWorldItems, pBuffer, 4);
+
+		if ( gTacticalStatus.uiFlags & LOADING_SAVED_GAME && !gfEditMode )
+		{ //The sector has already been visited.	The items are saved in a different format that will be
+			//loaded later on.	So, all we need to do is skip the data entirely.
+			if ( dMajorMapVersion >= 6.0 && ubMinorMapVersion > 26 ) {
+				for ( unsigned int x = 0; x < uiNumWorldItems; ++x )
+				{
+					//ADB WORLDITEM's size on disk is unknown
+					dummyItem.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
+				}
+			}
+			else
+			{
+				pBuffer += sizeof(OLD_WORLDITEM_101) * uiNumWorldItems;
+			}
+		}
+		else for ( i = 0; i < uiNumWorldItems; i++ )
+		{
+			dummyItem.Load(&pBuffer, dMajorMapVersion, ubMinorMapVersion);
+		}
+	}
+
+	if ( uiFlags & MAP_AMBIENTLIGHTLEVEL_SAVED )
+	{
+		//Ambient light levels are only saved in underground levels
+		SKIPDATA(pBuffer, pBuffer, sizeof(BOOLEAN));
+		SKIPDATA(pBuffer, pBuffer, sizeof(BOOLEAN));
+		SKIPDATA(pBuffer, pBuffer, sizeof(UINT8));
+
+	}
+
+	if ( uiFlags & MAP_WORLDLIGHTS_SAVED )
+	{
+		SGPPaletteEntry	LColors[3];
+		UINT8 ubNumColors;
+		UINT16 usNumLights;
+		CHAR8	str[30];
+		UINT8 ubStrLen;
+		LIGHT_SPRITE	TmpLight;
+
+		// read in the light colors!
+		LOADDATA(&ubNumColors, pBuffer, 1);
+		LOADDATA(LColors, pBuffer, sizeof(SGPPaletteEntry) * ubNumColors);
+
+		LOADDATA(&usNumLights, pBuffer, 2);
+
+
+		for ( cnt = 0; cnt < usNumLights; cnt++ )
+		{
+			LOADDATA(&TmpLight, pBuffer, sizeof(LIGHT_SPRITE));
+			LOADDATA(&ubStrLen, pBuffer, 1);
+
+			if ( ubStrLen )
+			{
+				LOADDATA(str, pBuffer, ubStrLen);
+			}
+		}
+	}
+
+	gMapInformationAutoResolve.Load(&pBuffer, dMajorMapVersion);
+
+
+	// NOTE! We need these!
+	// Translation routine for map grid numbers
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sCenterGridNo);
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sIsolatedGridNo);
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sNorthGridNo);
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sEastGridNo);
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sWestGridNo);
+	gMapTrn.GetTrnCnt(gMapInformationAutoResolve.sSouthGridNo);
+
+	// Remove this rather large chunk of memory from the system now!
+	MemFree(pBufferHead);
+	MemFree(bCounts);
+	return(TRUE);
+}
+
 
 //****************************************************************************************
 //
