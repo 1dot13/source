@@ -2481,6 +2481,12 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 	DeleteVideoObjectFromIndex( gpAR->iIndent );
 	DeleteVideoSurfaceFromIndex( gpAR->iInterfaceBuffer );
 
+	// Load necessary mapinfo to place corpses
+	CHAR8 bFilename[50];
+	INT32 worldRows, worldCols;
+	GetMapFileName(gpAR->ubSectorX, gpAR->ubSectorY, 0, bFilename, TRUE, TRUE);
+	LoadWorldInfoForAutoResolve(bFilename, worldRows, worldCols);
+
 	if( fDeleteForGood )
 	{ //Delete the soldier instances -- done when we are completely finished.
 
@@ -2519,7 +2525,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 					RemoveCharacterFromSquads( gpMercs[ i ].pSoldier );
 					ChangeSoldiersAssignment( gpMercs[ i ].pSoldier, ASSIGNMENT_DEAD );
 
-					AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpMercs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
+					AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpMercs[ i ].pSoldier, RandomGridNoUnloadedSector(worldRows, worldCols), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 				}
 				else if( gpAR->ubBattleStatus == BATTLE_SURRENDERED || gpAR->ubBattleStatus == BATTLE_CAPTURED )
 				{
@@ -2624,7 +2630,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 			}
 
 			// Flugente: drop sector equipment
-			gpCivs[ i ].pSoldier->DropSectorEquipment();
+			const auto gridno = RandomGridNoUnloadedSector(worldRows, worldCols);
+			gpCivs[ i ].pSoldier->DropSectorEquipment(gridno);
 
 			if( fDeleteForGood && gpCivs[ i ].pSoldier->stats.bLife < OKLIFE/2 )
 			{
@@ -2649,7 +2656,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 					UpdateMilitia( militia );
 				}
 
-				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
+				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpCivs[ i ].pSoldier, gridno, ADD_DEAD_SOLDIER_TO_SWEETSPOT );
 				StrategicRemoveMilitiaFromSector( gpCivs[ i ].pSoldier->sSectorX, gpCivs[ i ].pSoldier->sSectorY, ubCurrentRank, 1 );
 
 				if( ProcessLoyalty() )
@@ -2681,7 +2688,8 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Autoresolve2");
 				TrackEnemiesKilled( ENEMY_KILLED_IN_AUTO_RESOLVE, gpEnemies[ i ].pSoldier->ubSoldierClass );	//add casualty to some statistic
 				if( ProcessLoyalty() )HandleGlobalLoyaltyEvent( GLOBAL_LOYALTY_ENEMY_KILLED, gpAR->ubSectorX, gpAR->ubSectorY, 0 );
 				ProcessQueenCmdImplicationsOfDeath( gpEnemies[ i ].pSoldier );
-				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpEnemies[ i ].pSoldier, RandomGridNo(), ADD_DEAD_SOLDIER_TO_SWEETSPOT );
+				const auto gridno = RandomGridNoUnloadedSector(worldRows, worldCols);
+				AddDeadSoldierToUnLoadedSector( gpAR->ubSectorX, gpAR->ubSectorY, 0, gpEnemies[ i ].pSoldier, gridno, ADD_DEAD_SOLDIER_TO_SWEETSPOT);
 			}
 		}
 	}
@@ -6007,7 +6015,7 @@ void AutoResolveMilitiaDropAndPromote()
 			}
 
 			// Flugente: drop sector equipment
-			gpCivs[i].pSoldier->DropSectorEquipment( );
+			gpCivs[i].pSoldier->DropSectorEquipment( NOWHERE );
 						
 			if ( gpCivs[i].pSoldier->stats.bLife < OKLIFE / 2 )
 			{

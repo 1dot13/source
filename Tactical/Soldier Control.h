@@ -1916,7 +1916,7 @@ public:
 	void		CancelMultiTurnAction(BOOLEAN fFinished);
 	BOOLEAN		UpdateMultiTurnAction();
 
-	void		DropSectorEquipment();
+	void		DropSectorEquipment( INT32 UnloadedSectorGridNo);
 
 	// sevenfm: Take new bomb with id = usItem from iventory to HANDPOS
 	void 		TakeNewBombFromInventory(UINT16 usItem);

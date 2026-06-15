@@ -1066,7 +1066,7 @@ BOOLEAN TurnSoldierIntoCorpse( SOLDIERTYPE *pSoldier, BOOLEAN fRemoveMerc, BOOLE
 		DropKeysInKeyRing( pSoldier, pSoldier->sGridNo, pSoldier->pathing.bLevel, bVisible, FALSE, 0, FALSE );
 
 		// Flugente: even if we forbid militia from dropping their equipment, they will still drop what they took via sector inventory (this functions only drops what they took)
-		pSoldier->DropSectorEquipment();
+		pSoldier->DropSectorEquipment( NOWHERE );
 	}
 
 	// Make team look for items
