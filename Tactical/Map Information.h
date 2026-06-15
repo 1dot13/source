@@ -57,6 +57,7 @@ public:
 };
 
 extern MAPCREATE_STRUCT gMapInformation;
+extern MAPCREATE_STRUCT gMapInformationAutoResolve;
 
 void LoadMapInformation(INT8** hBuffer, FLOAT dMajorMapVersion);
 void SaveMapInformation(HWFILE hFile, FLOAT dMajorMapVersion, UINT8 ubMinorMapVersion);

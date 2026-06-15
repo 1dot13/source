@@ -20,6 +20,7 @@ FLOAT gdMajorMapVersion = MAJOR_MAP_VERSION;
 BOOLEAN gfWorldLoaded;
 
 MAPCREATE_STRUCT gMapInformation;
+MAPCREATE_STRUCT gMapInformationAutoResolve;
 
 //CHRISL: MINOR_MAP_VERSION information moved to worlddef.h by ADB.  We're using these values elsewhere and need them
 //	in the header file
