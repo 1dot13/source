@@ -1319,7 +1319,7 @@ BOOLEAN FindFenceJumpDirection( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bStar
 	return( FALSE );
 }
 
-//Simply chooses a random gridno within valid boundaries (for dropping things in unloaded sectors)
+//Simply chooses a random gridno within valid boundaries (for dropping things in loaded sectors)
 INT32 RandomGridNo()
 {
 	INT32 iMapXPos, iMapYPos, iMapIndex;
@@ -1329,6 +1329,69 @@ INT32 RandomGridNo()
 		iMapYPos = Random( WORLD_ROWS );
 		iMapIndex = iMapYPos * WORLD_COLS + iMapXPos;
 	}while( !GridNoOnVisibleWorldTile( iMapIndex ) );
+	return iMapIndex;
+}
+
+
+static bool pointLeftOfEdge(INT32 xp, INT32 yp, INT32 x1, INT32 y1, INT32 x2, INT32 y2)
+{
+	//Test whether the point(xp, yp) lies on the left-hand side of the edge(x1, y1) - (x2, y2)
+	const auto D = (x2 - x1) * (yp - y1) - (xp - x1) * (y2 - y1);
+	return (D > 0);
+}
+
+INT32 RandomGridNoUnloadedSector(INT32 worldRows, INT32 worldCols)
+{
+	INT32 iMapIndex;
+	const auto centerHeight = gpWorldLevelDataAutoResolve[gMapInformationAutoResolve.sCenterGridNo].sHeight;
+
+	const auto CenterWorldX = (WORLD_ROWS) / 2 * CELL_X_SIZE;
+	const auto CenterWorldY = (WORLD_COLS) / 2 * CELL_Y_SIZE;
+
+	// Sector corners are shifted inwards a bit to limit the area to be slightly smaller than actual sector.
+	// It fixed a few annyoing edge cases where a tile would evaluate to being inside the map, but it was juuust out of reach in actual gameplay
+	const auto TLX = 2*CELL_X_SIZE; // Shift X-coordinate by one tile inwards from actual edge.
+	const auto TLY = (WORLD_ROWS / 2) * CELL_X_SIZE;
+
+	const auto TRX = (WORLD_COLS / 2) * CELL_Y_SIZE;
+	const auto TRY = 2*CELL_X_SIZE; // Shift Y-coordinate by one tile inwards from actual edge
+
+	const auto BLX = ((WORLD_COLS / 2) * CELL_Y_SIZE);
+	const auto BLY = ((WORLD_ROWS-1) * CELL_Y_SIZE); // Shift Y-coordinate by one row inwards from actual edge
+
+	const auto BRX = ((WORLD_COLS-1) * CELL_Y_SIZE); // Shift X-coordinate by one row inwards from actual edge
+	const auto BRY = ((WORLD_ROWS / 2) * CELL_X_SIZE);
+
+	UINT8 randomGridHeight = 255;
+	do
+	{
+		randomGridHeight = 255; // Reset height to be tested
+		INT32 iMapXPos = Random(worldCols);
+		INT32 iMapYPos = Random(worldRows);
+		iMapIndex = iMapYPos * worldCols + iMapXPos;
+
+		// Discard gridno that is not within map bounds.
+		// Check point against world area's edges. If any edge test fails, it means point is not inside.
+		// Edge traverals goes counterclockwise, Top Right -> Top Left -> Bottom Left -> Bottom Right -> Top Right
+		const auto pX = iMapXPos * CELL_X_SIZE;
+		const auto pY = iMapYPos * CELL_Y_SIZE;
+		
+		//TR->TL
+		if ( !pointLeftOfEdge(pX, pY, TLX, TLY, TRX, TRY) )
+			continue;
+		//TL->BL
+		if ( !pointLeftOfEdge(pX, pY, BLX, BLY, TLX, TLY) )
+			continue;
+		//BL->BR
+		if ( !pointLeftOfEdge(pX, pY, BRX, BRY, BLX, BLY) )
+			continue;
+		//BR->TR
+		if ( !pointLeftOfEdge(pX, pY, TRX, TRY, BRX, BRY) )
+			continue;
+
+		// Compare randomGridHeight with height of the center grid of the map, as long as the center of the map is on walkable height it will work properly
+		randomGridHeight = gpWorldLevelDataAutoResolve[iMapIndex].sHeight; 
+	} while ( !(randomGridHeight == centerHeight) ); 
 	return iMapIndex;
 }
 
