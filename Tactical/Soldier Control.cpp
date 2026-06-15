@@ -16818,7 +16818,7 @@ BOOLEAN	SOLDIERTYPE::UpdateMultiTurnAction( )
 	return TRUE;
 }
 
-void	SOLDIERTYPE::DropSectorEquipment( )
+void	 SOLDIERTYPE::DropSectorEquipment( INT32 UnloadedSectorGridNo)
 {
 	// not if we already dropped the gear
 	if ( this->usSoldierFlagMask & SOLDIER_EQUIPMENT_DROPPED )
@@ -16887,7 +16887,7 @@ void	SOLDIERTYPE::DropSectorEquipment( )
 			}
 		}
 
-		AddItemsToUnLoadedSector( this->sSectorX, this->sSectorY, this->bSectorZ, RandomGridNo( ), counter, pObject, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
+		AddItemsToUnLoadedSector( this->sSectorX, this->sSectorY, this->bSectorZ, UnloadedSectorGridNo, counter, pObject, 0, WORLD_ITEM_REACHABLE, 0, 1, FALSE );
 	}
 }
 
