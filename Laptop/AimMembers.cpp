@@ -1560,6 +1560,8 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 	CHAR16			gzItemName[ 5000 ];
 	UINT8			ubItemCount=0;
 	UINT8			ubColumnCount=0;
+	const bool realisticGameStyle = gGameOptions.ubGameStyle != STYLE_SCIFI;
+	const bool reducedGuns = gGameOptions.fGunNut == false;
 
 	//if the mercs inventory has already been purchased, dont display the inventory
 	if ( (gMercProfiles[ ubMercID ].ubMiscFlags & PROFILE_MISC_FLAG_ALREADY_USED_ITEMS) && !gGameExternalOptions.fGearKitsAlwaysAvailable )
@@ -1582,6 +1584,18 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 		for(i=0; i<invsize; ++i)
 		{
 			usItem = gMercProfiles[ubMercID].inv[ i ];
+
+			if (realisticGameStyle && ItemIsOnlyInScifi(usItem))
+			{
+				gMercProfiles[ubMercID].inv[i] = 0;
+				continue;
+			}
+
+			if (reducedGuns && ItemIsOnlyInTonsOfGuns(usItem))
+			{
+				gMercProfiles[ubMercID].inv[i] = 0;
+				continue;
+			}
 
 			//if its a valid item AND we are only displaying less then 8 items
 			if( usItem && ubItemCount < WEAPONBOX_TOTAL_ITEMS )
@@ -1661,6 +1675,18 @@ BOOLEAN DisplayMercsInventory(UINT8 ubMercID)
 		for(i=0; i<invsize; ++i)
 		{
 			usItem = gMercProfiles[ubMercID].inv[ i ];
+
+			if (realisticGameStyle && ItemIsOnlyInScifi(usItem))
+			{
+				gMercProfiles[ubMercID].inv[i] = 0;
+				continue;
+			}
+
+			if (reducedGuns && ItemIsOnlyInTonsOfGuns(usItem))
+			{
+				gMercProfiles[ubMercID].inv[i] = 0;
+				continue;
+			}
 
 			//if its a valid item AND we are only displaying less then 8 items
 			if( usItem && ubItemCount < WEAPONBOX_NUMBER )
