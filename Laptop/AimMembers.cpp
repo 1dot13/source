@@ -5709,21 +5709,38 @@ void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
 {	
 	UINT32 uiLoop;
 	INT16 usItem;
+	const bool realisticGameStyle = gGameOptions.ubGameStyle != STYLE_SCIFI;
+	const bool reducedGuns = gGameOptions.fGunNut == false;
+
+	auto& currentGear = gMercProfiles[gbCurrentSoldier];
+	auto& selectedGearSet = gMercProfileGear[gbCurrentSoldier][selectedInventory];
+
 	if(UsingNewInventorySystem() == true){
 		// Start by resetting all profile inventory values to 0
-		gMercProfiles[gbCurrentSoldier].clearInventory();
-		gMercProfiles[gbCurrentSoldier].ubInvUndroppable = 0;
+		currentGear.clearInventory();
+		currentGear.ubInvUndroppable = 0;
 		// Next, go through and assign everything but lbe gear
 		for(uiLoop=INV_START_POS; uiLoop<NUM_INV_SLOTS; uiLoop++)
 		{
-			if(gMercProfileGear[gbCurrentSoldier][selectedInventory].inv[uiLoop] != NONE)
+			const auto gearSetItem = selectedGearSet.inv[uiLoop];
+			if( gearSetItem != NONE)
 			{
-				gMercProfiles[gbCurrentSoldier].inv[uiLoop] = gMercProfileGear[gbCurrentSoldier][selectedInventory].inv[uiLoop];
-				gMercProfiles[gbCurrentSoldier].bInvStatus[uiLoop] = gMercProfileGear[gbCurrentSoldier][selectedInventory].iStatus[uiLoop];
+				if ( realisticGameStyle && ItemIsOnlyInScifi(gearSetItem) )
+				{
+					continue;
+				}
+
+				if ( reducedGuns && ItemIsOnlyInTonsOfGuns(gearSetItem) )
+				{
+					continue;
+				}
+
+				currentGear.inv[uiLoop] = gearSetItem;
+				currentGear.bInvStatus[uiLoop] = selectedGearSet.iStatus[uiLoop];
 				if(uiLoop > 5)
-					gMercProfiles[gbCurrentSoldier].bInvNumber[uiLoop] = gMercProfileGear[gbCurrentSoldier][selectedInventory].iNumber[uiLoop];
+					currentGear.bInvNumber[uiLoop] = selectedGearSet.iNumber[uiLoop];
 				else
-					gMercProfiles[gbCurrentSoldier].bInvNumber[uiLoop] = 1;
+					currentGear.bInvNumber[uiLoop] = 1;
 			}
 		}
 		// Last, go through and assign LBE items.  Only needed for new inventory system
@@ -5732,77 +5749,87 @@ void WeaponKitSelectionUpdate(UINT8 selectedInventory = 0)
 			for(uiLoop=0; uiLoop<5; uiLoop++)
 			{
 				UINT32 uiLoop2 = uiLoop + VESTPOCKPOS;
-				if(gMercProfileGear[gbCurrentSoldier][selectedInventory].lbe[uiLoop] != NONE){
-					gMercProfiles[gbCurrentSoldier].inv[uiLoop2] = gMercProfileGear[gbCurrentSoldier][selectedInventory].lbe[uiLoop];
-					gMercProfiles[gbCurrentSoldier].bInvStatus[uiLoop2] = gMercProfileGear[gbCurrentSoldier][selectedInventory].lStatus[uiLoop];
-					gMercProfiles[gbCurrentSoldier].bInvNumber[uiLoop2] = 1;
+				if(selectedGearSet.lbe[uiLoop] != NONE){
+					if ( realisticGameStyle && ItemIsOnlyInScifi(selectedGearSet.lbe[uiLoop]) )
+					{
+						continue;
+					}
+
+					if ( reducedGuns && ItemIsOnlyInTonsOfGuns(selectedGearSet.lbe[uiLoop]) )
+					{
+						continue;
+					}
+
+					currentGear.inv[uiLoop2] = selectedGearSet.lbe[uiLoop];
+					currentGear.bInvStatus[uiLoop2] = selectedGearSet.lStatus[uiLoop];
+					currentGear.bInvNumber[uiLoop2] = 1;
 				}
 			}
 		}
 	}
-	gMercProfiles[gbCurrentSoldier].bMainGunAttractiveness		= -1;
-	gMercProfiles[gbCurrentSoldier].bArmourAttractiveness			= -1;
+	currentGear.bMainGunAttractiveness		= -1;
+	currentGear.bArmourAttractiveness			= -1;
 
-	UINT32 invsize = gMercProfiles[ gbCurrentSoldier ].inv.size();
+	UINT32 invsize = currentGear.inv.size();
 	for ( uiLoop = 0; uiLoop < invsize; ++uiLoop )
 	{
-		usItem = gMercProfiles[gbCurrentSoldier].inv[ uiLoop ];
+		usItem = currentGear.inv[ uiLoop ];
 
 		if ( usItem != NOTHING )
 		{
 			// Check if it's a gun
 			if ( Item[ usItem ].usItemClass & IC_GUN )
 			{
-				gMercProfiles[gbCurrentSoldier].bMainGunAttractiveness = Weapon[ usItem ].ubDeadliness;
+				currentGear.bMainGunAttractiveness = Weapon[ usItem ].ubDeadliness;
 			}
 
 			// If it's armour
 			if ( Item[ usItem ].usItemClass & IC_ARMOUR )
 			{
-				gMercProfiles[gbCurrentSoldier].bArmourAttractiveness = min(128,Armour[ Item[ usItem ].ubClassIndex ].ubProtection);
+				currentGear.bArmourAttractiveness = min(128,Armour[ Item[ usItem ].ubClassIndex ].ubProtection);
 			}
 		}
 	}
 
-	gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = 0;
+	currentGear.usOptionalGearCost = 0;
 	//tais: new tag in gearkit that sets an absolute price for gearkit that will override item value and price modifier if it's a sensible value between 0 and 32000
-	if(gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice >= 0 && gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice <= 32000)
+	if(selectedGearSet.AbsolutePrice >= 0 && selectedGearSet.AbsolutePrice <= 32000)
 	{
-		gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = gMercProfileGear[gbCurrentSoldier][selectedInventory].AbsolutePrice;
+		currentGear.usOptionalGearCost = selectedGearSet.AbsolutePrice;
 	}
 	else
 	{
 		UINT16 tempGearCost = 0;
-		UINT32 invsize = gMercProfiles[ gbCurrentSoldier ].inv.size();
+		UINT32 invsize = currentGear.inv.size();
 		for ( uiLoop = 0; uiLoop< invsize; ++uiLoop )
 		{
-			if ( gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ] != NOTHING )
+			if ( currentGear.inv[ uiLoop ] != NOTHING )
 			{
 				//get the item
-				usItem = gMercProfiles[ gbCurrentSoldier ].inv[ uiLoop ];
+				usItem = currentGear.inv[ uiLoop ];
 
 				// for an item stack, we obviously need to account fot the number of items
 				// for single items, the number is not always set, so just to be sure...
 				int number = 1;
-				if ( gMercProfileGear[gbCurrentSoldier][selectedInventory].iNumber.size( ) >= uiLoop )
-					number = max( 1, gMercProfileGear[gbCurrentSoldier][selectedInventory].iNumber[uiLoop] );
+				if ( selectedGearSet.iNumber.size( ) >= uiLoop )
+					number = max( 1, selectedGearSet.iNumber[uiLoop] );
 
 				//add the cost
 				tempGearCost += number * Item[usItem].usPrice;
 			}
 		}
 		//tais: added optional price modifier for gearkits, reads the xml tag mPriceMod from MercStartingGear.xml
-		if(gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier != 0 &&
-			gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier <= 200 &&
-			gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier >= -100)
+		if(selectedGearSet.PriceModifier != 0 &&
+			selectedGearSet.PriceModifier <= 200 &&
+			selectedGearSet.PriceModifier >= -100)
 		{
 			FLOAT mod;
-			mod = (FLOAT) (gMercProfileGear[gbCurrentSoldier][selectedInventory].PriceModifier + 100) / 100;
-			gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = (UINT16)(tempGearCost * mod);
+			mod = (FLOAT) (selectedGearSet.PriceModifier + 100) / 100;
+			currentGear.usOptionalGearCost = (UINT16)(tempGearCost * mod);
 		}
 		else
 		{
-			gMercProfiles[ gbCurrentSoldier ].usOptionalGearCost = tempGearCost;
+			currentGear.usOptionalGearCost = tempGearCost;
 		}
 	}
 }
