@@ -904,7 +904,16 @@ BOOLEAN BeginStrategicRemoveMerc( SOLDIERTYPE *pSoldier, BOOLEAN fAddRehireButto
 	else
 	{
 		if (!is_networked)
+		{
+#ifdef JA2UB
+			// Leave equipment to merc's current sector by default in UB
+			HandleLeavingOfEquipmentInCurrentSector(pSoldier->ubID);
+			StrategicRemoveMerc(pSoldier);
+			pLeaveSoldier = NULL;
+#else
 			NotifyPlayerOfMercDepartureAndPromptEquipmentPlacement( pSoldier, fAddRehireButton );
+#endif
+		}
 		else
 		{
 			// WANNE - MP: Skip all the dialog boxes that appear. Just dismiss the merc
