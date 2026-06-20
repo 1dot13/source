@@ -12748,6 +12748,10 @@ void HandleShadingOfLinesForContractMenu( void )
 	SOLDIERTYPE* pSoldier = gCharactersList[ bSelectedContractChar ].usSolID;
 	const bool multipleMercsSelected = (gSelectedSoldiers.size() > 0) ? true : false;
 
+#ifdef JA2UB
+	// No contract renewal in UB
+	const bool atLeastOneAIMmerc = false;
+#else
 	bool atLeastOneAIMmerc = false;
 	if (pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__AIM_MERC)
 	{
@@ -12765,6 +12769,7 @@ void HandleShadingOfLinesForContractMenu( void )
 			}
 		}
 	}
+#endif // JA2UB
 
 	// is guy in AIM? and well enough to talk and make such decisions?
 	if( (atLeastOneAIMmerc) && ( pSoldier->stats.bLife >= OKLIFE ) )
