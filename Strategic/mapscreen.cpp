@@ -15377,7 +15377,10 @@ BOOLEAN CanExtendContractForCharSlot( INT16 bCharNumber )
 
 	// if a vehicle, in transit, or a POW
 	if( /*( pSoldier->flags.uiStatusFlags & SOLDIER_VEHICLE ) ||*/
+#ifndef JA2UB
+		// Allow contract box in UB before helicopter ride, so mercs can be dismissed if player has hired more than 6 mercs
 			( pSoldier->bAssignment == IN_TRANSIT ) ||
+#endif
 			( pSoldier->bAssignment == ASSIGNMENT_POW ) )
 	{
 		// can't extend contracts at this time
