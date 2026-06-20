@@ -1133,8 +1133,12 @@ void SaveSeenAndUnseenItems( void )
 		if(pipl->fExists && pipl->object.ubNumberOfObjects)
 		{
 			uiTotalNumberOfVisibleItems += pipl->object.ubNumberOfObjects;
-			if(i > uiNumberOfSeenItems)
+			if (i > uiNumberOfSeenItems)
+			{
 				pInventoryPoolList[uiNumberOfSeenItems] = *pipl;
+				pipl->fExists = FALSE;
+			}
+
 			uiNumberOfSeenItems++;
 		}
 	}
