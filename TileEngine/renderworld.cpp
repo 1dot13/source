@@ -8518,8 +8518,7 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 	gsStartPointY_W = sRenderCenterY_W - sTempPosY_W;
 
 	// NOTE: Increase X map value by 1 tile to offset where on screen we are...
-	if ( gsStartPointX_W > 0 )
-		gsStartPointX_W += CELL_X_SIZE;
+	gsStartPointX_W += CELL_X_SIZE;
 
 	// d) screen start point is screen distances minus screen center
 	gsStartPointX_S = sLeft - VIEWPORT_XOFFSET_S;
@@ -8527,8 +8526,8 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 
 	// STEP FOUR - Determine Start block
 	// a) Find start block
-	gsStartPointX_M = ( gsStartPointX_W  ) / CELL_X_SIZE;
-	gsStartPointY_M = ( gsStartPointY_W  ) / CELL_Y_SIZE;
+	gsStartPointX_M = floor( DOUBLE(gsStartPointX_W) / DOUBLE(CELL_X_SIZE) );
+	gsStartPointY_M = floor( DOUBLE(gsStartPointY_W) / DOUBLE(CELL_Y_SIZE) );
 
 	// STEP 5 - Determine Deltas for center and find screen values
 	//Make sure these coordinates are multiples of scroll steps
@@ -8578,8 +8577,7 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 	gsLStartPointY_W = sRenderCenterY_W - sTempPosY_W;
 
 	// NOTE: Increase X map value by 1 tile to offset where on screen we are...
-	if ( gsLStartPointX_W > 0 )
-		gsLStartPointX_W += CELL_X_SIZE;
+	gsLStartPointX_W += CELL_X_SIZE;
 
 	// d) screen start point is screen distances minus screen center
 	gsLStartPointX_S = sLeft - LARGER_VIEWPORT_XOFFSET_S;
@@ -8587,8 +8585,8 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 
 	// STEP FOUR - Determine Start block
 	// a) Find start block
-	gsLStartPointX_M = ( gsLStartPointX_W  ) / CELL_X_SIZE;
-	gsLStartPointY_M = ( gsLStartPointY_W  ) / CELL_Y_SIZE;
+	gsLStartPointX_M = floor( DOUBLE(gsLStartPointX_W) / DOUBLE(CELL_X_SIZE) );
+	gsLStartPointY_M = floor( DOUBLE(gsLStartPointY_W) / DOUBLE(CELL_Y_SIZE) );
 
 	// Adjust starting screen coordinates
 	gsLStartPointX_S	-= sOffsetX_S;
