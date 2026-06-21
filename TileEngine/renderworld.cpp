@@ -8588,6 +8588,21 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 	gsLStartPointX_M = floor( DOUBLE(gsLStartPointX_W) / DOUBLE(CELL_X_SIZE) );
 	gsLStartPointY_M = floor( DOUBLE(gsLStartPointY_W) / DOUBLE(CELL_Y_SIZE) );
 
+	// Check and correct the difference between smaller and larger start blocks in tile coordinates.
+	// Regardless of resolution, the difference between the start blocks are constant 10 tiles in X- and 6 tiles in Y-direction.
+	// If the difference doesn't match, static world is rendered in the wrong place relative to dynamic world.
+	// Mainly evident in 960x540 resolution.
+	const auto ratioX_M = gsStartPointX_M - gsLStartPointX_M;
+	if ( ratioX_M != 10)
+	{
+		gsLStartPointX_M -= 10 - ratioX_M;
+	}
+	const auto ratioY_M = gsStartPointY_M - gsLStartPointY_M;
+	if ( ratioY_M != 6 )
+	{
+		gsLStartPointY_M -= 6 - ratioY_M;
+	}
+
 	// Adjust starting screen coordinates
 	gsLStartPointX_S	-= sOffsetX_S;
 
