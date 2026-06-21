@@ -8563,7 +8563,7 @@ void CalcRenderParameters(INT16 sLeft, INT16 sTop, INT16 sRight, INT16 sBottom )
 	gsLEndXS = sRight + LARGER_VIEWPORT_XOFFSET_S;
 	gsLEndYS = sBottom + LARGER_VIEWPORT_YOFFSET_S;
 
-		// STEP THREE - determine starting point in world coords
+	// STEP THREE - determine starting point in world coords
 	// a) Determine where in screen coords to start rendering
 	gsLStartPointX_S = ( ( gsVIEWPORT_END_X - gsVIEWPORT_START_X ) /2 ) - (sLeft - LARGER_VIEWPORT_XOFFSET_S);
 	gsLStartPointY_S = ( ( gsVIEWPORT_END_Y - gsVIEWPORT_START_Y ) /2 ) - (sTop - LARGER_VIEWPORT_YOFFSET_S);
