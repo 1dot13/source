@@ -494,6 +494,13 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 	AniParams.sStartFrame = pExplosion->sCurrentFrame;
 	AniParams.uiFlags	= ANITILE_CACHEDTILE | ANITILE_FORWARD | ANITILE_EXPLOSION;
 
+	// Save the original explosion type for damage keyframe calculation,
+	// because the type gets changed to WATER_BLAST for visual effect
+	// but the WATER_BLAST damage keyframe (18) might never be reached
+	// if the animation file has fewer frames, preventing destruction of
+	// EXPLOSIVE-tagged objects on water tiles (issue #38).
+	UINT8 ubOriginalTypeID = ubTypeID;
+
 	// sevenfm: check level
 	//if ( TERRAIN_IS_WATER(ubTerrainType) )
 	if (Water(sGridNo, bLevel))
@@ -522,7 +529,7 @@ void GenerateExplosionFromExplosionPointer( EXPLOSIONTYPE *pExplosion )
 
 	if ( !( uiFlags & EXPLOSION_FLAG_DISPLAYONLY ) )
 	{
-		AniParams.ubKeyFrame2	= gExpAniData[ ubTypeID ].ubDamageKeyFrame; // Lesh: edit this line
+		AniParams.ubKeyFrame2	= gExpAniData[ ubOriginalTypeID ].ubDamageKeyFrame; // Lesh: edit this line: use original type for damage, not WATER_BLAST
 		AniParams.uiKeyFrame2Code = ANI_KEYFRAME_BEGIN_DAMAGE;
 	}
 	AniParams.uiUserData = usItem;
