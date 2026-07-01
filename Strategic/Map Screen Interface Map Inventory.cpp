@@ -5210,6 +5210,10 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 			// Pick up the stack, and place it back into the inventory. That will sort items back into any empty
 			// slots.
 
+			// HEADROCK HAM 5: Save militia taboo flags before the move, because they are stored per-slot in usFlags
+			// and would be lost when the item is removed and re-inserted into a different slot.
+			UINT16 usSavedTabooFlags = pInventoryPoolList[ uiLoop ].usFlags & (WORLD_ITEM_TABOO_FOR_MILITIA_EQ_GREEN | WORLD_ITEM_TABOO_FOR_MILITIA_EQ_BLUE | WORLD_ITEM_TABOO_FOR_MILITIA_EQ_ELITE);
+
 			// Create a new object, same as this stack.
 			OBJECTTYPE TempStack;
 			TempStack.initialize();
@@ -5225,6 +5229,20 @@ void SortSectorInventoryStackAndMerge(bool ammoOnly )
 			if (TempStack.exists() == true )
 			{
 				DeleteObj( &TempStack );
+			}
+
+			// Restore the militia taboo flags on the new slot.
+			if ( usSavedTabooFlags )
+			{
+				for (UINT32 j = 0; j < pInventoryPoolList.size(); ++j)
+				{
+					if ( pInventoryPoolList[j].fExists && pInventoryPoolList[j].object.usItem == usStackItem &&
+						 !(pInventoryPoolList[j].usFlags & usSavedTabooFlags) )
+					{
+						pInventoryPoolList[j].usFlags |= usSavedTabooFlags;
+						break;
+					}
+				}
 			}
 		}
 	}

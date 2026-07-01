@@ -1288,7 +1288,7 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 		if ( GetMeanwhileID() == INTERROGATION )
 		{
 			//We no longer use item temp files during gameplay, so check for the sector in gAllWorldItems
-			if (SectorIsInWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ))
+			if (SectorIsInWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ) || GetSectorFlagStatus(gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_ALREADY_LOADED))
 			{
 				if (!LoadAndAddWorldItemsFromTempFile(gWorldSectorX, gWorldSectorY, gbWorldSectorZ))
 					return(FALSE);
@@ -1309,7 +1309,7 @@ BOOLEAN LoadCurrentSectorsInformationFromTempItemsFile()
 	}
 
 	//We no longer use item temp files during gameplay, so check for the sector in gAllWorldItems
-	if (SectorIsInWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ))
+	if (SectorIsInWorldItems(gWorldSectorX, gWorldSectorY, gbWorldSectorZ) || GetSectorFlagStatus(gWorldSectorX, gWorldSectorY, gbWorldSectorZ, SF_ALREADY_LOADED))
 	{
 		if (!LoadAndAddWorldItemsFromTempFile(gWorldSectorX, gWorldSectorY, gbWorldSectorZ))
 			return(FALSE);

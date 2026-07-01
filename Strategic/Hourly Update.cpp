@@ -497,7 +497,7 @@ void HourlyLarryUpdate()
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
 						{
-							if (ProfileHasSkillTrait(pOtherSoldier->ubProfile, SNITCH_NT) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
+							if (HAS_SKILL_TRAIT( pOtherSoldier, SNITCH_NT ) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
 							{
 								if( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
 								{
@@ -516,7 +516,7 @@ void HourlyLarryUpdate()
 									if( bPreventChance > PreRandom( 100 ) )
 									{
 										// merc is not amused by being prevented
-										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 										// also here would be a place for dynamic relationship decrease between them
 										// Flugente: then lets do that, shall we?
 										AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );
@@ -678,7 +678,7 @@ void HourlyDisabilityUpdate( )
 						// note - snitches stop others, but can get wasted themselves (if they have drug use specifically set in background...)
 						if ( pOtherSoldier && !pOtherSoldier->flags.fBetweenSectors && pOtherSoldier->bActive && !pOtherSoldier->flags.fMercAsleep && pSoldier->ubProfile != pOtherSoldier->ubProfile )
 						{
-							if (ProfileHasSkillTrait(pOtherSoldier->ubProfile, SNITCH_NT) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
+							if (HAS_SKILL_TRAIT( pOtherSoldier, SNITCH_NT ) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
 							{
 								if ( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && pSoldier->bSectorZ == pOtherSoldier->bSectorZ )
 								{
@@ -698,7 +698,7 @@ void HourlyDisabilityUpdate( )
 									if ( Chance( bPreventChance ) )
 									{
 										// merc is not amused by being prevented
-										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+										HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 										// also here would be a place for dynamic relationship decrease between them
 										// Flugente: then lets do that, shall we?
 										AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );
@@ -817,7 +817,7 @@ void HourlyStealUpdate()
 					&& !pOtherSoldier->flags.fMercAsleep
 					&& pSoldier->ubProfile != pOtherSoldier->ubProfile )
 				{
-					if (ProfileHasSkillTrait(pOtherSoldier->ubProfile, SNITCH_NT) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
+					if (HAS_SKILL_TRAIT( pOtherSoldier, SNITCH_NT ) && !(pOtherSoldier->usSoldierFlagMask2 & SOLDIER_PREVENT_MISBEHAVIOUR_OFF))
 					{
 						if ( pSoldier->sSectorX == pOtherSoldier->sSectorX && pSoldier->sSectorY == pOtherSoldier->sSectorY && sectorz == pOtherSoldier->bSectorZ )
 						{
@@ -837,7 +837,7 @@ void HourlyStealUpdate()
 							if ( bPreventChance > PreRandom( 100 ) )
 							{
 								// merc is not amused by being prevented
-								HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorX, pSoldier->bSectorZ );
+								HandleMoraleEvent( pSoldier, MORALE_PREVENTED_MISBEHAVIOUR, pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ );
 								// also here would be a place for dynamic relationship decrease between them
 								// Flugente: then lets do that, shall we?
 								AddOpinionEvent( pSoldier->ubProfile, pOtherSoldier->ubProfile, OPINIONEVENT_SNITCHINTERFERENCE );

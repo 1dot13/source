@@ -299,12 +299,14 @@ void AddCoverObjectToWorld( INT32 sGridNo, UINT16 usGraphic, BOOLEAN fRoof, BOOL
 
 	if( fRoof )
 	{
-		AddOnRoofToHead( sGridNo, usGraphic );
+		if( !AddOnRoofToHead( sGridNo, usGraphic ) )
+			return;
 		pNode = gpWorldLevelData[ sGridNo ].pOnRoofHead;
 	}
 	else
 	{
-		AddObjectToHead( sGridNo, usGraphic );
+		if( !AddObjectToHead( sGridNo, usGraphic ) )
+			return;
 		pNode = gpWorldLevelData[ sGridNo ].pObjectHead;
 	}
 

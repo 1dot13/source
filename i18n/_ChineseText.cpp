@@ -6628,7 +6628,7 @@ STR16		zOptionsToggleText[] =
 	L"强制回合制模式",						// add forced turn mode
 	L"替代战略地图颜色", // Change color scheme of Strategic Map
 	L"替代子弹图像", // Show alternate bullet graphics (tracers)
-	L"佣兵外观造型", //L"Use Logical Bodytypes",
+	L"佣兵外观造型", //L"Use New Merc Graphics",
 	L"显示佣兵军衔",	// shows mercs ranks
 	L"显示脸部装备图",				
 	L"显示脸部装备图标",
