@@ -1120,7 +1120,7 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 
 	if( reason & MSYS_CALLBACK_REASON_LBUTTON_REPEAT )
 	{	
-		if ( iCurrentDifficulty < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 ) 
+		if ( iCurrentDifficulty < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 1 ) 
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
@@ -1136,7 +1136,7 @@ void BtnGIODifficultySelectionRightCallback( GUI_BUTTON *btn,INT32 reason )
 	{
 		btn->uiFlags|=(BUTTON_CLICKED_ON);
 
-		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 2 )  //2	
+		if ( iCurrentDifficulty  < MaxDifficultySettingsValues /*NUM_DIFF_SETTINGS*/ - 1 )  //2	
 		{
 			PlayButtonSound( giGIODifficultyButton[1], BUTTON_SOUND_CLICKED_ON );
 
