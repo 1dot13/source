@@ -10792,6 +10792,20 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 						iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
 			}
 		}
+
+		if ( pSoldier != NULL && (pObj == &pSoldier->inv[HANDPOS] || pObj == &pSoldier->inv[SECONDHANDPOS]) )
+		{
+			for (INT8 bLoop = HELMETPOS; bLoop <= HEAD2POS; ++bLoop)
+			{
+				if (bLoop == HANDPOS || bLoop == SECONDHANDPOS)
+					continue;
+
+				if (pSoldier->inv[bLoop].exists())
+				{
+					iModifier += GetItemModifier(&(pSoldier->inv[bLoop]), ubRef, usType);
+				}
+			}
+		}
 	}
 
 	iModifier = __max(-100,iModifier);
@@ -12778,9 +12792,7 @@ INT16 GetWornCamo( SOLDIERTYPE * pSoldier )
 				ttl += GetCamoBonus(&pSoldier->inv[HANDPOS]);
 			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
 				ttl += GetCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-				ttl += GetCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
-		}
+			}
 	}
 
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
@@ -12837,9 +12849,7 @@ INT16 GetWornUrbanCamo( SOLDIERTYPE * pSoldier )
 				ttl += GetUrbanCamoBonus(&pSoldier->inv[HANDPOS]);
 			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
 				ttl += GetUrbanCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-				ttl += GetUrbanCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
-		}
+			}
 	}
 
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
@@ -12896,9 +12906,7 @@ INT16 GetWornDesertCamo( SOLDIERTYPE * pSoldier )
 				ttl += GetDesertCamoBonus(&pSoldier->inv[HANDPOS]);
 			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
 				ttl += GetDesertCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-				ttl += GetDesertCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
-		}
+			}
 	}
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
@@ -12954,9 +12962,7 @@ INT16 GetWornSnowCamo( SOLDIERTYPE * pSoldier )
 				ttl += GetSnowCamoBonus(&pSoldier->inv[HANDPOS]);
 			if (pSoldier->inv[SECONDHANDPOS].exists() == true && Item[pSoldier->inv[SECONDHANDPOS].usItem].usItemClass & IC_WEAPON)
 				ttl += GetSnowCamoBonus(&pSoldier->inv[SECONDHANDPOS]);
-			if (pSoldier->inv[GUNSLINGPOCKPOS].exists() == true && Item[pSoldier->inv[GUNSLINGPOCKPOS].usItem].usItemClass & IC_WEAPON)
-				ttl += GetSnowCamoBonus(&pSoldier->inv[GUNSLINGPOCKPOS]);
-		}
+			}
 	}
 	return __max(0, __min( ttl, ( 100 - gGameExternalOptions.bCamoKitArea ) ) );
 }
