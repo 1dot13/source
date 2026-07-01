@@ -946,6 +946,10 @@ UINT8 CalcDesireToTalk( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach )
 	{
 		iWillingness = 0;
 	}
+	else if (iWillingness > 255)
+	{
+		iWillingness = 255;
+	}
 
 	return( (UINT8) iWillingness );
 }
