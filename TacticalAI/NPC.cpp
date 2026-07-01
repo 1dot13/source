@@ -130,6 +130,7 @@ INT8	gbFirstApproachFlags[4] = { 0x01, 0x02, 0x04, 0x08 };
 
 UINT8	gubAlternateNPCFileNumsForQueenMeanwhiles[] = { 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176 };
 UINT8	gubAlternateNPCFileNumsForElliotMeanwhiles[] = { 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196 };
+UINT8	gubAlternateNPCFileNumsForJoeMeanwhiles[]   = { 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216 };
 
 #ifdef JA2BETAVERSION
 BOOLEAN gfDisplayScreenMsgOnRecordUsage = FALSE;
@@ -205,6 +206,11 @@ NPCQuoteInfo * LoadQuoteFile( UINT8 ubNPC )
 		else if ( ubNPC == ELLIOT )
 		{
 			sprintf( zFileName, "NPCData\\%03d.npc", gubAlternateNPCFileNumsForElliotMeanwhiles[ GetMeanwhileID( ) ] );
+		}
+		// If we are joe....
+		else if ( ubNPC == JOE )
+		{
+			sprintf( zFileName, "NPCData\\%03d.npc", gubAlternateNPCFileNumsForJoeMeanwhiles[ GetMeanwhileID( ) ] );
 		}
 	}
 #endif
@@ -2459,7 +2465,7 @@ void Converse( UINT8 ubNPC, UINT8 ubMerc, INT8 bApproach, UINT32 uiApproachData 
                     if (pSoldier)
                     {
                         // stupid hack CC
-					    if (ubNPC == KYLE)
+					    if (ubNPC == KYLE || ubNPC == JOE) // also needed for Joe to follow Queen during interrogation (#92)
 					    {
 						    // make sure he has keys
 						    pSoldier->flags.bHasKeys = TRUE;
