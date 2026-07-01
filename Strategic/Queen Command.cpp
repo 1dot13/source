@@ -787,12 +787,12 @@ BOOLEAN PrepareEnemyForSectorBattle()
 		}
 		else
 		{
-			ubTotalAdmins = pSector->ubNumAdmins - pSector->ubAdminsInBattle;
-			ubTotalTroops = pSector->ubNumTroops - pSector->ubTroopsInBattle;
-			ubTotalElites = pSector->ubNumElites - pSector->ubElitesInBattle;
-			ubTotalRobots = pSector->ubNumRobots - pSector->ubRobotsInBattle;
-			ubTotalTanks  = pSector->ubNumTanks  - pSector->ubTanksInBattle;
-			ubTotalJeeps = pSector->ubNumJeeps - pSector->ubJeepsInBattle;
+			ubTotalAdmins = pSector->ubNumAdmins > pSector->ubAdminsInBattle ? pSector->ubNumAdmins - pSector->ubAdminsInBattle : 0;
+			ubTotalTroops = pSector->ubNumTroops > pSector->ubTroopsInBattle ? pSector->ubNumTroops - pSector->ubTroopsInBattle : 0;
+			ubTotalElites = pSector->ubNumElites > pSector->ubElitesInBattle ? pSector->ubNumElites - pSector->ubElitesInBattle : 0;
+			ubTotalRobots = pSector->ubNumRobots > pSector->ubRobotsInBattle ? pSector->ubNumRobots - pSector->ubRobotsInBattle : 0;
+			ubTotalTanks  = pSector->ubNumTanks  > pSector->ubTanksInBattle  ? pSector->ubNumTanks  - pSector->ubTanksInBattle  : 0;
+			ubTotalJeeps = pSector->ubNumJeeps > pSector->ubJeepsInBattle ? pSector->ubNumJeeps - pSector->ubJeepsInBattle : 0;
 		}
 	}
 

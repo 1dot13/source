@@ -2925,7 +2925,8 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 		*	make an exception for zombies every time...
 		*/
 		SOLDIERTYPE* pNewSoldier = iNewIndex;
-			
+
+		pNewSoldier->pathing.bLevel			= pCorpse->def.bLevel;
 		pNewSoldier->bActionPoints			= 60;
 		pNewSoldier->bInitialActionPoints	= 60;
 		pNewSoldier->sBreathRed				= 0;
@@ -3019,7 +3020,8 @@ void CreateZombiefromCorpse( ROTTING_CORPSE *	pCorpse, UINT16 usAnimState )
 				break;
 		}
 					
-		AddSoldierToSectorNoCalculateDirectionUseAnimation( iNewIndex, usAnimState, 0 );
+		if ( !AddSoldierToSectorNoCalculateDirectionUseAnimation( iNewIndex, usAnimState, 0 ) )
+			return;
 
 		// If this corpse has camo, use palette from hvobject
 		if ( pCorpse->def.ubType == ROTTING_STAGE2 )
