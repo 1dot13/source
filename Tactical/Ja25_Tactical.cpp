@@ -382,7 +382,9 @@ BOOLEAN	IsSoldierQualifiedMerc( SOLDIERTYPE *pSoldier )
 			pSoldier->ubProfile == JOHN_K_UB || //JOHN_K		||
 			pSoldier->ubProfile == BIGGENS_UB || //BIGGENS	||
 			pSoldier->ubProfile == MANUEL_UB || //MANUEL		||
-			pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER 
+			( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER &&
+			  pSoldier->ubProfile != NO_PROFILE && 
+			  gMercProfiles[ pSoldier->ubProfile ].Type == PROFILETYPE_IMP )
 		)
 	{
 		return( TRUE );
