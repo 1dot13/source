@@ -935,10 +935,21 @@ void fillMapColoursForSamSiteAirSpace( INT32( &colorMap )[ MAXIMUM_VALID_Y_COORD
 					BOOLEAN samworking = FALSE;
 					if (DoesSamCoverSector( i, SECTOR( cnt, cnt2 ), &samworking ) && samworking)
 					{
-						if (i == 0)	a = TRUE;
-						if (i == 1)	b = TRUE;
-						if (i == 2)	c = TRUE;
-						if (i == 3)	d = TRUE;
+						// Map SAM site index to colors dynamically based on ownership:
+						// Enemy-controlled SAM ranges use Red (a) and Yellow (d).
+						// Player-controlled SAM ranges use Green (b) and Blue (c).
+						// This prevents friendly SAM sites from drawing giant RED circles on the map.
+						BOOLEAN fEnemy = StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX( pSamList[i] )].fEnemyControlled;
+						if (fEnemy)
+						{
+							if (i % 2 == 0)	a = TRUE;
+							else            d = TRUE;
+						}
+						else
+						{
+							if (i % 2 == 0)	b = TRUE;
+							else            c = TRUE;
+						}
 					}
 				}
 			}
