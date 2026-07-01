@@ -973,8 +973,8 @@ void StartInterrupt( void )
 
 			PlayJA2Sample( ENDTURN_1, RATE_11025, MIDVOLUME, 1, MIDDLEPAN );
 
-			// report any close call quotes for us here
-			for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
+			// report any close call quotes for us here - removed because triggering dialogue during interrupt transition causes softlock (deadlock in UI lock)
+			/*for ( SoldierID id = gTacticalStatus.Team[ gbPlayerNum ].bFirstID; id <= gTacticalStatus.Team[ gbPlayerNum ].bLastID; ++id )
 			{
 				SOLDIERTYPE *pSoldier = id;
 
@@ -991,7 +991,7 @@ void StartInterrupt( void )
 						pSoldier->flags.fCloseCall = FALSE;
 					}
 				}
-			}
+			}*/
 		}
 	}
 	else
