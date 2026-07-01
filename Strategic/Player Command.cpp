@@ -569,7 +569,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 BOOLEAN IsSectorEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {
 	if ( !bMapZ )
-		return StrategicMap[SECTOR( sMapX, sMapY )].fEnemyControlled;
+		return StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY)].fEnemyControlled;
 
 	return !SectorInfo[SECTOR( sMapX, sMapY )].fPlayer[bMapZ];
 }
