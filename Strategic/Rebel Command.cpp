@@ -3684,18 +3684,18 @@ void DailyUpdate()
 				
 				// determine which enemies become turncoats
 				UINT8 turncoatsToCreate = static_cast<UINT8>(rebelCommandSaveInfo.directives[RCD_CREATE_TURNCOATS].GetValue1());
-				UINT8 netEnemyCount = selectedGroupPtr->pEnemyGroup->ubNumAdmins + selectedGroupPtr->pEnemyGroup->ubNumTroops + selectedGroupPtr->pEnemyGroup->ubNumElites;
-				netEnemyCount -= selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat - selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat - selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat;
+				INT32 netEnemyCount = selectedGroupPtr->pEnemyGroup->ubNumAdmins + selectedGroupPtr->pEnemyGroup->ubNumTroops + selectedGroupPtr->pEnemyGroup->ubNumElites;
+				netEnemyCount -= (selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat + selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat + selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat);
 				Assert(netEnemyCount >= 0);
-				turncoatsToCreate = min(turncoatsToCreate, netEnemyCount);
+				turncoatsToCreate = min(turncoatsToCreate, static_cast<UINT8>(netEnemyCount));
 
-				const UINT8 maxAdmins = selectedGroupPtr->pEnemyGroup->ubNumAdmins - selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat;
-				const UINT8 maxTroops = selectedGroupPtr->pEnemyGroup->ubNumTroops - selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat;
-				const UINT8 maxElites = selectedGroupPtr->pEnemyGroup->ubNumElites - selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat;
+				const UINT16 maxAdmins = selectedGroupPtr->pEnemyGroup->ubNumAdmins - selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat;
+				const UINT16 maxTroops = selectedGroupPtr->pEnemyGroup->ubNumTroops - selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat;
+				const UINT16 maxElites = selectedGroupPtr->pEnemyGroup->ubNumElites - selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat;
 
-				UINT8 admins = 0;
-				UINT8 troops = 0;
-				UINT8 elites = 0;
+				UINT16 admins = 0;
+				UINT16 troops = 0;
+				UINT16 elites = 0;
 
 				while (turncoatsToCreate > 0)
 				{
@@ -3742,9 +3742,9 @@ void DailyUpdate()
 				}
 
 				// add the turncoats
-				selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat += admins;
-				selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat += troops;
-				selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat += elites;
+				selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat = (UINT8)__min(255, selectedGroupPtr->pEnemyGroup->ubNumAdmins_Turncoat + admins);
+				selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat = (UINT8)__min(255, selectedGroupPtr->pEnemyGroup->ubNumTroops_Turncoat + troops);
+				selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat = (UINT8)__min(255, selectedGroupPtr->pEnemyGroup->ubNumElites_Turncoat + elites);
 
 				LaptopSaveInfo.dIntelPool -= gRebelCommandSettings.fCreateTurncoatsIntelCost;
 			}
