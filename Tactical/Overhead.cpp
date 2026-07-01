@@ -11689,12 +11689,12 @@ BOOLEAN VIPSlotFree()
 
 BOOLEAN SectorHasVIP( INT16 sMapX, INT16 sMapY )
 {
-	return (StrategicMap[SECTOR(sMapX, sMapY)].usFlags & ENEMY_VIP_PRESENT);
+	return (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY)].usFlags & ENEMY_VIP_PRESENT);
 }
 
 BOOLEAN PlayerKnowsAboutVIP( INT16 sMapX, INT16 sMapY )
 {
-	return (StrategicMap[SECTOR( sMapX, sMapY )].usFlags & ENEMY_VIP_PRESENT_KNOWN);
+	return (StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY)].usFlags & ENEMY_VIP_PRESENT_KNOWN);
 }
 
 BOOLEAN TownHasVIP( INT8 bTownId )
@@ -11879,7 +11879,7 @@ void UpdateFastForwardMode(SOLDIERTYPE* pSoldier, INT8 bAction)
 
 void DeleteVIP( INT16 sMapX, INT16 sMapY )
 {
-	if ( StrategicMap[SECTOR( sMapX, sMapY )].usFlags & ENEMY_VIP_PRESENT_KNOWN )
+	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY)].usFlags & ENEMY_VIP_PRESENT_KNOWN )
 	{
 		ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"An important enemy VIP has been removed!" );
 	}
@@ -11887,7 +11887,7 @@ void DeleteVIP( INT16 sMapX, INT16 sMapY )
 	// if no other VIPs are here, delete flags
 	if ( NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_VIP ) + NumSoldiersWithFlagInSector( CIV_TEAM, SOLDIER_VIP ) < 2 )
 	{
-		StrategicMap[SECTOR( sMapX, sMapY )].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
+		StrategicMap[CALCULATE_STRATEGIC_INDEX(sMapX, sMapY)].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
 	}
 
 	gStrategicStatus.usVIPsLeft = max( 0, gStrategicStatus.usVIPsLeft - 1 );
@@ -11898,7 +11898,7 @@ void VIPFleesToMeduna()
 	// not if we are already in Meduna
 	if ( StrategicMap[CALCULATE_STRATEGIC_INDEX( gWorldSectorX, gWorldSectorY )].bNameId != MEDUNA )
 	{
-		if ( StrategicMap[SECTOR( gWorldSectorX, gWorldSectorY )].usFlags & ENEMY_VIP_PRESENT_KNOWN )
+		if ( StrategicMap[CALCULATE_STRATEGIC_INDEX(gWorldSectorX, gWorldSectorY)].usFlags & ENEMY_VIP_PRESENT_KNOWN )
 		{
 			ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"An enemy VIP has evaded your forces. You have no clue about his whereabouts" );
 		}
@@ -11906,14 +11906,14 @@ void VIPFleesToMeduna()
 		// if no other VIPs are here, delete flags
 		if ( NumSoldiersWithFlagInSector( ENEMY_TEAM, SOLDIER_VIP ) + NumSoldiersWithFlagInSector( CIV_TEAM, SOLDIER_VIP ) == 1 )
 		{
-			StrategicMap[SECTOR( gWorldSectorX, gWorldSectorY )].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
+			StrategicMap[CALCULATE_STRATEGIC_INDEX(gWorldSectorX, gWorldSectorY)].usFlags &= ~(ENEMY_VIP_PRESENT | ENEMY_VIP_PRESENT_KNOWN);
 		}
 
 		UINT16 usSector = 0;
 		if ( GetRandomEnemyTownSector( MEDUNA, usSector ) )
 		{
 			// place new VIP in sector
-			StrategicMap[usSector].usFlags |= ENEMY_VIP_PRESENT;
+			StrategicMap[SECTOR_INFO_TO_STRATEGIC_INDEX(usSector)].usFlags |= ENEMY_VIP_PRESENT;
 
 			// increase troop count - VIP plus bodyguards
 			SectorInfo[usSector].ubNumElites += 5;
