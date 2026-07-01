@@ -93,11 +93,13 @@ enum
 
 #define SEE_THRU_COVER_THRESHOLD		5		// min chance to get through
 
-#undef min
+#ifndef min
 #define min(a,b) ((a) < (b) ? (a) : (b))
+#endif
 
-#undef max
+#ifndef max
 #define max(a,b) ((a) > (b) ? (a) : (b))
+#endif
 
 // Added by feynman - remove all the ugly #ifdefs printf combinations for required for DebugAI
 //#define DEBUGAI

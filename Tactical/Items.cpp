@@ -10792,6 +10792,20 @@ INT32 GetObjectModifier( SOLDIERTYPE* pSoldier, OBJECTTYPE *pObj, UINT8 ubStance
 						iModifier += GetItemModifier(ObjList[pSoldier->bScopeMode], ubRef, usType);
 			}
 		}
+
+		if ( pSoldier != NULL && (pObj == &pSoldier->inv[HANDPOS] || pObj == &pSoldier->inv[SECONDHANDPOS]) )
+		{
+			for (INT8 bLoop = HELMETPOS; bLoop <= HEAD2POS; ++bLoop)
+			{
+				if (bLoop == HANDPOS || bLoop == SECONDHANDPOS)
+					continue;
+
+				if (pSoldier->inv[bLoop].exists())
+				{
+					iModifier += GetItemModifier(&(pSoldier->inv[bLoop]), ubRef, usType);
+				}
+			}
+		}
 	}
 
 	iModifier = __max(-100,iModifier);
