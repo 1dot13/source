@@ -10468,7 +10468,7 @@ static int l_ResizeTown (lua_State *L)
 	}
 
 	if ( TownID > 0 && TownID <= NUM_TOWNS ) //MAX_TOWNS
-		StrategicMap[SECTOR( x, y )].bNameId = TownID;
+		StrategicMap[CALCULATE_STRATEGIC_INDEX(x, y)].bNameId = TownID;
 
 	return 0;
 }
