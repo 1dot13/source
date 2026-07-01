@@ -5,6 +5,7 @@
 	#include "Interface.h"
 	#include "Item Statistics.h"
 	#include "LuaInitNPCs.h"
+	#include "FileMan.h"
 
 #include "Action Items.h"
 

@@ -246,11 +246,10 @@ difficultySettingsEndElementHandle(void *userData, const XML_Char *name)
 					
 					zDiffSetting[pData->curDifficultySettings.uiIndex].usMaxMortarsPerTeam = pData->curDifficultySettings.usMaxMortarsPerTeam;
 				}
-				else
-				{			
-					wcscpy(zDiffSetting[pData->curDifficultySettings.uiIndex].szDiffName, pData->curDifficultySettings.szDiffName);
-					wcscpy(zDiffSetting[pData->curDifficultySettings.uiIndex].szConfirmText, pData->curDifficultySettings.szConfirmText);
-				}			
+
+				// Always copy text values, because they are parsed in both passes and we need them even if we only load once (e.g. English version)
+				wcscpy(zDiffSetting[pData->curDifficultySettings.uiIndex].szDiffName, pData->curDifficultySettings.szDiffName);
+				wcscpy(zDiffSetting[pData->curDifficultySettings.uiIndex].szConfirmText, pData->curDifficultySettings.szConfirmText);
 		
 		}
 		else if(strcmp(name, "uiIndex") == 0)
