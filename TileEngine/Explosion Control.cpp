@@ -344,7 +344,7 @@ void InternalIgniteExplosion( SoldierID ubOwner, INT16 sX, INT16 sY, INT16 sZ, I
 	UINT16 tmp;
 	if ( Item[ usItem ].usItemClass & IC_EXPLOSV && ubOwner != NOBODY && ubOwner < NUM_PROFILES && InARoom( sGridNo, &tmp ) )
 	{
-		HandleLoyaltyForDemolitionOfBuilding( ubOwner, Explosive[ Item[ usItem ].ubClassIndex ].ubDamage );
+		HandleLoyaltyForDemolitionOfBuilding( ubOwner, min( 20, Explosive[ Item[ usItem ].ubClassIndex ].ubDamage ) );
 
 		// Flugente: campaign stats
 		gCurrentIncident.usIncidentFlags |= INCIDENT_BUILDINGS_DAMAGED;

@@ -6855,6 +6855,15 @@ void RemoveSoldiersFromGarrisonBasedOnComposition( INT32 iGarrisonID, UINT16 ubS
 	}
 	//No administrators are left.
 
+	// clamp total removals to available soldiers in sector
+	while( ubNumTroops + ubNumElites > pSector->ubNumTroops + pSector->ubNumElites )
+	{
+		if( ubNumElites )
+			ubNumElites--;
+		else
+			ubNumTroops--;
+	}
+
 	//Eliminate the troops
 	while( ubNumTroops )
 	{
