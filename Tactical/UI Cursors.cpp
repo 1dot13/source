@@ -1326,7 +1326,7 @@ UINT8 HandleNonActivatedTargetCursor( SOLDIERTYPE *pSoldier, INT32 usMapPos , BO
 
 	}
 
-	if(gusUIFullTargetID == NOBODY && pSoldier->bDoAutofire && !pSoldier->flags.fDoSpread)	//reset autofire if we move the mouse off the target, however don't reset it if we are spread-bursting
+	if(!gfUIFullTargetFound && pSoldier->bDoAutofire && !pSoldier->flags.fDoSpread)	//reset autofire if we move the mouse off the target, however don't reset it if we are spread-bursting
 	{
 		if(gTacticalStatus.uiFlags & TURNBASED && (gTacticalStatus.uiFlags & INCOMBAT ))
 		{

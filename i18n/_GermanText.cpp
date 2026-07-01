@@ -6502,7 +6502,7 @@ STR16 zOptionsToggleText[] =
 	L"Erzwungener Runden-Modus",			// add forced turn mode
 	L"Alternatives Kartenfarbschema",		// Change color scheme of Strategic Map
 	L"Alternative Projektil-Grafik",			// Show alternate bullet graphics (tracers)
-	L"Logical Bodytypes",
+	L"Use New Merc Graphics",
 	L"Söldnerrang anzeigen.",					// shows mercs ranks
 	L"Gesichtsequipment-Grafiken",			
 	L"Gesichtsequipment-Icons",

@@ -6613,7 +6613,7 @@ STR16		zOptionsToggleText[] =
 	L"Forced Turn Mode",					// add forced turn mode
 	L"Alternate Strategy-Map Colors",		// Change color scheme of Strategic Map
 	L"Alternate bullet graphics",			// Show alternate bullet graphics (tracers) // TODO.Translate
-	L"Logical Bodytypes (WIP)",
+	L"Use New Merc Graphics",
 	L"Show Merc Ranks",						// shows mercs ranks	// TODO.Translate
 	L"Show Face gear graphics",				// TODO.Translate
 	L"Show Face gear icons",

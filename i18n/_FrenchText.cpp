@@ -6635,7 +6635,7 @@ STR16		zOptionsToggleText[] =
 	L"Mode tour par tour forcé",			// add forced turn mode
 	L"Couleur alternative carte",		// Change color scheme of Strategic Map
 	L"Montrer tirs alternatifs",			// Show alternate bullet graphics (tracers)
-	L"Logical Bodytypes",
+	L"Use New Merc Graphics",
 	L"Afficher grade du mercenaire",						// shows mercs ranks
 	L"Afficher équip. sur portrait",
 	L"Afficher icônes sur portrait",
