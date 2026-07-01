@@ -2335,7 +2335,7 @@ void DoneFadeOutForExitGameInitOptionScreen( void )
 	gGameOptions.ubGameStyle = FALSE; 
 	gGameUBOptions.fRandomManuelText = GetCurrentTextStyleButtonSetting();
 	
-	gGameOptions.ubDifficultyLevel = min( MaxDifficultySettingsValues-1, ( max( 1, (iCurrentDifficulty + 1)) )); 
+	gGameOptions.ubDifficultyLevel = min( MaxDifficultySettingsValues, ( max( 1, (iCurrentDifficulty + 1)) )); 
 	
 	gGameOptions.fTurnTimeLimit = FALSE;
 		
