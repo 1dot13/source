@@ -648,6 +648,10 @@ bool OBJECTTYPE::CanStack(OBJECTTYPE& sourceObject, int& numToStack)
 	//stacking control, restrict certain things here
 	if (numToStack > 0) {
 		if (exists() == true) {
+			if (sourceObject.usItem != usItem) {
+				return false;
+			}
+
 			if (Item[usItem].usItemClass == IC_MONEY) {
 				//money doesn't stack, it merges
 				// average out the status values using a weighted average...
