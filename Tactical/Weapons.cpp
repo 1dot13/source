@@ -7942,7 +7942,8 @@ INT32 ArmourProtection( SOLDIERTYPE * pTarget, UINT16 ubArmourType, INT16 * pbSt
 
 	if ( !(AM_A_ROBOT( pTarget ) || ENEMYROBOT( pTarget )) )
 	{
-		*pbStatus -= (iAppliedProtection * Armour[ubArmourType].ubDegradePercent) / 100;
+		FLOAT fStatusDecrease = ((FLOAT)iAppliedProtection * (FLOAT)Armour[ubArmourType].ubDegradePercent) / 100.0f;
+		*pbStatus -= (INT16)ceilf(fStatusDecrease);
 	}
 
 	// return armour protection
