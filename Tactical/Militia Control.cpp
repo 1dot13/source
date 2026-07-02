@@ -155,6 +155,10 @@ void ResetMilitia()
 
 		AddSoldierInitListMilitia( ubNumGreen, ubNumReg, ubNumVet );
 
+		// Re-equip militia from sector inventory after recreation (#99)
+		if ( gGameExternalOptions.fMilitiaUseSectorInventory )
+			TeamRestock( MILITIA_TEAM );
+
 		// Now restore the original screen setting so the game doesn't go wacky.
 		guiCurrentScreen = cs;
 
