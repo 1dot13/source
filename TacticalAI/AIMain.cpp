@@ -2934,56 +2934,61 @@ void HandleAITacticalTraversal( SOLDIERTYPE * pSoldier )
 	else
 	{
 		int iMapX = gWorldSectorX;
-		int iMapY = gWorldSectorY;
-
-		switch( ubQuoteActionID )
+		// Only increment destination sector counts for scheduled NPCs.
+		// Retreating enemies should NOT create ghost enemy counts (#262).
+		if (pSoldier->ubProfile != NO_PROFILE && NPCHasUnusedRecordWithGivenApproach(pSoldier->ubProfile, APPROACH_DONE_TRAVERSAL))
 		{
-		case QUOTE_ACTION_ID_TRAVERSE_EAST:
-			++iMapX;
-			break;
-		case QUOTE_ACTION_ID_TRAVERSE_WEST:
-			--iMapX;
-			break;
-		case QUOTE_ACTION_ID_TRAVERSE_SOUTH:
-			++iMapY;
-			break;
-		case QUOTE_ACTION_ID_TRAVERSE_NORTH:
-			--iMapY;
-			break;
+			int iMapY = gWorldSectorY;
+	
+			switch( ubQuoteActionID )
+			{
+			case QUOTE_ACTION_ID_TRAVERSE_EAST:
+				++iMapX;
+				break;
+			case QUOTE_ACTION_ID_TRAVERSE_WEST:
+				--iMapX;
+				break;
+			case QUOTE_ACTION_ID_TRAVERSE_SOUTH:
+				++iMapY;
+				break;
+			case QUOTE_ACTION_ID_TRAVERSE_NORTH:
+				--iMapY;
+				break;
+			}
+	
+			SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( iMapX, iMapY ) ] );
+	
+			switch( pSoldier->ubSoldierClass )
+			{
+			case SOLDIER_CLASS_ELITE:
+				++pSectorInfo->ubNumElites;
+				break;
+	
+			case SOLDIER_CLASS_ARMY:
+				++pSectorInfo->ubNumTroops;
+				break;
+	
+			case SOLDIER_CLASS_ADMINISTRATOR:
+				++pSectorInfo->ubNumAdmins;
+				break;
+	
+			case SOLDIER_CLASS_ROBOT:
+				if (ENEMYROBOT(pSoldier))
+					++pSectorInfo->ubNumRobots;
+				break;
+	
+			case SOLDIER_CLASS_TANK:
+				if( TANK(pSoldier) )
+					++pSectorInfo->ubNumTanks;
+				break;
+	
+			case SOLDIER_CLASS_JEEP:
+				if ( COMBAT_JEEP( pSoldier ) )
+					++pSectorInfo->ubNumJeeps;
+				break;
+			}
+	
 		}
-
-		SECTORINFO *pSectorInfo = &( SectorInfo[ SECTOR( iMapX, iMapY ) ] );
-
-		switch( pSoldier->ubSoldierClass )
-		{
-		case SOLDIER_CLASS_ELITE:
-			++pSectorInfo->ubNumElites;
-			break;
-
-		case SOLDIER_CLASS_ARMY:
-			++pSectorInfo->ubNumTroops;
-			break;
-
-		case SOLDIER_CLASS_ADMINISTRATOR:
-			++pSectorInfo->ubNumAdmins;
-			break;
-
-		case SOLDIER_CLASS_ROBOT:
-			if (ENEMYROBOT(pSoldier))
-				++pSectorInfo->ubNumRobots;
-			break;
-
-		case SOLDIER_CLASS_TANK:
-			if( TANK(pSoldier) )
-				++pSectorInfo->ubNumTanks;
-			break;
-
-		case SOLDIER_CLASS_JEEP:
-			if ( COMBAT_JEEP( pSoldier ) )
-				++pSectorInfo->ubNumJeeps;
-			break;
-		}
-
 		ProcessQueenCmdImplicationsOfDeath( pSoldier );
 		TacticalRemoveSoldier( pSoldier->ubID );
 	}
