@@ -7886,7 +7886,7 @@ void SOLDIERTYPE::EVENT_BeginMercTurn( BOOLEAN fFromRealTime, INT32 iRealTimeCou
 					if ( MercIsHot( this ) )
 					{
 						HandleMoraleEvent( this, MORALE_HEAT_INTOLERANT_IN_DESERT, this->sSectorX, this->sSectorY, this->bSectorZ );
-						if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) && this->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
+						if ( !(this->usQuoteSaidFlags & SOLDIER_QUOTE_SAID_PERSONALITY) )
 						{
 							TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 							this->usQuoteSaidFlags |= SOLDIER_QUOTE_SAID_PERSONALITY;
@@ -14332,7 +14332,7 @@ BOOLEAN SOLDIERTYPE::CheckForBreathCollapse( void )
 			 gAnimControl[this->usAnimState].ubEndHeight == ANIM_STAND && !(this->ubServiceCount) ) // SANDRO - added check to not play this if on healing
 		{
 			// SANDRO - say our personality quote for being out of breath caused by heat 
-			if ( MercIsHot( this ) && this->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER )
+			if ( MercIsHot( this ) )
 			{
 				TacticalCharacterDialogue( this, QUOTE_PERSONALITY_TRAIT );
 

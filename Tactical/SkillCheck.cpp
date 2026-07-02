@@ -892,7 +892,7 @@ INT32 SkillCheck( SOLDIERTYPE * pSoldier, INT8 bReason, INT8 bChanceMod )
 			{
 				if (iChance == 0)
 				{
-					if ( MercIsHot( pSoldier ) && pSoldier->ubWhatKindOfMercAmI != MERC_TYPE__PLAYER_CHARACTER) // SANDRO - added this
+					if ( MercIsHot( pSoldier )  // SANDRO - added this
 					{
 						TacticalCharacterDialogue( pSoldier, QUOTE_PERSONALITY_TRAIT );
 
