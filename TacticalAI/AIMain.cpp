@@ -2700,6 +2700,19 @@ void CheckForChangingOrders(SOLDIERTYPE *pSoldier)
 				pSoldier->aiData.usNextActionData = gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo;
 				gMercProfiles[ pSoldier->ubProfile ].sPreCombatGridNo = NOWHERE;
 			}
+			// Return militia to initial map placement after combat (#166)
+			else if ( pSoldier->bTeam == MILITIA_TEAM && pSoldier->sGridNo != pSoldier->sInitialGridNo && pSoldier->sInitialGridNo != 0 && pSoldier->sInitialGridNo != NOWHERE && pSoldier->stats.bLife >= OKLIFE && !TileIsOutOfBounds(pSoldier->sInitialGridNo) )
+			{
+				pSoldier->aiData.bNextAction = AI_ACTION_END_COWER_AND_MOVE;
+				pSoldier->aiData.usNextActionData = pSoldier->sInitialGridNo;
+			}
+			// Return generic (unprofiled) civilians to initial placement after combat (#166)
+			else if ( pSoldier->bTeam == CIV_TEAM && pSoldier->ubProfile == NO_PROFILE && pSoldier->sGridNo != pSoldier->sInitialGridNo && pSoldier->sInitialGridNo != 0 && pSoldier->sInitialGridNo != NOWHERE && pSoldier->stats.bLife >= OKLIFE && pSoldier->aiData.bNeutral && !TileIsOutOfBounds(pSoldier->sInitialGridNo) )
+			{
+				pSoldier->aiData.bNextAction = AI_ACTION_END_COWER_AND_MOVE;
+				pSoldier->aiData.usNextActionData = pSoldier->sInitialGridNo;
+			}
+
 			else if ( pSoldier->flags.uiStatusFlags & SOLDIER_COWERING )
 			{
 				pSoldier->aiData.bNextAction = AI_ACTION_STOP_COWERING;
