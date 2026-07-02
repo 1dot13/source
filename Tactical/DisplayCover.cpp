@@ -409,8 +409,10 @@ static void RemoveCoverObjectsFromViewArea()
 		}
 	}
 
-	// Re-render the scene!
-	if ( fChanged )
+	// Don't set RENDER_FLAG_FULL here - the caller (DisplayCover) will
+	// immediately add new cover objects which sets the render flag.
+	// Setting it here causes a brief flicker between remove and add (#148).
+	if ( fChanged && gubDrawMode == DRAW_MODE_OFF )
 	{
 		SetRenderFlags(RENDER_FLAG_FULL);
 	}
