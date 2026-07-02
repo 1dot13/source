@@ -1421,6 +1421,47 @@ UINT32 InitializeJA2(void)
 	//}
 	SGP_TRYCATCH_RETHROW(LoadExternalGameplayData(TABLEDATA_DIRECTORY, false),L"Loading external data failed");
 
+	// CRITICAL FALLBACK: VFS FileOpen may fail for DifficultySettings.xml.
+	// If difficulty settings were not loaded, hardcode all 5 levels.
+	if (MaxDifficultySettingsValues == 0) {
+		MaxDifficultySettingsValues = 5; MaxDifficultySettingsValues--;
+		zDiffSetting[0].uiIndex=0; wcscpy(zDiffSetting[0].szDiffName,L"Not Used!"); wcscpy(zDiffSetting[0].szConfirmText,L"");
+		zDiffSetting[1].uiIndex=1; wcscpy(zDiffSetting[1].szDiffName,L"Novice"); wcscpy(zDiffSetting[1].szConfirmText,L"You have chosen NOVICE mode. Are you sure?");
+		zDiffSetting[1].iStartingCash=45000; zDiffSetting[1].iNumKillsPerProgressPoint=7; zDiffSetting[1].iInitialGarrisonPercentages=70; zDiffSetting[1].iMinEnemyGroupSize=3; zDiffSetting[1].iCounterAttackGroupSize=6;
+		zDiffSetting[1].iQueensInitialPoolOfTroops=150; zDiffSetting[1].iQueenPoolBaseIncrementSizePerDifficultyLevel=60; zDiffSetting[1].iQueenPoolRecruitPercentPerDifficultyLevel=1;
+		zDiffSetting[1].iEnemyStartingAlertLevel=5; zDiffSetting[1].iEnemyAlertDecay=75; zDiffSetting[1].iNumAwareBattles=1; zDiffSetting[1].iBaseDelayInMinutesBetweenEvaluations=480; zDiffSetting[1].iEvaluationDelayVariance=240;
+		zDiffSetting[1].iGracePeriodInHoursAfterSectorLiberation=144; zDiffSetting[1].iGracePeriodInDaysAfterPatrolDestroyed=16; zDiffSetting[1].iMaxMercDeaths=2;
+		zDiffSetting[1].iCreatureSpreadTime=510; zDiffSetting[1].iQueenReproductionBase=6; zDiffSetting[1].iQueenReproductionBonus=1; zDiffSetting[1].iCreatureTownAggressiveness=-10;
+		zDiffSetting[1].iJ9B1NumTroops=8; zDiffSetting[1].iK4B1NumTroops=1; zDiffSetting[1].iJ9B2NumCreatures=1; zDiffSetting[1].iP3B1NumElites=8;
+		zDiffSetting[1].iUpdateLastDayOfPlayerActivity=1; zDiffSetting[1].iChanceOfEnemyAmbushes=-15; zDiffSetting[1].bAllowReinforcements=1;
+		zDiffSetting[2].uiIndex=2; wcscpy(zDiffSetting[2].szDiffName,L"Experienced"); wcscpy(zDiffSetting[2].szConfirmText,L"You have chosen EXPERIENCED mode. Are you sure?");
+		zDiffSetting[2].iStartingCash=35000; zDiffSetting[2].iNumKillsPerProgressPoint=10; zDiffSetting[2].iInitialGarrisonPercentages=100; zDiffSetting[2].iMinEnemyGroupSize=4; zDiffSetting[2].iCounterAttackGroupSize=10;
+		zDiffSetting[2].iQueensInitialPoolOfTroops=200; zDiffSetting[2].iQueenPoolBaseIncrementSizePerDifficultyLevel=120; zDiffSetting[2].iQueenPoolRecruitPercentPerDifficultyLevel=2;
+		zDiffSetting[2].iEnemyStartingAlertLevel=20; zDiffSetting[2].iEnemyAlertDecay=50; zDiffSetting[2].iNumAwareBattles=2; zDiffSetting[2].iBaseDelayInMinutesBetweenEvaluations=360; zDiffSetting[2].iEvaluationDelayVariance=180;
+		zDiffSetting[2].iGracePeriodInHoursAfterSectorLiberation=96; zDiffSetting[2].iGracePeriodInDaysAfterPatrolDestroyed=12; zDiffSetting[2].iMaxMercDeaths=4; zDiffSetting[2].usLootStatusModifier=20;
+		zDiffSetting[2].iCreatureSpreadTime=450; zDiffSetting[2].iQueenReproductionBase=7; zDiffSetting[2].iQueenInitBonusSpread=2;
+		zDiffSetting[2].iJ9B1NumTroops=11; zDiffSetting[2].iK4B1NumTroops=2; zDiffSetting[2].iJ9B2NumCreatures=2; zDiffSetting[2].iP3B1NumElites=10;
+		zDiffSetting[2].iUpdateLastDayOfPlayerActivity=1; zDiffSetting[2].iChanceOfEnemyAmbushes=5; zDiffSetting[2].bAllowReinforcements=1; zDiffSetting[2].bAllowReinforcementsOmerta=1; zDiffSetting[2].iDesiredPopulationL2=1;
+		zDiffSetting[3].uiIndex=3; wcscpy(zDiffSetting[3].szDiffName,L"Expert"); wcscpy(zDiffSetting[3].szConfirmText,L"You have chosen EXPERT mode. Are you sure?");
+		zDiffSetting[3].iStartingCash=30000; zDiffSetting[3].iNumKillsPerProgressPoint=15; zDiffSetting[3].iInitialGarrisonPercentages=150; zDiffSetting[3].iMinEnemyGroupSize=6; zDiffSetting[3].iCounterAttackGroupSize=15;
+		zDiffSetting[3].iQueensInitialPoolOfTroops=400; zDiffSetting[3].iQueenPoolBaseIncrementSizePerDifficultyLevel=180; zDiffSetting[3].iQueenPoolRecruitPercentPerDifficultyLevel=3;
+		zDiffSetting[3].iEnemyStartingAlertLevel=60; zDiffSetting[3].iEnemyAlertDecay=25; zDiffSetting[3].iNumAwareBattles=3; zDiffSetting[3].iBaseDelayInMinutesBetweenEvaluations=180; zDiffSetting[3].iEvaluationDelayVariance=120;
+		zDiffSetting[3].iGracePeriodInHoursAfterSectorLiberation=48; zDiffSetting[3].iGracePeriodInDaysAfterPatrolDestroyed=8; zDiffSetting[3].iMaxMercDeaths=6; zDiffSetting[3].usLootStatusModifier=40;
+		zDiffSetting[3].iCreatureSpreadTime=390; zDiffSetting[3].iQueenReproductionBase=9; zDiffSetting[3].iQueenInitBonusSpread=3;
+		zDiffSetting[3].iJ9B1NumTroops=15; zDiffSetting[3].iK4B1NumTroops=3; zDiffSetting[3].iJ9B2NumCreatures=3; zDiffSetting[3].iP3B1NumElites=14;
+		zDiffSetting[3].bStrategicAiActionWakeQueen=1; zDiffSetting[3].iUpdateLastDayOfPlayerActivity=2; zDiffSetting[3].iChanceOfEnemyAmbushes=12; zDiffSetting[3].bAllowReinforcements=1; zDiffSetting[3].bAllowReinforcementsOmerta=1;
+		zDiffSetting[3].iDesiredPopulationL2=1; zDiffSetting[3].iDesiredPopulationL3=1; zDiffSetting[3].iPercentElitesBonus=25;
+		zDiffSetting[4].uiIndex=4; wcscpy(zDiffSetting[4].szDiffName,L"Insane"); wcscpy(zDiffSetting[4].szConfirmText,L"You have chosen INSANE mode. Are you sure?");
+		zDiffSetting[4].iStartingCash=15000; zDiffSetting[4].iEnemyAPBonus=5; zDiffSetting[4].iNumKillsPerProgressPoint=60; zDiffSetting[4].iInitialGarrisonPercentages=200; zDiffSetting[4].iMinEnemyGroupSize=12; zDiffSetting[4].iCounterAttackGroupSize=24;
+		zDiffSetting[4].bUnlimitedPoolOfTroops=1; zDiffSetting[4].iQueensInitialPoolOfTroops=8000; zDiffSetting[4].iQueenPoolBaseIncrementSizePerDifficultyLevel=240; zDiffSetting[4].iQueenPoolRecruitPercentPerDifficultyLevel=4;
+		zDiffSetting[4].iEnemyStartingAlertLevel=80; zDiffSetting[4].iEnemyAlertDecay=10; zDiffSetting[4].iNumAwareBattles=4; zDiffSetting[4].iBaseDelayInMinutesBetweenEvaluations=90; zDiffSetting[4].iEvaluationDelayVariance=60;
+		zDiffSetting[4].iGracePeriodInHoursAfterSectorLiberation=6; zDiffSetting[4].iGracePeriodInDaysAfterPatrolDestroyed=2; zDiffSetting[4].bAggressiveQueenAi=1; zDiffSetting[4].iMaxMercDeaths=8; zDiffSetting[4].usLootStatusModifier=60;
+		zDiffSetting[4].iCreatureSpreadTime=150; zDiffSetting[4].iQueenReproductionBase=15; zDiffSetting[4].iQueenReproductionBonus=5; zDiffSetting[4].iQueenInitBonusSpread=5;
+		zDiffSetting[4].iJ9B1NumTroops=20; zDiffSetting[4].iK4B1NumTroops=4; zDiffSetting[4].iJ9B2NumCreatures=4; zDiffSetting[4].iP3B1NumElites=20;
+		zDiffSetting[4].bStrategicAiActionWakeQueen=1; zDiffSetting[4].iUpdateLastDayOfPlayerActivity=2; zDiffSetting[4].iChanceOfEnemyAmbushes=25; zDiffSetting[4].bAllowReinforcements=1; zDiffSetting[4].bAllowReinforcementsOmerta=1;
+		zDiffSetting[4].iDesiredPopulationL2=1; zDiffSetting[4].iDesiredPopulationL3=1; zDiffSetting[4].iPercentElitesBonus=50;
+	}
+
 	// sun_alf: set itemId to each Magazine to avoid searching over Item[] on each MagazineClassIndexToItemType() call.
 	for (int i = 0; i < gMAXITEMS_READ; i++)
 	{
