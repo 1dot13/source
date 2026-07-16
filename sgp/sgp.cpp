@@ -949,6 +949,13 @@ void GetRuntimeSettings( )
 		SGP_THROW_IFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), _BS(L"invalid locale : ") << loc << _BS::wget );
 	}
 
+	vfs::String language = oProps.getStringProperty("Ja2 Settings", L"LANGUAGE");
+	if(!language.empty())
+	{
+		std::string languageName = language.utf8();
+		SetLanguageFromName(languageName);
+	}
+
 	iResolution = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
 	
 	// WANNE: Always enable
