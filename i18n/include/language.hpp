@@ -28,3 +28,7 @@ auto SetLanguageFromName(std::string const& name) -> void;
 extern int MAX_MESSAGES_ON_MAP_BOTTOM;
 
 auto GetLanguagePrefix() -> const STR;
+
+/* Rebinds every language table's global pointer to the given language's
+ * namespace (see LanguageStrings.cpp). Stub for now; not yet called. */
+auto BindLanguageStrings(i18n::Lang lang) -> void;
