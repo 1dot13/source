@@ -16,7 +16,6 @@
 // compiled standalone until Cn+2, and #include the headers declaring the now-pointer
 // externs themselves; this guard keeps their array definitions out of those standalone
 // TUs (which would collide with the pointer extern) while still compiling them here.
-#define JA2_UNIFIED_TEXT 1
 
 namespace lang_en {
 #undef ENGLISH
