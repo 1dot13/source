@@ -3229,24 +3229,3 @@ void ParseCommandLine(const char *start,char **argv,char *args,int *numargs,int 
 void ParseCommandLine(const wchar_t *start,wchar_t **argv,wchar_t *args,int *numargs,int *numchars);
 
 #endif
-
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-//these are dummy functions. Not all of these may be necessary. They are included for future possible useage
-void this_is_the_ChineseText_public_symbol(void);
-void this_is_the_DutchText_public_symbol(void);
-void this_is_the_EnglishText_public_symbol(void);
-void this_is_the_FrenchText_public_symbol(void);
-void this_is_the_GermanText_public_symbol(void);
-void this_is_the_ItalianText_public_symbol(void);
-void this_is_the_PolishText_public_symbol(void);
-void this_is_the_RussianText_public_symbol(void);
-
-void this_is_the_Ja25ChineseText_public_symbol(void);
-void this_is_the_Ja25DutchText_public_symbol(void);
-void this_is_the_Ja25EnglishText_public_symbol(void);
-void this_is_the_Ja25FrenchText_public_symbol(void);
-void this_is_the_Ja25GermanText_public_symbol(void);
-void this_is_the_Ja25ItalianText_public_symbol(void);
-void this_is_the_Ja25PolishText_public_symbol(void);
-void this_is_the_Ja25RussianText_public_symbol(void);

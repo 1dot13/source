@@ -18,67 +18,43 @@
 // TUs (which would collide with the pointer extern) while still compiling them here.
 
 namespace lang_en {
-#undef ENGLISH
-#define ENGLISH
 #include "_EnglishText.cpp"
 #include "_Ja25EnglishText.cpp"
-#undef ENGLISH
 }
 
 namespace lang_de {
-#undef GERMAN
-#define GERMAN
 #include "_GermanText.cpp"
 #include "_Ja25GermanText.cpp"
-#undef GERMAN
 }
 
 namespace lang_ru {
-#undef RUSSIAN
-#define RUSSIAN
 #include "_RussianText.cpp"
 #include "_Ja25RussianText.cpp"
-#undef RUSSIAN
 }
 
 namespace lang_nl {
-#undef DUTCH
-#define DUTCH
 #include "_DutchText.cpp"
 #include "_Ja25DutchText.cpp"
-#undef DUTCH
 }
 
 namespace lang_pl {
-#undef POLISH
-#define POLISH
 #include "_PolishText.cpp"
 #include "_Ja25PolishText.cpp"
-#undef POLISH
 }
 
 namespace lang_fr {
-#undef FRENCH
-#define FRENCH
 #include "_FrenchText.cpp"
 #include "_Ja25FrenchText.cpp"
-#undef FRENCH
 }
 
 namespace lang_it {
-#undef ITALIAN
-#define ITALIAN
 #include "_ItalianText.cpp"
 #include "_Ja25ItalianText.cpp"
-#undef ITALIAN
 }
 
 namespace lang_zh {
-#undef CHINESE
-#define CHINESE
 #include "_ChineseText.cpp"
 #include "_Ja25ChineseText.cpp"
-#undef CHINESE
 }
 
 // Compile-time default is always English: Cn+4 retired the per-exe ENGLISH/GERMAN/...

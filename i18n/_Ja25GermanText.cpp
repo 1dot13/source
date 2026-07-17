@@ -1,17 +1,4 @@
-﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
-//#pragma setlocale("GERMAN")
-
-	#ifdef GERMAN
-		#include "Text.h"
-		#include "FileMan.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_Ja25GermanText_public_symbol(void){;}
-
-#ifdef GERMAN
-
-// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
+﻿// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
 //these strings match up with the defines in IMP Skill trait.cpp
 STR16 gzIMPSkillTraitsText[]=
@@ -526,6 +513,3 @@ STR16 gzDisplayCoverText[]=
 	L"Stealth difficulty",
 	L"Trap level",
 };
-
-
-#endif
