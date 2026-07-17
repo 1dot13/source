@@ -949,7 +949,10 @@ void GetRuntimeSettings( )
 		SGP_THROW_IFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), _BS(L"invalid locale : ") << loc << _BS::wget );
 	}
 
-	vfs::String language = oProps.getStringProperty("Ja2 Settings", L"LANGUAGE");
+	vfs::PropertyContainer langIni{};
+	langIni.initFromIniFile("Language.ini");
+	PopulateSectionFromCommandLine(langIni, L"Language");
+	auto language = langIni.getStringProperty("Language", L"LANGUAGE");
 	if(!language.empty())
 	{
 		std::string languageName = language.utf8();
