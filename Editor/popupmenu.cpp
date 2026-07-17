@@ -40,7 +40,7 @@ MOUSE_REGION popupRegion;
 UINT16 gusEntryHeight;
 BOOLEAN fWaitingForLButtonRelease = FALSE;
 
-extern CHAR16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20];
+extern CHAR16 (*gszScheduleActions)[20];	// NUM_SCHEDULE_ACTIONS entries
 
 //Finds the string for any popup menu in JA2 -- the strings are stored
 //in different ways in each instance.
