@@ -30,5 +30,7 @@ extern int MAX_MESSAGES_ON_MAP_BOTTOM;
 auto GetLanguagePrefix() -> const STR;
 
 /* Rebinds every language table's global pointer to the given language's
- * namespace (see LanguageStrings.cpp). Stub for now; not yet called. */
+ * namespace (see LanguageStrings.cpp). Called once at startup, right after
+ * the LANGUAGE ini key resolves g_lang (sgp.cpp GetRuntimeSettings), before
+ * any UI reads a string. */
 auto BindLanguageStrings(i18n::Lang lang) -> void;

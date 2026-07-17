@@ -1,8 +1,8 @@
-﻿// Scaffolding for the language axis migration (docs/plans/language-design.md, chunk
-// C2): pulls all eight base + eight Ja2.5-carryover text files into this one
-// translation unit, each inside its own per-language namespace, to prove they compile
-// together. The global table pointers and BindLanguageStrings body are filled in by
-// later chunks (Recipe R1); for now BindLanguageStrings is an empty stub.
+﻿// All eight languages' string tables in one translation unit (docs/plans/
+// language-design.md): each base + Ja2.5-carryover text file is included inside its
+// own per-language namespace, the game-facing table symbols are the pointer globals
+// below (statically bound to the build default), and BindLanguageStrings rebinds all
+// of them to the language resolved at startup from the LANGUAGE ini key.
 
 #include "Text.h"
 #include "FileMan.h"
