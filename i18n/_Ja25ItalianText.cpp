@@ -16,6 +16,7 @@ void this_is_the_Ja25ItalianText_public_symbol(void){;}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsText[]=
 {
 	L"Scassinare",
@@ -37,8 +38,10 @@ STR16 gzIMPSkillTraitsText[]=
 	L"Specialità I.M.P.",
 	L"(Expert)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new major traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
 	L"Auto Weapons",
@@ -66,8 +69,10 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Doctor",
 	L"Spy",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new minor traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
 	L"Ambidextrous",
@@ -86,8 +91,10 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"None",
 	L"I.M.P. Minor Traits",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //these texts are for help popup windows, describing trait properties
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 {
 	L"+%d%s CtH with Assault Rifles\n",
@@ -98,7 +105,9 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"Auto fire/burst CtH penalty reduced by %d%s\n",
 	L"Reduced chance for shooting extra bullets on autofire\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"-%d%s APs to fire grenade launchers\n",
@@ -110,7 +119,9 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
 	L"+%d%s damage to other targets with heavy weapons\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
 	L"+%d%s CtH with Rifles\n",
@@ -134,7 +145,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"+%d%s CtH with Rifles\n",
@@ -148,7 +161,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"Adds %d more aim click for Rifles\n",
 	L"Adds %d more aim clicks for Rifles\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"-%d%s APs to fire with pistols and revolvers\n",
@@ -163,7 +178,9 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
 	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
 	L"-%d%s AP for hand to hand attacks (bare hands or with brass knuckles)\n",
@@ -195,7 +212,9 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"Gains special animations for hand to hand combat\n",
 	L"-%d%s chance to be interrupted when charging towards an enemy on close range\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"+%d%s APs per round of other mercs in vicinity\n",
@@ -211,7 +230,9 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"Drawback: %dx morale loss for %s's death for all other mercs\n",
 	L"+%d%s chance to trigger collective interrupts\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"+%d%s to repair speed\n",
@@ -226,7 +247,9 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"Reduced penalty to repair speed of the robot by %d%s\n",
 	L"Able to restore item threshold to 100%% during repair\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
 	L"Able to use medical bag to perform surgical intervention on wounded soldier\n",
@@ -241,7 +264,9 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L" (max %d of these bonuses per sector stack)",
 	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
 	L"Able to disguise as a civilian or soldier to slip behind enemy lines.\n",
@@ -253,7 +278,9 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"Disguise AP cost lowered by %d%s.\n",
 	L"Can convince enemy soldiers to secretly change sides.\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
 {
 	L"Can use communications equipment.\n", 
@@ -263,12 +290,16 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=	// TODO.Translate
 	L"If communications are jammed, an operator can scan for the jamming device.\n",
 	L"Can call in militia reinforcements from neighbouring sectors.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
 	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",	// TODO.Translate
@@ -280,7 +311,9 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"-%d%s APs to plant/remove bombs and mines\n",
 	L"-%d%s APs to attach items\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"-%d%s APs to attack with blades\n",
@@ -294,7 +327,9 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"+%d%s chance to dodge attack from blunt melee weapons\n",
 	L"+%d%s additional chance to dodge blunt melee weapons if holding a blade\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"-%d%s basic APs to throw blades\n",
@@ -311,7 +346,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d%s max range when throwing grenades\n",
 	L"+%d%s CtH when throwing grenades\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"+%d to effective sight range in the dark\n",
@@ -320,7 +357,9 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"+%d to interrupts modifier in the dark\n",
 	L"-%d need to sleep\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s APs to move quietly\n",
@@ -329,13 +368,17 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"Reduced cover penalty for movement by %d%s\n",
 	L"-%d%s chance to be interrupted\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"-%d%s APs for movement (running, walking, squatting, crawling, swimming, etc.)\n",
 	L"-%d%s energy spent for moving, roof-climbing, obstacle-jumping, swimming, etc.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"%d%s damage resistance\n",
@@ -343,7 +386,9 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 	L"Reduced energy lost when hit by HtH attack by %d%s\n",
 	L"Increased damage needed to fall down by %d%s if hit on legs\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
 	L"+%d%s damage for set bombs and mines\n",
@@ -352,7 +397,9 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"Decreased chance of enemy detecting your bombs and mines (+%d bomb level)\n",
 	L"Increased chance for shaped charge on opening doors (damage multiplied by %d)\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"+%d%s bonus to militia training speed\n",
@@ -361,7 +408,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"Skill value treated to be +%d higher for being able to teach this skill to other mercs\n",
 	L"+%d%s bonus to train stats through self-practice assignment\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"+%d%% to effective sight range with scopes on weapons\n",
@@ -372,6 +421,8 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Prevents enemy ambushes on your squad\n",
 	L"Prevents bloodcat ambushes on your squad\n",
 };
+#endif // JA2_UNIFIED_TEXT
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"Will occasionally inform you about his teammates' opinions.\n",	// TODO.Translate
@@ -382,7 +433,9 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Increases your reputation by %d every day if in good morale.\n",	// TODO.Translate
 	L"+%d to effective hearing range\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 {
 	L"-%d%s travel time needed between sectors if traveling by foot\n",
@@ -398,12 +451,16 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =	// TODO.Translate
 	L"+%d%% snake evasion\n",	// TODO.Translate
 	L"+%d%% camouflage effectiveness\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
 	L"+%d%s bonus to lockpicking\n",	// 0
@@ -443,7 +500,9 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"Gains special animations for hand to hand combat\n",
 	L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"A: No advantage.\nD: No disadvantage.",
@@ -461,7 +520,9 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"A: Better performance when mercs of opposite gender are nearby.\nD: Morale for mercs of the same gender grows slower when nearby.",
 	L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.", // TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
 	L"No effects.",
@@ -478,27 +539,35 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Performance suffers while on a rooftop.",	// TODO.Translate
 	L"Occasionally harms self.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPProfileCostText[]=
 {
 	L"The profile cost is $%d. Authorize payment?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 zGioNewTraitsImpossibleText[]=
 {
 	L"You cannot choose the New Trait System with PROFEX utility deactivated. Check your JA2_Options.ini for entry: READ_PROFILE_DATA_FROM_XML.",
 };
+#endif // JA2_UNIFIED_TEXT
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //New string as of March 3, 2000.
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzIronManModeWarningText[]=
 {
 	L"Hai scelto la modalità IRON MAN. Questa impostazione rende il gioco notevolmente più impegnativo, poiché non potrai salvare la partita in un settore occupato da nemici. Non potrai cambiare questa decisione nel corso della partita. Sei sicuro di voler giocare al livello IRON MAN?",
 	L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",// TODO.Translate
 	L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzDisplayCoverText[]=
 {
 	L"Copertura: %d/100 %s, Luminosità: %d/100",
@@ -523,6 +592,7 @@ STR16 gzDisplayCoverText[]=
 	L"Stealth difficulty",
 	L"Trap level",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #endif

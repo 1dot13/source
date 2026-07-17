@@ -3505,6 +3505,7 @@ STR16 pLandTypeStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gpStrategicString[] =
 {
 	L"",	//Unused
@@ -3663,20 +3664,25 @@ STR16 gpStrategicString[] =
 	L"Transport group",
 	L"Transport group en route",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gpGameClockString[] = 
 {
 	//This is the day represented in the game clock.  Must be very short, 4 characters max.
 	L"День",	
 };
+#endif // JA2_UNIFIED_TEXT
 
 //When the merc finds a key, they can get a description of it which 
 //tells them where and when they found it.
+#ifdef JA2_UNIFIED_TEXT
 STR16 sKeyDescriptionStrings[2] =
 {
 	L"Найдено в секторе:",
 	L"День находки:",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //The headers used to describe various weapon statistics.
 
@@ -3712,6 +3718,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
+#ifdef JA2_UNIFIED_TEXT
 STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
 	L"|Д|а|л|ь|н|о|с|т|ь\n \nФактическая дальность стрельбы из этого оружия.\nСтрельба с расстояний, превышающих данный показатель,\nбудет осуществляться со значительными штрафами\nна точность.\n \nБольше - лучше.",
@@ -3748,7 +3755,9 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
     L"",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить его свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"Модификатор размера предмета\n(меньше - лучше)", //0
@@ -3788,10 +3797,12 @@ STR16		gzMiscItemStatsFasthelp[] =
 	L"Зажмите |C|t|r|l для сравнения предметов",									// item compare help text 
 	L"Equipment weight: %4.1f kg",	// 35	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: End new tooltip text
 
 // HEADROCK HAM 4: New condition-based text similar to JA1.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gConditionDesc[] =
 {
 	L"В ",	//In 
@@ -3804,6 +3815,7 @@ STR16 gConditionDesc[] =
 	L"НЕРАБОЧЕМ",
 	L" состоянии."
 };
+#endif // JA2_UNIFIED_TEXT
 
 //The headers used for the merc's money.
 
@@ -3835,11 +3847,14 @@ CHAR16 zHealthStr[][13] =
 	L"ЗАХВАЧЕН",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzHiddenHitCountStr[1] =
 {
 	L"?",	
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMoneyAmounts[6] = 
 { 
 	L"1000$",
@@ -3849,17 +3864,22 @@ STR16	gzMoneyAmounts[6] =
 	L"Разделить",
 	L"Взять",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons." 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16		gzProsLabel[10] = 
 {
 	L"+",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16		gzConsLabel[10] = 
 {
 	L"-",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Conversation options a player has when encountering an NPC
 CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
@@ -3913,6 +3933,7 @@ STR16 pShortVehicleStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	zVehicleName[] =
 {
 	L"Эльдорадо",
@@ -3922,12 +3943,15 @@ STR16	zVehicleName[] =
 	L"Танк",
 	L"Вертолёт", 		//an abbreviation for Helicopter
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pVehicleSeatsStrings[] =
 {
 	 L"Вы не можете стрелять с этого места.",
 	 L"Вы не можете поменять их местами во время боя, не выходя из автомобиля.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //These are messages Used in the Tactical Screen
 
@@ -4216,6 +4240,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
+#ifdef JA2_UNIFIED_TEXT
 STR16 pExitingSectorHelpText[] =
 {
 	//Helptext for the "Go to Sector" checkbox button, that explains what will happen when the box is checked.
@@ -4259,6 +4284,7 @@ STR16 pExitingSectorHelpText[] =
 	//This string is special, as it is not used as helptext.  Do not use the special newline character (\n) for this string.
 	L"%s сопровождается вашими наёмниками и не может покинуть этот сектор в одиночку. Остальные наёмники должны быть рядом, прежде чем вы сможете покинуть сектор.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -5478,6 +5504,7 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 //Insurance Contract.c
 //The text on the buttons at the bottom of the screen.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			InsContractText[] = 
 { 
 	L"Назад",
@@ -5485,22 +5512,26 @@ STR16			InsContractText[] =
 	L"Да",
 	L"Очистить",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //Insurance Info
 // Text on the buttons on the bottom of the screen
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		InsInfoText[] = 
 { 
 	L"Назад", 
 	L"Дальше",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //For use at the M.E.R.C. web site. Text relating to the player's account with MERC
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercAccountText[] = 
 {
 	// Text on the buttons on the bottom of the screen
@@ -5515,19 +5546,23 @@ STR16			MercAccountText[] =
 	L"Вы подтверждаете платеж в размере %s?",		//the %s is a string that contains the dollar amount ( ex. "$150" )
 	L"%s (+снаряжение)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Merc Account Page buttons
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercAccountPageText[] = 
 {
 	// Text on the buttons on the bottom of the screen
 	L"Назад",
 	L"Дальше",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercInfo[] =
 {
 	L"Здоровье",
@@ -5562,11 +5597,13 @@ STR16			MercInfo[] =
 	L"Снаряжение",
 	L"Special Offer!",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // For use at the M.E.R.C. web site. Text relating to opening an account with MERC
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercNoAccountText[] =
 {
 	//Text on the buttons at the bottom of the screen
@@ -5574,11 +5611,13 @@ STR16			MercNoAccountText[] =
 	L"Отмена",
 	L"Вы ещё не зарегистрировались. Желаете открыть счёт?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // For use at the M.E.R.C. web site. MERC Homepage
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
@@ -5590,9 +5629,11 @@ STR16			MercHomePageText[] =
 	L"Speck Com v3.2",
 	L"Денежный перевод не состоялся. Недостаточно средств на счету.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // For use at MiGillicutty's Web Page.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFuneralString[] =
 {
 	L"Похоронное агентство Макгилликатти: скорбим вместе с семьями усопших с 1983 г.",
@@ -5612,9 +5653,11 @@ STR16			sFuneralString[] =
 	L"К сожалению, наш сайт не закончен, в связи с утратой в семье. Мы постараемся продолжить работу после прочтения завещания и выплат долгов умершего. Сайт вскоре откроется.",
 	L"Мы искренне сочувствуем вам в это трудное время. Заходите ещё.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Text for the florist Home page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFloristText[] = 
 {
 	//Text on the button on the bottom of the page
@@ -5640,11 +5683,13 @@ STR16			sFloristText[] =
 	L"Пусть Брюс, известный во всем мире садовник, сам соберет вам отличный букет в нашем саду.",
 	L"И запомните, если у нас нет таких цветов, мы быстро вырастим то, что вам надо!",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //Florist OrderForm
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sOrderFormText[] = 
 {
 	//Text on the buttons
@@ -5677,12 +5722,14 @@ STR16			sOrderFormText[] =
 
 	L"Название:",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 
 //Florist Gallery.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		sFloristGalleryText[] =
 {
 	//text on the buttons
@@ -5697,19 +5744,23 @@ STR16		sFloristGalleryText[] =
 
 	L"В начало",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Florist Cards
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFloristCards[] =
 {
 	L"Выберите текст, который будет напечатан на открытке.",
 	L"Назад",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // Text for Bobby Ray's Mail Order Site
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyROrderFormText[] = 
 {
 	L"Бланк заказа",		//Title of the page
@@ -5739,7 +5790,9 @@ STR16			BobbyROrderFormText[] =
 	L"** Мин. вес",			// Disclaimer states that there is a minimum weight for the package
 	L"Заказы",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRFilter[] =
 {
 	// Guns
@@ -5793,10 +5846,12 @@ STR16			BobbyRFilter[] =
 	L"Др. навеска",
 	L"Разное",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // This text is used when on the various Bobby Ray Web site pages that sell items
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRText[] = 
 {
 	L"Заказать",		// Title
@@ -5859,10 +5914,12 @@ STR16			BobbyRText[] =
 	L"Извините, но данного товара пока нет на складе.",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // Text for Bobby Ray's Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRaysFrontText[] =
 {
 	//Details on the web site
@@ -5883,12 +5940,14 @@ STR16			BobbyRaysFrontText[] =
 	L"Если у нас чего-то нет, то этого нет нигде!",
 	L"В разработке",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // Text for the AIM page.
 // This is the text used when the user selects the way to sort the aim mercanaries on the AIM mug shot page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimSortText[] =
 {
 	L"A.I.M. Состав",		// Title
@@ -5922,11 +5981,13 @@ STR16			AimSortText[] =
 	L"По возрастанию",
 	L"По убыванию",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Policies.c
 //The page in which the AIM policies and regulations are displayed
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		AimPolicyText[] =
 {
 	// The text on the buttons at the bottom of the page
@@ -5938,6 +5999,7 @@ STR16		AimPolicyText[] =
 	L"Не согласен",
 	L"Согласен",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -5946,6 +6008,7 @@ STR16		AimPolicyText[] =
 
 // Instructions to the user to either start video conferencing with the merc, or to go the mug shot index
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimMemberText[] =
 {
 	L"Левый щелчок",
@@ -5953,10 +6016,12 @@ STR16			AimMemberText[] =
 	L"Правый щелчок - ",
 	L"фотографии бойцов.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Aim Member.c
 //The page in which the players hires AIM mercenaries
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			CharacterInfo[] =
 {
 	// The various attributes of the merc
@@ -6000,6 +6065,7 @@ STR16			CharacterInfo[] =
 	L"Набор 5",				// Text on Starting Gear Selection Button 5
 	L"Mission Fee",			// For UB fixed price contracts
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Member.c
@@ -6007,6 +6073,7 @@ STR16			CharacterInfo[] =
 
 //The following text is used with the video conference popup
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			VideoConfercingText[] =
 {
 	L"Сумма контракта:",				//Title beside the cost of hiring the merc
@@ -6038,6 +6105,7 @@ STR16			VideoConfercingText[] =
 
 	L"+ страховка"			// Displays if you are hiring the merc with the medical deposit
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6046,6 +6114,7 @@ STR16			VideoConfercingText[] =
 
 // The text that pops up when you select the TRANSFER FUNDS button
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimPopUpText[] =
 {
 	L"ПРОИЗВЕДЕН ЭЛЕКТРОННЫЙ ПЛАТЕЖ",	// You hired the merc
@@ -6065,14 +6134,17 @@ STR16			AimPopUpText[] =
 	L"Автоответчик",
 	L"Сообщение оставлено на автоответчике",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //AIM Link.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimLinkText[] =
 {
 	L"A.I.M. Ссылки",	//The title of the AIM links page
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6080,6 +6152,7 @@ STR16			AimLinkText[] =
 
 // This page displays the history of AIM
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimHistoryText[] =
 {
 	L"A.I.M. История",			//Title
@@ -6091,12 +6164,14 @@ STR16			AimHistoryText[] =
 	L"A.I.M. Галерея",
 	L"Дальше",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Mug Shot Index
 
 //The page in which all the AIM members' portraits are displayed in the order selected by the AIM sort page.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimFiText[] =
 {
 	// displays the way in which the mercs were sorted
@@ -6133,12 +6208,14 @@ STR16			AimFiText[] =
 	L"Скончался",
 	L"На задании",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //AimArchives.
 // The page that displays information about the older AIM alumni merc... mercs who are no longer with AIM
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimAlumniText[] =
 {
 	// Text of the buttons
@@ -6152,6 +6229,7 @@ STR16			AimAlumniText[] =
 	L"ОК",			// Stops displaying information on selected merc
 	L"След. стр.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6160,6 +6238,7 @@ STR16			AimAlumniText[] =
 
 //AIM Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimScreenText[] =
 {
 	// AIM disclaimers
@@ -6176,10 +6255,12 @@ STR16			AimScreenText[] =
 	L"...в первый раз",
 	L"Если у нас нет такого ствола, то он вам и не нужен.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimBottomMenuText[] =
 {
 	//Text for the links at the bottom of all AIM pages
@@ -6190,6 +6271,7 @@ STR16			AimBottomMenuText[] =
 	L"Информация",
 	L"Ссылки",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6197,6 +6279,7 @@ STR16			AimBottomMenuText[] =
 // The shopkeeper interface is displayed when the merc wants to interact with 
 // the various store clerks scattered through out the game.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 SKI_Text[ ] = 
 {
 	L"ИМЕЮЩИЕСЯ ТОВАРЫ",	//Header for the merchandise available
@@ -6215,10 +6298,12 @@ STR16 SKI_Text[ ] =
 	L"Выбросить предмет на землю.",
 	L"БЮДЖЕТ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //ShopKeeper Interface
 //for the bank machine panels. Referenced here is the acronym ATM, which means Automatic Teller Machine
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	SkiAtmText[] =
 {
 	//Text on buttons on the banking machine, displayed at the bottom of the page
@@ -6238,9 +6323,11 @@ STR16	SkiAtmText[] =
 	L"Отмена",				//Cancel the transfer
 	L"Очистить",			//Clear the money display
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Shopkeeper Interface
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzSkiAtmText[] = 
 {	
 
@@ -6252,8 +6339,10 @@ STR16	gzSkiAtmText[] =
 	L"Недостаточно средств",	//Not enough money to transfer
 	L"Баланс",					//Display the amount of money the player currently has
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	SkiMessageBoxText[] =
 {
 	L"Желаете снять со счета %s, чтобы покрыть разницу?",
@@ -6267,10 +6356,12 @@ STR16	SkiMessageBoxText[] =
 	L"Do you want to transfer %s Intel to cover the difference?",	// TODO.Translate
 	L"Do you want to transfer %s Intel to cover the cost?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //OptionScreen.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	zOptionsText[] = 
 {
 	//button Text
@@ -6294,14 +6385,18 @@ STR16	zOptionsText[] =
 
 	L"Необходимо выбрать или \"Речь\", или \"Субтитры\"",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesScreenText[] =
 {
 	L"1.13 FEATURE TOGGLES",
 	L"Changing these settings during a campaign will affect your experience.",
 	L"Hover over a feature to display more information. Some features may be configurable in JA2_Options.ini (or other specified file).",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesToggleText[] =
 {
 	L"Use These Overrides",
@@ -6349,7 +6444,9 @@ STR16	z113FeaturesToggleText[] =
 	L"Arulco Rebel Command",
 	L"Strategic Transport Groups",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesHelpText[] =
 {
 	L"|U|s|e |T|h|e|s|e |O|v|e|r|r|i|d|e|s\n \nAllow this screen to override some feature toggles present in JA2_Options.ini.\nHover over a feature to see which flag is overridden.\nThese toggles have no effect if this option is disabled.",
@@ -6397,7 +6494,9 @@ STR16	z113FeaturesHelpText[] =
 	L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",
 	L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesPanelText[] =
 {
 	L"Use the options here to enable some of 1.13's many features. If enabled, the toggle boxes here will take precedence over some booleans in JA2_Options.ini. If disabled, these boxes will have no effect.",
@@ -6445,9 +6544,11 @@ STR16	z113FeaturesPanelText[] =
 	L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
 	L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //SaveLoadScreen 
+#ifdef JA2_UNIFIED_TEXT
 STR16			zSaveLoadText[] = 
 {
 	L"Сохранить",
@@ -6513,10 +6614,12 @@ STR16			zSaveLoadText[] =
 	L"Размер отряда, заданный в сохраненной игре, не поддерживается текущим разрешением. Увеличьте разрешение экрана и попробуйте снова.", 
 	L"Количество товара у Бобби Рэя",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //MapScreen
+#ifdef JA2_UNIFIED_TEXT
 STR16		zMarksMapScreenText[] =
 {
 	L"Уровень карты",
@@ -6558,6 +6661,7 @@ STR16		zMarksMapScreenText[] =
 	// Flugente: describe what intel map view does
 	L"This view shows which sectors relevant what ongoing quests. Some data bought with intel is also shown here.", // TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT
@@ -6595,16 +6699,20 @@ STR16 pMilitiaConfirmStrings[] =
 #endif // JA2_UNIFIED_TEXT
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMoneyWithdrawMessageText[] = 
 {
 	L"За один раз вы можете снять со счета не более $20 000.",
 	L"Вы решили положить %s на свой счет?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCopyrightText[] = 
 {
 	L"Авторские права (C) 1999 Sir-tech Canada Ltd. Все права защищены.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //option Text
 #ifdef JA2_UNIFIED_TEXT
@@ -6806,6 +6914,7 @@ STR16	zOptionsScreenHelpText[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzGIOScreenText[] =
 {
 	L"УСТАНОВКИ НАЧАЛА ИГРЫ",
@@ -6898,7 +7007,9 @@ STR16	gzGIOScreenText[] =
 	L"между перестрелкой",		//Soft Iron Man
 	L"один раз в день",		//Extreme Iron Man
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMPJScreenText[] =
 {
 	L"СЕТЕВАЯ ИГРА",	//MULTIPLAYER
@@ -6918,7 +7029,9 @@ STR16	gzMPJScreenText[] =
 	L"Впишите корректный IP адрес. (пример 84.114.195.239).",
 	L"Впишите корректный порт сервера (используйте диапазон от 1 до 65535).",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPJHelpText[] =
 {
 	L"Новых игроков можно найти здесь: http://webchat.quakenet.org/?channels=ja2-multiplayer",
@@ -6935,7 +7048,9 @@ STR16 gzMPJHelpText[] =
 	L"Впишите эти данные в поле IP адреса и номер порта.",
 	L"Жмите 'Присоединиться' чтобы подключиться к уже созданной сетевой игре.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMPHScreenText[] =
 {
 	L"СТАРТОВЫЕ УСТАНОВКИ СЕРВЕРА",			//HOST GAME
@@ -7011,6 +7126,7 @@ STR16	gzMPHScreenText[] =
 	L"нет",
 	L"есть",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 pDeliveryLocationStrings[] =
@@ -7084,6 +7200,7 @@ STR16 pPausedGameText[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMessageStrings[] =
 {
 	L"Выйти из игры?",
@@ -7229,6 +7346,7 @@ STR16 pMessageStrings[] =
 	L"Активировать чит-коды?",
 	L"Деактивировать чит-коды?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -7274,6 +7392,7 @@ STR16 pAntiHackerString[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzLaptopHelpText[] =
 {
 	//Buttons:
@@ -7309,12 +7428,15 @@ STR16 gzLaptopHelpText[] =
 	L"Recon Intelligence Services",	// TODO.Translate
 	L"Controlled factories",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzHelpScreenText[] =
 {
 	L"Закрыть окно помощи",	
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 gzNonPersistantPBIText[] =
@@ -7387,13 +7509,16 @@ STR16 wMapScreenSortButtonHelpText[] =
 
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		BrokenLinkText[] = 
 {
 	L"Ошибка 404",
 	L"Сайт не найден.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzBobbyRShipmentText[] = 
 {
 	L"Последние поступления",
@@ -7401,8 +7526,10 @@ STR16 gzBobbyRShipmentText[] =
 	L"Количество",
 	L"Заказано",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNames[]=
 {
 	L"Chris Camfield",
@@ -7421,8 +7548,10 @@ STR16	gzCreditNames[]=
 	L"Alex Meduna",
 	L"Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNameTitle[]=
 {
 	L"Ведущий программист игры", 				// Chris Camfield
@@ -7441,7 +7570,9 @@ STR16	gzCreditNameTitle[]=
 	L"Программист стратегии и баланса игры",		// Alex Meduna
 	L"Художник-портретист",					// Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNameFunny[]=
 {
 	L"", 												// Chris Camfield
@@ -7460,6 +7591,7 @@ STR16	gzCreditNameFunny[]=
 	L"(Украден с работы над Wizardry 8)",				// Alex Meduna
 	L"(Делал предметы и загрузочные экраны!)",			// Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
 STR16 sRepairsDoneString[] =
@@ -7474,6 +7606,7 @@ STR16 sRepairsDoneString[] =
 	L"%s: завершена чистка всего оружия отряда.",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 zGioDifConfirmText[]=
 {
 	L"Вы выбрали ЛЁГКИЙ уровень сложности. Этот режим предназначен для первичного ознакомления с Jagged Alliance. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?", 
@@ -7481,6 +7614,7 @@ STR16 zGioDifConfirmText[]=
 	L"Вы выбрали ТЯЖЁЛЫЙ уровень сложности. В этом режиме вам потребуется немалый опыт игры в Jagged Alliance. Ваш выбор определит ход всей игры, так что будьте осторожны. Вы действительно хотите начать игру в этом режиме?", 
 	L"Вы выбрали БЕЗУМНЫЙ уровень сложности. Имейте в виду - в этом режиме возможности Дейдраны воистину за пределами разумного! Но если с головой вы не в ладах, то вам даже понравится. Рискнете?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 gzLateLocalizedString[] =
@@ -7702,6 +7836,7 @@ STR16 gzTooltipStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 New113Message[] =
 {
 	L"Началась буря.",
@@ -7789,7 +7924,9 @@ STR16 New113Message[] =
 	L"No",
 	L"%s applied %s to %s.", // TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 New113HAMMessage[] = 
 {
 	// 0 - 5
@@ -7823,8 +7960,10 @@ STR16 New113HAMMessage[] =
 	L"Для того, чтобы во время боя присоединить один предмет к другому, вам нужно сначала взять их.",
 	L"Для объединения предметов во время боя вам нужно сначала взять их.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzTransformationMessage[] = 
 {
 	L"Нет доступных преобразований",	
@@ -7844,10 +7983,12 @@ STR16 gzTransformationMessage[] =
 	L"Instant mode (%d AP)",
 	L"Delayed mode (%d AP)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+#ifdef JA2_UNIFIED_TEXT
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
@@ -7859,9 +8000,11 @@ STR16	New113MERCMercMailTexts[] =
 	// Biggens: Text from Line 49 in Email.edt
 	L"Ставим в известность, что отличная работа полковника Фредерика Биггенса заслуживает поощрения в виде повышения гонорара. Постановление считать действительным с текущего момента. ± ± Спек Т. Кляйн ± ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercAvailable.xml" file!
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
+#ifdef JA2_UNIFIED_TEXT
 STR16	New113AIMMercMailTexts[] =
 {
 	// Monk
@@ -7900,9 +8043,11 @@ STR16	New113AIMMercMailTexts[] =
 	L"FW с сервера A.I.M.: Наёмник доступен",
 	L"Я на месте. Жду звонка чтобы обсудить условия контракта. ±",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: These are the missing skills from the impass.edt file
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+#ifdef JA2_UNIFIED_TEXT
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
@@ -7936,7 +8081,9 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Survival
 	L"Выживание: В условиях дикой природы вы чувствуете себя как дома. ± ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 NewInvMessage[] = 
 {
 	L"В данный момент поднять рюкзак нельзя.",
@@ -7952,8 +8099,10 @@ STR16 NewInvMessage[] =
 	L"%s снял(а) рюкзак",
 	L"%s надел(а) рюкзак",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE - MP: Multiplayer messages
+#ifdef JA2_UNIFIED_TEXT
 STR16 MPServerMessage[] =
 {
 	// 0
@@ -7974,7 +8123,9 @@ STR16 MPServerMessage[] =
 	L"Начата отправка файлов для '%S'.",	//Started sending files to '%S'.
 	L"Используйте обзор воздушного пространства, чтобы выбрать карту для игры. Если вы ходите сменить карту, это нужно сделать до того, как вы нажмете кнопку 'Начать игру'.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 MPClientMessage[] =
 {
 	// 0
@@ -8076,7 +8227,9 @@ STR16 MPClientMessage[] =
 	// 80
 	L"ход AI - осталось %d",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPEdgesText[] =
 {
 	L"С",	//N
@@ -8085,7 +8238,9 @@ STR16 gszMPEdgesText[] =
 	L"З",	//W
 	L"Ц",	// "C"enter
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPTeamNames[] =
 {
 	L"Фокстрот",	//Foxtrot
@@ -8094,7 +8249,9 @@ STR16 gszMPTeamNames[] =
 	L"Чарли",	//Charlie
 	L"Н/Д",		// Acronym of Not Applicable
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPMapscreenText[] =
 {
 	L"Тип игры: ",		//Game Type: 
@@ -8107,7 +8264,9 @@ STR16 gszMPMapscreenText[] =
 	L"Сложность:",		//Difficulty:
 	L"Версия сервера:",	//Server Version:
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPSScreenText[] =
 {
 	L"Доска счёта",		//Scoreboard
@@ -8124,7 +8283,9 @@ STR16 gzMPSScreenText[] =
 	L"Полученный урон",	//Damage Taken
 	L"Дождитесь, пожалуйста, пока сервер нажмёт кнопку 'Продолжить'."
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPCScreenText[] =
 {
 	L"Отмена",						//Cancel
@@ -8135,18 +8296,23 @@ STR16 gzMPCScreenText[] =
 	L"Нажмите 'ESC' для отмены",				//Press 'ESC' to cancel
 	L"Выполнено."						//Ready
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPChatToggleText[] =
 {
 	L"Отправть всем",
 	L"Отправть только союзникам",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPChatboxText[] =
 {
 	L"Чат сетевой игры Jagged Alliance 2 v1.13",
 	L"Заметка: нажмите |В|В|О|Д для отправки сообщения, |К|Л|Ю|Ч для выхода из чата.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Following strings added - SANDRO
 #ifdef JA2_UNIFIED_TEXT
@@ -8396,6 +8562,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Командовать ополчением",	// militia movement orders
 };
 #endif // JA2_UNIFIED_TEXT
+#ifdef JA2_UNIFIED_TEXT
 STR16 Additional113Text[]=
 {
 	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",
@@ -8409,6 +8576,7 @@ STR16 Additional113Text[]=
 	L"Гражданские (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
+#endif // JA2_UNIFIED_TEXT
 #ifdef JA2_UNIFIED_TEXT
 
 // SANDRO - Taunts (here for now, xml for future, I hope)
@@ -8518,20 +8686,25 @@ STR16 sEnemyTauntsNoticedMerc[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
 //////////////////////////////////////////////////////
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescTabButtonText[] =
 {
 	L"Информация",
 	L"Параметры",
 	L"Доп. инфо",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescTabButtonShortText[] =
 {
 	L"Инфо.",
 	L"Пар.",
 	L"Доп.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescGenHeaders[] =
 {
 	L"Основное",
@@ -8539,7 +8712,9 @@ STR16 gzItemDescGenHeaders[] =
 	L"Затраты ОД",
 	L"Стрельба очередью",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescGenIndexes[] =
 {
 	L"Парам.",
@@ -8547,14 +8722,18 @@ STR16 gzItemDescGenIndexes[] =
 	L"+/-",
 	L"=",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|И|н|ф|о|р|м|а|ц|и|о|н|н|а|я |ч|а|с|т|ь:\n \nЗдесь вы сможете ознакомиться\nс общим описанием предмета.",
 	L"|П|а|р|а|м|е|т|р|ы:\n \nЗдесь вы сможете ознакомиться\nс индивидуальными свойствами\nи параметрами предмета.\n \nДля оружия: нажмите еще раз,\nчтобы открыть вторую страницу.",
 	L"|Д|о|п|о|л|н|и|т|е|л|ь|н|а|я| |и|н|ф|о|р|м|а|ц|и|я:\n \nЗдесь вы сможете ознакомиться\nс бонусами, дающимися данным предметом.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBHeaderTooltipText[]=
 {
 	L"|О|с|н|о|в|н|ы|е |п|а|р|а|м|е|т|р|ы:\n \nСвойства и данные этого предмета\n(оружие, броня и т.д.).",
@@ -8562,7 +8741,9 @@ STR16 gzUDBHeaderTooltipText[]=
 	L"|З|а|т|р|а|т|ы| |О|Д:\n \nКоличество очков действия, необходимых\nна стрельбу и другие действия с оружием.",
 	L"|С|т|р|е|л|ь|б|а| |о|ч|е|р|е|д|ь|ю| |- |п|а|р|а|м|е|т|р|ы|:\n \nПараметры данного оружия,\nкасающиеся стрельбы очередью.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBGenIndexTooltipText[]=
 {
 	L"|С|и|м|в|о|л|ь|н|о|е| |о|б|о|з|н|а|ч|е|н|и|е| |п|а|р|а|м|е|т|р|о|в\n \nНаведите курсор на символ,\nчтобы увидеть, что он значит.",
@@ -8570,7 +8751,9 @@ STR16 gzUDBGenIndexTooltipText[]=
 	L"|Б|о|н|у|с|ы| |н|а|в|е|с|к|и\n \nБонусы или штрафы, обусловленные\nнавеской, боеприпасами или повреждениями вещи.",
 	L"|С|у|м|м|а|р|н|о|е| |з|н|а|ч|е|н|и|е\n \nСуммарное значение параметров предмета\nс учетом всех бонусов/штрафов навески и боеприпасов",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBAdvIndexTooltipText[]=
 {
 	L"Символьное обозначение параметров\n(наведите курсор на символ,\nчтобы увидеть что он значит).",
@@ -8579,7 +8762,9 @@ STR16 gzUDBAdvIndexTooltipText[]=
 	L"Бонус/штраф в положении |л|ё|ж|а.",
 	L"Бонус/штраф",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenWeaponsStatsTooltipText[]=
 {
 	L"|Т|о|ч|н|о|с|т|ь",
@@ -8605,7 +8790,9 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|П|о|л|н|а|я |о|т|д|а|ч|а",
 	L"|К|о|л|-|в|о |п|а|т|р|о|н|о|в |н|а |к|а|ж|д|ы|е |5 |О|Д",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
 	L"\n \nОпределяет, насколько пули, выпущенные\nиз этого оружия, будут отклоняться от\nточки прицеливания.\n \nДиапазон: 0-100.\nБольше - лучше.",
@@ -8632,7 +8819,9 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \nУказывает, какое количество пуль будет\nдобавлено к очереди или залпу при автоматической\nстрельбе за каждые 5 ОД.\n \nБольше - лучше.",
 	L"\n \nОпределяет сложность починки этого оружия,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenArmorStatsTooltipText[]=
 {
 	L"|С|т|е|п|е|н|ь |з|а|щ|и|т|ы",
@@ -8640,7 +8829,9 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|С|к|о|р|о|с|т|ь |у|х|у|д|ш|е|н|и|я",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
 	L"\n \nЭто основное качество брони, оно определяет\nкакой урон будет заблокирован защитой.\n \nПомните, что бронебойные атаки и различные\nслучайные факторы могут повлиять на\nокончательное снижение урона.\n \nБольше - лучше.",
@@ -8649,7 +8840,9 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nОпределяет сложность починки этой брони,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только техники и некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 	L"\n \nОпределяет сложность починки этой брони,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nЖелтый - только некоторые NPC\nмогут починить ее свыше порога ремонта.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenAmmoStatsTooltipText[]=
 {
 	L"|П|р|о|б|и|т|и|е |б|р|о|н|и",
@@ -8659,7 +8852,9 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|У|р|о|н |о|т |я|д|а",
 	L"|В|л|и|я|н|и|е |н|а |з|а|г|р|я|з|н|е|н|и|е",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
 	L"\n \nСпособность пули пробить броню\nцели. При значении меньше 1.0 пуля снижает\nстепень защиты брони, в которую она\nпопадет. При значении больше 1.0 пуля\nувеличивает степень защиты брони.\n \nМеньше - лучше.",
@@ -8669,7 +8864,9 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \nОпределяет, какой процент урона пули\nбудет ядовитым.",
 	L"\n \nДополнительное загрязнение, вырабатываемое\nэтими боеприпасами.\n \nМеньше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|У|р|о|н",
@@ -8698,7 +8895,9 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|Н|е|с|т|а|б|и|л|ь|н|о|с|т|ь",
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \nУрон, наносимый взрывом.\n \nОбратите внимание, что бризантная взрывчатка\nнаносит этот урон только один раз (при взрыве),\nа взрывчатка с длительным эффектом наносит\nурон каждый ход, до тех пор, пока эффект\nне закончится.\n \nБольше - лучше.",
@@ -8727,21 +8926,27 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \nЭто значение определяет вероятность в\nпроцентах, что эта взрывчатка спонтанно взорвется\nпри ее повреждении (например, при близком взрыве).\n \nНошение с собой в бою нестабильной\nвзрывчатки крайне опасно и не\nрекомендуется.\n \nДиапазон: 0-100.\nМеньше - лучше. ",
 	L"\n \nОпределяет сложность починки взрывчатки,\nа также то, кто сможет полностью починить ее.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 	
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|Л|ё|г|к|о|с|т|ь |п|о|ч|и|н|к|и",
 	L"|Д|о|с|т|у|п|н|ы|й |о|б|ъ|ё|м",
 	L"|О|б|ъ|ё|м",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \nОпределяет сложность починки этого предмета,\nа также то, кто сможет полностью починить его.\nЗеленый - может починить кто угодно.\n \nКрасный - эту вещь починить невозможно.\n \nБольше - лучше.",
 	L"\n \nОпределяет сколько доступно места в этом держателе типа MOLLE.\n \nБольше - лучше.",
 	L"\n \nОпределяет как много места займёт этот MOLLE карман.\n \nМеньше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenSecondaryStatsTooltipText[]=
 {
 	L"|Т|р|а|с|с|и|р|у|ю|щ|и|е |п|а|т|р|о|н|ы",
@@ -8797,7 +9002,9 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
 	L"|B|e|l|t| |F|e|d",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
 	L"\n \nЭти боеприпасы создают трассирующий\nэффект при стрельбе очередью или в режиме\nавтоматической стрельбы.\n \nТрассеры помогают точнее стрелять.\n \nТакже трассеры создают области света,\nкоторые освещают цель в темноте. Но они\nтакже выдают врагу положение стрелка.\n \nТрассирующие патроны автоматически отменяют\nдействие любых навесок по гашению вспышки\nвыстрела, установленных на том же оружии.",
@@ -8853,7 +9060,9 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \nThis ammo can cause fire.",
 	L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsTooltipText[]=
 {
 	L"|М|о|д|и|ф|и|к|а|т|о|р |т|о|ч|н|о|с|т|и",
@@ -8925,8 +9134,10 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|F|a|n |t|h|e |H|a|m|m|e|r",	// TODO.Translate
 	L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
 	L"\n \nПрисоединенный к огнестрельному оружию,\nэтот предмет изменяет значение его точности.\n \nПовышенная точность оружия позволяет\nчаще попадать из него по более удаленным\nцелям.\n \nДиапазон: -100..+100.\nБольше - лучше.",
@@ -8998,7 +9209,9 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",	// TODO.Translate
 	L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 {
 	L"\n \nТочность этого оружия изменена\nбоеприпасами, навеской или внутренними\nсвойствами.\n \nПовышенная точность оружия позволяет\nчаще попадать из него по более удаленным\nцелям.\n \nДиапазон: -100..+100.\nБольше - лучше.",
@@ -9055,6 +9268,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \nЕсли температура предмета выше этого\nзначения, то его состояние будет ухудшаться\nбыстрее.\n \nБольше - лучше.",
 	L"\n \nНавеска этого оружия, боеприпасы\nк нему или его внутренние свойства\nизменили отдачу оружия на\nуказанный процент.\n \nСнижение отдачи позволяет дольше\nудерживать ствол оружия в направлении цели\nво время залпа.\n \nМеньше - лучше.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
 #ifdef JA2_UNIFIED_TEXT
@@ -9130,6 +9344,7 @@ STR16 gzMercCompare[] =
 #endif // JA2_UNIFIED_TEXT
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gTemperatureDesc[] =
 {
 	L"Температура ",
@@ -9144,8 +9359,10 @@ STR16 gTemperatureDesc[] =
 	L"неизвестна",
 	L"."
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: food condition texts
+#ifdef JA2_UNIFIED_TEXT
 STR16 gFoodDesc[] =
 {
 	L"Пища ",
@@ -9157,7 +9374,9 @@ STR16 gFoodDesc[] =
 	L"подгнившая",
 	L"."
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16* ranks[] = 
 {	L"",			//ExpLevel 0
 	L"Рядовой ",		//ExpLevel 1
@@ -9171,6 +9390,7 @@ CHAR16* ranks[] =
 	L"Полковник ",		//ExpLevel 9
 	L"Генерал "		//ExpLevel 10
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT
@@ -9213,6 +9433,7 @@ STR16	zNewTacticalMessages[]=
 #endif // JA2_UNIFIED_TEXT
 
 // The_bob : pocket popup text defs
+#ifdef JA2_UNIFIED_TEXT
 STR16	gszPocketPopupText[]=
 {
 	L"Гранатомёты",	// POCKET_POPUP_GRENADE_LAUNCHERS,
@@ -9222,8 +9443,10 @@ STR16	gszPocketPopupText[]=
 	L"- нет оружия в инвентаре -",	//POCKET_POPUP_NO_GUNS
 	L"ещё...",		//POCKET_POPUP_MOAR
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: externalised texts for some features
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCovertTextStr[]=
 {
 	L"%s одет в камуфляж!",
@@ -9263,7 +9486,9 @@ STR16	szCovertTextStr[]=
 	L"Элитный солдат не распознал %s!",	// TODO.Translate
 	L"Офицер не знаком с %s!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCorpseTextStr[]=
 {
 	L"Предмета 'голова' не найдено в Items.xml!",
@@ -9277,7 +9502,9 @@ STR16	szCorpseTextStr[]=
 	L"Предметов тела не найдено в Items.xml!", //No corpse item found in Items.xml
 	L"Неверный ID тела!", //Invalid corpse ID
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFoodTextStr[]=
 {
 	L"%s не хочет есть %s",
@@ -9294,7 +9521,9 @@ STR16	szFoodTextStr[]=
 	L"%s потерял здоровье от жажды!",
 	L"Наполнение фляжек в секторе невозможно, Система Еды отключена!"
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szPrisonerTextStr[]=
 {
 	L"%d офицеров, %d спецназа, %d солдат, %d полиции, %d генералов и %d гражданских было допрошено",
@@ -9315,7 +9544,9 @@ STR16	szPrisonerTextStr[]=
 	L"Some of your mercs managed to escape the enemy capture!",
 	L"No possible escape is seen, it's a fight to the death!"
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMTATextStr[]=
 {
 	L"ничего",
@@ -9325,7 +9556,9 @@ STR16	szMTATextStr[]=
 	L"%s был вынужден прекратить %s.",
 	L"Выбранное укрепление не может быть построено в этом секторе",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szInventoryArmTextStr[]=
 {
 	L"Взорвать (%d ОД)",
@@ -9335,7 +9568,9 @@ STR16	szInventoryArmTextStr[]=
 	L"Обезвредить (%d ОД)",
 	L"Обезвредить",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szBackgroundText_Flags[]=
 {
 	L" может употреблять наркотики из инвентаря\n",
@@ -9353,7 +9588,9 @@ STR16		szBackgroundText_Flags[]=
 	L" отказывается атаковать животных\n",
 	L" отказывается атаковать тех, кто состоит в той же группе\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szBackgroundText_Value[]=
 {
 	L" %s%d%% ОД в холодных секторах\n",
@@ -9443,18 +9680,24 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% administration effectiveness\n",	// TODO.Translate
 	L" %s%d%% exploration effectiveness\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szBackgroundTitleText[] = 
 {
 	L"I.M.P. Биография",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: personality
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityTitleText[] = 
 {
 	L"I.M.P. Предубеждения",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityDisplayText[]=
 {
 	L"Вы выглядите",
@@ -9469,8 +9712,10 @@ STR16		szPersonalityDisplayText[]=
 	L"расист по отношению к не ",
 	L".",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityHelpText[]=
 {
 	L"Как вы выглядите?",
@@ -9484,8 +9729,10 @@ STR16		szPersonalityHelpText[]=
 	L"Ваша раса? Вы будете\nотноситься плохо к другим расам.",
 	L"Насколько вы сексист по отношению к другим полам?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRaceText[]=
 {
 	L"белым",
@@ -9494,7 +9741,9 @@ STR16		szRaceText[]=
 	L"эскимосам",
 	L"испанцам",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szAppearanceText[]=
 {
 	L"средне",
@@ -9503,21 +9752,27 @@ STR16		szAppearanceText[]=
 	L"привлекательно",
 	L"как ребенок",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRefinementText[]=
 {
 	L"обычное поведение",
 	L"хамское поведение",
 	L"снобское поведение",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRefinementTextTypes[] =
 {
 	L"нормальные люди",
 	L"жлобы",
 	L"снобы",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityText[]=
 {
 	L"Американец",		// 0
@@ -9636,7 +9891,9 @@ STR16		szNationalityText[]=
 	L"Zamundan",   // Zamunda 
 	L"Зимбабвиец",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityTextAdjective[] =
 {
 	L"американцев",		// 0
@@ -9755,28 +10012,36 @@ STR16		szNationalityTextAdjective[] =
 	L"zamundans",   // Zamunda 
 	L"зимбабвийцев",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // special text used if we do not hate any nation (value of -1)
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityText_Special[]=
 {
 	L"нормально относится к другим национальностям.",		// used in personnel.cpp
 	L"неизвестно",		// used in IMP generation
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szCareLevelText[]=
 {
 	L"не",
 	L"немного",
 	L"сильно",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRacistText[]=
 {
 	L"не",
 	L"немного",
 	L"сильно",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szSexistText[]=
 {
 	L"не сексист",
@@ -9784,8 +10049,10 @@ STR16		szSexistText[]=
 	L"убежденный сексист",
 	L"джентльмен",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: power pack texts
+#ifdef JA2_UNIFIED_TEXT
 STR16 gPowerPackDesc[] =
 {
 	L"Батарейки: ",
@@ -9796,6 +10063,7 @@ STR16 gPowerPackDesc[] =
 	L"разряжены",
 	L"."
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: Special characters like % or someting else should go here
 // We can't put them directly in the CPP code files, because they need special encoding (UTF8) for some languages (e.g: Chinese)
@@ -9806,6 +10074,7 @@ STR16 sSpecialCharacters[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSoldierClassName[]=
 {
 	L"Наёмник",
@@ -9823,7 +10092,9 @@ STR16	szSoldierClassName[]=
 	L"Тварь",
 	L"Зомби",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryWebSite[]=
 {
 	L"Пресс-служба %s",
@@ -9841,7 +10112,9 @@ STR16	szCampaignHistoryWebSite[]=
 	L" Новости",
 	L" О нас",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryDetail[]=
 {
 	L"%s, %s %s %s в %s.",
@@ -9877,7 +10150,9 @@ STR16	szCampaignHistoryDetail[]=
 	L"Ситуация становится все более запутанной, так как, судя по всему, разногласия между повстанцами достигли серьезного уровня. У нас есть подтверждение, что между повстанцами и иностранными наёмниками произошел бой.",
 	L"Положение правительственных войск оказалось более шатким, чем представлялось ранее. Есть свидетельства раскола и стрельбы между армейскими подразделениями.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryTimeString[]=
 {
 	L"Глубокой ночью",		// 23 - 3
@@ -9889,7 +10164,9 @@ STR16	szCampaignHistoryTimeString[]=
 	L"Вечером",			// 18 - 21
 	L"Ночью",		// 21 - 23
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
 	L"Начальные финансы",
@@ -9897,7 +10174,9 @@ STR16	szCampaignHistoryMoneyTypeString[]=
 	L"Торговля",
 	L"Другие источники",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
 	L"Патроны",
@@ -9906,7 +10185,9 @@ STR16	szCampaignHistoryConsumptionTypeString[]=
 	L"Медикаменты",
 	L"Обслуживание",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryResultString[]=
 {
 	L"Армейские силы были уничтожены без особого сопротивления.",
@@ -9930,7 +10211,9 @@ STR16	szCampaignHistoryResultString[]=
 
 	L"Ни одна из сторон не собиралась уступать. Несмотря на то, что армия устранила угрозу восстания в районе, понесенные потери означают, что армейское подразделение существует только формально. Однако, если армия может позволить себе воевать с таким уровнем потерь, повстанцы очень скоро физически закончатся.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryImportanceString[]=
 {
 	L"Неприменимый",
@@ -9945,7 +10228,9 @@ STR16	szCampaignHistoryImportanceString[]=
 	L"Значительный",
 	L"Важнейший",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryWebpageString[]=
 {
 	L"Убито",
@@ -9967,7 +10252,9 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"Эпизод",
 	L"День",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 {
 	L"Славный %s",
@@ -10153,7 +10440,9 @@ STR16	szCampaignStatsOperationPrefix[] =	// TODO.Translate
 
 	// 140
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignStatsOperationSuffix[] =
 {
 	L"Дракон",
@@ -10339,7 +10628,9 @@ STR16	szCampaignStatsOperationSuffix[] =
 
 	// 140
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMercCompareWebSite[] =
 {
 	// main page
@@ -10383,7 +10674,9 @@ STR16	szMercCompareWebSite[] =
 	// error messages
 	L"В настоящее время у вас нет наёмников на службе. Боевой дух бойцов ниже нормы - основная причина частых увольнений среди персонала.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMercCompareEventText[]=
 {
 	L"%s подстрелил(а) меня!",
@@ -10436,7 +10729,9 @@ STR16	szMercCompareEventText[]=
 	L"%s заставил(а) противника сдаться",
 	L"%s ранил(а) гражданских",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szWHOWebSite[] =
 {
 	// main page
@@ -10473,7 +10768,9 @@ STR16	szWHOWebSite[] =
 	L"Врачи находятся в большей степени риска заразиться при лечении инфицированных пациентов. Средства индивидуальной защиты снизят риск заражения.",
 	L"Если клинковое оружие ранит инфицированного человека, лезвие оружия становится заражённым и может стать причиной распространения инфекции.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szPMCWebSite[] =
 {
 	// main page
@@ -10516,7 +10813,9 @@ STR16	szPMCWebSite[] =
 
 	// individual contract page
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalInventoryDialogString[]=
 {
         L"Команды инвентаря",
@@ -10541,7 +10840,9 @@ STR16   szTacticalInventoryDialogString[]=
         L"",
         L"",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalCoverDialogString[]=
 {
         L"Режим отображения укрытий",
@@ -10566,7 +10867,9 @@ STR16   szTacticalCoverDialogString[]=
         L"Сеть C",
         L"Сеть D",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalCoverDialogPrintString[]=
 {
         
@@ -10590,6 +10893,7 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"Показать сеть ловушек C",
         L"Показать сеть ловушек D",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
@@ -11356,6 +11660,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
 	L"Что?!",
@@ -11393,7 +11698,9 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"Неа.",
 	L"Ошибаешься.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
 	L"I knew you'd back me, $INTERJECTOR$",
@@ -11418,7 +11725,9 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 
 	L"Именно!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
 	L"Так!",
@@ -11445,7 +11754,9 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 	L"Верно.",
 	L"В точку.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
 	L"А теперь подождите...",
@@ -11471,7 +11782,9 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 	L"Зачем про это вспоминать сейчас?",
 	L"Серьезно, $VICTIM$? Это необходимо?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"Тихо",
@@ -11480,7 +11793,9 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 	L"подумайте",
 	L"Заткнитесь",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_GenderText[] = 
 {
 	L"он",
@@ -11488,7 +11803,9 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"его",
 	L"её",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDiseaseText[] =
 {
 	L" %s%d%% к проворности\n",
@@ -11524,13 +11841,17 @@ STR16	szDiseaseText[] =
 	L"Leg functionality severely limited.\n",
 	L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSpyText[] =
 {
 	L"Hide",			// TODO.Translate
 	L"Get Intel",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFoodText[] =
 {
 	L"\n\n|В|о|д|а: %d%%\n",
@@ -11542,7 +11863,9 @@ STR16	szFoodText[] =
 	L" %s%d%% к эффективности в задании\n",
 	L" %s%d%% шанс потерять в параметрах\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIMPGearWebSiteText[] =
 {
 	// IMP Gear Entrance
@@ -11556,7 +11879,9 @@ STR16 szIMPGearWebSiteText[] =
 	L"I.M.P. Экипировка",
 	L"Additional Cost: %d$ (%d$ prepaid)",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIMPGearPocketText[] =
 {
 	L"Выбрать шлем", //L"Select helmet",
@@ -11620,7 +11945,9 @@ STR16 szIMPGearPocketText[] =
 	L"Выбрать доп. предметы", //L"Select additional items", //SMALLPOCK30POS
 	L"Left click to select item / Right click to close window",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szMilitiaStrategicMovementText[] =
 {
 	L"Нельзя отдавать приказы в этом секторе, команды ополчению невозможны.",
@@ -11635,7 +11962,9 @@ STR16 szMilitiaStrategicMovementText[] =
 
 	L"Желающих: %d (+%5.3f)",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szEnemyHeliText[] =
 {
 	L"Вражеский вертолёт сбит в %s!",
@@ -11650,7 +11979,9 @@ STR16 szEnemyHeliText[] =
 
 	L"База ПВО в %s обстреляла вражеский вертолёт в %s.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szFortificationText[] =	// TODO.Translate
 {
 	L"No valid structure selected, nothing added to build plan.",
@@ -11661,14 +11992,18 @@ STR16 szFortificationText[] =	// TODO.Translate
 	L"No fitting fortifications found for tileset %d: %s",
 	L"Tileset %d: %s",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMilitiaWebSite[] =
 {
 	// main page
 	L"Ополчение",
 	L"Силы ополчения",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIndividualMilitiaBattleReportText[] =
 {
 	L"Участи в Операции %s",
@@ -11686,7 +12021,9 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Contract terminated on Day %d, %d:%02d",
 	L"Defected to us on Day %d, %d:%02d in %s",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIndividualMilitiaTraitRequirements[] =
 {
 	L"HP",
@@ -11711,7 +12048,9 @@ STR16 szIndividualMilitiaTraitRequirements[] =
 
 	L" (Expert)"
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteText[] =
 {
 	L"Operations",
@@ -11739,7 +12078,9 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"%s has been promoted to elite militia",
 	L"Status: Deserted",	// TODO:Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 {
 	L"All statuses",
@@ -11747,7 +12088,9 @@ STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 	L"Active",
 	L"Fired",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 {
 	L"All ranks",
@@ -11755,7 +12098,9 @@ STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 	L"Regular",
 	L"Elite",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 {
 	L"All origins",
@@ -11763,12 +12108,16 @@ STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 	L"PMC",
 	L"Defector",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 {
 	L"Все сектора",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szNonProfileMerchantText[] =
 {
 	L"Торговец настроен враждебно и не будет торговать.",
@@ -11776,7 +12125,9 @@ STR16	szNonProfileMerchantText[] =
 	L"Торговец отказывается работать во время боя.",
 	L"Торговец отказывается разговаривать.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szWeatherTypeText[] =
 {
 	L"обычно",
@@ -11786,13 +12137,17 @@ STR16	szWeatherTypeText[] =
 
 	L"снег",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSnakeText[] =
 {
 	L"%s избежал(а) от укуса змеи!",
 	L"%s был(а) укушена змеёй!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSMilitiaResourceText[] =
 {
 	L"Превратил %s в ресурсы",
@@ -11803,7 +12158,9 @@ STR16	szSMilitiaResourceText[] =
 	L"Не осталось кандидатов в ополчение!",
 	L"Не хватает ресурсов для обучения ополчения!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szInteractiveActionText[] =
 {
 	L"%s начал взлом.",
@@ -11819,7 +12176,9 @@ STR16	szInteractiveActionText[] =
 	L"%s выпил из источника воды",
 	L"Эта штука похоже не работает.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szLaptopStatText[] =	// TODO.Translate
 {
 	L"эффективность угроз %d\n",
@@ -11853,7 +12212,9 @@ STR16	szLaptopStatText[] =	// TODO.Translate
 	L"Mechanical growth",
 	L"Experience growth",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szGearTemplateText[] =	// TODO.Translate
 {
 	L"Enter Template Name",
@@ -11863,7 +12224,9 @@ STR16	szGearTemplateText[] =	// TODO.Translate
 	L"%s could not equip %s.",
 	L"We cannot attach %s (item %d) as that might damage items.",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIntelWebsiteText[] =
 {
 	L"Recon Intelligence Services",
@@ -11921,7 +12284,9 @@ STR16	szIntelWebsiteText[] =
 	L"You have already received compensation for the following:",
 	L"You have nothing to upload.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIntelText[] =
 {
 	L"No more enemies present, %s is no longer in hiding!",
@@ -11943,7 +12308,9 @@ STR16	szIntelText[] =
 	L"Time and place of possible zombie attacks against settlements.",
 	L"Information on planned bandit raids.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szChatTextSpy[] =
 {
 	L"... so imagine my surprise when suddenly...",
@@ -11976,7 +12343,9 @@ STR16	szChatTextSpy[] =
 	L"... and no bakery in sight. After that...",
 	L"... even though regulations are clear in that regard...",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szChatTextEnemy[] =
 {
 	L"Whoa. I had no idea!",
@@ -12009,7 +12378,9 @@ STR16	szChatTextEnemy[] =
 	L"... but where did all the chalk go...",
 	L"... had never even considered that...",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMilitiaText[] =
 {
 	L"Train new militia",
@@ -12017,7 +12388,9 @@ STR16	szMilitiaText[] =
 	L"Doctor militia",
 	L"Cancel",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFactoryText[] =	// TODO.Translate
 {
 	L"%s: Production of %s switched off as loyalty is too low.",
@@ -12029,7 +12402,9 @@ STR16	szFactoryText[] =	// TODO.Translate
 	L"Preproducts",	// 5
 	L"h/item",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szTurncoatText[] =
 {
 	L"%s now secretly works for us!",
@@ -12044,8 +12419,10 @@ STR16	szTurncoatText[] =
 	L"Do it",
 	L"%d turncoats present",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // rftr: better lbe tooltips
+#ifdef JA2_UNIFIED_TEXT
 STR16 gLbeStatsDesc[14] =
 {
 	L"MOLLE Доступный объем:",
@@ -12063,7 +12440,9 @@ STR16 gLbeStatsDesc[14] =
 	L"Совместимые рюкзаки:",
 	L"Совместимые ранцы:",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandText[] = // TODO.Translate
 {
 	L"National Overview",
@@ -12186,7 +12565,9 @@ STR16 szRebelCommandText[] = // TODO.Translate
 	L"Preparations for mission \"%s\" failed.",
 	L"Mission \"%s\" has expired and is no longer in effect.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandHelpText[] = // TODO.Translate
 {
 	L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
@@ -12200,10 +12581,12 @@ STR16 szRebelCommandHelpText[] = // TODO.Translate
 	L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
 	L"This Admin Action applies its bonus to town sectors, up to\ntwo sectors away at Tier 1, and up to three sectors away at Tier 2.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // follows a specific format:
 // x:	"Admin Action Button Text",
 // x+1:	"Admin action description text",
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 {
 	L"Supply Line",
@@ -12237,12 +12620,14 @@ STR16 szRebelCommandAdminActionsText[] = // TODO.Translate
 	L"Fortifications",
 	L"Set up killzones and defensive positions. Friendly forces are more effective when fighting in this town. Autoresolve only.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // follows a specific format:
 // x:	"Directive Name",
 // x+1:	"Directive Bonus Description",
 // x+2:	"Directive Help Text",
 // x+3:	"Directive Improvement Button Description",
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 {
 	L"Gather Supplies",
@@ -12286,7 +12671,9 @@ STR16 szRebelCommandDirectivesText[] = // TODO.Translate
 	L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
 	L"Improving this directive will increase the number of volunteers gained per day.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandAgentMissionsText[] =
 {
 	L"Deep Deployment",
@@ -12314,7 +12701,9 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"Train Militia Anywhere",
 	L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRobotText[] = // TODO: Translate
 {
 	L"The robot's installed weapon cannot be changed.",
@@ -12340,5 +12729,6 @@ STR16 szRobotText[] = // TODO: Translate
 	L"The robot's extra armour plating was destroyed!",
 	L"The robot gains the benefit of the %s skill trait.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #endif //RUSSIAN

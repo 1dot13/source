@@ -3505,6 +3505,7 @@ STR16 pLandTypeStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gpStrategicString[] =
 {
 	L"",	//Unused
@@ -3663,20 +3664,25 @@ STR16 gpStrategicString[] =
 	L"运输队",   //L"Transport group",
 	L"运输队已出发",   //L"Transport group en route",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gpGameClockString[] =
 {
 	//This is the day represented in the game clock.  Must be very short, 4 characters max.
 	L"日",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //When the merc finds a key, they can get a description of it which
 //tells them where and when they found it.
+#ifdef JA2_UNIFIED_TEXT
 STR16 sKeyDescriptionStrings[2] =
 {
 	L"找到钥匙的分区: ",
 	L"找到钥匙的日期: ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //The headers used to describe various weapon statistics.
 
@@ -3712,6 +3718,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
+#ifdef JA2_UNIFIED_TEXT
 STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
 {
 	L"|射|程\n \n武器的有效射程。\n超出这个距离精瞄效果将受到严重影响。\n \n该数值越高越好。", //	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
@@ -3748,7 +3755,9 @@ STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
     L"",
 	L"|维|修|难|度\n \n决定了修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"|R|e|p|a|i|r |E|a|s|e\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		gzMiscItemStatsFasthelp[] =
 {
 	L"物品大小修正（越低越好）", // 0
@@ -3788,10 +3797,12 @@ STR16		gzMiscItemStatsFasthelp[] =
 	L"按住 |C|t|r|l 点击装备物品", //L"Hold |C|t|r|l to compare items", item compare help text
 	L"装备重量: %4.1f 公斤", //L"Equipment weight: %4.1f kg",	// 35
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: End new tooltip text
 
 // HEADROCK HAM 4: New condition-based text similar to JA1.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gConditionDesc[] =
 {
 	L"处于 ",
@@ -3804,6 +3815,7 @@ STR16 gConditionDesc[] =
 	L"糟糕的",
 	L" 状态。",  //L" condition.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //The headers used for the merc's money.
 
@@ -3835,11 +3847,14 @@ CHAR16 zHealthStr[][13] =
 	L"被俘", // L"CAPTURED",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzHiddenHitCountStr[1] =
 {
 	L"?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMoneyAmounts[6] =
 {
 	L"$1000",
@@ -3849,17 +3864,22 @@ STR16	gzMoneyAmounts[6] =
 	L"分割",
 	L"提取",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // short words meaning "Advantages" for "Pros" and "Disadvantages" for "Cons."
+#ifdef JA2_UNIFIED_TEXT
 CHAR16		gzProsLabel[10] =
 {
 	L"优点: ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16		gzConsLabel[10] =
 {
 	L"缺点: ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Conversation options a player has when encountering an NPC
 CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
@@ -3913,6 +3933,7 @@ STR16 pShortVehicleStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	zVehicleName[] =
 {
 	L"凯迪拉克",
@@ -3922,12 +3943,15 @@ STR16	zVehicleName[] =
 	L"坦克",
 	L"直升飞机", 		//an abbreviation for Helicopter
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pVehicleSeatsStrings[] =
 {
 	 L"你不能在这个位置射击。", //L"You cannot shoot from this seat.",
 	 L"在战斗中你不能在没有退出交通工具之前就交换这两个位置。", //L"You cannot swap those two seats in combat without exiting vehicle first.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //These are messages Used in the Tactical Screen
 
@@ -4216,6 +4240,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
+#ifdef JA2_UNIFIED_TEXT
 STR16 pExitingSectorHelpText[] =
 {
 	//Helptext for the "Go to Sector" checkbox button, that explains what will happen when the box is checked.
@@ -4259,6 +4284,7 @@ STR16 pExitingSectorHelpText[] =
 	//This string is special, as it is not used as helptext.  Do not use the special newline character (\n) for this string.
 	L"%s正在被你的佣兵护送，他（她）无法独自离开本分区。你的佣兵必须在附近以护送他（她）离开。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -5482,6 +5508,7 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 //Insurance Contract.c
 //The text on the buttons at the bottom of the screen.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			InsContractText[] =
 {
 	L"上一页",
@@ -5489,22 +5516,26 @@ STR16			InsContractText[] =
 	L"接受",
 	L"清除",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //Insurance Info
 // Text on the buttons on the bottom of the screen
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		InsInfoText[] =
 {
 	L"上一页",
 	L"下一页",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //For use at the M.E.R.C. web site. Text relating to the player's account with MERC
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercAccountText[] =
 {
 	// Text on the buttons on the bottom of the screen
@@ -5519,19 +5550,23 @@ STR16			MercAccountText[] =
 	L"你确定要支付%s吗？",
 	L"%s (+装备)", //L"%s (+gear)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Merc Account Page buttons
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercAccountPageText[] =
 {
 	// Text on the buttons on the bottom of the screen
 	L"上一页",
   L"下一页",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //For use at the M.E.R.C. web site. Text relating a MERC mercenary
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercInfo[] =
 {
 	L"生命",
@@ -5566,11 +5601,13 @@ STR16			MercInfo[] =
 	L"物品", //L"Inv",
 	L"Special Offer!",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // For use at the M.E.R.C. web site. Text relating to opening an account with MERC
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercNoAccountText[] =
 {
 	//Text on the buttons at the bottom of the screen
@@ -5578,11 +5615,13 @@ STR16			MercNoAccountText[] =
 	L"取消",	//"Cancel",
 	L"你没有帐户。你希望开一个吗？",	//"You have no account.  Would you like to open one?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // For use at the M.E.R.C. web site. MERC Homepage
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			MercHomePageText[] =
 {
 	//Description of various parts on the MERC page
@@ -5594,9 +5633,11 @@ STR16			MercHomePageText[] =
 	L"Speck Com v3.2",
 	L"转账失败，暂无可用资金。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // For use at MiGillicutty's Web Page.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFuneralString[] =
 {
 	L"McGillicutty公墓: 1983开业，办理家庭悼念业务。",
@@ -5616,9 +5657,11 @@ STR16			sFuneralString[] =
 	L"很抱歉，由于家里有人去世，本网站的剩余部分尚未完成。一旦解决了宣读遗嘱和财产分配问题，本网站会尽快建设好。",
 	L"很抱歉，但是，现在还是测试期间，请以后再来访问。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Text for the florist Home page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFloristText[] =
 {
 	//Text on the button on the bottom of the page
@@ -5644,11 +5687,13 @@ STR16			sFloristText[] =
 	L"让Bruce，我们的世界闻名的花卉设计师，从我们的花房里为你亲手摘取最新鲜、最优质的花束。",
 	L"还有请记住，如果我们没有你要的花，我们能种出来 - 很快！",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //Florist OrderForm
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sOrderFormText[] =
 {
 	//Text on the buttons
@@ -5681,12 +5726,14 @@ STR16			sOrderFormText[] =
 
 	L"姓名: ",				//"Name:",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 
 //Florist Gallery.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		sFloristGalleryText[] =
 {
 	//text on the buttons
@@ -5701,19 +5748,23 @@ STR16		sFloristGalleryText[] =
 
 	L"主页",	//"Home",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Florist Cards
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			sFloristCards[] =
 {
 	L"请点击你想要订购的贺卡",	//"Click on your selection",
 	L"后退",			//"Back",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // Text for Bobby Ray's Mail Order Site
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyROrderFormText[] =
 {
 	L"订单",		//"Order Form",		//Title of the page
@@ -5743,7 +5794,9 @@ STR16			BobbyROrderFormText[] =
 	L"** 最小重量: ",		//"** Min. Wt.",			// Disclaimer states that there is a minimum weight for the package
 	L"运货",		//"Shipments",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRFilter[] =
 {
 	// Guns
@@ -5797,10 +5850,12 @@ STR16			BobbyRFilter[] =
 	L"其它附件",
 	L"其它", //"Misc.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // This text is used when on the various Bobby Ray Web site pages that sell items
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRText[] =
 {
 	L"订购",				//"To Order",	// Title
@@ -5863,10 +5918,12 @@ STR16			BobbyRText[] =
 	L"抱歉，这种商品我们现在缺货。",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // Text for Bobby Ray's Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			BobbyRaysFrontText[] =
 {
 	//Details on the web site
@@ -5887,12 +5944,14 @@ STR16			BobbyRaysFrontText[] =
 	L"独此一家，别无分店！",	//"If we don't sell it, you can't get it!",
 	L"网站建设中",	//"Under Construction",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 // Text for the AIM page.
 // This is the text used when the user selects the way to sort the aim mercanaries on the AIM mug shot page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimSortText[] =
 {
 	L"A.I.M 成员",	//"A.I.M. Members",				// Title
@@ -5926,11 +5985,13 @@ STR16			AimSortText[] =
 	L"升序",	//"Ascending",
 	L"降序",	//"Descending",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Policies.c
 //The page in which the AIM policies and regulations are displayed
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		AimPolicyText[] =
 {
 	// The text on the buttons at the bottom of the page
@@ -5942,6 +6003,7 @@ STR16		AimPolicyText[] =
 	L"不同意",	//Disagree",
 	L"同意",	//"Agree",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -5950,6 +6012,7 @@ STR16		AimPolicyText[] =
 
 // Instructions to the user to either start video conferencing with the merc, or to go the mug shot index
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimMemberText[] =
 {
 	L"鼠标左击",	//"Left Click",
@@ -5957,10 +6020,12 @@ STR16			AimMemberText[] =
 	L"鼠标右击",	//"Right Click",
 	L"回到肖像索引。",	//"for Mug Shot Index.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Aim Member.c
 //The page in which the players hires AIM mercenaries
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			CharacterInfo[] =
 {
 	// The various attributes of the merc
@@ -6004,6 +6069,7 @@ STR16			CharacterInfo[] =
 	L"装备5",				// Text on Starting Gear Selection Button 5
 	L"Mission Fee",			// For UB fixed price contracts
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Member.c
@@ -6011,6 +6077,7 @@ STR16			CharacterInfo[] =
 
 //The following text is used with the video conference popup
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			VideoConfercingText[] =
 {
 	L"合同总价:",	//"Contract Charge:",				//Title beside the cost of hiring the merc
@@ -6042,6 +6109,7 @@ STR16			VideoConfercingText[] =
 
 	L"包括医保",	//"with medical",			// Displays if you are hiring the merc with the medical deposit
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6050,6 +6118,7 @@ STR16			VideoConfercingText[] =
 
 // The text that pops up when you select the TRANSFER FUNDS button
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimPopUpText[] =
 {
 	L"电子转帐成功",	//"ELECTRONIC FUNDS TRANSFER SUCCESSFUL",	// You hired the merc
@@ -6069,14 +6138,17 @@ STR16			AimPopUpText[] =
 	L"预录消息",	//"Pre-recorded message",
 	L"留言已记录",	//"Message recorded",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //AIM Link.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimLinkText[] =
 {
 	L"A.I.M 链接",//	L"A.I.M. Links",	//The title of the AIM links page
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6084,6 +6156,7 @@ STR16			AimLinkText[] =
 
 // This page displays the history of AIM
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimHistoryText[] =
 {
 	L"A.I.M 历史",	//"A.I.M. History",					//Title
@@ -6095,12 +6168,14 @@ STR16			AimHistoryText[] =
 	L"A.I.M 前成员",	//"A.I.M. Alumni",
 	L"下一页",	//"Next Page",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Mug Shot Index
 
 //The page in which all the AIM members' portraits are displayed in the order selected by the AIM sort page.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimFiText[] =
 {
 	// displays the way in which the mercs were sorted
@@ -6137,12 +6212,14 @@ STR16			AimFiText[] =
 	L"阵亡",	//"Deceased",						//14
 	L"任务中",	//"On Assign",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //AimArchives.
 // The page that displays information about the older AIM alumni merc... mercs who are no longer with AIM
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimAlumniText[] =
 {
 	// Text of the buttons
@@ -6156,6 +6233,7 @@ STR16			AimAlumniText[] =
 	L"完成",
 	L"下一页",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6164,6 +6242,7 @@ STR16			AimAlumniText[] =
 
 //AIM Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimScreenText[] =
 {
 	// AIM disclaimers
@@ -6180,10 +6259,12 @@ STR16			AimScreenText[] =
 	L"... 第一次",
 	L"枪械和杂货，只此一家，别无分店。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Aim Home Page
 
+#ifdef JA2_UNIFIED_TEXT
 STR16			AimBottomMenuText[] =
 {
 	//Text for the links at the bottom of all AIM pages
@@ -6194,6 +6275,7 @@ STR16			AimBottomMenuText[] =
 	L"历史",	//"History",
 	L"链接",	//"Links",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -6201,6 +6283,7 @@ STR16			AimBottomMenuText[] =
 // The shopkeeper interface is displayed when the merc wants to interact with
 // the various store clerks scattered through out the game.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 SKI_Text[ ] =
 {
 	L"库存商品",	//"MERCHANDISE IN STOCK",	//Header for the merchandise available
@@ -6219,10 +6302,12 @@ STR16 SKI_Text[ ] =
 	L"把物品放在地上。",	//"Drop Item To Ground.",
 	L"特价", //L"BUDGET",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //ShopKeeper Interface
 //for the bank machine panels. Referenced here is the acronym ATM, which means Automatic Teller Machine
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	SkiAtmText[] =
 {
 	//Text on buttons on the banking machine, displayed at the bottom of the page
@@ -6242,9 +6327,11 @@ STR16	SkiAtmText[] =
 	L"取消",	//"Cancel",				// Cancel the transfer
 	L"清除",	//"Clear",				// Clear the money display
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Shopkeeper Interface
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzSkiAtmText[] =
 {
 
@@ -6256,8 +6343,10 @@ STR16	gzSkiAtmText[] =
 	L"资金不足",		//"Insufficient Funds",	// Not enough money to transfer
 	L"余额",			//"Balance",	// Display the amount of money the player currently has
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	SkiMessageBoxText[] =
 {
 	L"你要从主帐户中提取%s来支付吗？",
@@ -6271,10 +6360,12 @@ STR16	SkiMessageBoxText[] =
 	L"你要使用%s情报来支付差额吗？",	//L"Do you want to transfer %s Intel to cover the difference?",
 	L"你要使用%s情报来支付吗？",	//L"Do you want to transfer %s Intel to cover the cost?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //OptionScreen.c
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	zOptionsText[] =
 {
 	//button Text
@@ -6298,14 +6389,18 @@ STR16	zOptionsText[] =
 
 	L"你必须选择“语音”和“对话显示”中的至少一项。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesScreenText[] =
 {
 	L"1.13 特征功能",	//L"1.13 FEATURE TOGGLES",
 	L"在游戏中更改这些选项将影响您的游戏体验。（更改后必须重新开始新游戏）",	//L"Changing these settings during a campaign will affect your experience.",
 	L"将鼠标悬停在功能按钮上以获得更多信息。某些功能需要在JA2_Options.ini（或其他文件）中设置。",	//L"Hover over a feature to display more information. Some features may be configurable in JA2_Options.ini (or other specified file).",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesToggleText[] =
 {
 	L"开启特征功能",	//L"Use These Overrides",
@@ -6353,7 +6448,9 @@ STR16	z113FeaturesToggleText[] =
 	L"反抗军司令部功能",	//L"Arulco Rebel Command",
 	L"战略运输队",   //L"Strategic Transport Groups",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesHelpText[] =
 {
 	L"|开|启|特|征|功|能\n \n允许以下功能覆盖JA2_Options.ini中的设置。\n \n将鼠标悬停在按钮上查看具体替换的项目内容。\n \n如果禁用此选项功能将以JA2_Options.ini中设置为准。\n \n",	//L"|U|s|e |T|h|e|s|e |O|v|e|r|r|i|d|e|s\n \nAllow this screen to override some feature toggles present in JA2_Options.ini.\nHover over a feature to see which flag is overridden.\nThese toggles have no effect if this option is disabled.",
@@ -6401,7 +6498,9 @@ STR16	z113FeaturesHelpText[] =
 	L"|反|抗|军|司|令|部|功|能\n \n覆盖 [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \n允许你升级占领的城镇，控制反抗军在战略层面上运作。\n \n详细的内容设定请查看RebelCommand_Settings.ini。\n \n",	//L"|A|R|C\nOverrides [Rebel Command Settings] REBEL_COMMAND_ENABLED\n \nCommand the rebel movement at the strategic level, and upgrade captured towns.\n \nFor tweakable values, see RebelCommand_Settings.ini.",	
 	L"|战|略|运|输|队\n \n覆盖 [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \n运输队在地图上运送有价值的装备。\n \n配置选项: \nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",   //L"|S|t|r|a|t|e|g|i|c |T|r|a|n|s|p|o|r|t |G|r|o|u|p|s\nOverrides [Strategic Gameplay Settings] STRATEGIC_TRANSPORT_GROUPS_ENABLED\n \nTransport groups carry valuable equipment across the map.\n \nConfigurable Options:\nMAX_SIMULTANEOUS_STRATEGIC_TRANSPORT_GROUPS",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	z113FeaturesPanelText[] =
 {
 	L"这个选项可以开启一些1.13新功能，启用后以下选项的生效优先级将高于JA2_Options.ini文件中的设置。如果禁用此项，以下选项将不生效。",	//L"Use the options here to enable some of 1.13's many features. If enabled, the toggle boxes here will take precedence over some booleans in JA2_Options.ini. If disabled, these boxes will have no effect.",
@@ -6449,9 +6548,11 @@ STR16	z113FeaturesPanelText[] =
 	L"在完成反抗军食物运送任务后，你可以访问他们的（A.R.C）指挥部网站。在这里你可以设定反抗军的政策，也可以为占领区单独设置地方政策。这将带来丰厚的奖励。作为代价，城镇的民忠会上升得更慢，所以你需要更加努力地让当地人信任你。",	//L"After completing the food delivery quest for the rebels, they will grant you access to their command website (A.R.C.). You can set the rebels' country-wide directive there, and capturing towns allows you to enact policies in that region that provide powerful bonuses. This comes at a price - town loyalty will rise slower, so you will need to work harder to have the locals trust you.",
 	L"敌人会在地图上派遣战略运输队，如果你能找到并截获它们就可能获取有价值的装备。但是，如果让敌人的运输队完成运输任务，那么就会给敌人提供战略资源（具体视难度而定）。要想获得最好体验，建议开启\"敌军战略司令部功能\"。",   //L"The enemy sends groups across the map. If you can find and intercept them, they will probably have valuable gear. However, depending on your difficulty, each group that completes its transport mission provides the AI with strategic resources. Best experienced with Arulco Strategic Division enabled.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //SaveLoadScreen
+#ifdef JA2_UNIFIED_TEXT
 STR16			zSaveLoadText[] =
 {
 	L"保存游戏",
@@ -6517,10 +6618,12 @@ STR16			zSaveLoadText[] =
 	L"当前分辨率不支持存档文件的小队人数，请增加分辨率再试。", //L"The squad size from the savegame is not supported by the current screen resolution. Please increase the screen resolution and try again.",
 	L"Bobby Ray 供货量",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
 //MapScreen
+#ifdef JA2_UNIFIED_TEXT
 STR16		zMarksMapScreenText[] =
 {
 	L"地图层次",	//"Map Level",
@@ -6562,6 +6665,7 @@ STR16		zMarksMapScreenText[] =
 	// Flugente: describe what intel map view does
 	L"这个界面显示哪一个区域与当前进行的任务相关。某些购买的情报也会显示在这里。", //L"This view shows which sectors relevant what ongoing quests. Some data bought with intel is also shown here.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT
@@ -6599,16 +6703,20 @@ STR16 pMilitiaConfirmStrings[] =
 #endif // JA2_UNIFIED_TEXT
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMoneyWithdrawMessageText[] =
 {
 	L"你每次最多能提取$20,000。",
 	L"你确认要把%s存入你的帐户吗？",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCopyrightText[] =
 {
 	L"Copyright (C) 1999 Sir-tech Canada Ltd.  All rights reserved.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //option Text
 #ifdef JA2_UNIFIED_TEXT
@@ -6810,6 +6918,7 @@ STR16	zOptionsScreenHelpText[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzGIOScreenText[] =
 {
 	L"游戏初始设置",
@@ -6902,7 +7011,9 @@ STR16	gzGIOScreenText[] =
 	L"假铁人", //L"Soft Iron Man",
 	L"真铁人", //L"Extreme Iron Man",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMPJScreenText[] =
 {
 	L"多人游戏",//L"MULTIPLAYER",
@@ -6922,7 +7033,9 @@ STR16	gzMPJScreenText[] =
 	L"你必须输入有效的服务器IP地址。(例如 84.114.195.239)。",//L"You must enter a valid server IP address.\n (eg 84.114.195.239).",
 	L"您必须输入正确的服务器端口，范围1~65535。",//L"You must enter a valid Server Port between 1 and 65535.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPJHelpText[] =
 {
 	L"访问http://webchat.quakenet.org/?channels=ja2-multiplayer寻找其他玩家。",  //Visit http://webchat.quakenet.org/?channels=ja2-multiplayer to find other players
@@ -6939,7 +7052,9 @@ STR16 gzMPJHelpText[] =
 	L"输入主机的外网IP和端口号",  //L"Enter the external IP and the Port number from the host.",
 	L"点击“加入”来加入已经创建好的游戏。",  //Click on 'Join' to join an already hosted Multiplayer Game
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzMPHScreenText[] =
 {
 	L"建立主机",//L"HOST GAME",
@@ -7015,6 +7130,7 @@ STR16	gzMPHScreenText[] =
 	L"禁止",
 	L"允许",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 pDeliveryLocationStrings[] =
@@ -7088,6 +7204,7 @@ STR16 pPausedGameText[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMessageStrings[] =
 {
 	L"退出游戏",	//"Exit Game?",
@@ -7233,6 +7350,7 @@ STR16 pMessageStrings[] =
 	L"激活作弊？", //L"Activate cheats?",
 	L"关闭作弊？", //L"Deactivate cheats?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 CHAR16 ItemPickupHelpPopup[][40] =
@@ -7278,6 +7396,7 @@ STR16 pAntiHackerString[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzLaptopHelpText[] =
 {
 	//Buttons:
@@ -7314,12 +7433,15 @@ STR16 gzLaptopHelpText[] =
 	L"已占领的工厂",	//L"Controlled factories",
 	L"Arulco反抗军司令部",   //L"Arulco Rebel Command",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzHelpScreenText[] =
 {
 	L"退出帮助屏幕",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 gzNonPersistantPBIText[] =
@@ -7392,13 +7514,16 @@ STR16 wMapScreenSortButtonHelpText[] =
 
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		BrokenLinkText[] =
 {
 	L"错误 404",	//"Error 404",
 	L"网站未找到",	//"Site not found.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzBobbyRShipmentText[] =
 {
 	L"近期运货",	//"Recent Shipments",
@@ -7406,8 +7531,10 @@ STR16 gzBobbyRShipmentText[] =
 	L"物品数量",	//"Number Of Items",
 	L"订购日期",		//"Ordered On",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNames[]=
 {
 	L"Chris Camfield",
@@ -7426,8 +7553,10 @@ STR16	gzCreditNames[]=
 	L"Alex Meduna",
 	L"Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNameTitle[]=
 {
 	L"游戏开发者", 			// Chris Camfield
@@ -7446,7 +7575,9 @@ STR16	gzCreditNameTitle[]=
 	L"战略系统与游戏平衡开发",				// Alex Meduna
 	L"人物设计师",						// Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzCreditNameFunny[]=
 {
 	L"", 																			// Chris Camfield
@@ -7465,6 +7596,7 @@ STR16	gzCreditNameFunny[]=
 	L"(从巫术8项目中偷来的)",							// Alex Meduna
 	L"(也参与制作物品及读档画面)",	// Joey \"Joeker\" Whelan",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
 STR16 sRepairsDoneString[] =
@@ -7479,6 +7611,7 @@ STR16 sRepairsDoneString[] =
 	L"%s 清洁了所有人的枪支。", //L"%s finished cleaning everyone's guns.",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 zGioDifConfirmText[]=
 {
 	L"你选择了“新手”模式。这个设置是为那些刚玩铁血联盟的玩家准备的，他们刚接触策略游戏，或者他们希望快点结束战斗。你的选择会在整个游戏中生效，所以请作出明智的选择。你真的要玩“新手”模式吗？",
@@ -7486,6 +7619,7 @@ STR16 zGioDifConfirmText[]=
 	L"你选择了“专家”模式。我们警告你，如果你被装在尸袋里运回来，不要来向我们抱怨。你的选择会在整个游戏中生效，所以请作出明智的选择。你真的要玩“专家”模式吗？",
 	L"你选择了“疯狂”模式。警告: 如果你被装在塑料袋里一块块运回来，不要来向我们抱怨。女王会狠狠地凌虐你。你的选择会在整个游戏中生效，所以请作出明智的选择。你真的要玩“疯狂”模式吗？",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 gzLateLocalizedString[] =
@@ -7707,6 +7841,7 @@ STR16 gzTooltipStrings[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 New113Message[] =
 {
 	L"风暴开始了。",
@@ -7794,7 +7929,9 @@ STR16 New113Message[] =
 	L"否",	//L"No",
 	L"%s将%s应用于%s。", //L"%s applied %s to %s.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 New113HAMMessage[] =
 {
 	// 0 - 5
@@ -7828,8 +7965,10 @@ STR16 New113HAMMessage[] =
 	L"要在战斗中组合两样物品，你必须先把它们捡起来。", // L"To attach an item to another item during combat, you must pick them both up first.",
 	L"要在战斗中合并两样物品，你必须先把它们捡起来。", // L"To merge two items during combat, you must pick them both up first.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK HAM 5: Text dealing exclusively with Item Transformations.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzTransformationMessage[] =
 {
 	L"没有可用的转换方案", //L"No available adjustments",
@@ -7849,10 +7988,12 @@ STR16 gzTransformationMessage[] =
 	L"即时模式 (%d AP)", //L"Instant mode (%d AP)",
 	L"延时模式 (%d AP)", //L"Delayed mode (%d AP)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercLevelUp.xml" file!
 // WANNE: This are the email texts, when one of the 4 new 1.13 MERC mercs have levelled up, that Speck sends
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+#ifdef JA2_UNIFIED_TEXT
 STR16	New113MERCMercMailTexts[] =
 {
 	// Gaston: Text from Line 39 in Email.edt
@@ -7864,9 +8005,11 @@ STR16	New113MERCMercMailTexts[] =
 	// Biggens: Text from Line 49 in Email.edt
 	L"鉴于Biggins发挥有所提高， 他的价格也同时上涨。 ± ± Speck T. Kline ± ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: This hardcoded text should not be used anymore in the game, because we now have those texts externalized in the "TableData\Email\EmailMercAvailable.xml" file!
 // WANNE: This is email text (each 2 line), when we left a message on AIM and now the merc is back
+#ifdef JA2_UNIFIED_TEXT
 STR16	New113AIMMercMailTexts[] =
 {
 	// Monk
@@ -7905,9 +8048,11 @@ STR16	New113AIMMercMailTexts[] =
 	L"转发自AIM服务器：M.E.R.C的信件",
 	L"我收到你的留言，等你联系。 ± ",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: These are the missing skills from the impass.edt file
 // INFO: Do not replace the ± characters. They indicate the <B2> (-> Newline) from the edt files
+#ifdef JA2_UNIFIED_TEXT
 STR16 MissingIMPSkillsDescriptions[] =
 {
 	// Sniper
@@ -7941,7 +8086,9 @@ STR16 MissingIMPSkillsDescriptions[] =
 	// Survival
 	L"向导: 大自然是你第二个家。 ± ", //L"Survival: Nature is a second home to you. ± ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 NewInvMessage[] =
 {
     L"此时无法拾起背包",
@@ -7957,8 +8104,10 @@ STR16 NewInvMessage[] =
 	L"%s 放下背包",  //L"%s drops backpack",
 	L"%s 捡起背包",  //L"%s picks up backpack",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE - MP: Multiplayer messages
+#ifdef JA2_UNIFIED_TEXT
 STR16 MPServerMessage[] =
 {
 	// 0
@@ -7979,7 +8128,9 @@ STR16 MPServerMessage[] =
 	L"开始发送文件到 '%S'。",//	L"Started sending files to '%S'.",
 	L"使用空域视图选择你想进入的地图。你只能在点击“开始游戏”按钮前更换地图。",	// L"Use the Airspace view to select a map you wish to play. If you want to change the map you have to do this before clicking the 'Start Game' button.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 MPClientMessage[] =
 {
 	// 0
@@ -8081,7 +8232,9 @@ STR16 MPClientMessage[] =
 	// 80
 	L"AI回合 - %d剩余",	
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPEdgesText[] =
 {
 	L"北", //L"N",
@@ -8090,7 +8243,9 @@ STR16 gszMPEdgesText[] =
 	L"西", //L"W",
 	L"中", //L"C",	// "C"enter
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPTeamNames[] =
 {
 	L"F小队",
@@ -8099,7 +8254,9 @@ STR16 gszMPTeamNames[] =
 	L"C小队",
 	L"N/A",		// Acronym of Not Applicable
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gszMPMapscreenText[] =
 {
 	L"游戏类型: ",//	L"Game Type: ",
@@ -8112,7 +8269,9 @@ STR16 gszMPMapscreenText[] =
 	L"难度:",//	L"Difficulty:",
 	L"服务器版本:",   //Server Version
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPSScreenText[] =
 {
 	L"记分板",//	L"Scoreboard",
@@ -8129,7 +8288,9 @@ STR16 gzMPSScreenText[] =
 	L"受损量",//	L"Damage Taken",
 	L"请等待服务器指令按‘继续’。", //L"Please wait for the server to press 'Continue'.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPCScreenText[] =
 {
 	L"取消",//	L"Cancel",
@@ -8140,18 +8301,23 @@ STR16 gzMPCScreenText[] =
 	L"按 'ESC' 取消", //	L"Press 'ESC' to cancel",
 	L"准备", //	L"Ready",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPChatToggleText[] =
 {
 	L"发送给所有人",//	L"Send to All",
 	L"发送给盟友",//	L"Send to Allies only",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMPChatboxText[] =
 {
 	L"多人聊天",//	L"Multiplayer Chat",
 	L"聊天: 按 'Enter' 发送，'Esc' 取消。",//	L"Chat: Press 'ENTER' to send of 'ESC' to cancel.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT
@@ -8401,6 +8567,7 @@ STR16 gzFacilityAssignmentStrings[]=
     L"指挥民兵",	//L"Command Militia", militia movement orders
 };
 #endif // JA2_UNIFIED_TEXT
+#ifdef JA2_UNIFIED_TEXT
 STR16 Additional113Text[]=
 {
 	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度。",
@@ -8414,6 +8581,7 @@ STR16 Additional113Text[]=
 	L"平民 (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
+#endif // JA2_UNIFIED_TEXT
 #ifdef JA2_UNIFIED_TEXT
 
 // SANDRO - Taunts (here for now, xml for future, I hope)
@@ -8523,20 +8691,25 @@ STR16 sEnemyTauntsNoticedMerc[]=
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
 //////////////////////////////////////////////////////
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescTabButtonText[] =
 {
 	L"说明",
 	L"常规",
 	L"进阶",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescTabButtonShortText[] =
 {
 	L"说明",
 	L"常规",
 	L"进阶",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescGenHeaders[] =
 {
 	L"基本性能",
@@ -8544,7 +8717,9 @@ STR16 gzItemDescGenHeaders[] =
 	L"AP 消耗",
 	L"点射 / 连发",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzItemDescGenIndexes[] =
 {
 	L"参数图标",
@@ -8552,14 +8727,18 @@ STR16 gzItemDescGenIndexes[] =
 	L"+/-",
 	L"=",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBButtonTooltipText[]=
 {
 	L"|说|明|页|面:\n \n显示该物品基本的文字描述。",
 	L"|常|规|性|能|页|面:\n \n显示该物品的详细性能数据。\n \n武器：再次点击进入第二页。",
 	L"|进|阶|性|能|页|面:\n \n显示使用该物品的额外效果。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBHeaderTooltipText[]=
 {
 	L"|基|本|性|能:\n \n由物品类别（武器/护甲/杂物）决定的基本性能与数据。",
@@ -8567,7 +8746,9 @@ STR16 gzUDBHeaderTooltipText[]=
 	L"|A|P |消|耗:\n \n使用这件武器需要耗费的AP。",
 	L"|点|射 |/ |连|发|性|能:\n \n武器在点射/连发模式下的相关数据。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBGenIndexTooltipText[]=
 {
 	L"|参|数|图|标\n \n鼠标悬停显示参数名称。",
@@ -8575,7 +8756,9 @@ STR16 gzUDBGenIndexTooltipText[]=
 	L"|附|件|加|成\n \n弹药，附件或较差的物品状态导致的\n奖励或惩罚。",
 	L"|最|终|数|值\n \n该物品使用的最终数值，包括所有由附件或弹药导致的\n奖励或惩罚。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzUDBAdvIndexTooltipText[]=
 {
 	L"参数图标（鼠标悬停显示名称）",
@@ -8584,7 +8767,9 @@ STR16 gzUDBAdvIndexTooltipText[]=
 	L"|匍|匐 姿态的奖励/惩罚 ",
 	L"奖励/惩罚",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenWeaponsStatsTooltipText[]=
 {
 	L"|精|度",   //L"|A|c|c|u|r|a|c|y",
@@ -8610,7 +8795,9 @@ STR16 szUDBGenWeaponsStatsTooltipText[]=
 	L"|后|坐|力",   //L"|T|o|t|a|l |R|e|c|o|i|l",
 	L"|连|发|子|弹|数/5|A|P",   //L"|A|u|t|o|f|i|r|e |B|u|l|l|e|t|s |p|e|r |5 |A|P|s",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 {
 	L"\n \n决定该武器发射的子弹偏离瞄准点的远近。\n \n数值范围：0~100。该数值越高越好。",
@@ -8637,7 +8824,9 @@ STR16 szUDBGenWeaponsStatsExplanationsTooltipText[]=
 	L"\n \n该参数显示了该武器每多花费5AP在连发模式时\n可多发射的子弹数。\n \n该数值越高越好。",
 	L"\n \n决定了修理该武器的难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis weapon and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenArmorStatsTooltipText[]=
 {
 	L"|防|护|值",
@@ -8645,7 +8834,9 @@ STR16 szUDBGenArmorStatsTooltipText[]=
 	L"|损|坏|率",
 	L"|修|理|难|度",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 {
 	L"\n \n这是护具最重要的属性，决定了其可以吸收多\n少伤害。然而，穿甲攻击以及其它的随机因素\n都可能对最终的伤害值产生影响。\n \n该数值越高越好。",
@@ -8654,7 +8845,9 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \n决定了护甲修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有工兵和特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \n决定了护甲修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n黄色 = 只有特殊NPC可以修复损坏值。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenAmmoStatsTooltipText[]=
 {
 	L"|侵|彻|力|（|穿|甲|弹|）",
@@ -8664,7 +8857,9 @@ STR16 szUDBGenAmmoStatsTooltipText[]=
 	L"|毒|性|百|分|比",
 	L"|污|垢|修|正",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 {
 	L"\n \n即子弹穿透目标护甲的能力。\n \n该值小于1时，被子弹命中的护甲的防护值会成比例减少。\n \n反之，当该值大于1时，则增加\n目标护甲的防护值。\n \n该数值越低越好。",
@@ -8674,7 +8869,9 @@ STR16 szUDBGenAmmoStatsExplanationsTooltipText[]=
 	L"\n \n该值决定子弹伤害中具有毒性的百分比。",
 	L"\n \n弹药造成的额外污垢。\n \n该数值越低越好。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenExplosiveStatsTooltipText[]=
 {
 	L"|杀|伤|力",
@@ -8703,7 +8900,9 @@ STR16 szUDBGenExplosiveStatsTooltipText[]=
 	L"|挥|发|性",
 	L"|修|理|难|度",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 {
 	L"\n \n本次爆炸造成的伤害值。\n \n爆炸型爆破品只在被引爆时造成一次性伤害，而\n具有持续效果的爆破品每回合都可以造成伤\n害，直到效果消失。\n \n该数值越高越好。",
@@ -8732,21 +8931,27 @@ STR16 szUDBGenExplosiveStatsExplanationsTooltipText[]=
 	L"\n \n这个数值代表该爆破品受到伤害时（如其它爆破品在\n近处爆炸）自身爆炸的几率（100以内）。\n \n因此携带高挥发性爆破品进入战斗极其危险，应\n当极力避免。\n \n数值范围：0~100，该数值越低越好。",
 	L"\n \n决定了炸药的修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair these explosives.\n \ngreen = Anybody can repair them.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenCommonStatsTooltipText[]=
 {
 	L"|修|理|难|度",
 	L"|可|用|数|量", //L"|A|v|a|i|l|a|b|l|e |V|o|l|u|m|e",
 	L"|数|量", //L"|V|o|l|u|m|e",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenCommonStatsExplanationsTooltipText[]=
 {
 	L"\n \n决定了修理难度以及谁可以完全修复其损坏值。\n \n绿色 = 任何人都可以修理。\n \n红色 = 这个物品不能被修理。\n \n该数值越高越好。", //L"\n \nDetermines how difficult it is to repair this item.\n \ngreen = Anybody can repair it.\n \nred = This item can't be repaired.\n \nHigher is better.",
 	L"\n \n决定了这个携行具的可用空间。\n \n该数值越高越好。", //L"\n \nDetermines how much space is available on this MOLLE carrier.\n \nHigher is better.",
 	L"\n \n决定了这个携行具已被占用的空间。\n \n该数值越低越好。", //L"\n \nDetermines how much space this MOLLE pocket will occupy.\n \nLower is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenSecondaryStatsTooltipText[]=
 {
 	L"|曳|光|弹",
@@ -8802,7 +9007,9 @@ STR16 szUDBGenSecondaryStatsTooltipText[]=
 	L"|燃|烧|弹|药",  //L"|I|n|c|e|n|d|i|a|r|y |A|m|m|o",
 	L"|弹|链|供|弹",  //L"|B|e|l|t| |F|e|d",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 {
 	L"\n \n在点射或者连射时，曳光弹会产生曳光效果。\n \n由于曳光能够帮助持枪者校准，所以即使考虑\n后座力，该子弹的杀伤仍是致命的；曳光弹\n也能在黑暗中照亮目标。\n \n然而，曳光弹也会暴露射手的位置！\n \n曳光弹会抵消枪口消焰器的效果。",
@@ -8858,7 +9065,9 @@ STR16 szUDBGenSecondaryStatsExplanationsTooltipText[]=
 	L"\n \n这种弹药会引起燃烧（火灾）。",   //L"\n \nThis ammo can cause fire.",
 	L"\n \n这种枪可以使用弹链供弹\n或者由LBE弹链供弹\n又或者由另一位佣兵供弹。",	//L"\n \nThis gun can be belt fed\nfrom a compatible LBE\nor by another merc.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsTooltipText[]=
 {
 	L"|精|度|修|正",
@@ -8930,8 +9139,10 @@ STR16 szUDBAdvStatsTooltipText[]=
 	L"|掰|击|锤|射|击",	//L"|F|a|n |t|h|e |H|a|m|m|e|r",
 	L"|枪|管|配|置", //L"|B|a|r|r|e|l |C|o|n|f|i|g|u|r|a|t|i|o|n|s",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Alternate tooltip text for weapon Advanced Stats. Just different wording, nothing spectacular.
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsExplanationsTooltipText[]=
 {
 	L"\n \n当安装于远程武器上时，该物品将修正武器的精\n度值。\n \n精度的提高能够使武器在精瞄时更容易命中远\n距离的目标。\n \n数值范围：-100~+100，该数值越高越好。",
@@ -9003,7 +9214,9 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \n如果枪手用双手使用这把枪，可\n以腰间连续连射。",	//L"\n \nIf a gunslinger wields this gun two-handed,\nthey can burst in hipfire.",
 	L"\n \n切换射击模式，还可以\n同时切换发射多少发子弹。", //L"\n \nToggling firemodes also toggles how many\nbarrels you can fire at the same time.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 {
 	L"\n \n由于所装的附件，弹药或其内置特性，这件武\n器的精度得到了修正。\n \n提高精度能够使该武器在精瞄时更容易命中远\n距离的目标。\n \n数值范围：-100~+100，该数值越高越好。",
@@ -9060,6 +9273,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 	L"\n \n当武器温度超过损坏阈值时，武器\n将更容易损坏。",
 	L"\n \n这个武器的后座力大小因为所使用的弹药，附\n件，或内部构造而获得该比例大小的修正。如\n果没有点射或自动模式，这个值无效。\n后座力越小，枪口在瞄准目标扫射时越稳定。\n该值越低越好。",//L"\n \nThis weapon's recoil strength is being\nmodified by this percentage value by its ammo,\nattachments, or inherent abilities.\n \nThis has no effect if the weapon lacks both\nBurst and Auto-Fire modes.\n \nReducing recoil makes it easier to keep the gun's\nmuzzle pointed at the target during a volley.\n \nLower is better.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
 #ifdef JA2_UNIFIED_TEXT
@@ -9135,6 +9349,7 @@ STR16 gzMercCompare[] =
 #endif // JA2_UNIFIED_TEXT
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gTemperatureDesc[] =
 {
 	L"当前温度为: ",
@@ -9149,8 +9364,10 @@ STR16 gTemperatureDesc[] =
 	L"未知",
 	L"."
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: food condition texts
+#ifdef JA2_UNIFIED_TEXT
 STR16 gFoodDesc[] =
 {
 	L"这食物 ",// Food is
@@ -9162,7 +9379,9 @@ STR16 gFoodDesc[] =
 	L"快要腐烂了",// rotting
 	L"！", //L".",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16* ranks[] =
 {	L"",			//ExpLevel 0
 	L"列兵 ", //L"Pvt. ",		//ExpLevel 1
@@ -9176,6 +9395,7 @@ CHAR16* ranks[] =
 	L"上校 ", //L"Col. ",		//ExpLevel 9
 	L"将军 ", //L"Gen. ",		//ExpLevel 10
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT
@@ -9218,6 +9438,7 @@ STR16	zNewTacticalMessages[]=
 #endif // JA2_UNIFIED_TEXT
 
 // The_bob : pocket popup text defs
+#ifdef JA2_UNIFIED_TEXT
 STR16	gszPocketPopupText[]=
 {
 	L"榴弹发射器",	// POCKET_POPUP_GRENADE_LAUNCHERS,
@@ -9227,8 +9448,10 @@ STR16	gszPocketPopupText[]=
 	L"- 区域存货没有武器 -",	//POCKET_POPUP_NO_GUNS
 	L"更多...",		//POCKET_POPUP_MOAR
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: externalised texts for some features
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCovertTextStr[]=
 {
 	L"%s有迷彩油（血）的痕迹！", //L"%s has camo!",
@@ -9268,7 +9491,9 @@ STR16	szCovertTextStr[]=
 	L"敌军精英士兵不认识%s！", //L"An elite soldier did not recognize %s!",
 	L"敌军所知的%s不是军队里的！", //L"A officer knew %s was unfamiliar!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCorpseTextStr[]=
 {
 	L"无法找到对应的头颅信息在Items.xml中！", //L"No head item found in Items.xml!",
@@ -9282,7 +9507,9 @@ STR16	szCorpseTextStr[]=
 	L"无法找到对应的尸体信息在Items.xml中！", //L"No corpse item found in Items.xml!",
 	L"无效的尸体 ID！", //L"Invalid corpse ID!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFoodTextStr[]=
 {
 	L"%s 不想吃 %s",//L"%s does not want to eat %s",
@@ -9299,7 +9526,9 @@ STR16	szFoodTextStr[]=
 	L"%s的生命受损，因为没有水喝，渴疯了！",//L"%s's health was damaged due to lack of water!",
 	L"区域供水不可行，食物和生存系统已被关闭！",//L"Sectorwide canteen filling not possible, Food System is off!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szPrisonerTextStr[]=
 {
 	L"%d名军官，%d名精英士兵，%d名普通士兵，%d名行政人员，%d名上将和%d名平民都被审问了。", //L"%d officers, %d elites, %d regulars, %d admins, %d generals and %d civilians were interrogated.",
@@ -9320,7 +9549,9 @@ STR16	szPrisonerTextStr[]=
 	L"你的佣兵成功逃脱了敌人的追捕。", //L"Some of your mercs managed to escape the enemy capture!",
 	L"没有逃跑与投降，只有死战到底！", //L"No possible escape is seen, it's a fight to the death!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMTATextStr[]=
 {
 	L"空无一物",
@@ -9330,7 +9561,9 @@ STR16	szMTATextStr[]=
 	L"%s必须停止%s。", //L"%s had to stop %s.",
     L"所选的路障无法再该分区建造",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szInventoryArmTextStr[]=
 {
 	L"炸毁 (%d AP)", //L"Blow up (%d AP)",
@@ -9340,7 +9573,9 @@ STR16	szInventoryArmTextStr[]=
 	L"解除 (%d AP)", //L"Disarm (%d AP)",
 	L"解除", //L"Disarm",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szBackgroundText_Flags[]=
 {
 	L" 会消耗掉背包中的药品 \n", //L" might consume drugs in inventory\n",
@@ -9358,7 +9593,9 @@ STR16		szBackgroundText_Flags[]=
 	L" 拒绝伤害动物\n",	//L" refuses to attack animals\n",
 	L" 拒绝伤害在同一小队的成员\n",	//L" refuses to attack members of the same group\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szBackgroundText_Value[]=
 {
 	L" %s%d%％ 行动点在极地地区 \n", //L" %s%d%% APs in polar sectors\n",
@@ -9448,18 +9685,24 @@ STR16	szBackgroundText_Value[]=
 	L" %s%d%% 管理效率 \n",	//L" %s%d%% administration effectiveness\n",
 	L" %s%d%% 探索效率\n",	//L" %s%d%% exploration effectiveness\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szBackgroundTitleText[] =
 {
 	L"I.M.P 佣兵背景", //L"I.M.P. Background",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: personality
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityTitleText[] =
 {
 	L"I.M.P 佣兵偏见", //L"I.M.P. Prejudices",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityDisplayText[]=
 {
 	L"你看上去", //L"You look",
@@ -9474,8 +9717,10 @@ STR16		szPersonalityDisplayText[]=
 	L"种族主义者，讨厌非 ", //L"racist against non-",
 	L"人。", //L"people.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // texts showing up when hovering over the box, used to explain what a selection does. Do not use more than 200 characters!
+#ifdef JA2_UNIFIED_TEXT
 STR16		szPersonalityHelpText[]=
 {
 	L"你长得怎样？", //L"How do you look?",
@@ -9489,8 +9734,10 @@ STR16		szPersonalityHelpText[]=
 	L"你是哪个种族？你讨厌所有非本族人。", //L"What is your race? You will be\nracist against all other races.",
 	L"你的性别歧视程度如何？", //L"How sexist are you against the other gender?",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRaceText[]=
 {
 	L"白种",
@@ -9499,7 +9746,9 @@ STR16		szRaceText[]=
 	L"爱斯基摩",
 	L"拉美裔",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szAppearanceText[]=
 {
 	L"很普通",
@@ -9508,21 +9757,27 @@ STR16		szAppearanceText[]=
 	L"很吸引人",
 	L"像个孩子",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRefinementText[]=
 {
 	L"正常", //L"average manners",
 	L"邋遢", //L"manners of a slob",
 	L"讲究", //L"manners of a snob",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRefinementTextTypes[] =
 {
 	L"普通的人", //L"normal people",
 	L"懒虫", //L"slobs",
 	L"努力的人", //L"snobs",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityText[]=
 {
 	L"美国人",		// 0
@@ -9641,7 +9896,9 @@ STR16		szNationalityText[]=
 	L"扎蒙达人",   // Zamunda 
 	L"津巴布韦人",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityTextAdjective[] =
 {
 	L"美国人",		// 0
@@ -9760,28 +10017,36 @@ STR16		szNationalityTextAdjective[] =
 	L"扎蒙达人",   // Zamunda 
 	L"津巴布韦人",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // special text used if we do not hate any nation (value of -1)
+#ifdef JA2_UNIFIED_TEXT
 STR16		szNationalityText_Special[]=
 {
 	L"不讨厌其它国籍的人。",		// used in personnel.cpp //L"do not hate any other nationality.",
 	L"无国籍",		// used in IMP generation //L"of no origin",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szCareLevelText[]=
 {
 	L"不",
 	L"有点",
 	L"非常",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szRacistText[]=
 {
 	L"非",
 	L"正常",
 	L"极端",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16		szSexistText[]=
 {
 	L"非性别歧视者",
@@ -9789,8 +10054,10 @@ STR16		szSexistText[]=
 	L"极端性别歧视者",
 	L"尊重异性者",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: power pack texts
+#ifdef JA2_UNIFIED_TEXT
 STR16 gPowerPackDesc[] =
 {
 	L"电池", //L"Batteries are ",
@@ -9801,6 +10068,7 @@ STR16 gPowerPackDesc[] =
 	L"耗尽了", //L"depleted",
 	L"。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // WANNE: Special characters like % or someting else should go here
 // We can't put them directly in the CPP code files, because they need special encoding (UTF8) for some languages (e.g: Chinese)
@@ -9811,6 +10079,7 @@ STR16 sSpecialCharacters[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSoldierClassName[]=
 {
 	L"佣兵",
@@ -9828,7 +10097,9 @@ STR16	szSoldierClassName[]=
 	L"生物",
 	L"僵尸",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryWebSite[]=
 {
 	L"%s 新闻议会",
@@ -9846,7 +10117,9 @@ STR16	szCampaignHistoryWebSite[]=
 	L"最新新闻",
 	L"关于我们",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryDetail[]=
 {
 	L"%s，%s %s %s 于 %s。",
@@ -9882,7 +10155,9 @@ STR16	szCampaignHistoryDetail[]=
 	L"地面情况更加不明朗，看起来反抗军混战达到了新的高度。我们已经确认了反抗军民兵部队同国外佣兵一起组织了主动进攻。",
 	L"保皇党在当地的地位比之前预期的更加糟糕。报告显示出现了内部分歧，军方人员互相火并。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryTimeString[]=
 {
 	L"深夜",		// 23 - 3
@@ -9894,7 +10169,9 @@ STR16	szCampaignHistoryTimeString[]=
 	L"傍晚",			// 18 - 21
 	L"晚上",		// 21 - 23
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryMoneyTypeString[]=
 {
 	L"初始资金",
@@ -9902,7 +10179,9 @@ STR16	szCampaignHistoryMoneyTypeString[]=
 	L"贸易",
 	L"其它来源",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryConsumptionTypeString[]=
 {
 	L"弹药",
@@ -9911,7 +10190,9 @@ STR16	szCampaignHistoryConsumptionTypeString[]=
 	L"医疗器械",
 	L"物品维护",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryResultString[]=
 {
 	L"在这场实力悬殊的战役中，女王部队毫无抵抗地被完全歼灭了。",
@@ -9935,7 +10216,9 @@ STR16	szCampaignHistoryResultString[]=
 
 	L"双方都不愿轻易认输。虽然女王部队最终扫除了当地的反抗军威胁，但是巨大的损失使得女王军队本身名存实亡。不过很显然，如果女王军队能够耗得起的话，反抗军很快就会消失得一干二净了。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryImportanceString[]=
 {
 	L"无关的",
@@ -9950,7 +10233,9 @@ STR16	szCampaignHistoryImportanceString[]=
 	L"极为重要的",
 	L"意义重大的",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignHistoryWebpageString[]=
 {
 	L"杀死",
@@ -9972,7 +10257,9 @@ STR16	szCampaignHistoryWebpageString[]=
 	L"事件",
 	L"天",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignStatsOperationPrefix[] =
 {
 	L"荣耀之%s",  //"Glorious %s"
@@ -10158,7 +10445,9 @@ STR16	szCampaignStatsOperationPrefix[] =
 
 	// 140
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szCampaignStatsOperationSuffix[] =
 {
 	L"龙",  //L"Dragon",
@@ -10344,7 +10633,9 @@ STR16	szCampaignStatsOperationSuffix[] =
 
 	// 140
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMercCompareWebSite[] =
 {
 	// main page
@@ -10388,7 +10679,9 @@ STR16	szMercCompareWebSite[] =
 	// error messages
 	L"目前您还没有员工在岗。士气低落往往会导致员工较高的脱岗率。", //L"You currently have no employees at their workplace. Sub-par morale often results in a high rate of absent staff.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMercCompareEventText[]=
 {
 	L"%s枪毙了我！", //L"%s shot me!",
@@ -10441,7 +10734,9 @@ STR16	szMercCompareEventText[]=
 	L"%s劝降了敌军", //L"%s made the enemy surrender",
 	L"%s打伤了平民", //L"%s injured civilians",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szWHOWebSite[] =
 {
 	// main page
@@ -10478,7 +10773,9 @@ STR16	szWHOWebSite[] =
 	L"当医生治疗被感染的病患的时候他会有较高的几率感染疾病，所以此时防护服就显得很有用！", //"Doctors have a much higher chance to be infected when treating infected patients. Protective gear is very useful.",
 	L"一把刀砍伤了一个被感染的人以后这把刀就被感染了，可以将该传染源带到其他地方以扩散瘟疫。", //"If a blade weapon hits an infected person, the blade becomes infected, and can be used to spread the infection further.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szPMCWebSite[] =
 {
 	// main page
@@ -10521,7 +10818,9 @@ STR16	szPMCWebSite[] =
 
 	// individual contract page
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalInventoryDialogString[]=
 {
         L"操作背包和仓库整理",
@@ -10546,7 +10845,9 @@ STR16   szTacticalInventoryDialogString[]=
         L"",
         L"",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalCoverDialogString[]=
 {
         L"显示掩护模式",
@@ -10571,7 +10872,9 @@ STR16   szTacticalCoverDialogString[]=
         L"C网",
         L"D网",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16   szTacticalCoverDialogPrintString[]=
 {
 
@@ -10595,6 +10898,7 @@ STR16   szTacticalCoverDialogPrintString[]=
         L"显示绊线网络C",
         L"显示绊线网络D",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16	szDynamicDialogueText[40][17] =
@@ -11361,6 +11665,7 @@ STR16	szDynamicDialogueText[40][17] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 {
 	L"你说啥？",  //L"What?!",
@@ -11398,7 +11703,9 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[] =
 	L"不是那么回事儿。",  //	L"Nope.",
 	L"你弄错了。",  //	L"You are mistaken.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 {
 	L"我知道你会支持我的，$INTERJECTOR$。",  //L"I knew you'd back me, $INTERJECTOR$",
@@ -11423,7 +11730,9 @@ STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[] =
 
 	L"一点没错！",  //L"Exactly!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 {
 	L"说得对！",  //L"That's right!",
@@ -11450,7 +11759,9 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[] =
 	L"对的。",  //L"True.",
 	L"完全正确。",  //L"Bingo.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 {
 	L"我得打断一下...",  //L"Now wait a minute...",
@@ -11476,7 +11787,9 @@ STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[] =
 	L"怎么想起现在说这个事情？",  //L"Why bring that up now?",
 	L"干嘛啊，$VICTIM$？有必要这样吗？",  //L"Really, $VICTIM$? Is this necessary?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 {
 	L"什么也不说",  //L"Keep silent",
@@ -11485,7 +11798,9 @@ STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[] =
 	L"呼吁理智解决问题",  //L"Appeal to reason",
 	L"让两边都闭嘴",  //L"Shut them up",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText_GenderText[] =
 {
 	L"他",  //L"he",
@@ -11493,7 +11808,9 @@ STR16	szDynamicDialogueText_GenderText[] =
 	L"他",  //L"him",
 	L"她",  //L"her",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDiseaseText[] =
 {
 	L" %s%d%% 敏捷\n",  //　L" %s%d%% agility stat\n", 
@@ -11529,13 +11846,17 @@ STR16	szDiseaseText[] =
 	L"腿部机能严重受限。\n",	//L"Leg functionality severely limited.\n",
 	L"腿部机能严重受限。\n已使用医用夹板来加快治疗进程。\n",	//L"Leg functionality severely limited.\nA medical splint was applied to speed up the healing process.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSpyText[] =
 {
 	L"潜伏",	//L"Hide",
 	L"侦查",	//L"Get Intel",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFoodText[] =
 {
 	L"\n\n|水: %d%%\n",  //L"\n\n|W|a|t|e|r: %d%%\n",
@@ -11547,7 +11868,9 @@ STR16	szFoodText[] =
 	L" %s%d%% 任务效率\n",  //L" %s%d%% assignment efficiency\n",
 	L" %s%d%% 失去能力点的几率\n",  //L" %s%d%% chance to lose stats\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIMPGearWebSiteText[] =
 {
 	// IMP Gear Entrance
@@ -11561,7 +11884,9 @@ STR16 szIMPGearWebSiteText[] =
 	L"I.M.P 装备",  //	L"I.M.P. Equipment", 
 	L"额外花费: %d$ (%d$ 预付款)",	//L"Additional Cost: %d$ (%d$ prepaid)",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIMPGearPocketText[] =
 {
 	L"选择头盔",  //L"Select helmet", 
@@ -11625,7 +11950,9 @@ STR16 szIMPGearPocketText[] =
 	L"选择附加物品", //L"Select additional items", //SMALLPOCK30POS
 	L"左键单击选择项目/右键单击关闭窗口", //L"Left click to select item / Right click to close window",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szMilitiaStrategicMovementText[] =
 {
 	L"无法对该地区下达命令，民兵的命令不可用。",  //	L"We cannot relay orders to this sector, militia command not possible.",
@@ -11640,7 +11967,9 @@ STR16 szMilitiaStrategicMovementText[] =
 
 	L"志愿者: %d (+%5.3f)",	//L"Volunteers: %d (+%5.3f)",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szEnemyHeliText[] =
 {
 	L"敌人的直升机在%s被打下了！",//L"Enemy helicopter shot down in %s!",
@@ -11655,7 +11984,9 @@ STR16 szEnemyHeliText[] =
 
 	L"%s的SAM对位于%s的敌军直升机开火了。",//L"SAM in %s fires at enemy helicopter in %s.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szFortificationText[] =
 {
 	L"没有有效的建筑被选中，因而建造计划中没有增加任何内容。",//L"No valid structure selected, nothing added to build plan.",
@@ -11666,14 +11997,18 @@ STR16 szFortificationText[] =
 	L"没有找到合适的防御公事来进行网格设置 %d: %s",//L"No fitting fortifications found for tileset %d: %s",
 	L"网格设置 %d: %s",//L"Tileset %d: %s",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMilitiaWebSite[] =
 {
 	// main page
 	L"民兵",//L"Militia",
 	L"民兵力量总览",//L"Militia Forces Overview",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIndividualMilitiaBattleReportText[] =
 {
 	L"参与行动 %s",//L"Took part in Operation %s",
@@ -11691,7 +12026,9 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"合同终止的时间：%d, %d:%02d",//L"Contract terminated on Day %d, %d:%02d",
 	L"在%d天投奔我们，%d:%02d在%s", //L"Defected to us on Day %d, %d:%02d in %s",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szIndividualMilitiaTraitRequirements[] =
 {
 	L"生命",//L"HP",
@@ -11716,7 +12053,9 @@ STR16 szIndividualMilitiaTraitRequirements[] =
 
 	L"(专家)",//L" (Expert)",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteText[] =
 {
 	L"行动",//L"Operations",
@@ -11744,7 +12083,9 @@ STR16	szIdividualMilitiaWebsiteText[] =
 	L"%s 已经被提升为精英民兵",//L"%s has been promoted to elite militia",
 	L"状态: 逃兵",	//L"Status: Deserted",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 {
 	L"所有状态",//L"All statuses",
@@ -11752,7 +12093,9 @@ STR16	szIdividualMilitiaWebsiteFilterText_Dead[] =
 	L"激活",//L"Active",
 	L"开火",//L"Fired",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 {
 	L"所有等级",//L"All ranks",
@@ -11760,7 +12103,9 @@ STR16	szIdividualMilitiaWebsiteFilterText_Rank[] =
 	L"熟练",//L"Regular",
 	L"精英",//L"Elite",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 {
 	L"所有原住民",//L"All origins",
@@ -11768,12 +12113,16 @@ STR16	szIdividualMilitiaWebsiteFilterText_Origin[] =
 	L"PMC",//L"PMC",
 	L"逃兵",//L"Defector",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIdividualMilitiaWebsiteFilterText_Sector[] =
 {
 	L"所有区域",//L"All sectors",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szNonProfileMerchantText[] =
 {
 	L"商人处于敌意状态，不愿意进行交易。",//L"Merchant is hostile and does not want to trade.",
@@ -11781,7 +12130,9 @@ STR16	szNonProfileMerchantText[] =
 	L"商人不在交战中进行交易。",//L"Merchant won't trade during combat.",
 	L"商人拒绝和你交易。",//L"Merchant refuses to interact with you.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szWeatherTypeText[] =
 {
 	L"晴天",//L"normal",
@@ -11791,13 +12142,17 @@ STR16	szWeatherTypeText[] =
 
 	L"下雪",//L"snow",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSnakeText[] =
 {
 	L"%s遇到蛇的袭击！",//L"%s evaded a snake attack!",
 	L"%s被蛇攻击了！",//L"%s was attacked by a snake!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szSMilitiaResourceText[] =
 {
 	L"把%s转变成资源",//L"Converted %s into resources",
@@ -11808,7 +12163,9 @@ STR16	szSMilitiaResourceText[] =
 	L"没有足够的志愿者参加民兵！",//L"There are no volunteers left for militia!",
 	L"没有足够的资源来训练民兵！",//L"Not enough resources to train militia!",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szInteractiveActionText[] =
 {
 	L"%s开始侵入。",//L"%s starts hacking.",
@@ -11824,7 +12181,9 @@ STR16	szInteractiveActionText[] =
 	L"%s使用水龙头喝水。",//L"%s drank from water tap",
 	L"这台机器看起来无法工作。", //L"This machine doesn't seem to be working.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szLaptopStatText[] =
 {
 	L"威胁效率 %d\n", //L"threaten effectiveness %d\n",
@@ -11858,7 +12217,9 @@ STR16	szLaptopStatText[] =
 	L"机械成长",   //L"Mechanical growth",
 	L"等级成长",   //L"Experience growth",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szGearTemplateText[] =
 {
 	L"输入模版名称", //L"Enter Template Name",
@@ -11868,7 +12229,9 @@ STR16	szGearTemplateText[] =
 	L"%s无法装备%s。", //L"%s could not equip %s.",
 	L"由于会损坏物品，无法安装%s（物品%d）。",	//L"We cannot attach %s (item %d) as that might damage items.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIntelWebsiteText[] =
 {
 	L"侦察情报局",	//L"Recon Intelligence Services",
@@ -11926,7 +12289,9 @@ STR16	szIntelWebsiteText[] =
 	L"您已经收到以下情报的报酬：",	//L"You have already received compensation for the following:",
 	L"没有情报可以上传。",	//L"You have nothing to upload.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szIntelText[] =
 {
 	L"没有敌军，%s不用继续潜伏！",	//L"No more enemies present, %s is no longer in hiding!",
@@ -11948,7 +12313,9 @@ STR16	szIntelText[] =
 	L"关于僵尸可能会进攻哪个城镇的情报。",	//L"Time and place of possible zombie attacks against settlements.",
 	L"关于土匪可能会袭击哪个城镇的情报。",	//L"Information on planned bandit raids.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szChatTextSpy[] =
 {
 	L"... 想象一下我突然出现的惊喜吧...",	//L"... so imagine my surprise when suddenly...",
@@ -11981,7 +12348,9 @@ STR16	szChatTextSpy[] =
 	L"... 而且周围没有面包店。在那之后...",	//L"... and no bakery in sight. After that...",
 	L"... 尽管在这方面有明确的规定...",	//L"... even though regulations are clear in that regard...",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szChatTextEnemy[] =
 {
 	L"哇。我不知道！",	//L"Whoa. I had no idea!",
@@ -12014,7 +12383,9 @@ STR16	szChatTextEnemy[] =
 	L"... 但是粉笔在哪呢...",	//L"... but where did all the chalk go...",
 	L"... 从来没有考虑过...",	//L"... had never even considered that...",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szMilitiaText[] =
 {
 	L"训练新民兵",	//L"Train new militia",
@@ -12022,7 +12393,9 @@ STR16	szMilitiaText[] =
 	L"医疗民兵",	//L"Doctor militia",
 	L"取消",	//L"Cancel",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szFactoryText[] =
 {
 	L"%s: 的生产进程 %s 已因为忠诚度太低而被关闭。",	//L"%s: Production of %s switched off as loyalty is too low.",
@@ -12034,7 +12407,9 @@ STR16	szFactoryText[] =
 	L"生产筹备                         ", //(后空25格)	//L"Preproducts", 5
 	L"h/物品",	//L"h/item",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	szTurncoatText[] =
 {
 	L"%s 现在秘密的为我们工作！",	//L"%s now secretly works for us!",
@@ -12049,8 +12424,10 @@ STR16	szTurncoatText[] =
 	L"执行",	//L"Do it",
 	L"%d 变节者出现了",	//L"%d turncoats present",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // rftr: better lbe tooltips
+#ifdef JA2_UNIFIED_TEXT
 STR16 gLbeStatsDesc[14] =
 {
 	L"MOLLE可用空间：", //L"MOLLE Space Available:",
@@ -12068,7 +12445,9 @@ STR16 gLbeStatsDesc[14] =
 	L"兼容背包：", //L"Compatible backpacks:",
 	L"兼容战斗包：", //L"Compatible combat packs:",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandText[] =
 {
 	L"国家总览",   //L"National Overview",
@@ -12191,7 +12570,9 @@ STR16 szRebelCommandText[] =
 	L"任务\"%s\"准备失败。",   //L"Preparations for mission \"%s\" failed.", 
 	L"任务\"%s\"已经过期，不再生效。",   //L"Mission \"%s\" has expired and is no longer in effect.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandHelpText[] =
 {
 	L"|物|资\n \n食物、水、医疗用品、武器以及任何\n反抗军认为有用的物资。反抗军会自动收集。",   //L"|S|u|p|p|l|i|e|s\n \nFood, water, medical supplies, weapons, and anything else that\nthe rebels might find useful. Supplies are obtained automatically\nby the rebels.",
@@ -12205,10 +12586,12 @@ STR16 szRebelCommandHelpText[] =
 	L"该管理行动会作用到城镇区域。\n1级覆盖周边1个区域。\n2级覆盖周边2个区域。",   //L"This Admin Action applies its bonus to town sectors, one\nsector away at Tier 1, and up to two sectors away at Tier 2.",
 	L"该管理行动会作用到城镇区域。\n1级覆盖周边2个区域。\n2级覆盖周边3个区域。",   //L"This Admin Action applies its bonus to town sectors, up to\ntwo sectors away at Tier 1, and up to three sectors away at Tier 2.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // follows a specific format:
 // x:	"Admin Action Button Text",
 // x+1:	"Admin action description text",
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandAdminActionsText[] =
 {
 	L"补给线",   //L"Supply Line",
@@ -12242,12 +12625,14 @@ STR16 szRebelCommandAdminActionsText[] =
 	L"防御工事",   //L"Fortifications",
 	L"建立杀伤区和防御阵地。友军在这个城镇战斗时更有效。仅限于自动战斗。",   //L"Set up killzones and defensive positions. Friendly forces are more effective when fighting in this town. Autoresolve only.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // follows a specific format:
 // x:	"Directive Name",
 // x+1:	"Directive Bonus Description",
 // x+2:	"Directive Help Text",
 // x+3:	"Directive Improvement Button Description",
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandDirectivesText[] =
 {
 	L"收集物资",   //L"Gather Supplies",
@@ -12291,7 +12676,9 @@ STR16 szRebelCommandDirectivesText[] =
 	L"征召平民作为民兵新兵。不过民众\n可能不会对此感到高兴。随着您\n占领更多城镇，效率会提高。",   //L"Draft civilians as recruits for militia. The general population\nprobably won't be too happy about it, though. Effectiveness\nincreases as you capture more towns.",
 	L"升级此项将会增加每天志愿者人数。",   //L"Improving this directive will increase the number of volunteers gained per day.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRebelCommandAgentMissionsText[] =
 {
 	L"深入部署",   //L"Deep Deployment",
@@ -12319,7 +12706,9 @@ STR16 szRebelCommandAgentMissionsText[] =
 	L"在城镇外任意地区训练民兵",   //L"Train Militia Anywhere",
 	L"野外训练区是可以快速设立和拆毁的。民兵可以在城镇外的非交战区接受训练。",   //L"Create training areas in the wilderness that can be quickly set up and torn down. Militia can be trained in uncontested sectors outside of town.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 szRobotText[] =
 {
 	L"已经安装在机器人身上的武器不能替换。",   //L"The robot's installed weapon cannot be changed.",
@@ -12345,5 +12734,6 @@ STR16 szRobotText[] =
 	L"机器人的额外装甲破坏了！",   //L"The robot's extra armour plating was destroyed!",  
 	L"机器人附加%s技能效果。",   //L"The robot gains the benefit of the %s skill trait.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #endif //CHINESE

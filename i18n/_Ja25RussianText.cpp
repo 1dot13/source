@@ -16,6 +16,7 @@ void this_is_the_Ja25RussianText_public_symbol(void){;}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsText[]=
 {
 	// made this more elegant
@@ -39,8 +40,10 @@ STR16 gzIMPSkillTraitsText[]=
 	L"(эксперт)",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new major traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
 	L"Автоматчик",	//Auto Weapons
@@ -68,8 +71,10 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"Доктор",	//Doctor
 	L"Шпион",	//Spy
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new minor traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
 	L"Ловкач",	//Ambidextrous
@@ -88,8 +93,10 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"Нет",
 	L"I.M.P.: Дополнительные навыки",	//I.M.P. Minor Traits
 };
+#endif // JA2_UNIFIED_TEXT
 
 //these texts are for help popup windows, describing trait properties
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 {
 	L"+%d%s к шансу попадания из автомата\n",
@@ -100,7 +107,9 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"Штраф на шанс попадания в автоматическом\nрежиме огня и в режиме очереди понижен на %d%s\n",
 	L"Понижен шанс лишних выстрелов при автоматической стрельбе\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"-%d%s ОД на стрельбу из гранатомёта\n",
@@ -112,7 +121,9 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"+%d%s к урону танкам от тяжёлого оружия, гранат и взрывчатки\n",
 	L"+%d%s к урону иным целям из тяжёлого оружия\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
 	L"+%d%s к шансу попадания из винтовки\n",
@@ -136,7 +147,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"Прицеливание оружия типа винтовок быстрее на %d кликов прицеливания\n",
 	L"Focus skill: +%d interrupt modifier in marked area\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"+%d%s к шансу попадания из винтовки\n",
@@ -150,7 +163,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d клик прицеливания для винтовок\n",
 	L"+%d кликов прицеливания для винтовок\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"-%d%s ОД на выстрел из пистолетов и револьверов\n",
@@ -165,7 +180,9 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"+%d кликов прицеливания для пистолетов, автоматических пистолетов и револьверов\n",
 	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
 	L"-%d%s ОД на рукопашные атаки (кулаками и кастетом)\n",
@@ -197,7 +214,9 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"Вы получаете специальные движения для атак ближнего боя\n",
 	L"-%d%s к шансу перехвата вашего хода во время движения\n", //chance to be interrupted when moving
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"+%d%s ОД на каждый ход рядом находящимся наёмникам\n",
@@ -213,7 +232,9 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"Недостаток: %dx кратное ухудшение боевого духа у наёмников, если погибает %s\n",
 	L"+%d%s к шансу получить перехват всем отрядом\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"+%d%s к скорости ремонта\n",
@@ -228,7 +249,9 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"Понижен штраф на скорость ремонта робота на %d%s\n",
 	L"Возможность восстановить вещь при ремонте на все 100%%\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
 	L"Может выполнять хирургические операции при наличии медицинской сумки\n",
@@ -243,7 +266,9 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L" (максимум %d бонуса на находящихся в квадрате)",
 	L"Returned health can be boosted an additional %d%s by using blood bags.\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
 	L"Может переодеваться в гражданского или солдата, \nчтобы проникать в тыл врага.\n",
@@ -255,7 +280,9 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"ОД на переодевание снижены на %d%s.\n",
 	L"Can convince enemy soldiers to secretly change sides.\n",	// TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 {
 	L"Может использовать оборудование связи.\n", 
@@ -265,12 +292,16 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"Если радиопереговоры подавлены, то радист может искать подавляющее устройство.\n",
 	L"Может вызывать подкрепление ополченцев из соседних квадратов.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"Нет преимуществ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
 	L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",	// TODO.Translate
@@ -282,7 +313,9 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"-%d%s ОД, необходимых для установки/обезвреживания бомб и мин\n",
 	L"-%d%s ОД, необходимых на присоединение навески\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"-%d%s ОД на атаку клинковым оружием\n",
@@ -296,7 +329,9 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"+%d%s к шансу уклониться от атаки дробящим холодным оружием\n",
 	L"+%d%s к шансу уклониться от атаки дробящим холодным оружием, если в руках нож\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"-%d%s базовых ОД, нужных для броска ножа\n",
@@ -313,7 +348,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d%s к максимальной дальности броска гранаты\n",
 	L"+%d%s к точности броска гранаты\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"+%d к зрению в темноте\n",
@@ -322,7 +359,9 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"+%d к вероятности перехвата хода в ночи\n",
 	L"-%d к нужде во сне\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"-%d%s ОД, необходимых для бесшумного передвижения\n",
@@ -331,13 +370,17 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"Штраф укрытия при передвижении уменьшен на %d%s\n",
 	L"-%d%s к шансу быть перехваченным\n", //chance to be interrupted
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"-%d%s ОД на передвижение (бег, шаг, шаг вприсядку, переползание, плавание и т.д.)\n",
 	L"-%d%s на затраты энергии при движении, вскарабкивание на крышу, прыжки через препятствия, плавание и т.д.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"Имеет %d%s устойчивости к повреждениям\n",
@@ -345,7 +388,9 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 	L"Потеря сил при пропущенных ударах в ближнем бою уменьшена на %d%s\n",
 	L"Урон при ранении в ногу, при котором вы падаете на землю, должен быть больше на %d%s\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
 	L"+%d%s к урону для установленных бомб и мин\n",
@@ -354,7 +399,9 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"Уменьшает шанс обнаружения противником установленных вами бомб и мин (+%d к уровню бомб)\n",
 	L"Повышает вероятность вскрытия замка формовым зарядом (урон увеличен на %d)\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"+%d%s к скорости обучения ополчения\n",
@@ -363,7 +410,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"Значение уровня умения будет выше на +%d при обучении другого бойца этому умению\n",
 	L"+%d%s к скорости самостоятельного обучения/тренировке\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"+%d%% к эффективной прицельной видимости для оружия с оптическими прицелами\n",
@@ -374,6 +423,8 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"Предотвращает попадание отряда во вражеские засады\n",
 	L"Предотвращает попадание отряда в засады кошек-убийц\n",
 };
+#endif // JA2_UNIFIED_TEXT
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"Иногда будет оповещать вас о мнениях членов команды.\n",
@@ -384,7 +435,9 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"Увеличивает вашу репутацию на %d каждый день, если его боевой дух высок.\n",
 	L"+%d фактической дальности слуха.\n",	
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 {
 	L"+%d%s к скорости передвижения группы пешком между квадратами\n",
@@ -400,12 +453,16 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"+%d%% к уклонению от атак змей\n",
 	L"+%d%% к эффективности камуфляжа\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"Нет преимуществ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
 	L"+%d%s бонус ко взлому замков\n",
@@ -445,7 +502,9 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"У вас будет особая анимация ударов в ближнем бою.\n",
 	L"Нет преимуществ",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"плюсы: Нет преимуществ.\n \nминусы: Без изъянов.",	//Neutral
@@ -463,7 +522,9 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"плюсы: Лучше работает в компании представителей противоположного пола.\n \nминусы: Боевой дух бойцов того же пола в его присутствии растёт медленнее.",	//Show-off
 	L"плюсы: При отступлении боевой дух повышается.\n \nминусы: Боевой дух падает при встрече с превосходящими силами противника.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
 	L"Никакого влияния.",
@@ -480,26 +541,34 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"Снижаются возможности при нахождении наёмника на крышах.",
 	L"Иногда наносит себе раны.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPProfileCostText[]=
 {
 	L"Составление вашей харрактеристики стоит $%d. Подтвердить оплату?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 zGioNewTraitsImpossibleText[]=
 {
 	L"Нельзя выбрать новые умения IMP персонажа с отключенным PROFEX. Проверьте значение файла настроек JA2_Options.ini, ключ: READ_PROFILE_DATA_FROM_XML.",
 };
+#endif // JA2_UNIFIED_TEXT
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@@@:  New string as of March 3, 2000.
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzIronManModeWarningText[]=
 {
 	L"Вы выбрали сохранение \"между боями\". Проходить игру станет гораздо сложнее, так как сохраняться можно будет только когда противника нет в секторе. После старта игры изменить эту настройку нельзя. Вы уверены, что сможете играть в таком режиме?",
 	L"Вы выбрали сохранение \"между перестрелками\". Проходить игру станет немного сложнее, так как нельзя будет сохраняться в пошаговом режиме. После старта игры изменить эту настройку нельзя. Вы уверены, что сможете играть в таком режиме?",
 	L"Вы выбрали сохранение \"один раз в день\". Проходить игру станет значительно сложнее, так как сохраняться можно будет только раз в день - в %02d:00. После старта игры изменить эту настройку нельзя. Вы уверены, что сможете играть в таком режиме?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzDisplayCoverText[]=
 {
 	L"Укрытие: %d/100 %s, освещённость: %d/100",
@@ -524,5 +593,6 @@ STR16 gzDisplayCoverText[]=
 	L"Сложность остаться незаметным",	//Stealth difficulty
 	L"Уровень ловушки",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #endif

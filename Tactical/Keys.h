@@ -167,7 +167,6 @@ extern BOOLEAN KeyExistsInInventory( SOLDIERTYPE *pSoldier, UINT8 ubKeyID );
 extern BOOLEAN KeyExistsInKeyRing( SOLDIERTYPE *pSoldier, UINT8 ubKeyID, UINT8 * pubPos );
 extern BOOLEAN SoldierHasKey( SOLDIERTYPE *pSoldier, UINT8 ubKeyID );
 
-extern STR16 sKeyDescriptionStrings[];
 /**********************************
  * Door utils add by Kris Morness *
  **********************************/
