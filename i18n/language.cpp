@@ -2,26 +2,10 @@
 #include "DEBUG.H"
 
 namespace {
-// Same #ifdef chain as before C1 (kept as the per-exe default until Cn+4
-// collapses the CMake language axis). The ini key (below) overrides it.
-constexpr i18n::Lang kBuildDefaultLang =
-#if defined(ENGLISH)
-  i18n::Lang::en;
-#elif defined(CHINESE)
-  i18n::Lang::zh;
-#elif defined(DUTCH)
-  i18n::Lang::nl;
-#elif defined(FRENCH)
-  i18n::Lang::fr;
-#elif defined(GERMAN)
-  i18n::Lang::de;
-#elif defined(ITALIAN)
-  i18n::Lang::it;
-#elif defined(POLISH)
-  i18n::Lang::pl;
-#elif defined(RUSSIAN)
-  i18n::Lang::ru;
-#endif
+// Cn+4 retired the per-exe ENGLISH/GERMAN/... compile definitions along with the CMake
+// language axis, so the build default is now a fixed constant; the ini key (below)
+// overrides it at runtime via g_lang/BindLanguageStrings.
+constexpr i18n::Lang kBuildDefaultLang = i18n::Lang::en;
 
 auto RowsForLang(i18n::Lang lang) -> int {
   return lang == i18n::Lang::zh ? 6 : 9;

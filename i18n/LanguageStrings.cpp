@@ -18,26 +18,6 @@
 // TUs (which would collide with the pointer extern) while still compiling them here.
 #define JA2_UNIFIED_TEXT 1
 
-// The compile-time default language for this exe, captured before the namespace blocks
-// below because each block #undefs its language macro on exit.
-#if defined(GERMAN)
-#  define LANG_DEFAULT_NS lang_de
-#elif defined(RUSSIAN)
-#  define LANG_DEFAULT_NS lang_ru
-#elif defined(DUTCH)
-#  define LANG_DEFAULT_NS lang_nl
-#elif defined(POLISH)
-#  define LANG_DEFAULT_NS lang_pl
-#elif defined(FRENCH)
-#  define LANG_DEFAULT_NS lang_fr
-#elif defined(ITALIAN)
-#  define LANG_DEFAULT_NS lang_it
-#elif defined(CHINESE)
-#  define LANG_DEFAULT_NS lang_zh
-#else
-#  define LANG_DEFAULT_NS lang_en
-#endif
-
 namespace lang_en {
 #undef ENGLISH
 #define ENGLISH
@@ -102,7 +82,10 @@ namespace lang_zh {
 #undef CHINESE
 }
 
-namespace lang_default = LANG_DEFAULT_NS;
+// Compile-time default is always English: Cn+4 retired the per-exe ENGLISH/GERMAN/...
+// compile definitions along with the CMake language axis. BindLanguageStrings rebinds
+// every pointer below to g_lang at startup regardless of this default.
+namespace lang_default = lang_en;
 
 // Global table pointers, statically bound to lang_default so every exe stays functional
 // before BindLanguageStrings is wired in at Cn+2. Filled in one subsystem group per R1
