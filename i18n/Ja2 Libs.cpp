@@ -27,34 +27,6 @@ LibraryInitHeader gGameLibaries[ ] =
 	{ "TileSets.slf",					TRUE,	TRUE },
 	{ "LoadScreens.slf",			TRUE,	TRUE },
 	{ "Intro.slf",						TRUE,	TRUE },
-
-#ifdef GERMAN
-	{ "German.slf",						FALSE, TRUE },
-#endif
-
-#ifdef POLISH
-	{ "Polish.slf",						FALSE, TRUE },
-#endif
-
-#ifdef DUTCH
-	{ "Dutch.slf",						FALSE, TRUE },
-#endif
-
-#ifdef ITALIAN
-	{ "Italian.slf",					FALSE, TRUE },
-#endif
-
-#ifdef RUSSIAN
-	{ "Russian.slf",					FALSE, TRUE },
-#endif
-
-#ifdef FRENCH
-	{ "French.slf",						FALSE, TRUE },
-#endif
-
-#ifdef CHINESE
-	{ "Chinese.slf",					FALSE, TRUE },
-#endif
 };
 
 

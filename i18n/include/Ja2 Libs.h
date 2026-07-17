@@ -30,30 +30,6 @@
 		LIBRARY_LOADSCREENS,
 		LIBRARY_INTRO,
 
-#ifdef GERMAN
-		LIBRARY_GERMAN_DATA,
-#endif
-
-#ifdef DUTCH
-		LIBRARY_DUTCH_DATA,
-#endif
-
-#ifdef POLISH
-		LIBRARY_POLISH_DATA,
-#endif
-
-#ifdef ITALIAN
-		LIBRARY_ITALIAN_DATA,
-#endif
-
-#ifdef RUSSIAN
-		LIBRARY_RUSSIAN_DATA,
-#endif
-
-#ifdef FRENCH
-		LIBRARY_FRENCH_DATA,
-#endif
-
 		NUMBER_OF_LIBRARIES
 	};
 
