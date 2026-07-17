@@ -1,17 +1,4 @@
-﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
-//#pragma setlocale("FRENCH")
-
-	#ifdef FRENCH
-		#include "Text.h"
-		#include "FileMan.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_Ja25FrenchText_public_symbol(void){;}
-
-#ifdef FRENCH
-
-// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
+﻿// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -525,6 +512,3 @@ STR16 gzDisplayCoverText[]=
 	L"Stealth difficulty",
 	L"Trap level",
 };
-
-
-#endif

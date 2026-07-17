@@ -1,21 +1,4 @@
-﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
-//#pragma setlocale("GERMAN")
-
-	#ifdef GERMAN
-		#include "Text.h"
-		#include "FileMan.h"
-		#include "Scheduling.h"
-		#include "EditorMercs.h"
-		#include "Item Statistics.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_GermanText_public_symbol(void){;}
-
-#ifdef GERMAN
-
-
-/*
+﻿/*
 ******************************************************************************************************
 **																	IMPORTANT TRANSLATION NOTES																			**
 ******************************************************************************************************
@@ -12208,5 +12191,3 @@ STR16 szRobotText[] = // TODO: Translate
 	L"The robot's extra armour plating was destroyed!",
 	L"The robot gains the benefit of the %s skill trait.",
 };
-
-#endif //GERMAN

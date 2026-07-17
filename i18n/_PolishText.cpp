@@ -1,21 +1,4 @@
-﻿// WANNE: This pragma should not be needed anymore for Polish version, after we set the encoding to UTF8 
-// WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
-//#pragma setlocale("POLISH")
-
-	#if defined( POLISH )
-		#include "Text.h"
-		#include "FileMan.h"
-		#include "Scheduling.h"
-		#include "EditorMercs.h"
-		#include "Item Statistics.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_PolishText_public_symbol(void){;}
-
-#ifdef POLISH
-
-/*
+﻿/*
 
 ******************************************************************************************************
 **                                  IMPORTANT TRANSLATION NOTES                                     **
@@ -12307,5 +12290,3 @@ STR16 szRobotText[] = // TODO: Translate
 	L"The robot's extra armour plating was destroyed!",
 	L"The robot gains the benefit of the %s skill trait.",
 };
-
-#endif //POLISH
