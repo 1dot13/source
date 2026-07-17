@@ -5491,18 +5491,22 @@ STR16 pMapDepthIndex[] =
 
 // text that appears on the contract button
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pContractButtonString[] =
 {
 	L"合同",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // text that appears on the update panel buttons
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pUpdatePanelButtons[] =
 {
 	L"继续",
 	L"停止",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Text which appears when everyone on your team is incapacitated and incapable of battle
 
@@ -7482,10 +7486,12 @@ STR16 gzMiscString[] =
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzIntroScreen[] =
 {
 	L"找不到视频文件",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // These strings are combined with a merc name, a volume string (from pNoiseVolStr),
 // and a direction (either "above", "below", or a string from pDirectionStr) to
@@ -7613,6 +7619,7 @@ STR16	gzCreditNameFunny[]=
 #endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: Adjusted strings for better feedback, and added new string for LBE repair.
+#ifdef JA2_UNIFIED_TEXT
 STR16 sRepairsDoneString[] =
 {
 	L"%s 修复了自己的物品。",
@@ -7624,6 +7631,7 @@ STR16 sRepairsDoneString[] =
 	L"%s 修复所有人的携行具。",//L"%s finished repairing everyone's LBE gear",
 	L"%s 清洁了所有人的枪支。", //L"%s finished cleaning everyone's guns.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 zGioDifConfirmText[]=

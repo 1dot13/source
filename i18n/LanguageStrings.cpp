@@ -626,6 +626,13 @@ CHAR16 (*gWeaponStatsDesc)[ 20 ] = lang_default::gWeaponStatsDesc;
 CHAR16 (*zHealthStr)[13] = lang_default::zHealthStr;
 STR16 (*szDynamicDialogueText)[17] = lang_default::szDynamicDialogueText;
 
+// Tables declared only at their call sites (bare externs in Ja2/ and Strategic/),
+// so the C10 header sweep missed them; converted individually as Cn+1 residue.
+STR16* pContractButtonString = lang_default::pContractButtonString;
+STR16* pUpdatePanelButtons = lang_default::pUpdatePanelButtons;
+STR16* gzIntroScreen = lang_default::gzIntroScreen;
+STR16* sRepairsDoneString = lang_default::sRepairsDoneString;
+
 #define BIND_ALL(NS) \
     pMenuStrings = NS::pMenuStrings; \
     pLocationPageText = NS::pLocationPageText; \
@@ -1141,7 +1148,11 @@ STR16 (*szDynamicDialogueText)[17] = lang_default::szDynamicDialogueText;
     gMoneyStatsDesc = NS::gMoneyStatsDesc; \
     gWeaponStatsDesc = NS::gWeaponStatsDesc; \
     zHealthStr = NS::zHealthStr; \
-    szDynamicDialogueText = NS::szDynamicDialogueText;
+    szDynamicDialogueText = NS::szDynamicDialogueText; \
+    pContractButtonString = NS::pContractButtonString; \
+    pUpdatePanelButtons = NS::pUpdatePanelButtons; \
+    gzIntroScreen = NS::gzIntroScreen; \
+    sRepairsDoneString = NS::sRepairsDoneString;
 
 auto BindLanguageStrings(i18n::Lang lang) -> void {
   switch (lang) {

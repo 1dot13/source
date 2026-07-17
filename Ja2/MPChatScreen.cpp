@@ -89,7 +89,7 @@ extern BOOLEAN							gfDontOverRideSaveBuffer;	//this variable can be unset if u
 
 
 extern void HandleTacticalUILoseCursorFromOtherScreen( );
-extern STR16 pUpdatePanelButtons[];
+extern STR16* pUpdatePanelButtons;
 
 
 #define		NUM_CHAT_TOGGLES		2

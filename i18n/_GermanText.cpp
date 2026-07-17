@@ -5456,17 +5456,21 @@ STR16 pMapDepthIndex[] =
 #endif // JA2_UNIFIED_TEXT
 
 // text that appears on the contract button
+#ifdef JA2_UNIFIED_TEXT
 STR16 pContractButtonString[] =
 {
 	L"Vertrag",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // text that appears on the update panel buttons
+#ifdef JA2_UNIFIED_TEXT
 STR16 pUpdatePanelButtons[] = 
 {
 	L"Weiter",
 	L"Stop",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Text which appears when everyone on your team is incapacitated and incapable of battle
 #ifdef JA2_UNIFIED_TEXT
@@ -7350,10 +7354,12 @@ STR16 gzMiscString[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIntroScreen[] = 
 {
 	L"Kann Introvideo nicht finden",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // These strings are combined with a merc name, a volume string (from pNoiseVolStr),
 // and a direction (either "above", "below", or a string from pDirectionStr) to 
@@ -7480,6 +7486,7 @@ STR16	gzCreditNameFunny[]=
 };
 #endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 sRepairsDoneString[] =
 {
 	L"%s hat seine eigenen Gegenstände repariert.",
@@ -7491,6 +7498,7 @@ STR16 sRepairsDoneString[] =
 	L"%s hat die Trageausrüstung aller Teammitglieder repariert.",
 	L"%s hat die Waffen aller Teammitglieder gereinigt.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 zGioDifConfirmText[]=
