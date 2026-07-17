@@ -1,6 +1,5 @@
 function(CopyUserPresetTemplate)
 	if(
-		NOT DEFINED Languages AND
 		NOT DEFINED Applications AND
 		NOT EXISTS "${CMAKE_SOURCE_DIR}/CMakePresets.json" AND
 		NOT EXISTS "${CMAKE_SOURCE_DIR}/CMakeUserPresets.json"
