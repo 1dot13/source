@@ -3694,6 +3694,7 @@ STR16 sKeyDescriptionStrings[2] =
 
 //The headers used to describe various weapon statistics.
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16		gWeaponStatsDesc[][ 20 ] =
 {
 	// HEADROCK: Changed this for Extended Description project
@@ -3722,6 +3723,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 	L"Spread Pattern:",	// 20	// TODO.Translate
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
 #ifdef JA2_UNIFIED_TEXT
@@ -3825,6 +3827,7 @@ STR16 gConditionDesc[] =
 
 //The headers used for the merc's money.
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 gMoneyStatsDesc[][ 14 ] =
 {
 	L"Montant ",
@@ -3837,10 +3840,12 @@ CHAR16 gMoneyStatsDesc[][ 14 ] =
 	L"Montant",
 	L" à retirer :",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //The health of various creatures, enemies, characters in the game. The numbers following each are for comment
 //only, but represent the precentage of points remaining. 
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 zHealthStr[][13] =
 {
 	L"MOURANT",		//	>= 0
@@ -3852,6 +3857,7 @@ CHAR16 zHealthStr[][13] =
 	L"EXCELLENT",		// 	>= 90
 	L"EN PRISON",	// added by Flugente
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 gzHiddenHitCountStr[1] =
@@ -3888,6 +3894,7 @@ CHAR16		gzConsLabel[10] =
 #endif // JA2_UNIFIED_TEXT
 
 //Conversation options a player has when encountering an NPC
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 {
 	L"Pardon ?", 	//meaning "Repeat yourself" 
@@ -3897,8 +3904,10 @@ CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 	L"Donner",		
 	L"Recruter",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Some NPCs buy, sell or repair items. These different options are available for those NPCs as well.
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 {
 	L"Acheter/Vendre",
@@ -3906,11 +3915,14 @@ CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 	L"Vendre",
 	L"Réparer",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 zDialogActions[1][ SMALL_STRING_LENGTH ] = 
 {
 	L"OK",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //These are vehicles in the game.
@@ -3961,6 +3973,7 @@ STR16 pVehicleSeatsStrings[] =
 
 //These are messages Used in the Tactical Screen
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 {
 	L"Raid aérien",
@@ -4243,6 +4256,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	L"%s has stopped chatting with %s", // TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
 #ifdef JA2_UNIFIED_TEXT
@@ -5503,6 +5517,7 @@ STR16 pUpdatePanelButtons[] =
 
 // Text which appears when everyone on your team is incapacitated and incapable of battle
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 {
 	L"Vous avez été vaincu dans ce secteur !",
@@ -5510,6 +5525,7 @@ CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ] =
 	L"Vos mercenaires inconscients ont été capturés !",
 	L"Vos mercenaires ont été faits prisonniers.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //Insurance Contract.c
@@ -7361,6 +7377,7 @@ STR16 pMessageStrings[] =
 #endif // JA2_UNIFIED_TEXT
 
 
+#ifdef JA2_UNIFIED_TEXT
 CHAR16 ItemPickupHelpPopup[][40] =
 {
 	L"OK",
@@ -7369,6 +7386,7 @@ CHAR16 ItemPickupHelpPopup[][40] =
 	L"Défilement bas",
 	L"Annuler",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #ifdef JA2_UNIFIED_TEXT
 STR16 pDoctorWarningString[] =
@@ -10893,6 +10911,7 @@ STR16   szTacticalCoverDialogPrintString[]=
 #endif // JA2_UNIFIED_TEXT
 
 // TODO.Translate
+#ifdef JA2_UNIFIED_TEXT
 STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
@@ -11655,6 +11674,7 @@ STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
 	L"",
 	L"",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 #ifdef JA2_UNIFIED_TEXT

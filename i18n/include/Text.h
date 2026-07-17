@@ -508,7 +508,7 @@ enum
 };
 extern STR16* pMessageStrings;
 
-extern CHAR16 ItemPickupHelpPopup[][40];
+extern CHAR16 (*ItemPickupHelpPopup)[40];
 
 enum
 {
@@ -715,13 +715,13 @@ enum
 #define MED_STRING_LENGTH				80
 #define	SMALL_STRING_LENGTH			20
 
-extern CHAR16 TacticalStr[][MED_STRING_LENGTH];
-extern CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ];
+extern CHAR16 (*TacticalStr)[MED_STRING_LENGTH];
+extern CHAR16 (*LargeTacticalStr)[ LARGE_STRING_LENGTH ];
 
 
-extern CHAR16		zDialogActions[][ SMALL_STRING_LENGTH ];
-extern CHAR16		zDealerStrings[][ SMALL_STRING_LENGTH ];
-extern CHAR16		zTalkMenuStrings[][ SMALL_STRING_LENGTH ];
+extern CHAR16		(*zDialogActions)[ SMALL_STRING_LENGTH ];
+extern CHAR16		(*zDealerStrings)[ SMALL_STRING_LENGTH ];
+extern CHAR16		(*zTalkMenuStrings)[ SMALL_STRING_LENGTH ];
 extern STR16* gzMoneyAmounts;
 extern CHAR16* gzProsLabel;
 extern CHAR16* gzConsLabel;
@@ -739,9 +739,9 @@ extern STR16* gTemperatureDesc;
 // Flugente: Added list of food condition descriptions
 extern STR16* gFoodDesc;
 
-extern CHAR16		gMoneyStatsDesc[][ 14 ];
+extern CHAR16		(*gMoneyStatsDesc)[ 14 ];
 // HEADROCK: Altered value to 16 //WarmSteel - And I need 17.	// Flugente: 17->19
-extern CHAR16		gWeaponStatsDesc[][ 20 ];
+extern CHAR16		(*gWeaponStatsDesc)[ 20 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
 extern STR16* gzWeaponStatsFasthelpTactical;
@@ -769,7 +769,7 @@ extern STR16* szUDBAdvStatsExplanationsTooltipTextForWeapons;
 
 // Headrock: End Externs
 extern STR16* sKeyDescriptionStrings;
-extern CHAR16		zHealthStr[][13];
+extern CHAR16		(*zHealthStr)[13];
 extern STR16* gzHiddenHitCountStr;
 extern STR16* zVehicleName;
 extern STR16* pVehicleSeatsStrings ;
@@ -2974,7 +2974,7 @@ extern STR16* szTacticalCoverDialogPrintString;
 // OPINIONEVENT_MAX is 39
 // DOST_MAX is 17
 
-extern STR16	szDynamicDialogueText[40][17];
+extern STR16	(*szDynamicDialogueText)[17];
 
 // Flugente: dynamic dialogue
 extern STR16* szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY;

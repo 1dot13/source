@@ -615,6 +615,17 @@ STR16* zGioNewTraitsImpossibleText = lang_default::zGioNewTraitsImpossibleText;
 STR16* gzIronManModeWarningText = lang_default::gzIronManModeWarningText;
 STR16* gzDisplayCoverText = lang_default::gzDisplayCoverText;
 
+CHAR16 (*ItemPickupHelpPopup)[40] = lang_default::ItemPickupHelpPopup;
+CHAR16 (*TacticalStr)[MED_STRING_LENGTH] = lang_default::TacticalStr;
+CHAR16 (*LargeTacticalStr)[ LARGE_STRING_LENGTH ] = lang_default::LargeTacticalStr;
+CHAR16 (*zDialogActions)[ SMALL_STRING_LENGTH ] = lang_default::zDialogActions;
+CHAR16 (*zDealerStrings)[ SMALL_STRING_LENGTH ] = lang_default::zDealerStrings;
+CHAR16 (*zTalkMenuStrings)[ SMALL_STRING_LENGTH ] = lang_default::zTalkMenuStrings;
+CHAR16 (*gMoneyStatsDesc)[ 14 ] = lang_default::gMoneyStatsDesc;
+CHAR16 (*gWeaponStatsDesc)[ 20 ] = lang_default::gWeaponStatsDesc;
+CHAR16 (*zHealthStr)[13] = lang_default::zHealthStr;
+STR16 (*szDynamicDialogueText)[17] = lang_default::szDynamicDialogueText;
+
 #define BIND_ALL(NS) \
     pMenuStrings = NS::pMenuStrings; \
     pLocationPageText = NS::pLocationPageText; \
@@ -1120,7 +1131,17 @@ STR16* gzDisplayCoverText = lang_default::gzDisplayCoverText;
     gzIMPProfileCostText = NS::gzIMPProfileCostText; \
     zGioNewTraitsImpossibleText = NS::zGioNewTraitsImpossibleText; \
     gzIronManModeWarningText = NS::gzIronManModeWarningText; \
-    gzDisplayCoverText = NS::gzDisplayCoverText;
+    gzDisplayCoverText = NS::gzDisplayCoverText; \
+    ItemPickupHelpPopup = NS::ItemPickupHelpPopup; \
+    TacticalStr = NS::TacticalStr; \
+    LargeTacticalStr = NS::LargeTacticalStr; \
+    zDialogActions = NS::zDialogActions; \
+    zDealerStrings = NS::zDealerStrings; \
+    zTalkMenuStrings = NS::zTalkMenuStrings; \
+    gMoneyStatsDesc = NS::gMoneyStatsDesc; \
+    gWeaponStatsDesc = NS::gWeaponStatsDesc; \
+    zHealthStr = NS::zHealthStr; \
+    szDynamicDialogueText = NS::szDynamicDialogueText;
 
 auto BindLanguageStrings(i18n::Lang lang) -> void {
   switch (lang) {
