@@ -115,10 +115,6 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 
 */
 
-CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
-{
-	L"",
-};
 
 //Encyclopedia
 
