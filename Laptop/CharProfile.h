@@ -75,7 +75,7 @@ extern INT32 iAddExplosives ;
 extern INT32 iAddMechanical ;
 
 // pop up strings
-extern STR16 pImpPopUpStrings[];
+extern STR16* pImpPopUpStrings;
 
 //extern BOOLEAN fIMPCompletedFlag;
 

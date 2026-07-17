@@ -16,6 +16,7 @@ void this_is_the_Ja25ChineseText_public_symbol(void){;}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
 //these strings match up with the defines in IMP Skill trait.cpp
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsText[]=
 {
 	// made this more elegant
@@ -39,8 +40,10 @@ STR16 gzIMPSkillTraitsText[]=
 	L"(专家)",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new major traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMajor[]=
 {
 	L"自动武器",// L"Auto Weapons",
@@ -68,8 +71,10 @@ STR16 gzIMPSkillTraitsTextNewMajor[]=
 	L"军医",// L"Doctor",
 	L"间谍",// L"Spy",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //added another set of skill texts for new minor traits
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPSkillTraitsTextNewMinor[]=
 {
 	L"双持",// L"Ambidextrous",
@@ -88,8 +93,10 @@ STR16 gzIMPSkillTraitsTextNewMinor[]=
 	L"无",// L"None",
 	L"I.M.P 副技能",// L"I.M.P. Minor Traits",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //these texts are for help popup windows, describing trait properties
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 {
 	L"突击步枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Assault Rifles\n",
@@ -100,7 +107,9 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"自动或点射命中率惩罚 -%d%s\n",//L"Auto fire/burst chance to hit penalty is reduced by %d%s\n",
 	L"降低浪费子弹的几率 \n",//L"Reduced chance for shooting unwanted bullets on autofire\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 {
 	L"发射榴弹所需行动点 -%d%s\n",// L"-%d%s APs needed to fire grenade launchers\n",
@@ -112,7 +121,9 @@ STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
 	L"爆破物, 手榴弹和重武器对坦克的额外伤害 +%d%s\n",// L"+%d%s damage to tanks with heavy weapons, grenades and explosives\n",
 	L"重武器对其他目标的伤害 +%d%s\n",// L"+%d%s damage to other targets with heavy weapons\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 {
 	L"步枪命中率 +%d%s\n",
@@ -136,7 +147,9 @@ STR16 gzIMPMajorTraitsHelpTextsSniper[]=
 	L"迅速瞄准：步枪精确瞄准次数加快（即减少）%d次\n",//L"Makes aiming faster with rifle-type guns by %d aim clicks\n",
 	L"专注技能：在标记区域内中断率 +%d \n",	//L"Focus skill: +%d interrupt modifier in marked area\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 {
 	L"步枪命中率 +%d%s\n",// L"+%d%s Chance to Hit with Rifles\n",
@@ -150,7 +163,9 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"使用步枪精瞄次数增加%d次\n",  //L"Adds %d more aim click for Rifles\n",
 	L"使用步枪精瞄次数增加%d次\n",  //L"Adds %d more aim clicks for Rifles\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 {
 	L"发射手枪、左轮所需行动点 -%d%s\n",// L"-%d%s APs needed to fire with pistols and revolvers\n",
@@ -165,7 +180,9 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"手枪、左轮和冲锋手枪的精确瞄准次数增加%d次 \n",// L"Adds %d more aim clicks for pistols, machine pistols and revolvers\n",
 	L"可以掰击锤来发射左轮枪\n",	//L"Can fan the hammer with revolvers\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 {
 	L"格斗攻击所需行动点 -%d%s(空手或戴铜指套) \n",// L"-%d%s AP cost of hand to hand attacks (bare hands or with brass knuckles)\n",
@@ -197,7 +214,9 @@ STR16 gzIMPMajorTraitsHelpTextsMartialArts[]=
 	L"你的格斗攻击将有特殊的动画效果 \n",// L"You gain special animations for hand to hand combat\n",
 	L"移动时被中断的几率降低 -%d%s\n", // L"-%d%s chance to be interrupted when moving\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 {
 	L"所在区域内雇佣兵的最大行动点 +%d%s \n",// L"+%d%s APs per round of other mercs in vicinity\n",
@@ -213,7 +232,9 @@ STR16 gzIMPMajorTraitsHelpTextsSquadleader[]=
 	L"缺陷: 会给其他人造成%d倍的士气下降，如果%s阵亡的话 \n",//(程序参数问题只能用这个语序) L"Drawback: %dx morale loss for %s's death for all other mercs\n",
 	L"触发小队集体中断几率 +%d%s \n", // L"+%d%s chance to trigger collective interrupts\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 {
 	L"维修速度 +%d%s \n",// L"+%d%s to repairing speed\n",
@@ -228,7 +249,9 @@ STR16 gzIMPMajorTraitsHelpTextsTechnician[]=
 	L"修理机器人的速度惩罚 -%d%s\n",// L"Reduced penalty to repair speed of the robot by %d%s\n",
 	L"可以将物品修复到100%%的状态\n", //L"Able to restore item threshold to 100%% during repair\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 {
 	L"使用医疗包进行包扎时可以给伤者进行手术 \n",// L"Has ability to make surgical intervention by using medical bag on wounded soldier\n",
@@ -243,7 +266,9 @@ STR16 gzIMPMajorTraitsHelpTextsDoctor[]=
 	L"(这种效果最多叠加%d次)",// L" (max %d these bonuses per sector)",
 	L"使用血袋时，可以额外恢复%d%s的生命值。\n",	//L"Returned health can be boosted an additional %d%s by using blood bags.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 {
 	L"可在敌后伪装成市民或敌军士兵 \n",//L"Can disguise as a civilian or soldier to slip behind enemy lines.\n",
@@ -255,7 +280,9 @@ STR16 gzIMPMajorTraitsHelpTextsCovertOps[]=
 	L"伪装动作消耗的行动点 -%d%s \n",//L"Disguise AP cost lowered by %d%s.\n",
 	L"能够说服敌军士兵成为我方卧底。\n",	//L"Can convince enemy soldiers to secretly change sides.\n", TODO.Translate
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 {
 	L"可以使用通讯设备 \n", //L"Can use communications equipment\n", 
@@ -265,12 +292,16 @@ STR16 gzIMPMajorTraitsHelpTextsRadioOperator[]=
 	L"如果通讯受到干扰，操作员可以扫描到那个干扰设备 \n", //L"If communications are jammed, an operator can scan for the jamming device.\n",
 	L"可以呼叫临区军队进行支援 \n", //L"Can call in militia reinforcements from neighbouring sectors.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsNone[]=
 {
 	L"无奖励",// L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 {
 	L"副手有装备时命中率惩罚 -%d%s \n",	//L"Reduced penalty to shoot if offhand item is equipped by %d%s\n",
@@ -282,7 +313,9 @@ STR16 gzIMPMinorTraitsHelpTextsAmbidextrous[]=
 	L"安置/拆除炸弹和地雷所需行动点 -%d%s \n",// L"-%d%s APs needed to plant/remove bombs and mines\n",
 	L"组装物品所需行动点 -%d%s\n",// L"-%d%s APs needed to attach items\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 {
 	L"刀具攻击所需行动点 -%d%s\n",// L"-%d%s APs needed to attack by blades\n",
@@ -296,7 +329,9 @@ STR16 gzIMPMinorTraitsHelpTextsMelee[]=
 	L"躲避钝器攻击的几率 +%d%s\n",// L"+%d%s chance to dodge attack by blunt melee weapons\n",
 	L"持刀状态下额外躲避钝器攻击的几率 +%d%s \n",// L"+%d%s on top chance to dodge blunt melee weapons if having a blade in hands\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 {
 	L"投掷飞刀所需基础行动点 -%d%s\n",// L"-%d%s basic APs needed to throw blades\n",
@@ -313,7 +348,9 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"手榴弹最远投掷距离 +%d%s\n",// L"+%d%s max range when throwing grenades\n",
 	L"手榴弹的命中率 +%d%s\n",// L"+%d%s chance to hit when throwing grenades\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 {
 	L"黑暗中视距 +%d\n",// L"+%d to effective sight range in dark\n",
@@ -322,7 +359,9 @@ STR16 gzIMPMinorTraitsHelpTextsNightOps[]=
 	L"黑暗中中断率 +%d\n",// L"+%d to interrupts modifier in dark\n",
 	L"睡眠需求 -%d\n",// L"-%d need to sleep\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 {
 	L"潜行所需行动点 -%d%s\n",// L"-%d%s APs needed to move quietly\n",
@@ -331,13 +370,17 @@ STR16 gzIMPMinorTraitsHelpTextsStealthy[]=
 	L"移动对隐蔽程度的惩罚 -%d%s\n",// L"Reduced cover penalty for movement by %d%s\n",
 	L"被敌人中断几率 -%d%s\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsAthletics[]=
 {
 	L"跑、走、蹲走、爬、游泳等动作所需的行动点 -%d%s \n",// L"-%d%s APs needed for moving (running, walking, swatting, crawling, swimming, etc.)\n",
 	L"跳跃、游泳、翻墙等动作所消耗的体能 -%d%s\n",// L"-%d%s energy spent for movement, roof-climbing, obstacle-jumping, swimming, etc.\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 {
 	L"伤害抵抗力 %d%s\n",// L"Has %d%s damage resistance\n",
@@ -345,7 +388,9 @@ STR16 gzIMPMinorTraitsHelpTextsBodybuilding[]=
 	L"被徒手攻击造成的体力损失 -%d%s\n",// L"Reduced energy lost when hit by HtH attack by %d%s\n",
 	L"被击中腿部致使倒地所需的伤害阈值 +%d%s \n",// L"Increased damage needed to fall down if hit to legs by %d%s\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 {
 	L"安置的炸弹和地雷的伤害 +%d%s\n",// L"+%d%s damage of set bombs and mines\n",
@@ -354,7 +399,9 @@ STR16 gzIMPMinorTraitsHelpTextsDemolitions[]=
 	L"降低敌人发现你的炸弹和地雷的几率(炸弹等级+%d) \n",// L"Decreases chance enemy will detect your bombs and mines (+%d bomb level)\n",
 	L"提高定向爆破破门几率(伤害x%d)\n",// L"Increased chance shaped charge will open the doors (damage multiplied by %d)\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 {
 	L"训练民兵速度 +%d%s\n",// L"+%d%s bonus to militia training speed\n",
@@ -363,7 +410,9 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"训练其他人属性时, 教官自身的该项能力有效值 +%d \n",// L"Skill value counts to be +%d higher for being able to teach this skill to other mercs\n",
 	L"自我锻炼效率 +%d%s\n",// L"+%d%s bonus to train stats through self-practising assignment\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 {
 	L"武器上的瞄准镜有效视距 +%d%s \n",// L"+%d%% to effective sight range with scopes on weapons\n",
@@ -374,6 +423,8 @@ STR16 gzIMPMinorTraitsHelpTextsScouting[]=
 	L"防止敌人偷袭你的队伍\n",// L"Prevents the enemy to ambush your squad\n",
 	L"防止血猫偷袭你的队伍\n",// L"Prevents the bloodcats to ambush your squad\n",
 };
+#endif // JA2_UNIFIED_TEXT
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 {
 	L"偶尔会通知你在队伍中听到的意见。\n",
@@ -384,7 +435,9 @@ STR16 gzIMPMinorTraitsHelpTextsSnitch[]=
 	L"如果士气好的话可以每天为你增加%d声誉。\n",
 	L"有效听觉范围 +%d。\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 {
 	L"队伍在区域间步行移动的速度 +%d%s \n",// L"+%d%s group travelling speed between sectors if traveling by foot\n",
@@ -400,12 +453,16 @@ STR16 gzIMPMajorTraitsHelpTextsSurvival[] =
 	L"闪避蛇类 +%d%%\n",	//L"+%d%% snake evasion\n", 
     L"迷彩涂装效果 +%d%%\n",// L"+%d%s camouflage effectiveness\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPMinorTraitsHelpTextsNone[]=
 {
 	L"无奖励",// L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPOldSkillTraitsHelpTexts[]=
 {
 	L"开锁成功率 +%d%s\n",// L"+%d%s bonus to lockpicking\n",	// 0
@@ -445,7 +502,9 @@ STR16 gzIMPOldSkillTraitsHelpTexts[]=
 	L"你将得到特别的格斗搏击动画效果\n",// L"You gain special animations for hand to hand combat\n",
 	L"无奖励",// L"No bonuses",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 {
 	L"优点：无。\n缺点：无。",// L"A: No advantage.\nD: No disadvantage.",
@@ -463,7 +522,9 @@ STR16 gzIMPNewCharacterTraitsHelpTexts[]=
 	L"优点：附近有异性佣兵时表现更佳。\n缺点：附近所有同性佣兵士气提升得慢。",// L"A: Has better performance when there are some mercs of opposite gender nearby.\nD: Morale of other mercs of the same gender grows slower if nearby.",
 	L"优点：撤退时士气增加。\n缺点：敌众我寡时，会降低士气。", //L"A: Gains morale when retreating.\nD: Loses morale when encountering numerically superior enemy forces.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPDisabilitiesHelpTexts[]=
 {
 	L"没有其它附加效果。",// L"No effects.",
@@ -480,26 +541,34 @@ STR16 gzIMPDisabilitiesHelpTexts[]=
 	L"在房顶作战时会降低战斗力。",	//L"Performance suffers while on a rooftop.",
 	L"时不时自残。",	//L"Occasionally harms self.",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzIMPProfileCostText[]=
 {
 	L"客户您消费$%d。确认并付款？",//L"The profile cost is $%d. Do you authorize the payment?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 zGioNewTraitsImpossibleText[]=
 {
 	L"你在PROFEX组件被关闭的情况下无法选择新技能系统。请在JA2_Options.ini中检查READ_PROFILE_DATA_FROM_XML设定。",
 };
+#endif // JA2_UNIFIED_TEXT
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //@@@:  New string as of March 3, 2000.
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzIronManModeWarningText[]=
 {
 	L"你选择了铁人模式。这将会游戏变得相当有挑战性，因为你无法在敌人占据的分区存档。 这个设置会影响游戏的整个进程。你确认你要在铁人模式下进行游戏吗?",
 	L"你选择了“假铁人”模式，这个设定会稍微加大对游戏的挑战性。因为你不可以在回合制的模式下存档，而且这个设定会在整个游戏过程生效，你确定要在“假铁人”模式下进行游戏？", //L"You have chosen SOFT IRON MAN mode. This setting makes the game slightly more challenging as you will not be able to save your game during turn-based combat. This setting will affect the entire course of the game.  Are you sure want to play in SOFT IRON MAN mode?",
 	L"你选择了“真铁人”模式，这个设定会加大游戏的挑战性。因为你只能在每天的%02d:00存档，而且这个设定会在整个游戏的过程生效，你确定要在“真铁人”模式下进行游戏？", //L"You have chosen EXTREME IRON MAN mode. This setting makes the game way more challenging as you will be able to save your progress only once per day - at %02d:00. This setting will affect the entire course of the game.  Do you seriously want to play in EXTREME IRON MAN mode?",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzDisplayCoverText[]=
 {
 	L"隐蔽程度: %d/100 %s, 光亮度: %d/100",
@@ -524,5 +593,6 @@ STR16 gzDisplayCoverText[]=
 	L"隐蔽难度", //L"Stealth difficulty",
 	L"陷阱等级", //L"Trap level",
 };
+#endif // JA2_UNIFIED_TEXT
 
 #endif

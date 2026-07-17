@@ -357,7 +357,7 @@ extern HVSURFACE ghFrameBuffer;
 extern BOOLEAN gfOverrideSector;
 
 extern BOOLEAN sBadSectorsList[WORLD_MAP_X][WORLD_MAP_X];
-extern STR16 pBullseyeStrings[];
+extern STR16* pBullseyeStrings;
 
 extern void HandleRPCDescription( );
 

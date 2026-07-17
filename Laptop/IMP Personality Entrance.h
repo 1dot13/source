@@ -7,6 +7,6 @@ void RenderIMPPersonalityEntrance( void );
 void ExitIMPPersonalityEntrance( void );
 void HandleIMPPersonalityEntrance( void );
 
-STR16 pSkillTraitBeginIMPStrings[];
+extern STR16* pSkillTraitBeginIMPStrings;
 
 #endif
