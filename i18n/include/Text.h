@@ -51,116 +51,116 @@ enum
 extern	CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS];
 
 //Encyclopedia
-extern STR16 	pMenuStrings[];
-extern STR16	pLocationPageText[];
-extern STR16	pSectorPageText[];
-extern STR16	pEncyclopediaHelpText[];
-extern STR16	pEncyclopediaTypeText[];
-extern STR16	pEncyclopediaSkrotyText[];
-extern STR16	pEncyclopediaFilterLocationText[];
-extern STR16	pEncyclopediaSubFilterLocationText[];
-extern STR16	pEncyclopediaFilterCharText[];
-extern STR16	pEncyclopediaSubFilterCharText[];
-extern STR16	pEncyclopediaFilterItemText[];
-extern STR16	pEncyclopediaSubFilterItemText[];
-extern STR16	pEncyclopediaFilterQuestText[];
-extern STR16	pEncyclopediaSubFilterQuestText[];
-extern STR16	pEncyclopediaShortCharacterText[];
-extern STR16	pEncyclopediaHelpCharacterText[];
-extern STR16	pEncyclopediaShortInventoryText[];
-extern STR16	BoxFilter[];
-extern STR16	pOtherButtonsText[];
-extern STR16	pOtherButtonsHelpText[];
-extern STR16	QuestDescText[];
-extern STR16	FactDescText[];
+extern STR16 	*pMenuStrings;
+extern STR16	*pLocationPageText;
+extern STR16	*pSectorPageText;
+extern STR16	*pEncyclopediaHelpText;
+extern STR16	*pEncyclopediaTypeText;
+extern STR16	*pEncyclopediaSkrotyText;
+extern STR16	*pEncyclopediaFilterLocationText;
+extern STR16	*pEncyclopediaSubFilterLocationText;
+extern STR16	*pEncyclopediaFilterCharText;
+extern STR16	*pEncyclopediaSubFilterCharText;
+extern STR16	*pEncyclopediaFilterItemText;
+extern STR16	*pEncyclopediaSubFilterItemText;
+extern STR16	*pEncyclopediaFilterQuestText;
+extern STR16	*pEncyclopediaSubFilterQuestText;
+extern STR16	*pEncyclopediaShortCharacterText;
+extern STR16	*pEncyclopediaHelpCharacterText;
+extern STR16	*pEncyclopediaShortInventoryText;
+extern STR16	*BoxFilter;
+extern STR16	*pOtherButtonsText;
+extern STR16	*pOtherButtonsHelpText;
+extern STR16	*QuestDescText;
+extern STR16	*FactDescText;
 
 //Editor
 //Editor Taskbar Creation.cpp
-extern STR16 iEditorItemStatsButtonsText[];
-extern STR16 FaceDirs[8];
-extern STR16 iEditorMercsToolbarText[];
-extern STR16 iEditorBuildingsToolbarText[];
-extern STR16 iEditorItemsToolbarText[];
-extern STR16 iEditorMapInfoToolbarText[];
-extern STR16 iEditorOptionsToolbarText[];
-extern STR16 iEditorTerrainToolbarText[];
-extern STR16 iEditorTaskbarInternalText[];
+extern STR16 *iEditorItemStatsButtonsText;
+extern STR16 *FaceDirs;
+extern STR16 *iEditorMercsToolbarText;
+extern STR16 *iEditorBuildingsToolbarText;
+extern STR16 *iEditorItemsToolbarText;
+extern STR16 *iEditorMapInfoToolbarText;
+extern STR16 *iEditorOptionsToolbarText;
+extern STR16 *iEditorTerrainToolbarText;
+extern STR16 *iEditorTaskbarInternalText;
 //Editor Taskbar Utils.cpp
-extern STR16 iRenderMapEntryPointsAndLightsText[];
-extern STR16 iBuildTriggerNameText[];
-extern STR16 iRenderDoorLockInfoText[];
-extern STR16 iRenderEditorInfoText[];
+extern STR16 *iRenderMapEntryPointsAndLightsText;
+extern STR16 *iBuildTriggerNameText;
+extern STR16 *iRenderDoorLockInfoText;
+extern STR16 *iRenderEditorInfoText;
 //EditorBuildings.cpp
-extern STR16 iUpdateBuildingsInfoText[];
-extern STR16 iRenderDoorEditingWindowText[];
+extern STR16 *iUpdateBuildingsInfoText;
+extern STR16 *iRenderDoorEditingWindowText;
 //EditorItems.cpp
-extern STR16 pInitEditorItemsInfoText[];
-extern STR16 pDisplayItemStatisticsTex[];
-extern STR16 pUpdateMapInfoText[];
+extern STR16 *pInitEditorItemsInfoText;
+extern STR16 *pDisplayItemStatisticsTex;
+extern STR16 *pUpdateMapInfoText;
 //EditorMercs.cpp
-extern CHAR16 gszScheduleActions[ 11 ][20];	// NUM_SCHEDULE_ACTIONS = 11
-extern STR16 zDiffNames[5];	// NUM_DIFF_LVLS = 5
-extern STR16 EditMercStat[12];
-extern STR16 EditMercOrders[8];
-extern STR16 EditMercAttitudes[6];
-extern STR16 pDisplayEditMercWindowText[];
-extern STR16 pCreateEditMercWindowText[];
-extern STR16 pDisplayBodyTypeInfoText[];
-extern STR16 pUpdateMercsInfoText[];
-extern CHAR16 pRenderMercStringsText[][100];
-extern STR16 pClearCurrentScheduleText[];
-extern STR16 pCopyMercPlacementText[];
-extern STR16 pPasteMercPlacementText[];
+extern CHAR16 (*gszScheduleActions)[20];	// NUM_SCHEDULE_ACTIONS = 11
+extern STR16 *zDiffNames;	// NUM_DIFF_LVLS = 5
+extern STR16 *EditMercStat;
+extern STR16 *EditMercOrders;
+extern STR16 *EditMercAttitudes;
+extern STR16 *pDisplayEditMercWindowText;
+extern STR16 *pCreateEditMercWindowText;
+extern STR16 *pDisplayBodyTypeInfoText;
+extern STR16 *pUpdateMercsInfoText;
+extern CHAR16 (*pRenderMercStringsText)[100];
+extern STR16 *pClearCurrentScheduleText;
+extern STR16 *pCopyMercPlacementText;
+extern STR16 *pPasteMercPlacementText;
 //editscreen.cpp
-extern STR16 pEditModeShutdownText[];
-extern STR16 pHandleKeyboardShortcutsText[];
-extern STR16 pPerformSelectedActionText[];
-extern STR16 pWaitForHelpScreenResponseText[];
-extern STR16 pAutoLoadMapText[];
-extern STR16 pShowHighGroundText[];
+extern STR16 *pEditModeShutdownText;
+extern STR16 *pHandleKeyboardShortcutsText;
+extern STR16 *pPerformSelectedActionText;
+extern STR16 *pWaitForHelpScreenResponseText;
+extern STR16 *pAutoLoadMapText;
+extern STR16 *pShowHighGroundText;
 //Item Statistics.cpp
 //extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
-extern STR16 pUpdateItemStatsPanelText[];
-extern STR16 pSetupGameTypeFlagsText[];
-extern STR16 pSetupGunGUIText[];
-extern STR16 pSetupArmourGUIText[];
-extern STR16 pSetupExplosivesGUIText[];
-extern STR16 pSetupTriggersGUIText[];
+extern STR16 *pUpdateItemStatsPanelText;
+extern STR16 *pSetupGameTypeFlagsText;
+extern STR16 *pSetupGunGUIText;
+extern STR16 *pSetupArmourGUIText;
+extern STR16 *pSetupExplosivesGUIText;
+extern STR16 *pSetupTriggersGUIText;
 //Sector Summary.cpp
-extern STR16 pCreateSummaryWindowText[];
-extern STR16 pRenderSectorInformationText[];
-extern STR16 pRenderItemDetailsText[];
-extern STR16 pRenderSummaryWindowText[];
-extern STR16 pUpdateSectorSummaryText[];
-extern STR16 pSummaryLoadMapCallbackText[];
-extern STR16 pReportErrorText[];
-extern STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[];
-extern STR16 pSummaryUpdateCallbackText[];
-extern STR16 pApologizeOverrideAndForceUpdateEverythingText[];
+extern STR16 *pCreateSummaryWindowText;
+extern STR16 *pRenderSectorInformationText;
+extern STR16 *pRenderItemDetailsText;
+extern STR16 *pRenderSummaryWindowText;
+extern STR16 *pUpdateSectorSummaryText;
+extern STR16 *pSummaryLoadMapCallbackText;
+extern STR16 *pReportErrorText;
+extern STR16 *pRegenerateSummaryInfoForAllOutdatedMapsText;
+extern STR16 *pSummaryUpdateCallbackText;
+extern STR16 *pApologizeOverrideAndForceUpdateEverythingText;
 //selectwin.cpp
-extern STR16 pDisplaySelectionWindowGraphicalInformationText[];
-extern STR16 pDisplaySelectionWindowButtonText[];
+extern STR16 *pDisplaySelectionWindowGraphicalInformationText;
+extern STR16 *pDisplaySelectionWindowButtonText;
 //Cursor Modes.cpp
-extern STR16 wszSelType[6];
+extern STR16 *wszSelType;
 //--
 
-extern	STR16	gzNewLaptopMessages[];
-extern	STR16	zNewTacticalMessages[];
-extern CHAR16  gszAimPages[ 6 ][ 20 ];
-extern CHAR16  zGrod[][500];
-extern STR16 pCreditsJA2113[];
-extern CHAR16 ShortItemNames[MAXITEMS][80];
-extern CHAR16 ItemNames[MAXITEMS][80];
-extern CHAR16 AmmoCaliber[MAXITEMS][20];
-extern CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20];
-extern CHAR16 WeaponType[MAXITEMS][30];
+extern	STR16*	gzNewLaptopMessages;
+extern	STR16*	zNewTacticalMessages;
+extern CHAR16  (*gszAimPages)[ 20 ];
+extern CHAR16  (*zGrod)[500];
+extern STR16* pCreditsJA2113;
+extern CHAR16 (*ShortItemNames)[80];
+extern CHAR16 (*ItemNames)[80];
+extern CHAR16 (*AmmoCaliber)[20];
+extern CHAR16 (*BobbyRayAmmoCaliber)[20];
+extern CHAR16 (*WeaponType)[30];
 
-extern CHAR16 Message[][STRING_LENGTH];
-extern CHAR16 TeamTurnString[][STRING_LENGTH];
-extern STR16 pMilitiaControlMenuStrings[]; //lal
-extern STR16 pTraitSkillsMenuStrings[];		//Flugente
-extern STR16 pTraitSkillsMenuDescStrings[]; //Flugente
-extern STR16 pTraitSkillsDenialStrings[]; //Flugente
+extern CHAR16 (*Message)[STRING_LENGTH];
+extern CHAR16 (*TeamTurnString)[STRING_LENGTH];
+extern STR16* pMilitiaControlMenuStrings; //lal
+extern STR16* pTraitSkillsMenuStrings;		//Flugente
+extern STR16* pTraitSkillsMenuDescStrings; //Flugente
+extern STR16* pTraitSkillsDenialStrings; //Flugente
 
 enum
 {
@@ -173,215 +173,215 @@ enum
 	SKILLMENU_CORPSES,
 };
 
-extern STR16 pSkillMenuStrings[];			//Flugente
+extern STR16* pSkillMenuStrings;			//Flugente
 //extern STR16 pTalkToAllMenuStrings[];
-extern STR16 pSnitchMenuStrings[];
-extern STR16 pSnitchMenuDescStrings[];
-extern STR16 pSnitchToggleMenuStrings[];
-extern STR16 pSnitchToggleMenuDescStrings[];
-extern STR16 pSnitchSectorMenuStrings[];
-extern STR16 pSnitchSectorMenuDescStrings[];
-extern STR16 pPrisonerMenuStrings[];
-extern STR16 pPrisonerMenuDescStrings[];
-extern STR16 pSnitchPrisonExposedStrings[];
-extern STR16 pSnitchGatheringRumoursResultStrings[];
-extern STR16 pAssignMenuStrings[];
-extern STR16 pTrainingStrings[];
-extern STR16 pTrainingMenuStrings[];
-extern STR16 pAttributeMenuStrings[];
-extern STR16 pVehicleStrings[];
-extern STR16 pShortAttributeStrings[];
-extern STR16 pLongAttributeStrings[];
-extern STR16 pContractStrings[];
-extern STR16 pAssignmentStrings[];
-extern STR16 pConditionStrings[];
-extern CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT];
-extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
-extern STR16 pPersonnelScreenStrings[];
-extern STR16 pPersonnelRecordsHelpTexts[]; // added by SANDRO
-extern STR16 pPersonnelTitle[];
-extern STR16 pUpperLeftMapScreenStrings[];
-extern STR16 pTacticalPopupButtonStrings[];
-extern STR16 pSquadMenuStrings[];
-extern STR16 pDoorTrapStrings[];
-extern STR16 pLongAssignmentStrings[];
-extern STR16 pContractExtendStrings[];
-extern STR16 pMapScreenMouseRegionHelpText[];
-extern STR16 pPersonnelAssignmentStrings[];
-extern STR16 pNoiseVolStr[];
-extern STR16 pNoiseTypeStr[];
-extern STR16 pDirectionStr[];
-extern STR16 pRemoveMercStrings[];
-extern STR16 sTimeStrings[];
-extern STR16 pLandTypeStrings[];
-extern STR16 pGuardMenuStrings[];
-extern STR16 pOtherGuardMenuStrings[];
-extern STR16 pInvPanelTitleStrings[];
-extern STR16 pPOWStrings[];
-extern STR16 pMilitiaString[];
-extern STR16 pMilitiaButtonString[];
-extern STR16 pEpcMenuStrings[];
+extern STR16* pSnitchMenuStrings;
+extern STR16* pSnitchMenuDescStrings;
+extern STR16* pSnitchToggleMenuStrings;
+extern STR16* pSnitchToggleMenuDescStrings;
+extern STR16* pSnitchSectorMenuStrings;
+extern STR16* pSnitchSectorMenuDescStrings;
+extern STR16* pPrisonerMenuStrings;
+extern STR16* pPrisonerMenuDescStrings;
+extern STR16* pSnitchPrisonExposedStrings;
+extern STR16* pSnitchGatheringRumoursResultStrings;
+extern STR16* pAssignMenuStrings;
+extern STR16* pTrainingStrings;
+extern STR16* pTrainingMenuStrings;
+extern STR16* pAttributeMenuStrings;
+extern STR16* pVehicleStrings;
+extern STR16* pShortAttributeStrings;
+extern STR16* pLongAttributeStrings;
+extern STR16* pContractStrings;
+extern STR16* pAssignmentStrings;
+extern STR16* pConditionStrings;
+extern CHAR16 (*pCountryNames)[MAX_TOWN_NAME_LENGHT];
+extern CHAR16 (*pTownNames)[MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
+extern STR16* pPersonnelScreenStrings;
+extern STR16* pPersonnelRecordsHelpTexts; // added by SANDRO
+extern STR16* pPersonnelTitle;
+extern STR16* pUpperLeftMapScreenStrings;
+extern STR16* pTacticalPopupButtonStrings;
+extern STR16* pSquadMenuStrings;
+extern STR16* pDoorTrapStrings;
+extern STR16* pLongAssignmentStrings;
+extern STR16* pContractExtendStrings;
+extern STR16* pMapScreenMouseRegionHelpText;
+extern STR16* pPersonnelAssignmentStrings;
+extern STR16* pNoiseVolStr;
+extern STR16* pNoiseTypeStr;
+extern STR16* pDirectionStr;
+extern STR16* pRemoveMercStrings;
+extern STR16* sTimeStrings;
+extern STR16* pLandTypeStrings;
+extern STR16* pGuardMenuStrings;
+extern STR16* pOtherGuardMenuStrings;
+extern STR16* pInvPanelTitleStrings;
+extern STR16* pPOWStrings;
+extern STR16* pMilitiaString;
+extern STR16* pMilitiaButtonString;
+extern STR16* pEpcMenuStrings;
 
-extern STR16 pRepairStrings[];
-extern STR16 sPreStatBuildString[];
-extern STR16 sStatGainStrings[];
-extern STR16 pHelicopterEtaStrings[];
-extern STR16 pHelicopterRepairRefuelStrings[];
-extern STR16 sMapLevelString[];
-extern STR16 gsLoyalString[];
-extern STR16 pMapHeliErrorString[];
-extern STR16 gsUndergroundString[];
-extern STR16 gsTimeStrings[];
-extern STR16 sFacilitiesStrings[];
-extern STR16 pMapPopUpInventoryText[];
-extern STR16 pwTownInfoStrings[];
-extern STR16 pwMineStrings[];
-extern STR16 pwMiscSectorStrings[];
-extern STR16 pMapInventoryErrorString[];
-extern STR16 pMapInventoryStrings[];
-extern STR16 pMapScreenFastHelpTextList[];
-extern STR16 pMovementMenuStrings[];
-extern STR16 pUpdateMercStrings[];
-extern STR16 pMapScreenBorderButtonHelpText[];
-extern STR16 pMapScreenInvenButtonHelpText[];
-extern STR16 pMapScreenBottomFastHelp[];
-extern STR16 pMapScreenBottomText[];
-extern STR16 pMercDeadString[];
-extern CHAR16 pSenderNameList[500][128];
-extern STR16 pTraverseStrings[];
-extern STR16 pNewMailStrings[];
-extern STR16 pDeleteMailStrings[];
-extern STR16 pEmailHeaders[];
-extern STR16 pEmailTitleText[];
-extern STR16 pFinanceTitle[];
-extern STR16 pFinanceSummary[];
-extern STR16 pFinanceHeaders[];
-extern STR16 pTransactionText[];
-extern STR16 pTransactionAlternateText[];
-extern STR16 pMoralStrings[];
-extern STR16 pSkyriderText[];
-extern STR16 pMercFellAsleepString[];
-extern STR16 pLeftEquipmentString[]; 
-extern STR16 pMapScreenStatusStrings[];
-extern STR16 pMapScreenPrevNextCharButtonHelpText[];
-extern STR16 pEtaString[];
-extern STR16 pShortVehicleStrings[];
-extern STR16 pTrashItemText[];
-extern STR16 pMapErrorString[];
-extern STR16 pMapPlotStrings[];
-extern STR16 pMiscMapScreenMouseRegionHelpText[];
-extern STR16 pMercHeLeaveString[];
-extern STR16 pMercSheLeaveString[];
-extern STR16 pImpPopUpStrings[];
-extern STR16 pImpButtonText[];
-extern STR16 pExtraIMPStrings[];
-extern STR16 pFilesTitle[];
-extern STR16 pFilesSenderList[];
-extern STR16 pHistoryLocations[];
+extern STR16* pRepairStrings;
+extern STR16* sPreStatBuildString;
+extern STR16* sStatGainStrings;
+extern STR16* pHelicopterEtaStrings;
+extern STR16* pHelicopterRepairRefuelStrings;
+extern STR16* sMapLevelString;
+extern STR16* gsLoyalString;
+extern STR16* pMapHeliErrorString;
+extern STR16* gsUndergroundString;
+extern STR16* gsTimeStrings;
+extern STR16* sFacilitiesStrings;
+extern STR16* pMapPopUpInventoryText;
+extern STR16* pwTownInfoStrings;
+extern STR16* pwMineStrings;
+extern STR16* pwMiscSectorStrings;
+extern STR16* pMapInventoryErrorString;
+extern STR16* pMapInventoryStrings;
+extern STR16* pMapScreenFastHelpTextList;
+extern STR16* pMovementMenuStrings;
+extern STR16* pUpdateMercStrings;
+extern STR16* pMapScreenBorderButtonHelpText;
+extern STR16* pMapScreenInvenButtonHelpText;
+extern STR16* pMapScreenBottomFastHelp;
+extern STR16* pMapScreenBottomText;
+extern STR16* pMercDeadString;
+extern CHAR16 (*pSenderNameList)[128];
+extern STR16* pTraverseStrings;
+extern STR16* pNewMailStrings;
+extern STR16* pDeleteMailStrings;
+extern STR16* pEmailHeaders;
+extern STR16* pEmailTitleText;
+extern STR16* pFinanceTitle;
+extern STR16* pFinanceSummary;
+extern STR16* pFinanceHeaders;
+extern STR16* pTransactionText;
+extern STR16* pTransactionAlternateText;
+extern STR16* pMoralStrings;
+extern STR16* pSkyriderText;
+extern STR16* pMercFellAsleepString;
+extern STR16* pLeftEquipmentString; 
+extern STR16* pMapScreenStatusStrings;
+extern STR16* pMapScreenPrevNextCharButtonHelpText;
+extern STR16* pEtaString;
+extern STR16* pShortVehicleStrings;
+extern STR16* pTrashItemText;
+extern STR16* pMapErrorString;
+extern STR16* pMapPlotStrings;
+extern STR16* pMiscMapScreenMouseRegionHelpText;
+extern STR16* pMercHeLeaveString;
+extern STR16* pMercSheLeaveString;
+extern STR16* pImpPopUpStrings;
+extern STR16* pImpButtonText;
+extern STR16* pExtraIMPStrings;
+extern STR16* pFilesTitle;
+extern STR16* pFilesSenderList;
+extern STR16* pHistoryLocations;
 //extern STR16 pHistoryAlternateStrings[];
 //extern STR16 pHistoryStrings[];		// Externalized to "TableData\History.xml"
-extern STR16 pHistoryHeaders[];
-extern STR16 pHistoryTitle[];
-extern STR16 pShowBookmarkString[];
-extern STR16 pWebPagesTitles[];
-extern STR16 pWebTitle[ ];
-extern STR16 pPersonnelString[];
-extern STR16 pErrorStrings[];
-extern STR16 pDownloadString[];
-extern STR16 pBookmarkTitle[];
-extern STR16 pBookMarkStrings[];
-extern STR16 pLaptopIcons[];
-extern STR16 gsAtmStartButtonText[];
-extern STR16 pDownloadString[];
-extern STR16 pPersonnelTeamStatsStrings[];
-extern STR16 pPersonnelCurrentTeamStatsStrings[];
-extern STR16 pPersonelTeamStrings[];
-extern STR16 pPersonnelDepartedStateStrings[];
-extern STR16 pMapHortIndex[];
-extern STR16 pMapVertIndex[];
-extern STR16 pMapDepthIndex[];
+extern STR16* pHistoryHeaders;
+extern STR16* pHistoryTitle;
+extern STR16* pShowBookmarkString;
+extern STR16* pWebPagesTitles;
+extern STR16* pWebTitle;
+extern STR16* pPersonnelString;
+extern STR16* pErrorStrings;
+extern STR16* pDownloadString;
+extern STR16* pBookmarkTitle;
+extern STR16* pBookMarkStrings;
+extern STR16* pLaptopIcons;
+extern STR16* gsAtmStartButtonText;
+extern STR16* pDownloadString;
+extern STR16* pPersonnelTeamStatsStrings;
+extern STR16* pPersonnelCurrentTeamStatsStrings;
+extern STR16* pPersonelTeamStrings;
+extern STR16* pPersonnelDepartedStateStrings;
+extern STR16* pMapHortIndex;
+extern STR16* pMapVertIndex;
+extern STR16* pMapDepthIndex;
 //extern STR16 sCritLocationStrings[];
 //extern STR16 sVehicleHit[ ];
-extern STR16 pLaptopTitles[];
-extern STR16 pDayStrings[];
-extern STR16 pMercContractOverStrings[];
-extern STR16 pMilitiaConfirmStrings[];
-extern STR16 pDeliveryLocationStrings[];
-extern STR16 pSkillAtZeroWarning[];
-extern STR16 pIMPBeginScreenStrings[];
-extern STR16 pIMPFinishButtonText[1];
-extern STR16 pIMPFinishStrings[];
-extern STR16 pIMPVoicesStrings[];
-extern STR16 pDepartedMercPortraitStrings[];
-extern STR16 pPersTitleText[];
-extern STR16 pPausedGameText[];
-extern STR16	zOptionsToggleText[];
-extern STR16	zOptionsScreenHelpText[];
-extern STR16 pDoctorWarningString[];
-extern STR16 pMilitiaButtonsHelpText[];
-extern STR16 pMapScreenJustStartedHelpText[];
-extern STR16 pLandMarkInSectorString[];
-extern STR16 gzMercSkillText[];
-extern STR16 gzMercSkillTextNew[]; // added by SANDRO
-extern STR16 gzNonPersistantPBIText[];
-extern STR16 gzMiscString[];
+extern STR16* pLaptopTitles;
+extern STR16* pDayStrings;
+extern STR16* pMercContractOverStrings;
+extern STR16* pMilitiaConfirmStrings;
+extern STR16* pDeliveryLocationStrings;
+extern STR16* pSkillAtZeroWarning;
+extern STR16* pIMPBeginScreenStrings;
+extern STR16* pIMPFinishButtonText;
+extern STR16* pIMPFinishStrings;
+extern STR16* pIMPVoicesStrings;
+extern STR16* pDepartedMercPortraitStrings;
+extern STR16* pPersTitleText;
+extern STR16* pPausedGameText;
+extern STR16* zOptionsToggleText;
+extern STR16* zOptionsScreenHelpText;
+extern STR16* pDoctorWarningString;
+extern STR16* pMilitiaButtonsHelpText;
+extern STR16* pMapScreenJustStartedHelpText;
+extern STR16* pLandMarkInSectorString;
+extern STR16* gzMercSkillText;
+extern STR16* gzMercSkillTextNew; // added by SANDRO
+extern STR16* gzNonPersistantPBIText;
+extern STR16* gzMiscString;
 
-extern STR16 wMapScreenSortButtonHelpText[];
-extern STR16 pNewNoiseStr[];
-extern STR16 pTauntUnknownVoice[]; // anv: for enemy taunts
-extern STR16 gzLateLocalizedString[];
+extern STR16* wMapScreenSortButtonHelpText;
+extern STR16* pNewNoiseStr;
+extern STR16* pTauntUnknownVoice; // anv: for enemy taunts
+extern STR16* gzLateLocalizedString;
 
-extern STR16 gzCWStrings[];
+extern STR16* gzCWStrings;
 
-extern STR16 gzTooltipStrings[];
+extern STR16* gzTooltipStrings;
 
-// These have been added - SANDRO 
-extern STR16 pSkillTraitBeginIMPStrings[];
-extern STR16 sgAttributeSelectionText[];
-extern STR16 pCharacterTraitBeginIMPStrings[];
-extern STR16 gzIMPCharacterTraitText[];
-extern STR16 gzIMPAttitudesText[];
-extern STR16 gzIMPColorChoosingText[];
-extern STR16 sColorChoiceExplanationTexts[];
-extern STR16 gzIMPDisabilityTraitText[];			// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextDeaf[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextShortSighted[];
-extern STR16 gzIMPDisabilityTraitEmailTextHemophiliac[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextSelfHarm[];	// added by Flugente
-extern STR16 sEnemyTauntsFireGun[];
-extern STR16 sEnemyTauntsFireLauncher[];
-extern STR16 sEnemyTauntsThrow[];
-extern STR16 sEnemyTauntsChargeKnife[];
-extern STR16 sEnemyTauntsRunAway[];
-extern STR16 sEnemyTauntsSeekNoise[];
-extern STR16 sEnemyTauntsAlert[];
-extern STR16 sEnemyTauntsGotHit[];
-extern STR16 sEnemyTauntsNoticedMerc[];
-extern STR16 sSpecialCharacters[];
+// These have been added - SANDRO
+extern STR16* pSkillTraitBeginIMPStrings;
+extern STR16* sgAttributeSelectionText;
+extern STR16* pCharacterTraitBeginIMPStrings;
+extern STR16* gzIMPCharacterTraitText;
+extern STR16* gzIMPAttitudesText;
+extern STR16* gzIMPColorChoosingText;
+extern STR16* sColorChoiceExplanationTexts;
+extern STR16* gzIMPDisabilityTraitText;			// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextDeaf;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextShortSighted;
+extern STR16* gzIMPDisabilityTraitEmailTextHemophiliac;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextAfraidOfHeights;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextSelfHarm;	// added by Flugente
+extern STR16* sEnemyTauntsFireGun;
+extern STR16* sEnemyTauntsFireLauncher;
+extern STR16* sEnemyTauntsThrow;
+extern STR16* sEnemyTauntsChargeKnife;
+extern STR16* sEnemyTauntsRunAway;
+extern STR16* sEnemyTauntsSeekNoise;
+extern STR16* sEnemyTauntsAlert;
+extern STR16* sEnemyTauntsGotHit;
+extern STR16* sEnemyTauntsNoticedMerc;
+extern STR16* sSpecialCharacters;
 //****
 
 // HEADROCK HAM 3.6: New arrays for facility operation messages
-extern STR16 gzFacilityErrorMessage[];
-extern STR16 gzFacilityAssignmentStrings[];
-extern STR16 gzFacilityRiskResultStrings[];
+extern STR16* gzFacilityErrorMessage;
+extern STR16* gzFacilityAssignmentStrings;
+extern STR16* gzFacilityRiskResultStrings;
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
-extern STR16 gzNCTHlabels[];
+extern STR16* gzNCTHlabels;
 
 // HEADROCK HAM 5: Messages for automatic sector inventory sorting.
-extern STR16 gzMapInventorySortingMessage[];
-extern STR16 gzMapInventoryFilterOptions[];
+extern STR16* gzMapInventorySortingMessage;
+extern STR16* gzMapInventoryFilterOptions;
 
 // MeLoDy (Merc Compare)
-extern STR16 gzMercCompare[];
+extern STR16* gzMercCompare;
 
 enum
 {
 	ANTIHACKERSTR_EXITGAME,
 	TEXT_NUM_ANTIHACKERSTR,
 };
-extern STR16 pAntiHackerString[];
+extern STR16* pAntiHackerString;
 
 enum
 {

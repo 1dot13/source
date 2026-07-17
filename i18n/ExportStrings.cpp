@@ -31,6 +31,10 @@ namespace Loc
 
 //#define GERMAN
 #include "Text.h"
+// This TU includes the language text file inside namespace Loc and needs the table
+// definitions that Recipe R1 (docs/plans/language-design.md) guards out of standalone
+// per-language TUs, so opt in here.
+#define JA2_UNIFIED_TEXT 1
 namespace Loc
 {
 #ifdef CHINESE

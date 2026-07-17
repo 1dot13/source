@@ -49,7 +49,7 @@ extern "C" {
 
 extern CHAR16 gzUserDefinedButton1[ 128 ];
 extern CHAR16 gzUserDefinedButton2[ 128 ];
-extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
+extern CHAR16 (*pTownNames)[MAX_TOWN_NAME_LENGHT];
 
 static size_t MAX_BUTTON_LENGTH = 60;
 static size_t MAX_BODY_LENGTH = 450;

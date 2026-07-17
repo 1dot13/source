@@ -22,7 +22,7 @@ UINT32					guiFireAmbientLastUpdate = 0;
 
 extern					STR8 pVertStrings[];
 extern					STR8 pHortStrings[];
-extern					CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
+extern					CHAR16 (*pTownNames)[MAX_TOWN_NAME_LENGHT];
 
 UINT8					gubCurrentSteadyStateAmbience = SSA_NONE;
 UINT8					gubCurrentSteadyStateSound	= 0;

@@ -117,6 +117,7 @@ CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] =
 
 //Encyclopedia
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMenuStrings[] =
 {
 	//Encyclopedia
@@ -1072,11 +1073,13 @@ STR16		FactDescText[] =
 	L"",
 	L"",					//500
 };
+#endif // JA2_UNIFIED_TEXT
 
 //-----------
 
 // Editor
 //Editor Taskbar Creation.cpp
+#ifdef JA2_UNIFIED_TEXT
 STR16 iEditorItemStatsButtonsText[] =
 {
 	L"Delete",
@@ -3254,9 +3257,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"Нанесено урона: %d\n",
 	L"Вылечено: %d\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //These string correspond to enums used in by the SkillTrait enums in SoldierProfileType.h
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMercSkillText[] = 
 {
 	// SANDRO - tweaked this
@@ -3343,10 +3348,12 @@ STR16 gzMercSkillTextNew[] =
 	L"Различные",		// for VARIOUSSKILLS	
 	L"Автоперевязка",	// for AUTOBANDAGESKILLS
 };
+#endif // JA2_UNIFIED_TEXT
 //////////////////////////////////////////////////////////
 
 // This is pop up help text for the options that are available to the merc
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pTacticalPopupButtonStrings[] =
 {
 	L"Встать/Идти (|S)", 
@@ -3496,6 +3503,7 @@ STR16 pLandTypeStrings[] =
 	L"Убежище",		//The shelter underneath the queen's palace
 	L"",							//Unused
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16 gpStrategicString[] =
 {
@@ -3881,6 +3889,7 @@ CHAR16 zDialogActions[1][ SMALL_STRING_LENGTH ] =
 
 //These are vehicles in the game.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pVehicleStrings[] =
 {
  L"Эльдорадо",
@@ -3890,7 +3899,9 @@ STR16 pVehicleStrings[] =
  L"Танк",
  L"Вертолёт",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pShortVehicleStrings[] =
 {
 	L"Эльдорадо",
@@ -3900,6 +3911,7 @@ STR16 pShortVehicleStrings[] =
 	L"Танк",
 	L"Вертолёт", 				// the helicopter
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	zVehicleName[] =
 {
@@ -4250,6 +4262,7 @@ STR16 pExitingSectorHelpText[] =
 
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pRepairStrings[] = 
 {
 	L"Предметы", 		// tell merc to repair items in inventory
@@ -4902,9 +4915,11 @@ STR16 pMapPlotStrings[] =
 	L"Путь движения отменён.",
 	L"Путь сокращен.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // help text used when moving the merc arrival sector
+#ifdef JA2_UNIFIED_TEXT
 STR16 pBullseyeStrings[] =
 {
 	L"Выберите сектор, в который прибудут наёмники.",
@@ -4913,10 +4928,12 @@ STR16 pBullseyeStrings[] =
 	L"Отменено. Сектор прибытия не изменился.",
 	L"Небо над %s более не безопасно! Место высадки было перемещено в %s.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // help text for mouse regions
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMiscMapScreenMouseRegionHelpText[] =
 {
 	L"Показать снаряжение (|В|в|о|д)",
@@ -5015,7 +5032,9 @@ STR16 pExtraIMPStrings[] =
 	L"Для начала подберите наиболее подходящее вам лицо, голос, телосложение и соответствующую расцветку.",	//To commence actual profiling, select portrait, voice and colors.
 	L"Теперь, когда вы завершили формирование своей внешности, перейдём к анализу ваших личных качеств.",	//Now that you have completed your appearence choice, proceed to character analysis.
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pFilesTitle[] =
 {
   L"Просмотр данных",
@@ -5047,6 +5066,7 @@ STR16 pHistoryHeaders[] =
 	L"Локация", 			// location (in sector) the event occurred
 	L"Событие", 			// the event label
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Externalized to "TableData\History.xml"
 /*
@@ -5157,6 +5177,7 @@ STR16 pHistoryStrings[] =
 };
 */
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pHistoryLocations[] =
 {
 	L"Н/Д",						// N/A is an acronym for Not Applicable
@@ -5426,6 +5447,7 @@ STR16 pMapDepthIndex[] =
 	L"-2",
 	L"-3",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // text that appears on the contract button
 
@@ -6538,6 +6560,7 @@ STR16		zMarksMapScreenText[] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pLandMarkInSectorString[] =
 {
 	L"Отряд %d заметил кого-то в секторе %s.",
@@ -6569,6 +6592,7 @@ STR16 pMilitiaConfirmStrings[] =
 
 	L"нанять больше повстанцев",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
 STR16	gzMoneyWithdrawMessageText[] = 
@@ -6583,6 +6607,7 @@ STR16	gzCopyrightText[] =
 };
 
 //option Text
+#ifdef JA2_UNIFIED_TEXT
 STR16		zOptionsToggleText[] = 
 {
 	L"Речь",
@@ -6778,6 +6803,7 @@ STR16	zOptionsScreenHelpText[] =
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"Последняя строка в списке настроек.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16	gzGIOScreenText[] =
@@ -6986,6 +7012,7 @@ STR16	gzMPHScreenText[] =
 	L"есть",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pDeliveryLocationStrings[] =
 {
 	L"Остин",		//Austin, Texas, USA
@@ -7054,6 +7081,7 @@ STR16 pPausedGameText[] =
 	L"Продолжить (|P|a|u|s|e)",
 	L"Пауза (|P|a|u|s|e)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16 pMessageStrings[] =
@@ -7212,6 +7240,7 @@ CHAR16 ItemPickupHelpPopup[][40] =
 	L"Отмена",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pDoctorWarningString[] =
 {
 	L"%s слишком далеко, чтобы подлечиться.",
@@ -7235,11 +7264,14 @@ STR16 pMapScreenJustStartedHelpText[] =
 	L"Когда будете готовы отправиться в Арулько, включите сжатие времени в правом нижнем углу экрана.", // to inform the player to hit time compression to get the game underway
 #endif
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pAntiHackerString[] = 
 {
 	L"Ошибка. Пропущен или испорчен файл(ы). Игра прекращает работу.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16 gzLaptopHelpText[] =
@@ -7284,6 +7316,7 @@ STR16 gzHelpScreenText[] =
 	L"Закрыть окно помощи",	
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzNonPersistantPBIText[] =
 {
 	L"Идет бой. Вы можете отступить только через тактический экран.",
@@ -7306,6 +7339,7 @@ STR16 gzMiscString[] =
 	L"%s полностью под контролем Дейдраны.",
 	L"Вы потеряли заправочную станцию.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	gzIntroScreen[] = 
 {
@@ -7316,6 +7350,7 @@ STR16	gzIntroScreen[] =
 // and a direction (either "above", "below", or a string from pDirectionStr) to 
 // report a noise.
 // e.g. "Sidney hears a loud sound of MOVEMENT coming from the SOUTH."
+#ifdef JA2_UNIFIED_TEXT
 STR16 pNewNoiseStr[] =
 {
 	L"%s слышит %s звук %s.",
@@ -7348,6 +7383,7 @@ STR16 wMapScreenSortButtonHelpText[] =
 	L"Сортировка по месту назначения (|F|5)",
 	L"Сортировка по времени контракта (|F|6)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -7446,6 +7482,7 @@ STR16 zGioDifConfirmText[]=
 	L"Вы выбрали БЕЗУМНЫЙ уровень сложности. Имейте в виду - в этом режиме возможности Дейдраны воистину за пределами разумного! Но если с головой вы не в ладах, то вам даже понравится. Рискнете?",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzLateLocalizedString[] =
 {
 	L"%S файл для загрузки экрана не найден...",
@@ -7663,6 +7700,7 @@ STR16 gzTooltipStrings[] =
     L"%s|Эффективный |Уровень |Шока: %d\n",
     L"%s|A|I |Мораль: %d\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16 New113Message[] =
 {
@@ -8111,6 +8149,7 @@ STR16 gzMPChatboxText[] =
 };
 
 // Following strings added - SANDRO
+#ifdef JA2_UNIFIED_TEXT
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits
@@ -8356,6 +8395,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"Собирать слухи",
 	L"Командовать ополчением",	// militia movement orders
 };
+#endif // JA2_UNIFIED_TEXT
 STR16 Additional113Text[]=
 {
 	L"Для запуска Jagged Alliance 2 v1.13 в оконном режиме требуется установить 16-битное качество цветопередачи экрана",
@@ -8369,6 +8409,7 @@ STR16 Additional113Text[]=
 	L"Гражданские (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
+#ifdef JA2_UNIFIED_TEXT
 
 // SANDRO - Taunts (here for now, xml for future, I hope)
 // MINTY - Changed some of the following taunts to sound more natural
@@ -8472,6 +8513,7 @@ STR16 sEnemyTauntsNoticedMerc[]=
 	L"Атаковать!",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
@@ -9015,6 +9057,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzNCTHlabels[]=
 {
 	L"ОДИНОЧНЫЙ",	//SINGLE
@@ -9084,6 +9127,7 @@ STR16 gzMercCompare[] =
 	L"/",
 	L"* Мнение всегда между [%d; %d]",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
@@ -9129,6 +9173,7 @@ CHAR16* ranks[] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzNewLaptopMessages[]=
 {
 	L"Спрашивайте о нашем специальном предложении!",
@@ -9165,6 +9210,7 @@ STR16	zNewTacticalMessages[]=
 	L"В начале игры вы выбрали сохранение \"между перестрелками\", поэтому нельзя сохранить игру в пошаговом режиме.",
 	L"В начале игры вы выбрали сохранение \"один раз в день\", поэтому сохранить игру можно лишь раз в сутки, в %02d:00.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // The_bob : pocket popup text defs
 STR16	gszPocketPopupText[]=
@@ -9753,10 +9799,12 @@ STR16 gPowerPackDesc[] =
 
 // WANNE: Special characters like % or someting else should go here
 // We can't put them directly in the CPP code files, because they need special encoding (UTF8) for some languages (e.g: Chinese)
+#ifdef JA2_UNIFIED_TEXT
 STR16 sSpecialCharacters[] =
 {
 	L"%",		// Percentage character
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	szSoldierClassName[]=
 {

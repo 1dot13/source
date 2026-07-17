@@ -117,6 +117,7 @@ CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] =
 
 //Encyclopedia
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMenuStrings[] =
 {
 	//Encyclopedia
@@ -1072,11 +1073,13 @@ STR16		FactDescText[] =
 	L"",
 	L"",					//500
 };
+#endif // JA2_UNIFIED_TEXT
 
 //-----------
 
 // Editor
 //Editor Taskbar Creation.cpp
+#ifdef JA2_UNIFIED_TEXT
 STR16 iEditorItemStatsButtonsText[] =
 {
 	L"删除", //L"Delete",
@@ -3254,9 +3257,11 @@ STR16 pPersonnelRecordsHelpTexts[] =
 	L"总共造成伤害: %d\n", //L"Total damage caused: %d\n",
 	L"总共治疗: %d\n", //L"Total healing: %d\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 //These string correspond to enums used in by the SkillTrait enums in SoldierProfileType.h
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzMercSkillText[] =
 {
 	// SANDRO - tweaked this
@@ -3343,10 +3348,12 @@ STR16 gzMercSkillTextNew[] =
 	L"多种技能",		// for VARIOUSSKILLS
 	L"治疗佣兵",	//L"Bandage Mercs", for AUTOBANDAGESKILLS
 };
+#endif // JA2_UNIFIED_TEXT
 //////////////////////////////////////////////////////////
 
 // This is pop up help text for the options that are available to the merc
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pTacticalPopupButtonStrings[] =
 {
 	L"站立/行走 (|S)",
@@ -3496,6 +3503,7 @@ STR16 pLandTypeStrings[] =
 	L"地下掩体",				//The shelter underneath the queen's palace
 	L"",							//Unused
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16 gpStrategicString[] =
 {
@@ -3881,6 +3889,7 @@ CHAR16 zDialogActions[1][ SMALL_STRING_LENGTH ] =
 
 //These are vehicles in the game.
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pVehicleStrings[] =
 {
  L"凯迪拉克",
@@ -3890,7 +3899,9 @@ STR16 pVehicleStrings[] =
  L"坦克",
  L"直升飞机",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pShortVehicleStrings[] =
 {
 	L"凯迪拉克",
@@ -3900,6 +3911,7 @@ STR16 pShortVehicleStrings[] =
 	L"坦克",
 	L"直升飞机", 				// the helicopter
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	zVehicleName[] =
 {
@@ -4250,6 +4262,7 @@ STR16 pExitingSectorHelpText[] =
 
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pRepairStrings[] =
 {
 	L"物品",	// tell merc to repair items in inventor
@@ -4902,9 +4915,11 @@ STR16 pMapPlotStrings[] =
 	L"行军路线已取消。",
 	L"行军路线已缩短。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // help text used when moving the merc arrival sector
+#ifdef JA2_UNIFIED_TEXT
 STR16 pBullseyeStrings[] =
 {
 	L"点击你想让佣兵着陆的分区。",
@@ -4913,10 +4928,12 @@ STR16 pBullseyeStrings[] =
 	L"取消。着陆分区未改变。",
 	L"%s上的领空现在不安全了！着陆分区被改为%s。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 // help text for mouse regions
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pMiscMapScreenMouseRegionHelpText[] =
 {
 	L"进入装备界面 (|E|n|t|e|r)",
@@ -5015,7 +5032,9 @@ STR16 pExtraIMPStrings[] =
 	L"开始实际分析，请先选择头像、声音和颜色。",
 	L"初步阶段完成，现在开始角色性格特征分析部分。",
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pFilesTitle[] =
 {
   L"文件查看器",
@@ -5047,6 +5066,7 @@ STR16 pHistoryHeaders[] =
 	L"位置",	// location (in sector) the event occurred
 	L"事件",	// the event label
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Externalized to "TableData\History.xml"
 /*
@@ -5157,6 +5177,7 @@ STR16 pHistoryStrings[] =
 };
 */
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pHistoryLocations[] =
 {
 	L"N/A",						// N/A is an acronym for Not Applicable
@@ -5430,6 +5451,7 @@ STR16 pMapDepthIndex[] =
 	L"-2",
 	L"-3",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // text that appears on the contract button
 
@@ -6542,6 +6564,7 @@ STR16		zMarksMapScreenText[] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pLandMarkInSectorString[] =
 {
 	L"第%d小队在%s地区发现有人",
@@ -6573,6 +6596,7 @@ STR16 pMilitiaConfirmStrings[] =
 
 	L"雇佣更多反抗军", //L"recruit more rebels",
 };
+#endif // JA2_UNIFIED_TEXT
 
 //Strings used in the popup box when withdrawing, or depositing money from the $ sign at the bottom of the single merc panel
 STR16	gzMoneyWithdrawMessageText[] =
@@ -6587,6 +6611,7 @@ STR16	gzCopyrightText[] =
 };
 
 //option Text
+#ifdef JA2_UNIFIED_TEXT
 STR16		zOptionsToggleText[] =
 {
 	L"语音",		//"Speech",
@@ -6782,6 +6807,7 @@ STR16	zOptionsScreenHelpText[] =
 	// this is THE LAST option that exists (debug the options screen, doesnt do anything, except exist)
 	L"TOPTION_LAST_OPTION",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16	gzGIOScreenText[] =
@@ -6990,6 +7016,7 @@ STR16	gzMPHScreenText[] =
 	L"允许",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pDeliveryLocationStrings[] =
 {
 	L"奥斯汀",	//"Austin",			//Austin, Texas, USA
@@ -7058,6 +7085,7 @@ STR16 pPausedGameText[] =
 	L"继续游戏 (|P|a|u|s|e)",	//"Resume Game (|P|a|u|s|e)",
 	L"暂停游戏 (|P|a|u|s|e)",	//"Pause Game (|P|a|u|s|e)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16 pMessageStrings[] =
@@ -7216,6 +7244,7 @@ CHAR16 ItemPickupHelpPopup[][40] =
 	L"取消",		//"Cancel",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pDoctorWarningString[] =
 {
 	L"%s不够近，不能被治疗。",
@@ -7239,11 +7268,14 @@ STR16 pMapScreenJustStartedHelpText[] =
 	L"当你准备出发前往Arulco，点击屏幕右下方的时间压缩按钮。",
 #endif
 };
+#endif // JA2_UNIFIED_TEXT
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pAntiHackerString[] =
 {
 	L"错误。丢失或损坏文件。游戏将退出。",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 STR16 gzLaptopHelpText[] =
@@ -7289,6 +7321,7 @@ STR16 gzHelpScreenText[] =
 	L"退出帮助屏幕",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzNonPersistantPBIText[] =
 {
 	L"战斗正在进行中，你只能在战术屏幕进行撤退。",
@@ -7311,6 +7344,7 @@ STR16 gzMiscString[] =
 	L"Deidranna女王的军队重新完全占领了%s。",
 	L"你丢失了加油点。",	//"You have lost a refueling site.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	gzIntroScreen[] =
 {
@@ -7321,6 +7355,7 @@ STR16	gzIntroScreen[] =
 // and a direction (either "above", "below", or a string from pDirectionStr) to
 // report a noise.
 // e.g. "Sidney hears a loud sound of MOVEMENT coming from the SOUTH."
+#ifdef JA2_UNIFIED_TEXT
 STR16 pNewNoiseStr[] =
 {
 	L"%s 听到%s声音来自%s。",
@@ -7353,6 +7388,7 @@ STR16 wMapScreenSortButtonHelpText[] =
 	L"按目的地排序 (|F|5)",
 	L"按预计离队时间排序 (|F|6)",
 };
+#endif // JA2_UNIFIED_TEXT
 
 
 
@@ -7451,6 +7487,7 @@ STR16 zGioDifConfirmText[]=
 	L"你选择了“疯狂”模式。警告: 如果你被装在塑料袋里一块块运回来，不要来向我们抱怨。女王会狠狠地凌虐你。你的选择会在整个游戏中生效，所以请作出明智的选择。你真的要玩“疯狂”模式吗？",
 };
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzLateLocalizedString[] =
 {
 	L"没有找到loadscreen数据文件%S...",	//"%S loadscreen data file not found...",
@@ -7668,6 +7705,7 @@ STR16 gzTooltipStrings[] =
     L"%s|有|效|惊|吓|等|级：%d\n",
     L"%s|A|I|士|气：%d\n",
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16 New113Message[] =
 {
@@ -8116,6 +8154,7 @@ STR16 gzMPChatboxText[] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16 pSkillTraitBeginIMPStrings[] =
 {
 	// For old traits 用于旧特长
@@ -8361,6 +8400,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"搜集谣言",
     L"指挥民兵",	//L"Command Militia", militia movement orders
 };
+#endif // JA2_UNIFIED_TEXT
 STR16 Additional113Text[]=
 {
 	L"铁血联盟2 v1.13 窗口模式需要一个16bpp的颜色深度。",
@@ -8374,6 +8414,7 @@ STR16 Additional113Text[]=
 	L"平民 (MAX_NUMBER_CIVS_IN_TACTICAL)",
 
 };
+#ifdef JA2_UNIFIED_TEXT
 
 // SANDRO - Taunts (here for now, xml for future, I hope)
 // MINTY - Changed some of the following taunts to sound more natural
@@ -8477,6 +8518,7 @@ STR16 sEnemyTauntsNoticedMerc[]=
 	L"进攻！", //L"Attack!",
 
 };
+#endif // JA2_UNIFIED_TEXT
 
 //////////////////////////////////////////////////////
 // HEADROCK HAM 4: Begin new UDB texts and tooltips
@@ -9020,6 +9062,7 @@ STR16 szUDBAdvStatsExplanationsTooltipTextForWeapons[]=
 };
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
+#ifdef JA2_UNIFIED_TEXT
 STR16 gzNCTHlabels[]=
 {
 	L"单发",
@@ -9089,6 +9132,7 @@ STR16 gzMercCompare[] =
 	L"/",
 	L"* 态度总是在 [%d；%d]",//L"* Opinion is always in [%d; %d]",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // Flugente: Temperature-based text similar to HAM 4's condition-based text.
 STR16 gTemperatureDesc[] =
@@ -9134,6 +9178,7 @@ CHAR16* ranks[] =
 };
 
 
+#ifdef JA2_UNIFIED_TEXT
 STR16	gzNewLaptopMessages[]=
 {
 	L"敬请垂询我们的最新特惠信息！", //L"Ask about our special offer!",
@@ -9170,6 +9215,7 @@ STR16	zNewTacticalMessages[]=
 	L"这是假铁人模式在这模式下你不能在回合制模式下存档。", //L"This is a SOFT IRON MAN game and you cannot save during turn-based combat.",
 	L"这是真铁人模式在这模式下你只能在每天的%02d:00下存档。", //L"This is an EXTREME IRON MAN game and you can only save once per day, at %02d:00.",
 };
+#endif // JA2_UNIFIED_TEXT
 
 // The_bob : pocket popup text defs
 STR16	gszPocketPopupText[]=
@@ -9758,10 +9804,12 @@ STR16 gPowerPackDesc[] =
 
 // WANNE: Special characters like % or someting else should go here
 // We can't put them directly in the CPP code files, because they need special encoding (UTF8) for some languages (e.g: Chinese)
+#ifdef JA2_UNIFIED_TEXT
 STR16 sSpecialCharacters[] =
 {
 	L"％",		// Percentage character
 };
+#endif // JA2_UNIFIED_TEXT
 
 STR16	szSoldierClassName[]=
 {
