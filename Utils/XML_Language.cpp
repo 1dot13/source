@@ -28,6 +28,11 @@ typedef enum
 
 LANGUAGE_LOCATION zlanguageText[1000];
 
+// Single shared buffer for all languages (declared in Text.h): filled at runtime from
+// NewTacticalMessages.xml below, never from compiled-in per-language data, so it is not
+// part of the BindLanguageStrings pointer-rebind scheme.
+CHAR16 XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS];
+
 typedef struct
 {
 	LANGUAGE_PARSE_STAGE	curElement;
