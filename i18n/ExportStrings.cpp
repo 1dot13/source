@@ -483,19 +483,27 @@ namespace Loc
 	}
 	bool Translate(vfs::String::char_t* str, int len, i18n::Lang lang)
 	{
-		if(lang == i18n::Lang::en || lang == i18n::Lang::de)
-		{
-			return true;
-		}
-		else if(lang == i18n::Lang::ru)
-		{
-			for(int i=0; i<len; i++) str[i] = ToRussian(str[i]);
-			return true;
-		}
-		else if(lang == i18n::Lang::pl)
-		{
-			for(int i=0; i<len; i++) str[i] = ToPolish(str[i]);
-			return true;
+		switch (lang) {
+			case i18n::Lang::en:
+			case i18n::Lang::de:
+				return true;
+			case i18n::Lang::ru:
+				for (int i = 0; i < len; i++)
+				{
+					str[i] = ToRussian(str[i]);
+				}
+				return true;
+			case i18n::Lang::pl:
+				for (int i = 0; i < len; i++)
+				{
+					str[i] = ToPolish(str[i]);
+				}
+				return true;
+			case i18n::Lang::nl:
+			case i18n::Lang::fr:
+			case i18n::Lang::it:
+			case i18n::Lang::zh:
+				return false;
 		}
 		return false;
 	}
