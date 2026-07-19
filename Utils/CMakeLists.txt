@@ -11,7 +11,6 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/ImportStrings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/INIReader.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/KeyMap.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/LocalizedStrings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MapUtility.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MercTextBox.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/message.cpp"
