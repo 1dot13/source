@@ -7,18 +7,6 @@
 
 namespace Loc
 {
-	static const wchar_t* LangSuffix [] = {
-		L"_cn",
-		L"_nl",
-		L"_en",
-		L"_fr",
-		L"_de",
-		L"_it",
-		L"_pl",
-		L"_ru",
-		L"_tw",
-	};
-
 	enum Topic
 	{
 		AIM_BIOGRAPHY,
