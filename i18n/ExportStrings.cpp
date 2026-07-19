@@ -9,6 +9,7 @@
 #include "Campaign Types.h"
 #include "finances.h"
 #include "laptop.h"
+#include <language.hpp>
 
 #include <vfs/Core/vfs_string.h>
 #include <vfs/Tools/vfs_tools.h>
@@ -17,7 +18,7 @@
 
 namespace Loc
 {
-	bool Translate(vfs::String::char_t* str, int len, Language lang);
+	bool Translate(vfs::String::char_t* str, int len, i18n::Lang lang);
 
 	void ExportMercBio();
 	void ExportAIMHistory();
@@ -30,7 +31,6 @@ namespace Loc
 //////////////////////////////////////////////////////////
 
 #include "Text.h"
-#include <language.hpp>
 
 // Declared only as bare externs at their call sites (Ja2/, Strategic/) -- the same
 // escapees the C10 header sweep and Cn+1 residue (docs/plans/language-design.md) missed
@@ -45,24 +45,6 @@ extern STR16* sRepairsDoneString;
 // body, so they resolve to the pointer globals in Text.h/LanguageStrings.cpp -- rebound to
 // the runtime-selected g_lang by BindLanguageStrings before this ever runs (sgp.cpp,
 // GetRuntimeSettings then EXPORT_STRINGS ini check). No private per-language copy needed.
-namespace
-{
-	Loc::Language ToLocLanguage(i18n::Lang lang)
-	{
-		switch (lang)
-		{
-			case i18n::Lang::zh: return Loc::Chinese;
-			case i18n::Lang::nl: return Loc::Dutch;
-			case i18n::Lang::en: return Loc::English;
-			case i18n::Lang::fr: return Loc::French;
-			case i18n::Lang::de: return Loc::German;
-			case i18n::Lang::it: return Loc::Italian;
-			case i18n::Lang::pl: return Loc::Polish;
-			case i18n::Lang::ru: return Loc::Russian;
-		}
-		return Loc::English;
-	}
-}
 
 #include "Assignments.h"
 #include "history.h"
@@ -499,18 +481,18 @@ namespace Loc
 		}
 		return siChar;
 	}
-	bool Translate(vfs::String::char_t* str, int len, Language lang)
+	bool Translate(vfs::String::char_t* str, int len, i18n::Lang lang)
 	{
-		if(lang == English || lang == German)
+		if(lang == i18n::Lang::en || lang == i18n::Lang::de)
 		{
 			return true;
 		}
-		else if(lang == Russian)
+		else if(lang == i18n::Lang::ru)
 		{
 			for(int i=0; i<len; i++) str[i] = ToRussian(str[i]);
 			return true;
 		}
-		else if(lang == Polish)
+		else if(lang == i18n::Lang::pl)
 		{
 			for(int i=0; i<len; i++) str[i] = ToPolish(str[i]);
 			return true;
@@ -521,7 +503,6 @@ namespace Loc
 
 void Loc::ExportMercBio()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define	SIZE_MERC_BIO_INFO				400	* 2
 	#define SIZE_MERC_ADDITIONAL_INFO		160 * 2
 
@@ -538,12 +519,12 @@ void Loc::ExportMercBio()
 		//
 		file.read((vfs::Byte*)pInfoString, SIZE_MERC_BIO_INFO);
 		DecodeString(pInfoString,SIZE_MERC_BIO_INFO);
-		Loc::Translate(pInfoString, SIZE_MERC_BIO_INFO, lang);
+		Loc::Translate(pInfoString, SIZE_MERC_BIO_INFO, g_lang);
 		props.setStringProperty(L"Bio", vfs::toString<wchar_t>(i), pInfoString);
 		
 		file.read((vfs::Byte*)pAddInfo, SIZE_MERC_ADDITIONAL_INFO);
 		DecodeString(pAddInfo, SIZE_MERC_ADDITIONAL_INFO);
-		Loc::Translate(pAddInfo, SIZE_MERC_ADDITIONAL_INFO, lang);
+		Loc::Translate(pAddInfo, SIZE_MERC_ADDITIONAL_INFO, g_lang);
 		props.setStringProperty(L"Add", vfs::toString<wchar_t>(i), pAddInfo);
 	}
 	props.writeToXMLFile(L"Localization/AimBiographies.xml", vfs::PropertyContainer::TagMap());
@@ -551,7 +532,6 @@ void Loc::ExportMercBio()
 
 void Loc::ExportAIMHistory()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pHistLine[AIM_HISTORY_LINE_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AimHist.edt");
@@ -564,7 +544,7 @@ void Loc::ExportAIMHistory()
 		//
 		file.read((vfs::Byte*)pHistLine, AIM_HISTORY_LINE_SIZE);
 		DecodeString(pHistLine,AIM_HISTORY_LINE_SIZE);
-		Loc::Translate(pHistLine, AIM_HISTORY_LINE_SIZE, lang);
+		Loc::Translate(pHistLine, AIM_HISTORY_LINE_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pHistLine);
 	}
 	props.writeToXMLFile(L"Localization/AimHistory.xml", vfs::PropertyContainer::TagMap());
@@ -573,7 +553,6 @@ void Loc::ExportAIMHistory()
 	
 void Loc::ExportAIMPolicy()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pPolLine[AIM_HISTORY_LINE_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AimPol.edt");
@@ -586,7 +565,7 @@ void Loc::ExportAIMPolicy()
 		//
 		file.read((vfs::Byte*)pPolLine, AIM_HISTORY_LINE_SIZE);
 		DecodeString(pPolLine,AIM_HISTORY_LINE_SIZE);
-		Loc::Translate(pPolLine, AIM_HISTORY_LINE_SIZE, lang);
+		Loc::Translate(pPolLine, AIM_HISTORY_LINE_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pPolLine);
 	}
 	props.writeToXMLFile(L"Localization/AimPolicy.xml", vfs::PropertyContainer::TagMap());
@@ -594,7 +573,6 @@ void Loc::ExportAIMPolicy()
 
 void Loc::ExportAlumniName()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_ALUMNI_NAME_SIZE 80 * 2
 	vfs::String::char_t pAlumniName[AIM_ALUMNI_NAME_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AlumName.edt");
@@ -607,7 +585,7 @@ void Loc::ExportAlumniName()
 		//
 		file.read((vfs::Byte*)pAlumniName, AIM_ALUMNI_NAME_SIZE);
 		DecodeString(pAlumniName,AIM_ALUMNI_NAME_SIZE);
-		Loc::Translate(pAlumniName, AIM_ALUMNI_NAME_SIZE, lang);
+		Loc::Translate(pAlumniName, AIM_ALUMNI_NAME_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pAlumniName);
 	}
 	props.writeToXMLFile(L"Localization/AlumniName.xml", vfs::PropertyContainer::TagMap());
@@ -617,7 +595,6 @@ void Loc::ExportAlumniName()
 
 void Loc::ExportDialogues()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define DIALOGUESIZE		480
 	vfs::String::char_t pDiagLine[DIALOGUESIZE];
 
@@ -640,7 +617,7 @@ void Loc::ExportDialogues()
 			if(file.read((vfs::Byte*)pDiagLine, DIALOGUESIZE) > 0)
 			{
 				DecodeString(pDiagLine,DIALOGUESIZE);
-				Loc::Translate(pDiagLine, DIALOGUESIZE, lang);
+				Loc::Translate(pDiagLine, DIALOGUESIZE, g_lang);
 				if(wcslen(pDiagLine))
 				{
 					props.setStringProperty(vfs::toString<wchar_t>(id),vfs::toString<wchar_t>(i), pDiagLine);
@@ -655,7 +632,6 @@ void Loc::ExportDialogues()
 
 void Loc::ExportNPCDialogues()
 {
-	Loc::Language lang = ToLocLanguage(g_lang);
 	#define DIALOGUESIZE		480
 	#define CIVQUOTESIZE		320
 	vfs::String::char_t pDiagLine[DIALOGUESIZE];
@@ -688,7 +664,7 @@ void Loc::ExportNPCDialogues()
 			if(file.read((vfs::Byte*)pDiagLine, SIZE) > 0)
 			{
 				DecodeString(pDiagLine,SIZE);
-				Loc::Translate(pDiagLine, SIZE, lang);
+				Loc::Translate(pDiagLine, SIZE, g_lang);
 				if(wcslen(pDiagLine))
 				{
 					props.setStringProperty(id,vfs::toString<wchar_t>(i), pDiagLine);
