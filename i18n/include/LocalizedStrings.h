@@ -7,18 +7,6 @@
 
 namespace Loc
 {
-	enum Language
-	{
-		Chinese,
-		Dutch,
-		English,
-		French,
-		German,
-		Italian,
-		Polish,
-		Russian,
-	};
-
 	static const wchar_t* LangSuffix [] = {
 		L"_cn",
 		L"_nl",
