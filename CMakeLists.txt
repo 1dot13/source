@@ -27,7 +27,11 @@ if(ADDRESS_SANITIZER)
 endif()
 
 if(MSVC)
+# TODO: fix the warnings here and turn them on
+# https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4000-through-c4199
   add_compile_options("/wd4838") # silence implicit narrowing conversion warnings
+# add_compile_options("/w14061")
+# add_compile_options("/w14062")
 endif()
 
 # whether we are using MSBuild as a generator
@@ -150,6 +154,7 @@ foreach(app IN LISTS ApplicationTargets)
   add_library(${language_library})
   target_sources(${language_library} PRIVATE ${i18nSrc})
   target_compile_definitions(${language_library} PRIVATE ${compilationFlags} ${debugFlags})
+  target_compile_options(${language_library} PRIVATE /w14062)
   target_link_libraries(${exe} PRIVATE ${language_library})
 
   # go through all game libraries again and link them to the app executable
