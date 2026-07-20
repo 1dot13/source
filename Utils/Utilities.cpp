@@ -13,8 +13,6 @@
 	#include "Sys Globals.h"
 
 
-extern BOOLEAN GetCDromDriveLetter( STR8	pString );
-
 BOOLEAN PerformTimeLimitedCheck();
 
 // WANNE: Given a string, replaces all instances of "oldpiece" with "newpiece"
@@ -330,16 +328,6 @@ void HandleLimitedNumExecutions( )
 	FileClose( hFileHandle );
 
 }
-
-
-SGPFILENAME	gCheckFilenames[] =
-{
-	"DATA\\INTRO.SLF",
-	"DATA\\LOADSCREENS.SLF",
-	"DATA\\MAPS.SLF",
-	"DATA\\NPC_SPEECH.SLF",
-	"DATA\\SPEECH.SLF",
-};
 
 
 UINT32 gCheckFileMinSizes[] =

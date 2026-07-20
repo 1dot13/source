@@ -70,7 +70,6 @@
 
 extern INT16 APBPConstants[TOTAL_APBP_VALUES] = {0};
 extern INT16 gubMaxActionPoints[TOTALBODYTYPES];//MAXBODYTYPES = 28... JUST GETTING IT TO WORK NOW.  GOTTHARD 7/2/08
-extern BOOLEAN GetCDromDriveLetter( STR8	pString );
 
 // The InitializeGame function is responsible for setting up all data and Gaming Engine
 // tasks which will run the game

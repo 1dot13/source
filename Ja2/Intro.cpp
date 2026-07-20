@@ -259,8 +259,6 @@ static VideoFileNames_t s_VFN;
 INT8	gbIntroScreenMode=-1;
 
 
-extern	void		CDromEjectionErrorMessageBoxCallBack( UINT8 bExitValue );
-
 void		GetIntroScreenUserInput();
 BOOLEAN		EnterIntroScreen();
 void		RenderIntroScreen();

@@ -92,13 +92,10 @@ CTH_CONSTANTS gGameCTHConstants;	// HEADROCK HAM 4: CTH constants
 MOD_SETTINGS gModSettings;	//DBrot: mod specific settings
 ITEM_SETTINGS gItemSettings;	// silversurfer: item property modifiers
 
-extern	SGPFILENAME	gCheckFilenames[];
 extern	CHAR8		gzErrorMsg[256];
 extern INT16 APBPConstants[TOTAL_APBP_VALUES];
 
 void		InitGameSettings();
-
-BOOLEAN GetCdromLocationFromIniFile( STR pRootOfCdromDrive );
 
 // these wrappers have the benefit that changing the location of the variable (gameinitoptionscreen/ini/ingame options) doesn't require huge changes throughout the code
 // additionally, turning off a feature (for UB, for MP...) can be done here without additional checks in the code
@@ -4299,22 +4296,6 @@ void FreeGameExternalOptions()
 {
 }
 
-void CDromEjectionErrorMessageBoxCallBack( UINT8 bExitValue )
-{
-	if( bExitValue == MSG_BOX_RETURN_OK )
-	{
-		SetOptionsPreviousScreen(GAME_SCREEN);
-
-		//if we are in a game, save the game
-		if( gTacticalStatus.fHasAGameBeenStarted )
-		{
-			SaveGame( SAVE__ERROR_NUM, pMessageStrings[ MSG_CDROM_SAVE ] );
-		}
-
- 		//quit the game
-		gfProgramIsRunning = FALSE;
-	}
-}
 void DisplayGameSettings( )
 {
 	//Display the version number

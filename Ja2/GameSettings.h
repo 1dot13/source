@@ -2806,8 +2806,6 @@ void InitFeatureFlags();
 BOOLEAN SaveFeatureFlags();
 BOOLEAN LoadFeatureFlags();
 
-BOOLEAN GetCDLocation( );
-
 void DisplayGameSettings( );
 
 BOOLEAN MeanwhileSceneSeen( UINT8 ubMeanwhile );
