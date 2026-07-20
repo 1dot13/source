@@ -51,7 +51,6 @@
 	#include "Soldier Profile.h"
 	#include "Overhead.h"
 	#include "environment.h"
-	#include "LibraryDataBase.h"
 	#include "Music Control.h"
 	#include "SaveLoadGame.h"
 	#include "LaptopSave.h"

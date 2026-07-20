@@ -409,30 +409,3 @@ BOOLEAN PerformTimeLimitedCheck()
 	return( TRUE );
 #endif
 }
-
-BOOLEAN DoJA2FilesExistsOnDrive( CHAR8 *zCdLocation )
-{
-	BOOLEAN fFailed = FALSE;
-	CHAR8		zCdFile[ SGPFILENAME_LEN ];
-	INT32	cnt;
-	HWFILE	hFile;
-
-	for ( cnt = 0; cnt < 4; cnt++ )
-	{
-		// OK, build filename
-		sprintf( zCdFile, "%s%s", zCdLocation, gCheckFilenames[ cnt ] );
-
-		hFile = FileOpen( zCdFile, FILE_ACCESS_READ | FILE_OPEN_EXISTING, FALSE );
-
-		// Check if it exists...
-		if ( !hFile )
-		{
-			fFailed = TRUE;
-			FileClose( hFile );
-		break;
-		}
-		FileClose( hFile );
-	}
-
-	return( !fFailed );
-}
