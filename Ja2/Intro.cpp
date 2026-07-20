@@ -644,12 +644,7 @@ void StartPlayingIntroFlic( EGameVideos iIndexOfFlicToPlay )
 		{
 			if(!s_VP.isValid())
 			{
-				//do a check
-#ifdef JA2BETAVERSION
 				PrepareToExitIntroScreen();
-#else
-				DoScreenIndependantMessageBox( gzIntroScreen[INTRO_TXT__CANT_FIND_INTRO], MSG_BOX_FLAG_OK, CDromEjectionErrorMessageBoxCallBack );
-#endif
 			}
 		}
 	}
