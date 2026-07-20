@@ -35,7 +35,6 @@
 	#include "FileMan.h"
 	#include "MemMan.h"
 	#include "DEBUG.H"
-	#include "LibraryDataBase.h"
 	#include "io.h"
 	#include "sgp_logger.h"
 
@@ -107,13 +106,6 @@ typedef struct FileSystemTag
 //				Variables
 //
 //**************************************************************************
-
-
-//The FileDatabaseHeader
-DatabaseManagerHeaderStruct gFileDataBase;
-
-
-//FileSystem gfs;
 
 WIN32_FIND_DATA Win32FindInfo[20];
 BOOLEAN fFindInfoInUse[20] = {FALSE,FALSE,FALSE,FALSE,FALSE,

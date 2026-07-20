@@ -11,7 +11,6 @@
 	#include "Game Clock.h"
 	#include "Timer Control.h"
 	#include "Overhead.h"
-	#include "LibraryDataBase.h"
 	#include "Map Screen Interface.h"
 	#include "Tactical Save.h"
 	#include "Interface.h"
@@ -205,9 +204,6 @@ void ShutdownGame(void)
 	//Save the general save game settings to disk
 	SaveGameSettings();
 	SaveFeatureFlags();
-
-	//shutdown the file database manager
-	ShutDownFileDatabase( );
 
 	if(gGameExternalOptions.fEnableInventoryPoolQ)//dnl ch51 081009
 		MemFreeInventoryPoolQ();
