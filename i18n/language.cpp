@@ -20,6 +20,11 @@ i18n::Lang g_lang = kBuildDefaultLang;
 
 int MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(g_lang);
 
+auto ApplyLang(i18n::Lang lang = kBuildDefaultLang ) {
+  MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(lang);
+  g_lang = lang;
+}
+
 auto SetLanguageFromName(std::string const& name) -> void {
   static const struct { const STR name; i18n::Lang lang; } table[] = {
     { "ENGLISH", i18n::Lang::en },
@@ -34,14 +39,12 @@ auto SetLanguageFromName(std::string const& name) -> void {
 
   for (auto const& entry : table) {
     if (_stricmp(name.c_str(), entry.name) == 0) {
-      g_lang = entry.lang;
-      MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(g_lang);
+      ApplyLang(entry.lang);
       return;
     }
   }
 
-  g_lang = kBuildDefaultLang;
-  MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(g_lang);
+  ApplyLang();
   FastDebugMsg(String("SetLanguageFromName: unknown LANGUAGE value '%s', keeping build default", name.c_str()));
 }
 
