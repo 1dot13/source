@@ -3389,7 +3389,12 @@ FLOAT GetLoyaltyGainModifier()
 UINT8 GetMaxTownLoyalty(INT8 townId)
 {
 	if (gGameExternalOptions.fRebelCommandEnabled)
-		return rebelCommandSaveInfo.regions[townId].ubMaxLoyalty;
+	{
+		// A cap of 0 means this region was never seeded (see SeedRegionMaxLoyalty). Treat it as
+		// "no cap" rather than pinning town loyalty to 0% - legitimate caps are always >= 20.
+		const UINT8 ubMaxLoyalty = rebelCommandSaveInfo.regions[townId].ubMaxLoyalty;
+		return ubMaxLoyalty != 0 ? ubMaxLoyalty : MAX_LOYALTY_VALUE;
+	}
 
 	return MAX_LOYALTY_VALUE;
 }
@@ -3970,32 +3975,51 @@ void HourlyUpdate()
 	}
 }
 
+// Difficulty-based starting loyalty cap for a non-HQ town. The underlying settings are clamped
+// to [20,100] at load time (see LoadRebelCommandSettings), so this is never 0.
+INT8 GetStartingMaxLoyalty()
+{
+	switch (gGameOptions.ubDifficultyLevel)
+	{
+	case DIF_LEVEL_EASY:   return gRebelCommandSettings.iMaxLoyaltyNovice;
+	case DIF_LEVEL_HARD:   return gRebelCommandSettings.iMaxLoyaltyExpert;
+	case DIF_LEVEL_INSANE: return gRebelCommandSettings.iMaxLoyaltyInsane;
+	case DIF_LEVEL_MEDIUM:
+	default:               return gRebelCommandSettings.iMaxLoyaltyExperienced;
+	}
+}
+
+// Seeds every region's loyalty cap to its difficulty-based starting value (OMERTA = 100).
+// Idempotent: only writes regions still at the zero-init default, so it never clobbers an
+// in-progress ARC campaign (e.g. supply lines already bought) or a correctly loaded save. 0 is
+// never a legitimate cap (Init seeds >= 20, supply lines only add), so == 0 unambiguously means
+// "not yet seeded". Safe to call in any order (new game, load, feature toggled on); inert while
+// ARC is disabled because GetMaxTownLoyalty only consults these values when it is enabled.
+void SeedRegionMaxLoyalty()
+{
+	const INT8 startingMaxLoyalty = GetStartingMaxLoyalty();
+
+	for (int a = FIRST_TOWN; a < NUM_TOWNS; ++a)
+	{
+		if (rebelCommandSaveInfo.regions[a].ubMaxLoyalty != 0)
+			continue; // already seeded / progressed - leave it alone
+
+		rebelCommandSaveInfo.regions[a].ubMaxLoyalty = (a == OMERTA) ? MAX_LOYALTY_VALUE : startingMaxLoyalty;
+	}
+}
+
 void Init()
 {
+	// Seed the loyalty caps unconditionally - even when ARC is currently disabled - so a later
+	// FALSE->TRUE feature-flag flip (Features screen, save reload, MP) can never read a stale 0
+	// cap that would pin town loyalty to 0%. This is the root-cause fix: Init() used to run
+	// before the feature flag was set and bail out here, leaving the caps at their zero default.
+	SeedRegionMaxLoyalty();
+
 	if (!gGameExternalOptions.fRebelCommandEnabled)
 		return;
 
-	INT8 startingMaxLoyalty;
-
-	switch (gGameOptions.ubDifficultyLevel)
-	{
-	case DIF_LEVEL_EASY:
-		startingMaxLoyalty = gRebelCommandSettings.iMaxLoyaltyNovice;
-		break;
-
-	case DIF_LEVEL_HARD:
-		startingMaxLoyalty = gRebelCommandSettings.iMaxLoyaltyExpert;
-		break;
-
-	case DIF_LEVEL_INSANE:
-		startingMaxLoyalty = gRebelCommandSettings.iMaxLoyaltyInsane;
-		break;
-
-	case DIF_LEVEL_MEDIUM:
-	default:
-		startingMaxLoyalty = gRebelCommandSettings.iMaxLoyaltyExperienced;
-		break;
-	}
+	const INT8 startingMaxLoyalty = GetStartingMaxLoyalty();
 
 	// set base values
 	iIncomingSuppliesPerDay = static_cast<INT32>(CurrentPlayerProgressPercentage() * gRebelCommandSettings.fIncomeModifier);
@@ -4036,18 +4060,16 @@ void Init()
 	// init regions
 	for (int a = FIRST_TOWN; a < NUM_TOWNS; ++a)
 	{
-		// init max loyalty
+		// max loyalty caps are seeded by SeedRegionMaxLoyalty() above
 		if (a == OMERTA)
 		{
-			// as rebel hq, omerta gets 100% max loyalty and an admin team
+			// as rebel hq, omerta gets an admin team
 			rebelCommandSaveInfo.regions[OMERTA].adminStatus = RAS_ACTIVE;
-			rebelCommandSaveInfo.regions[OMERTA].ubMaxLoyalty = MAX_LOYALTY_VALUE;
 		}
 		else
 		{
 			// init admins
 			rebelCommandSaveInfo.regions[a].adminStatus = RAS_NONE;
-			rebelCommandSaveInfo.regions[a].ubMaxLoyalty = startingMaxLoyalty;
 			gTownLoyalty[a].ubRating = min(gTownLoyalty[a].ubRating, startingMaxLoyalty);
 		}
 
@@ -4091,6 +4113,10 @@ BOOLEAN Load(HWFILE file)
 		UINT32 numBytesRead = 0;
 
 		numBytesRead = FileRead(file, &rebelCommandSaveInfo, sizeof(RebelCommand::SaveInfo), &numBytesRead);
+
+		// Saves made with ARC disabled (or a short/old read) leave region caps at the zero-init
+		// default; seed any still at 0 so loyalty isn't pinned to 0% once ARC is enabled.
+		SeedRegionMaxLoyalty();
 
 		SetupInfo();
 	}
