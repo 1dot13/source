@@ -139,7 +139,7 @@ jobs:
           cat dist/versions.env
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: versions.env
           path: dist/
@@ -147,7 +147,7 @@ jobs:
   # every executable contains all languages and picks one at runtime, so one build serves every package
   compile:
     needs: [ workflow_setup ]
-    runs-on: windows-latest # required for msbuild
+    runs-on: windows-latest # required for the MSVC toolchain
     strategy:
       fail-fast: false
       matrix:
@@ -155,10 +155,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Download versions.env
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: versions.env
           path: artifacts
@@ -190,10 +190,7 @@ jobs:
           JA2Application=$JA2Application
           " >> $GITHUB_ENV
 
-      - uses: microsoft/setup-msbuild@v2
-        with:
-          msbuild-architecture: x86
-      - uses: ilammy/msvc-dev-cmd@v1
+      - uses: egor-tensin/vs-shell@v2
         with:
           arch: x86
       - name: Prepare build
@@ -208,7 +205,7 @@ jobs:
           find build/
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.application }}
           path: build/*.exe
@@ -227,7 +224,7 @@ jobs:
 
     steps:
       - name: Download versions.env
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: versions.env
           path: artifacts
@@ -236,7 +233,7 @@ jobs:
         run: cat artifacts/versions.env >> $GITHUB_ENV
 
       - name: Checkout gamedir
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ${{ env.GAMEDIR_REPOSITORY }}
           ref: ${{ env.GAMEDIR_COMMIT_SHA }}
@@ -244,7 +241,7 @@ jobs:
 
       - name: Checkout gamedir-languages
         if: matrix.language != 'English'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
           ref: ${{ env.GAMEDIR_LANGUAGES_COMMIT_SHA }}
@@ -258,7 +255,7 @@ jobs:
           cp -a gamedir-languages/${{ matrix.language }}_Version/* gamedir/
 
       - name: Download applications
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: ja2*
           path: artifacts
@@ -308,7 +305,7 @@ jobs:
           7z a -bb -xr'!.*' "../dist/${DIST_NAME}.7z" .
 
       - name: Upload
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.language }}_release
           path: dist/
@@ -321,14 +318,14 @@ jobs:
 
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         path: dist
         pattern: '*_release'
         merge-multiple: true
 
     - name: Checkout Repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
       with:
         path: source
         fetch-depth: 1
