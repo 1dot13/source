@@ -2,16 +2,15 @@
 #include "DEBUG.H"
 
 namespace {
-constexpr i18n::Lang kBuildDefaultLang = i18n::Lang::en;
-
-auto RowsForLang(i18n::Lang lang) -> int {
+constexpr auto RowsForLang(i18n::Lang lang) -> int {
   return lang == i18n::Lang::zh ? 6 : 9;
 }
-}
+constexpr i18n::Lang kBuildDefaultLang = i18n::Lang::en;
+constexpr int kBuildDefaultMaxMessagesOnMapBottom = RowsForLang(kBuildDefaultLang);
+} // namespace
 
 i18n::Lang g_lang = kBuildDefaultLang;
-
-int MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(g_lang);
+int MAX_MESSAGES_ON_MAP_BOTTOM = kBuildDefaultMaxMessagesOnMapBottom;
 
 auto ApplyLang(i18n::Lang lang = kBuildDefaultLang ) {
   MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(lang);
