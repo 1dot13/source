@@ -152,6 +152,9 @@ jobs:
       fail-fast: false
       matrix:
         application: [ja2, ja2mapeditor, ja2ub, ja2ubmapeditor]
+    env:
+      # store the compiler cache in the GitHub Actions cache
+      SCCACHE_GHA_ENABLED: 'true'
 
     steps:
       - name: Checkout source
@@ -193,9 +196,14 @@ jobs:
       - uses: egor-tensin/vs-shell@v2
         with:
           arch: x86
+      - uses: mozilla-actions/sccache-action@v0.0.10
       - name: Prepare build
         run: |
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application"
+          # sccache can only cache MSVC objects when the debug information is embedded
+          # in them (/Z7) instead of collected in a shared PDB (/Zi, the CMake default)
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application" `
+            -DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded `
+            -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
       - name: Build
         run: |
           cmake --build build/ -- -v
@@ -203,6 +211,7 @@ jobs:
         shell: bash
         run: |
           find build/
+          sccache --show-stats
 
       - name: Upload
         uses: actions/upload-artifact@v7
