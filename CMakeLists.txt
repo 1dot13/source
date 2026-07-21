@@ -102,14 +102,12 @@ foreach(lib IN LISTS Ja2_Libs)
   add_subdirectory(${lib})
 endforeach()
 
-# language library relies on Application _and_ Language preprocessor definition. very bad.
+# language library relies on Application preprocessor definition; compiled once per app
+# with all 8 languages built in and selected at runtime (docs/plans/language-design.md).
 add_subdirectory(i18n)
 
-# simple function to validate Languages and Application choices
+# simple function to validate the Application choice
 include(cmake/ValidateOptions.cmake)
-
-set(ValidLanguages CHINESE DUTCH ENGLISH FRENCH GERMAN ITALIAN POLISH RUSSIAN)
-ValidateOptions("${ValidLanguages}" "Languages" "${Languages}" "LangTargets")
 
 set(ValidApplications JA2 JA2MAPEDITOR JA2UB JA2UBMAPEDITOR)
 ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "ApplicationTargets")
@@ -136,28 +134,27 @@ foreach(app IN LISTS ApplicationTargets)
     target_compile_definitions(${game_library} PRIVATE ${compilationFlags} ${debugFlags})
   endforeach()
 
-  foreach(lang IN LISTS LangTargets)
-    # executable for an application/language combination, e.g. JA2_ENGLISH.exe
-    set(exe ${app}_${lang})
-    add_executable(${exe} WIN32
-      sgp/sgp.cpp
-      Ja2/Res/ja2.rc
-    )
-    target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
-    target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
-    target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
+  # executable for the application, e.g. JA2.exe
+  set(exe ${app})
+  add_executable(${exe} WIN32
+    sgp/sgp.cpp
+    Ja2/Res/ja2.rc
+  )
+  target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
+  target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
+  target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
 
-    # language library for an application, e.g. JA2MAPEDITOR_ENGLISH_i18n
-    set(language_library ${exe}_i18n)
-    add_library(${language_library})
-    target_sources(${language_library} PRIVATE ${i18nSrc})
-    target_compile_definitions(${language_library} PRIVATE ${compilationFlags} ${debugFlags} ${lang})
-    target_link_libraries(${exe} PRIVATE ${language_library})
+  # language library for the application, e.g. JA2MAPEDITOR_i18n — one per app, all 8
+  # languages compiled in, selected at runtime by BindLanguageStrings
+  set(language_library ${exe}_i18n)
+  add_library(${language_library})
+  target_sources(${language_library} PRIVATE ${i18nSrc})
+  target_compile_definitions(${language_library} PRIVATE ${compilationFlags} ${debugFlags})
+  target_link_libraries(${exe} PRIVATE ${language_library})
 
-    # go through all game libraries again and link them to the app/language executable
-    foreach(lib IN LISTS Ja2_Libs)
-      target_link_libraries(${exe} PRIVATE ${app}_${lib})
-    endforeach()
+  # go through all game libraries again and link them to the app executable
+  foreach(lib IN LISTS Ja2_Libs)
+    target_link_libraries(${exe} PRIVATE ${app}_${lib})
   endforeach()
 
   # for SGP only

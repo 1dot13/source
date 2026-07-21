@@ -31,7 +31,7 @@ class SOLDIERTYPE;
 
 
 #ifdef JA2EDITOR
-extern CHAR16 gszScheduleActions[ NUM_SCHEDULE_ACTIONS ][20];
+extern CHAR16 (*gszScheduleActions)[20];	// NUM_SCHEDULE_ACTIONS entries
 #endif
 
 BOOLEAN GetEarliestMorningScheduleEvent( SCHEDULENODE *pSchedule, UINT32 * puiTime );

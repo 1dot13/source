@@ -194,7 +194,7 @@ INT32 iHeightOfInitFastHelpText = 0;
 
 extern INT32 giMapContractButton;
 extern INT32 giCharInfoButton[];
-extern STR16 pUpdatePanelButtons[];
+extern STR16* pUpdatePanelButtons;
 
 // the list of soldiers that are moving
 SOLDIERTYPE * pSoldierMovingList[ CODE_MAXIMUM_NUMBER_OF_PLAYER_SLOTS ];

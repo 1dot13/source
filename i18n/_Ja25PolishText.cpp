@@ -1,18 +1,4 @@
-﻿// WANNE: This pragma should not be needed anymore for Polish version, after we set the encoding to UTF8 
-// WANNE: Yes we need this here exclusivly in Polish version, because we do not have a codepage in the code like for other versions.
-//#pragma setlocale("POLISH")
-
-	#ifdef POLISH
-		#include "Text.h"
-		#include "FileMan.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_Ja25PolishText_public_symbol(void){;}
-
-#ifdef POLISH
-
-// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
+﻿// VERY TRUNCATED FILE COPIED FROM JA2.5 FOR ITS FEATURES FOR JA2 GOLD
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SANDRO - New STOMP laptop strings
@@ -525,6 +511,3 @@ STR16 gzDisplayCoverText[]=
 	L"Stealth difficulty",
 	L"Trap level",
 };
-
-
-#endif

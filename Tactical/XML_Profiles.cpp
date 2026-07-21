@@ -1180,7 +1180,7 @@ profileEndElementHandle(void *userData, const XML_Char *name)
 #include <vfs/Core/vfs_file_raii.h>		// added by Flugente for vfs-stuff
 #include <iostream>
 
-extern STR16 gzMercSkillTextNew[];
+extern STR16* gzMercSkillTextNew;
 
 void AnalyzeProfiles()
 {

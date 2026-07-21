@@ -613,8 +613,8 @@ extern BOOLEAN gfAutoAIAware;
 extern void HandlePreBattleInterfaceStates();
 
 // the title for the contract button on the character info panel in the upper left portion of the mapscreen
-extern STR16 pContractButtonString[];
-extern STR16 pBullseyeStrings[];
+extern STR16* pContractButtonString;
+extern STR16* pBullseyeStrings;
 
 extern OBJECTTYPE	*gpItemDescObject;
 

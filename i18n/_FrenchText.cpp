@@ -1,20 +1,4 @@
-﻿// WANNE: Yes, this should be disabled, otherwise we get weird behavior when running the game with a VS 2005 build!
-//#pragma setlocale("FRENCH")
-
-	#ifdef FRENCH
-		#include "Text.h"
-		#include "FileMan.h"
-		#include "Scheduling.h"
-		#include "EditorMercs.h"
-		#include "Item Statistics.h"
-	#endif
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-void this_is_the_FrenchText_public_symbol(void){;}
-
-#ifdef FRENCH
-
-/*
+﻿/*
 
 ******************************************************************************************************
 **                                  IMPORTANT TRANSLATION NOTES                                     **
@@ -115,10 +99,6 @@ FAST HELP TEXT -- Explains how the syntax of fast help text works.
 
 */
 
-CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS] = 
-{
-	L"",
-};
 
 //Encyclopedia
 
@@ -12289,5 +12269,3 @@ STR16 szRobotText[] = // TODO: Translate
 	L"The robot's extra armour plating was destroyed!",
 	L"The robot gains the benefit of the %s skill trait.",
 };
-
-#endif //FRENCH

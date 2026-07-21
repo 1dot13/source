@@ -949,6 +949,18 @@ void GetRuntimeSettings( )
 		SGP_THROW_IFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), _BS(L"invalid locale : ") << loc << _BS::wget );
 	}
 
+	vfs::String language = oProps.getStringProperty("Ja2 Settings", L"LANGUAGE");
+	if(!language.empty())
+	{
+		std::string languageName = language.utf8();
+		SetLanguageFromName(languageName);
+	}
+
+	// Rebind every language table pointer to the resolved g_lang. Unconditional:
+	// with no LANGUAGE key this binds the build default, matching the static
+	// lang_default initialization the pointers start with.
+	BindLanguageStrings(g_lang);
+
 	iResolution = (int)oProps.getIntProperty(L"Ja2 Settings", L"SCREEN_RESOLUTION", -1);
 	
 	// WANNE: Always enable

@@ -180,7 +180,7 @@ INT16 sWorldSectorLocationOfFirstBattle = 0;
 // preprocess sector for mercs in it
 extern BOOLEAN fSectorsWithSoldiers[ MAP_WORLD_X * MAP_WORLD_X ][ 4 ];
 
-extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];
+extern CHAR16 (*pTownNames)[MAX_TOWN_NAME_LENGHT];
 
 
 

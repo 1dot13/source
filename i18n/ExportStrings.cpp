@@ -29,42 +29,39 @@ namespace Loc
 
 //////////////////////////////////////////////////////////
 
-//#define GERMAN
 #include "Text.h"
-namespace Loc
+#include <language.hpp>
+
+// Declared only as bare externs at their call sites (Ja2/, Strategic/) -- the same
+// escapees the C10 header sweep and Cn+1 residue (docs/plans/language-design.md) missed
+// because Text.h never declared them. This TU needs them too.
+extern STR16* gzIntroScreen;
+extern STR16* pBullseyeStrings;
+extern STR16* pContractButtonString;
+extern STR16* pUpdatePanelButtons;
+extern STR16* sRepairsDoneString;
+
+// Table symbols below (Loc::pTownNames etc.) are unqualified inside Loc::ExportStrings's
+// body, so they resolve to the pointer globals in Text.h/LanguageStrings.cpp -- rebound to
+// the runtime-selected g_lang by BindLanguageStrings before this ever runs (sgp.cpp,
+// GetRuntimeSettings then EXPORT_STRINGS ini check). No private per-language copy needed.
+namespace
 {
-#ifdef CHINESE
-#	include "_ChineseText.cpp"
-	static Loc::Language gs_Lang = Loc::Chinese;
-#endif
-#ifdef DUTCH
-#	include "_DutchText.cpp"
-	static Loc::Language gs_Lang = Loc::Dutch;
-#endif
-#ifdef ENGLISH
-#	include "_EnglishText.cpp"
-	static Loc::Language gs_Lang = Loc::English;
-#endif
-#ifdef FRENCH
-#	include "_FrenchText.cpp"
-	static Loc::Language gs_Lang = Loc::French;
-#endif
-#ifdef GERMAN
-#	include "_GermanText.cpp"
-	static Loc::Language gs_Lang = Loc::German;
-#endif
-#ifdef ITALIAN
-#	include "_ItalianText.cpp"
-	static Loc::Language gs_Lang = Loc::Italian;
-#endif
-#ifdef POLISH
-#	include "_PolishText.cpp"
-	static Loc::Language gs_Lang = Loc::Polish;
-#endif
-#ifdef RUSSIAN
-#	include "_RussianText.cpp"
-	static Loc::Language gs_Lang = Loc::Russian;
-#endif
+	Loc::Language ToLocLanguage(i18n::Lang lang)
+	{
+		switch (lang)
+		{
+			case i18n::Lang::zh: return Loc::Chinese;
+			case i18n::Lang::nl: return Loc::Dutch;
+			case i18n::Lang::en: return Loc::English;
+			case i18n::Lang::fr: return Loc::French;
+			case i18n::Lang::de: return Loc::German;
+			case i18n::Lang::it: return Loc::Italian;
+			case i18n::Lang::pl: return Loc::Polish;
+			case i18n::Lang::ru: return Loc::Russian;
+		}
+		return Loc::English;
+	}
 }
 
 #include "Assignments.h"
@@ -102,271 +99,271 @@ bool Loc::ExportStrings()
 
 	vfs::PropertyContainer props;
 
-	//not_required ExportSection(props, L"Ja2Credits", Loc::pCreditsJA2113, 0, 7);
-	ExportSection(props, L"WeaponType",					Loc::WeaponType,					0,	MAXITEMS);
-	ExportSection(props, L"TeamTurn",					Loc::TeamTurnString,				0,	10);
-	ExportSection(props, L"Message",					Loc::Message,						0,	TEXT_NUM_STR_MESSAGE);
-	ExportSection(props, L"TownNames",					Loc::pTownNames,					0,	MAX_TOWNS);
-	ExportSection(props, L"Time",						Loc::sTimeStrings,					0,	6);
-	ExportSection(props, L"Assignment",					Loc::pAssignmentStrings,			0,	NUM_ASSIGNMENTS);
-	ExportSection(props, L"PersonnelAssignment",		Loc::pPersonnelAssignmentStrings,	0,	NUM_ASSIGNMENTS);
-	ExportSection(props, L"LongAssignment",				Loc::pLongAssignmentStrings,		0,	NUM_ASSIGNMENTS);
-	ExportSection(props, L"Militia",					Loc::pMilitiaString,				0,	3);
+	//not_required ExportSection(props, L"Ja2Credits", pCreditsJA2113, 0, 7);
+	ExportSection(props, L"WeaponType",					WeaponType,					0,	MAXITEMS);
+	ExportSection(props, L"TeamTurn",					TeamTurnString,				0,	10);
+	ExportSection(props, L"Message",					Message,						0,	TEXT_NUM_STR_MESSAGE);
+	ExportSection(props, L"TownNames",					pTownNames,					0,	MAX_TOWNS);
+	ExportSection(props, L"Time",						sTimeStrings,					0,	6);
+	ExportSection(props, L"Assignment",					pAssignmentStrings,			0,	NUM_ASSIGNMENTS);
+	ExportSection(props, L"PersonnelAssignment",		pPersonnelAssignmentStrings,	0,	NUM_ASSIGNMENTS);
+	ExportSection(props, L"LongAssignment",				pLongAssignmentStrings,		0,	NUM_ASSIGNMENTS);
+	ExportSection(props, L"Militia",					pMilitiaString,				0,	3);
 
-	ExportSection(props, L"MilitiaButton",				Loc::pMilitiaButtonString,			0,	2);
-	ExportSection(props, L"Condition",					Loc::pConditionStrings,				0,	9);
-	ExportSection(props, L"EpcMenu",					Loc::pEpcMenuStrings,				0,	MAX_EPC_MENU_STRING_COUNT);
-	ExportSection(props, L"Contract",					Loc::pContractStrings,				0,	MAX_CONTRACT_MENU_STRING_COUNT);
-	ExportSection(props, L"POW",						Loc::pPOWStrings,					0,	2);
-	ExportSection(props, L"InvPanelTitle",				Loc::pInvPanelTitleStrings,			0,	5);
-	ExportSection(props, L"LongAttribute",				Loc::pLongAttributeStrings,			0,	10);
-	ExportSection(props, L"ShortAttribute",				Loc::pShortAttributeStrings,		0,	10);
-	ExportSection(props, L"UpperLeftMapScreen",			Loc::pUpperLeftMapScreenStrings,	0,	6);
-	ExportSection(props, L"Training",					Loc::pTrainingStrings,				0,	4);
+	ExportSection(props, L"MilitiaButton",				pMilitiaButtonString,			0,	2);
+	ExportSection(props, L"Condition",					pConditionStrings,				0,	9);
+	ExportSection(props, L"EpcMenu",					pEpcMenuStrings,				0,	MAX_EPC_MENU_STRING_COUNT);
+	ExportSection(props, L"Contract",					pContractStrings,				0,	MAX_CONTRACT_MENU_STRING_COUNT);
+	ExportSection(props, L"POW",						pPOWStrings,					0,	2);
+	ExportSection(props, L"InvPanelTitle",				pInvPanelTitleStrings,			0,	5);
+	ExportSection(props, L"LongAttribute",				pLongAttributeStrings,			0,	10);
+	ExportSection(props, L"ShortAttribute",				pShortAttributeStrings,		0,	10);
+	ExportSection(props, L"UpperLeftMapScreen",			pUpperLeftMapScreenStrings,	0,	6);
+	ExportSection(props, L"Training",					pTrainingStrings,				0,	4);
 
-	ExportSection(props, L"GuardMenu",					Loc::pGuardMenuStrings,				0,	10);
-	ExportSection(props, L"OtherGuardMenu",				Loc::pOtherGuardMenuStrings,		0,	10);
-	ExportSection(props, L"AssignMenu",					Loc::pAssignMenuStrings,			0,	MAX_ASSIGN_STRING_COUNT);
-	ExportSection(props, L"MilitiaControlMenu",			Loc::pMilitiaControlMenuStrings,	0,	MAX_MILCON_STRING_COUNT);
-	ExportSection(props, L"RemoveMerc",					Loc::pRemoveMercStrings,			0,	MAX_REMOVE_MERC_COUNT);
-	ExportSection(props, L"AttributeMenu",				Loc::pAttributeMenuStrings,			0,	MAX_ATTRIBUTE_STRING_COUNT);
-	ExportSection(props, L"TrainingMenu",				Loc::pTrainingMenuStrings,			0,	MAX_TRAIN_STRING_COUNT);
-	ExportSection(props, L"SquadMenu",					Loc::pSquadMenuStrings,				0,	MAX_SQUAD_MENU_STRING_COUNT);
+	ExportSection(props, L"GuardMenu",					pGuardMenuStrings,				0,	10);
+	ExportSection(props, L"OtherGuardMenu",				pOtherGuardMenuStrings,		0,	10);
+	ExportSection(props, L"AssignMenu",					pAssignMenuStrings,			0,	MAX_ASSIGN_STRING_COUNT);
+	ExportSection(props, L"MilitiaControlMenu",			pMilitiaControlMenuStrings,	0,	MAX_MILCON_STRING_COUNT);
+	ExportSection(props, L"RemoveMerc",					pRemoveMercStrings,			0,	MAX_REMOVE_MERC_COUNT);
+	ExportSection(props, L"AttributeMenu",				pAttributeMenuStrings,			0,	MAX_ATTRIBUTE_STRING_COUNT);
+	ExportSection(props, L"TrainingMenu",				pTrainingMenuStrings,			0,	MAX_TRAIN_STRING_COUNT);
+	ExportSection(props, L"SquadMenu",					pSquadMenuStrings,				0,	MAX_SQUAD_MENU_STRING_COUNT);
 
-	ExportSection(props, L"SnitchMenu",					Loc::pSnitchMenuStrings,			0,	MAX_SNITCH_MENU_STRING_COUNT);
-	ExportSection(props, L"SnitchMenuDesc",				Loc::pSnitchMenuDescStrings,		0,	MAX_SNITCH_MENU_STRING_COUNT-1);
-	ExportSection(props, L"SnitchToggleMenu",			Loc::pSnitchToggleMenuStrings,		0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT);
-	ExportSection(props, L"SnitchToggleMenuDesc",		Loc::pSnitchToggleMenuDescStrings,	0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT-1);
-	ExportSection(props, L"SnitchSectorMenu",			Loc::pSnitchSectorMenuStrings,		0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT);
-	ExportSection(props, L"SnitchSectorMenuDesc",		Loc::pSnitchSectorMenuDescStrings,	0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT-1);
-	ExportSection(props, L"PrisonerMenu",				Loc::pPrisonerMenuStrings,			0,  MAX_PRISONER_MENU_STRING_COUNT );
-	ExportSection(props, L"PrisonerMenuDesc",			Loc::pPrisonerMenuDescStrings,		0,  MAX_PRISONER_MENU_STRING_COUNT - 1 );
-	ExportSection(props, L"SnitchPrisonExposed",		Loc::pSnitchPrisonExposedStrings,	0,	NUM_SNITCH_PRISON_EXPOSED);
-	ExportSection(props, L"SnitchGatheringRumoursResult",	Loc::pSnitchGatheringRumoursResultStrings,	0,	NUM_SNITCH_GATHERING_RUMOURS_RESULT);
+	ExportSection(props, L"SnitchMenu",					pSnitchMenuStrings,			0,	MAX_SNITCH_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchMenuDesc",				pSnitchMenuDescStrings,		0,	MAX_SNITCH_MENU_STRING_COUNT-1);
+	ExportSection(props, L"SnitchToggleMenu",			pSnitchToggleMenuStrings,		0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchToggleMenuDesc",		pSnitchToggleMenuDescStrings,	0,	MAX_SNITCH_TOGGLE_MENU_STRING_COUNT-1);
+	ExportSection(props, L"SnitchSectorMenu",			pSnitchSectorMenuStrings,		0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT);
+	ExportSection(props, L"SnitchSectorMenuDesc",		pSnitchSectorMenuDescStrings,	0,	MAX_SNITCH_SECTOR_MENU_STRING_COUNT-1);
+	ExportSection(props, L"PrisonerMenu",				pPrisonerMenuStrings,			0,  MAX_PRISONER_MENU_STRING_COUNT );
+	ExportSection(props, L"PrisonerMenuDesc",			pPrisonerMenuDescStrings,		0,  MAX_PRISONER_MENU_STRING_COUNT - 1 );
+	ExportSection(props, L"SnitchPrisonExposed",		pSnitchPrisonExposedStrings,	0,	NUM_SNITCH_PRISON_EXPOSED);
+	ExportSection(props, L"SnitchGatheringRumoursResult",	pSnitchGatheringRumoursResultStrings,	0,	NUM_SNITCH_GATHERING_RUMOURS_RESULT);
 
-	ExportSection(props, L"PersonnelTitle",				Loc::pPersonnelTitle,				0,	1);
-	ExportSection(props, L"PersonnelScreen",			Loc::pPersonnelScreenStrings,		0,	TEXT_NUM_PRSNL);
+	ExportSection(props, L"PersonnelTitle",				pPersonnelTitle,				0,	1);
+	ExportSection(props, L"PersonnelScreen",			pPersonnelScreenStrings,		0,	TEXT_NUM_PRSNL);
 
-	ExportSection(props, L"MercSkill",					Loc::gzMercSkillText,				0,	NUM_SKILLTRAITS_OT);
-	ExportSection(props, L"TacticalPopupButton",		Loc::pTacticalPopupButtonStrings,	0,	NUM_ICONS);
-	ExportSection(props, L"DoorTrap",					Loc::pDoorTrapStrings,				0,	NUM_DOOR_TRAPS);
-	ExportSection(props, L"ContractExtend",				Loc::pContractExtendStrings,		0,	NUM_CONTRACT_EXTEND);
-	ExportSection(props, L"MapScreenMouseRegionHelp",	Loc::pMapScreenMouseRegionHelpText,	0,	6);
-	ExportSection(props, L"NoiseVol",					Loc::pNoiseVolStr,					0,	4);
-	ExportSection(props, L"NoiseType",					Loc::pNoiseTypeStr,					0,	12);
-	ExportSection(props, L"Direction",					Loc::pDirectionStr,					0,	8);
-	ExportSection(props, L"LandType",					Loc::pLandTypeStrings,				0,	NUM_TRAVTERRAIN_TYPES);
-	ExportSection(props, L"Strategic",					Loc::gpStrategicString,				0,	TEXT_NUM_STRATEGIC_TEXT);
+	ExportSection(props, L"MercSkill",					gzMercSkillText,				0,	NUM_SKILLTRAITS_OT);
+	ExportSection(props, L"TacticalPopupButton",		pTacticalPopupButtonStrings,	0,	NUM_ICONS);
+	ExportSection(props, L"DoorTrap",					pDoorTrapStrings,				0,	NUM_DOOR_TRAPS);
+	ExportSection(props, L"ContractExtend",				pContractExtendStrings,		0,	NUM_CONTRACT_EXTEND);
+	ExportSection(props, L"MapScreenMouseRegionHelp",	pMapScreenMouseRegionHelpText,	0,	6);
+	ExportSection(props, L"NoiseVol",					pNoiseVolStr,					0,	4);
+	ExportSection(props, L"NoiseType",					pNoiseTypeStr,					0,	12);
+	ExportSection(props, L"Direction",					pDirectionStr,					0,	8);
+	ExportSection(props, L"LandType",					pLandTypeStrings,				0,	NUM_TRAVTERRAIN_TYPES);
+	ExportSection(props, L"Strategic",					gpStrategicString,				0,	TEXT_NUM_STRATEGIC_TEXT);
 
-	ExportSection(props, L"GameClock",					Loc::gpGameClockString,				0,	TEXT_NUM_GAMECLOCK);
-	ExportSection(props, L"KeyDescription",				Loc::sKeyDescriptionStrings,		0,	2);
-	ExportSection(props, L"WeaponStatsDesc",			Loc::gWeaponStatsDesc,				0,	17);	
-	ExportSection(props, L"WeaponStatsFasthelpTactical",Loc::gzWeaponStatsFasthelpTactical, 0,	29);
-	ExportSection(props, L"MiscItemStatsFasthelp",		Loc::gzMiscItemStatsFasthelp,		0,	34);
-	ExportSection(props, L"MoneyStatsDesc",				Loc::gMoneyStatsDesc,				0,	TEXT_NUM_MONEY_DESC);
+	ExportSection(props, L"GameClock",					gpGameClockString,				0,	TEXT_NUM_GAMECLOCK);
+	ExportSection(props, L"KeyDescription",				sKeyDescriptionStrings,		0,	2);
+	ExportSection(props, L"WeaponStatsDesc",			gWeaponStatsDesc,				0,	17);	
+	ExportSection(props, L"WeaponStatsFasthelpTactical",gzWeaponStatsFasthelpTactical, 0,	29);
+	ExportSection(props, L"MiscItemStatsFasthelp",		gzMiscItemStatsFasthelp,		0,	34);
+	ExportSection(props, L"MoneyStatsDesc",				gMoneyStatsDesc,				0,	TEXT_NUM_MONEY_DESC);
 
-	ExportSection(props, L"Health",						Loc::zHealthStr,					0,	7);
-	ExportSection(props, L"MoneyAmounts",				Loc::gzMoneyAmounts,				0,	6);
-	ExportSection(props, L"ProsLabel",					Loc::gzProsLabel,					0,	1);
-	ExportSection(props, L"ConsLabel",					Loc::gzConsLabel,					0,	1);
-	ExportSection(props, L"TalkMenu",					Loc::zTalkMenuStrings,				0,	6);
-	ExportSection(props, L"Dealer",						Loc::zDealerStrings,				0,	4);
-	ExportSection(props, L"DialogActions",				Loc::zDialogActions,				0,	1);
-	ExportSection(props, L"Vehicle",					Loc::pVehicleStrings,				0,	6);
-	ExportSection(props, L"ShortVehicle",				Loc::pShortVehicleStrings,			0,	6);
-	ExportSection(props, L"VehicleName",				Loc::zVehicleName,					0,	6);
-	ExportSection(props, L"VehicleSeatsStrings",		Loc::pVehicleSeatsStrings,			0,	2);
+	ExportSection(props, L"Health",						zHealthStr,					0,	7);
+	ExportSection(props, L"MoneyAmounts",				gzMoneyAmounts,				0,	6);
+	ExportSection(props, L"ProsLabel",					gzProsLabel,					0,	1);
+	ExportSection(props, L"ConsLabel",					gzConsLabel,					0,	1);
+	ExportSection(props, L"TalkMenu",					zTalkMenuStrings,				0,	6);
+	ExportSection(props, L"Dealer",						zDealerStrings,				0,	4);
+	ExportSection(props, L"DialogActions",				zDialogActions,				0,	1);
+	ExportSection(props, L"Vehicle",					pVehicleStrings,				0,	6);
+	ExportSection(props, L"ShortVehicle",				pShortVehicleStrings,			0,	6);
+	ExportSection(props, L"VehicleName",				zVehicleName,					0,	6);
+	ExportSection(props, L"VehicleSeatsStrings",		pVehicleSeatsStrings,			0,	2);
 
-	ExportSection(props, L"Tactical",					Loc::TacticalStr,					0,	TEXT_NUM_TACTICAL_STR);
-	ExportSection(props, L"ExitingSectorHelp",			Loc::pExitingSectorHelpText,		0,	TEXT_NUM_EXIT_GUI);
-	ExportSection(props, L"Repair",						Loc::pRepairStrings,				0,	4);
-	ExportSection(props, L"PreStatBuild",				Loc::sPreStatBuildString,			0,	6);
-	ExportSection(props, L"StatGain",					Loc::sStatGainStrings,				0,	11);
-	ExportSection(props, L"HelicopterEta",				Loc::pHelicopterEtaStrings,			0,	TEXT_NUM_STR_HELI_ETA);
-	ExportSection(props, L"HelicopterRepair",			Loc::pHelicopterRepairRefuelStrings,		0,	TEXT_NUM_STR_HELI_REPAIRS);
-	ExportSection(props, L"MapLevel",					Loc::sMapLevelString,				0,	1);
-	ExportSection(props, L"Loyal",						Loc::gsLoyalString,					0,	1);
-	ExportSection(props, L"Underground",				Loc::gsUndergroundString,			0,	1);
-	ExportSection(props, L"TimeStings",					Loc::gsTimeStrings,					0,	1);
+	ExportSection(props, L"Tactical",					TacticalStr,					0,	TEXT_NUM_TACTICAL_STR);
+	ExportSection(props, L"ExitingSectorHelp",			pExitingSectorHelpText,		0,	TEXT_NUM_EXIT_GUI);
+	ExportSection(props, L"Repair",						pRepairStrings,				0,	4);
+	ExportSection(props, L"PreStatBuild",				sPreStatBuildString,			0,	6);
+	ExportSection(props, L"StatGain",					sStatGainStrings,				0,	11);
+	ExportSection(props, L"HelicopterEta",				pHelicopterEtaStrings,			0,	TEXT_NUM_STR_HELI_ETA);
+	ExportSection(props, L"HelicopterRepair",			pHelicopterRepairRefuelStrings,		0,	TEXT_NUM_STR_HELI_REPAIRS);
+	ExportSection(props, L"MapLevel",					sMapLevelString,				0,	1);
+	ExportSection(props, L"Loyal",						gsLoyalString,					0,	1);
+	ExportSection(props, L"Underground",				gsUndergroundString,			0,	1);
+	ExportSection(props, L"TimeStings",					gsTimeStrings,					0,	1);
 
-	ExportSection(props, L"Facilities",					Loc::sFacilitiesStrings,			0,	7);
-	ExportSection(props, L"MapPopUpInventory",			Loc::pMapPopUpInventoryText,		0,	2);
-	ExportSection(props, L"TownInfo",					Loc::pwTownInfoStrings,				0,	12);
-	ExportSection(props, L"Mine",						Loc::pwMineStrings,					0,	14);
-	ExportSection(props, L"MiscSector",					Loc::pwMiscSectorStrings,			0,	7);
-	ExportSection(props, L"MapInventoryError",			Loc::pMapInventoryErrorString,		0,	7);
-	ExportSection(props, L"MapInventory",				Loc::pMapInventoryStrings,			0,	2);
-	ExportSection(props, L"MapScreenFastHelp",			Loc::pMapScreenFastHelpTextList,	0,	10);
-	ExportSection(props, L"MovementMenu",				Loc::pMovementMenuStrings,			0,	4);
-	ExportSection(props, L"UpdateMerc",					Loc::pUpdateMercStrings,			0,	6);
+	ExportSection(props, L"Facilities",					sFacilitiesStrings,			0,	7);
+	ExportSection(props, L"MapPopUpInventory",			pMapPopUpInventoryText,		0,	2);
+	ExportSection(props, L"TownInfo",					pwTownInfoStrings,				0,	12);
+	ExportSection(props, L"Mine",						pwMineStrings,					0,	14);
+	ExportSection(props, L"MiscSector",					pwMiscSectorStrings,			0,	7);
+	ExportSection(props, L"MapInventoryError",			pMapInventoryErrorString,		0,	7);
+	ExportSection(props, L"MapInventory",				pMapInventoryStrings,			0,	2);
+	ExportSection(props, L"MapScreenFastHelp",			pMapScreenFastHelpTextList,	0,	10);
+	ExportSection(props, L"MovementMenu",				pMovementMenuStrings,			0,	4);
+	ExportSection(props, L"UpdateMerc",					pUpdateMercStrings,			0,	6);
 
-	ExportSection(props, L"MapScreenBorderButtonHelp",	Loc::pMapScreenBorderButtonHelpText,0,	6);
-	ExportSection(props, L"MapScreenBottomFastHelp",	Loc::pMapScreenBottomFastHelp,		0,	8);
-	ExportSection(props, L"MapScreenBottom",			Loc::pMapScreenBottomText,			0,	1);
-	ExportSection(props, L"MercDead",					Loc::pMercDeadString,				0,	1);
-	ExportSection(props, L"Day",						Loc::pDayStrings,					0,	1);
-	ExportSection(props, L"SenderName",					Loc::pSenderNameList,				0,	51);
-	ExportSection(props, L"Traverse",					Loc::pTraverseStrings,				0,	2);
-	ExportSection(props, L"NewMail",					Loc::pNewMailStrings,				0,	1);
-	ExportSection(props, L"DeleteMail",					Loc::pDeleteMailStrings,			0,	2);
-	ExportSection(props, L"EmailHeader",				Loc::pEmailHeaders,					0,	3);
+	ExportSection(props, L"MapScreenBorderButtonHelp",	pMapScreenBorderButtonHelpText,0,	6);
+	ExportSection(props, L"MapScreenBottomFastHelp",	pMapScreenBottomFastHelp,		0,	8);
+	ExportSection(props, L"MapScreenBottom",			pMapScreenBottomText,			0,	1);
+	ExportSection(props, L"MercDead",					pMercDeadString,				0,	1);
+	ExportSection(props, L"Day",						pDayStrings,					0,	1);
+	ExportSection(props, L"SenderName",					pSenderNameList,				0,	51);
+	ExportSection(props, L"Traverse",					pTraverseStrings,				0,	2);
+	ExportSection(props, L"NewMail",					pNewMailStrings,				0,	1);
+	ExportSection(props, L"DeleteMail",					pDeleteMailStrings,			0,	2);
+	ExportSection(props, L"EmailHeader",				pEmailHeaders,					0,	3);
 
-	ExportSection(props, L"EmailTitle",					Loc::pEmailTitleText,				0,	1);
-	ExportSection(props, L"FinanceTitle",				Loc::pFinanceTitle,					0,	1);
-	ExportSection(props, L"FinanceSummary",				Loc::pFinanceSummary,				0,	12);
-	ExportSection(props, L"FinanceHeader",				Loc::pFinanceHeaders,				0,	7);
-	ExportSection(props, L"Transaction",				Loc::pTransactionText,				0,	TEXT_NUM_FINCANCES);
-	ExportSection(props, L"TransactionAlternate",		Loc::pTransactionAlternateText,		0,	4);
-	ExportSection(props, L"Skyrider",					Loc::pSkyriderText,					0,	7);
-	ExportSection(props, L"Moral",						Loc::pMoralStrings,					0,	6);
-	ExportSection(props, L"LeftEquipment",				Loc::pLeftEquipmentString,			0,	2);
-	ExportSection(props, L"MapScreenStatus",			Loc::pMapScreenStatusStrings,		0,	5);
+	ExportSection(props, L"EmailTitle",					pEmailTitleText,				0,	1);
+	ExportSection(props, L"FinanceTitle",				pFinanceTitle,					0,	1);
+	ExportSection(props, L"FinanceSummary",				pFinanceSummary,				0,	12);
+	ExportSection(props, L"FinanceHeader",				pFinanceHeaders,				0,	7);
+	ExportSection(props, L"Transaction",				pTransactionText,				0,	TEXT_NUM_FINCANCES);
+	ExportSection(props, L"TransactionAlternate",		pTransactionAlternateText,		0,	4);
+	ExportSection(props, L"Skyrider",					pSkyriderText,					0,	7);
+	ExportSection(props, L"Moral",						pMoralStrings,					0,	6);
+	ExportSection(props, L"LeftEquipment",				pLeftEquipmentString,			0,	2);
+	ExportSection(props, L"MapScreenStatus",			pMapScreenStatusStrings,		0,	5);
 
-	ExportSection(props, L"MapScreenPrevNextCharButtonHelp",	Loc::pMapScreenPrevNextCharButtonHelpText,	0,	2);
-	ExportSection(props, L"Eta",								Loc::pEtaString,							0,	1);
-	ExportSection(props, L"TrashItem",							Loc::pTrashItemText,						0,	2);
-	ExportSection(props, L"MapError",							Loc::pMapErrorString,						0,	50);
-	ExportSection(props, L"MapPlot",							Loc::pMapPlotStrings,						0,	5);
-	ExportSection(props, L"Bullseye",							Loc::pBullseyeStrings,						0,	5);
-	ExportSection(props, L"MiscMapScreenMouseRegionHelp",		Loc::pMiscMapScreenMouseRegionHelpText,		0,	3);
-	ExportSection(props, L"MercHeLeave",						Loc::pMercHeLeaveString,					0,	5);
-	ExportSection(props, L"MercSheLeave",						Loc::pMercSheLeaveString,					0,	5);
-	ExportSection(props, L"MercContractOver",					Loc::pMercContractOverStrings,				0,	5);
+	ExportSection(props, L"MapScreenPrevNextCharButtonHelp",	pMapScreenPrevNextCharButtonHelpText,	0,	2);
+	ExportSection(props, L"Eta",								pEtaString,							0,	1);
+	ExportSection(props, L"TrashItem",							pTrashItemText,						0,	2);
+	ExportSection(props, L"MapError",							pMapErrorString,						0,	50);
+	ExportSection(props, L"MapPlot",							pMapPlotStrings,						0,	5);
+	ExportSection(props, L"Bullseye",							pBullseyeStrings,						0,	5);
+	ExportSection(props, L"MiscMapScreenMouseRegionHelp",		pMiscMapScreenMouseRegionHelpText,		0,	3);
+	ExportSection(props, L"MercHeLeave",						pMercHeLeaveString,					0,	5);
+	ExportSection(props, L"MercSheLeave",						pMercSheLeaveString,					0,	5);
+	ExportSection(props, L"MercContractOver",					pMercContractOverStrings,				0,	5);
 
-	ExportSection(props, L"ImpPopUp",					Loc::pImpPopUpStrings,				0,	12);
-	ExportSection(props, L"ImpButton",					Loc::pImpButtonText,				0,	26);
-	ExportSection(props, L"ExtraIMP",					Loc::pExtraIMPStrings,				0,	4);
-	ExportSection(props, L"FilesTitle",					Loc::pFilesTitle,					0,	1);
-	ExportSection(props, L"FilesSender",				Loc::pFilesSenderList,				0,	7);
-	ExportSection(props, L"HistoryTitle",				Loc::pHistoryTitle,					0,	1);
-	ExportSection(props, L"HistoryHeader",				Loc::pHistoryHeaders,				0,	5);
-	//ExportSection(props, L"History",					Loc::pHistoryStrings,				0,	TEXT_NUM_HISTORY);
-	ExportSection(props, L"HistoryLocation",			Loc::pHistoryLocations,				0,	1);
-	ExportSection(props, L"LaptopIcon",					Loc::pLaptopIcons,					0,	8);
+	ExportSection(props, L"ImpPopUp",					pImpPopUpStrings,				0,	12);
+	ExportSection(props, L"ImpButton",					pImpButtonText,				0,	26);
+	ExportSection(props, L"ExtraIMP",					pExtraIMPStrings,				0,	4);
+	ExportSection(props, L"FilesTitle",					pFilesTitle,					0,	1);
+	ExportSection(props, L"FilesSender",				pFilesSenderList,				0,	7);
+	ExportSection(props, L"HistoryTitle",				pHistoryTitle,					0,	1);
+	ExportSection(props, L"HistoryHeader",				pHistoryHeaders,				0,	5);
+	//ExportSection(props, L"History",					pHistoryStrings,				0,	TEXT_NUM_HISTORY);
+	ExportSection(props, L"HistoryLocation",			pHistoryLocations,				0,	1);
+	ExportSection(props, L"LaptopIcon",					pLaptopIcons,					0,	8);
 
-	ExportSection(props, L"BookMark",					Loc::pBookMarkStrings,				0,	TEXT_NUM_LAPTOP_BOOKMARKS);
-	ExportSection(props, L"BookmarkTitle",				Loc::pBookmarkTitle,				0,	2);
-	ExportSection(props, L"Download",					Loc::pDownloadString,				0,	2);
-	ExportSection(props, L"AtmStartButton",				Loc::gsAtmStartButtonText,			0,	4);
-	ExportSection(props, L"Error",						Loc::pErrorStrings,					0,	5);
-	ExportSection(props, L"Personnel",					Loc::pPersonnelString,				0,	1);
-	ExportSection(props, L"WebTitle",					Loc::pWebTitle,						0,	1);
-	ExportSection(props, L"WebPagesTitle",				Loc::pWebPagesTitles,				0,	36);
+	ExportSection(props, L"BookMark",					pBookMarkStrings,				0,	TEXT_NUM_LAPTOP_BOOKMARKS);
+	ExportSection(props, L"BookmarkTitle",				pBookmarkTitle,				0,	2);
+	ExportSection(props, L"Download",					pDownloadString,				0,	2);
+	ExportSection(props, L"AtmStartButton",				gsAtmStartButtonText,			0,	4);
+	ExportSection(props, L"Error",						pErrorStrings,					0,	5);
+	ExportSection(props, L"Personnel",					pPersonnelString,				0,	1);
+	ExportSection(props, L"WebTitle",					pWebTitle,						0,	1);
+	ExportSection(props, L"WebPagesTitle",				pWebPagesTitles,				0,	36);
 
-	ExportSection(props, L"ShowBookmark",				Loc::pShowBookmarkString,				0,	2);
-	ExportSection(props, L"LaptopTitle",				Loc::pLaptopTitles,						0,	5);
-	ExportSection(props, L"PersonnelDepartedState",		Loc::pPersonnelDepartedStateStrings,	0,	TEXT_NUM_DEPARTED);
-	ExportSection(props, L"PersonelTeam",				Loc::pPersonelTeamStrings,				0,	8);
-	ExportSection(props, L"PersonnelCurrentTeamStats",	Loc::pPersonnelCurrentTeamStatsStrings, 0,	3);
-	ExportSection(props, L"PersonnelTeamStats",			Loc::pPersonnelTeamStatsStrings,		0,	11);
-	ExportSection(props, L"MapVertIndex",				Loc::pMapVertIndex,						0,	17);
-	ExportSection(props, L"MapHortIndex",				Loc::pMapHortIndex,						0,	17);
-	ExportSection(props, L"MapDepthIndex",				Loc::pMapDepthIndex,					0,	4);
-	ExportSection(props, L"ContractButton",				Loc::pContractButtonString,				0,	1);
+	ExportSection(props, L"ShowBookmark",				pShowBookmarkString,				0,	2);
+	ExportSection(props, L"LaptopTitle",				pLaptopTitles,						0,	5);
+	ExportSection(props, L"PersonnelDepartedState",		pPersonnelDepartedStateStrings,	0,	TEXT_NUM_DEPARTED);
+	ExportSection(props, L"PersonelTeam",				pPersonelTeamStrings,				0,	8);
+	ExportSection(props, L"PersonnelCurrentTeamStats",	pPersonnelCurrentTeamStatsStrings, 0,	3);
+	ExportSection(props, L"PersonnelTeamStats",			pPersonnelTeamStatsStrings,		0,	11);
+	ExportSection(props, L"MapVertIndex",				pMapVertIndex,						0,	17);
+	ExportSection(props, L"MapHortIndex",				pMapHortIndex,						0,	17);
+	ExportSection(props, L"MapDepthIndex",				pMapDepthIndex,					0,	4);
+	ExportSection(props, L"ContractButton",				pContractButtonString,				0,	1);
 
-	ExportSection(props, L"UpdatePanelButton",			Loc::pUpdatePanelButtons,			0,	2);
-	ExportSection(props, L"LargeTactical",				Loc::LargeTacticalStr,				0,	TEXT_NUM_LARGESTR);
-	ExportSection(props, L"InsContract",				Loc::InsContractText,				0,	TEXT_NUM_INS_CONTRACT);
-	ExportSection(props, L"InsInfo",					Loc::InsInfoText,					0,	TEXT_NUM_INS_INFO);
-	ExportSection(props, L"MercAccount",				Loc::MercAccountText,				0,	TEXT_NUM_MERC_ACCOUNT);
-	ExportSection(props, L"MercAccountPage",			Loc::MercAccountPageText,			0,	2);
-	ExportSection(props, L"MercInfo",					Loc::MercInfo,						0,	TEXT_NUM_MERC_FILES);
-	ExportSection(props, L"MercNoAccount",				Loc::MercNoAccountText,				0,	TEXT_NUM_MERC_NO_ACC);
-	ExportSection(props, L"MercHomePage",				Loc::MercHomePageText,				0,	TEXT_NUM_MERC);
-	ExportSection(props, L"Funeral",					Loc::sFuneralString,				0,	TEXT_NUM_FUNERAL);
+	ExportSection(props, L"UpdatePanelButton",			pUpdatePanelButtons,			0,	2);
+	ExportSection(props, L"LargeTactical",				LargeTacticalStr,				0,	TEXT_NUM_LARGESTR);
+	ExportSection(props, L"InsContract",				InsContractText,				0,	TEXT_NUM_INS_CONTRACT);
+	ExportSection(props, L"InsInfo",					InsInfoText,					0,	TEXT_NUM_INS_INFO);
+	ExportSection(props, L"MercAccount",				MercAccountText,				0,	TEXT_NUM_MERC_ACCOUNT);
+	ExportSection(props, L"MercAccountPage",			MercAccountPageText,			0,	2);
+	ExportSection(props, L"MercInfo",					MercInfo,						0,	TEXT_NUM_MERC_FILES);
+	ExportSection(props, L"MercNoAccount",				MercNoAccountText,				0,	TEXT_NUM_MERC_NO_ACC);
+	ExportSection(props, L"MercHomePage",				MercHomePageText,				0,	TEXT_NUM_MERC);
+	ExportSection(props, L"Funeral",					sFuneralString,				0,	TEXT_NUM_FUNERAL);
 
-	ExportSection(props, L"Florist",					Loc::sFloristText,					0,	TEXT_NUM_FLORIST);
-	ExportSection(props, L"OrderForm",					Loc::sOrderFormText,				0,	TEXT_NUM_FLORIST_ORDER);
-	ExportSection(props, L"FloristGallery",				Loc::sFloristGalleryText,			0,	TEXT_NUM_FLORIST_GALLERY);
-	ExportSection(props, L"FloristCards",				Loc::sFloristCards,					0,	TEXT_NUM_FLORIST_CARDS);
-	ExportSection(props, L"BobbyROrderForm",			Loc::BobbyROrderFormText,			0,	TEXT_NUM_BOBBYR_MAILORDER);
-	ExportSection(props, L"BobbyRFilter",				Loc::BobbyRFilter,					0,	TEXT_NUM_BOBBYR_FILTER);
-	ExportSection(props, L"BobbyR",						Loc::BobbyRText,					0,	TEXT_NUM_BOBBYR_GUNS);
-	ExportSection(props, L"BobbyRaysFront",				Loc::BobbyRaysFrontText,			0,	TEXT_NUM_BOBBYR);
-	ExportSection(props, L"AimSort", Loc::AimSortText, 0, TEXT_NUM_AIM_SORT);
-	ExportSection(props, L"AimPolicy", Loc::AimPolicyText, 0, TEXT_NUM_AIM_POLICIES);
+	ExportSection(props, L"Florist",					sFloristText,					0,	TEXT_NUM_FLORIST);
+	ExportSection(props, L"OrderForm",					sOrderFormText,				0,	TEXT_NUM_FLORIST_ORDER);
+	ExportSection(props, L"FloristGallery",				sFloristGalleryText,			0,	TEXT_NUM_FLORIST_GALLERY);
+	ExportSection(props, L"FloristCards",				sFloristCards,					0,	TEXT_NUM_FLORIST_CARDS);
+	ExportSection(props, L"BobbyROrderForm",			BobbyROrderFormText,			0,	TEXT_NUM_BOBBYR_MAILORDER);
+	ExportSection(props, L"BobbyRFilter",				BobbyRFilter,					0,	TEXT_NUM_BOBBYR_FILTER);
+	ExportSection(props, L"BobbyR",						BobbyRText,					0,	TEXT_NUM_BOBBYR_GUNS);
+	ExportSection(props, L"BobbyRaysFront",				BobbyRaysFrontText,			0,	TEXT_NUM_BOBBYR);
+	ExportSection(props, L"AimSort", AimSortText, 0, TEXT_NUM_AIM_SORT);
+	ExportSection(props, L"AimPolicy", AimPolicyText, 0, TEXT_NUM_AIM_POLICIES);
 
-	ExportSection(props, L"AimMember",					Loc::AimMemberText,					0,	4);
-	ExportSection(props, L"CharacterInfo",				Loc::CharacterInfo,					0,	TEXT_NUM_AIM_MEMBER_CHARINFO);
-	ExportSection(props, L"VideoConfercing",			Loc::VideoConfercingText,			0,	TEXT_NUM_AIM_MEMBER_VCONF);
-	ExportSection(props, L"AimPopUp",					Loc::AimPopUpText,					0,	TEXT_NUM_AIM_MEMBER_POPUP);
-	ExportSection(props, L"AimLink",					Loc::AimLinkText,					0,	TEXM_NUM_AIM_LINK);
-	ExportSection(props, L"AimHistory",					Loc::AimHistoryText,				0,	TEXT_NUM_AIM_HISTORY);
-	ExportSection(props, L"AimFi",						Loc::AimFiText,						0,	TEXT_NUM_AIM_FI);
-	ExportSection(props, L"AimAlumni",					Loc::AimAlumniText,					0,	TEXT_NUM_AIM_ALUMNI);
-	ExportSection(props, L"AimScreen",					Loc::AimScreenText,					0,	TEXT_NUM_AIM_SCREEN);
-	ExportSection(props, L"AimBottomMenu",				Loc::AimBottomMenuText,				0,	TEXT_NUM_AIM_MENU);
+	ExportSection(props, L"AimMember",					AimMemberText,					0,	4);
+	ExportSection(props, L"CharacterInfo",				CharacterInfo,					0,	TEXT_NUM_AIM_MEMBER_CHARINFO);
+	ExportSection(props, L"VideoConfercing",			VideoConfercingText,			0,	TEXT_NUM_AIM_MEMBER_VCONF);
+	ExportSection(props, L"AimPopUp",					AimPopUpText,					0,	TEXT_NUM_AIM_MEMBER_POPUP);
+	ExportSection(props, L"AimLink",					AimLinkText,					0,	TEXM_NUM_AIM_LINK);
+	ExportSection(props, L"AimHistory",					AimHistoryText,				0,	TEXT_NUM_AIM_HISTORY);
+	ExportSection(props, L"AimFi",						AimFiText,						0,	TEXT_NUM_AIM_FI);
+	ExportSection(props, L"AimAlumni",					AimAlumniText,					0,	TEXT_NUM_AIM_ALUMNI);
+	ExportSection(props, L"AimScreen",					AimScreenText,					0,	TEXT_NUM_AIM_SCREEN);
+	ExportSection(props, L"AimBottomMenu",				AimBottomMenuText,				0,	TEXT_NUM_AIM_MENU);
 
-	ExportSection(props, L"SKI",						Loc::SKI_Text,						0, TEXT_NUM_SKI_TEXT);
-	ExportSection(props, L"SkiAtm",						Loc::SkiAtmText,					0, NUM_SKI_ATM_BUTTONS);
-	ExportSection(props, L"SkiAtmText",					Loc::gzSkiAtmText,					0, TEXT_NUM_SKI_ATM_MODE_TEXT);
-	ExportSection(props, L"SkiMessageBox",				Loc::SkiMessageBoxText,				0, TEXT_NUM_SKI_MBOX_TEXT);
-	ExportSection(props, L"Options",					Loc::zOptionsText,					0, TEXT_NUM_OPT_TEXT);
-	ExportSection(props, L"SaveLoad",					Loc::zSaveLoadText,					0, TEXT_NUM_SLG_TEXT);
-	ExportSection(props, L"MarksMapScreen",				Loc::zMarksMapScreenText,			0, 25);
-	ExportSection(props, L"LandMarkInSector",			Loc::pLandMarkInSectorString,		0, 1);
-	ExportSection(props, L"MilitiaConfirm",				Loc::pMilitiaConfirmStrings,		0, 11);
-	ExportSection(props, L"MoneyWithdrawMessage",		Loc::gzMoneyWithdrawMessageText,	0, TEXT_NUM_MONEY_WITHDRAW);
+	ExportSection(props, L"SKI",						SKI_Text,						0, TEXT_NUM_SKI_TEXT);
+	ExportSection(props, L"SkiAtm",						SkiAtmText,					0, NUM_SKI_ATM_BUTTONS);
+	ExportSection(props, L"SkiAtmText",					gzSkiAtmText,					0, TEXT_NUM_SKI_ATM_MODE_TEXT);
+	ExportSection(props, L"SkiMessageBox",				SkiMessageBoxText,				0, TEXT_NUM_SKI_MBOX_TEXT);
+	ExportSection(props, L"Options",					zOptionsText,					0, TEXT_NUM_OPT_TEXT);
+	ExportSection(props, L"SaveLoad",					zSaveLoadText,					0, TEXT_NUM_SLG_TEXT);
+	ExportSection(props, L"MarksMapScreen",				zMarksMapScreenText,			0, 25);
+	ExportSection(props, L"LandMarkInSector",			pLandMarkInSectorString,		0, 1);
+	ExportSection(props, L"MilitiaConfirm",				pMilitiaConfirmStrings,		0, 11);
+	ExportSection(props, L"MoneyWithdrawMessage",		gzMoneyWithdrawMessageText,	0, TEXT_NUM_MONEY_WITHDRAW);
 
-	ExportSection(props, L"Copyright",					Loc::gzCopyrightText,				0,	1);
-	ExportSection(props, L"OptionsToggle",				Loc::zOptionsToggleText,			0,	49);
-	ExportSection(props, L"OptionsScreenHelp",			Loc::zOptionsScreenHelpText,		0,	49);
-	ExportSection(props, L"GIOScreen",					Loc::gzGIOScreenText,				0,	TEXT_NUM_GIO_TEXT);
-	ExportSection(props, L"MPJScreen",					Loc::gzMPJScreenText,				0,	TEXT_NUM_MPJ_TEXT);
-	ExportSection(props, L"MPJHelpText",				Loc::gzMPJHelpText,					0,	10);
-	ExportSection(props, L"MPHScreen",					Loc::gzMPHScreenText,				0,	TEXT_NUM_MPH_TEXT);	
-	ExportSection(props, L"DeliveryLocation",			Loc::pDeliveryLocationStrings,		0,	17);
-	ExportSection(props, L"SkillAtZeroWarning",			Loc::pSkillAtZeroWarning,			0,	1);
-	ExportSection(props, L"IMPBeginScreen",				Loc::pIMPBeginScreenStrings,		0,	1);
-	ExportSection(props, L"IMPFinishButton",			Loc::pIMPFinishButtonText,			0,	1);
+	ExportSection(props, L"Copyright",					gzCopyrightText,				0,	1);
+	ExportSection(props, L"OptionsToggle",				zOptionsToggleText,			0,	49);
+	ExportSection(props, L"OptionsScreenHelp",			zOptionsScreenHelpText,		0,	49);
+	ExportSection(props, L"GIOScreen",					gzGIOScreenText,				0,	TEXT_NUM_GIO_TEXT);
+	ExportSection(props, L"MPJScreen",					gzMPJScreenText,				0,	TEXT_NUM_MPJ_TEXT);
+	ExportSection(props, L"MPJHelpText",				gzMPJHelpText,					0,	10);
+	ExportSection(props, L"MPHScreen",					gzMPHScreenText,				0,	TEXT_NUM_MPH_TEXT);	
+	ExportSection(props, L"DeliveryLocation",			pDeliveryLocationStrings,		0,	17);
+	ExportSection(props, L"SkillAtZeroWarning",			pSkillAtZeroWarning,			0,	1);
+	ExportSection(props, L"IMPBeginScreen",				pIMPBeginScreenStrings,		0,	1);
+	ExportSection(props, L"IMPFinishButton",			pIMPFinishButtonText,			0,	1);
 
-	ExportSection(props, L"IMPFinish",					Loc::pIMPFinishStrings,				0,	1);
-	ExportSection(props, L"IMPVoices",					Loc::pIMPVoicesStrings,				0,	1);
-	ExportSection(props, L"DepartedMercPortrait",		Loc::pDepartedMercPortraitStrings,	0,	3);
-	ExportSection(props, L"PersTitle",					Loc::pPersTitleText,				0,	1);
-	ExportSection(props, L"PausedGame",					Loc::pPausedGameText,				0,	3);
-	ExportSection(props, L"MessageStrings",				Loc::pMessageStrings,				0,	TEXT_NUM_MSG);
-	ExportSection(props, L"ItemPickupHelpPopup",		Loc::ItemPickupHelpPopup,			0,	5);
-	ExportSection(props, L"DoctorWarning",				Loc::pDoctorWarningString,			0,	2);
-	ExportSection(props, L"MilitiaButtonsHelp",			Loc::pMilitiaButtonsHelpText,		0,	4);
-	ExportSection(props, L"MapScreenJustStartedHelp",	Loc::pMapScreenJustStartedHelpText,	0,	2);
+	ExportSection(props, L"IMPFinish",					pIMPFinishStrings,				0,	1);
+	ExportSection(props, L"IMPVoices",					pIMPVoicesStrings,				0,	1);
+	ExportSection(props, L"DepartedMercPortrait",		pDepartedMercPortraitStrings,	0,	3);
+	ExportSection(props, L"PersTitle",					pPersTitleText,				0,	1);
+	ExportSection(props, L"PausedGame",					pPausedGameText,				0,	3);
+	ExportSection(props, L"MessageStrings",				pMessageStrings,				0,	TEXT_NUM_MSG);
+	ExportSection(props, L"ItemPickupHelpPopup",		ItemPickupHelpPopup,			0,	5);
+	ExportSection(props, L"DoctorWarning",				pDoctorWarningString,			0,	2);
+	ExportSection(props, L"MilitiaButtonsHelp",			pMilitiaButtonsHelpText,		0,	4);
+	ExportSection(props, L"MapScreenJustStartedHelp",	pMapScreenJustStartedHelpText,	0,	2);
 
-	ExportSection(props, L"AntiHacker",					Loc::pAntiHackerString,				0,	TEXT_NUM_ANTIHACKERSTR);
-	ExportSection(props, L"LaptopHelp",					Loc::gzLaptopHelpText,				0,	TEXT_NUM_LAPTOP_BN_BOOKMARK_TEXT);
-	ExportSection(props, L"HelpScreen",					Loc::gzHelpScreenText,				0,	TEXT_NUM_HLP);
-	ExportSection(props, L"NonPersistantPBI",			Loc::gzNonPersistantPBIText,		0,	10);
-	ExportSection(props, L"MiscString",					Loc::gzMiscString,					0,	5);
-	ExportSection(props, L"IntroScreen",				Loc::gzIntroScreen,					0,	1);
-	ExportSection(props, L"NewNoise",					Loc::pNewNoiseStr,					0,	11/*MAX_NOISES*/);
-	ExportSection(props, L"MapScreenSortButtonHelp",	Loc::wMapScreenSortButtonHelpText,	0,	6);
-	ExportSection(props, L"BrokenLink",					Loc::BrokenLinkText,				0,	TEXT_NUM_BROKEN_LINK);
-	ExportSection(props, L"BobbyRShipment",				Loc::gzBobbyRShipmentText,			0,	TEXT_NUM_BOBBYR_SHIPMENT);
+	ExportSection(props, L"AntiHacker",					pAntiHackerString,				0,	TEXT_NUM_ANTIHACKERSTR);
+	ExportSection(props, L"LaptopHelp",					gzLaptopHelpText,				0,	TEXT_NUM_LAPTOP_BN_BOOKMARK_TEXT);
+	ExportSection(props, L"HelpScreen",					gzHelpScreenText,				0,	TEXT_NUM_HLP);
+	ExportSection(props, L"NonPersistantPBI",			gzNonPersistantPBIText,		0,	10);
+	ExportSection(props, L"MiscString",					gzMiscString,					0,	5);
+	ExportSection(props, L"IntroScreen",				gzIntroScreen,					0,	1);
+	ExportSection(props, L"NewNoise",					pNewNoiseStr,					0,	11/*MAX_NOISES*/);
+	ExportSection(props, L"MapScreenSortButtonHelp",	wMapScreenSortButtonHelpText,	0,	6);
+	ExportSection(props, L"BrokenLink",					BrokenLinkText,				0,	TEXT_NUM_BROKEN_LINK);
+	ExportSection(props, L"BobbyRShipment",				gzBobbyRShipmentText,			0,	TEXT_NUM_BOBBYR_SHIPMENT);
 
-	ExportSection(props, L"CreditNames",				Loc::gzCreditNames,					0,	15);
-	ExportSection(props, L"CreditNameTitle",			Loc::gzCreditNameTitle,				0,	15);
-	ExportSection(props, L"CreditNameFunny",			Loc::gzCreditNameFunny,				0,	15);
-	ExportSection(props, L"RepairsDone",				Loc::sRepairsDoneString,			0,	7);
-	ExportSection(props, L"GioDifConfirm",				Loc::zGioDifConfirmText,			0,	TEXT_NUM_GIO_CFS);
-	ExportSection(props, L"LateLocalized",				Loc::gzLateLocalizedString,			0,	64);
-	ExportSection(props, L"CWStrings",					Loc::gzCWStrings,					0,	1);
-	ExportSection(props, L"TooltipStrings",				Loc::gzTooltipStrings,				0,	TEXT_NUM_STR_TT);
-	ExportSection(props, L"New113Message",				Loc::New113Message,					0,	TEXT_NUM_MSG113);
+	ExportSection(props, L"CreditNames",				gzCreditNames,					0,	15);
+	ExportSection(props, L"CreditNameTitle",			gzCreditNameTitle,				0,	15);
+	ExportSection(props, L"CreditNameFunny",			gzCreditNameFunny,				0,	15);
+	ExportSection(props, L"RepairsDone",				sRepairsDoneString,			0,	7);
+	ExportSection(props, L"GioDifConfirm",				zGioDifConfirmText,			0,	TEXT_NUM_GIO_CFS);
+	ExportSection(props, L"LateLocalized",				gzLateLocalizedString,			0,	64);
+	ExportSection(props, L"CWStrings",					gzCWStrings,					0,	1);
+	ExportSection(props, L"TooltipStrings",				gzTooltipStrings,				0,	TEXT_NUM_STR_TT);
+	ExportSection(props, L"New113Message",				New113Message,					0,	TEXT_NUM_MSG113);
 
-	ExportSection(props, L"New113HAMMessage",			Loc::New113HAMMessage,				0,	25);
-	ExportSection(props, L"New113MERCMercMail",			Loc::New113MERCMercMailTexts,		0,	4);
-	ExportSection(props, L"New113AIMMercMail",			Loc::New113AIMMercMailTexts,		0,	16);
-	ExportSection(props, L"MissingIMPSkills",			Loc::MissingIMPSkillsDescriptions,	0,	2);
-	ExportSection(props, L"NewInvMessage",				Loc::NewInvMessage,					0,	TEXT_NUM_NIV);
-	ExportSection(props, L"MPServerMessage",			Loc::MPServerMessage,				0,	13);
-	ExportSection(props, L"MPClientMessage",			Loc::MPClientMessage,				0,	69);	
-	ExportSection(props, L"MPEdges",					Loc::gszMPEdgesText,				0,	5);
-	ExportSection(props, L"MPTeamName",					Loc::gszMPTeamNames,				0,	5);
-	ExportSection(props, L"MPMapscreen",				Loc::gszMPMapscreenText,			0,	9);
+	ExportSection(props, L"New113HAMMessage",			New113HAMMessage,				0,	25);
+	ExportSection(props, L"New113MERCMercMail",			New113MERCMercMailTexts,		0,	4);
+	ExportSection(props, L"New113AIMMercMail",			New113AIMMercMailTexts,		0,	16);
+	ExportSection(props, L"MissingIMPSkills",			MissingIMPSkillsDescriptions,	0,	2);
+	ExportSection(props, L"NewInvMessage",				NewInvMessage,					0,	TEXT_NUM_NIV);
+	ExportSection(props, L"MPServerMessage",			MPServerMessage,				0,	13);
+	ExportSection(props, L"MPClientMessage",			MPClientMessage,				0,	69);	
+	ExportSection(props, L"MPEdges",					gszMPEdgesText,				0,	5);
+	ExportSection(props, L"MPTeamName",					gszMPTeamNames,				0,	5);
+	ExportSection(props, L"MPMapscreen",				gszMPMapscreenText,			0,	9);
 
-	ExportSection(props, L"MPSScreen",					Loc::gzMPSScreenText,				0,	TEXT_NUM_MPS_TEXT);
-	ExportSection(props, L"MPCScreen",					Loc::gzMPCScreenText,				0,	TEXT_NUM_MPC_TEXT);
-	ExportSection(props, L"MPChatToggle",				Loc::gzMPChatToggleText,			0,	2);
-	ExportSection(props, L"MPChatbox",					Loc::gzMPChatboxText,				0,	2);
+	ExportSection(props, L"MPSScreen",					gzMPSScreenText,				0,	TEXT_NUM_MPS_TEXT);
+	ExportSection(props, L"MPCScreen",					gzMPCScreenText,				0,	TEXT_NUM_MPC_TEXT);
+	ExportSection(props, L"MPChatToggle",				gzMPChatToggleText,			0,	2);
+	ExportSection(props, L"MPChatbox",					gzMPChatboxText,				0,	2);
 
 	props.writeToXMLFile(L"Localization/GameStrings.xml",tmap);
 	props.writeToIniFile(L"Localization/GameStrings.ini",true);
@@ -524,7 +521,7 @@ namespace Loc
 
 void Loc::ExportMercBio()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define	SIZE_MERC_BIO_INFO				400	* 2
 	#define SIZE_MERC_ADDITIONAL_INFO		160 * 2
 
@@ -554,7 +551,7 @@ void Loc::ExportMercBio()
 
 void Loc::ExportAIMHistory()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pHistLine[AIM_HISTORY_LINE_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AimHist.edt");
@@ -576,7 +573,7 @@ void Loc::ExportAIMHistory()
 	
 void Loc::ExportAIMPolicy()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pPolLine[AIM_HISTORY_LINE_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AimPol.edt");
@@ -597,7 +594,7 @@ void Loc::ExportAIMPolicy()
 
 void Loc::ExportAlumniName()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define AIM_ALUMNI_NAME_SIZE 80 * 2
 	vfs::String::char_t pAlumniName[AIM_ALUMNI_NAME_SIZE];
 	vfs::COpenReadFile rfile("BINARYDATA\\AlumName.edt");
@@ -620,7 +617,7 @@ void Loc::ExportAlumniName()
 
 void Loc::ExportDialogues()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define DIALOGUESIZE		480
 	vfs::String::char_t pDiagLine[DIALOGUESIZE];
 
@@ -658,7 +655,7 @@ void Loc::ExportDialogues()
 
 void Loc::ExportNPCDialogues()
 {
-	Loc::Language lang = gs_Lang;
+	Loc::Language lang = ToLocLanguage(g_lang);
 	#define DIALOGUESIZE		480
 	#define CIVQUOTESIZE		320
 	vfs::String::char_t pDiagLine[DIALOGUESIZE];

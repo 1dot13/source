@@ -174,7 +174,7 @@ private:
 
 static VideoPlayer s_VP(VideoPlayer::VT_SMK | VideoPlayer::VT_BINK);
 
-extern STR16	gzIntroScreen[];
+extern STR16* gzIntroScreen;
 extern HVSURFACE ghFrameBuffer;
 
 enum

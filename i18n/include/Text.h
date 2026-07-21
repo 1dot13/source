@@ -51,116 +51,116 @@ enum
 extern	CHAR16	XMLTacticalMessages[1000][MAX_MESSAGE_NAMES_CHARS];
 
 //Encyclopedia
-extern STR16 	pMenuStrings[];
-extern STR16	pLocationPageText[];
-extern STR16	pSectorPageText[];
-extern STR16	pEncyclopediaHelpText[];
-extern STR16	pEncyclopediaTypeText[];
-extern STR16	pEncyclopediaSkrotyText[];
-extern STR16	pEncyclopediaFilterLocationText[];
-extern STR16	pEncyclopediaSubFilterLocationText[];
-extern STR16	pEncyclopediaFilterCharText[];
-extern STR16	pEncyclopediaSubFilterCharText[];
-extern STR16	pEncyclopediaFilterItemText[];
-extern STR16	pEncyclopediaSubFilterItemText[];
-extern STR16	pEncyclopediaFilterQuestText[];
-extern STR16	pEncyclopediaSubFilterQuestText[];
-extern STR16	pEncyclopediaShortCharacterText[];
-extern STR16	pEncyclopediaHelpCharacterText[];
-extern STR16	pEncyclopediaShortInventoryText[];
-extern STR16	BoxFilter[];
-extern STR16	pOtherButtonsText[];
-extern STR16	pOtherButtonsHelpText[];
-extern STR16	QuestDescText[];
-extern STR16	FactDescText[];
+extern STR16 	*pMenuStrings;
+extern STR16	*pLocationPageText;
+extern STR16	*pSectorPageText;
+extern STR16	*pEncyclopediaHelpText;
+extern STR16	*pEncyclopediaTypeText;
+extern STR16	*pEncyclopediaSkrotyText;
+extern STR16	*pEncyclopediaFilterLocationText;
+extern STR16	*pEncyclopediaSubFilterLocationText;
+extern STR16	*pEncyclopediaFilterCharText;
+extern STR16	*pEncyclopediaSubFilterCharText;
+extern STR16	*pEncyclopediaFilterItemText;
+extern STR16	*pEncyclopediaSubFilterItemText;
+extern STR16	*pEncyclopediaFilterQuestText;
+extern STR16	*pEncyclopediaSubFilterQuestText;
+extern STR16	*pEncyclopediaShortCharacterText;
+extern STR16	*pEncyclopediaHelpCharacterText;
+extern STR16	*pEncyclopediaShortInventoryText;
+extern STR16	*BoxFilter;
+extern STR16	*pOtherButtonsText;
+extern STR16	*pOtherButtonsHelpText;
+extern STR16	*QuestDescText;
+extern STR16	*FactDescText;
 
 //Editor
 //Editor Taskbar Creation.cpp
-extern STR16 iEditorItemStatsButtonsText[];
-extern STR16 FaceDirs[8];
-extern STR16 iEditorMercsToolbarText[];
-extern STR16 iEditorBuildingsToolbarText[];
-extern STR16 iEditorItemsToolbarText[];
-extern STR16 iEditorMapInfoToolbarText[];
-extern STR16 iEditorOptionsToolbarText[];
-extern STR16 iEditorTerrainToolbarText[];
-extern STR16 iEditorTaskbarInternalText[];
+extern STR16 *iEditorItemStatsButtonsText;
+extern STR16 *FaceDirs;
+extern STR16 *iEditorMercsToolbarText;
+extern STR16 *iEditorBuildingsToolbarText;
+extern STR16 *iEditorItemsToolbarText;
+extern STR16 *iEditorMapInfoToolbarText;
+extern STR16 *iEditorOptionsToolbarText;
+extern STR16 *iEditorTerrainToolbarText;
+extern STR16 *iEditorTaskbarInternalText;
 //Editor Taskbar Utils.cpp
-extern STR16 iRenderMapEntryPointsAndLightsText[];
-extern STR16 iBuildTriggerNameText[];
-extern STR16 iRenderDoorLockInfoText[];
-extern STR16 iRenderEditorInfoText[];
+extern STR16 *iRenderMapEntryPointsAndLightsText;
+extern STR16 *iBuildTriggerNameText;
+extern STR16 *iRenderDoorLockInfoText;
+extern STR16 *iRenderEditorInfoText;
 //EditorBuildings.cpp
-extern STR16 iUpdateBuildingsInfoText[];
-extern STR16 iRenderDoorEditingWindowText[];
+extern STR16 *iUpdateBuildingsInfoText;
+extern STR16 *iRenderDoorEditingWindowText;
 //EditorItems.cpp
-extern STR16 pInitEditorItemsInfoText[];
-extern STR16 pDisplayItemStatisticsTex[];
-extern STR16 pUpdateMapInfoText[];
+extern STR16 *pInitEditorItemsInfoText;
+extern STR16 *pDisplayItemStatisticsTex;
+extern STR16 *pUpdateMapInfoText;
 //EditorMercs.cpp
-extern CHAR16 gszScheduleActions[ 11 ][20];	// NUM_SCHEDULE_ACTIONS = 11
-extern STR16 zDiffNames[5];	// NUM_DIFF_LVLS = 5
-extern STR16 EditMercStat[12];
-extern STR16 EditMercOrders[8];
-extern STR16 EditMercAttitudes[6];
-extern STR16 pDisplayEditMercWindowText[];
-extern STR16 pCreateEditMercWindowText[];
-extern STR16 pDisplayBodyTypeInfoText[];
-extern STR16 pUpdateMercsInfoText[];
-extern CHAR16 pRenderMercStringsText[][100];
-extern STR16 pClearCurrentScheduleText[];
-extern STR16 pCopyMercPlacementText[];
-extern STR16 pPasteMercPlacementText[];
+extern CHAR16 (*gszScheduleActions)[20];	// NUM_SCHEDULE_ACTIONS = 11
+extern STR16 *zDiffNames;	// NUM_DIFF_LVLS = 5
+extern STR16 *EditMercStat;
+extern STR16 *EditMercOrders;
+extern STR16 *EditMercAttitudes;
+extern STR16 *pDisplayEditMercWindowText;
+extern STR16 *pCreateEditMercWindowText;
+extern STR16 *pDisplayBodyTypeInfoText;
+extern STR16 *pUpdateMercsInfoText;
+extern CHAR16 (*pRenderMercStringsText)[100];
+extern STR16 *pClearCurrentScheduleText;
+extern STR16 *pCopyMercPlacementText;
+extern STR16 *pPasteMercPlacementText;
 //editscreen.cpp
-extern STR16 pEditModeShutdownText[];
-extern STR16 pHandleKeyboardShortcutsText[];
-extern STR16 pPerformSelectedActionText[];
-extern STR16 pWaitForHelpScreenResponseText[];
-extern STR16 pAutoLoadMapText[];
-extern STR16 pShowHighGroundText[];
+extern STR16 *pEditModeShutdownText;
+extern STR16 *pHandleKeyboardShortcutsText;
+extern STR16 *pPerformSelectedActionText;
+extern STR16 *pWaitForHelpScreenResponseText;
+extern STR16 *pAutoLoadMapText;
+extern STR16 *pShowHighGroundText;
 //Item Statistics.cpp
 //extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
-extern STR16 pUpdateItemStatsPanelText[];
-extern STR16 pSetupGameTypeFlagsText[];
-extern STR16 pSetupGunGUIText[];
-extern STR16 pSetupArmourGUIText[];
-extern STR16 pSetupExplosivesGUIText[];
-extern STR16 pSetupTriggersGUIText[];
+extern STR16 *pUpdateItemStatsPanelText;
+extern STR16 *pSetupGameTypeFlagsText;
+extern STR16 *pSetupGunGUIText;
+extern STR16 *pSetupArmourGUIText;
+extern STR16 *pSetupExplosivesGUIText;
+extern STR16 *pSetupTriggersGUIText;
 //Sector Summary.cpp
-extern STR16 pCreateSummaryWindowText[];
-extern STR16 pRenderSectorInformationText[];
-extern STR16 pRenderItemDetailsText[];
-extern STR16 pRenderSummaryWindowText[];
-extern STR16 pUpdateSectorSummaryText[];
-extern STR16 pSummaryLoadMapCallbackText[];
-extern STR16 pReportErrorText[];
-extern STR16 pRegenerateSummaryInfoForAllOutdatedMapsText[];
-extern STR16 pSummaryUpdateCallbackText[];
-extern STR16 pApologizeOverrideAndForceUpdateEverythingText[];
+extern STR16 *pCreateSummaryWindowText;
+extern STR16 *pRenderSectorInformationText;
+extern STR16 *pRenderItemDetailsText;
+extern STR16 *pRenderSummaryWindowText;
+extern STR16 *pUpdateSectorSummaryText;
+extern STR16 *pSummaryLoadMapCallbackText;
+extern STR16 *pReportErrorText;
+extern STR16 *pRegenerateSummaryInfoForAllOutdatedMapsText;
+extern STR16 *pSummaryUpdateCallbackText;
+extern STR16 *pApologizeOverrideAndForceUpdateEverythingText;
 //selectwin.cpp
-extern STR16 pDisplaySelectionWindowGraphicalInformationText[];
-extern STR16 pDisplaySelectionWindowButtonText[];
+extern STR16 *pDisplaySelectionWindowGraphicalInformationText;
+extern STR16 *pDisplaySelectionWindowButtonText;
 //Cursor Modes.cpp
-extern STR16 wszSelType[6];
+extern STR16 *wszSelType;
 //--
 
-extern	STR16	gzNewLaptopMessages[];
-extern	STR16	zNewTacticalMessages[];
-extern CHAR16  gszAimPages[ 6 ][ 20 ];
-extern CHAR16  zGrod[][500];
-extern STR16 pCreditsJA2113[];
-extern CHAR16 ShortItemNames[MAXITEMS][80];
-extern CHAR16 ItemNames[MAXITEMS][80];
-extern CHAR16 AmmoCaliber[MAXITEMS][20];
-extern CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20];
-extern CHAR16 WeaponType[MAXITEMS][30];
+extern	STR16*	gzNewLaptopMessages;
+extern	STR16*	zNewTacticalMessages;
+extern CHAR16  (*gszAimPages)[ 20 ];
+extern CHAR16  (*zGrod)[500];
+extern STR16* pCreditsJA2113;
+extern CHAR16 (*ShortItemNames)[80];
+extern CHAR16 (*ItemNames)[80];
+extern CHAR16 (*AmmoCaliber)[20];
+extern CHAR16 (*BobbyRayAmmoCaliber)[20];
+extern CHAR16 (*WeaponType)[30];
 
-extern CHAR16 Message[][STRING_LENGTH];
-extern CHAR16 TeamTurnString[][STRING_LENGTH];
-extern STR16 pMilitiaControlMenuStrings[]; //lal
-extern STR16 pTraitSkillsMenuStrings[];		//Flugente
-extern STR16 pTraitSkillsMenuDescStrings[]; //Flugente
-extern STR16 pTraitSkillsDenialStrings[]; //Flugente
+extern CHAR16 (*Message)[STRING_LENGTH];
+extern CHAR16 (*TeamTurnString)[STRING_LENGTH];
+extern STR16* pMilitiaControlMenuStrings; //lal
+extern STR16* pTraitSkillsMenuStrings;		//Flugente
+extern STR16* pTraitSkillsMenuDescStrings; //Flugente
+extern STR16* pTraitSkillsDenialStrings; //Flugente
 
 enum
 {
@@ -173,215 +173,215 @@ enum
 	SKILLMENU_CORPSES,
 };
 
-extern STR16 pSkillMenuStrings[];			//Flugente
+extern STR16* pSkillMenuStrings;			//Flugente
 //extern STR16 pTalkToAllMenuStrings[];
-extern STR16 pSnitchMenuStrings[];
-extern STR16 pSnitchMenuDescStrings[];
-extern STR16 pSnitchToggleMenuStrings[];
-extern STR16 pSnitchToggleMenuDescStrings[];
-extern STR16 pSnitchSectorMenuStrings[];
-extern STR16 pSnitchSectorMenuDescStrings[];
-extern STR16 pPrisonerMenuStrings[];
-extern STR16 pPrisonerMenuDescStrings[];
-extern STR16 pSnitchPrisonExposedStrings[];
-extern STR16 pSnitchGatheringRumoursResultStrings[];
-extern STR16 pAssignMenuStrings[];
-extern STR16 pTrainingStrings[];
-extern STR16 pTrainingMenuStrings[];
-extern STR16 pAttributeMenuStrings[];
-extern STR16 pVehicleStrings[];
-extern STR16 pShortAttributeStrings[];
-extern STR16 pLongAttributeStrings[];
-extern STR16 pContractStrings[];
-extern STR16 pAssignmentStrings[];
-extern STR16 pConditionStrings[];
-extern CHAR16 pCountryNames[][MAX_TOWN_NAME_LENGHT];
-extern CHAR16 pTownNames[MAX_TOWNS][MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
-extern STR16 pPersonnelScreenStrings[];
-extern STR16 pPersonnelRecordsHelpTexts[]; // added by SANDRO
-extern STR16 pPersonnelTitle[];
-extern STR16 pUpperLeftMapScreenStrings[];
-extern STR16 pTacticalPopupButtonStrings[];
-extern STR16 pSquadMenuStrings[];
-extern STR16 pDoorTrapStrings[];
-extern STR16 pLongAssignmentStrings[];
-extern STR16 pContractExtendStrings[];
-extern STR16 pMapScreenMouseRegionHelpText[];
-extern STR16 pPersonnelAssignmentStrings[];
-extern STR16 pNoiseVolStr[];
-extern STR16 pNoiseTypeStr[];
-extern STR16 pDirectionStr[];
-extern STR16 pRemoveMercStrings[];
-extern STR16 sTimeStrings[];
-extern STR16 pLandTypeStrings[];
-extern STR16 pGuardMenuStrings[];
-extern STR16 pOtherGuardMenuStrings[];
-extern STR16 pInvPanelTitleStrings[];
-extern STR16 pPOWStrings[];
-extern STR16 pMilitiaString[];
-extern STR16 pMilitiaButtonString[];
-extern STR16 pEpcMenuStrings[];
+extern STR16* pSnitchMenuStrings;
+extern STR16* pSnitchMenuDescStrings;
+extern STR16* pSnitchToggleMenuStrings;
+extern STR16* pSnitchToggleMenuDescStrings;
+extern STR16* pSnitchSectorMenuStrings;
+extern STR16* pSnitchSectorMenuDescStrings;
+extern STR16* pPrisonerMenuStrings;
+extern STR16* pPrisonerMenuDescStrings;
+extern STR16* pSnitchPrisonExposedStrings;
+extern STR16* pSnitchGatheringRumoursResultStrings;
+extern STR16* pAssignMenuStrings;
+extern STR16* pTrainingStrings;
+extern STR16* pTrainingMenuStrings;
+extern STR16* pAttributeMenuStrings;
+extern STR16* pVehicleStrings;
+extern STR16* pShortAttributeStrings;
+extern STR16* pLongAttributeStrings;
+extern STR16* pContractStrings;
+extern STR16* pAssignmentStrings;
+extern STR16* pConditionStrings;
+extern CHAR16 (*pCountryNames)[MAX_TOWN_NAME_LENGHT];
+extern CHAR16 (*pTownNames)[MAX_TOWN_NAME_LENGHT];	// Lesh: look mapscreen.h for definitions
+extern STR16* pPersonnelScreenStrings;
+extern STR16* pPersonnelRecordsHelpTexts; // added by SANDRO
+extern STR16* pPersonnelTitle;
+extern STR16* pUpperLeftMapScreenStrings;
+extern STR16* pTacticalPopupButtonStrings;
+extern STR16* pSquadMenuStrings;
+extern STR16* pDoorTrapStrings;
+extern STR16* pLongAssignmentStrings;
+extern STR16* pContractExtendStrings;
+extern STR16* pMapScreenMouseRegionHelpText;
+extern STR16* pPersonnelAssignmentStrings;
+extern STR16* pNoiseVolStr;
+extern STR16* pNoiseTypeStr;
+extern STR16* pDirectionStr;
+extern STR16* pRemoveMercStrings;
+extern STR16* sTimeStrings;
+extern STR16* pLandTypeStrings;
+extern STR16* pGuardMenuStrings;
+extern STR16* pOtherGuardMenuStrings;
+extern STR16* pInvPanelTitleStrings;
+extern STR16* pPOWStrings;
+extern STR16* pMilitiaString;
+extern STR16* pMilitiaButtonString;
+extern STR16* pEpcMenuStrings;
 
-extern STR16 pRepairStrings[];
-extern STR16 sPreStatBuildString[];
-extern STR16 sStatGainStrings[];
-extern STR16 pHelicopterEtaStrings[];
-extern STR16 pHelicopterRepairRefuelStrings[];
-extern STR16 sMapLevelString[];
-extern STR16 gsLoyalString[];
-extern STR16 pMapHeliErrorString[];
-extern STR16 gsUndergroundString[];
-extern STR16 gsTimeStrings[];
-extern STR16 sFacilitiesStrings[];
-extern STR16 pMapPopUpInventoryText[];
-extern STR16 pwTownInfoStrings[];
-extern STR16 pwMineStrings[];
-extern STR16 pwMiscSectorStrings[];
-extern STR16 pMapInventoryErrorString[];
-extern STR16 pMapInventoryStrings[];
-extern STR16 pMapScreenFastHelpTextList[];
-extern STR16 pMovementMenuStrings[];
-extern STR16 pUpdateMercStrings[];
-extern STR16 pMapScreenBorderButtonHelpText[];
-extern STR16 pMapScreenInvenButtonHelpText[];
-extern STR16 pMapScreenBottomFastHelp[];
-extern STR16 pMapScreenBottomText[];
-extern STR16 pMercDeadString[];
-extern CHAR16 pSenderNameList[500][128];
-extern STR16 pTraverseStrings[];
-extern STR16 pNewMailStrings[];
-extern STR16 pDeleteMailStrings[];
-extern STR16 pEmailHeaders[];
-extern STR16 pEmailTitleText[];
-extern STR16 pFinanceTitle[];
-extern STR16 pFinanceSummary[];
-extern STR16 pFinanceHeaders[];
-extern STR16 pTransactionText[];
-extern STR16 pTransactionAlternateText[];
-extern STR16 pMoralStrings[];
-extern STR16 pSkyriderText[];
-extern STR16 pMercFellAsleepString[];
-extern STR16 pLeftEquipmentString[]; 
-extern STR16 pMapScreenStatusStrings[];
-extern STR16 pMapScreenPrevNextCharButtonHelpText[];
-extern STR16 pEtaString[];
-extern STR16 pShortVehicleStrings[];
-extern STR16 pTrashItemText[];
-extern STR16 pMapErrorString[];
-extern STR16 pMapPlotStrings[];
-extern STR16 pMiscMapScreenMouseRegionHelpText[];
-extern STR16 pMercHeLeaveString[];
-extern STR16 pMercSheLeaveString[];
-extern STR16 pImpPopUpStrings[];
-extern STR16 pImpButtonText[];
-extern STR16 pExtraIMPStrings[];
-extern STR16 pFilesTitle[];
-extern STR16 pFilesSenderList[];
-extern STR16 pHistoryLocations[];
+extern STR16* pRepairStrings;
+extern STR16* sPreStatBuildString;
+extern STR16* sStatGainStrings;
+extern STR16* pHelicopterEtaStrings;
+extern STR16* pHelicopterRepairRefuelStrings;
+extern STR16* sMapLevelString;
+extern STR16* gsLoyalString;
+extern STR16* pMapHeliErrorString;
+extern STR16* gsUndergroundString;
+extern STR16* gsTimeStrings;
+extern STR16* sFacilitiesStrings;
+extern STR16* pMapPopUpInventoryText;
+extern STR16* pwTownInfoStrings;
+extern STR16* pwMineStrings;
+extern STR16* pwMiscSectorStrings;
+extern STR16* pMapInventoryErrorString;
+extern STR16* pMapInventoryStrings;
+extern STR16* pMapScreenFastHelpTextList;
+extern STR16* pMovementMenuStrings;
+extern STR16* pUpdateMercStrings;
+extern STR16* pMapScreenBorderButtonHelpText;
+extern STR16* pMapScreenInvenButtonHelpText;
+extern STR16* pMapScreenBottomFastHelp;
+extern STR16* pMapScreenBottomText;
+extern STR16* pMercDeadString;
+extern CHAR16 (*pSenderNameList)[128];
+extern STR16* pTraverseStrings;
+extern STR16* pNewMailStrings;
+extern STR16* pDeleteMailStrings;
+extern STR16* pEmailHeaders;
+extern STR16* pEmailTitleText;
+extern STR16* pFinanceTitle;
+extern STR16* pFinanceSummary;
+extern STR16* pFinanceHeaders;
+extern STR16* pTransactionText;
+extern STR16* pTransactionAlternateText;
+extern STR16* pMoralStrings;
+extern STR16* pSkyriderText;
+extern STR16* pMercFellAsleepString;
+extern STR16* pLeftEquipmentString; 
+extern STR16* pMapScreenStatusStrings;
+extern STR16* pMapScreenPrevNextCharButtonHelpText;
+extern STR16* pEtaString;
+extern STR16* pShortVehicleStrings;
+extern STR16* pTrashItemText;
+extern STR16* pMapErrorString;
+extern STR16* pMapPlotStrings;
+extern STR16* pMiscMapScreenMouseRegionHelpText;
+extern STR16* pMercHeLeaveString;
+extern STR16* pMercSheLeaveString;
+extern STR16* pImpPopUpStrings;
+extern STR16* pImpButtonText;
+extern STR16* pExtraIMPStrings;
+extern STR16* pFilesTitle;
+extern STR16* pFilesSenderList;
+extern STR16* pHistoryLocations;
 //extern STR16 pHistoryAlternateStrings[];
 //extern STR16 pHistoryStrings[];		// Externalized to "TableData\History.xml"
-extern STR16 pHistoryHeaders[];
-extern STR16 pHistoryTitle[];
-extern STR16 pShowBookmarkString[];
-extern STR16 pWebPagesTitles[];
-extern STR16 pWebTitle[ ];
-extern STR16 pPersonnelString[];
-extern STR16 pErrorStrings[];
-extern STR16 pDownloadString[];
-extern STR16 pBookmarkTitle[];
-extern STR16 pBookMarkStrings[];
-extern STR16 pLaptopIcons[];
-extern STR16 gsAtmStartButtonText[];
-extern STR16 pDownloadString[];
-extern STR16 pPersonnelTeamStatsStrings[];
-extern STR16 pPersonnelCurrentTeamStatsStrings[];
-extern STR16 pPersonelTeamStrings[];
-extern STR16 pPersonnelDepartedStateStrings[];
-extern STR16 pMapHortIndex[];
-extern STR16 pMapVertIndex[];
-extern STR16 pMapDepthIndex[];
+extern STR16* pHistoryHeaders;
+extern STR16* pHistoryTitle;
+extern STR16* pShowBookmarkString;
+extern STR16* pWebPagesTitles;
+extern STR16* pWebTitle;
+extern STR16* pPersonnelString;
+extern STR16* pErrorStrings;
+extern STR16* pDownloadString;
+extern STR16* pBookmarkTitle;
+extern STR16* pBookMarkStrings;
+extern STR16* pLaptopIcons;
+extern STR16* gsAtmStartButtonText;
+extern STR16* pDownloadString;
+extern STR16* pPersonnelTeamStatsStrings;
+extern STR16* pPersonnelCurrentTeamStatsStrings;
+extern STR16* pPersonelTeamStrings;
+extern STR16* pPersonnelDepartedStateStrings;
+extern STR16* pMapHortIndex;
+extern STR16* pMapVertIndex;
+extern STR16* pMapDepthIndex;
 //extern STR16 sCritLocationStrings[];
 //extern STR16 sVehicleHit[ ];
-extern STR16 pLaptopTitles[];
-extern STR16 pDayStrings[];
-extern STR16 pMercContractOverStrings[];
-extern STR16 pMilitiaConfirmStrings[];
-extern STR16 pDeliveryLocationStrings[];
-extern STR16 pSkillAtZeroWarning[];
-extern STR16 pIMPBeginScreenStrings[];
-extern STR16 pIMPFinishButtonText[1];
-extern STR16 pIMPFinishStrings[];
-extern STR16 pIMPVoicesStrings[];
-extern STR16 pDepartedMercPortraitStrings[];
-extern STR16 pPersTitleText[];
-extern STR16 pPausedGameText[];
-extern STR16	zOptionsToggleText[];
-extern STR16	zOptionsScreenHelpText[];
-extern STR16 pDoctorWarningString[];
-extern STR16 pMilitiaButtonsHelpText[];
-extern STR16 pMapScreenJustStartedHelpText[];
-extern STR16 pLandMarkInSectorString[];
-extern STR16 gzMercSkillText[];
-extern STR16 gzMercSkillTextNew[]; // added by SANDRO
-extern STR16 gzNonPersistantPBIText[];
-extern STR16 gzMiscString[];
+extern STR16* pLaptopTitles;
+extern STR16* pDayStrings;
+extern STR16* pMercContractOverStrings;
+extern STR16* pMilitiaConfirmStrings;
+extern STR16* pDeliveryLocationStrings;
+extern STR16* pSkillAtZeroWarning;
+extern STR16* pIMPBeginScreenStrings;
+extern STR16* pIMPFinishButtonText;
+extern STR16* pIMPFinishStrings;
+extern STR16* pIMPVoicesStrings;
+extern STR16* pDepartedMercPortraitStrings;
+extern STR16* pPersTitleText;
+extern STR16* pPausedGameText;
+extern STR16* zOptionsToggleText;
+extern STR16* zOptionsScreenHelpText;
+extern STR16* pDoctorWarningString;
+extern STR16* pMilitiaButtonsHelpText;
+extern STR16* pMapScreenJustStartedHelpText;
+extern STR16* pLandMarkInSectorString;
+extern STR16* gzMercSkillText;
+extern STR16* gzMercSkillTextNew; // added by SANDRO
+extern STR16* gzNonPersistantPBIText;
+extern STR16* gzMiscString;
 
-extern STR16 wMapScreenSortButtonHelpText[];
-extern STR16 pNewNoiseStr[];
-extern STR16 pTauntUnknownVoice[]; // anv: for enemy taunts
-extern STR16 gzLateLocalizedString[];
+extern STR16* wMapScreenSortButtonHelpText;
+extern STR16* pNewNoiseStr;
+extern STR16* pTauntUnknownVoice; // anv: for enemy taunts
+extern STR16* gzLateLocalizedString;
 
-extern STR16 gzCWStrings[];
+extern STR16* gzCWStrings;
 
-extern STR16 gzTooltipStrings[];
+extern STR16* gzTooltipStrings;
 
-// These have been added - SANDRO 
-extern STR16 pSkillTraitBeginIMPStrings[];
-extern STR16 sgAttributeSelectionText[];
-extern STR16 pCharacterTraitBeginIMPStrings[];
-extern STR16 gzIMPCharacterTraitText[];
-extern STR16 gzIMPAttitudesText[];
-extern STR16 gzIMPColorChoosingText[];
-extern STR16 sColorChoiceExplanationTexts[];
-extern STR16 gzIMPDisabilityTraitText[];			// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextDeaf[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextShortSighted[];
-extern STR16 gzIMPDisabilityTraitEmailTextHemophiliac[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextAfraidOfHeights[];	// added by Flugente
-extern STR16 gzIMPDisabilityTraitEmailTextSelfHarm[];	// added by Flugente
-extern STR16 sEnemyTauntsFireGun[];
-extern STR16 sEnemyTauntsFireLauncher[];
-extern STR16 sEnemyTauntsThrow[];
-extern STR16 sEnemyTauntsChargeKnife[];
-extern STR16 sEnemyTauntsRunAway[];
-extern STR16 sEnemyTauntsSeekNoise[];
-extern STR16 sEnemyTauntsAlert[];
-extern STR16 sEnemyTauntsGotHit[];
-extern STR16 sEnemyTauntsNoticedMerc[];
-extern STR16 sSpecialCharacters[];
+// These have been added - SANDRO
+extern STR16* pSkillTraitBeginIMPStrings;
+extern STR16* sgAttributeSelectionText;
+extern STR16* pCharacterTraitBeginIMPStrings;
+extern STR16* gzIMPCharacterTraitText;
+extern STR16* gzIMPAttitudesText;
+extern STR16* gzIMPColorChoosingText;
+extern STR16* sColorChoiceExplanationTexts;
+extern STR16* gzIMPDisabilityTraitText;			// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextDeaf;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextShortSighted;
+extern STR16* gzIMPDisabilityTraitEmailTextHemophiliac;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextAfraidOfHeights;	// added by Flugente
+extern STR16* gzIMPDisabilityTraitEmailTextSelfHarm;	// added by Flugente
+extern STR16* sEnemyTauntsFireGun;
+extern STR16* sEnemyTauntsFireLauncher;
+extern STR16* sEnemyTauntsThrow;
+extern STR16* sEnemyTauntsChargeKnife;
+extern STR16* sEnemyTauntsRunAway;
+extern STR16* sEnemyTauntsSeekNoise;
+extern STR16* sEnemyTauntsAlert;
+extern STR16* sEnemyTauntsGotHit;
+extern STR16* sEnemyTauntsNoticedMerc;
+extern STR16* sSpecialCharacters;
 //****
 
 // HEADROCK HAM 3.6: New arrays for facility operation messages
-extern STR16 gzFacilityErrorMessage[];
-extern STR16 gzFacilityAssignmentStrings[];
-extern STR16 gzFacilityRiskResultStrings[];
+extern STR16* gzFacilityErrorMessage;
+extern STR16* gzFacilityAssignmentStrings;
+extern STR16* gzFacilityRiskResultStrings;
 
 // HEADROCK HAM 4: Text for the new CTH indicator.
-extern STR16 gzNCTHlabels[];
+extern STR16* gzNCTHlabels;
 
 // HEADROCK HAM 5: Messages for automatic sector inventory sorting.
-extern STR16 gzMapInventorySortingMessage[];
-extern STR16 gzMapInventoryFilterOptions[];
+extern STR16* gzMapInventorySortingMessage;
+extern STR16* gzMapInventoryFilterOptions;
 
 // MeLoDy (Merc Compare)
-extern STR16 gzMercCompare[];
+extern STR16* gzMercCompare;
 
 enum
 {
 	ANTIHACKERSTR_EXITGAME,
 	TEXT_NUM_ANTIHACKERSTR,
 };
-extern STR16 pAntiHackerString[];
+extern STR16* pAntiHackerString;
 
 enum
 {
@@ -506,9 +506,9 @@ enum
 
 	TEXT_NUM_MSG,
 };
-extern STR16 pMessageStrings[];
+extern STR16* pMessageStrings;
 
-extern CHAR16 ItemPickupHelpPopup[][40];
+extern CHAR16 (*ItemPickupHelpPopup)[40];
 
 enum
 {
@@ -715,64 +715,64 @@ enum
 #define MED_STRING_LENGTH				80
 #define	SMALL_STRING_LENGTH			20
 
-extern CHAR16 TacticalStr[][MED_STRING_LENGTH];
-extern CHAR16 LargeTacticalStr[][ LARGE_STRING_LENGTH ];
+extern CHAR16 (*TacticalStr)[MED_STRING_LENGTH];
+extern CHAR16 (*LargeTacticalStr)[ LARGE_STRING_LENGTH ];
 
 
-extern CHAR16		zDialogActions[][ SMALL_STRING_LENGTH ];
-extern CHAR16		zDealerStrings[][ SMALL_STRING_LENGTH ];
-extern CHAR16		zTalkMenuStrings[][ SMALL_STRING_LENGTH ];
-extern STR16		gzMoneyAmounts[6];
-extern CHAR16		gzProsLabel[10];
-extern CHAR16		gzConsLabel[10];
+extern CHAR16		(*zDialogActions)[ SMALL_STRING_LENGTH ];
+extern CHAR16		(*zDealerStrings)[ SMALL_STRING_LENGTH ];
+extern CHAR16		(*zTalkMenuStrings)[ SMALL_STRING_LENGTH ];
+extern STR16* gzMoneyAmounts;
+extern CHAR16* gzProsLabel;
+extern CHAR16* gzConsLabel;
 // HEADROCK HAM 4: Text for the UDB tabs
-extern STR16 gzItemDescTabButtonText[ 3 ];
-extern STR16 gzItemDescTabButtonShortText[ 3 ];
-extern STR16 gzItemDescGenHeaders[ 4 ];
-extern STR16 gzItemDescGenIndexes[ 4 ];
+extern STR16* gzItemDescTabButtonText;
+extern STR16* gzItemDescTabButtonShortText;
+extern STR16* gzItemDescGenHeaders;
+extern STR16* gzItemDescGenIndexes;
 // HEADROCK HAM 4: Added list of condition strings
-extern STR16		gConditionDesc[ 9 ];
+extern STR16* gConditionDesc;
 
 // Flugente: Added list of temperature descriptions
-extern STR16		gTemperatureDesc[ 11 ];
+extern STR16* gTemperatureDesc;
 
 // Flugente: Added list of food condition descriptions
-extern STR16		gFoodDesc[ 8 ];
+extern STR16* gFoodDesc;
 
-extern CHAR16		gMoneyStatsDesc[][ 14 ];
+extern CHAR16		(*gMoneyStatsDesc)[ 14 ];
 // HEADROCK: Altered value to 16 //WarmSteel - And I need 17.	// Flugente: 17->19
-extern CHAR16		gWeaponStatsDesc[][ 20 ];
+extern CHAR16		(*gWeaponStatsDesc)[ 20 ];
 // HEADROCK: Added externs for Item Description Box icon and stat tooltips
 // Note that I've inflated some of these to 20 to avoid issues.
-extern STR16		gzWeaponStatsFasthelpTactical[ 33 ];
-extern STR16		gzMiscItemStatsFasthelp[];
+extern STR16* gzWeaponStatsFasthelpTactical;
+extern STR16* gzMiscItemStatsFasthelp;
 // HEADROCK HAM 4: New tooltip texts
-extern STR16		gzUDBButtonTooltipText[ 3 ];
-extern STR16		gzUDBHeaderTooltipText[ 4 ];
-extern STR16		gzUDBGenIndexTooltipText[ 4 ];
-extern STR16		gzUDBAdvIndexTooltipText[ 5 ];
-extern STR16		szUDBGenWeaponsStatsTooltipText[ 23 ];
-extern STR16		szUDBGenWeaponsStatsExplanationsTooltipText[ 24 ];
-extern STR16		szUDBGenArmorStatsTooltipText[ 4 ];						// silversurfer Repair Ease: 3->5
-extern STR16		szUDBGenArmorStatsExplanationsTooltipText[ 5 ];			// silversurfer Repair Ease: 3->5
-extern STR16		szUDBGenAmmoStatsTooltipText[ 6 ];						// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
-extern STR16		szUDBGenAmmoStatsExplanationsTooltipText[ 6 ];			// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
-extern STR16		szUDBGenExplosiveStatsTooltipText[ 23 ];				// silversurfer Repair Ease: 22->23
-extern STR16		szUDBGenExplosiveStatsExplanationsTooltipText[ 23 ];	// silversurfer Repair Ease: 22->23
-extern STR16		szUDBGenCommonStatsTooltipText[ 3 ];					// silversurfer new for items that don't fit the other categories
-extern STR16		szUDBGenCommonStatsExplanationsTooltipText[ 3 ];		// silversurfer new for items that don't fit the other categories
-extern STR16		szUDBGenSecondaryStatsTooltipText[];				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
-extern STR16		szUDBGenSecondaryStatsExplanationsTooltipText[];	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
-extern STR16		szUDBAdvStatsTooltipText[];
-extern STR16		szUDBAdvStatsExplanationsTooltipText[];
-extern STR16		szUDBAdvStatsExplanationsTooltipTextForWeapons[];
+extern STR16* gzUDBButtonTooltipText;
+extern STR16* gzUDBHeaderTooltipText;
+extern STR16* gzUDBGenIndexTooltipText;
+extern STR16* gzUDBAdvIndexTooltipText;
+extern STR16* szUDBGenWeaponsStatsTooltipText;
+extern STR16* szUDBGenWeaponsStatsExplanationsTooltipText;
+extern STR16* szUDBGenArmorStatsTooltipText;						// silversurfer Repair Ease: 3->5
+extern STR16* szUDBGenArmorStatsExplanationsTooltipText;			// silversurfer Repair Ease: 3->5
+extern STR16* szUDBGenAmmoStatsTooltipText;						// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
+extern STR16* szUDBGenAmmoStatsExplanationsTooltipText;			// Flugente Overheating: 3->4	poison: 4->5	dirt: 5->6
+extern STR16* szUDBGenExplosiveStatsTooltipText;				// silversurfer Repair Ease: 22->23
+extern STR16* szUDBGenExplosiveStatsExplanationsTooltipText;	// silversurfer Repair Ease: 22->23
+extern STR16* szUDBGenCommonStatsTooltipText;					// silversurfer new for items that don't fit the other categories
+extern STR16* szUDBGenCommonStatsExplanationsTooltipText;		// silversurfer new for items that don't fit the other categories
+extern STR16* szUDBGenSecondaryStatsTooltipText;				// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
+extern STR16* szUDBGenSecondaryStatsExplanationsTooltipText;	// Flugente Food System: 26 -> 28 external feeding: 28->30 JMich_SkillsModifiers: 31 for Defusal kit - covert item: 31->32 silversurfer more tags: 32->37
+extern STR16* szUDBAdvStatsTooltipText;
+extern STR16* szUDBAdvStatsExplanationsTooltipText;
+extern STR16* szUDBAdvStatsExplanationsTooltipTextForWeapons;
 
 // Headrock: End Externs
-extern STR16		sKeyDescriptionStrings[2];
-extern CHAR16		zHealthStr[][13];
-extern STR16		gzHiddenHitCountStr[1];
-extern STR16		zVehicleName[ 6 ];
-extern STR16		pVehicleSeatsStrings[ 2 ] ;
+extern STR16* sKeyDescriptionStrings;
+extern CHAR16		(*zHealthStr)[13];
+extern STR16* gzHiddenHitCountStr;
+extern STR16* zVehicleName;
+extern STR16* pVehicleSeatsStrings ;
 
 // Flugente: externalised texts for some features
 enum
@@ -816,7 +816,7 @@ enum
 	TEXT_NUM_COVERT_STR
 };
 
-extern STR16		szCovertTextStr[];
+extern STR16* szCovertTextStr;
 
 enum
 {
@@ -831,7 +831,7 @@ enum
 	TEXT_POWERPACK_STR
 };
 
-extern STR16 gPowerPackDesc[];
+extern STR16* gPowerPackDesc;
 
 enum
 {
@@ -849,7 +849,7 @@ enum
 	TEXT_NUM_CORPSE_STR
 };
 
-extern STR16		szCorpseTextStr[];
+extern STR16* szCorpseTextStr;
 
 enum
 {
@@ -871,7 +871,7 @@ enum
 	TEXT_NUM_FOOD_STR
 };
 
-extern STR16		szFoodTextStr[];
+extern STR16* szFoodTextStr;
 
 enum
 {
@@ -896,7 +896,7 @@ enum
 	TEXT_NUM_PRISONER_STR
 };
 
-extern STR16		szPrisonerTextStr[];
+extern STR16* szPrisonerTextStr;
 
 enum
 {
@@ -910,7 +910,7 @@ enum
 	TEXT_NUM_MTA_STR
 };
 
-extern STR16		szMTATextStr[];
+extern STR16* szMTATextStr;
 
 enum
 {
@@ -924,7 +924,7 @@ enum
 	TEXT_NUM_INV_ARM_STR
 };
 
-extern STR16		szInventoryArmTextStr[];
+extern STR16* szInventoryArmTextStr;
 
 enum
 {
@@ -1179,7 +1179,7 @@ enum{
 	EXIT_GUI_ESCORTED_CHARACTERS_CANT_LEAVE_SECTOR_ALONE_STR,
 	TEXT_NUM_EXIT_GUI
 };
-extern STR16 pExitingSectorHelpText[];
+extern STR16* pExitingSectorHelpText;
 
 
 enum
@@ -1200,7 +1200,7 @@ enum
 	INS_CONTRACT_CLEAR,
 	TEXT_NUM_INS_CONTRACT
 };
-extern		STR16			InsContractText[];
+extern STR16* InsContractText;
 
 
 //Insurance Info
@@ -1210,7 +1210,7 @@ enum
 	INS_INFO_NEXT,
 	TEXT_NUM_INS_INFO,
 };
-extern		STR16		InsInfoText[];
+extern STR16* InsInfoText;
 
 //Merc Account.c
 enum
@@ -1227,10 +1227,10 @@ enum
 	MERC_ACCOUNT_NAME_PLUSGEAR,
 	TEXT_NUM_MERC_ACCOUNT,
 };
-extern		STR16			MercAccountText[];
+extern STR16* MercAccountText;
 
 // WANNE: The "Next" and "Prev" button text of the merc account page
-extern	STR16 MercAccountPageText[];
+extern STR16* MercAccountPageText;
 
 
 //MercFile.c
@@ -1269,7 +1269,7 @@ enum
 	MERC_FILES_SPECIAL_OFFER,
 	TEXT_NUM_MERC_FILES,
 };
-extern		STR16			MercInfo[];
+extern STR16* MercInfo;
 
 
 //MercNoAccount.c
@@ -1280,7 +1280,7 @@ enum
 	MERC_NO_ACC_NO_ACCOUNT_OPEN_ONE,
 	TEXT_NUM_MERC_NO_ACC,
 };
-extern		STR16			MercNoAccountText[];
+extern STR16* MercNoAccountText;
 
 
 
@@ -1295,7 +1295,7 @@ enum
 	MERC_NO_FUNDS_TRANSFER_FAILED,
 	TEXT_NUM_MERC,
 };
-extern		STR16			MercHomePageText[];
+extern STR16* MercHomePageText;
 
 
 //Funerl.c
@@ -1315,7 +1315,7 @@ enum
 	FUNERAL_OUR_SYMPATHIES,
 	TEXT_NUM_FUNERAL,
 };
-extern		STR16			sFuneralString[];
+extern STR16* sFuneralString;
 
 
 //Florist.c
@@ -1337,7 +1337,7 @@ enum
 	FLORIST_ADVERTISEMENT_9,
 	TEXT_NUM_FLORIST,
 };
-extern		STR16			sFloristText[];
+extern STR16* sFloristText;
 
 
 //Florist Order Form
@@ -1367,7 +1367,7 @@ enum
 	FLORIST_ORDER_NAME,
 	TEXT_NUM_FLORIST_ORDER,
 };
-extern		STR16			sOrderFormText[];
+extern STR16* sOrderFormText;
 
 
 
@@ -1381,7 +1381,7 @@ enum
 	FLORIST_GALLERY_HOME,
 	TEXT_NUM_FLORIST_GALLERY,
 };
-extern		STR16		sFloristGalleryText[];
+extern STR16* sFloristGalleryText;
 
 
 //Florist Cards
@@ -1391,7 +1391,7 @@ enum
 	FLORIST_CARDS_BACK,
 	TEXT_NUM_FLORIST_CARDS,
 };
-extern		STR16			sFloristCards[];
+extern STR16* sFloristCards;
 
 // Bobbyr Mail Order.c
 enum
@@ -1424,7 +1424,7 @@ enum
 	BOBBYR_GOTOSHIPMENT_PAGE,
 	TEXT_NUM_BOBBYR_MAILORDER,
 };
-extern		STR16			BobbyROrderFormText[];
+extern STR16* BobbyROrderFormText;
 
 enum
 {
@@ -1524,8 +1524,8 @@ enum
 	TEXT_NUM_BOBBYR_GUNS,
 };
 
-extern		STR16			BobbyRText[];
-extern		STR16			BobbyRFilter[];
+extern STR16* BobbyRText;
+extern STR16* BobbyRFilter;
 
 
 //BobbyR.c
@@ -1542,7 +1542,7 @@ enum
 	BOBBYR_UNDER_CONSTRUCTION,
 	TEXT_NUM_BOBBYR
 };
-extern		STR16			BobbyRaysFrontText[];
+extern STR16* BobbyRaysFrontText;
 
 //Aim Sort.c
 enum
@@ -1569,7 +1569,7 @@ enum
 	DESCENDING,
 	TEXT_NUM_AIM_SORT
 };
-extern		STR16			AimSortText[];
+extern STR16* AimSortText;
 
 //Aim Policies.c
 enum
@@ -1582,7 +1582,7 @@ enum
 	AIM_POLICIES_AGREE,
 	TEXT_NUM_AIM_POLICIES
 };
-extern		STR16		AimPolicyText[];
+extern STR16* AimPolicyText;
 
 
 
@@ -1593,7 +1593,7 @@ enum
 	AIM_MEMBER_CLICK_INSTRUCTIONS,
 	TEXT_NUM_AIM_MEMBER_TEXT
 };
-extern		STR16			AimMemberText[];
+extern STR16* AimMemberText;
 
 
 
@@ -1632,7 +1632,7 @@ enum
 	AIM_MEMBER_UB_MISSION_FEE,
 	TEXT_NUM_AIM_MEMBER_CHARINFO,
 };
-extern		STR16			CharacterInfo[];
+extern STR16* CharacterInfo;
 
 
 
@@ -1656,7 +1656,7 @@ enum
 	AIM_MEMBER_WITH_MEDICAL,		//14
 	TEXT_NUM_AIM_MEMBER_VCONF
 };
-extern		STR16			VideoConfercingText[];
+extern STR16* VideoConfercingText;
 
 //Aim Member.c
 enum
@@ -1675,7 +1675,7 @@ enum
 	AIM_MEMBER_MESSAGE_RECORDED,
 	TEXT_NUM_AIM_MEMBER_POPUP
 };
-extern		STR16			AimPopUpText[];
+extern STR16* AimPopUpText;
 
 //AIM Link.c
 enum
@@ -1683,7 +1683,7 @@ enum
 	AIM_LINK_TITLE,
 	TEXM_NUM_AIM_LINK,
 };
-extern		STR16			AimLinkText[];
+extern STR16* AimLinkText;
 
 
 //Aim History
@@ -1696,7 +1696,7 @@ enum
 	AIM_HISTORY_NEXT,
 	TEXT_NUM_AIM_HISTORY,
 };
-extern		STR16			AimHistoryText[];
+extern STR16* AimHistoryText;
 
 
 
@@ -1727,7 +1727,7 @@ enum
 	AIM_FI_ON_ASSIGN,
 	TEXT_NUM_AIM_FI,
 };
-extern		STR16			AimFiText[];
+extern STR16* AimFiText;
 
 
 //AimArchives.
@@ -1740,7 +1740,7 @@ enum
 	AIM_ALUMNI_DONE,
 	TEXT_NUM_AIM_ALUMNI,
 };
-extern		STR16			AimAlumniText[];
+extern STR16* AimAlumniText;
 
 
 
@@ -1763,7 +1763,7 @@ enum
 	TEXT_NUM_AIM_SCREEN
 };
 
-extern		STR16			AimScreenText[];
+extern STR16* AimScreenText;
 
 //Aim Home Page
 enum
@@ -1777,7 +1777,7 @@ enum
 	TEXT_NUM_AIM_MENU
 };
 
-extern STR16			AimBottomMenuText[];
+extern STR16* AimBottomMenuText;
 
 
 
@@ -1788,7 +1788,7 @@ enum
 	MAP_SCREEN_NO_MILITIA_TEXT,
 	TEXT_NUM_MAP_SCREEN,
 };
-extern	STR16		zMarksMapScreenText[];
+extern STR16* zMarksMapScreenText;
 
 
 
@@ -1923,14 +1923,14 @@ enum
 };
 
 //Strings used in conjunction with above enumerations
-extern STR16 gpStrategicString[];
+extern STR16* gpStrategicString;
 
 enum
 {
 	STR_GAMECLOCK_DAY_NAME,
 	TEXT_NUM_GAMECLOCK,
 };
-extern STR16 gpGameClockString[];
+extern STR16* gpGameClockString;
 
 //enums for the Shopkeeper Interface
 enum
@@ -1952,7 +1952,7 @@ enum
 	SKI_TEXT_BUDGET,
 	TEXT_NUM_SKI_TEXT
 };
-extern	STR16			SKI_Text[];
+extern STR16* SKI_Text;
 
 //ShopKeeper Interface
 enum
@@ -1975,7 +1975,7 @@ enum
 
 	NUM_SKI_ATM_BUTTONS
 };
-extern	STR16	SkiAtmText[];
+extern STR16* SkiAtmText;
 
 //ShopKeeper Interface
 enum
@@ -1988,7 +1988,7 @@ enum
 	SKI_ATM_MODE_TEXT_BALANCE,
 	TEXT_NUM_SKI_ATM_MODE_TEXT,
 };
-extern	STR16	gzSkiAtmText[];
+extern STR16* gzSkiAtmText;
 
 //ShopKeeperInterface Message Box defines
 enum
@@ -2009,7 +2009,7 @@ enum
 	TEXT_NUM_SKI_MBOX_TEXT
 };
 
-extern	STR16	SkiMessageBoxText[];
+extern STR16* SkiMessageBoxText;
 
 
 //enums for the above text
@@ -2055,7 +2055,7 @@ enum
 
 	TEXT_NUM_SLG_TEXT,
 };
-extern	STR16			zSaveLoadText[];
+extern STR16* zSaveLoadText;
 
 
 
@@ -2080,12 +2080,12 @@ enum
 	TEXT_NUM_OPT_TEXT,
 };
 
-extern	STR16	zOptionsText[];
+extern STR16* zOptionsText;
 
-extern	STR16	z113FeaturesScreenText[]; // main UI text
-extern	STR16	z113FeaturesToggleText[]; // toggle button text
-extern	STR16	z113FeaturesHelpText[]; // hover text
-extern	STR16	z113FeaturesPanelText[]; // left panel text
+extern STR16* z113FeaturesScreenText; // main UI text
+extern STR16* z113FeaturesToggleText; // toggle button text
+extern STR16* z113FeaturesHelpText; // hover text
+extern STR16* z113FeaturesPanelText; // left panel text
 
 //used with the gMoneyStatsDesc[]
 enum
@@ -2210,7 +2210,7 @@ enum
 	////////////////////////////////////
 	TEXT_NUM_GIO_TEXT
 };
-extern STR16	gzGIOScreenText[];
+extern STR16* gzGIOScreenText;
 
 // OJW - 20081129
 // Multiplayer Join Screen
@@ -2235,9 +2235,9 @@ enum
 	TEXT_NUM_MPJ_TEXT
 };
 
-extern STR16	gzMPJHelpText[];
+extern STR16* gzMPJHelpText;
 
-extern STR16	gzMPJScreenText[];
+extern STR16* gzMPJScreenText;
 //Multiplayer Host Screen
 enum
 {
@@ -2307,7 +2307,7 @@ enum
 	MPH_ALLOW,
 	TEXT_NUM_MPH_TEXT,
 };
-extern STR16	gzMPHScreenText[];
+extern STR16* gzMPHScreenText;
 enum
 {
 	MPS_TITLE_TEXT,
@@ -2325,7 +2325,7 @@ enum
 	MPS_WAITSERVER_TEXT,
 	TEXT_NUM_MPS_TEXT,
 };
-extern STR16	gzMPSScreenText[];
+extern STR16* gzMPSScreenText;
 enum
 {
 	MPC_CANCEL_TEXT,
@@ -2337,7 +2337,7 @@ enum
 	MPC_READY_TEXT,
 	TEXT_NUM_MPC_TEXT,
 };
-extern STR16	gzMPCScreenText[];
+extern STR16* gzMPCScreenText;
 // Multiplayer Starting Edges
 enum
 {
@@ -2348,7 +2348,7 @@ enum
 	MP_EDGE_CENTER,
 	MAX_EDGES,
 };
-extern STR16	gszMPEdgesText[];
+extern STR16* gszMPEdgesText;
 // MP TEAM NAMES
 enum
 {
@@ -2358,11 +2358,11 @@ enum
 	MP_TEAM_4,
 	MAX_MP_TEAMS,
 };
-extern STR16	gszMPTeamNames[];
+extern STR16* gszMPTeamNames;
 
-extern STR16	gzMPChatToggleText[];
+extern STR16* gzMPChatToggleText;
 
-extern STR16	gzMPChatboxText[];
+extern STR16* gzMPChatboxText;
 
 enum
 {
@@ -2395,14 +2395,14 @@ enum
 	HLP_SCRN_TXT__EXIT_SCREEN,
 	TEXT_NUM_HLP
 };
-extern	STR16	gzHelpScreenText[];
+extern STR16* gzHelpScreenText;
 
 
-extern	STR16 gzLaptopHelpText[];
+extern STR16* gzLaptopHelpText;
 
 
-extern	STR16	gzMoneyWithdrawMessageText[];
-extern STR16 gzCopyrightText[];
+extern STR16* gzMoneyWithdrawMessageText;
+extern STR16* gzCopyrightText;
 
 
 
@@ -2426,7 +2426,7 @@ enum
 	BROKEN_LINK_TXT_SITE_NOT_FOUND,
 	TEXT_NUM_BROKEN_LINK,
 };
-extern	STR16		BrokenLinkText[];
+extern STR16* BrokenLinkText;
 
 //Bobby rays page for recent shipments
 enum
@@ -2438,7 +2438,7 @@ enum
 	TEXT_NUM_BOBBYR_SHIPMENT,
 };
 
-extern STR16 gzBobbyRShipmentText[];
+extern STR16* gzBobbyRShipmentText;
 
 
 enum
@@ -2449,7 +2449,7 @@ enum
 	GIO_CFS_INSANE,
 	TEXT_NUM_GIO_CFS,
 };
-extern STR16 zGioDifConfirmText[];
+extern STR16* zGioDifConfirmText;
 
 
 enum
@@ -2473,9 +2473,9 @@ enum
 	NUM_PEOPLE_IN_CREDITS,
 };
 
-STR16	gzCreditNames[];
-STR16	gzCreditNameTitle[];
-STR16	gzCreditNameFunny[];
+extern STR16* gzCreditNames;
+extern STR16* gzCreditNameTitle;
+extern STR16* gzCreditNameFunny;
 
 
 extern STR16 GetWeightUnitString( void );
@@ -2483,14 +2483,14 @@ FLOAT GetWeightBasedOnMetricOption( UINT32 uiObjectWeight );
 
 
 //SB: new 1.13 messages
-extern STR16 New113Message[];
-extern STR16 New113MERCMercMailTexts[];
-extern STR16 MissingIMPSkillsDescriptions[];
+extern STR16* New113Message;
+extern STR16* New113MERCMercMailTexts;
+extern STR16* MissingIMPSkillsDescriptions;
 
-extern STR16 New113AIMMercMailTexts[];	// WANNE: new WF Merc text, that does not exist in Email.edt
+extern STR16* New113AIMMercMailTexts;	// WANNE: new WF Merc text, that does not exist in Email.edt
 
 // HEADROCK: HAM Messages
-extern STR16 New113HAMMessage[];
+extern STR16* New113HAMMessage;
 enum
 {
 	MSG113_STORM_STARTED,
@@ -2577,14 +2577,14 @@ enum
 	TEXT_NUM_MSG113,
 };
 
-extern STR16 gzTransformationMessage[];
+extern STR16* gzTransformationMessage;
 
 //CHRISL: NewInv messages
-extern STR16 NewInvMessage[];
+extern STR16* NewInvMessage;
 
 // WANNE - MP: New multiplayer messages
-extern STR16 MPServerMessage[];
-extern STR16 MPClientMessage[];
+extern STR16* MPServerMessage;
+extern STR16* MPClientMessage;
 
 // WANNE: Some Chinese specific strings that needs to be in unicode!
 inline constexpr STR16 ChineseSpecString1 = L"%％";			//defined in _ChineseText.cpp as this file is already unicode
@@ -2618,7 +2618,7 @@ enum
 };
 
 // OJW - MP
-extern STR16 gszMPMapscreenText[];
+extern STR16* gszMPMapscreenText;
 
 //SB
 enum
@@ -2632,8 +2632,8 @@ enum
 	ERROR_MAX_MILITIA,
 	ERROR_MAX_CIVILIANS,
 };
-extern STR16 Additional113Text[];
-extern STR16 ranks[];
+extern STR16* Additional113Text;
+extern STR16* ranks;
 //extern STR16 ranks[];
 
 enum
@@ -2645,15 +2645,15 @@ enum
 	POCKET_POPUP_NO_GUNS,
 	POCKET_POPUP_MOAR
 };
-extern STR16	gszPocketPopupText[];
+extern STR16* gszPocketPopupText;
 
 // rftr: better LBE tooltips
-extern STR16		gLbeStatsDesc[14];
+extern STR16* gLbeStatsDesc;
 
 // Flugente: backgrounds
-extern STR16		szBackgroundText_Flags[];
-extern STR16		szBackgroundText_Value[];
-extern STR16		szSoldierClassName[];
+extern STR16* szBackgroundText_Flags;
+extern STR16* szBackgroundText_Value;
+extern STR16* szSoldierClassName;
 
 // Flugente: personality
 enum
@@ -2672,20 +2672,20 @@ enum
 	PERSONALITYTEXT_MAX,
 };
 
-extern STR16		szBackgroundTitleText[];
-extern STR16 		szPersonalityTitleText[];
-extern STR16		szPersonalityDisplayText[];
-extern STR16		szPersonalityHelpText[];
-extern STR16		szRaceText[];
-extern STR16		szAppearanceText[];
-extern STR16		szRefinementText[];
-extern STR16		szRefinementTextTypes[];
-extern STR16		szNationalityText[];
-extern STR16		szNationalityTextAdjective[];
-extern STR16		szNationalityText_Special[];
-extern STR16		szCareLevelText[];
-extern STR16		szRacistText[];
-extern STR16		szSexistText[];
+extern STR16* szBackgroundTitleText;
+extern STR16* szPersonalityTitleText;
+extern STR16* szPersonalityDisplayText;
+extern STR16* szPersonalityHelpText;
+extern STR16* szRaceText;
+extern STR16* szAppearanceText;
+extern STR16* szRefinementText;
+extern STR16* szRefinementTextTypes;
+extern STR16* szNationalityText;
+extern STR16* szNationalityTextAdjective;
+extern STR16* szNationalityText_Special;
+extern STR16* szCareLevelText;
+extern STR16* szRacistText;
+extern STR16* szSexistText;
 
 enum
 {
@@ -2743,7 +2743,7 @@ enum
 	TEXT_CAMPAIGNHISTORY_MAX,
 };
 
-extern STR16		szCampaignHistoryWebSite[];
+extern STR16* szCampaignHistoryWebSite;
 
 enum
 {
@@ -2782,7 +2782,7 @@ enum
 	TEXT_CAMPAIGNHISTORY_DETAIL_MAX,
 };
 
-extern STR16		szCampaignHistoryDetail[];
+extern STR16* szCampaignHistoryDetail;
 
 enum
 {
@@ -2796,10 +2796,10 @@ enum
 	TEXT_CAMPAIGNHISTORY_TIME_NIGHT,
 };
 
-extern STR16		szCampaignHistoryTimeString[];
+extern STR16* szCampaignHistoryTimeString;
 
-extern STR16		szCampaignHistoryMoneyTypeString[];
-extern STR16		szCampaignHistoryConsumptionTypeString[];
+extern STR16* szCampaignHistoryMoneyTypeString;
+extern STR16* szCampaignHistoryConsumptionTypeString;
 
 enum
 {
@@ -2819,7 +2819,7 @@ enum
 	TEXT_CAMPAIGNHISTORY_RESULT_HARD_ARMY,
 };
 
-extern STR16		szCampaignHistoryResultString[];
+extern STR16* szCampaignHistoryResultString;
 
 enum
 {
@@ -2836,7 +2836,7 @@ enum
 	TEXT_CAMPAIGNHISTORY_IMPORTANCE_MOMENTOUS,
 };
 
-extern STR16		szCampaignHistoryImportanceString[];
+extern STR16* szCampaignHistoryImportanceString;
 
 enum
 {
@@ -2860,14 +2860,14 @@ enum
 	WEBPAGE_CAMPAIGNHISTORY_DAY,
 };
 
-extern STR16		szCampaignHistoryWebpageString[];
+extern STR16* szCampaignHistoryWebpageString;
 
 // Flugente: wacky operation names for campaign stats
 #define		CAMPAIGNSTATS_OPERATION_NUM_PREFIX		140
 #define		CAMPAIGNSTATS_OPERATION_NUM_SUFFIX		140
 
-extern STR16		szCampaignStatsOperationPrefix[];
-extern STR16		szCampaignStatsOperationSuffix[];
+extern STR16* szCampaignStatsOperationPrefix;
+extern STR16* szCampaignStatsOperationSuffix;
 
 
 // Flugente: merc compare website
@@ -2904,8 +2904,8 @@ enum
 	TEXT_MERCCOMPARE_MAX,
 };
 
-extern STR16		szMercCompareWebSite[];
-extern STR16		szMercCompareEventText[];
+extern STR16* szMercCompareWebSite;
+extern STR16* szMercCompareEventText;
 
 // Flugente: WHO website
 enum
@@ -2930,7 +2930,7 @@ enum
 	TEXT_WHO_MAX = TEXT_WHO_TIPS1 + 8,
 };
 
-extern STR16		szWHOWebSite[];
+extern STR16* szWHOWebSite;
 
 // Flugente: PMC website
 enum
@@ -2965,25 +2965,25 @@ enum
 	TEXT_PMC_MAX,
 };
 
-extern STR16		szPMCWebSite[];
+extern STR16* szPMCWebSite;
 
-extern STR16   szTacticalInventoryDialogString[];
-extern STR16   szTacticalCoverDialogString[];
-extern STR16   szTacticalCoverDialogPrintString[];
+extern STR16* szTacticalInventoryDialogString;
+extern STR16* szTacticalCoverDialogString;
+extern STR16* szTacticalCoverDialogPrintString;
 
 // OPINIONEVENT_MAX is 39
 // DOST_MAX is 17
 
-extern STR16	szDynamicDialogueText[40][17];
+extern STR16	(*szDynamicDialogueText)[17];
 
 // Flugente: dynamic dialogue
-extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY[];
-extern STR16	szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE[];
-extern STR16	szDynamicDialogueText_DOST_SIDEWITH_VICTIM[];
-extern STR16	szDynamicDialogueText_DOST_SIDEWITH_CAUSE[];
+extern STR16* szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_DENY;
+extern STR16* szDynamicDialogueText_DOST_VICTIM_TO_INTERJECTOR_AGREE;
+extern STR16* szDynamicDialogueText_DOST_SIDEWITH_VICTIM;
+extern STR16* szDynamicDialogueText_DOST_SIDEWITH_CAUSE;
 
-extern STR16	szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT[];
-extern STR16	szDynamicDialogueText_GenderText[];
+extern STR16* szDynamicDialogueText_DOST_INTERJECTOR_DIALOGUESELECTION_SHORTTEXT;
+extern STR16* szDynamicDialogueText_GenderText;
 
 // Flugente: disease
 enum
@@ -3032,21 +3032,21 @@ enum
 	TEXT_SPY_GETINTEL,
 };
 
-extern STR16	szDiseaseText[];
-extern STR16	szSpyText[];
-extern STR16	szFoodText[];
+extern STR16* szDiseaseText;
+extern STR16* szSpyText;
+extern STR16* szFoodText;
 
-extern STR16	szIMPGearWebSiteText[];
-extern STR16	szIMPGearPocketText[];
+extern STR16* szIMPGearWebSiteText;
+extern STR16* szIMPGearPocketText;
 
 // Flugente: militia movement
-extern STR16	szMilitiaStrategicMovementText[];
+extern STR16* szMilitiaStrategicMovementText;
 
 // Flugente: enemy heli/SAM
-extern STR16	szEnemyHeliText[];
+extern STR16* szEnemyHeliText;
 
 // Flugente: fortification
-extern STR16	szFortificationText[];
+extern STR16* szFortificationText;
 
 // Flugente: militia website
 enum
@@ -3063,31 +3063,31 @@ enum
 	TEXT_MILITIAWEBSITE_MAX,
 };
 
-extern STR16	szMilitiaWebSite[];
-extern STR16	szIndividualMilitiaBattleReportText[];
-extern STR16	szIndividualMilitiaTraitRequirements[];
-extern STR16	szIdividualMilitiaWebsiteText[];
-extern STR16	szIdividualMilitiaWebsiteFilterText_Dead[];
-extern STR16	szIdividualMilitiaWebsiteFilterText_Rank[] ;
-extern STR16	szIdividualMilitiaWebsiteFilterText_Origin[];
-extern STR16	szIdividualMilitiaWebsiteFilterText_Sector[];
+extern STR16* szMilitiaWebSite;
+extern STR16* szIndividualMilitiaBattleReportText;
+extern STR16* szIndividualMilitiaTraitRequirements;
+extern STR16* szIdividualMilitiaWebsiteText;
+extern STR16* szIdividualMilitiaWebsiteFilterText_Dead;
+extern STR16* szIdividualMilitiaWebsiteFilterText_Rank ;
+extern STR16* szIdividualMilitiaWebsiteFilterText_Origin;
+extern STR16* szIdividualMilitiaWebsiteFilterText_Sector;
 
 // Flugente: non-profile merchants
-extern STR16	szNonProfileMerchantText[];
+extern STR16* szNonProfileMerchantText;
 
 // Flugente: externalised weather
-extern STR16	szWeatherTypeText[];
+extern STR16* szWeatherTypeText;
 
 // Flugente: snakes
-extern STR16	szSnakeText[];
+extern STR16* szSnakeText;
 
 // Flugente: militia resources
-extern STR16	szSMilitiaResourceText[];
+extern STR16* szSMilitiaResourceText;
 
 // Flugente: interactive actions
-extern STR16	szInteractiveActionText[];
+extern STR16* szInteractiveActionText;
 
-extern STR16	szLaptopStatText[];
+extern STR16* szLaptopStatText;
 enum
 {
 	LAPTOP_STAT_TEXT_THREATEN_EFFECTIVENESS,
@@ -3120,7 +3120,7 @@ enum
 };
 
 // Flugente: gear templates
-extern STR16	szGearTemplateText[];
+extern STR16* szGearTemplateText;
 
 // Flugente: intel
 enum
@@ -3160,26 +3160,26 @@ enum
 	TEXT_INTEL_SELL_NOTHING_1,
 };
 
-extern STR16	szIntelWebsiteText[];
+extern STR16* szIntelWebsiteText;
 
-extern STR16	szIntelText[];
+extern STR16* szIntelText;
 
-extern STR16	szChatTextSpy[];
-extern STR16	szChatTextEnemy[];
+extern STR16* szChatTextSpy;
+extern STR16* szChatTextEnemy;
 
-extern STR16	szMilitiaText[];
+extern STR16* szMilitiaText;
 
-extern STR16	szFactoryText[];
+extern STR16* szFactoryText;
 
-extern STR16	szTurncoatText[];
+extern STR16* szTurncoatText;
 
-extern STR16	szRebelCommandText[];
-extern STR16	szRebelCommandHelpText[];
-extern STR16	szRebelCommandAdminActionsText[];
-extern STR16	szRebelCommandDirectivesText[];
-extern STR16	szRebelCommandAgentMissionsText[];
+extern STR16* szRebelCommandText;
+extern STR16* szRebelCommandHelpText;
+extern STR16* szRebelCommandAdminActionsText;
+extern STR16* szRebelCommandDirectivesText;
+extern STR16* szRebelCommandAgentMissionsText;
 
-extern STR16	szRobotText[];
+extern STR16* szRobotText;
 enum {
 	ROBOT_TEXT_CANNOT_CHANGE_INSTALLED_WEAPON,
 	ROBOT_TEXT_CANNOT_ADD_ATTACHMENTS,
@@ -3229,24 +3229,3 @@ void ParseCommandLine(const char *start,char **argv,char *args,int *numargs,int 
 void ParseCommandLine(const wchar_t *start,wchar_t **argv,wchar_t *args,int *numargs,int *numchars);
 
 #endif
-
-
-//suppress : warning LNK4221: no public symbols found; archive member will be inaccessible
-//these are dummy functions. Not all of these may be necessary. They are included for future possible useage
-void this_is_the_ChineseText_public_symbol(void);
-void this_is_the_DutchText_public_symbol(void);
-void this_is_the_EnglishText_public_symbol(void);
-void this_is_the_FrenchText_public_symbol(void);
-void this_is_the_GermanText_public_symbol(void);
-void this_is_the_ItalianText_public_symbol(void);
-void this_is_the_PolishText_public_symbol(void);
-void this_is_the_RussianText_public_symbol(void);
-
-void this_is_the_Ja25ChineseText_public_symbol(void);
-void this_is_the_Ja25DutchText_public_symbol(void);
-void this_is_the_Ja25EnglishText_public_symbol(void);
-void this_is_the_Ja25FrenchText_public_symbol(void);
-void this_is_the_Ja25GermanText_public_symbol(void);
-void this_is_the_Ja25ItalianText_public_symbol(void);
-void this_is_the_Ja25PolishText_public_symbol(void);
-void this_is_the_Ja25RussianText_public_symbol(void);
