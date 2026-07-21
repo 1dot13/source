@@ -10,7 +10,6 @@
 
 #include "DEBUG.H"
 #include "FileMan.h"
-#include "SMACK.H"
 #include "ddraw.h"
 #include "Mss.h"
 #include "DirectX Common.h"
