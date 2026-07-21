@@ -3208,6 +3208,12 @@ enum {
 #define TACTICAL_INVENTORY_DIALOG_NUM    16
 #define TACTICAL_COVER_DIALOG_NUM        16
 
+extern STR16* gzIntroScreen;
+extern STR16* pBullseyeStrings;
+extern STR16* pContractButtonString;
+extern STR16* pUpdatePanelButtons;
+extern STR16* sRepairsDoneString;
+
 // Enumeration support
 typedef struct Str8EnumLookupType {
 	int value;
