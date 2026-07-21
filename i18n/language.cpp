@@ -2,9 +2,6 @@
 #include "DEBUG.H"
 
 namespace {
-// Cn+4 retired the per-exe ENGLISH/GERMAN/... compile definitions along with the CMake
-// language axis, so the build default is now a fixed constant; the ini key (below)
-// overrides it at runtime via g_lang/BindLanguageStrings.
 constexpr i18n::Lang kBuildDefaultLang = i18n::Lang::en;
 
 auto RowsForLang(i18n::Lang lang) -> int {
@@ -12,10 +9,6 @@ auto RowsForLang(i18n::Lang lang) -> int {
 }
 }
 
-/* g_lang used to be a compile-time const picked by the ENGLISH/GERMAN/...
- * define; it is now a runtime value that starts at the build's default and
- * can be overridden at startup from the [Ja2 Settings] LANGUAGE ini key (see
- * SetLanguageFromName / sgp.cpp GetRuntimeSettings). */
 i18n::Lang g_lang = kBuildDefaultLang;
 
 int MAX_MESSAGES_ON_MAP_BOTTOM = RowsForLang(g_lang);

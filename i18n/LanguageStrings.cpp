@@ -1,10 +1,4 @@
-﻿// All eight languages' string tables in one translation unit (docs/plans/
-// language-design.md): each base + Ja2.5-carryover text file is included inside its
-// own per-language namespace, the game-facing table symbols are the pointer globals
-// below (statically bound to the build default), and BindLanguageStrings rebinds all
-// of them to the language resolved at startup from the LANGUAGE ini key.
-
-#include "Text.h"
+﻿#include "Text.h"
 #include "FileMan.h"
 #include "Scheduling.h"
 #include "EditorMercs.h"
@@ -13,11 +7,6 @@
 #include <language.hpp>
 
 #include <type_traits>
-
-// Recipe R1 (docs/plans/language-design.md): the loose _<LANG>Text.cpp files are still
-// compiled standalone until Cn+2, and #include the headers declaring the now-pointer
-// externs themselves; this guard keeps their array definitions out of those standalone
-// TUs (which would collide with the pointer extern) while still compiling them here.
 
 namespace lang_en {
 #include "_EnglishText.cpp"
