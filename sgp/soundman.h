@@ -75,6 +75,7 @@ extern BOOLEAN	SoundEmptyCache(void);
 // Play/service sample functions
 extern UINT32	SoundPlay(STR pFilename, SOUNDPARMS *pParms);
 extern UINT32	SoundPlayStreamedFile( STR pFilename, SOUNDPARMS *pParms );
+extern UINT32	SoundPlayFromBuffer(const char *name, const void *soundData, UINT32 size, SOUNDPARMS *params);
 extern UINT32	SoundPlayRandom(STR pFilename, RANDOMPARMS *pParms);
 extern BOOLEAN	SoundServiceStreams(void);
 extern BOOLEAN	SoundServiceRandom(void);

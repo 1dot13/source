@@ -80,6 +80,8 @@ BOOLEAN		SoundShutdownHardware(void);
 // Playing
 UINT32		SoundStartSample(UINT32 uiSample, UINT32 uiChannel, SOUNDPARMS *pParms);
 UINT32		SoundStartStream(STR pFilename, UINT32 uiChannel, SOUNDPARMS *pParms);
+UINT32		SoundStartStreamFromBuffer(const void *soundData, UINT32 size, UINT32 channel, SOUNDPARMS *params, const char *name);
+UINT32		SoundStartOpenedStream(UINT32 uiChannel, SOUNDPARMS *pParms, const char *pName);
 BOOLEAN		SoundPlayStreamed(STR pFilename);
 UINT32		SoundStartRandom(UINT32 uiSample);
 BOOLEAN	 SoundRandomShouldPlay(UINT32 uiSample);
@@ -391,6 +393,36 @@ UINT32	SoundPlayStreamedFile( STR pFilename, SOUNDPARMS *pParms )
 		}
 	}
 	return(SOUND_ERROR);
+}
+
+//*******************************************************************************
+// SoundPlayFromBuffer
+//
+//		Plays a sound file that the caller already holds in memory, for sound data
+//	the game produces itself rather than reads from disk, i.e. smacker video
+//	audio. The buffer is not cached and stays the caller's property: it has to
+//	remain valid until the sound stops playing.
+//
+//		pName is only used to identify the sound in the log.
+//
+//	Returns:	If the sound was started, it returns a sound ID unique to that
+//						instance of the sound
+//						If an error occured, SOUND_ERROR will be returned
+//
+//*******************************************************************************
+UINT32 SoundPlayFromBuffer(const char *name, const void *soundData, UINT32 size, SOUNDPARMS *params)
+{
+	if (!fSoundSystemInit)
+		return SOUND_ERROR;
+
+	const auto channel = SoundGetFreeChannel();
+	if (channel == SOUND_ERROR)
+	{
+		SoundLog(String("\tERROR in SoundPlayFromBuffer(): no free channel for '%s'", name));
+		return SOUND_ERROR;
+	}
+
+	return SoundStartStreamFromBuffer(soundData, size, channel, params, name);
 }
 
 //*******************************************************************************
@@ -1598,8 +1630,6 @@ UINT32 uiSoundID;
 //*******************************************************************************
 UINT32 SoundStartStream(STR pFilename, UINT32 uiChannel, SOUNDPARMS *pParms)
 {
-UINT32 uiSoundID;
-
 	if(!fSoundSystemInit)
 		return(SOUND_ERROR);
 
@@ -1614,6 +1644,51 @@ UINT32 uiSoundID;
 		return(SOUND_ERROR);
 	}
 
+	return(SoundStartOpenedStream(uiChannel, pParms, pFilename));
+}
+
+//*******************************************************************************
+// SoundStartStreamFromBuffer
+//
+//		Same as SoundStartStream(), but streams from a sound file that is already
+//	held in memory. The buffer belongs to the caller and has to stay valid until
+//	the sound has stopped playing. pName only appears in the error log.
+//
+//	Returns:	Unique sound ID if successful, SOUND_ERROR if not.
+//
+//*******************************************************************************
+UINT32 SoundStartStreamFromBuffer(const void *soundData, UINT32 size, UINT32 channel, SOUNDPARMS *params, const char *name)
+{
+	if (!fSoundSystemInit)
+		return SOUND_ERROR;
+
+	FSOUND_Stream_SetBufferSize(STREAM_BUFFER_LEN);
+
+	// FMOD's memory source is read-only in practice but its prototype isn't const
+	auto *streamData = const_cast<char *>(static_cast<const char *>(soundData));
+	pSoundList[channel].hStream = FSOUND_Stream_Open(streamData, FSOUND_LOADMEMORY | FSOUND_LOOP_NORMAL | FSOUND_2D, 0, size);
+	if (pSoundList[channel].hStream == nullptr)
+	{
+		SoundLog(String(" ERROR in SoundStartStreamFromBuffer(): %s ('%s')", FMOD_ErrorString(FSOUND_GetError()), name));
+		return SOUND_ERROR;
+	}
+
+	return SoundStartOpenedStream(channel, params, name);
+}
+
+//*******************************************************************************
+// SoundStartOpenedStream
+//
+//		Applies pParms to the stream that is already open on the given channel and
+//	starts it playing. pName only appears in the error log.
+//
+//	Returns:	Unique sound ID if successful, SOUND_ERROR if not.
+//
+//*******************************************************************************
+UINT32 SoundStartOpenedStream(UINT32 uiChannel, SOUNDPARMS *pParms, const char *pName)
+{
+UINT32 uiSoundID;
+
 	// Setup params
 	// Loop
 	if( (pParms!=NULL) && (pParms->uiLoop!=SOUND_PARMS_DEFAULT ) )
@@ -1627,7 +1702,7 @@ UINT32 uiSoundID;
 	if(pSoundList[uiChannel].uiFMODChannel==-1)
 	{
 		FSOUND_Stream_Close(pSoundList[uiChannel].hStream);
-		SoundLog((CHAR8 *)String(" ERROR in SoundStartStream(): %s ('%s')", FMOD_ErrorString(FSOUND_GetError()), pFilename));
+		SoundLog((CHAR8 *)String(" ERROR in SoundStartOpenedStream(): %s ('%s')", FMOD_ErrorString(FSOUND_GetError()), pName));
 		return(SOUND_ERROR);
 	}
 
