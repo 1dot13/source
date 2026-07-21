@@ -9,11 +9,6 @@ on:
   # allows to manually trigger a build
   workflow_dispatch:
     inputs:
-      build_all_languages:
-        description: build all languages
-        required: false
-        default: false
-        type: boolean
       assemble_release:
         description: create release
         required: false
@@ -27,7 +22,6 @@ jobs:
   workflow_setup:
     runs-on: ubuntu-latest
     outputs:
-      languages_json_array: ${{ steps.global_vars.outputs.languages_json_array }}
       assemble_release: ${{ steps.global_vars.outputs.assemble_release }}
     steps:
       - id: global_vars
@@ -36,15 +30,6 @@ jobs:
           set -eux
           
           full_release='${{ ( github.repository == '1dot13/source' && github.ref_name == 'master' ) || startsWith(github.ref, 'refs/tags/v') }}'
-          
-          if [[ '${{ inputs.build_all_languages }}' == 'true' || ( '${{ inputs.build_all_languages }}' == '' && "$full_release" == 'true' ) ]]
-          then
-            languages_json_array='["Chinese", "German", "English", "French", "Polish", "Italian", "Dutch", "Russian"]';
-          else
-            # English + some other language for compilation testing
-            languages_json_array='["German", "English"]'
-          fi
-          echo "languages_json_array=$languages_json_array" >> $GITHUB_OUTPUT
           
           if [[ '${{ inputs.assemble_release }}' == 'true' || ( '${{ inputs.assemble_release }}' == '' && "$full_release" == 'true' ) ]]
           then
@@ -159,21 +144,178 @@ jobs:
           name: versions.env
           path: dist/
 
-  build:
+  # every executable contains all languages and picks one at runtime, so one build serves every package
+  compile:
     needs: [ workflow_setup ]
+    runs-on: windows-latest # required for msbuild
     strategy:
       fail-fast: false
       matrix:
-        language: ${{ fromJson(needs.workflow_setup.outputs.languages_json_array) }}
-    uses: ./.github/workflows/build_language.yml
-    with:
-      language: ${{ matrix.language }}
-      assemble: ${{ needs.workflow_setup.outputs.assemble_release == 'true' }}
-      # at least English and some other lang have to work
-      continue-on-error: ${{ matrix.language != 'English' && matrix.language != 'German' }}
+        application: [ja2, ja2mapeditor, ja2ub, ja2ubmapeditor]
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Download versions.env
+        uses: actions/download-artifact@v4
+        with:
+          name: versions.env
+          path: artifacts
+      - name: Restore versions.env
+        shell: bash
+        run: cat artifacts/versions.env >> $GITHUB_ENV
+
+      # TODO: Move this into CMake, just taking the GitHub Actions parameters as -D variables
+      - name: Update GameVersion.cpp
+        shell: bash
+        run: |
+          set -eux
+          GAME_VERSION=$(echo "$GAME_VERSION" | tr -cd '[:print:]' | tr -d '"\\')
+          GAME_BUILD=$(echo "$GAME_BUILD_INFORMATION" | tr -cd '[:print:]' | tr -d '"\\')
+          sed -i "s|@Version@|${GAME_VERSION:0:15}|" Ja2/GameVersion.cpp
+          sed -i "s|@Build@|${GAME_BUILD:0:255}|" Ja2/GameVersion.cpp
+          cat Ja2/GameVersion.cpp
+
+      - name: Prepare build properties
+        shell: bash
+        run: |
+          set -eux
+
+          touch CMakePresets.json
+
+          JA2Application=$(echo '${{ matrix.application }}' | tr '[:lower:]' '[:upper:]')
+
+          echo "
+          JA2Application=$JA2Application
+          " >> $GITHUB_ENV
+
+      - uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x86
+      - uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x86
+      - name: Prepare build
+        run: |
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application"
+      - name: Build
+        run: |
+          cmake --build build/ -- -v
+      - name: List build artifacts
+        shell: bash
+        run: |
+          find build/
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.application }}
+          path: build/*.exe
+
+  # only the game data differs per language, every package gets the same executables
+  assemble:
+    needs: [ workflow_setup, compile ]
+    if: needs.workflow_setup.outputs.assemble_release == 'true'
+    runs-on: windows-latest # required for case-insensitive filesystem handling
+    # at least English has to work
+    continue-on-error: ${{ matrix.language != 'English' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [Chinese, German, English, French, Polish, Italian, Dutch, Russian]
+
+    steps:
+      - name: Download versions.env
+        uses: actions/download-artifact@v4
+        with:
+          name: versions.env
+          path: artifacts
+      - name: Restore versions.env
+        shell: bash
+        run: cat artifacts/versions.env >> $GITHUB_ENV
+
+      - name: Checkout gamedir
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.GAMEDIR_REPOSITORY }}
+          ref: ${{ env.GAMEDIR_COMMIT_SHA }}
+          path: gamedir
+
+      - name: Checkout gamedir-languages
+        if: matrix.language != 'English'
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
+          ref: ${{ env.GAMEDIR_LANGUAGES_COMMIT_SHA }}
+          path: gamedir-languages
+
+      - name: Copy gamedir-languages files to gamedir
+        if: matrix.language != 'English'
+        shell: bash
+        run: |
+          set -eux
+          cp -a gamedir-languages/${{ matrix.language }}_Version/* gamedir/
+
+      - name: Download applications
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ja2*
+          path: artifacts
+
+      - name: Copy application files to gamedir
+        shell: bash
+        run: |
+          set -eux
+          for APP in ja2 ja2mapeditor ja2ub ja2ubmapeditor
+          do
+            mv artifacts/${APP}/*.exe gamedir/${APP}.exe
+          done
+
+      - name: Create version information file
+        shell: bash
+        run: |
+          set -eux
+
+          # "-" separates words, "_" combines words, see double-click behavior
+          DIST_PREFIX='JA2_113'
+          DIST_NAME="${DIST_PREFIX}-${GAME_VERSION}-G${GAMEDIR_COMMIT_SHA:0:4}L${GAMEDIR_LANGUAGES_COMMIT_SHA:0:4}-${{ matrix.language }}"
+          echo "DIST_NAME=$DIST_NAME" >> $GITHUB_ENV
+
+          echo "If you encounter problems during gameplay, please provide the following version information:
+          Distribution Name: $DIST_NAME
+          Game Version: $GAME_VERSION
+          Language: ${{ matrix.language }}
+          Build Information: $GAME_BUILD_INFORMATION
+          Source Repository: $GITHUB_REPOSITORY
+          Source Commit SHA: $GITHUB_SHA
+          Source Commit Date: $SOURCE_COMMIT_DATETIME
+          Gamedir Repository: $GAMEDIR_REPOSITORY
+          Gamedir Commit SHA: $GAMEDIR_COMMIT_SHA
+          Gamedir Commit Date: $GAMEDIR_COMMIT_DATETIME
+          Gamedir Languages Repository: $GAMEDIR_LANGUAGES_REPOSITORY
+          Gamedir Languages Commit SHA: $GAMEDIR_LANGUAGES_COMMIT_SHA
+          Gamedir Languages Commit Date: $GAMEDIR_LANGUAGES_COMMIT_DATETIME
+          " > "gamedir/${DIST_PREFIX}-Version.txt"
+          cat "gamedir/${DIST_PREFIX}-Version.txt"
+
+      - name: Create release archive
+        shell: bash
+        run: |
+          set -eux
+          mkdir dist/
+          cd gamedir/
+          7z a -bb -xr'!.*' "../dist/${DIST_NAME}.7z" .
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.language }}_release
+          path: dist/
+          compression-level: 0
 
   release:
-    needs: [ workflow_setup, build ]
+    needs: [ workflow_setup, assemble ]
     if: needs.workflow_setup.outputs.assemble_release == 'true'
     runs-on: ubuntu-latest
 
