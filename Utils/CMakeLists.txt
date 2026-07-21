@@ -8,7 +8,6 @@ set(UtilsSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/Encrypted File.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Event Pump.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Font Control.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/ImportStrings.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/INIReader.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/KeyMap.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/MapUtility.cpp"
