@@ -45,6 +45,7 @@ add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7
 include_directories(
   "${CMAKE_SOURCE_DIR}/Ja2"
   "${CMAKE_SOURCE_DIR}/ext/VFS/include"
+  "${CMAKE_SOURCE_DIR}/ext/libsmacker"
   "${CMAKE_SOURCE_DIR}/Utils"
   "${CMAKE_SOURCE_DIR}/TileEngine"
   "${CMAKE_SOURCE_DIR}/TacticalAI"
@@ -62,6 +63,7 @@ include_directories(
 
 # external libraries
 add_subdirectory("ext/libpng")
+add_subdirectory("ext/libsmacker")
 add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
@@ -79,13 +81,13 @@ set(Ja2_Libraries
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
 "${CMAKE_SOURCE_DIR}/lua51.lib"
 "${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
-"${CMAKE_SOURCE_DIR}/SMACKW32.LIB"
 "Dbghelp.lib"
 "Winmm.lib"
 "ws2_32.lib"
 bfVFS
 Lua
 Multiplayer
+smacker
 wine
 )
 
@@ -161,6 +163,9 @@ foreach(app IN LISTS ApplicationTargets)
   foreach(lib IN LISTS Ja2_Libs)
     target_link_libraries(${exe} PRIVATE ${app}_${lib})
   endforeach()
+
+  # for Utils only
+  target_link_libraries(${app}_Utils PRIVATE smacker)
 
   # for SGP only
   target_link_libraries(${app}_sgp PRIVATE "ddraw.lib" "${PROJECT_SOURCE_DIR}/fmodvc.lib")
