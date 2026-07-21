@@ -32,14 +32,6 @@ namespace Loc
 
 #include "Text.h"
 
-// Declared only as bare externs at their call sites (Ja2/, Strategic/) -- the same
-// escapees the C10 header sweep and Cn+1 residue (docs/plans/language-design.md) missed
-// because Text.h never declared them. This TU needs them too.
-extern STR16* gzIntroScreen;
-extern STR16* pBullseyeStrings;
-extern STR16* pContractButtonString;
-extern STR16* pUpdatePanelButtons;
-extern STR16* sRepairsDoneString;
 
 // Table symbols below (Loc::pTownNames etc.) are unqualified inside Loc::ExportStrings's
 // body, so they resolve to the pointer globals in Text.h/LanguageStrings.cpp -- rebound to
