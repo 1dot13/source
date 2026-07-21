@@ -1,7 +1,4 @@
 ﻿#include "Text.h"
-#include "FileMan.h"
-#include "Scheduling.h"
-#include "EditorMercs.h"
 #include "Item Statistics.h"
 
 #include <language.hpp>
