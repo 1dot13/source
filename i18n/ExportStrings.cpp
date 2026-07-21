@@ -11,12 +11,13 @@
 #include "laptop.h"
 #include <language.hpp>
 
+#include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_string.h>
 #include <vfs/Tools/vfs_tools.h>
 #include <vfs/Tools/vfs_parser_tools.h>
 #include <vfs/Tools/vfs_property_container.h>
 
-namespace Loc
+namespace
 {
 	bool Translate(vfs::String::char_t* str, int len, i18n::Lang lang);
 
@@ -26,7 +27,26 @@ namespace Loc
 	void ExportAlumniName();
 	void ExportDialogues();
 	void ExportNPCDialogues();
-};
+
+	template<typename T>
+	void ExportSection(vfs::PropertyContainer& props, const vfs::String::char_t* section_name, T* strings, int min, int max)
+	{
+		for(int i = min; i < max; ++i)
+		{
+			vfs::String str(strings[i]);
+			if(!str.empty())
+			{
+				props.setStringProperty(section_name, vfs::toString<wchar_t>(i), str);
+			}
+		}
+	}
+
+	template<>
+	void ExportSection<wchar_t>(vfs::PropertyContainer& props, const vfs::String::char_t* section_name, wchar_t* strings, int min, int max)
+	{
+		ExportSection(props,section_name, &strings, min, max);
+	}
+}
 
 //////////////////////////////////////////////////////////
 
@@ -40,27 +60,6 @@ namespace Loc
 
 #include "Assignments.h"
 #include "history.h"
-
-template<typename T>
-void ExportSection(vfs::PropertyContainer& props, const vfs::String::char_t* section_name, T* strings, int min, int max)
-{
-	for(int i = min; i < max; ++i)
-	{
-		vfs::String str(strings[i]);
-		//Loc::Translate(&str.r_wcs()[0],str.length(), gs_Lang);
-		if(!str.empty())
-		{
-			props.setStringProperty(section_name, vfs::toString<wchar_t>(i), str);
-		}
-	}
-}
-
-template<>
-void ExportSection<wchar_t>(vfs::PropertyContainer& props, const vfs::String::char_t* section_name, wchar_t* strings, int min, int max)
-{
-	ExportSection(props,section_name, &strings, min, max);
-}
-
 
 bool Loc::ExportStrings()
 {
@@ -342,12 +341,12 @@ bool Loc::ExportStrings()
 	props.writeToXMLFile(L"Localization/GameStrings.xml",tmap);
 	props.writeToIniFile(L"Localization/GameStrings.ini",true);
 
-	Loc::ExportMercBio();
-	Loc::ExportAIMHistory();
-	Loc::ExportAIMPolicy();
-	Loc::ExportAlumniName();
-	Loc::ExportDialogues();
-	Loc::ExportNPCDialogues();
+	ExportMercBio();
+	ExportAIMHistory();
+	ExportAIMPolicy();
+	ExportAlumniName();
+	ExportDialogues();
+	ExportNPCDialogues();
 
 	return true;
 }
@@ -501,7 +500,8 @@ namespace Loc
 	}
 }; // namespace Loc
 
-void Loc::ExportMercBio()
+namespace {
+void ExportMercBio()
 {
 	#define	SIZE_MERC_BIO_INFO				400	* 2
 	#define SIZE_MERC_ADDITIONAL_INFO		160 * 2
@@ -530,7 +530,7 @@ void Loc::ExportMercBio()
 	props.writeToXMLFile(L"Localization/AimBiographies.xml", vfs::PropertyContainer::TagMap());
 }
 
-void Loc::ExportAIMHistory()
+void ExportAIMHistory()
 {
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pHistLine[AIM_HISTORY_LINE_SIZE];
@@ -551,7 +551,7 @@ void Loc::ExportAIMHistory()
 }
 	
 	
-void Loc::ExportAIMPolicy()
+void ExportAIMPolicy()
 {
 	#define AIM_HISTORY_LINE_SIZE 400 * 2
 	vfs::String::char_t pPolLine[AIM_HISTORY_LINE_SIZE];
@@ -571,7 +571,7 @@ void Loc::ExportAIMPolicy()
 	props.writeToXMLFile(L"Localization/AimPolicy.xml", vfs::PropertyContainer::TagMap());
 }
 
-void Loc::ExportAlumniName()
+void ExportAlumniName()
 {
 	#define AIM_ALUMNI_NAME_SIZE 80 * 2
 	vfs::String::char_t pAlumniName[AIM_ALUMNI_NAME_SIZE];
@@ -591,9 +591,7 @@ void Loc::ExportAlumniName()
 	props.writeToXMLFile(L"Localization/AlumniName.xml", vfs::PropertyContainer::TagMap());
 }
 
-#include <vfs/Core/vfs.h>
-
-void Loc::ExportDialogues()
+void ExportDialogues()
 {
 	#define DIALOGUESIZE		480
 	vfs::String::char_t pDiagLine[DIALOGUESIZE];
@@ -630,7 +628,7 @@ void Loc::ExportDialogues()
 	}
 }
 
-void Loc::ExportNPCDialogues()
+void ExportNPCDialogues()
 {
 	#define DIALOGUESIZE		480
 	#define CIVQUOTESIZE		320
@@ -676,3 +674,4 @@ void Loc::ExportNPCDialogues()
 		props.writeToXMLFile(x, vfs::PropertyContainer::TagMap());
 	}
 }
+} // namespace
