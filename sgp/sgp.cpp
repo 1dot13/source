@@ -949,12 +949,19 @@ void GetRuntimeSettings( )
 		SGP_THROW_IFFALSE( setlocale(LC_ALL, loc.utf8().c_str()), _BS(L"invalid locale : ") << loc << _BS::wget );
 	}
 
-	vfs::String language = oProps.getStringProperty("Ja2 Settings", L"LANGUAGE");
-	if(!language.empty())
+	vfs::PropertyContainer langProps;
+	langProps.initFromIniFile(std::string{LANGUAGE_INI_FILE});
+	auto langIni = langProps.getStringProperty("Language", L"LANGUAGE");
+	auto langCli = oProps.getStringProperty("Ja2 Settings", L"LANGUAGE");
+	std::string language{};
+	if(!langCli.empty())
 	{
-		std::string languageName = language.utf8();
-		SetLanguageFromName(languageName);
+		language = langCli.utf8();
 	}
+        if (!langIni.empty()) {
+          language = langIni.utf8();
+        }
+        SetLanguageFromName(language);
 
 	// Rebind every language table pointer to the resolved g_lang. Unconditional:
 	// with no LANGUAGE key this binds the build default, matching the static

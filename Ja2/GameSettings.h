@@ -8,8 +8,10 @@
 #include "Campaign Types.h"
 #include "environment.h"
 
+#include <string_view>
 #define				GAME_INI_FILE					"Ja2.ini"
 
+constexpr std::string_view LANGUAGE_INI_FILE{"Language.ini"};
 //If you add any options, MAKE sure you add the corresponding string to the Options Screen string array.
 //	 look up : zOptionsScreenHelpText , zOptionsToggleText
 //Also, define its initialization and add its load/save to INI lines in : InitGameSettings() , SaveGameSettings() , LoadGameSettings()
