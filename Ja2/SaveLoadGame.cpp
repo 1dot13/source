@@ -7746,9 +7746,9 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 		for (int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx) {
 			cntFromFile[ idx ] = gTacticalStatus.Team[ idx ].bLastID - gTacticalStatus.Team[ idx ].bFirstID + 1;
 		}
-		int cntFromIni[] = {gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles,
-									  gGameExternalOptions.ubGameMaximumNumberOfEnemies, gGameExternalOptions.ubGameMaximumNumberOfCreatures,
-									  gGameExternalOptions.ubGameMaximumNumberOfRebels, gGameExternalOptions.ubGameMaximumNumberOfCivilians};
+		int cntFromIni[] = {static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles),
+									  static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfEnemies), static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfCreatures),
+									  static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfRebels), static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfCivilians)};
 		
 		CHAR16 *errMsgTxt[] = {L"Mercenary / Vehicle", L"Enemy", L"Creature", L"Militia", L"Civilian"};
 		errMsgTxt[0] = Additional113Text[ERROR_MAX_MERCSVEHICLES];

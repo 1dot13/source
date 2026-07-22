@@ -108,21 +108,21 @@
 #define		AIM_SORT_SORT_BY_HEIGHT				81
 
 UINT16		AimSortCheckBoxLoc[]={
-							(AIM_SORT_SORT_BY_X + 9), (AIM_SORT_SORT_BY_Y + 34),
-							(AIM_SORT_SORT_BY_X + 9), (AIM_SORT_SORT_BY_Y + 47),
-							(AIM_SORT_SORT_BY_X + 9), (AIM_SORT_SORT_BY_Y + 60),
-							(AIM_SORT_SORT_BY_X + 105), (AIM_SORT_SORT_BY_Y + 34),
-							(AIM_SORT_SORT_BY_X + 105), (AIM_SORT_SORT_BY_Y + 47),
-							(AIM_SORT_SORT_BY_X + 105), (AIM_SORT_SORT_BY_Y + 60),
-							(AIM_SORT_SORT_BY_X + 201), (AIM_SORT_SORT_BY_Y + 34),
-							(AIM_SORT_SORT_BY_X + 201), (AIM_SORT_SORT_BY_Y + 47),
-							(AIM_SORT_SORT_BY_X + 201), (AIM_SORT_SORT_BY_Y + 60),
-							(AIM_SORT_SORT_BY_X + 297), (AIM_SORT_SORT_BY_Y + 34),
-							(AIM_SORT_SORT_BY_X + 297), (AIM_SORT_SORT_BY_Y + 47),
-							(AIM_SORT_SORT_BY_X + 297), (AIM_SORT_SORT_BY_Y + 60),
-							(AIM_SORT_SORT_BY_X + 9), (AIM_SORT_SORT_BY_Y + 21),
-							(AIM_SORT_SORT_BY_X + 372), (AIM_SORT_SORT_BY_Y + 4),
-							(AIM_SORT_SORT_BY_X + 372), (AIM_SORT_SORT_BY_Y + 17)};
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 9), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 34),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 9), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 47),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 9), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 60),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 105), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 34),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 105), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 47),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 105), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 60),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 201), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 34),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 201), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 47),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 201), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 60),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 297), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 34),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 297), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 47),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 297), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 60),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 9), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 21),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 372), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 4),
+							static_cast<UINT16>(AIM_SORT_SORT_BY_X + 372), static_cast<UINT16>(AIM_SORT_SORT_BY_Y + 17)};
 
 UINT8			gubCurrentSortMode;
 UINT8			gubOldSortMode;
