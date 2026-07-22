@@ -16,14 +16,14 @@ UINT32 guiForceRefreshMousePositionCalculation = 0;
 // GLOBALS
 INT16 DirIncrementer[8] =
 {
-		-WORLD_COLS,		//N
-		1-WORLD_COLS,		//NE
+		static_cast<INT16>(-WORLD_COLS),		//N
+		static_cast<INT16>(1-WORLD_COLS),		//NE
 		1,					//E
-		1+WORLD_COLS,		//SE
-		WORLD_COLS,			//S
-		WORLD_COLS-1,		//SW
+		static_cast<INT16>(1+WORLD_COLS),		//SE
+		static_cast<INT16>(WORLD_COLS),			//S
+		static_cast<INT16>(WORLD_COLS-1),		//SW
 		-1,					//W
-		-WORLD_COLS-1		//NW
+		static_cast<INT16>(-WORLD_COLS-1)		//NW
 };
 
 // Opposite directions
