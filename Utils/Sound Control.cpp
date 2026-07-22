@@ -496,7 +496,7 @@ UINT32 PlayWeaponSound(STR8 szFileName, UINT32 ubVolume, UINT32 uiPan)
 	return(SoundPlay((STR)szFileName, &spParms));
 }
 
-UINT32 PlayJA2SampleFromFile( STR8 szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
+UINT32 PlayJA2SampleFromFile( const CHAR8* szFileName, UINT32 usRate, UINT32 ubVolume, UINT32 ubLoops, UINT32 uiPan )
 {
 	//SoundLog((CHAR8 *)String(" Play sound %s on volume %d", szFileName, ubVolume));
 	// does the same thing as PlayJA2Sound, but one only has to pass the filename, not the index of the sound array
