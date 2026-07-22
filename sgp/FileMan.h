@@ -90,7 +90,7 @@ extern void		FileClose( HWFILE );
 
 extern BOOLEAN	FileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 extern BOOLEAN	FileReadLine( HWFILE hFile, std::string* pDest );
-extern BOOLEAN	FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
+extern BOOLEAN	FileWrite( HWFILE hFile, const void* pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
 extern BOOLEAN	FileLoad( STR filename, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 
 extern BOOLEAN _cdecl FilePrintf( HWFILE hFile, STR8	strFormatted, ... );

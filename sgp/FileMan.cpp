@@ -491,7 +491,7 @@ BOOLEAN FileReadLine( HWFILE hFile, std::string* pDest )
 //
 //**************************************************************************
 
-BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten )
+BOOLEAN FileWrite( HWFILE hFile, const void* pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten )
 {
 	if(uiBytesToWrite == 0)//dnl ch38 110909
 	{
@@ -507,7 +507,7 @@ BOOLEAN FileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBy
 			UINT32 uiBytesWritten;
 			try
 			{
-				uiBytesWritten = pWF->write((vfs::Byte*)pDest, uiBytesToWrite);
+				uiBytesWritten = pWF->write((const vfs::Byte*)pDest, uiBytesToWrite);
 			}
 			catch(std::exception& ex)
 			{
