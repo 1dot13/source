@@ -9790,7 +9790,7 @@ BlitNewLine:
 		mov		ecx, width
 
 BlitLine:
-		cmp	[esi+ebx], 0
+		cmp	byte ptr [esi+ebx], 0		// Pattern is UINT8[8][8]
 		je	BlitLine2
 
 		mov		[edi], ax
