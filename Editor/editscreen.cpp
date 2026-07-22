@@ -4638,25 +4638,4 @@ BOOLEAN FindLight(INT32 iGridNo, INT8 bLightType, UINT8 *pubLightRadius, UINT8 *
 	return(FALSE);
 }
 
-#else //non-editor version
-
-#include "types.h"
-#include "screenids.h"
-
-UINT32 EditScreenInit()
-{
-	return TRUE ;
-}
-
-UINT32	EditScreenHandle( )
-{
-	//If this screen ever gets set, then this is a bad thing -- endless loop
-	return ERROR_SCREEN ;
-}
-
-UINT32 EditScreenShutdown( )
-{
-	return TRUE ;
-}
-
 #endif
