@@ -81,8 +81,8 @@ set(Ja2_Libraries
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
 "${CMAKE_SOURCE_DIR}/lua51.lib"
 "${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
-"Dbghelp.lib"
-"Winmm.lib"
+"dbghelp.lib"
+"winmm.lib"
 "ws2_32.lib"
 bfVFS
 Lua
@@ -146,8 +146,12 @@ foreach(app IN LISTS ApplicationTargets)
     sgp/sgp.cpp
     Ja2/Res/ja2.rc
   )
-  target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} $<IF:${usingMsBuild},legacy_stdio_definitions.lib,>)
-  target_link_options(${exe} PRIVATE $<IF:${usingMsBuild},/SAFESEH:NO,>)
+  # RakNetLibStatic.lib was built against an older CRT and still calls
+  # _vsnprintf, which the UCRT only exports through this compatibility library.
+  target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} legacy_stdio_definitions.lib)
+  # The prebuilt lua51.lib and smackw32 import library carry no safe exception
+  # handler table, so the image cannot claim one whatever links it.
+  target_link_options(${exe} PRIVATE /SAFESEH:NO)
   target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
 
   # language library for the application, e.g. JA2MAPEDITOR_i18n — one per app, all 8
