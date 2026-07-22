@@ -1817,7 +1817,8 @@ void HandleRisksForSoldierFacilityAssignment( SOLDIERTYPE *pSoldier, UINT8 ubFac
 							}
 							else
 							{
-								INT16 sItemId = riskDrugItems[std::uniform_int_distribution<>(0, riskDrugItems.size() - 1)(std::mt19937{ std::random_device{}() })];
+								std::mt19937 engine{ std::random_device{}() };
+								INT16 sItemId = riskDrugItems[std::uniform_int_distribution<>(0, riskDrugItems.size() - 1)(engine)];
 
 								CreateItem(sItemId, Item[sItemId].usPortionSize, &gTempObject);
 
