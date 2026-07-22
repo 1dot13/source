@@ -1347,7 +1347,7 @@ void InitFloristOrderForm()
 		gDestinationTable.erase(gDestinationTable.begin(), gDestinationTable.end());
 	}
 
-	RefToDestinationListIterator dli = gPostalService.LookupDestinationList().begin();
+	DestinationListIterator dli = gPostalService.LookupDestinationList().begin();
 
 	while (dli != gPostalService.LookupDestinationList().end())
 	{

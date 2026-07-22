@@ -118,7 +118,7 @@ destinationEndElementHandle(void *userData, const XML_Char *name)
 				// using uiIndex, iterate thru gPostalService::_Destinations till we find the correct 
 				// DestinationStruct, and change its wstrName
 
-				RefToDestinationListIterator dli = gPostalService.LookupDestinationList().begin();
+				DestinationListIterator dli = gPostalService.LookupDestinationList().begin();
 				
 				while(DESTINATION(dli).uiIndex != pData->tempDest.uiIndex)
 				{

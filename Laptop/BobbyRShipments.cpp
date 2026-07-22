@@ -191,7 +191,7 @@ BOOLEAN EnterBobbyRShipments()
 		INT32 iCnt=0;
 
 		//get the first shipment #
-		vector<PShipmentStruct>::iterator& psi = gShipmentTable.begin();
+		vector<PShipmentStruct>::iterator psi = gShipmentTable.begin();
 
 		while(psi != gShipmentTable.end())
 		{
@@ -299,7 +299,7 @@ void RenderBobbyRShipments()
 
 	if(giBobbyRShipmentSelectedShipment != -1) 
 	{
-		RefToShipmentPackageListIterator spli = gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.begin();
+		ShipmentPackageListIterator spli = gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.begin();
 		int j;
 		for(unsigned i = 0; i < gShipmentTable[giBobbyRShipmentSelectedShipment]->ShipmentPackages.size(); i++, spli++)
 		{
@@ -452,7 +452,7 @@ void DisplayPreviousShipments()
 	UINT32	uiItemCnt;
 	UINT8		ubFontColor = BOBBYR_SHIPMENT_STATIC_TEXT_COLOR;
 	
-	RefToShipmentListIterator sli = gPostalService.LookupShipmentList().begin();
+	ShipmentListIterator sli = gPostalService.LookupShipmentList().begin();
 
 	uiNumItems = (UINT32)gPostalService.LookupShipmentList().size();
 	if(uiNumItems > BOBBYR_SHIPMENT_NUM_PREVIOUS_SHIPMENTS)

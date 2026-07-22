@@ -219,7 +219,7 @@ BOOLEAN EnterBobbyR()
 		gShipmentTable.erase(gShipmentTable.begin(), gShipmentTable.end());
 	}
 
-	RefToDestinationListIterator dli = gPostalService.LookupDestinationList().begin();
+	DestinationListIterator dli = gPostalService.LookupDestinationList().begin();
 
 	while (dli != gPostalService.LookupDestinationList().end())
 	{
@@ -228,7 +228,7 @@ BOOLEAN EnterBobbyR()
 
 	}
 
-	RefToShipmentListIterator sli = gPostalService.LookupShipmentList().begin();
+	ShipmentListIterator sli = gPostalService.LookupShipmentList().begin();
 
 	while (sli != gPostalService.LookupShipmentList().end())
 	{

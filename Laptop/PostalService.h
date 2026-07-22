@@ -45,8 +45,8 @@ typedef DestinationStruct* PDestinationStruct;
 
 typedef list<DestinationStruct> DestinationList;
 typedef list<DestinationStruct>& RefToDestinationList;
-typedef DestinationList::const_iterator& RefToDestinationListIterator;
-inline RefToDestinationStruct DESTINATION(RefToDestinationListIterator dli)
+typedef DestinationList::const_iterator DestinationListIterator;
+inline RefToDestinationStruct DESTINATION(DestinationListIterator dli)
 {
 	return ( (RefToDestinationStruct) *dli );
 }
@@ -81,7 +81,6 @@ typedef vector<DestinationDeliveryInfoStruct> DestinationDeliveryInfoTable;
 typedef DestinationDeliveryInfoTable* PDestinationDeliveryInfoTable;
 typedef DestinationDeliveryInfoTable& RefToDestinationDeliveryInfoTable;
 typedef DestinationDeliveryInfoTable::iterator DestinationDeliveryInfoTableIterator;
-typedef DestinationDeliveryInfoTableIterator& RefToDestinationDeliveryInfoTableIterator;
 
 typedef struct
 {
@@ -104,7 +103,7 @@ typedef ShipmentPackageStruct& RefToShipmentPackageStruct;
 typedef ShipmentPackageStruct* PShipmentPackageStruct;
 typedef vector<ShipmentPackageStruct> ShipmentPackageList;
 typedef ShipmentPackageList& RefToShipmentPackageList;
-typedef ShipmentPackageList::iterator& RefToShipmentPackageListIterator;
+typedef ShipmentPackageList::iterator ShipmentPackageListIterator;
 
 typedef enum
 {
@@ -130,7 +129,6 @@ typedef list<ShipmentStruct> ShipmentList;
 typedef ShipmentList* PShipmentList;
 typedef ShipmentList& RefToShipmentList;
 typedef ShipmentList::iterator ShipmentListIterator;
-typedef ShipmentListIterator& RefToShipmentListIterator;
 
 typedef struct
 {
@@ -159,7 +157,7 @@ inline BOOLEAN SHIPMENT_ID_LOWER(RefToShipmentStruct s1, RefToShipmentStruct s2)
 }
 #define SHIPMENT_LIST_ASCENDING SHIPMENT_ID_LOWER
 
-inline RefToShipmentStruct SHIPMENT(RefToShipmentListIterator sli)
+inline RefToShipmentStruct SHIPMENT(ShipmentListIterator sli)
 {
 	return ( (RefToShipmentStruct) *sli );
 }
@@ -192,7 +190,6 @@ typedef DeliveryCallbackDataStruct& RefToDeliveryCallbackDataStruct;
 typedef vector<DeliveryCallbackDataStruct> DeliveryCallbackDataList;
 typedef DeliveryCallbackDataList& RefToDeliveryCallbackDataList;
 typedef DeliveryCallbackDataList::iterator DeliveryCallbackDataListIterator;
-typedef DeliveryCallbackDataListIterator& RefToDeliveryCallbackDataListIterator;
 
 ////////////////////////////////////////////////////////////////
 class CPostalService

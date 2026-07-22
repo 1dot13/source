@@ -23,7 +23,6 @@ typedef DestinationDeliveryInfoReadInStruct& RefToDestinationDeliveryInfoReadInS
 typedef vector<DestinationDeliveryInfoReadInStruct> DestinationDeliveryInfoReadInTable;
 typedef DestinationDeliveryInfoReadInTable& RefToDestinationDeliveryInfoReadInTable;
 typedef DestinationDeliveryInfoReadInTable::iterator DestinationDeliveryInfoReadInTableIterator;
-typedef DestinationDeliveryInfoReadInTableIterator& RefToDestinationDeliveryInfoReadInTableIterator;
 
 enum
 {
@@ -145,7 +144,7 @@ deliveryMethodEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = DELIVERYMETHOD_ELEMENT_TABLE;
 			UINT8 ubCurrentDM = gPostalService.AddDeliveryMethod(pData->CurDeliveryMethod.szDescription);
 			
-			RefToDestinationDeliveryInfoReadInTableIterator dfriti = pData->CurDeliveryMethod.DestinationDeliveryInfos->begin();
+			DestinationDeliveryInfoReadInTableIterator dfriti = pData->CurDeliveryMethod.DestinationDeliveryInfos->begin();
 
 			while(dfriti != pData->CurDeliveryMethod.DestinationDeliveryInfos->end())
 			{
