@@ -18,6 +18,11 @@
 #include "strategic.h"
 #include "BaseTable.h"
 
+// Every member below is specialised for each table, and nothing else defines them.
+// The specialisations have to be visible before the first use instantiates one.
+template<> void TestTableTemplate<4>::SetRefresh();
+template<> void TestTableTemplate<4>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT16 sY_End );
+
 /*#define		MERCOMP_FONT_COLOR								2
 #define		CAMPHIS_FONT_BIG								FONT14ARIAL
 #define		CAMPHIS_FONT_MED								FONT12ARIAL
