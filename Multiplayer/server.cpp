@@ -1025,7 +1025,8 @@ void start_server (void)
 		server->SetTimeoutTime(120000, UNASSIGNED_SYSTEM_ADDRESS);	// 120 Seconds
 
 
-		bool b = server->Startup(gMaxClients, 30, &SocketDescriptor(serverPort,0), 1);
+		SocketDescriptor socketDescriptor(serverPort,0);
+		bool b = server->Startup(gMaxClients, 30, &socketDescriptor, 1);
 
 		server->SetMaximumIncomingConnections((gMaxClients));
 		server->SetOccasionalPing(true);
