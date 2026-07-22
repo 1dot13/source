@@ -35,7 +35,7 @@ void CIniReader::RegisterFileForMerging(vfs::Path const& filename)
 	m_merge_files.insert(filename);
 }
 
-CIniReader::CIniReader(const STR8	szFileName)
+CIniReader::CIniReader(const CHAR8*	szFileName)
 {
 	memset(m_szFileName,0,sizeof(m_szFileName));
 	strncpy(m_szFileName,szFileName, std::min<int>(strlen(szFileName), sizeof(m_szFileName)-1));
@@ -69,7 +69,7 @@ CIniReader::CIniReader(const STR8	szFileName)
 	}
 }
 
-CIniReader::CIniReader(const STR8	szFileName, BOOLEAN Force_Custom_Data_Path)
+CIniReader::CIniReader(const CHAR8*	szFileName, BOOLEAN Force_Custom_Data_Path)
 {
 	memset(m_szFileName,0,sizeof(m_szFileName));
 	// ary-05/05/2009 : force custom data path for potential non existing file -or- force default data path
@@ -105,13 +105,13 @@ void CIniReader::Clear()
 }
 
 
-int CIniReader::ReadInteger(const STR8	szSection, const STR8	szKey, int iDefaultValue)
+int CIniReader::ReadInteger(const CHAR8*	szSection, const CHAR8*	szKey, int iDefaultValue)
 {
 	return (int)(m_oProps.getIntProperty(szSection, szKey, iDefaultValue));
 }
 
 
-int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultValue, int minValue, int maxValue)
+int CIniReader::ReadInteger(const CHAR8* szSection, const CHAR8* szKey, int defaultValue, int minValue, int maxValue)
 {
 	int iniValueReadFromFile = (int)(m_oProps.getIntProperty(szSection, szKey, defaultValue));
 	//AssertGE(iniValueReadFromFile, minValue);
@@ -142,7 +142,7 @@ int CIniReader::ReadInteger(const STR8 szSection, const STR8 szKey, int defaultV
 // return fltResult;
 //}
 
-double CIniReader::ReadDouble(const STR8 szSection, const STR8 szKey, double defaultValue, double minValue, double maxValue)
+double CIniReader::ReadDouble(const CHAR8* szSection, const CHAR8* szKey, double defaultValue, double minValue, double maxValue)
 {
 	double iniValueReadFromFile;
 	iniValueReadFromFile = m_oProps.getFloatProperty(szSection, szKey, defaultValue);
@@ -161,7 +161,7 @@ double CIniReader::ReadDouble(const STR8 szSection, const STR8 szKey, double def
 	return iniValueReadFromFile;
 }
 
-FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaultValue, FLOAT minValue, FLOAT maxValue)
+FLOAT CIniReader::ReadFloat(const CHAR8* szSection, const CHAR8* szKey, FLOAT defaultValue, FLOAT minValue, FLOAT maxValue)
 {
 	FLOAT iniValueReadFromFile;
 	iniValueReadFromFile = (FLOAT) m_oProps.getFloatProperty(szSection, szKey, (float)defaultValue);
@@ -182,7 +182,7 @@ FLOAT CIniReader::ReadFloat(const STR8 szSection, const STR8 szKey, FLOAT defaul
 	return iniValueReadFromFile;
 }
 
-void CIniReader::ReadFloatArray(const STR8 szSection, const STR8 szKey, std::vector<FLOAT>& vec)
+void CIniReader::ReadFloatArray(const CHAR8* szSection, const CHAR8* szKey, std::vector<FLOAT>& vec)
 {
 	// read the array as a string
 	STRING512 textBuffer;
@@ -219,7 +219,7 @@ void CIniReader::ReadFloatArray(const STR8 szSection, const STR8 szKey, std::vec
 	}
 }
 
-void CIniReader::ReadINT32Array(const STR8 szSection, const STR8 szKey, std::vector<INT32>& vec)
+void CIniReader::ReadINT32Array(const CHAR8* szSection, const CHAR8* szKey, std::vector<INT32>& vec)
 {
 	// read the array as a string
 	STRING512 textBuffer;
@@ -256,7 +256,7 @@ void CIniReader::ReadINT32Array(const STR8 szSection, const STR8 szKey, std::vec
 	}
 }
 
-BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool defaultValue, bool bolDisplayError)
+BOOLEAN CIniReader::ReadBoolean(const CHAR8* szSection, const CHAR8* szKey, bool defaultValue, bool bolDisplayError)
 {
 	vfs::String str = m_oProps.getStringProperty(szSection, szKey, L"");
 	if( vfs::StrCmp::Equal(str, L"true") )
@@ -285,7 +285,7 @@ BOOLEAN CIniReader::ReadBoolean(const STR8 szSection, const STR8 szKey, bool def
 //	memset(test_ini_string, 0x00, 255);
 //	iniReader.ReadString("JA2 Game Settings" , "TEST_STRING" , "default string" , test_ini_string , 255 );
 
-void CIniReader::ReadString(const STR8 szSection, const STR8 szKey, const STR8 szDefaultValue, STR8 input_buffer, size_t buffer_size)
+void CIniReader::ReadString(const CHAR8* szSection, const CHAR8* szKey, const CHAR8* szDefaultValue, STR8 input_buffer, size_t buffer_size)
 {
 	std::string s = m_oProps.getStringProperty(szSection, szKey, szDefaultValue).utf8();
 	int len = std::min<unsigned int>(s.length(),buffer_size-1);
@@ -294,7 +294,7 @@ void CIniReader::ReadString(const STR8 szSection, const STR8 szKey, const STR8 s
 }
 
 // WANNE - MP: Old version, currently used by Multiplayer
-STR8	CIniReader::ReadString(const STR8	szSection, const STR8	szKey, const STR8	szDefaultValue)
+STR8	CIniReader::ReadString(const CHAR8*	szSection, const CHAR8*	szKey, const CHAR8*	szDefaultValue)
 {
 	// >>>>> Memory Leak <<<<<
 	STR8	szResult = new char[255];
@@ -304,7 +304,7 @@ STR8	CIniReader::ReadString(const STR8	szSection, const STR8	szKey, const STR8	s
 	return szResult;
 }
 
-UINT8  CIniReader::ReadUINT8(const STR8 szSection, const STR8 szKey, UINT8  defaultValue, UINT8  minValue, UINT8  maxValue)
+UINT8  CIniReader::ReadUINT8(const CHAR8* szSection, const CHAR8* szKey, UINT8  defaultValue, UINT8  minValue, UINT8  maxValue)
 {
 	UINT8 iniValueReadFromFile;
 
@@ -315,7 +315,7 @@ UINT8  CIniReader::ReadUINT8(const STR8 szSection, const STR8 szKey, UINT8  defa
 
 }
 
-UINT16 CIniReader::ReadUINT16(const STR8 szSection, const STR8 szKey, UINT16 defaultValue, UINT16 minValue, UINT16 maxValue)
+UINT16 CIniReader::ReadUINT16(const CHAR8* szSection, const CHAR8* szKey, UINT16 defaultValue, UINT16 minValue, UINT16 maxValue)
 {
 	UINT16 iniValueReadFromFile;
 
@@ -325,7 +325,7 @@ UINT16 CIniReader::ReadUINT16(const STR8 szSection, const STR8 szKey, UINT16 def
 
 }
 
-UINT32 CIniReader::ReadUINT32(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue)
+UINT32 CIniReader::ReadUINT32(const CHAR8* szSection, const CHAR8* szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue)
 {
 	UINT32 iniValueReadFromFile;
 
@@ -335,7 +335,7 @@ UINT32 CIniReader::ReadUINT32(const STR8 szSection, const STR8 szKey, UINT32 def
 
 }
 
-UINT32 CIniReader::ReadUINT(const STR8 szSection, const STR8 szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue )
+UINT32 CIniReader::ReadUINT(const CHAR8* szSection, const CHAR8* szKey, UINT32 defaultValue, UINT32 minValue, UINT32 maxValue )
 { 
 	UINT32 iniValueReadFromFile;
 	iniValueReadFromFile = (UINT32) m_oProps.getUIntProperty(szSection, szKey, defaultValue);
