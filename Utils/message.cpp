@@ -610,7 +610,7 @@ void UnHideMessagesDuringNPCDialogue( void )
 	return;
 }
 
-void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...)
+void ScreenMsg( UINT16 usColor, UINT8 ubPriority, const CHAR16* pStringA, ...)
 {
 	//__try
 	//{
