@@ -124,7 +124,7 @@ UINT16 CPostalService::CreateNewShipment(UINT16 usDestinationID, UINT8  ubDelive
 	}
 
 	_Destinations.sort(DESTINATION_LIST_ASCENDING);
-	RefToDestinationListIterator dli = _Destinations.begin();
+	DestinationListIterator dli = _Destinations.begin();
 	
 	while(DESTINATION(dli).usID != usDestinationID)
 	{
@@ -186,7 +186,7 @@ BOOLEAN CPostalService::AddPackageToShipment(UINT16 usShipmentID, UINT16 usItemI
 	}
 
 	_Shipments.sort(SHIPMENT_LIST_ASCENDING);
-	RefToShipmentListIterator sli = _Shipments.begin();
+	ShipmentListIterator sli = _Shipments.begin();
 
 	while(SHIPMENT(sli).usID != usShipmentID)
 	{
@@ -218,7 +218,7 @@ BOOLEAN CPostalService::SendShipment(UINT16 usShipmentID)
 		return FALSE;
 	}
 
-	RefToShipmentListIterator sli = _Shipments.begin();
+	ShipmentListIterator sli = _Shipments.begin();
 
 	while(SHIPMENT(sli).usID != usShipmentID)
 	{
@@ -272,7 +272,7 @@ BOOLEAN CPostalService::DeliverShipment(UINT16 usShipmentID)
 		return FALSE;
 	}
 
-	RefToShipmentListIterator sli = _Shipments.begin();
+	ShipmentListIterator sli = _Shipments.begin();
 
 	while(SHIPMENT(sli).usID != usShipmentID)
 	{
@@ -622,7 +622,7 @@ BOOLEAN CPostalService::DeliverShipmentForMultiplayer(UINT16 usShipmentID)
 		return FALSE;
 	}
 
-	RefToShipmentListIterator sli = _Shipments.begin();
+	ShipmentListIterator sli = _Shipments.begin();
 
 	while(SHIPMENT(sli).usID != usShipmentID)
 	{
@@ -897,7 +897,7 @@ BOOLEAN CPostalService::SaveShipmentListToSaveGameFile(HWFILE hFile)
 		return TRUE;
 	}
 
-	RefToShipmentListIterator	sli = _Shipments.begin();
+	ShipmentListIterator	sli = _Shipments.begin();
 	ShipmentSaveFileDataStruct	sfs;
 	ShipmentPackageStruct		sps;
 
@@ -1022,7 +1022,7 @@ BOOLEAN CPostalService::IsSectorAShipmentSector(UINT8 ubMapX, UINT8 ubMapY, UINT
 	BOOLEAN isShipmentSector = FALSE;
 
 	vector<PDestinationStruct> destinations;
-	RefToDestinationListIterator dli = LookupDestinationList().begin();
+	DestinationListIterator dli = LookupDestinationList().begin();
 
 	while (dli != LookupDestinationList().end())
 	{
@@ -1055,7 +1055,7 @@ UINT16 CPostalService::GetShipmentCount(SHIPMENT_STATUS TargetedShipmentStatus)
 		return 0;
 	}
 
-	RefToShipmentListIterator sli = _Shipments.begin();
+	ShipmentListIterator sli = _Shipments.begin();
 	
 	UINT16 usCnt=0;
 	while(sli != _Shipments.end())
@@ -1119,7 +1119,7 @@ UINT16 CPostalService::SetDestinationDeliveryInfo(UINT8 ubDeliveryMethodIndex, U
 
 	_Destinations.sort(DESTINATION_LIST_ASCENDING);
 
-	RefToDestinationListIterator dli = _Destinations.begin();
+	DestinationListIterator dli = _Destinations.begin();
 
 	while( DESTINATION(dli).uiIndex != uiDestinationIndex)
 	{
@@ -1160,7 +1160,7 @@ RefToDestinationStruct CPostalService::_GetDestination(UINT16 usDestinationID)
 		return DESTINATION(_Destinations.end());
 	}
 
-	RefToDestinationListIterator dli = _Destinations.begin();
+	DestinationListIterator dli = _Destinations.begin();
 
 	while(DESTINATION(dli).usID != usDestinationID)
 	{
