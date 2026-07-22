@@ -1,0 +1,104 @@
+; Import definition for binkw32.dll, used to rebuild the Bink import library
+; when building with clang-cl.cmake
+;
+; Two things forced the shape of this file:
+;   1. lld-link cannot bind the ordinal-based long-format import library the
+;      game ships (binkw32.lib). It leaves every Bink call unresolved, and at
+;      run time the calls jump into arbitrary code and crash at startup.
+;   2. binkw32.dll exports decorated stdcall names that keep their leading
+;      underscore (_BinkOpen@8). llvm-dlltool strips that underscore from the
+;      imported name whatever the --no-leading-underscore flag says, so a
+;      by-name import would look up "BinkOpen@8", not find it in the DLL, and
+;      Wine would substitute a builtin stub that aborts ("unimplemented
+;      function binkw32.dll.BinkSetSoundSystem@8").
+;
+; Importing by ordinal (NONAME) sidesteps both: there is no name to mismatch,
+; and the ordinals are those of the retail binkw32.dll the game ships. MSVC's
+; link.exe binds the shipped library fine and keeps using it.
+LIBRARY binkw32.dll
+EXPORTS
+_BinkBufferBlit@12 @1 NONAME
+_BinkBufferCheckWinPos@12 @2 NONAME
+_BinkBufferClear@8 @3 NONAME
+_BinkBufferClose@4 @4 NONAME
+_BinkBufferGetDescription@4 @5 NONAME
+_BinkBufferGetError@0 @6 NONAME
+_BinkBufferLock@4 @7 NONAME
+_BinkBufferOpen@16 @8 NONAME
+_BinkBufferSetDirectDraw@8 @9 NONAME
+_BinkBufferSetHWND@8 @10 NONAME
+_BinkBufferSetOffset@12 @11 NONAME
+_BinkBufferSetResolution@12 @12 NONAME
+_BinkBufferSetScale@12 @13 NONAME
+_BinkBufferUnlock@4 @14 NONAME
+_BinkCheckCursor@20 @15 NONAME
+_BinkClose@4 @16 NONAME
+_BinkCloseTrack@4 @17 NONAME
+_BinkCopyToBuffer@28 @18 NONAME
+_BinkCopyToBufferRect@44 @19 NONAME
+_BinkDDSurfaceType@4 @20 NONAME
+_BinkDX8SurfaceType@4 @21 NONAME
+_BinkDoFrame@4 @22 NONAME
+_BinkGetError@0 @23 NONAME
+_BinkGetKeyFrame@12 @24 NONAME
+_BinkGetRealtime@12 @25 NONAME
+_BinkGetRects@8 @26 NONAME
+_BinkGetSummary@8 @27 NONAME
+_BinkGetTrackData@8 @28 NONAME
+_BinkGetTrackID@8 @29 NONAME
+_BinkGetTrackMaxSize@8 @30 NONAME
+_BinkGetTrackType@8 @31 NONAME
+_BinkGoto@12 @32 NONAME
+_BinkIsSoftwareCursor@8 @33 NONAME
+_BinkLogoAddress@0 @34 NONAME
+_BinkNextFrame@4 @35 NONAME
+_BinkOpen@8 @36 NONAME
+_BinkOpenDirectSound@4 @37 NONAME
+_BinkOpenMiles@4 @38 NONAME
+_BinkOpenTrack@8 @39 NONAME
+_BinkOpenWaveOut@4 @40 NONAME
+_BinkPause@8 @41 NONAME
+_BinkRestoreCursor@4 @42 NONAME
+_BinkService@4 @43 NONAME
+_BinkSetError@4 @44 NONAME
+_BinkSetFrameRate@8 @45 NONAME
+_BinkSetIO@4 @46 NONAME
+_BinkSetIOSize@4 @47 NONAME
+_BinkSetMixBinVolumes@20 @48 NONAME
+_BinkSetMixBins@16 @49 NONAME
+_BinkSetPan@12 @50 NONAME
+_BinkSetSimulate@4 @51 NONAME
+_BinkSetSoundOnOff@8 @52 NONAME
+_BinkSetSoundSystem@8 @53 NONAME
+_BinkSetSoundTrack@8 @54 NONAME
+_BinkSetVideoOnOff@8 @55 NONAME
+_BinkSetVolume@12 @56 NONAME
+_BinkWait@4 @57 NONAME
+_RADSetMemory@8 @58 NONAME
+_RADTimerRead@0 @59 NONAME
+_YUV_blit_16a1bpp@52 @60 NONAME
+_YUV_blit_16a1bpp_mask@60 @61 NONAME
+_YUV_blit_16a4bpp@52 @62 NONAME
+_YUV_blit_16a4bpp_mask@60 @63 NONAME
+_YUV_blit_16bpp@48 @64 NONAME
+_YUV_blit_16bpp_mask@56 @65 NONAME
+_YUV_blit_24bpp@48 @66 NONAME
+_YUV_blit_24bpp_mask@56 @67 NONAME
+_YUV_blit_24rbpp@48 @68 NONAME
+_YUV_blit_24rbpp_mask@56 @69 NONAME
+_YUV_blit_32abpp@52 @70 NONAME
+_YUV_blit_32abpp_mask@60 @71 NONAME
+_YUV_blit_32bpp@48 @72 NONAME
+_YUV_blit_32bpp_mask@56 @73 NONAME
+_YUV_blit_32rabpp@52 @74 NONAME
+_YUV_blit_32rabpp_mask@60 @75 NONAME
+_YUV_blit_32rbpp@48 @76 NONAME
+_YUV_blit_32rbpp_mask@56 @77 NONAME
+_YUV_blit_UYVY@48 @78 NONAME
+_YUV_blit_UYVY_mask@56 @79 NONAME
+_YUV_blit_YUY2@48 @80 NONAME
+_YUV_blit_YUY2_mask@56 @81 NONAME
+_YUV_blit_YV12@52 @82 NONAME
+_YUV_init@4 @83 NONAME
+_radfree@4 @84 NONAME
+_radmalloc@4 @85 NONAME
