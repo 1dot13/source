@@ -584,10 +584,11 @@ INT16 StringNPixLength(STR16 string, UINT32 uiMaxCount, INT32 UseFont)
 //	Returns the length of a string in pixels, depending on the font given.
 //
 //*****************************************************************************
-INT16 StringPixLength(const STR16 string, INT32 UseFont)
+INT16 StringPixLength(const CHAR16* string, INT32 UseFont)
 {
 	UINT32 Cur;
-	UINT16 *curletter,transletter;
+	const UINT16 *curletter;
+	UINT16 transletter;
     if ( iUseWinFonts ) {
 	    INT32 MapFont;
 	    MapFont = WinFontMap[UseFont];
@@ -602,7 +603,7 @@ INT16 StringPixLength(const STR16 string, INT32 UseFont)
 	}
 
 	Cur=0;
-	curletter = (UINT16 *)string;
+	curletter = (const UINT16 *)string;
 
 	while((*curletter) != L'\0')
 	{
@@ -813,7 +814,7 @@ BOOLEAN SetFontDestBuffer(UINT32 DestBuffer, INT32 x1, INT32 y1, INT32 x2, INT32
 // the parameters are identical to printf. The resulting string may be no longer
 // than 512 word-characters. Uses monochrome font color settings
 //*****************************************************************************
-UINT32 mprintf(INT32 x, INT32 y, const STR16 pFontString, ...)
+UINT32 mprintf(INT32 x, INT32 y, const CHAR16* pFontString, ...)
 {
 INT32		destx, desty;
 CHAR16	*curletter, transletter;
@@ -864,7 +865,7 @@ UINT8				*pDestBuf;
 	return(0);
 }
 
-void VarFindFontRightCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT32 iFontIndex, INT16 *psNewX, INT16 *psNewY, const STR16 pFontString, ... )
+void VarFindFontRightCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT32 iFontIndex, INT16 *psNewX, INT16 *psNewY, const CHAR16* pFontString, ... )
 {
 	CHAR16	string[512];
 	va_list argptr;
@@ -876,7 +877,7 @@ void VarFindFontRightCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 s
 	FindFontRightCoordinates( sLeft, sTop, sWidth, sHeight, string, iFontIndex, psNewX, psNewY );
 }
 
-void VarFindFontCenterCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT32 iFontIndex, INT16 *psNewX, INT16 *psNewY, const STR16 pFontString, ... )
+void VarFindFontCenterCoordinates( INT16 sLeft, INT16 sTop, INT16 sWidth, INT16 sHeight, INT32 iFontIndex, INT16 *psNewX, INT16 *psNewY, const CHAR16* pFontString, ... )
 {
 	CHAR16	string[512];
 	va_list argptr;

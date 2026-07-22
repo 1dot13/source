@@ -497,7 +497,7 @@ UINT16 DeleteWrappedString(WRAPPED_STRING *pWrappedString)
 //			do you want to display it using dirty rects, TRUE or FALSE
 //			flags for either LEFT_JUSTIFIED, CENTER_JUSTIFIED, RIGHT_JUSTIFIED
 
-BOOLEAN DrawTextToScreen(STR16 pStr, UINT16 usLocX, UINT16 usLocY, UINT16 usWidth, INT32 iFont, UINT8 ubColor, UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 ulFlags)
+BOOLEAN DrawTextToScreen(const CHAR16* pStr, UINT16 usLocX, UINT16 usLocY, UINT16 usWidth, INT32 iFont, UINT8 ubColor, UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 ulFlags)
 {
 	UINT16	usPosX = 0, usPosY = 0;
 	UINT16	usFontHeight=0;
@@ -1874,7 +1874,7 @@ INT32 GetNewTotalYPositionOfThisString( INT32 iTotalYPosition, INT32 iPageSize, 
 	return( iNewYPosition );
 }
 
-void ShadowText(UINT32 uiDestVSurface, STR16 pString, INT32 iFont, UINT16 usPosX, UINT16 usPosY )
+void ShadowText(UINT32 uiDestVSurface, const CHAR16* pString, INT32 iFont, UINT16 usPosX, UINT16 usPosY )
 {
 	UINT32 uiLength = StringPixLength( pString, iFont);
 	UINT16 usFontHeight = WFGetFontHeight( iFont );

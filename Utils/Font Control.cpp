@@ -347,7 +347,7 @@ UINT16	WFGetFontHeight( INT32 FontNum )
 }
 
 
-INT16 WFStringPixLength( STR16 string,INT32 UseFont )
+INT16 WFStringPixLength( const CHAR16* string,INT32 UseFont )
 {
 	return( StringPixLength( string, UseFont ) );
 }

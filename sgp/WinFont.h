@@ -16,7 +16,7 @@ void SetWinFontForeColor( INT32 iFont, COLORVAL *pColor );
 
 void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontString, ...);
 
-INT16 WinFontStringPixLength( STR16	string, INT32 iFont );
+INT16 WinFontStringPixLength( const CHAR16*	string, INT32 iFont );
 INT16 GetWinFontHeight( INT32 iFont );
 
 //if you cahnge this enum, you must change FontInfo struct in WinFont.cpp too.
