@@ -204,7 +204,8 @@ static struct StackTraceLog {
 } s_log;
 
 void StackTrace::PrintBacktrace(const char* msg) {
-	OutputToStream(msg, &(SGP_LOG(s_log.id)));
+	sgp::Logger::LogInstance log = SGP_LOG(s_log.id);
+	OutputToStream(msg, &log);
 }
 
 void StackTrace::OutputToStream(const char* msg, sgp::Logger::LogInstance* os) {
