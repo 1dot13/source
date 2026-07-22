@@ -697,7 +697,7 @@ void HandleSoldierAI( SOLDIERTYPE *pSoldier ) // FIXME - this function is named 
 			// ATE: Display message that deadlock occured...
 			LiveMessage( "Breaking Deadlock" );
 
-			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID.i, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])), pSoldier->aiData.usActionData);
+			ScreenMsg(FONT_MCOLOR_LTRED, MSG_INTERFACE, L"Aborting AI deadlock for [%d] %s %s data %d", pSoldier->ubID.i, pSoldier->GetName(), utf8_to_wstring(std::string(szAction[pSoldier->aiData.bAction])).c_str(), pSoldier->aiData.usActionData);
 			DebugAI(String("Aborting AI deadlock for [%d] %s data %d", pSoldier->ubID, szAction[pSoldier->aiData.bAction], pSoldier->aiData.usActionData));
 
 #ifdef JA2TESTVERSION
