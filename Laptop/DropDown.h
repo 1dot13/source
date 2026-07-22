@@ -418,9 +418,6 @@ private:
 };
 
 template <int N>
-void DropDownTemplate<N>::SetRefresh();
-
-template <int N>
 void* DropDownTemplate<N>::mpSelf = NULL;
 
 #endif
