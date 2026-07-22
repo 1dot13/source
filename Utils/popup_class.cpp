@@ -140,9 +140,9 @@ POPUP_OPTION::~POPUP_OPTION(void)
 }
 
 
-POPUP_OPTION::POPUP_OPTION(std::wstring *newName, popupCallback * newFunction)
+POPUP_OPTION::POPUP_OPTION(const std::wstring& newName, popupCallback * newFunction)
 {
-	this->name = *newName;
+	this->name = newName;
 
 	this->action = newFunction;
 	this->avail = 0;
@@ -161,9 +161,9 @@ POPUP_OPTION::POPUP_OPTION(std::wstring *newName, popupCallback * newFunction)
 	this->color_shade = FONT_GRAY7 ;
 }
 
-BOOLEAN POPUP_OPTION::setName( std::wstring * newName )
+BOOLEAN POPUP_OPTION::setName( const std::wstring& newName )
 {
-	this->name = *newName;
+	this->name = newName;
 	return TRUE;
 }
 
@@ -236,19 +236,19 @@ BOOLEAN POPUP_OPTION::forceRun()
 //////////////////////////////////////////////////////////////////
 
 // constructor
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION(new std::wstring(L"Unnamed subPopup"),NULL)	//TODO: possible memmory leak!
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(void) : POPUP_OPTION(L"Unnamed subPopup", NULL)
 {
 	this->parent = NULL;
 	this->initSubPopup();
 }
 
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(std::wstring* name) : POPUP_OPTION(name, NULL)
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(const std::wstring& name) : POPUP_OPTION(name, NULL)
 {
 	this->parent = NULL;
 	this->initSubPopup();
 }
 
-POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(std::wstring* newName, const POPUP * parent) : POPUP_OPTION(newName, NULL)
+POPUP_SUB_POPUP_OPTION::POPUP_SUB_POPUP_OPTION(const std::wstring& newName, const POPUP * parent) : POPUP_OPTION(newName, NULL)
 {
 	this->parent = parent;
 	this->initSubPopup();
@@ -562,7 +562,7 @@ void POPUP::setInitialValues(void)
 
 // setup functions
 
-POPUP_OPTION *  POPUP::addOption(std::wstring * name, popupCallback* action)
+POPUP_OPTION *  POPUP::addOption(const std::wstring& name, popupCallback* action)
 {	
 	if (this->optionCount < POPUP_MAX_OPTIONS)
 	{
@@ -605,7 +605,7 @@ POPUP_OPTION * POPUP::getOption(UINT16 n)
 	return NULL;
 }
 
-POPUP * POPUP::addSubMenuOption(std::wstring * name)
+POPUP * POPUP::addSubMenuOption(const std::wstring& name)
 {
 	if (this->subPopupOptionCount < POPUP_MAX_SUB_POPUPS)
 	{

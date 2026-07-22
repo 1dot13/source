@@ -108,7 +108,7 @@
 	
 		POPUP_OPTION * opt = new POPUP_OPTION();
 
-		opt->setName( this->name );
+		opt->setName( *this->name );
 		if (	!setPopupDefCallback(opt, this->callbackId) 
 			||	!setPopupDefAvail(opt, this->availId) )
 		{
@@ -132,7 +132,7 @@
 	*/
 	BOOL popupDefSubPopupOption::addToBox(POPUP * popup){
 	
-		POPUP_SUB_POPUP_OPTION * sub = new POPUP_SUB_POPUP_OPTION( this->name );
+		POPUP_SUB_POPUP_OPTION * sub = new POPUP_SUB_POPUP_OPTION( *this->name );
 
 		if( !this->content->applyToBox( sub->subPopup ) ){
 			delete sub;
@@ -169,7 +169,7 @@
 
 		switch(generatorId){
 		case popupGenerators::dummy:
-			popup->addOption(new std::wstring( L"Dummy generator" ),NULL);
+			popup->addOption(L"Dummy generator", NULL);
 			break;
 
 		case popupGenerators::addArmor:
