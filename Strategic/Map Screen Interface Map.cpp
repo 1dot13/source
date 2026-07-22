@@ -1196,7 +1196,7 @@ DebugMsg (TOPIC_JA2,DBG_LEVEL_3,"Map Screen1");
 			if( gTownLoyalty[ bTown ].fStarted && gfTownUsesLoyalty[ bTown ])
 			{
 				if ( g_lang == i18n::Lang::zh ) {
-					swprintf( sStringA, L"%d%ге%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
+					swprintf( sStringA, L"%d%\uFF05%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
 				} else {
 					swprintf( sStringA, L"%d%%%% %s", gTownLoyalty[ bTown ].ubRating, gsLoyalString[ 0 ]);
 				}
@@ -4866,7 +4866,7 @@ void BlitMineText( INT16 sMapX, INT16 sMapY )
 		if (GetMaxPeriodicRemovalFromMine(ubMineIndex) > 0)
 		{
 			if ( g_lang == i18n::Lang::zh ) {
-				swprintf( wSubString, L" (%d%ге%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
+				swprintf( wSubString, L" (%d%\uFF05%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
 			} else {
 				swprintf( wSubString, L" (%d%%%%)", (PredictDailyIncomeFromAMine(ubMineIndex, TRUE) * 100 ) / GetMaxDailyRemovalFromMine(ubMineIndex) );
 			}
