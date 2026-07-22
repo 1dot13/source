@@ -177,7 +177,7 @@ typedef struct
 // Globals used
 extern TILE_ELEMENT		gTileDatabase[ NUMBEROFTILES ];
 extern UINT16					gTileDatabaseSize;
-UINT8						gFullBaseTileValues[];
+extern UINT8					gFullBaseTileValues[];
 extern UINT16					gNumTilesPerType[ NUMBEROFTILETYPES ];
 extern UINT16					gTileTypeStartIndex[ NUMBEROFTILETYPES ];
 extern STR							gTileSurfaceName[NUMBEROFTILETYPES];
