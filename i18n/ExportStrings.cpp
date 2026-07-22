@@ -524,7 +524,8 @@ void ExportMercBio()
 		Translate(pAddInfo, SIZE_MERC_ADDITIONAL_INFO, g_lang);
 		props.setStringProperty(L"Add", vfs::toString<wchar_t>(i), pAddInfo);
 	}
-	props.writeToXMLFile(L"Localization/AimBiographies.xml", vfs::PropertyContainer::TagMap());
+	vfs::PropertyContainer::TagMap tags;
+	props.writeToXMLFile(L"Localization/AimBiographies.xml", tags);
 }
 
 void ExportAIMHistory()
@@ -544,7 +545,8 @@ void ExportAIMHistory()
 		Translate(pHistLine, AIM_HISTORY_LINE_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pHistLine);
 	}
-	props.writeToXMLFile(L"Localization/AimHistory.xml", vfs::PropertyContainer::TagMap());
+	vfs::PropertyContainer::TagMap tags;
+	props.writeToXMLFile(L"Localization/AimHistory.xml", tags);
 }
 	
 	
@@ -565,7 +567,8 @@ void ExportAIMPolicy()
 		Translate(pPolLine, AIM_HISTORY_LINE_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pPolLine);
 	}
-	props.writeToXMLFile(L"Localization/AimPolicy.xml", vfs::PropertyContainer::TagMap());
+	vfs::PropertyContainer::TagMap tags;
+	props.writeToXMLFile(L"Localization/AimPolicy.xml", tags);
 }
 
 void ExportAlumniName()
@@ -585,7 +588,8 @@ void ExportAlumniName()
 		Translate(pAlumniName, AIM_ALUMNI_NAME_SIZE, g_lang);
 		props.setStringProperty(L"Line", vfs::toString<wchar_t>(i), pAlumniName);
 	}
-	props.writeToXMLFile(L"Localization/AlumniName.xml", vfs::PropertyContainer::TagMap());
+	vfs::PropertyContainer::TagMap tags;
+	props.writeToXMLFile(L"Localization/AlumniName.xml", tags);
 }
 
 void ExportDialogues()
@@ -621,7 +625,8 @@ void ExportDialogues()
 		}
 		vfs::Path x(L"Localization/Dialogue");
 		x += vfs::Path(file.getName().c_wcs() + L".xml");
-		props.writeToXMLFile(x, vfs::PropertyContainer::TagMap());
+		vfs::PropertyContainer::TagMap tags;
+		props.writeToXMLFile(x, tags);
 	}
 }
 
@@ -668,7 +673,8 @@ void ExportNPCDialogues()
 		}
 		vfs::Path x(L"Localization/NpcDialogue");
 		x += vfs::Path(file.getName().c_wcs() + L".xml");
-		props.writeToXMLFile(x, vfs::PropertyContainer::TagMap());
+		vfs::PropertyContainer::TagMap tags;
+		props.writeToXMLFile(x, tags);
 	}
 }
 } // namespace

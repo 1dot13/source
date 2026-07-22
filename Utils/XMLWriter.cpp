@@ -75,7 +75,7 @@ bool XMLWriter::writeToFile(vfs::tWritableFile* pFile)
 	try
 	{
 		vfs::COpenWriteFile file(pFile);
-		std::string &str = m_ssBuffer.str();
+		const std::string str = m_ssBuffer.str();
 		pFile->write(str.c_str(), str.length() * sizeof(std::string::value_type));
 		return true;
 	}

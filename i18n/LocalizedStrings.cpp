@@ -86,13 +86,15 @@ void Loc::Init(Topic t, vfs::String const& section)
 	_PropState& state = _topicFiles[t][L"_ALL"];
 	if(!state.filename.empty() && !state.loaded)
 	{
-		_localizedStrings[t].initFromXMLFile(state.filename, vfs::PropertyContainer::TagMap());
+		vfs::PropertyContainer::TagMap tags;
+		_localizedStrings[t].initFromXMLFile(state.filename, tags);
 		state.loaded = true;
 	}
 	state = _topicFiles[t][section];
 	if(!state.filename.empty() && !state.loaded)
 	{
-		_localizedStrings[t].initFromXMLFile(state.filename, vfs::PropertyContainer::TagMap());
+		vfs::PropertyContainer::TagMap tags;
+		_localizedStrings[t].initFromXMLFile(state.filename, tags);
 		state.loaded = true;
 	}
 }
