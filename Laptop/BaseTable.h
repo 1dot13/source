@@ -449,12 +449,6 @@ private:
 };
 
 template <int N>
-void TestTableTemplate<N>::SetRefresh();
-
-template <int N>
-void TestTableTemplate<N>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT16 sY_End );
-
-template <int N>
 void* TestTableTemplate<N>::mpSelf = NULL;
 
 
@@ -519,9 +513,6 @@ private:
 	TabBoxTemplate( TabBoxTemplate const& );
 	void operator=(TabBoxTemplate const&);
 };
-
-template <int N>
-void TabBoxTemplate<N>::SetRefresh( );
 
 template <int N>
 void* TabBoxTemplate<N>::mpSelf = NULL;
