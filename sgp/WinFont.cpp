@@ -461,7 +461,7 @@ void PrintWinFont( UINT32 uiDestBuf, INT32 iFont, INT32 x, INT32 y, STR16 pFontS
 
 }
 
-INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
+INT16 WinFontStringPixLength( const CHAR16* string2, INT32 iFont )
 {
 	HWINFONT *pWinFont;
 	pWinFont = GetWinFont( iFont );
@@ -469,7 +469,7 @@ INT16 WinFontStringPixLength( STR16 string2, INT32 iFont )
 	if (pWinFont == NULL) return(0);
 
 if(g_lang == i18n::Lang::zh) {
-	wchar_t *p=string2;
+	const wchar_t *p=string2;
     UINT32 size = 0;
 	while (*p!=0)
 	{

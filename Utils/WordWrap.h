@@ -50,7 +50,7 @@ void CleanOutControlCodesFromString(STR16 pSourceString, STR16 pDestString);
 INT16 IanDisplayWrappedStringToPages(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT16 usPageHeight, UINT16 usTotalHeight, UINT16 usPageNumber,UINT8 ubGap, 
 															INT32 iFont, UINT8 ubColor, STR16 pString, 
 															UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 uiFlags, BOOLEAN *fOnLastPageFlag);
-BOOLEAN DrawTextToScreen(STR16 pStr, UINT16 LocX, UINT16 LocY, UINT16 usWidth, INT32 iFont, UINT8 ubColor, UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 FLAGS);
+BOOLEAN DrawTextToScreen(const CHAR16* pStr, UINT16 LocX, UINT16 LocY, UINT16 usWidth, INT32 iFont, UINT8 ubColor, UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 FLAGS);
 UINT16 IanWrappedStringHeight(UINT16 usPosX, UINT16 usPosY, UINT16 usWidth, UINT8 ubGap, 
 															INT32 iFont, UINT8 ubColor, STR16 pString, 
 															UINT8 ubBackGroundColor, BOOLEAN fDirty, UINT32 uiFlags);
@@ -62,7 +62,7 @@ RecordPtr GetFirstRecordOnThisPage( RecordPtr RecordList, INT32 iFont, UINT16 us
 FileStringPtr GetFirstStringOnThisPage( FileStringPtr RecordList, INT32 iFont, UINT16 usWidth, UINT8 ubGap, INT32 iPage, INT32 iPageSize, FileRecordWidthPtr iWidthArray );
 
 // Places a shadow the width an height of the string, to PosX, posY
-void ShadowText(UINT32 uiDestVSurface, STR16 pString, INT32 iFont, UINT16 usPosX, UINT16 usPosY );
+void ShadowText(UINT32 uiDestVSurface, const CHAR16* pString, INT32 iFont, UINT16 usPosX, UINT16 usPosY );
 
 
 BOOLEAN ReduceStringLength( STR16 pString, UINT32 uiWidthToFitIn, INT32 iFont );
