@@ -63,7 +63,7 @@ namespace sgp
 
 	/************************************************************/
 
-	template<typename T, typename void*(*Alloc)(size_t) = malloc, typename void(*Dealloc)(void*) = free>
+	template<typename T, void*(*Alloc)(size_t) = malloc, void(*Dealloc)(void*) = free>
 	class AutoCArray : public TAutoArray<T>
 	{
 	public:
