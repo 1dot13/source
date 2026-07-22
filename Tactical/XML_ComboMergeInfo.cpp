@@ -46,7 +46,7 @@ attachmentcombomergeStartElementHandle(void *userData, const XML_Char *name, con
 		else if(pData->curElement == ELEMENT &&
 				(strcmp(name, "uiIndex") == 0 ||
 				strcmp(name, "usItem") == 0 ||
-				strstr(name, "usAttachment") > 0 ||
+				strstr(name, "usAttachment") != NULL ||
 				strcmp(name, "usResult") == 0 ))
 		{
 			pData->curElement = ELEMENT_PROPERTY;
@@ -104,7 +104,7 @@ attachmentcombomergeEndElementHandle(void *userData, const XML_Char *name)
 			pData->curElement = ELEMENT;
 			pData->curAttachmentComboMerge.usItem	= (UINT16) atol(pData->szCharData);
 		}
-		else if(strstr(name, "usAttachment") > 0)
+		else if(strstr(name, "usAttachment") != NULL)
 		{
 			pData->curElement = ELEMENT;
 			pData->curAttachmentComboMerge.usAttachment[pData->curAttIndex] = (UINT16) atol(pData->szCharData);
