@@ -125,9 +125,9 @@ namespace LogicalBodyTypes {
 			else {
 				data->criterionType |= Filter::_REQ_EQ;
 			}
-			XML_Char const* not = GetAttribute("not", atts);
-			if (not != NULL) {
-				if (strcmp(not, "") != 0) throw XMLParseException("Not attribute must not have a value assigned!", name, data->pParser);
+			XML_Char const* notOp = GetAttribute("not", atts);
+			if (notOp != NULL) {
+				if (strcmp(notOp, "") != 0) throw XMLParseException("Not attribute must not have a value assigned!", name, data->pParser);
 				data->criterionType |= Filter::_REQ_NOT;
 			}
 			break;
