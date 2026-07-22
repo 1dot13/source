@@ -46,6 +46,15 @@
 #include "InterfaceItemImages.h"
 #include "CampaignStats.h"
 
+// Every member below is specialised for each table, and nothing else defines them.
+// The specialisations have to be visible before the first use instantiates one.
+template<> void TestTableTemplate<1>::SetRefresh();
+template<> void TestTableTemplate<1>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT16 sY_End );
+template<> void TestTableTemplate<2>::SetRefresh();
+template<> void TestTableTemplate<2>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT16 sY_End );
+template<> void TestTableTemplate<3>::SetRefresh();
+template<> void TestTableTemplate<3>::Init( UINT16 sX, UINT16 sY, UINT16 sX_End, UINT16 sY_End );
+
 
 #define		MERCOMP_FONT_COLOR								2
 #define		CAMPHIS_FONT_COLOR_RED							FONT_MCOLOR_RED
