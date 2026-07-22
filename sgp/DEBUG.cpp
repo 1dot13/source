@@ -49,10 +49,6 @@
 
 #include "debug_util.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 BOOLEAN gfRecordToFile     = FALSE;
 BOOLEAN gfRecordToDebugger = TRUE;
 
@@ -70,15 +66,7 @@ CHAR8 gubAssertString[512];
 CHAR8		gbTmpDebugString[8][MAX_MSG_LENGTH2];
 UINT8		gubStringIndex = 0;
 
-#ifdef __cplusplus
-}
-#endif
-
 #ifdef SGP_DEBUG
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 //**************************************************************************
 //
@@ -105,10 +93,6 @@ void RemoveDebugText( void );
 
 STRING512 debugLogFileName;
 FILE * debugLogFile = 0;
-
-#ifdef __cplusplus
-}
-#endif
 
 //**************************************************************************
 //
