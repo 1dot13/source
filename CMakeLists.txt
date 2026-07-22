@@ -76,8 +76,15 @@ add_subdirectory(lua)
 add_subdirectory(Multiplayer)
 add_subdirectory(wine)
 
+# A non-MSVC toolchain rebuilds the Bink import library and points
+# binkw32_lib at it (see clang-cl.cmake); MSVC binds the shipped
+# library fine, so fall back to that.
+if(NOT binkw32_lib)
+  set(binkw32_lib "${CMAKE_SOURCE_DIR}/binkw32.lib")
+endif()
+
 set(Ja2_Libraries
-"${CMAKE_SOURCE_DIR}/binkw32.lib"
+"${binkw32_lib}"
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
 "${CMAKE_SOURCE_DIR}/lua51.lib"
 "${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
