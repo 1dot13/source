@@ -9632,12 +9632,12 @@ std::vector<GEAR_NODE> LoadEquipmentTemplate( std::string aName )
 			GEAR_NODE node;
 
 			int num;
-			if ( iss >> num && iss >> (UINT16)node.item )
+			if ( iss >> num && iss >> node.item )
 			{
 				node.slot = num;
 
 				// additional data is optional
-				if ( iss >> (UINT16)node.ammoitem )
+				if ( iss >> node.ammoitem )
 				{
 					while ( iss >> num )
 					{
