@@ -73,7 +73,7 @@ BEGIN
 			VALUE "FileDescription", "Jagged Alliance 2 Gold"
 			VALUE "FileVersion", "1, 0, 0, 6"
 			VALUE "InternalName", "Jagged Alliance 2"
-			VALUE "LegalCopyright", "Copyright © 1998"
+			VALUE "LegalCopyright", L"Copyright \251 1998"
 			VALUE "OriginalFilename", "Ja2.exe"
 			VALUE "ProductName", "Jagged Alliance 2 Gold"
 			VALUE "ProductVersion", "1, 0, 0, 6"
