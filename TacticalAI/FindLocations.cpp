@@ -15,10 +15,6 @@
 	#include "Render Fun.h"
 	#include "Boxing.h"
 	#include "Text.h"
-	#ifdef _DEBUG
-		#include "renderworld.h"
-		#include "video.h"
-	#endif
 	#include "worldman.h"
 	#include "strategicmap.h"
 	#include "environment.h"
@@ -26,7 +22,8 @@
 	#include "Buildings.h"
 	#include "GameSettings.h"
 	#include "Soldier Profile.h"
-	#include "Rotting Corpses.h"	// sevenfm
+	#include "rotting corpses.h"	// sevenfm
+#include <Cheats.h>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -34,17 +31,7 @@
 //           were changed to GetAPsCrouch() and GetAPsProne()					 
 //		  - also all "APBPConstants[AP_PICKUP_ITEM]" were replaced by GetBasicAPsToPickupItem()
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-	INT16 * gsCoverValue = NULL;
-#ifdef _DEBUG
-
-	INT16	gsBestCover;
-	#ifndef PATHAI_VISIBLE_DEBUG
-		// NB Change this to true to get visible cover debug -- CJC
-		BOOLEAN gfDisplayCoverValues = FALSE;
-	#endif
-	extern void RenderCoverDebug( void );
-#endif
+INT16	gsBestCover;
 
 INT16	gubAIPathCosts[19][19];
 
@@ -613,42 +600,115 @@ UINT8 NumberOfTeamMatesAdjacent( SOLDIERTYPE * pSoldier, INT32 sGridNo )
 	return( ubCount );
 }
 
-INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter)
+static void CalculateCoverValue(SOLDIERTYPE* pSoldier, const INT32 sGridNo, const INT32 iPathCost, const INT32 iMyThreatValue, const UINT32 uiThreatCnt, const UINT8 ubDiff, const BOOLEAN fNight, const UINT8	ubBackgroundLightPercent, const INT32 morale, INT32 &iCoverValue, INT32& iCoverScale)
 {
+	iCoverValue = 0;
+	iCoverScale = 0;
+
+	// sevenfm: check sight cover
+	BOOLEAN fProneCover = TRUE;
+
+	// for every opponent that threatens, consider this spot's cover vs. him
+	for (UINT32 uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
+	{
+		// calculate the range we would be at from this opponent
+		INT32 iThreatRange = Threat[uiLoop].iOrigRange;
+		if (sGridNo != pSoldier->sGridNo)
+		{
+			iThreatRange = GetRangeInCellCoordsFromGridNoDiff(sGridNo, Threat[uiLoop].sGridNo);
+		}
+
+		// if this threat would be within 20 tiles, count it
+		if (iThreatRange <= MAX_THREAT_RANGE)
+		{
+			iCoverValue += CalcCoverValue(
+				pSoldier, sGridNo, iMyThreatValue,
+				(pSoldier->bActionPoints - iPathCost),
+				uiLoop, iThreatRange, morale, &iCoverScale
+			);
+		}
+
+		// sevenfm: sight test
+		if (gGameExternalOptions.fAIBetterCover)
+		{
+			if (LocationToLocationLineOfSightTest(Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, sGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS))
+				//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
+			{
+				fProneCover = FALSE;
+			}
+		}
+
+		//sprintf(tempstr,"iCoverValue after opponent %d is now %d",iLoop,iCoverValue);
+		//PopMessage(tempstr);
+	}
+
+	// reduce cover for each person adjacent to this gridno who is on our team,
+	// by 10% (so locations next to several people will be very much frowned upon
+	iCoverValue -= (abs(iCoverValue) / 5) * NumberOfTeamMatesAdjacent(pSoldier, sGridNo);
+
+	if (gGameExternalOptions.fAIBetterCover)
+	{
+		// sevenfm: when defending (range change <= 3), prefer locations with sight cover
+		if (RangeChangeDesire(pSoldier) < 4)
+		{
+			if (fProneCover) { iCoverValue += abs(iCoverValue) / __max(2, 2 * RangeChangeDesire(pSoldier)); }
+		}
+
+		// sevenfm: check for nearby friends, add bonus/penalty 10%
+		UINT8 ubNearbyFriends = __max(0, CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_CLOSE));
+		iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (6 - ubDiff);
+
+		// sevenfm: penalize locations with fresh corpses
+		if (GetNearestRottingCorpseAIWarning(sGridNo) > 0)
+		{
+			iCoverValue -= abs(iCoverValue) / (6 - ubDiff);
+		}
+
+		// sevenfm: penalize locations near red smoke			
+		iCoverValue -= abs(iCoverValue) * RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) / 100;
+	}
+
+	if (fNight && !(InARoom(sGridNo, NULL))) // ignore in buildings in case placed there
+	{
+		// reduce cover at nighttime based on how bright the light is at that location
+		// using the difference in sighting distance between the background and the
+		// light for this tile
+		//ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
+		UINT8 ubLightPercentDifference = (gGameExternalOptions.ubBrightnessVisionMod[LightTrueLevel(sGridNo, pSoldier->pathing.bLevel)] - ubBackgroundLightPercent);
+		iCoverValue -= (abs(iCoverValue) / 100) * ubLightPercentDifference;
+	}
+}
+
+INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentBetter, INT32 targetGridNo, bool ignoreSearchRange)
+{
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
+	{
+		ResetDebugInfoValues();
+	}
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("FindBestNearbyCover"));
 
 	// all 32-bit integers for max. speed
-	UINT32 uiLoop;
 	INT32 iCurrentCoverValue, iCoverValue, iBestCoverValue;
 	INT32	iCurrentScale = -1, iCoverScale = -1, iBestCoverScale = -1;
 	INT32	iDistFromOrigin, iDistCoverFromOrigin;
-	//INT32 iThreatCertainty;
 	INT32 sGridNo, sBestCover = NOWHERE;
 	INT32 iPathCost;
-	INT32	iThreatRange, iClosestThreatRange = 1500;
-//	INT16 sClosestThreatGridno = NOWHERE;
 	INT32	iMyThreatValue;
-	//INT32	sThreatLoc;
-	//INT32 iMaxThreatRange;
 	UINT32	uiThreatCnt = 0;
 	INT32 iMaxMoveTilesLeft, iSearchRange, iRoamRange;
 	INT16	sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
 	INT32	sOrigin;	// has to be a short, need a pointer
-	INT32	*		pusLastLoc;
-	INT8 *		pbPersOL;
-	INT8 *		pbPublOL;
-	//SOLDIERTYPE *pOpponent;
 	UINT16 usMovementMode;
-
 	UINT8	ubBackgroundLightLevel;
 	UINT8	ubBackgroundLightPercent = 0;
-	UINT8	ubLightPercentDifference;
 	BOOLEAN fNight;
 
-	// sevenfm
-	UINT8 ubNearbyFriends;
-	BOOLEAN fProneCover;
-	UINT8 ubDiff = SoldierDifficultyLevel( pSoldier );
+	const UINT8 ubDiff = SoldierDifficultyLevel( pSoldier );
+
+	if (targetGridNo == NOWHERE)
+	{
+		targetGridNo = pSoldier->sGridNo;
+	}
 
 	// There's no cover when boxing!
 	if (gTacticalStatus.bBoxingState == BOXING)
@@ -676,25 +736,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		}
 	}
 
-	iBestCoverValue = -1;
-
-#if defined( _DEBUG ) && defined( COVER_DEBUG )
-	if (gfDisplayCoverValues)
-	{
-		memset( gsCoverValue, 0x7F, sizeof( INT16 ) * WORLD_MAX );
-	}
-#endif
-
-	//NameMessage(pSoldier,"looking for some cover...");
-
-	// BUILD A LIST OF THREATENING GRID #s FROM PERSONAL & PUBLIC opplists
-
-	pusLastLoc = &(gsLastKnownOppLoc[pSoldier->ubID][0]);
-
-	// hang a pointer into personal opplist
-	pbPersOL = &(pSoldier->aiData.bOppList[0]);
-	// hang a pointer into public opplist
-	pbPublOL = &(gbPublicOpplist[pSoldier->bTeam][0]);
 
 	// decide how far we're gonna be looking
 	iSearchRange = gbDiff[DIFF_MAX_COVER_RANGE][ SoldierDifficultyLevel( pSoldier ) ];
@@ -711,9 +752,9 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	}*/
 
 	// maximum search range is 1 tile / 8 pts of wisdom
-	if (iSearchRange > (pSoldier->stats.bWisdom / 8))
+	if (iSearchRange > (pSoldier->stats.bWisdom / 4))
 	{
-		iSearchRange = (pSoldier->stats.bWisdom / 8);
+		iSearchRange = (pSoldier->stats.bWisdom / 4);
 	}
 
 	if (!gfTurnBasedAI)
@@ -724,6 +765,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	usMovementMode = DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER );
 
+#if 1
 	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
 		// must be able to reach the cover, so it can't possibly be more than
@@ -743,6 +785,12 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			// then limit the search range to only as far as we CAN go
 			iSearchRange = iMaxMoveTilesLeft;
 		}
+	}
+#endif
+	if (ignoreSearchRange)
+	{
+		// For debugging
+		iSearchRange = 16;
 	}
 
 	if (iSearchRange <= 0)
@@ -765,95 +813,30 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 	// calculate our current cover value in the place we are now, since the
 	// cover we are searching for must be better than what we have now!
-	iCurrentCoverValue = 0;
-	iCurrentScale = 0;
+	CalculateCoverValue(pSoldier, targetGridNo, 0, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCurrentCoverValue, iCurrentScale);
+	// the initial cover value to beat is our current cover value
+	iBestCoverValue = iCurrentCoverValue;
 
-	// sevenfm: sight cover
-	fProneCover = TRUE;
-
-	// for every opponent that threatens, consider this spot's cover vs. him
-	for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 	{
-		// if this threat is CURRENTLY within 20 tiles
-		if (Threat[uiLoop].iOrigRange <= MAX_THREAT_RANGE)
-		{
-			// add this opponent's cover value to our current total cover value
-			iCurrentCoverValue += CalcCoverValue(pSoldier,pSoldier->sGridNo,iMyThreatValue,pSoldier->bActionPoints,uiLoop,Threat[uiLoop].iOrigRange,morale,&iCurrentScale);
-		}
-		// sevenfm: sight test
-		if( gGameExternalOptions.fAIBetterCover )
-		{
-			if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, pSoldier->sGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS ) )
-			//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, pSoldier->sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, NO_DISTANCE_LIMIT ) )
-			{
-				fProneCover = FALSE;
-			}
-		}		
-		//sprintf(tempstr,"iCurrentCoverValue after opponent %d is now %d",iLoop,iCurrentCoverValue);
-		//PopMessage(tempstr);
+		gRenderDebugInfoValues[targetGridNo] = (INT32)(iCurrentCoverValue / 100);
 	}
-
-	// reduce cover for each person adjacent to this gridno who is on our team,
-	// by 10% (so locations next to several people will be very much frowned upon
-	if ( iCurrentCoverValue >= 0 )
-	{
-		iCurrentCoverValue -= (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
-	}
-	else
-	{
-		// when negative, must add a negative to decrease the total
-		iCurrentCoverValue += (iCurrentCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, pSoldier->sGridNo );
-	}
-
-	if( gGameExternalOptions.fAIBetterCover )
-	{
-		// sevenfm: when defending (range change <= 3), prefer locations with sight cover
-		if( RangeChangeDesire(pSoldier) < 4 )
-		{
-			if( fProneCover )
-			{
-				iCurrentCoverValue += abs(iCurrentCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
-			}
-		}
-
-		// sevenfm: check for nearby friends, add bonus/penalty
-		ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, pSoldier->sGridNo, 5 ));
-		iCurrentCoverValue -= ubNearbyFriends * abs(iCurrentCoverValue) / (10-ubDiff);
-
-		// sevenfm: penalize locations with fresh corpses
-		if(GetNearestRottingCorpseAIWarning( pSoldier->sGridNo ) > 0)
-		{
-			iCurrentCoverValue -= abs(iCurrentCoverValue) / (8-ubDiff);
-		}
-
-		// sevenfm: penalize locations near red smoke
-		iCurrentCoverValue -= abs(iCurrentCoverValue) * RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel) / 100;
-	}	
-
-#ifdef DEBUGCOVER
-//	AINumMessage("Search Range = ",iSearchRange);
-#endif
 
 	// determine maximum horizontal limits
-	sMaxLeft  = min(iSearchRange,(pSoldier->sGridNo % MAXCOL));
-	//NumMessage("sMaxLeft = ",sMaxLeft);
-	sMaxRight = min(iSearchRange,MAXCOL - ((pSoldier->sGridNo % MAXCOL) + 1));
-	//NumMessage("sMaxRight = ",sMaxRight);
-
+	sMaxLeft  = min(iSearchRange,(targetGridNo % MAXCOL));
+	sMaxRight = min(iSearchRange,MAXCOL - ((targetGridNo % MAXCOL) + 1));
 	// determine maximum vertical limits
-	sMaxUp   = min(iSearchRange,(pSoldier->sGridNo / MAXROW));
-	//NumMessage("sMaxUp = ",sMaxUp);
-	sMaxDown = min(iSearchRange,MAXROW - ((pSoldier->sGridNo / MAXROW) + 1));
-	//NumMessage("sMaxDown = ",sMaxDown);
+	sMaxUp   = min(iSearchRange,(targetGridNo / MAXROW));
+	sMaxDown = min(iSearchRange,MAXROW - ((targetGridNo / MAXROW) + 1));
 
 	iRoamRange = RoamingRange(pSoldier,&sOrigin);
-
 	// if status isn't black (life & death combat), and roaming range is limited	
-	if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
+	//if ((pSoldier->aiData.bAlertStatus != STATUS_BLACK) && (iRoamRange < MAX_ROAMING_RANGE) &&
+	if ((pSoldier->aiData.bAlertStatus < STATUS_RED) && (iRoamRange < MAX_ROAMING_RANGE) &&
 		(!TileIsOutOfBounds(sOrigin)))
 	{
 		// must try to stay within or return to the point of origin
-		iDistFromOrigin = SpacesAway(sOrigin,pSoldier->sGridNo);
+		iDistFromOrigin = SpacesAway(sOrigin,targetGridNo);
 	}
 	else
 	{
@@ -861,19 +844,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		iDistFromOrigin = -1;
 	}
 
-
-#ifdef DEBUGCOVER
-	DebugAI( String( "FBNC: iRoamRange %d, sMaxLeft %d, sMaxRight %d, sMaxUp %d, sMaxDown %d\n",iRoamRange,sMaxLeft,sMaxRight,sMaxUp,sMaxDown) );
-#endif
-
-	// the initial cover value to beat is our current cover value
-	iBestCoverValue = iCurrentCoverValue;
-
-#ifdef DEBUGDECISIONS
-	STR tempstr="";
-	sprintf( tempstr, "FBNC: CURRENT iCoverValue = %d\n",iCurrentCoverValue );
-	DebugAI( tempstr );
-#endif
 
 	if (pSoldier->aiData.bAlertStatus >= STATUS_RED)			// if already in battle
 	{
@@ -900,7 +870,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	{
 		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 		{
-			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
+			sGridNo = targetGridNo + sXOffset + (MAXCOL * sYOffset);
 			if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
 			{
 				continue;
@@ -908,22 +878,20 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			gpWorldLevelData[sGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
 		}
 	}
-
 	FindBestPath( pSoldier, GRIDSIZE, pSoldier->pathing.bLevel, DetermineMovementMode( pSoldier, AI_ACTION_TAKE_COVER ), COPYREACHABLE_AND_APS, 0 );//dnl ch50 071009
 
 	// Turn off the "reachable" flag for his current location
 	// so we don't consider it
-	gpWorldLevelData[pSoldier->sGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
+	gpWorldLevelData[targetGridNo].uiFlags &= ~(MAPELEMENT_REACHABLE);
 
 	// SET UP DOUBLE-LOOP TO STEP THROUGH POTENTIAL GRID #s
 	for (sYOffset = -sMaxUp; sYOffset <= sMaxDown; sYOffset++)
 	{
 		for (sXOffset = -sMaxLeft; sXOffset <= sMaxRight; sXOffset++)
 		{
-			//HandleMyMouseCursor(KEYBOARDALSO);
 
 			// calculate the next potential gridno
-			sGridNo = pSoldier->sGridNo + sXOffset + (MAXCOL * sYOffset);
+			sGridNo = targetGridNo + sXOffset + (MAXCOL * sYOffset);
 			if ( !(sGridNo >=0 && sGridNo < WORLD_MAX) )
 			{
 				continue;
@@ -980,7 +948,7 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 			// sevenfm: avoid moving into light
 			if (InLightAtNight(sGridNo, pSoldier->pathing.bLevel) &&
-				!InLightAtNight(pSoldier->sGridNo, pSoldier->pathing.bLevel) &&
+				!InLightAtNight(targetGridNo, pSoldier->pathing.bLevel) &&
 				!pSoldier->aiData.bUnderFire)
 			{
 				continue;
@@ -989,9 +957,16 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 			// avoid moving into red smoke
 			if (gGameExternalOptions.fAIBetterCover &&
 				RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) && 
-				!RedSmokeDanger(pSoldier->sGridNo, pSoldier->pathing.bLevel))
+				!RedSmokeDanger(targetGridNo, pSoldier->pathing.bLevel))
 			{
 				//DebugCover(pSoldier, String("moving into red smoke, skip"));
+				continue;
+			}
+
+			// Avoid overcrowding
+			const auto nearbyFriends = CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_VERYCLOSE);
+			if ( nearbyFriends > 1 && !pSoldier->IsZombie() )
+			{
 				continue;
 			}
 
@@ -1027,110 +1002,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 
 			// OK, this place shows potential.	How useful is it as cover?
 			// EVALUATE EACH GRID #, remembering the BEST PROTECTED ONE
-			iCoverValue = 0;
-			iCoverScale = 0;
+			CalculateCoverValue(pSoldier, sGridNo, iPathCost, iMyThreatValue, uiThreatCnt, ubDiff, fNight, ubBackgroundLightPercent, morale, iCoverValue, iCoverScale);
 
-			// sevenfm: check sight cover
-			fProneCover = TRUE;
 
-			// for every opponent that threatens, consider this spot's cover vs. him
-			for (uiLoop = 0; uiLoop < uiThreatCnt; uiLoop++)
+			if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 			{
-				// calculate the range we would be at from this opponent
-				iThreatRange = GetRangeInCellCoordsFromGridNoDiff( sGridNo, Threat[uiLoop].sGridNo );
-				// if this threat would be within 20 tiles, count it
-				if (iThreatRange <= MAX_THREAT_RANGE)
-				{
-					iCoverValue += CalcCoverValue(pSoldier,sGridNo,iMyThreatValue,
-						(pSoldier->bActionPoints - iPathCost),
-						uiLoop,iThreatRange,morale,&iCoverScale);
-				}
-
-				// sevenfm: sight test
-				if( gGameExternalOptions.fAIBetterCover )
-				{
-					if ( LocationToLocationLineOfSightTest( Threat[uiLoop].sGridNo, Threat[uiLoop].pOpponent->pathing.bLevel, sGridNo, pSoldier->pathing.bLevel, TRUE, MAX_VISION_RANGE, STANDING_LOS_POS, PRONE_LOS_POS ) )
-					//if ( SoldierToVirtualSoldierLineOfSightTest( Threat[uiLoop].pOpponent, sGridNo, pSoldier->pathing.bLevel, ANIM_PRONE, TRUE, -1 ) != 0 )
-					{
-						fProneCover = FALSE;
-					}
-				}
-
-				//sprintf(tempstr,"iCoverValue after opponent %d is now %d",iLoop,iCoverValue);
-				//PopMessage(tempstr);
+				gRenderDebugInfoValues[sGridNo] = (INT32) (iCoverValue / 100);
 			}
-
-			// reduce cover for each person adjacent to this gridno who is on our team,
-			// by 10% (so locations next to several people will be very much frowned upon
-			if ( iCoverValue >= 0 )
-			{
-				iCoverValue -= (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
-			}
-			else
-			{
-				// when negative, must add a negative to decrease the total
-				iCoverValue += (iCoverValue / 10) * NumberOfTeamMatesAdjacent( pSoldier, sGridNo );
-			}
-
-			if( gGameExternalOptions.fAIBetterCover )
-			{
-				// sevenfm: when defending (range change <= 3), prefer locations with sight cover
-				if( RangeChangeDesire(pSoldier) < 4 )
-				{
-					if( fProneCover )
-						iCoverValue += abs(iCoverValue) / __max(2, 2*RangeChangeDesire(pSoldier));
-				}
-
-				// sevenfm: check for nearby friends in 10 radius, add bonus/penalty 10%
-				ubNearbyFriends = __min(5, CountNearbyFriends( pSoldier, sGridNo, 5 ));
-				iCoverValue -= ubNearbyFriends * abs(iCoverValue) / (10-ubDiff);
-
-				// sevenfm: penalize locations with fresh corpses
-				if(GetNearestRottingCorpseAIWarning( sGridNo ) > 0)
-				{
-					iCoverValue -= abs(iCoverValue) / (8-ubDiff);
-				}
-
-				// sevenfm: penalize locations near red smoke			
-				iCoverValue -= abs(iCoverValue) * RedSmokeDanger(sGridNo, pSoldier->pathing.bLevel) / 100;
-			}			
-
-			if ( fNight && !( InARoom( sGridNo, NULL ) ) ) // ignore in buildings in case placed there
-			{
-				// reduce cover at nighttime based on how bright the light is at that location
-				// using the difference in sighting distance between the background and the
-				// light for this tile
-				//ubLightPercentDifference = (gbLightSighting[ 0 ][ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
-				ubLightPercentDifference = (gGameExternalOptions.ubBrightnessVisionMod[ LightTrueLevel( sGridNo, pSoldier->pathing.bLevel ) ] - ubBackgroundLightPercent );
-				
-				if ( iCoverValue >= 0 )
-				{
-					iCoverValue -= (iCoverValue / 100) * ubLightPercentDifference;
-				}
-				else
-				{
-					iCoverValue += (iCoverValue / 100) * ubLightPercentDifference;
-				}
-			}
-
-
-#ifdef DEBUGCOVER
-			// if there ARE multiple opponents
-			if (uiThreatCnt > 1)
-			{
-				DebugAI( String( "FBNC: Total iCoverValue at gridno %d is %d\n\n",sGridNo,iCoverValue ) );
-			}
-#endif
-
-#if defined( _DEBUG ) && defined( COVER_DEBUG )
-			if (gfDisplayCoverValues)
-			{
-				gsCoverValue[sGridNo] = (INT16) (iCoverValue / 100);
-			}
-#endif
 
 			// if this is better than the best place found so far
-
 			if (iCoverValue > iBestCoverValue)
 			{
 				// ONLY DO THIS CHECK HERE IF WE'RE WAITING FOR OPPCHANCETODECIDE,
@@ -1148,11 +1028,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 				}
 				*/
 
-#ifdef DEBUGDECISIONS
-				STR tempstr;
-				sprintf( tempstr,"FBNC: NEW BEST iCoverValue at gridno %d is %d\n",sGridNo,iCoverValue );
-				DebugAI( tempstr );
-#endif
 				// remember it instead
 				sBestCover = sGridNo;
 				iBestCoverValue = iCoverValue;
@@ -1164,34 +1039,15 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 	gubNPCAPBudget = 0;
 	gubNPCDistLimit = 0;
 
-	#if defined( _DEBUG ) && !defined( PATHAI_VISIBLE_DEBUG )
-	if (gfDisplayCoverValues)
+	if (gRenderDebugInfoMode == DEBUG_COVERVALUE && DEBUG_CHEAT_LEVEL())
 	{
-		// do a locate?
-		LocateSoldier( pSoldier->ubID, SETLOCATORFAST );
 		gsBestCover = sBestCover;
-		SetRenderFlags( RENDER_FLAG_FULL );
-		RenderWorld();
-		RenderCoverDebug( );
-		InvalidateScreen( );
-		EndFrameBufferRender();
-		RefreshScreen( NULL );
-		/*
-	iLoop = GetJA2Clock();
-	do
-	{
-
-	} while( ( GetJA2Clock( ) - iLoop ) < 2000 );
-	*/
+		InvalidateRegion(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_WINDOW_END_Y);
 	}
-	#endif
 
 	// if a better cover location was found	
 	if (!TileIsOutOfBounds(sBestCover))
 	{
-		#if defined( _DEBUG ) && !defined( PATHAI_VISIBLE_DEBUG )
-		gsBestCover = sBestCover;
-		#endif
 		// cover values already take the AP cost of getting there into account in
 		// a BIG way, so no need to worry about that here, even small improvements
 		// are actually very significant once we get our APs back (if we live!)
@@ -1200,16 +1056,6 @@ INT32 FindBestNearbyCover(SOLDIERTYPE *pSoldier, INT32 morale, INT32 *piPercentB
 		// if best cover value found was at least 5% better than our current cover
 		if (*piPercentBetter >= MIN_PERCENT_BETTER)
 		{
-#ifdef DEBUGDECISIONS
-			STR tempstr;
-			sprintf( tempstr,"Found Cover: current %ld, best %ld, %%%%Better %ld\n", iCurrentCoverValue,iBestCoverValue,*piPercentBetter  );
-			DebugAI( tempstr );
-#endif
-
-#ifdef BETAVERSION
-			SnuggleDebug(pSoldier,"Found Cover");
-#endif
-
 			return(sBestCover);       // return the gridno of that cover
 		}
 	}
@@ -3128,7 +2974,11 @@ INT32 FindAdvanceSpot(SOLDIERTYPE *pSoldier, INT32 sTargetSpot, INT8 bAction, UI
 	{
 		if (usMovementMode == RUNNING || usMovementMode == WALKING)
 		{
-			ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE) + GetAPsProne(pSoldier, TRUE);
+			ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE) +GetAPsProne(pSoldier, TRUE);
+			if (pSoldier->bActionPoints <= ubReserveAP)
+			{
+				ubReserveAP = APBPConstants[AP_CHANGE_FACING] + GetAPsCrouch(pSoldier, TRUE);
+			}
 		}
 		else
 		{
@@ -3279,7 +3129,8 @@ INT32 FindAdvanceSpot(SOLDIERTYPE *pSoldier, INT32 sTargetSpot, INT8 bAction, UI
 			}
 
 			// avoid overcrowding
-			if (!pSoldier->IsZombie() && NumberOfTeamMatesAdjacent(pSoldier, sGridNo) > 1)
+			const auto nearbyFriends = CountNearbyFriends(pSoldier, sGridNo, TACTICAL_RANGE_VERYCLOSE);
+			if ( nearbyFriends > 1 && !pSoldier->IsZombie() )
 			{
 				continue;
 			}

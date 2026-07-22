@@ -4257,10 +4257,10 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 
 				// sevenfm: bonus for boxers for attack from the back
 				if (iHitChance < 100 &&
-					(pSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pSoldier) &&
 					!pSoldier->bBlindedCounter &&
 					gAnimControl[pTargetSoldier->usAnimState].ubEndHeight > ANIM_PRONE &&
-					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pTargetSoldier) &&
 					pTargetSoldier->usSoldierFlagMask2 & SOLDIER_BACK_ATTACK)
 				{
 					iHitChance += (100 - iHitChance) / 2;
@@ -4876,7 +4876,7 @@ BOOLEAN UseHandToHand( SOLDIERTYPE *pSoldier, INT32 sTargetGridNo, BOOLEAN fStea
 				if (pTargetSoldier->bActionPoints > 0 &&
 					gGameOptions.fNewTraitSystem &&
 					gTacticalStatus.bBoxingState == BOXING &&
-					(pTargetSoldier->flags.uiStatusFlags & SOLDIER_BOXER) &&
+					BOXER(pTargetSoldier) &&
 					Chance(ubCounterattackChance) &&
 					IS_MERC_BODY_TYPE(pSoldier) &&
 					IS_MERC_BODY_TYPE(pTargetSoldier) &&
@@ -6089,7 +6089,7 @@ void StructureHit( INT32 iBullet, UINT16 usWeaponIndex, INT16 bWeaponStatus, Sol
 	}
 }
 
-void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce )
+void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, BOOLEAN fLargeForce, BOOLEAN fSound)
 {
 	STRUCTURE *			pWallAndWindow;
 	DB_STRUCTURE *	pWallAndWindowInDB;
@@ -6210,10 +6210,12 @@ void WindowHit( INT32 sGridNo, UINT16 usStructureID, BOOLEAN fBlowWindowSouth, B
 
 	pNode = CreateAnimationTile( &AniParams );
 	//ddd window{
-CompileWorldMovementCosts();
-//ddd window}
-	PlayJA2Sample( GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir( sGridNo ) );
-
+	CompileWorldMovementCosts();
+	//ddd window}
+	if ( fSound )
+	{
+		PlayJA2Sample(GLASS_SHATTER1 + Random(2), RATE_11025, MIDVOLUME, 1, SoundDir(sGridNo));
+	}
 }
 
 
@@ -9723,7 +9725,7 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 	{
 		// Changed from DG by CJC to give higher chances of hitting with a stab or punch
 		// sevenfm: lowered chance for boxers
-		if (pAttacker->flags.uiStatusFlags & SOLDIER_BOXER)
+		if (BOXER(pAttacker))
 			iChance = 50 + (iAttRating - iDefRating) / 3;
 		else
 			iChance = 67 + (iAttRating - iDefRating) / 3;
@@ -9778,8 +9780,8 @@ UINT32 CalcChanceHTH( SOLDIERTYPE * pAttacker,SOLDIERTYPE *pDefender, INT16 ubAi
 
 	// sevenfm: bonus for boxers for attacking from the back
 	if (ubMode == HTH_MODE_PUNCH &&
-		(pAttacker->flags.uiStatusFlags & SOLDIER_BOXER) &&
-		(pDefender->flags.uiStatusFlags & SOLDIER_BOXER) &&
+		BOXER(pAttacker) &&
+		BOXER(pDefender) &&
 		iChance < 100 &&
 		!pAttacker->bBlindedCounter &&
 		gAnimControl[pDefender->usAnimState].ubEndHeight > ANIM_PRONE &&

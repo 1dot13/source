@@ -37,6 +37,8 @@
 #define TANK( p ) (p->ubBodyType == TANK_NE || p->ubBodyType == TANK_NW )
 #define ENEMYROBOT( p ) (p->ubBodyType == ROBOTNOWEAPON && p->bTeam == ENEMY_TEAM)
 #define ARMED_VEHICLE( p )	( TANK( p ) || COMBAT_JEEP(p) )
+#define BOXER( p ) ( p->flags.uiStatusFlags & SOLDIER_BOXER )
+#define ISVIP( p ) ( p->usSoldierFlagMask & SOLDIER_VIP )
 
 //#define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && !TANK( p ) && p->stats.bLife >= OKLIFE	)
 #define OK_ENTERABLE_VEHICLE( p )	( ( p->flags.uiStatusFlags & SOLDIER_VEHICLE ) && (!ARMED_VEHICLE( p ) || !(p->flags.uiStatusFlags & SOLDIER_ENEMY) ) && p->stats.bLife >= OKLIFE	)

@@ -9700,6 +9700,85 @@ void SOLDIERTYPE::BeginSoldierClimbWallUp( void )
 }
 //------------------------------------------------------------------------------------------
 
+void SOLDIERTYPE::BeginSoldierJumpWindowAI(void)
+{
+	DebugAI(AI_MSG_INFO, this, String("check if we can jump through window"));
+
+	//UINT8 ubDirection = this->aiData.usActionData;
+	UINT8 ubDirection = this->ubDirection;
+
+	INT32 sWindowGridNo = this->sGridNo;
+	if ( ubDirection == NORTH || ubDirection == WEST )
+		sWindowGridNo = NewGridNo(this->sGridNo, (UINT16)DirectionInc((UINT8)ubDirection));
+
+	DebugAI(AI_MSG_INFO, this, String("sWindowGridNo %d direction %d", sWindowGridNo, ubDirection));
+
+	if (//CheckWindow(this->sGridNo, ubDirection, gGameExternalOptions.fCanJumpThroughClosedWindows) &&
+		IsJumpableWindowPresentAtGridNo(sWindowGridNo, ubDirection, gGameExternalOptions.fCanJumpThroughClosedWindows) &&
+		//FindWindowJumpDirection(this, this->sGridNo, bDirection, &bDirection) &&
+		this->pathing.bLevel == 0 &&
+		(ubDirection == NORTH || ubDirection == EAST || ubDirection == SOUTH || ubDirection == WEST) )
+	{
+		// Flugente: if we are jumping through an intact window, smash it during our animation
+		if ( gGameExternalOptions.fCanJumpThroughClosedWindows )
+		{
+			// is there really an intact window that we jump through?
+			if ( IsJumpableWindowPresentAtGridNo(sWindowGridNo, ubDirection, TRUE) && !IsJumpableWindowPresentAtGridNo(sWindowGridNo, ubDirection, FALSE) )
+			{
+				STRUCTURE* pStructure = FindStructure(sWindowGridNo, STRUCTURE_WALLNWINDOW);
+				if ( pStructure && !(pStructure->fFlags & STRUCTURE_OPEN) )
+				{
+					DebugAI(AI_MSG_INFO, this, String("jumping through closed window, damage soldier"));
+					// intact window found. Smash it!
+					WindowHit(sWindowGridNo, pStructure->usStructureID, (ubDirection == SOUTH || ubDirection == EAST), TRUE, PlayerCanHearNoise(this));
+
+					// we get a bit of damage for jumping through a window
+					this->SoldierTakeDamage(0, 2 + 2 * Random(4), 0, 1000, TAKE_DAMAGE_ELECTRICITY, NOBODY, sWindowGridNo, 0);
+				}
+			}
+		}
+
+		this->sTempNewGridNo = NewGridNo(this->sGridNo, (UINT16)DirectionInc(ubDirection));
+		this->flags.fDontChargeTurningAPs = TRUE;
+		EVENT_InternalSetSoldierDesiredDirection(this, ubDirection, FALSE, this->usAnimState);
+		this->flags.fTurningUntilDone = TRUE;
+		// ATE: Reset flag to go back to prone...
+
+		// Flugente: In case an animation is missing (civilian bodytypes), we TELEPORT instead
+		if ( IsAnimationValidForBodyType(this, JUMPWINDOWS) == FALSE )
+		{
+			DebugAI(AI_MSG_INFO, this, String("teleport soldier to %d", this->sTempNewGridNo));
+
+			// sevenfm: deduct APs for jumping
+			if ( UsingNewInventorySystem() && FindBackpackOnSoldier(this) != ITEM_NOT_FOUND )
+				DeductPoints(this, GetAPsToJumpThroughWindows(this, TRUE), GetBPsToJumpThroughWindows(this, TRUE), SP_MOVEMENT_INTERRUPT);
+			else
+				DeductPoints(this, GetAPsToJumpThroughWindows(this, FALSE), GetBPsToJumpThroughWindows(this, FALSE), SP_MOVEMENT_INTERRUPT);
+
+			TeleportSoldier(this, this->sTempNewGridNo, TRUE);
+		}
+		else
+		{
+			DebugAI(AI_MSG_INFO, this, String("start jumping"));
+			this->flags.bTurningFromPronePosition = TURNING_FROM_PRONE_OFF;
+			this->EVENT_InitNewSoldierAnim(JUMPWINDOWS, 0, FALSE);
+			//this->usPendingAnimation = JUMPWINDOWS;
+			//EndAIGuysTurn(this);
+		}
+
+		// Flugente: should be fixed now, re-enable if not
+		// Flugente: if an AI guy, end turn (weird endless clock syndrome)
+		//if ( this->bTeam != OUR_TEAM )
+		//EndAIGuysTurn( this);		
+	}
+	else
+	{
+		ScreenMsg(FONT_LTRED, MSG_INTERFACE, L"[%d] %s cannot jump", this->ubID, this->GetName());
+		DebugAI(AI_MSG_INFO, this, String("CancelAIAction: cannot jump"));
+		CancelAIAction(this, TRUE);
+	}
+}
+
 UINT32 SleepDartSuccumbChance( SOLDIERTYPE * pSoldier )
 {
 	UINT32		uiChance;
@@ -9853,7 +9932,7 @@ void SOLDIERTYPE::BeginSoldierGetup( void )
 		else
 		{
 			this->bTurnsCollapsed++;
-			if ( (gTacticalStatus.bBoxingState == BOXING) && (this->flags.uiStatusFlags & SOLDIER_BOXER) )
+			if ( (gTacticalStatus.bBoxingState == BOXING) && (BOXER(this)) )
 			{
 				if ( this->bTurnsCollapsed > 1 )
 				{
@@ -19046,7 +19125,7 @@ BOOLEAN SOLDIERTYPE::IsJamming( )
 	{
 		if ( CanUseRadio( FALSE ) )
 			return TRUE;
-		// if we cannot use the radio, remove that flag hile we're at it
+		// if we cannot use the radio, remove that flag while we're at it
 		else
 			usSoldierFlagMask &= ~SOLDIER_RADIO_OPERATOR_JAMMING;
 	}
@@ -26296,4 +26375,14 @@ void SOLDIERTYPE::InitializeExtraData(void)
 	this->usGrenadeItem = 0;
 
 	this->delayedDamageFunction = nullptr;
+}
+
+UINT8 SOLDIERTYPE::AnimHeight(void) const
+{
+	return gAnimControl[this->usAnimState].ubHeight;
+}
+
+UINT8 SOLDIERTYPE::AnimEndHeight(void) const
+{
+	return gAnimControl[this->usAnimState].ubEndHeight;
 }
