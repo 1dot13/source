@@ -30,7 +30,7 @@
 #include <vfs/Core/vfs_path.h>
 #include <list>
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER) && !defined(__clang__)
 class VFS_API std::exception;
 #endif
 
