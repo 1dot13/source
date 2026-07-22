@@ -55,7 +55,7 @@ extern BOOLEAN fDisableJustForIan;
 // are we allowed to beep on message scroll in tactical
 extern BOOLEAN fOkToBeepNewMessage;
 
-void ScreenMsg( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...);
+void ScreenMsg( UINT16 usColor, UINT8 ubPriority, const CHAR16* pStringA, ...);
 
 // same as screen message, but only display to mapscreen message system, not tactical
 void MapScreenMessage( UINT16 usColor, UINT8 ubPriority, STR16 pStringA, ...);
