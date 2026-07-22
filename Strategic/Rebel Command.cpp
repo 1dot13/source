@@ -106,7 +106,7 @@ Points of interest:
 #include <unordered_map>
 #include <unordered_set>
 
-#define		DIRECTIVE_TEXT(id)		RCDT_##id##, RCDT_##id##_EFFECT, RCDT_##id##_DESC, RCDT_##id##_IMPROVE,
+#define		DIRECTIVE_TEXT(id)		RCDT_##id, RCDT_##id##_EFFECT, RCDT_##id##_DESC, RCDT_##id##_IMPROVE,
 #define		MISSION_TEXT(id)		RCAMT_##id##_TITLE, RCAMT_##id##_DESC,
 
 #define		ADMIN_ACTION_CHANGE_COST	15000
