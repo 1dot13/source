@@ -1,6 +1,22 @@
 cmake_minimum_required(VERSION 3.20)
 
+# /Z7 embedded debug info so objects are self-contained and sccache-able.
+# CMP0141 is a 3.25 policy; our floor is 3.20, so opt in explicitly where known.
+if(POLICY CMP0141)
+  cmake_policy(SET CMP0141 NEW)
+endif()
+
 project(ja2)
+
+option(USE_SCCACHE "Cache compiled objects with sccache if installed" ON)
+if(USE_SCCACHE)
+  find_program(SCCACHE_PROGRAM sccache)
+  if(SCCACHE_PROGRAM)
+    message(STATUS "Using sccache: ${SCCACHE_PROGRAM}")
+    set(CMAKE_C_COMPILER_LAUNCHER   "${SCCACHE_PROGRAM}")
+    set(CMAKE_CXX_COMPILER_LAUNCHER "${SCCACHE_PROGRAM}")
+  endif()
+endif()
 
 include(cmake/CopyUserPresetTemplate.cmake)
 CopyUserPresetTemplate()
@@ -40,6 +56,9 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 # lua51.lib and lua51.vc9.lib have been built with /MTx, so we must as well
 # TODO: build our own Lua 5.1.2 from source so we can use whichever
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# make Debug builds /Z7 instead of /Zi so they can be sccache'd
+set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
+  "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
 include_directories(

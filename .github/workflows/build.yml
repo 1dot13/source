@@ -201,9 +201,7 @@ jobs:
         run: |
           # sccache can only cache MSVC objects when the debug information is embedded
           # in them (/Z7) instead of collected in a shared PDB (/Zi, the CMake default)
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application" `
-            -DCMAKE_POLICY_DEFAULT_CMP0141=NEW -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded `
-            -DCMAKE_C_COMPILER_LAUNCHER=sccache -DCMAKE_CXX_COMPILER_LAUNCHER=sccache
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application"
       - name: Build
         run: |
           cmake --build build/ -- -v
