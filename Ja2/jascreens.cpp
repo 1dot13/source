@@ -354,9 +354,9 @@ UINT32 InitScreenHandle(void)
 		SetFontForeground( FONT_MCOLOR_WHITE );
 
 #ifdef _DEBUG
-		mprintf( 10, 10, L"%s: %s Debug %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
+		mprintf( 10, 10, L"%s: %s Debug %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
 #else
-		mprintf( 10, 10, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
+		mprintf( 10, 10, L"%s: %s %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
 #endif
 
 #if defined JA2BETAVERSION

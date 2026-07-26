@@ -13,9 +13,15 @@ extern "C" {
 
 // name of the product, Unfinished Business, Map Editor etc..
 extern	CHAR16		zProductLabel[64];
-// used for save game comparison
+// this build's identity, stamped in by CMake from -DGIT_SHA. A packaged build sets
+// it to the bare short commit SHA and nothing else, so it names that build exactly;
+// a build nobody identified reads "local". Used for save game comparison, and
+// stamped into crash reports so a packaged build's report can be matched to the PDB
+// archived beside it for offline symbolization.
 extern	CHAR8		czVersionString[16];
-// can contain information regarding the build: what git ref was the base (tag, branch), by whom, commit date, build date, etc..
+// human-readable build description, stamped in from -DGAME_BUILD_INFORMATION: the
+// release name, its date and where it was built, or "local build <date>". For
+// display only — never compared against, so it is free to change shape.
 extern	CHAR16		zBuildInformation[256];
 
 //ADB:	I needed these here so I moved them, and why put them in *.cpp anyways?

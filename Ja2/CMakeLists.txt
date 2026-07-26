@@ -1,3 +1,47 @@
+# Stamp the build's identity into GameVersion.cpp. Both strings come from the
+# caller with -D, and CI passes them: it pins them once, where it decides what the
+# release is, so the parallel build jobs cannot stamp identities that disagree.
+#
+# A build nobody identified is a local build, and says so rather than guessing
+# from HEAD. Keeping such a guess honest would mean re-running configure on every
+# commit, and it would buy nothing: only what we package is archived with its PDB,
+# and a local crash report is symbolized against the PDB next to the exe.
+#
+# GIT_SHA lands in czVersionString, which is both the savegame compatibility key
+# and the crash-report key. It is the bare short SHA and nothing else — a `git
+# describe` string cannot serve here, because czVersionString is only 16 bytes and
+# describe puts the SHA last, so it is exactly the discriminating part that would
+# get clipped off. The budget is 15 chars + NUL: the string is stored in the
+# savegame header as SAVED_GAME_HEADER::zGameVersionNumber (GAME_VERSION_LENGTH),
+# so its size is a binary format constant and cannot grow. CI passes 9 hex, well
+# past what uniqueness needs (git's own auto-abbrev picks 8 for this repo).
+# Overshooting it is an error rather than a truncation, because a clipped SHA is
+# how two different builds end up claiming to be the same one.
+if(NOT GIT_SHA)
+	set(GIT_SHA "local")
+endif()
+string(LENGTH "${GIT_SHA}" _length)
+if(_length GREATER 15)
+	message(FATAL_ERROR "GIT_SHA is ${_length} characters; czVersionString holds 15")
+endif()
+
+# zBuildInformation is the version line shown on screen, CHAR16[256]. Nothing
+# parses it, so it carries the version in full and truncation costs only
+# readability.
+if(NOT GAME_BUILD_INFORMATION)
+	string(TIMESTAMP _buildDate "%Y-%m-%d" UTC)
+	set(GAME_BUILD_INFORMATION "local build ${_buildDate}")
+endif()
+string(LENGTH "${GAME_BUILD_INFORMATION}" _length)
+if(_length GREATER 255)
+	string(SUBSTRING "${GAME_BUILD_INFORMATION}" 0 255 GAME_BUILD_INFORMATION)
+endif()
+
+configure_file(
+	"${CMAKE_CURRENT_SOURCE_DIR}/GameVersion.cpp.in"
+	"${CMAKE_CURRENT_BINARY_DIR}/GameVersion.cpp"
+	@ONLY)
+
 set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/aniviewscreen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Credits.cpp"
@@ -7,7 +51,7 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/gameloop.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/gamescreen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/GameSettings.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/GameVersion.cpp"
+"${CMAKE_CURRENT_BINARY_DIR}/GameVersion.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/HelpScreen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Init.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Intro.cpp"

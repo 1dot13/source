@@ -4299,7 +4299,7 @@ void FreeGameExternalOptions()
 void DisplayGameSettings( )
 {
 	//Display the version number
-	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
+	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
 
 	//Display the difficulty level
 	ScreenMsg( FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"%s: %s", gzGIOScreenText[ GIO_DIF_LEVEL_TEXT ], zDiffSetting[gGameOptions.ubDifficultyLevel].szDiffName );
