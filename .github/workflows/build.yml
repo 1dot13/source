@@ -48,7 +48,9 @@ jobs:
           SOURCE_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GITHUB_SHA)
           SOURCE_COMMIT_DATE=$(TZ=UTC0 git log -1 --date=short-local --format=%cd $GITHUB_SHA)
           
-          # GAME_VERSION is used to detect outdated save games and is the main version used for tracking
+          # GAME_VERSION is the release's name: it labels the dist archives and leads
+          # the in-game version line. Outdated save games are detected with GIT_SHA
+          # below, which is what czVersionString holds.
           if [[ "$GITHUB_REF_TYPE" == 'tag' ]]
           then
             # if we build for a specific tag, use that as the game version
@@ -62,10 +64,13 @@ jobs:
             # - v1.13-5-7g7ffa
             GAME_VERSION="$(git describe --tags --match='v[0-9]*' $GITHUB_SHA || echo v0-$(git rev-list --skip 1 --count $GITHUB_SHA)-g${GITHUB_SHA:0:8})"
           fi
-          # max 15 CHAR8
+          # keeps archive names bounded; nothing binary depends on this any more
           GAME_VERSION="${GAME_VERSION:0:15}"
           
-          GAME_BUILD_INFORMATION="$SOURCE_COMMIT_DATE GitHub $GITHUB_REPOSITORY"
+          # the version line shown in game. It leads with GAME_VERSION because
+          # czVersionString is no longer displayed beside it: this is the only
+          # place a player can read which release they are running.
+          GAME_BUILD_INFORMATION="$GAME_VERSION $SOURCE_COMMIT_DATE GitHub $GITHUB_REPOSITORY"
           # in case of a branch or if the tag is truncated
           if [[ "$GAME_VERSION" != *"$GITHUB_REF_NAME"* ]]
           then
@@ -73,11 +78,19 @@ jobs:
           fi
           # max 255 CHAR16
           GAME_BUILD_INFORMATION="${GAME_BUILD_INFORMATION:0:255}"
-          
+
+          # the machine-readable build identity stamped into czVersionString, which
+          # is both the savegame compatibility key and the crash-report key. Pinned
+          # here rather than derived per job, so the parallel builds cannot disagree,
+          # and left unsuffixed: this names a commit whose tree we really built.
+          # See Ja2/CMakeLists.txt for why it is 9 hex and nothing else.
+          GIT_SHA="${GITHUB_SHA:0:9}"
+
           echo -n "
           SOURCE_COMMIT_DATETIME=$SOURCE_COMMIT_DATETIME
           GAME_VERSION=$GAME_VERSION
           GAME_BUILD_INFORMATION=$GAME_BUILD_INFORMATION
+          GIT_SHA=$GIT_SHA
           " >> ../dist/versions.env
 
       # due to building everything in parallel, versions should be pinned at the start so everything builds based on the same versions
@@ -144,17 +157,6 @@ jobs:
         shell: bash
         run: cat artifacts/versions.env >> $GITHUB_ENV
 
-      # TODO: Move this into CMake, just taking the GitHub Actions parameters as -D variables
-      - name: Update GameVersion.cpp
-        shell: bash
-        run: |
-          set -eux
-          GAME_VERSION=$(echo "$GAME_VERSION" | tr -cd '[:print:]' | tr -d '"\\')
-          GAME_BUILD=$(echo "$GAME_BUILD_INFORMATION" | tr -cd '[:print:]' | tr -d '"\\')
-          sed -i "s|@Version@|${GAME_VERSION:0:15}|" Ja2/GameVersion.cpp
-          sed -i "s|@Build@|${GAME_BUILD:0:255}|" Ja2/GameVersion.cpp
-          cat Ja2/GameVersion.cpp
-
       - name: Prepare build properties
         shell: bash
         run: |
@@ -176,7 +178,11 @@ jobs:
         run: |
           # sccache can only cache MSVC objects when the debug information is embedded
           # in them (/Z7) instead of collected in a shared PDB (/Zi, the CMake default)
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application"
+          #
+          # The build identity comes from versions.env, pinned once for the whole
+          # workflow. Handing it over is what makes this a packaged build rather
+          # than a local one; CMake never asks git who we are.
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application" -DGAME_BUILD_INFORMATION="$Env:GAME_BUILD_INFORMATION" -DGIT_SHA="$Env:GIT_SHA"
       - name: Build
         run: |
           cmake --build build/ -- -v

@@ -395,7 +395,7 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 
 	sgp::dumpStackTrace(message);
 
-	mprintf( 10, 10, L"%s: %s %S %s", pMessageStrings[ MSG_VERSION ], zProductLabel, czVersionString, zBuildInformation );
+	mprintf( 10, 10, L"%s: %s %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
 
 	std::stringstream basicInformation;
 	basicInformation << "Assertion Failure [Line " << lineNum;
