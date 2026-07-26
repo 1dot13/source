@@ -24,14 +24,3 @@ void sgp::dumpStackTrace(vfs::String const& msg)
 		already_dumping = false;
 	}
 }
-
-#ifdef __MINGW32__
-StackTrace::StackTrace()
-{
-}
-
-void StackTrace::PrintBacktrace(const char* msg)
-{
-}
-
-#endif
