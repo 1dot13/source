@@ -12,6 +12,7 @@
 
 
 #include <dbghelp.h>
+#include <winternl.h> // PEB loader list, so the module table costs no allocation
 
 #include <vfs/Tools/vfs_log.h>
 
@@ -207,6 +208,166 @@ void StackTrace::PrintBacktrace(const char* msg) {
 	sgp::Logger::LogInstance log = SGP_LOG(s_log.id);
 	OutputToStream(msg, &log);
 }
+
+// Called first-chance from the vectored crash handler, so it runs *inside* the
+// faulting thread with a possibly-wrecked heap: the very crash we want to report
+// is often heap corruption (a trashed std::map, a wild pointer). Anything that
+// allocates — the game Logger, std::vector, DbgHelp's Sym* — would fault again
+// and take the report down with it. So this path is deliberately heap-free: only
+// stack buffers and raw Win32. It emits runtime addresses plus the module table
+// needed to make sense of them; symbolize offline against the build's PDB:
+//   llvm-symbolizer --obj=JA2.exe --adjust-vma=$((<JA2.exe base> - 0x400000)) <addr>
+namespace sgp {
+
+// Stamped into every crash report so a report maps to the exact build's PDB.
+// Copied into a fixed buffer (no heap) — safe to read from a crash handler.
+static char s_buildId[64] = { 0 };
+void setCrashBuildId(const char* id) {
+	if (id) lstrcpynA(s_buildId, id, sizeof(s_buildId));
+}
+
+// Filled in once a report has been written; see crashReportMessage().
+static WCHAR s_crashMessage[512] = { 0 };
+const wchar_t* crashReportMessage() {
+	return s_crashMessage[0] ? s_crashMessage : NULL;
+}
+
+// The player's optional handle, for tying a report to whoever raises it with us.
+// Sanitized here rather than at crash time: it is user input that lands in a text
+// report the telemetry server parses line by line, so drop anything that could
+// forge a line (CR/LF, control and non-ASCII characters) and cap the length.
+static char s_userHandle[33] = { 0 };
+void setCrashUserHandle(const wchar_t* handle) {
+	size_t out = 0;
+	for (size_t i = 0; handle && handle[i] && out < sizeof(s_userHandle) - 1; ++i) {
+		if (handle[i] >= L' ' && handle[i] <= L'~')
+			s_userHandle[out++] = (char)handle[i];
+	}
+	s_userHandle[out] = 0;
+}
+
+void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
+	if (ep == NULL || ep->ContextRecord == NULL || ep->ExceptionRecord == NULL)
+		return;
+
+	// The same fault storms (Wine re-dispatches the crashing window message) and
+	// walking a wrecked stack can fault us in turn. Dump each distinct faulting
+	// address once, never re-enter. ponytail: single globals, fine in a crash.
+	static void* s_lastFault = NULL;
+	static bool  s_inDump    = false;
+	void* fault = ep->ExceptionRecord->ExceptionAddress;
+	if (s_inDump || fault == s_lastFault)
+		return;
+	s_lastFault = fault;
+	s_inDump = true;
+
+	// One fresh, numbered file per crash. CREATE_NEW claims the first free number,
+	// so reports never overwrite each other and pile up while a player is offline;
+	// the telemetry uploader drains and deletes them when it can reach the server.
+	char name[32];
+	HANDLE h = INVALID_HANDLE_VALUE;
+	for (int n = 1; n <= 999; ++n) {
+		wsprintfA(name, "crash_report_%03d.txt", n);
+		h = CreateFileA(name, GENERIC_WRITE, FILE_SHARE_READ, NULL,
+			CREATE_NEW, FILE_ATTRIBUTE_NORMAL, NULL);
+		if (h != INVALID_HANDLE_VALUE) break;
+		if (GetLastError() != ERROR_FILE_EXISTS) break; // real error, stop trying
+	}
+	if (h == INVALID_HANDLE_VALUE) { s_inDump = false; return; }
+
+	char line[192];
+	auto emit = [&](int n) { DWORD w; WriteFile(h, line, n, &w, NULL); };
+
+	const CONTEXT&          c = *ep->ContextRecord;
+	const EXCEPTION_RECORD& r = *ep->ExceptionRecord;
+
+	emit(wsprintfA(line,
+		"\r\n*** CRASH  code=%08lX  eip=%08lX  esp=%08lX  ebp=%08lX ***\r\n",
+		r.ExceptionCode, c.Eip, c.Esp, c.Ebp));
+	// UTC, so a report stays unambiguous once it leaves the machine that wrote it.
+	SYSTEMTIME t;
+	GetSystemTime(&t);
+	emit(wsprintfA(line, "  time %04d-%02d-%02d %02d:%02d:%02d UTC\r\n",
+		t.wYear, t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond));
+	if (s_buildId[0])
+		emit(wsprintfA(line, "  build %s\r\n", s_buildId));
+	if (s_userHandle[0])
+		emit(wsprintfA(line, "  handle %s\r\n", s_userHandle));
+	if (r.ExceptionCode == EXCEPTION_ACCESS_VIOLATION && r.NumberParameters >= 2)
+		emit(wsprintfA(line, "  access violation: %s %08lX\r\n",
+			r.ExceptionInformation[0] == 1 ? "write to " :
+			r.ExceptionInformation[0] == 8 ? "execute at" : "read from",
+			(DWORD)r.ExceptionInformation[1]));
+
+	// Where the loader actually put each image. Our executables are /DYNAMICBASE,
+	// so a runtime address matches neither the preferred base recorded in the PDB
+	// nor anything identifiable in a sibling module: without this table none of
+	// the addresses below can be symbolized. Walked off the PEB loader list, which
+	// costs no allocation, unlike EnumProcessModules or DbgHelp's module APIs.
+	emit(wsprintfA(line, "  modules (base size path):\r\n"));
+	PEB_LDR_DATA* ldr = NtCurrentTeb()->ProcessEnvironmentBlock->Ldr;
+	LIST_ENTRY* head = &ldr->InMemoryOrderModuleList;
+	int seen = 0;
+	for (LIST_ENTRY* e = head->Flink; e != head && ++seen <= 128; e = e->Flink) {
+		LDR_DATA_TABLE_ENTRY* m =
+			CONTAINING_RECORD(e, LDR_DATA_TABLE_ENTRY, InMemoryOrderLinks);
+		DWORD base = (DWORD)(DWORD_PTR)m->DllBase;
+		IMAGE_DOS_HEADER* dos = (IMAGE_DOS_HEADER*)base;
+		if (!base || dos->e_magic != IMAGE_DOS_SIGNATURE)
+			continue;
+		IMAGE_NT_HEADERS* nt = (IMAGE_NT_HEADERS*)(base + dos->e_lfanew);
+		if (nt->Signature != IMAGE_NT_SIGNATURE)
+			continue;
+		// Truncate the path into a terminated buffer: FullDllName is counted, not
+		// terminated, and wsprintf supports neither "*" precision nor a way to
+		// bound %S, so a long path would run off the end of both.
+		WCHAR path[140];
+		int pathChars = (int)(m->FullDllName.Length / sizeof(WCHAR)) + 1;
+		lstrcpynW(path, m->FullDllName.Buffer,
+			pathChars < ARRAYSIZE(path) ? pathChars : ARRAYSIZE(path));
+		emit(wsprintfA(line, "    %08lX %08lX %S\r\n", base,
+			nt->OptionalHeader.SizeOfImage, path));
+	}
+
+	// Committed stack bounds from the TEB, so a bad ebp can't fault our reads.
+	NT_TIB* tib = (NT_TIB*)NtCurrentTeb();
+	DWORD stkLo = (DWORD)(DWORD_PTR)tib->StackLimit;
+	DWORD stkHi = (DWORD)(DWORD_PTR)tib->StackBase;
+
+	emit(wsprintfA(line, "  [0] %08lX\r\n", c.Eip)); // exact crash site
+	DWORD ebp = c.Ebp;
+	for (int i = 1; i < 64; ++i) {
+		if (ebp < stkLo || ebp + 8 > stkHi || (ebp & 3)) break;
+		DWORD ret  = *(DWORD*)(ebp + 4);
+		DWORD next = *(DWORD*)ebp;
+		// Print every return address, not just our own module's: a fault inside
+		// ddraw/fmod/bink is exactly the case worth seeing, and the module table
+		// above already tells the reader which addresses land in real code.
+		emit(wsprintfA(line, "  [%d] %08lX\r\n", i, ret));
+		if (next <= ebp) break; // frames must climb the stack
+		ebp = next;
+	}
+	FlushFileBuffers(h);
+	CloseHandle(h);
+
+	// Compose what the player gets told, while the fault details and the report's
+	// name are still in hand — but do not show it here. First-chance means the
+	// exception may yet be handled downstream, and a message box pumps messages,
+	// which on the wrecked heap that just faulted is a second crash. SGPExit puts
+	// it on screen once the game is actually going down.
+	WCHAR dir[MAX_PATH];
+	DWORD dirLen = GetCurrentDirectoryW(ARRAYSIZE(dir), dir);
+	if (dirLen == 0 || dirLen >= ARRAYSIZE(dir))
+		dir[0] = 0;
+	wsprintfW(s_crashMessage,
+		L"Jagged Alliance 2 1.13 crashed: exception %08lX at %08lX.\r\n\r\n"
+		L"A crash report was written to\r\n\r\n    %s\\%S\r\n\r\n"
+		L"Please attach that file to your bug report.",
+		r.ExceptionCode, (DWORD)(DWORD_PTR)fault, dir, name);
+
+	s_inDump = false;
+}
+} // namespace sgp
 
 void StackTrace::OutputToStream(const char* msg, sgp::Logger::LogInstance* os) {
 	SymbolContext* context = SymbolContext::Get();

@@ -630,6 +630,7 @@ static vfs::String getGameID()
 }
 
 #include "debug_util.h"
+#include "GameVersion.h" // czVersionString, stamped into crash reports
 #include <vfs/Aspects/vfs_logging.h>
 
 class VfsLogAdapter : public vfs::Aspects::ILogger
@@ -681,8 +682,35 @@ private:
 //	}
 //};
 
+// Catch crashes on any thread/path. A last-chance UnhandledExceptionFilter is no
+// good: faults on the message-pump/WindowProcedure path have no game __except on
+// their stack, and under Wine the WndProc dispatch swallows them before they ever
+// reach "unhandled". A vectored handler runs first-chance, ahead of every frame
+// handler; it only records the fault and continues the search.
+static LONG CALLBACK VectoredCrashHandler(EXCEPTION_POINTERS* pExceptInfo)
+{
+	switch (pExceptInfo->ExceptionRecord->ExceptionCode)
+	{
+		case EXCEPTION_ACCESS_VIOLATION:
+		case EXCEPTION_ILLEGAL_INSTRUCTION:
+		case EXCEPTION_IN_PAGE_ERROR:
+		case EXCEPTION_STACK_OVERFLOW:
+		case EXCEPTION_ARRAY_BOUNDS_EXCEEDED:
+		case EXCEPTION_INT_DIVIDE_BY_ZERO:
+		case EXCEPTION_PRIV_INSTRUCTION:
+			sgp::writeExceptionBacktrace(pExceptInfo);
+			break;
+		default:
+			break; // C++ EH (0xE06D7363) and other first-chance noise: ignore
+	}
+	return EXCEPTION_CONTINUE_SEARCH; // never handle; let normal SEH run
+}
+
 int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
+	AddVectoredExceptionHandler(1, VectoredCrashHandler); // 1 = call first
+	sgp::setCrashBuildId(czVersionString); // packaged: the commit SHA whose PDB we kept
+
 #ifdef _DEBUG
 	// Use this one ONLY if you're having memory corruption issues that can be repeated in a short time
 	// Otherwise it will just run out of memory.
@@ -895,7 +923,13 @@ void SGPExit(void)
 
 	ShutdownStandardGamingPlatform();
 //	ShowCursor(TRUE);
-	if(strlen(gzErrorMsg))
+	// A recorded crash says more than "unable to recover", and names the report the
+	// player has to send us, so it replaces the generic box rather than adding to it.
+	if (const wchar_t* crashMsg = sgp::crashReportMessage())
+	{
+		MessageBoxW(NULL, crashMsg, L"Jagged Alliance 2 1.13 - Crash", MB_OK | MB_ICONERROR);
+	}
+	else if(strlen(gzErrorMsg))
 	{
 		MessageBox(NULL, gzErrorMsg, "Error", MB_OK | MB_ICONERROR	);
 	}
@@ -913,6 +947,11 @@ void GetRuntimeSettings( )
 	vfs::PropertyContainer oProps;
 	oProps.initFromIniFile(GAME_INI_FILE);
 	PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
+
+	// Optional player handle stamped into crash reports written from here on, so a
+	// report can be tied to whoever raises it with us. Unset = field omitted.
+	sgp::setCrashUserHandle(
+		oProps.getStringProperty("Ja2 Settings", L"HANDLE").c_str());
 	
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
