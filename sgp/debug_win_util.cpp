@@ -216,7 +216,7 @@ void StackTrace::PrintBacktrace(const char* msg) {
 // and take the report down with it. So this path is deliberately heap-free: only
 // stack buffers and raw Win32. It emits runtime addresses plus the module table
 // needed to make sense of them; symbolize offline against the build's PDB:
-//   llvm-symbolizer --obj=JA2.exe --adjust-vma=$((<JA2.exe base> - 0x400000)) <addr>
+//   symbolize_crash crash_report_001.txt JA2.exe
 namespace sgp {
 
 // Stamped into every crash report so a report maps to the exact build's PDB.
