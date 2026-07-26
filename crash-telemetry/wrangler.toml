@@ -1,0 +1,27 @@
+name = "ja2-crash-telemetry"
+main = "worker.js"
+compatibility_date = "2025-07-01"
+
+# The workers.dev subdomain is the endpoint players POST to — there is no custom
+# domain. Stated explicitly so the default can't move; wrangler warns otherwise.
+workers_dev = true
+
+# No per-version preview URLs. Each one is another live, public endpoint that
+# forwards to the Discord webhook, and testing happens against `wrangler dev`
+# with the local sink, so they would be surface area for nothing.
+preview_urls = false
+
+# Per-IP upload cap. The ceiling has to clear kMaxUploadsPerRun (20) in the client,
+# or a player draining a backlog throttles themselves; 50/minute leaves headroom
+# without letting a scanner flood the channel. period accepts only 10 or 60.
+[[ratelimits]]
+name = "UPLOAD_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 50
+  period = 60
+
+# DISCORD_WEBHOOK is a secret, not a var — it never belongs in this file:
+#   wrangler secret put DISCORD_WEBHOOK        (deployed Worker)
+#   .dev.vars                                  (wrangler dev)

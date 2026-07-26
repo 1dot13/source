@@ -1,0 +1,8 @@
+# Copy to .dev.vars for `wrangler dev`. The deployed Worker does NOT read this
+# file — set that one with `wrangler secret put DISCORD_WEBHOOK`.
+#
+# There is no stub value that works: a webhook URL you do not own answers 401 or
+# 404, which the Worker correctly turns into a 503. Use a real webhook, pointed at
+# a throwaway channel rather than the live one. .dev.vars therefore holds a live
+# credential and is gitignored — keep it that way.
+DISCORD_WEBHOOK="https://discord.com/api/webhooks/<id>/<token>"
