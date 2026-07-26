@@ -948,6 +948,11 @@ void GetRuntimeSettings( )
 	oProps.initFromIniFile(GAME_INI_FILE);
 	PopulateSectionFromCommandLine(oProps, "Ja2 Settings");
 
+	// Upload crash reports from previous runs (first launch asks the player).
+	// Empty CRASH_TELEMETRY_URL = off. Runs here, at startup, never in a crash.
+	sgp::processCrashTelemetry(
+		oProps.getStringProperty("Ja2 Settings", L"CRASH_TELEMETRY_URL").c_str());
+
 	// Optional player handle stamped into crash reports written from here on, so a
 	// report can be tied to whoever raises it with us. Unset = field omitted.
 	sgp::setCrashUserHandle(

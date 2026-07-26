@@ -130,6 +130,7 @@ set(Ja2_Libraries
 "dbghelp.lib"
 "winmm.lib"
 "ws2_32.lib"
+"winhttp.lib"
 bfVFS
 Lua
 Multiplayer
