@@ -698,35 +698,6 @@ int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandL
 	/****************************************************************************************************/
 #endif
 
-//If we are to use exception handling
-#ifdef ENABLE_EXCEPTION_HANDLING
-	int Result = -1;
-
-	__try
-	{
-		Result = HandledWinMain(hInstance, hPrevInstance, pCommandLine, sCommandShow);
-	}
-	__except( RecordExceptionInfo( GetExceptionInformation() ))
-	{
-		// Do nothing here - RecordExceptionInfo() has already done
-		// everything that is needed. Actually this code won't even
-		// get called unless you return EXCEPTION_EXECUTE_HANDLER from
-		// the __except clause.
-
-
-	}
-	return Result;
-
-}
-
-//Do not place code in between WinMain and Handled WinMain
-
-
-
-int PASCAL HandledWinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
-{
-//DO NOT REMOVE, used for exception handing list above in WinMain
-#endif
 	MSG				Message;
 	HWND			hPrevInstanceWindow;
 	UINT32			uiTimer = 0;
@@ -1334,30 +1305,6 @@ static void PopulateSectionFromCommandLine(vfs::PropertyContainer &oProps, vfs::
 
 static LONG __stdcall SGPExceptionFilter(int exceptionCount, EXCEPTION_POINTERS* pExceptInfo)
 {
-#ifdef ENABLE_EXCEPTION_HANDLING
-	extern BOOL ERGetFirstModuleException(EXCEPTION_POINTERS*, HMODULE, LPSTR, INT, LPSTR, INT, INT *);
-	extern STR GetExceptionString( DWORD uiExceptionCode );
-	CHAR funcName[64], sourceName[MAX_PATH];
-	INT lineNum = 0;
-	if (exceptionCount >= 1)
-	{
-		bool showAssert = true;
-		__try{
-			// the exception handler writer can fail with exceptions too
-			RecordExceptionInfo(pExceptInfo);
-
-			LPCSTR exceptMsg = GetExceptionString(pExceptInfo->ExceptionRecord->ExceptionCode);
-			if ( ERGetFirstModuleException(pExceptInfo, NULL, funcName, _countof(funcName), sourceName, _countof(sourceName), &lineNum ) )
-			{
-				_FailMessage(exceptMsg, lineNum, funcName, sourceName);
-				showAssert = false;
-			}
-		} __except (EXCEPTION_EXECUTE_HANDLER) {}
-		if (showAssert) AssertMsg(FALSE, "Unhanded exception processing GameLoop unable to recover.");
-	}
-
-#endif
-
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
