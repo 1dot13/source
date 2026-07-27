@@ -85,7 +85,7 @@ jobs:
           set -eux
           for APP in ja2 ja2mapeditor ja2ub ja2ubmapeditor
           do
-            mv artifacts/${APP}/*.exe gamedir/${APP}.exe
+            mv artifacts/${APP}/${APP}.exe gamedir/${APP}.exe
           done
 
       - name: Create version information file
