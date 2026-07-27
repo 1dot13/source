@@ -14,6 +14,7 @@ ja2xp::ProgressBar::ProgressBar(int size, int numElements)
 void ja2xp::ProgressBar::Next(vfs::String const& message)
 {
 	count++;
+	invalid_label:
 	float percent = (float)count/float(num_elements);
 	wchar_t bar[21] = L"                    ";
 	int bar_end = (int)(20*percent);

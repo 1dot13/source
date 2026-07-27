@@ -156,7 +156,7 @@ INT8 DecideActionSchedule( SOLDIERTYPE * pSoldier )
 				// do nothing right now!
 				return( AI_ACTION_NONE );
 			}
-
+			invalid_label_two:
 			pDoorStatus = GetDoorStatus( usGridNo1 );
 			if (pDoorStatus && pDoorStatus->ubFlags & DOOR_BUSY)
 			{
