@@ -30,7 +30,7 @@ set(CMAKE_CXX_COMPILER_TARGET ${triple})
 
 # GNU ld cannot bind the Bink import library the game ships either, so rebuild a
 # bindable one from binkw32.def (which explains why) and hand it to the top-level
-# CMakeLists through binkw32_lib. MSVC keeps using the shipped library.
+# CMakeLists through binkw32_lib.
 execute_process(
   COMMAND "${MINGW_DLLTOOL}" -m i386
           -d "${CMAKE_CURRENT_LIST_DIR}/../../binkw32.def"

@@ -32,7 +32,7 @@ set(_sdk_lib "${MSVC_SDK}/kits/10/lib/${_sdk_version}")
 
 # Find every tool here rather than trusting PATH, so the choice of compiler,
 # linker and rc is the toolchain file's alone.
-foreach(tool clang-cl lld-link llvm-rc llvm-lib llvm-mt llvm-dlltool)
+foreach(tool clang-cl lld-link llvm-rc llvm-lib llvm-mt)
   string(TOUPPER "${tool}" _variable)
   string(REPLACE "-" "_" _variable "${_variable}")
   # An absolute path: CMake resolves a bare name against the source directory.
@@ -76,16 +76,3 @@ set(CMAKE_RC_FLAGS_INIT "${_rc_flags}")
 
 set(CMAKE_EXE_LINKER_FLAGS_INIT
     "/libpath:${_msvc}/lib/x86 /libpath:${_sdk_lib}/ucrt/x86 /libpath:${_sdk_lib}/um/x86")
-
-# lld-link cannot bind the Bink import library the game ships, so rebuild a
-# bindable one from binkw32.def (which explains why) and hand it to the top-level
-# CMakeLists through binkw32_lib. MSVC keeps using the shipped library.
-execute_process(
-  COMMAND "${LLVM_DLLTOOL}" -m i386 --no-leading-underscore
-          -d "${CMAKE_CURRENT_LIST_DIR}/../../binkw32.def"
-          -l "${CMAKE_BINARY_DIR}/binkw32.lib"
-  RESULT_VARIABLE _binkw32DlltoolResult)
-if(NOT _binkw32DlltoolResult EQUAL 0)
-  message(FATAL_ERROR "llvm-dlltool failed to build the binkw32 import library")
-endif()
-set(binkw32_lib "${CMAKE_BINARY_DIR}/binkw32.lib")
