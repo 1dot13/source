@@ -88,7 +88,7 @@ add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
 
 # ja2export utility
-add_subdirectory("ext/export/src")
+add_subdirectory("export/src")
 
 # static libraries whose translation units don't rely on Application preprocessor definitions.
 add_subdirectory(lua)

@@ -1,4 +1,4 @@
-option(BUILD_JA2EXPORT "Build the Ja2Export tool." OFF)
+option(BUILD_JA2EXPORT "Build the Ja2Export tool." ON)
 
 if(BUILD_JA2EXPORT)
 	message(STATUS "Configuring Ja2Export")
@@ -25,5 +25,5 @@ if(BUILD_JA2EXPORT)
 		RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}
 	)
 else()
-	message(STATUS "BUILD_JA2EXPORT set to \"OFF\", not configuring Ja2Export by default")
+	message(STATUS "BUILD_JA2EXPORT set to \"OFF\", not configuring Ja2Export")
 endif()

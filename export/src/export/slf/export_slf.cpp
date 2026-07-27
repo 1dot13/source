@@ -43,7 +43,7 @@ bool ja2xp::convertSLFto7z(vfs::tReadableFile* pInFile, vfs::tWritableFile *pOut
 			vfs::Path filename = it.value()->getPath();
 			if(vfs::StrCmp::Equal(filename().substr(filename().length()-4,4), L".sti"))
 			{
-				vfs::Path path = filename().substr(0,filename.length()-4) + L".jpc.7z";
+				vfs::Path path = vfs::String(filename().substr(0,filename.length()-4) + L".jpc.7z");
 				temp_file = new vfs::CBufferFile(path);
 				if(convertSTItoJPC(vfs::tReadableFile::cast(it.value()), vfs::tWritableFile::cast(temp_file), bPngOffsets, false))
 				{
