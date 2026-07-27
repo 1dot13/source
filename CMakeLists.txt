@@ -42,14 +42,6 @@ if(ADDRESS_SANITIZER)
   add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
 endif()
 
-if(MSVC)
-# TODO: fix the warnings here and turn them on
-# https://learn.microsoft.com/en-us/cpp/error-messages/compiler-warnings/compiler-warnings-c4000-through-c4199
-  add_compile_options("/wd4838") # silence implicit narrowing conversion warnings
-# add_compile_options("/w14061")
-# add_compile_options("/w14062")
-endif()
-
 # whether we are using MSBuild as a generator
 set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 
@@ -86,6 +78,9 @@ add_subdirectory("ext/libsmacker")
 add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
+
+# from here on down our own code only: vendored code above keeps default flags
+include(cmake/Warnings.cmake)
 
 # ja2export utility
 add_subdirectory("export/src")
