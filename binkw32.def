@@ -1,10 +1,11 @@
-; Import definition for binkw32.dll, used to rebuild the Bink import library
-; when building with clang-cl.cmake
+; Import definition for binkw32.dll, used to rebuild the Bink import library on
+; every toolchain (see CMakeLists.txt and cmake/toolchains/).
 ;
 ; Two things forced the shape of this file:
-;   1. lld-link cannot bind the ordinal-based long-format import library the
-;      game ships (binkw32.lib). It leaves every Bink call unresolved, and at
-;      run time the calls jump into arbitrary code and crash at startup.
+;   1. No current linker can bind the ordinal-based long-format import library
+;      the game ships (binkw32.lib, built 2002). lld-link leaves every Bink call
+;      unresolved; link.exe writes an import descriptor with an empty thunk
+;      table. Either way the calls jump into arbitrary code and crash at startup.
 ;   2. binkw32.dll exports decorated stdcall names that keep their leading
 ;      underscore (_BinkOpen@8). llvm-dlltool strips that underscore from the
 ;      imported name whatever the --no-leading-underscore flag says, so a
@@ -13,8 +14,9 @@
 ;      function binkw32.dll.BinkSetSoundSystem@8").
 ;
 ; Importing by ordinal (NONAME) sidesteps both: there is no name to mismatch,
-; and the ordinals are those of the retail binkw32.dll the game ships. MSVC's
-; link.exe binds the shipped library fine and keeps using it.
+; and the ordinals are those of the retail binkw32.dll the game ships. Names here
+; carry the leading underscore llvm-dlltool needs; lib.exe adds its own, so the
+; MSVC path strips it back off.
 LIBRARY binkw32.dll
 EXPORTS
 _BinkBufferBlit@12 @1 NONAME
