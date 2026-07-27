@@ -44,7 +44,7 @@
 		UINT32	classId;
 	} PopupIndex ;
 
-	extern std::vector<typename PopupIndex>	gPopupRegionIndex;
+	extern std::vector<PopupIndex>	gPopupRegionIndex;
 	extern std::vector<POPUP*>	gPopupIndex;
 
 	extern UINT32			gPopupRegionIndexCounter;

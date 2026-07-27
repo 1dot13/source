@@ -62,7 +62,7 @@
 	// three params, no return val
 
 	template<typename P1,typename P2,typename P3>
-	class popupCallbackFunction3<void,typename P1,typename P2,typename P3>: public popupCallback{
+	class popupCallbackFunction3<void,P1,P2,P3>: public popupCallback{
 	protected:
 		void (*fun)(P1,P2,P3);
 		P1 param_1;
@@ -144,7 +144,7 @@
 	// two params, no return val
 
 	template<typename P1,typename P2>
-	class popupCallbackFunction2<void, typename P1,typename P2>: public popupCallback{
+	class popupCallbackFunction2<void, P1,P2>: public popupCallback{
 	protected:
 		void (*fun)(P1,P2);
 		P1 param_1;
@@ -219,7 +219,7 @@
 
 	// no return type, one parameter
 	template <typename P1>
-	class popupCallbackFunction<void, typename P1> : public popupCallback{
+	class popupCallbackFunction<void, P1> : public popupCallback{
 	protected:
 		void (*fun)(P1);
 		P1 param_1;
@@ -260,7 +260,7 @@
 
 	// returns something, no parameter
 	template <typename R>
-	class popupCallbackFunction<typename R, void> : public popupCallback{
+	class popupCallbackFunction<R, void> : public popupCallback{
 	protected:
 		R (*fun)(void);
 	public:
