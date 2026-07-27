@@ -3,9 +3,10 @@ name: build
 on:
   push:
     branches:
-      - '**'
+      - master
     tags:
       - 'v*'
+  pull_request:
   # allows to manually trigger a build
   workflow_dispatch:
     inputs:
