@@ -48,7 +48,7 @@ bool ja2xp::convertJSDtoXML(vfs::Path const& sSrc, vfs::Path const& sDst)
 		vfs::COpenWriteFile wfile(out_name,true,true);
 		if(!ConvertStructure(it.value(), &wfile.file()))
 		{
-			printf("Error converting file : %s", vfs::String::as_utf8(it.value()->getPath()()));
+			printf("Error converting file : %s", vfs::String::as_utf8(it.value()->getPath()()).c_str());
 			continue;
 		}
 	}
