@@ -13,7 +13,11 @@
 // So never answer a settling 4xx for a failure on our side: that throws the report
 // away. 429 is the one 4xx that is safe, because the client does not settle it.
 
-const MAX_BYTES = 64 * 1024; // reports run 2-8 KB; anything near this is not ours
+// Reports run 2-8 KB, and the fixed bounds in writeExceptionBacktrace (128
+// modules, 64 frames) cap them near 10 KB. Kept equal to kMaxReportBytes in the
+// client: anything the client is willing to send must not meet a settling 400
+// here, or the upload is what destroys the report.
+const MAX_BYTES = 32 * 1024;
 
 // Every field below is lifted out of the uploaded file, and the endpoint is public
 // and unauthenticated: treat all of it as attacker-chosen, not just the handle.
