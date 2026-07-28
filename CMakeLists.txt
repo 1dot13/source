@@ -42,6 +42,9 @@ if(ADDRESS_SANITIZER)
   add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
 endif()
 
+# keep frame pointers in both MSVC and clang-cl
+add_compile_options(/Oy-)
+
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   add_compile_options(-fno-delete-null-pointer-checks)
 endif()
