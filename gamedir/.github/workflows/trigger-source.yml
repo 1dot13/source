@@ -22,10 +22,9 @@ jobs:
             github.rest.actions.createWorkflowDispatch({
               owner: '1dot13',
               repo: 'source',
-              workflow_id: 'build.yml',
+              workflow_id: 'release.yml',
               ref: 'master',
               inputs: {
-                build_all_languages: true,
                 assemble_release: true
               }
             });
