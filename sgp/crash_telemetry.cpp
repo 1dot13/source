@@ -14,6 +14,7 @@
 #include <winhttp.h>
 #include <process.h> // _beginthreadex for the detached upload thread
 
+#include <cstring> // strstr
 #include <vector>
 
 namespace {
@@ -100,6 +101,21 @@ bool reportIsSettled(DWORD status) {
 		status == 400 || status == 413 || status == 415;
 }
 
+// A report stamped "build local" comes from a developer build with no released
+// PDB: nobody at the receiving end can symbolize it, so it never goes on the
+// wire — and never gets reaped either, it is the developer's to delete.
+bool isFromLocalBuild(const char* path) {
+	HANDLE h = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (h == INVALID_HANDLE_VALUE) return false;
+	// The build line is within the first few lines of the header.
+	char head[160] = {};
+	DWORD got = 0;
+	ReadFile(h, head, sizeof(head) - 1, &got, NULL);
+	CloseHandle(h);
+	return strstr(head, "  build local") != NULL;
+}
+
 // Reports older than this are stale: the crash they describe is long since shipped
 // past, and a player who was offline for a season should not upload a season of them.
 const DWORD kMaxReportAgeDays = 30;
@@ -128,6 +144,7 @@ unsigned __stdcall telemetryThread(void*) {
 	if (hFind == INVALID_HANDLE_VALUE) return 0;
 	int sent = 0;
 	do {
+		if (isFromLocalBuild(fd.cFileName)) continue;
 		if (olderThan(fd.ftLastWriteTime, kMaxReportAgeDays)) {
 			DeleteFileA(fd.cFileName);
 			continue;
