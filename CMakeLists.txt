@@ -42,6 +42,10 @@ if(ADDRESS_SANITIZER)
   add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
 endif()
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  add_compile_options(-fno-delete-null-pointer-checks)
+endif()
+
 # whether we are using MSBuild as a generator
 set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 
