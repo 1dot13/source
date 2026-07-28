@@ -5111,8 +5111,7 @@ INT8 FireBulletGivenTargetNCTH( SOLDIERTYPE * pFirer, FLOAT dEndX, FLOAT dEndY, 
 							ddHorizAngle, ddVerticAngle,
 							pFirer->ubID.i, ubLoop, ubShots,
 							gpSpreadPattern[ubSpreadIndex].method, gSpreadPatternMethodNames[gpSpreadPattern[ubSpreadIndex].method],
-							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name,
-							NULL
+							ubSpreadIndex, gpSpreadPattern[ubSpreadIndex].Name
 						);
 						fclose(OutFile);
 					}
