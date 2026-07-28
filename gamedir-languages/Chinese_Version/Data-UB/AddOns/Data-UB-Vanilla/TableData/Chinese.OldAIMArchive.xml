@@ -1,0 +1,369 @@
+﻿<!--
+	In this file you can specify which old AIM veterans should be available on the AIM alumni laptop site.
+	Just remove the <MERC></MERC> block for the merc which should not show up on the AIM veterans site.
+	
+	uiIndex:	This is an index starting from 0 up to 254
+	NickName: 	The Nickname of the merc (this is externalized from the file: Data\BinaryData\ALUMNAME.EDT)
+	Name:     	The Name of the merc (this is externalized from the file: Data\BinaryData\ALUMNI.EDT)
+	Bio:      	The Bio of the merc (this is externalized from the file: Data\BinaryData\ALUMNI.EDT)
+	FaceID:		The face index from the "Data\Laptop\OLD_AIM.STI" file
+-->
+<OLD_MERC>
+	<MERC>
+		<!-- Needle -->
+		<uiIndex>0</uiIndex>
+		<NickName>Needle</NickName>
+		<Name>Doctor Mark Kranhuim</Name>
+		<Bio>在度过十余年战果卓著的职业生涯后，Needle没能通过当年体检，因此不得不提前告老还乡。很遗憾，Mark Kranhuim医生右眼的持续病变使他拖了小队的后腿。目前，他在纽约法医办公室兼任夜班验尸官。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Gary -->
+		<uiIndex>1</uiIndex>
+		<NickName>Gary</NickName>
+		<Name>Gary Roachburn</Name>
+		<Bio>Gary Roachburn因其显赫的家族与满嘴跑火车的个性闻名，他是Roachburn家第二个加入我们的佣兵。在其父Leon Roachburn上校死于横祸后，Gary结束了他前途远大的军旅生涯，成为了童子军的外聘教官。此时他正在Takaddata集训营任教。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Sam -->
+		<uiIndex>2</uiIndex>
+		<NickName>Sam</NickName>
+		<Name>Samuel "Sam" Garver</Name>
+		<Bio>风光无限的佣兵Sam业已买断离职，回到了佛罗里达群岛。他对坐拥“Sam短吻鳄皮制品与礼品商店”的店主生活极其满意。这座商店毗邻71号高速公路，交通便利，且因其独家售卖的鳄鱼皮战斗刀及配套皮靴蜚声远近。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Boss -->
+		<uiIndex>3</uiIndex>
+		<NickName>Boss</NickName>
+		<Name>Glen "Boss" Hatchet</Name>
+		<Bio>Boss Hatchet总说要活到金盆洗手的那天，他也确实做到了。在Victoria Waters提供给他汽车修理行的职位后，Glen便刀枪入库，带着工具箱退了休。人们大概会因为他在离职前夕的AIM圣诞晚会痛打Bernie Gloveless医生的行为而缅怀他。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Smoke -->
+		<uiIndex>4</uiIndex>
+		<NickName>Smoke</NickName>
+		<Name>Smoke Peterson</Name>
+		<Bio>断断续续地为AIM工作的多年间，Smoke Peterson的名字总是与埋设爆炸物时引信过短这一让人哭笑不得的行为一起被提及。不过对于大部分成员来说，现在他们终于可以放声大笑了；由于战靴里的一块硌脚石子分散了他的注意力，Peterson在一声巨响和一阵青烟后，留下了一堆难辨其形的腌臜物，永远告别了这个世界。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Jimmy -->
+		<uiIndex>5</uiIndex>
+		<NickName>Jimmy</NickName>
+		<Name>Jimmy Upton</Name>
+		<Bio>很不幸，江山易改，本性难移，有人发现Jimmy Upton在非营业时间出现于底特律西南方的银行里。尽管竭力表示自己对随身携带的盗窃工具的使用方法一无所知，Upton还是被州法院判了五年监禁。在刑满之后，他还要为自己交待的上一起爆窃案去俄亥俄继续蹲上七年大牢。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Doc -->
+		<uiIndex>6</uiIndex>
+		<NickName>Doc</NickName>
+		<Name>Doc Koolhan</Name>
+		<Bio>Doc Koolhan从AIM退休后，将精力投入到医疗事业中。作为副业，他在的黎波里经营一家免费诊所已有数年。然而，在全职工作六个月后，他关闭了诊所，投奔了无国界医生联合组织。目前，据确认，他正以该组织成员的身份活动于突尼斯共和国。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Wink -->
+		<uiIndex>7</uiIndex>
+		<NickName>Wink</NickName>
+		<Name>Wink Dickerson</Name>
+		<Bio>因强健善掷、准度欠佳的手臂出名的Wink Dinkerson终于等来了一生都在守候的召唤。由于资金大幅削减，蒙特利尔博览会队正在各地搜寻天分上佳（或不佳）的候补投手。签订周薪140加元的合同以后，Wink终于成为了预备队内第五投手。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Beth -->
+		<uiIndex>8</uiIndex>
+		<NickName>Beth</NickName>
+		<Name>Mary Beth Wilkens</Name>
+		<Bio>这是我们所要报告的最令人唏嘘的悲惨变故。Mary Beth于去年八月在公寓门口被一名枪手射杀。这名狂热的爱慕者先是对她进行了为时数月的骚扰，进而升级成暗中尾随。Mary在双手提着从商店买回的杂货回家时，遭到了枪手的突然袭击。Mary Beth的果断干练与进取精神将会长存我们心中。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Bud -->
+		<uiIndex>9</uiIndex>
+		<NickName>Bud</NickName>
+		<Name>Lt. Bud Hellar</Name>
+		<Bio>Bud Hellar中尉在离开AIM后接手了一系列工作，从担任Rush Limbaugh的私人保镖到停车场管理员。好聚好散，我们将会永远铭记他对组织的尽心与忠诚。最近的报告称，他成为了某烟草商的安全顾问，不过这条消息尚未得到证实。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Larry -->
+		<uiIndex>10</uiIndex>
+		<NickName>Larry</NickName>
+		<Name>Larry Roachburn</Name>
+		<Bio>八次戒毒均告无果后，AIM别无选择，只能剥夺Larry Roachburn的成员身份。据我们推断，Larry父亲的死促使他又一次尝试规束自身的暴力倾向并终止长达十数年的吸毒史。我们谨希望他一帆风顺，有所实绩。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Ears -->
+		<uiIndex>11</uiIndex>
+		<NickName>Ears</NickName>
+		<Name>Edward "Ears" Stockwell</Name>
+		<Bio>Ears Stockwell几乎在十八个月前就递交了辞呈。从那以后，我们就没有收得有关他的任何联络，因此也没有值得公布的信息。而事实上，我们也懒得去联系他。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Moses -->
+		<uiIndex>12</uiIndex>
+		<NickName>Moses</NickName>
+		<Name>Murray "Moses" Ebstern</Name>
+		<Bio>在AIM向五十岁以上成员提供了全套退休方案后，Moses下定决心，要借此机会转入新的事业。Ebstern用退休金开了一家餐馆，短短的两年间，他就在New Delhi以风味熏肉创立了口碑。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Screw -->
+		<uiIndex>13</uiIndex>
+		<NickName>Screw</NickName>
+		<Name>Patrick "Screw" Phillips</Name>
+		<Bio>Patrick Phillips脱离AIM的事实令我们十分遗憾。 由于在诸多方面——大部分与Screw的社交能力缺陷有关——存在尚未解决的争端，Patrick认为他最好作为独立佣兵继续自己的职业生涯。最后我们有一言相告，他正在为中东的某些新成立的国家效力。 </Bio>
+	</MERC>
+	<MERC>
+		<!-- Rusty -->
+		<uiIndex>14</uiIndex>
+		<NickName>Rusty</NickName>
+		<Name>Russell "Rusty" Hunter</Name>
+		<Bio>作为AIM顶尖爆破专家之一，Rusty因广博的专业知识以及，嗯，足够的理性，获得了不朽声誉。Russell Hunter最近延长了离职期，充当一家电影制作公司的特效指导。对AIM而言幸运的是，在过去的这些年，爆破领域还有其他的人才出现。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Bernie -->
+		<uiIndex>15</uiIndex>
+		<NickName>Bernie</NickName>
+		<Name>Doctor Bernie Gloveless</Name>
+		<Bio>Bernie与AIM的渊源可以概括为一波未平，一波又起。在拒绝让出组织专属内科医师并与队员发生诸多龃龉之后，AIM决定将Bernie Gloveless医生强行解职。他目前受雇于一家国际保险公司，下次公司让你去做身体年度检查的时候，你可能会想起他的名字。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Reuban -->
+		<uiIndex>16</uiIndex>
+		<NickName>Reuban</NickName>
+		<Name>"Unusually Ruthless" Reuban</Name>
+		<Bio>潜逃数年的Reuban终于落入法网，并被押解回罗马尼亚。他因谋杀妻儿同时背上了六条人命。尽管可能要在牢里过完他的下半辈子，Reuban似乎对新环境适应良好。他劳教的内容主要是打扫庭院，而且他修剪的树木造型为所在监狱赢得了好几次“新风貌”奖。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Pops -->
+		<uiIndex>17</uiIndex>
+		<NickName>Pops</NickName>
+		<Name>Pops McGillicutty</Name>
+		<Bio>AIM努力劝说Pops McGillicutty退休达数年之久，未能成功，终于不得不推出一条措施，让年满85岁的佣兵强制离职。Pops为了还马革裹尸的佣兵一个安身愿，开设了主要立足网络的殡葬沙龙，专门负责给去世的佣兵举办有排场的葬礼。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Kelly -->
+		<uiIndex>18</uiIndex>
+		<NickName>Kelly</NickName>
+		<Name>Col. Leo Kelly</Name>
+		<Bio>常被称作佣兵中的佣兵的Leo Kelly上校，在克罗地亚战争爆发后不久就再也不见踪影。几名成员称曾经见到过他带领一支突击队穿越Napir的雨林，他也确实在Steven Segal最新指导的影片中以战争技术参谋的身份挂了个名。然而，关于他目前的状况，我们还没有收到任何正式的汇报。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Tex -->
+		<uiIndex>19</uiIndex>
+		<NickName>Tex</NickName>
+		<Name>Tex R. Colburn</Name>
+		<Bio>我们多才多艺的成员之一，Tex Colburn，上交了自己的两把左轮，走上了实现演艺之梦的道路。作为在欧美冉冉升起的日裔明星，他领衔主演了《让弹尘飘》 这部电影，并让人们对其早年在经典影片《大骏马的突击》和《开着本田去旅行》所饰演的角色产生了热切关注。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Hurl -->
+		<uiIndex>20</uiIndex>
+		<NickName>Hurl</NickName>
+		<Name>Hurl E. Cutter</Name>
+		<Bio>Hurl不论到哪儿都是个供医生榨取医疗费的病秧子，而他已经杳无信讯达九个月。在搜寻医院的医疗记录及前往Havana认尸未果以后，他最后的行踪也没能提供任何有效线索。Fidel Dahana屡次质询他的情况，不过警方并没有继续对此的调查。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Biff -->
+		<uiIndex>21</uiIndex>
+		<NickName>Biff</NickName>
+		<Name>Biff Apscott</Name>
+		<Bio>Biff Apscott在佣兵中也是个出挑的人。我们将会怀念这名年轻人的旺盛精力，以及他让成员们铭记自身勇气的方式。尽管难以置信，我们还是要声明，Biff不明智地开设了一家佣兵介绍所与AIM竞争。至于我们对此感到多么惋惜，自然不需赘言。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Spike -->
+		<uiIndex>22</uiIndex>
+		<NickName>Spike</NickName>
+		<Name>Major Spike Scallion</Name>
+		<Bio>Spike Scallion的离去是AIM极大的损失。他的雄伟气度与一贯坚韧不拔的作风总是能让队员们同仇敌忾，安心作战。Scallion少校获得了一份回报丰厚的长期合约，在朝鲜走马上任。我们竭尽所能也没有挽留住他。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Raffi -->
+		<uiIndex>23</uiIndex>
+		<NickName>Raffi</NickName>
+		<Name>Dr. Raffitto "Raffi" Leevon</Name>
+	<Bio>在医学学位问题上引起无数争论的Leevon医生，在并未通知我们的情况下于年初离开。显然他隐姓埋名，开始新生，并伙同他的乐队成员Rotis和Haggis一头扎进了舞动汤勺敲击饭碗的打击乐世界。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Mike -->
+		<uiIndex>24</uiIndex>
+		<NickName>Mike</NickName>
+		<Name>Mike</Name>
+		<Bio>新一轮个人薪资增长事宜还在洽谈中时，听说雇主评价他为外强中干的Mike突然退出了讨论。他目前行踪成谜，其他情况也是如此。办事处收到他的最后联络源于某个小国，而此地当局的胁迫让我们宁愿忘记这个国家的名字。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Hector -->
+		<uiIndex>25</uiIndex>
+		<NickName>Hector</NickName>
+		<Name>Hector Alvarez</Name>
+		<Bio>在Zaire严重受伤后，Hector Alvarez落下了终身残疾。他利用伤害保险金，在委内瑞拉的家乡玛格丽塔开店度日。他的“豪华蛋类全席早餐套装”起价49.99美元，深受德国游客好评。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Snake -->
+		<uiIndex>26</uiIndex>
+		<NickName>Snake</NickName>
+		<Name>Johnny "Snake" Edwards</Name>
+		<Bio>人们都叫他“罩得住先生”，而来无影去无踪则是他的拿手好戏。可惜的是，他在Maupaa的墓碑上却只刻了“战争遇难者”的字样。Snake丧命于一次毫无必要的武装冲突——正是把Alan "Spam" Webster送上军事法庭的那次。在Webster让对方缴械投降时，Snake两眼正中吃了一颗子弹。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Speck -->
+		<uiIndex>27</uiIndex>
+		<NickName>Speck</NickName>
+		<Name>Speck T. Kline</Name>
+		<Bio>While Speck从来就没能融入到佣兵的生活中去，我们普遍认为他对修理的爱好根本无法修理，这让他成了鲜人问津的成员。或许，我们正是因此才对他开设另一家佣兵介绍所的行为感到吃惊。AIM祝他好运，因为我们清楚，他太需要运气了。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Weasel -->
+		<uiIndex>28</uiIndex>
+		<NickName>Weasel</NickName>
+		<Name>Willy "Weasel" Augustin</Name>
+		<Bio>Wee Willy又称“黄鼠狼”或者“大喇叭”，基本上都被雇主当成监视队友的便宜添头。结果，他的“大义灭亲”情结把自己引上了人们预料中的末路。在密告妻子涉嫌福利欺诈之后，她经由保释回到了家里，一枪崩了Augustin。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Leech -->
+		<uiIndex>29</uiIndex>
+		<NickName>Leech</NickName>
+		<Name>Timothy "Leech" Jenkins</Name>
+		<Bio>摆脱Leech可不是件容易的事。他固执的脾气和刚愎的性格让我们别无选择，只能将他放上冷板凳。在给予其五次留任察看处分后，我们规劝他放弃这一行；当然，又被他一口回绝。Leech在合约中止后提出起诉，索要违约金，直到最近我们才用一笔目前不能透露数额的钱款搞定了他。到今天为止，他还在不停地向我们的办事处投递求职申请。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Lance -->
+		<uiIndex>30</uiIndex>
+		<NickName>Lance</NickName>
+		<Name>Lance Fisher</Name>
+		<Bio>由于与Victoria Waters持续发生口角，我们劝说Lance离开AIM，为此我们提供给他西点军校的一个职务。他接受了，目前是伦理与战术撤退方面的讲师，还在这个领域出了一本书。《淡定地夺路而生》目前在多数军事学院的书店有售。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Stella -->
+		<uiIndex>31</uiIndex>
+		<NickName>Stella</NickName>
+		<Name>Dr. Margaret "Stella" Trammel</Name>
+		<Bio>Margaret是加入AIM行列的第一名女性，将会受到我们的诚挚怀念。除了在战场上的恶斗，Trammel医生也会因为她与AIM团结互助兄弟会的不懈抗争、为女性争取同等福利的事迹长存我们心头。她最近在维尔京群岛开办了家政医疗所。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Eli -->
+		<uiIndex>32</uiIndex>
+		<NickName>Eli</NickName>
+		<Name>Doctor Eli Summers</Name>
+		<Bio>Summers医生在雇主间的口碑良好，因为他既接受与新人同行的任务，处理个人事务也保持低调。尽管AIM对他离去的决定表示惋惜，不过我们很高心地获悉，这位善良的医师正把他的爱好转为职业：参加老年高尔夫巡回赛，并在Pebble Beach光荣地赢得了第四名。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Elroy -->
+		<uiIndex>33</uiIndex>
+		<NickName>Elroy</NickName>
+		<Name>Elroy B. Tolken</Name>
+		<Bio>他走了，我们不在乎，也不关心。有人在乎吗？</Bio>
+	</MERC>
+	<MERC>
+		<!-- Skitz -->
+		<uiIndex>34</uiIndex>
+		<NickName>Skitz</NickName>
+		<Name>Bruce "Skitz" Bonner</Name>
+		<Bio>Bruce Bonner走了，再也回不来了！多名爆破专家的加入让我们轻松地做出了这个早该做出的决定。在连续停职察看八期后，Skitz终于被我们除名。尽管受到了特别照顾、接受了二十一次电击治疗，被监禁在Saint Michael医院的Skitz依然处于高犯罪倾向的精神错乱之中。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Wally -->
+		<uiIndex>35</uiIndex>
+		<NickName>Wally</NickName>
+		<Name>Walter "Wally" Yuntz</Name>
+		<Bio>有人说过，要是Wally不走霉运，他就压根没运可走。在确证了视力存在问题后，Wally预定要接受视力矫正手术。这一手术本应永久提高他的瞄准能力，可激光仪的控制程序却运作失常。现在，彻底失明的Wally只好拄着导盲杖，给正在打老年高尔夫巡回赛的Eli Summers医生背球杆。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Turtle -->
+		<uiIndex>36</uiIndex>
+		<NickName>Turtle</NickName>
+		<Name>Herman "Turtle" Regents</Name>
+		<Bio>或许Turtle的去职可以用他辞呈中的一段文字贴切地说明：“你们派我参战，还不让我停歇。我实在扛不住了，无路可走，只能把这解约书交上来。” 后来我们听说他在芝加哥担任实习警员。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Kaboom -->
+		<uiIndex>37</uiIndex>
+		<NickName>Kaboom</NickName>
+		<Name>Marty "Kaboom" Moffat</Name>
+		<Bio>在针对我们组织发起的诉讼中，Marty Moffat的不当致死一例最为特别。据信，Kaboom因为在拆除炸弹受伤而导致脑死亡，他的器官按照其签署的合法捐献卡被捐献。不过，他的家人一口咬定Marty当时还活着，只不过是在睡回笼觉。我们的司法部建议，不要再陪他们纠缠细节。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Rev -->
+		<uiIndex>38</uiIndex>
+		<NickName>Rev</NickName>
+		<Name>Reverend Clyde Potter</Name>
+		<Bio>由于组织内部无信仰成员的抱怨日渐升级，AIM撤销了本堂神父这一职位。因此，好传道的Potter作为我们最底层的佣兵，也被开除出队。离开AIM后，Reverend Clyde Potter 在巴尔的摩的Innercity 基督教会找了个差事。他现在彻底否认和AIM有任何关系，并退还了养老金，也不再接我们的电话。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Sparky -->
+		<uiIndex>39</uiIndex>
+		<NickName>Sparky</NickName>
+		<Name>Megan "Sparky" Roachburn</Name>
+		<Bio>辉煌一时的战士家族Roachburn 随着Megan的退休走到了尽头。她是家族中惟一的女性，也是最后一个退出AIM的成员。Sparky后来从事了她梦寐以求的事业——K-mart的一名诚信监督员。尽管她总说，故意把钱落在柜台、测试收银员是否藏匿不报是个无聊活，不过比起硝烟漫天的战场，她还是会选择在超市里工作。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Mitch -->
+		<uiIndex>40</uiIndex>
+		<NickName>Mitch</NickName>
+		<Name>Dr. Mitch Shudlem</Name>
+		<Bio>从来就受不了血肉横飞场面的Shudlem医生，在广泛寻职后回到了妇产科继续他血与肉的考验。他目前是单亲圣玛丽医院的一把刀。他说回到产科是他最棒的经历，真不知道当初为什么会想要离开。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Carp -->
+		<uiIndex>41</uiIndex>
+		<NickName>Carp</NickName>
+		<Name>Howard "Carp" Melfield</Name>
+		<Bio>虽然身无所长，但Carp在组织内部却人缘颇佳。他在AIM内主要从事文案工作。Howard Melfield效率极高，主管成员的健康、安全、退休和牙齿保健事务。他也十分好说话地接下了圣诞晚会的总负责人这一差使。</Bio>
+	</MERC>
+	<MERC>
+		<!-- It -->
+		<uiIndex>42</uiIndex>
+		<NickName>It</NickName>
+		<Name>Carl "It" Goodman</Name>
+		<Bio>主要因为一身蛮力被看重的Carl看家法宝就是手里的撬棍，他凭简单粗暴的行动方针长年受到雇主偏爱。离开AIM之后，Goodman回归了职业摔跤运动，他说这个行当要步步为营，风险无处不在。他的朋友和粉丝常能在星期六晚上看到“蒙面佣兵”在付费频道的比赛。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Vinny -->
+		<uiIndex>43</uiIndex>
+		<NickName>Vinny</NickName>
+		<Name>Vincenzo "Vinny" Massimo</Name>
+		<Bio>虽说Vinny在AIM中的履历干净得像张白纸，他的私生活也找不到一点瑕疵，不过这个聪明反被聪明误的哥们自从涉嫌诈骗和逃税被联邦法院传召以后，AIM就摘了他的牌。在垄断老虎机销售、给赛马注射杜冷丁和为奥运水球队拉皮条等多起恶行被检举出之后，我们再也不会见到他了。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Bob -->
+		<uiIndex>44</uiIndex>
+		<NickName>Bob</NickName>
+		<Name>Captain Bob Adams</Name>
+		<Bio>尽管身为一名肉搏专家，但原飞行员Bob Adams从未磨灭他对飞行的热忱。因此，当Adams上尉在约一年前辞职时加入美国一家航空公司时，我们并未感到吃惊。可悲的是，今年七月，在一条区域短单程航线上，他在强气流中失去了对飞机的控制，最终在凤凰城郊外坠机身亡。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Hamous -->
+		<uiIndex>45</uiIndex>
+		<NickName>Hamous</NickName>
+		<Name>Hamous</Name>
+		<Bio>Hamous在Metavira进行了他的处子战。根据一名主顾Jack Richards不遗余力的推荐， 我们给了他试用机会，而眼下试用期将满。遗憾的是，可怜的Hamous还是没能攒够钱去买下那辆他钟爱的小货车。因此他做了力所能及的事——在巴黎城外偷了一辆。实际上，那不过是一辆出售冰激凌的卡车，而他也开着车消失在前往伊斯坦布尔的路上。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Mouse -->
+		<uiIndex>46</uiIndex>
+		<NickName>Mouse</NickName>
+		<Name>Anita "Mouse" Backman</Name>
+		<Bio>Anita仅在组织默默无名地干了不长时间。凭着自己行踪无痕的独特手段，Mouse和Margaret "Stella" Trammel医生在同一时间递交了辞呈。我们认为，她们一起去了维尔京群岛，Backman就在Trammel新开设的诊所担任护士和接待员。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Postie -->
+		<uiIndex>47</uiIndex>
+		<NickName>Postie</NickName>
+		<Name>Jack "Postie" Durham</Name>
+		<Bio>Postie有幸享有AIM最后悔拉进队伍的佣兵这一殊荣。我们这么说，是因为有群众对联邦邮递部门敢怒不敢言的态度替我们作证：自从Postie带着他的全额欠薪被我们退回邮局以后，他就负责客服；也就是从那时起，敢于投诉的人大大减少了。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Leon -->
+		<uiIndex>48</uiIndex>
+		<NickName>Leon</NickName>
+		<Name>Col. Leon Roachburn</Name>
+		<Bio> Leon Roachburn上校，一个在当今绝没机会成家的人，却是一名负责的士兵和导师。去年圣诞夜，他葬身于连房车一起吞没的大火之中。值得一提的是，他留下了一处价值超过百万美元的房产。不那么值得一提的是，他的孩子一个子儿都没分到；相反，Pamela Sue Anderson是遗产的唯一受益人。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Dyno -->
+		<uiIndex>49</uiIndex>
+		<NickName>Dyno</NickName>
+		<Name>Roger "Dyno" Wittman</Name>
+		<Bio>Roger尽过力，连吃奶的劲都用上了，但是他似乎就是缺少天分。可以理解，维护枪械时，总有些人愿意带着他，拿他取乐。不过最终，他意识到自己不适合这一行。我们最后听说他成为了绿河马剧团Animals on Ice剧目的一名候补演员。</Bio>
+	</MERC>
+	<MERC>
+		<!-- Spam -->
+		<uiIndex>50</uiIndex>
+		<NickName>Spam</NickName>
+		<Name>Alan "Spam" Webster</Name>
+		<Bio>Alan Webster在组织内逗留的时间很短，而且乏善可陈。他多年的维和工作似乎泯灭了他的攻击本能，因此也危及到其所在小队的安全。在Maupaa那起导致Johnny "Snake" Edwards丧生的事件过后，AIM再也不能忽视他的不作为。Spam被送上了军事法庭，于1998年3月极不光彩地被开除出我们的行列。</Bio>
+	</MERC>
+</OLD_MERC>

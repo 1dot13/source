@@ -1,0 +1,84 @@
+﻿<STRUCTURESLIST>
+	<STRUCTURE><!-- sandbag -->
+		<usDeconstructItem>1543</usDeconstructItem>
+		<usItemToCreate>1540</usItemToCreate>
+		<usCreatedItemStatus>1</usCreatedItemStatus>
+		<szTileSetDisplayName>沙袋</szTileSetDisplayName>
+		<szTileSetName>sandbag.sti</szTileSetName>
+		<dCreationCost>2.5</dCreationCost>
+		<allowedtile>0</allowedtile>
+		<allowedtile>1</allowedtile>
+		<allowedtile>2</allowedtile>
+		<allowedtile>3</allowedtile>
+		<allowedtile>4</allowedtile>
+		<allowedtile>5</allowedtile>
+		<allowedtile>6</allowedtile>
+		<allowedtile>7</allowedtile>
+		<allowedtile>8</allowedtile>
+		<allowedtile>9</allowedtile>
+	</STRUCTURE>
+	<STRUCTURE><!--concertina wire-->
+		<usDeconstructItem>243</usDeconstructItem>
+		<usItemToCreate>1542</usItemToCreate>
+		<usCreatedItemStatus>1</usCreatedItemStatus>
+		<szTileSetDisplayName>铁丝网</szTileSetDisplayName>
+		<szTileSetName>spot_1.sti</szTileSetName>
+		<dCreationCost>5.0</dCreationCost>
+		<allowedtile>2</allowedtile>
+		<allowedtile>3</allowedtile>
+		<allowedtile>4</allowedtile>
+		<allowedtile>5</allowedtile>
+		<allowedtile>6</allowedtile>
+		<allowedtile>7</allowedtile>
+		<allowedtile>8</allowedtile>
+		<allowedtile>9</allowedtile>
+	</STRUCTURE>
+	<STRUCTURE><!-- medium debris -->
+		<usDeconstructItem>1543</usDeconstructItem>
+		<usItemToCreate>1724</usItemToCreate>
+		<usCreatedItemStatus>50</usCreatedItemStatus>
+		<szTileSetDisplayName>中型木堆</szTileSetDisplayName>
+		<szTileSetName>deb_02.sti</szTileSetName>
+		<dCreationCost>3.0</dCreationCost>
+		<allowedtile>1</allowedtile>
+		<allowedtile>2</allowedtile>
+	</STRUCTURE>
+	<STRUCTURE><!-- large debris -->
+		<usDeconstructItem>1543</usDeconstructItem>
+		<usItemToCreate>1724</usItemToCreate>
+		<usCreatedItemStatus>100</usCreatedItemStatus>
+		<szTileSetDisplayName>大型木堆</szTileSetDisplayName>
+		<szTileSetName>deb_02.sti</szTileSetName>
+		<dCreationCost>3.0</dCreationCost>
+		<allowedtile>0</allowedtile>
+		<allowedtile>3</allowedtile>
+		<allowedtile>4</allowedtile>
+		<allowedtile>5</allowedtile>
+	</STRUCTURE>
+	<STRUCTURE><!-- wooden wall -->
+		<usDeconstructItem>1543</usDeconstructItem>
+		<usItemToCreate>1725</usItemToCreate>
+		<usCreatedItemStatus>70</usCreatedItemStatus>
+		<szTileSetDisplayName>木墙</szTileSetDisplayName>
+		<szTileSetName>BUILD_06.sti</szTileSetName>
+		<dCreationCost>5.0</dCreationCost>
+		<allowedtile>3</allowedtile>
+		<allowedtile>4</allowedtile>
+		<allowedtile>5</allowedtile>
+		<allowedtile>20</allowedtile>
+		<allowedtile>21</allowedtile>
+		<allowedtile>22</allowedtile>
+		<allowedtile>61</allowedtile>
+		<allowedtile>0</allowedtile>
+		<allowedtile>1</allowedtile>
+		<allowedtile>2</allowedtile>
+		<allowedtile>12</allowedtile>
+		<allowedtile>16</allowedtile>
+		<allowedtile>17</allowedtile>
+		<allowedtile>18</allowedtile>
+		<allowedtile>19</allowedtile>
+		<allowedtile>56</allowedtile>
+		<allowedtile>62</allowedtile>
+		<allowedtile>64</allowedtile>
+	</STRUCTURE>
+</STRUCTURESLIST>

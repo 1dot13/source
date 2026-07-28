@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		uiIndex : 0 - 15
+		Name : The short name of the difficulty.
+		ConfirmText :  The description of the difficulty.	
+-->
+<DIFFICULTY_SETTINGS>
+	<DIFFICULTY>
+		<uiIndex>0</uiIndex>
+		<Name>Not Used!</Name>
+		<ConfirmText>Not Used!</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>1</uiIndex>
+		<Name>Novice</Name>
+		<ConfirmText>You have chosen NOVICE mode. This setting is appropriate for those new to Jagged Alliance, those new to strategy games in general, or those wishing shorter battles in the game. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Novice mode?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>2</uiIndex>
+		<Name>Experienced</Name>
+		<ConfirmText>You have chosen EXPERIENCED mode. This setting is suitable for those already familiar with Jagged Alliance or similar games. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Experienced mode?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>3</uiIndex>
+		<Name>Expert</Name>
+		<ConfirmText>You have chosen EXPERT mode. We warned you. Don't blame us if you get shipped back in a body bag. Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in Expert mode?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>4</uiIndex>
+		<Name>Insane</Name>
+		<ConfirmText>You have chosen INSANE mode. WARNING: Don't blame us if you get shipped back in little pieces... Deidranna WILL kick your ass.  Hard.  Your choice will affect things throughout the entire course of the game, so choose wisely. Are you sure you want to play in INSANE mode?</ConfirmText>	
+	</DIFFICULTY>
+</DIFFICULTY_SETTINGS>

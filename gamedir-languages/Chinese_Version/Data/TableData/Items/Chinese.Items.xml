@@ -1,0 +1,2779 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ITEMLIST>
+	<ITEM>
+		<uiIndex>0</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>此地无银</szLongItemName>
+		<szItemDesc>TBS汉化组是最棒的！</szItemDesc>
+		<szBRName>Nothing</szBRName>
+		<szBRDesc>TBS汉化组是最棒的！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>1</uiIndex>
+		<szItemName>Glock 17</szItemName>
+		<szLongItemName>Glock 17</szLongItemName>
+		<szItemDesc>蒙军官们的青睐，这把奥地利产半自动手枪是公认的自卫武器的标准。</szItemDesc>
+		<szBRName>Glock 17</szBRName>
+		<szBRDesc>尽管这把奥地利产手枪的部件多为塑料，但仍无法通过机场的金属探测器。这把结构简单的自动手枪仅有32个零件，被多国部队采用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>2</uiIndex>
+		<szItemName>Glock 18</szItemName>
+		<szLongItemName>Glock 18</szLongItemName>
+		<szItemDesc>格洛克17的全自动版。这把奥地利手枪是为军队特意设计的</szItemDesc>
+		<szBRName>Glock 18</szBRName>
+		<szBRDesc>诞生于奥地利，格洛克18足以被冠名为冲锋手枪。作为格洛克17的全自动版，零件却是不可交换的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>3</uiIndex>
+		<szItemName>Beretta 92F</szItemName>
+		<szLongItemName>Beretta 92F</szLongItemName>
+		<szItemDesc>这把意大利的双动手枪可以让任何射击者变身为小马哥。</szItemDesc>
+		<szBRName>Beretta 92F</szBRName>
+		<szBRDesc>美国陆军的配备，贝雷塔92F是标准的9mm帕拉贝雷姆手枪，改造了扳机护圈以允许双手持枪。这是一把非常实用的武器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>4</uiIndex>
+		<szItemName>Beretta 93R</szItemName>
+		<szLongItemName>Beretta 93R</szLongItemName>
+		<szItemDesc>这把全自动手枪是92F精悍的表亲，也是你近距离作战时的益友。</szItemDesc>
+		<szBRName>Beretta 93R</szBRName>
+		<szBRDesc>求之不得的手枪！被定义为冲锋手枪，前有折叠式握把，后有伸缩式枪托，还有三发点射功能。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>5</uiIndex>
+		<szItemName>.38 Special</szItemName>
+		<szLongItemName>.38 Special</szLongItemName>
+		<szItemDesc>这把久“警”考验的美制手枪是世界上最常见的警用左轮。</szItemDesc>
+		<szBRName>.38 Special</szBRName>
+		<szBRDesc>标准的史密斯＆威森军用/警用双动扳机左轮，攻防均能胜任。但当主弹簧老化时，撞针会出现力度不足的现象。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>6</uiIndex>
+		<szItemName>Barracuda</szItemName>
+		<szLongItemName>Barracuda</szLongItemName>
+		<szItemDesc>”肮脏的哈里“的小弟的爱枪。这把比利时左轮手枪已被许多美国警察所选用。</szItemDesc>
+		<szBRName>Barracuda</szBRName>
+		<szBRDesc>比利时的.357马格努姆左轮是进攻和防御时追求威力的选择。诸多测试表明该枪比寻常手枪还容易控制。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>7</uiIndex>
+		<szItemName>Desert Eagle .357</szItemName>
+		<szLongItemName>Desert Eagle .357</szLongItemName>
+		<szItemDesc>这把前以色列手枪就象手持的核弹一样隐蔽。目前已由美国生产。</szItemDesc>
+		<szBRName>Desert Eagle .357</szBRName>
+		<szBRDesc>这把威力强劲的导气式单动手枪原由以色列生产，现在是百分百美国制造。回转式枪机，保险支持左右手操作，全钢构造，可选铬金或镀镍。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>8</uiIndex>
+		<szItemName>M1911A1</szItemName>
+		<szLongItemName>Colt M1911A1</szLongItemName>
+		<szItemDesc>上帝创造了人类，而这把手枪在上个世纪拯救了不少人类。</szItemDesc>
+		<szBRName>Colt M1911A1</szBRName>
+		<szBRDesc>这把美国制造的经典自动手枪是历史上最成功的几把战斗手枪之一。它可以造成更宽的伤口，导致严重的神经损伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>9</uiIndex>
+		<szItemName>MP5KA4</szItemName>
+		<szLongItemName>HK MP5KA4</szLongItemName>
+		<szItemDesc>这把德制冲锋枪是虎胆龙威式的恐怖份子和南美的小毒枭必备武器。</szItemDesc>
+		<szBRName>HK MP5KA4</szBRName>
+		<szBRDesc>Hecker＆Koch的MP5K是最短小精悍的几把德制冲锋枪之一，因此备受反恐和贩毒组织的青睐。藏在衣服下简直轻而易举。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>10</uiIndex>
+		<szItemName>MAC-10</szItemName>
+		<szLongItemName>Ingram M10</szLongItemName>
+		<szItemDesc>美国的乌兹。诞生于迪斯科流行的年代，这把枪在西半球很受欢迎。</szItemDesc>
+		<szBRName>Ingram M10</szBRName>
+		<szBRDesc>美国Military Armament Corp(军用武器装备公司)Model-10:真正爷们用的冲锋枪。其稳定程度允许单手持枪射击，带有螺纹的枪管可以安装消音器同时不影响子弹初速。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>11</uiIndex>
+		<szItemName>Thompson M1A1</szItemName>
+		<szLongItemName>Thompson M1A1</szLongItemName>
+		<szItemDesc>作为汤米机枪的接班人，这把武器在芝加哥的街头和诺曼底的海滩上都受欢迎。</szItemDesc>
+		<szBRName>Thompson M1A1</szBRName>
+		<szBRDesc>尽管比多数冲锋枪都重，“汤米冲锋枪”仍受特种兵和游骑兵的喜爱。自60年代停产以来在民间仍然普及，也确确实实的经过了时间的考验。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>12</uiIndex>
+		<szItemName>Commando</szItemName>
+		<szLongItemName>Colt M4 Commando</szLongItemName>
+		<szItemDesc>M16的迷你版步枪，用来解决吵闹的邻居和小独裁者效果显著。</szItemDesc>
+		<szBRName>Colt M4 Commando</szBRName>
+		<szBRDesc>基于M16的设计，小巧而致命的Colt 733突击版以短小和隐蔽而引人注目，深受美军欢迎。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>13</uiIndex>
+		<szItemName>HK 53A3</szItemName>
+		<szLongItemName>HK 53A3</szLongItemName>
+		<szItemDesc>仅比MP5长两英寸，短小精悍的HK53提供5.56mm的强大火力。</szItemDesc>
+		<szBRName>HK 53A3</szBRName>
+		<szBRDesc>仅比MP5长两英寸，短小精悍的HK53提供5.56mm的强大火力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>14</uiIndex>
+		<szItemName>AKS-74U</szItemName>
+		<szLongItemName>AKS-74U</szLongItemName>
+		<szItemDesc>俄国特种部队中常见的武器，这把冲锋枪的枪炎烧过不少眉毛。</szItemDesc>
+		<szBRName>AKS-74U</szBRName>
+		<szBRDesc>来自俄罗斯，这把冲锋枪是AK-74的缩短版。这把利器的枪口装有枪口制退器以便用短枪管发射苏联5.45mm步枪弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>15</uiIndex>
+		<szItemName>P90</szItemName>
+		<szLongItemName>FN P90</szLongItemName>
+		<szItemDesc>这把来自比利时的武器是世界最先进的几把冲锋枪之一，许多特种部队都对它垂涎。</szItemDesc>
+		<szBRName>FN P90</szBRName>
+		<szBRDesc>凯夫拉在它面前就是黄油。后坐式的FN P90的弹道性能强劲，枪栓和开放式准星完全支持左右手操作，还附带反射镜。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>16</uiIndex>
+		<szItemName>Type 85</szItemName>
+		<szLongItemName>85式</szLongItemName>
+		<szItemDesc>廉价，简单，耐久，是这把大批生产的中国军用武器的口号。</szItemDesc>
+		<szBRName>Type 85</szBRName>
+		<szBRDesc>中国设计的85式冲锋枪是一把简单的武器，采用自由后坐式枪机。它的重量出奇的轻。武器制造商声称该枪可发射64式亚音速弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>17</uiIndex>
+		<szItemName>SKS</szItemName>
+		<szLongItemName>SKS</szLongItemName>
+		<szItemDesc>这把极为普及的半自动卡宾枪几乎在每个共产主义国家都有战绩。</szItemDesc>
+		<szBRName>SKS</szBRName>
+		<szBRDesc>西蒙诺夫SKS半自动步枪构造简单，容易操作。二战期间研制，战后分配给各华约成员国。唯一的不足是按这口径的标准，枪有些过重了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>18</uiIndex>
+		<szItemName>SVD</szItemName>
+		<szLongItemName>Dragunov SVD</szLongItemName>
+		<szItemDesc>用俄军的方式跟远处的目标打招呼，这支步枪射入敌军军官心中的可不只是恐惧而已。</szItemDesc>
+		<szBRName>Dragunov SVD</szBRName>
+		<szBRDesc>这把来自俄国的狙击步枪出名的精确。这把步枪的标准配备是PSO-1瞄准镜和增强影像的NSPU-3夜视镜。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>19</uiIndex>
+		<szItemName>M24</szItemName>
+		<szLongItemName>M24</szLongItemName>
+		<szItemDesc>让M24来运送你的7.62mm包裹，两秒内送到一英里远，保准送到。</szItemDesc>
+		<szBRName>M24</szBRName>
+		<szBRDesc>雷明顿M24是美国陆军的标准狙击步枪。这把手拉枪击式的步枪的枪托采用合成材料，铝制座床块和可调整的抵肩板。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>20</uiIndex>
+		<szItemName>AUG-A2</szItemName>
+		<szLongItemName>Steyr AUG-A2</szLongItemName>
+		<szItemDesc>美国枪控协会说客口中的“邪恶突击步枪”的典范，正是这把外观前卫的奥地利陆军标准步枪。</szItemDesc>
+		<szBRName>Steyr AUG-A2</szBRName>
+		<szBRDesc>这把奥地利的自动步枪有十分新颖的模组设计和可换的零件。这把枪是启用塑料作为步枪零件的先驱。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>21</uiIndex>
+		<szItemName>G41A2</szItemName>
+		<szLongItemName>HK G41A2</szLongItemName>
+		<szItemDesc>比通宵猛灌德国黑啤后的宿醉还猛，G41最能让敌人头疼。</szItemDesc>
+		<szBRName>HK G41A2</szBRName>
+		<szBRDesc>按照北约标准制造，这把突击步枪是德国工艺的结晶。带有抛弹口防尘罩和空仓挂机装置，方便装卸弹药。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>22</uiIndex>
+		<szItemName>Mini-14</szItemName>
+		<szLongItemName>Ruger Mini-14</szLongItemName>
+		<szItemDesc>传奇M14的小口径近亲，黑帮、农场主、生存狂的最爱，鲁格迷你14。</szItemDesc>
+		<szBRName>Ruger Mini-14</szBRName>
+		<szBRDesc>M14的小口径近亲，鲁格迷你14，万能的步枪和猎枪，容易使用，后坐力小，拿去装备你们的民兵吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>23</uiIndex>
+		<szItemName>C7A2</szItemName>
+		<szLongItemName>Diemaco C7A2</szLongItemName>
+		<szItemDesc>美国佬能造，我们也能造！而且更好！加拿大迪玛科公司的C7A2是枫叶国的M16A2，让每个佣兵的梦想成真。</szItemDesc>
+		<szBRName>Diemaco C7A2</szBRName>
+		<szBRDesc>加拿大版的M16A2，他们傻傻地以为自己发明了抛壳挡板，与老美版不同的是能够全自动射击。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>24</uiIndex>
+		<szItemName>FAMAS</szItemName>
+		<szLongItemName>FAMAS G2</szLongItemName>
+		<szItemDesc>这把绰号法兰西小短号的无托步枪一直以来是第五共和步兵力量的骄傲。坚固，准确，自带脚架。</szItemDesc>
+		<szBRName>FAMAS G2</szBRName>
+		<szBRDesc>FAMAS G2是早期为数不多的成功在军队服役的无托步枪之一，非常准确，自带用来辅助射击的两脚架。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>25</uiIndex>
+		<szItemName>AK-74</szItemName>
+		<szLongItemName>AK-74</szLongItemName>
+		<szItemDesc>卡拉什尼科夫再次的辉煌，俄国步兵的亲密战友，AK47和AKM的后继者，别小看AK74突击步枪。她毒辣的子弹和微小的连发后坐力会让任何对手闻之色变。</szItemDesc>
+		<szBRName>AK-74</szBRName>
+		<szBRDesc>命中注定要传承AK家族的伟大使命，AK74是俄国在70年代对西方步枪小口径化的回应，经受了阿富汗和车臣战争的实战考验。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>26</uiIndex>
+		<szItemName>AKM</szItemName>
+		<szLongItemName>AKM</szLongItemName>
+		<szItemDesc>AK47的改进型，成本减少，重量更轻，比AK47还要可靠，现在俄特种部队仍然有少量使用。</szItemDesc>
+		<szBRName>AKM</szBRName>
+		<szBRDesc>你在街上看见很多AK吧？那些其实不是AK47而是AKM哦，我们这里有俄国伊热夫斯克原厂全新AKM特价发售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>27</uiIndex>
+		<szItemName>M14</szItemName>
+		<szLongItemName>M14</szLongItemName>
+		<szItemDesc>M14在美国人心目中就像苹果派和独立日那么神圣，而且是电视剧通天奇兵的胜利吉祥物。</szItemDesc>
+		<szBRName>M14</szBRName>
+		<szBRDesc>真正的美国步枪，二战时M1加兰德步枪的女儿，在越南战争时表现不好惨遭下课。但众望所归下她在21世纪又披甲上阵告诉你什么是精准和威力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>28</uiIndex>
+		<szItemName>FN FAL</szItemName>
+		<szLongItemName>FN FAL</szLongItemName>
+		<szItemDesc>像AK47一样称为伟大的战士，FNFAL在二十世纪里为西方在全世界的战争泥泞中奋斗，她的力量和可靠当之无愧。</szItemDesc>
+		<szBRName>FN FAL</szBRName>
+		<szBRDesc>自由世界的右手，最伟大的战争之犬，这位二十世纪最传奇的雇佣兵的经历，由你亲身体会。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>29</uiIndex>
+		<szItemName>G3A3</szItemName>
+		<szLongItemName>HK G3A3</szLongItemName>
+		<szItemDesc>黑克勒和科赫（H＆K）的开山之作，G3A3战斗步枪是复杂二字在德国武器里的最好展示。</szItemDesc>
+		<szBRName>HK G3A3</szBRName>
+		<szBRDesc>复杂二字在德语里估计和可靠同义，G3A3步枪就是当中的佼佼者，威力强大，准确耐用，物有所值。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>30</uiIndex>
+		<szItemName>G11</szItemName>
+		<szLongItemName>HK G11</szLongItemName>
+		<szItemDesc>突击步枪里的保时捷，一个时代的传奇，连发的无壳弹侵彻防弹衣就好象热刀切奶油。</szItemDesc>
+		<szBRName>HK G11</szBRName>
+		<szBRDesc>轻兵器技术的极致，无壳弹突击步枪，我们花了很长时间才从特殊渠道取得这一武器，想试试科幻一下吗？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>31</uiIndex>
+		<szItemName>M870</szItemName>
+		<szLongItemName>Remington M870</szLongItemName>
+		<szItemDesc>市面上能买到的最好的手动霰弹枪，打猎、护家、开锁样样全能。</szItemDesc>
+		<szBRName>Remington M870</szBRName>
+		<szBRDesc>市面上能买到的最好的12号口径手动霰弹枪，出枪迅速，动作流畅，广受执法机关喜爱。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>32</uiIndex>
+		<szItemName>SPAS-15</szItemName>
+		<szLongItemName>SPAS-15</szLongItemName>
+		<szItemDesc>这种造型邪恶的意大利自动霰弹枪如今已经被多个国家禁止入境。</szItemDesc>
+		<szBRName>SPAS-15</szBRName>
+		<szBRDesc>这种意大利制霰弹枪可以由用家选择手动还是自动。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>33</uiIndex>
+		<szItemName>CAWS</szItemName>
+		<szLongItemName>HK CAWS</szLongItemName>
+		<szItemDesc>黑克勒和科赫实验型近战突击武器（CAWS），基本上就是一把发射特殊霰弹的自动猎枪。</szItemDesc>
+		<szBRName>HK CAWS</szBRName>
+		<szBRDesc>虽然计划被取消，但我们BR还是华丽地拿到了一小批CAWS做测试，你肯定喜爱她吧？快来试试全自动霰弹的威力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>34</uiIndex>
+		<szItemName>Minimi</szItemName>
+		<szLongItemName>FN Minimi</szLongItemName>
+		<szItemDesc>或者叫C9，或者叫M249，或者叫SAW，无论如何这是一挺放大的有很多子弹的突击步枪。</szItemDesc>
+		<szBRName>FN Minimi</szBRName>
+		<szBRDesc>在美军中称作M249班组自动武器，意思是说有一挺放大的有很多子弹的突击步枪在那里任你怎么扫射。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>35</uiIndex>
+		<szItemName>RPK-74</szItemName>
+		<szLongItemName>RPK-74</szLongItemName>
+		<szItemDesc>基本上是一把加长加大的AK74，抱在腰间射击的感觉很威风，请注意弹匣只有45发。</szItemDesc>
+		<szBRName>RPK-74</szBRName>
+		<szBRDesc>俄罗斯版本的班组支援武器，基本上是一把加长加大的AK74，注意枪管无法更换所以请不要长时间射击。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>36</uiIndex>
+		<szItemName>HK 21E</szItemName>
+		<szLongItemName>HK 21E</szLongItemName>
+		<szItemDesc>德国制（轻？）机枪，想象一下你挺着这么一杆家伙向敌阵突击猛进的雄姿，做梦都会傻笑。</szItemDesc>
+		<szBRName>HK 21E</szBRName>
+		<szBRDesc>HK 21E是一款不赖的通用机枪，带有快换枪管，可调整的脚架。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>37</uiIndex>
+		<szItemName>Knife</szItemName>
+		<szLongItemName>格斗刀</szLongItemName>
+		<szItemDesc>有了这把鲍恩式刀身的猎刀，你会觉得自己也变成了无声无息的近战杀手。</szItemDesc>
+		<szBRName>Combat Knife</szBRName>
+		<szBRDesc>有了这把鲍恩式刀身的猎刀，你会觉得自己也变成了无声无息的近战杀手。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>38</uiIndex>
+		<szItemName>Throw. Knife</szItemName>
+		<szLongItemName>飞刀</szLongItemName>
+		<szItemDesc>大李飞刀，每一把都经过激光研磨，风洞测试，保证锋利无比飞行顺畅，你野行宿营的好搭档。</szItemDesc>
+		<szBRName>Throwing Knife</szBRName>
+		<szBRDesc>大李飞刀，想要安静而帅气地干掉你的对手，这是你明智的选择。每一把都经过激光研磨，风洞测试，保证锋利无比飞行顺畅。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>39</uiIndex>
+		<szItemName>Rock</szItemName>
+		<szLongItemName>石头一块</szLongItemName>
+		<szItemDesc>这是一块石头哦，充满矿物质和其他营养。</szItemDesc>
+		<szBRName>A Rock</szBRName>
+		<szBRDesc>貌似BR不卖这个呢。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>40</uiIndex>
+		<szItemName>M79</szItemName>
+		<szLongItemName>M79枪榴弹发射器</szLongItemName>
+		<szItemDesc>穿墙、爆破、挖坑这些都少不了M79枪榴弹发射器，打开装弹、瞄准、发射，就是那么容易。</szItemDesc>
+		<szBRName>M79 Grenade Launcher</szBRName>
+		<szBRDesc>穿墙、爆破、挖坑这些都少不了在越南和魔鬼终结者2大显身手的M79枪榴弹发射器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>41</uiIndex>
+		<szItemName>Mortar</szItemName>
+		<szLongItemName>M224迫击炮</szLongItemName>
+		<szItemDesc>M224迫击炮由M225炮管、M170两脚架、M7底座以及M64A1瞄准系统组成，替代老旧的M19，属于步兵排级支援武器。</szItemDesc>
+		<szBRName>M224 Mortar</szBRName>
+		<szBRDesc>M224迫击炮由M225炮管、M170两脚架、M7底座以及M64A1瞄准系统组成，替代老旧的M19，总而言之这是大杀器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>42</uiIndex>
+		<szItemName>Rock</szItemName>
+		<szLongItemName>又是一块石头</szLongItemName>
+		<szItemDesc>又是一块石头，没什么好研究的，赶快回家玩小鸡鸡去吧。</szItemDesc>
+		<szBRName>Another Rock</szBRName>
+		<szBRDesc>貌似BR不卖这个呢。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>43</uiIndex>
+		<szItemName>YM Claws</szItemName>
+		<szLongItemName>年青公异型爪子</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Young Male Claws</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>44</uiIndex>
+		<szItemName>AM Claws</szItemName>
+		<szLongItemName>成年公异型爪子</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Adult Male Claws</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>45</uiIndex>
+		<szItemName>YF Claws</szItemName>
+		<szLongItemName>年青母异型爪子</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Young Female Claws</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>46</uiIndex>
+		<szItemName>AF Claws</szItemName>
+		<szLongItemName>成年母异型爪子</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Adult Female Creature Claws</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>47</uiIndex>
+		<szItemName>Queen Tentacle</szItemName>
+		<szLongItemName>异型母后触手</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Queen Tentacle</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>48</uiIndex>
+		<szItemName>Queen Spit</szItemName>
+		<szLongItemName>异型母后口水</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Queen Creature Spit</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>49</uiIndex>
+		<szItemName>Dusters</szItemName>
+		<szLongItemName>铜指虎</szLongItemName>
+		<szItemDesc>铜指虎是古老的街头近身武器，套在拳头上可以大大增强你的打击力量，骨碎筋麻。</szItemDesc>
+		<szBRName>Knuckle Dusters</szBRName>
+		<szBRDesc>如果你想一拳干倒别人，试试这个铜指虎吧，套在拳头上可以大大增强你的打击力量。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>50</uiIndex>
+		<szItemName>Talon</szItemName>
+		<szLongItemName>鹰爪榴弹发射器</szLongItemName>
+		<szItemDesc>鹰爪榴弹发射器是美制榴弹发射器的一种，就像M203一样可以安装在许多突击步枪上。</szItemDesc>
+		<szBRName>Talon Grenade Launcher</szBRName>
+		<szBRDesc>鹰爪榴弹发射器是美制榴弹发射器的一种，就像M203一样可以安装在许多突击步枪上。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>51</uiIndex>
+		<szItemName>LAW</szItemName>
+		<szLongItemName>M72A4轻型反坦克</szLongItemName>
+		<szItemDesc>M72A4轻型反坦克武器（LAW）是动作电影里的惯常大杀器，现实里士兵的反坦克好伴侣，拉开、瞄准、发射，一次性使用。</szItemDesc>
+		<szBRName>M72A4 LAW</szBRName>
+		<szBRDesc>M72A4轻型反坦克武器（LAW）是一次性发射的火箭筒，轻巧方便不占地方，她可以帮你搞定市面上绝大部分坦克。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>52</uiIndex>
+		<szItemName>Bloodcat Claws</szItemName>
+		<szLongItemName>血猫爪</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Bloodcat Claws</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>53</uiIndex>
+		<szItemName>Bloodcat Bite</szItemName>
+		<szLongItemName>血猫咬</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Bloodcat Bite</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>54</uiIndex>
+		<szItemName>Machete</szItemName>
+		<szLongItemName>丛林砍刀</szLongItemName>
+		<szItemDesc>我砍、我劈、我斩、我切。。。无论你选择在人堆还是树丛，丛林砍刀都能帮你开出一条道路。</szItemDesc>
+		<szBRName>Machete</szBRName>
+		<szBRDesc>我砍、我劈、我斩、我切。。。无论你选择在人堆还是树丛，丛林砍刀都能帮你开出一条道路。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>55</uiIndex>
+		<szItemName>Rocket Rifle</szItemName>
+		<szLongItemName>火箭枪</szLongItemName>
+		<szItemDesc>发射火箭的枪？啊！多么科幻的技术啊，多么强大的杀器啊。</szItemDesc>
+		<szBRName>Rocket Rifle</szBRName>
+		<szBRDesc>发射火箭的枪，内建指纹辨认系统和激光瞄准器。多么先进的科技。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>56</uiIndex>
+		<szItemName>Automag III</szItemName>
+		<szLongItemName>Automag III定制版</szLongItemName>
+		<szItemDesc>这把自动马格III经过改膛可以发射凶猛的.50贝奥武夫子弹，枪身两侧刻有“巨炮”的字样。</szItemDesc>
+		<szBRName>Automag III Custom</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>57</uiIndex>
+		<szItemName>Infant Spit</szItemName>
+		<szLongItemName>幼虫口水</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Infant Spit</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>58</uiIndex>
+		<szItemName>Young Male Spit</szItemName>
+		<szLongItemName>年青公异型口水</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Young Male Spit</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>59</uiIndex>
+		<szItemName>Old Male Spit</szItemName>
+		<szLongItemName>老公异型口水</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Old Male Spit</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>60</uiIndex>
+		<szItemName>Cannon</szItemName>
+		<szLongItemName>坦克炮</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Tank Cannon</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>61</uiIndex>
+		<szItemName>Dart Gun</szItemName>
+		<szLongItemName>麻醉枪</szLongItemName>
+		<szItemDesc>麻醉枪配合麻醉飞镖使用，无声无痛无人丧命解决日常生活难题。</szItemDesc>
+		<szBRName>Dart Gun</szBRName>
+		<szBRDesc>麻醉枪配合麻醉飞镖使用，无声无痛无人丧命解决日常生活难题。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>62</uiIndex>
+		<szItemName>Bloody Knife</szItemName>
+		<szLongItemName>血染的飞刀</szLongItemName>
+		<szItemDesc>血染的飞刀，谢谢你使用完我们的产品，请问你是否满意？</szItemDesc>
+		<szBRName>Bloody Throwing Knife</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>63</uiIndex>
+		<szItemName>Flamethrower</szItemName>
+		<szLongItemName>喷火器</szLongItemName>
+		<szItemDesc>对不起，我们居然不知道有这样一种大杀器存在游戏里。</szItemDesc>
+		<szBRName>Flamethrower</szBRName>
+		<szBRDesc>貌似BR不卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>64</uiIndex>
+		<szItemName>Crowbar</szItemName>
+		<szLongItemName>撬棍</szLongItemName>
+		<szItemDesc>戈登佛里曼在半条命里的经典武器，可以翘可以敲打，随你玩。</szItemDesc>
+		<szBRName>Crowbar</szBRName>
+		<szBRDesc>哈！戈登佛里曼，你那半条命找回来了吗？这里有你的神器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>65</uiIndex>
+		<szItemName>A. R. Rifle</szItemName>
+		<szLongItemName>连发火箭枪</szLongItemName>
+		<szItemDesc>我靠，很强大很科幻。全自动发射火箭的枪？</szItemDesc>
+		<szBRName>Auto Rocket Rifle</szBRName>
+		<szBRDesc>我靠，很强大很科幻。居然有全自动发射火箭的枪？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>66</uiIndex>
+		<szItemName>Hartford 6</szItemName>
+		<szLongItemName>Modified EMF Hartford 6 Shooter</szLongItemName>
+		<szItemDesc>由Tex Colburn本人亲自修改过的.357口径六响左轮手枪，10英寸枪管加上象牙握柄，上面还雕了个“Tex”的14K金字。</szItemDesc>
+		<szBRName>Modified EMF Hartford 6 Shooter</szBRName>
+		<szBRDesc>由Tex Colburn本人亲自修改过的.357口径六响左轮手枪，10英寸枪管加上象牙握柄，上面还雕了个“Tex”的14K金字。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>67</uiIndex>
+		<szItemName>M-950</szItemName>
+		<szLongItemName>Calico M-950</szLongItemName>
+		<szItemDesc>卡利科M960的手枪版，使用同样的50发弹筒，在美国它也许只能分类为手枪吧。</szItemDesc>
+		<szBRName>Calico M-950</szBRName>
+		<szBRDesc>卡利科M960的手枪版，使用同样的50发弹筒，在美国它也许只能分类为手枪吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>68</uiIndex>
+		<szItemName>M-900</szItemName>
+		<szLongItemName>Calico M-900</szLongItemName>
+		<szItemDesc>卡利科M960的又一化身，有着奇长的枪管，同样的50发弹筒，还有遗憾的半自动。</szItemDesc>
+		<szBRName>Calico M-900</szBRName>
+		<szBRDesc>卡利科M960的又一化身，有着奇长的枪管，同样的50发弹筒，还有遗憾的半自动。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>69</uiIndex>
+		<szItemName>M-960A</szItemName>
+		<szLongItemName>Calico M-960A</szLongItemName>
+		<szItemDesc>拥有迷你冲锋枪的称号，这把造型奇特的枪使用弹筒供弹，可以装填50发9mm子弹。</szItemDesc>
+		<szBRName>Calico M-960A</szBRName>
+		<szBRDesc>拥有迷你冲锋枪的称号，这把造型奇特的枪使用弹筒供弹，可以装填50发9mm子弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>70</uiIndex>
+		<szItemName>Nada</szItemName>
+		<szLongItemName>出错</szLongItemName>
+		<szItemDesc>当你看见这个条讯息的时候，报告到论坛来吧。</szItemDesc>
+		<szBRName>Using this slot will cause the game to crash.</szBRName>
+		<szBRDesc>当你看见这个条讯息的时候，报告到论坛来吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>71</uiIndex>
+		<szItemName>9x19mm Mag 15</szItemName>
+		<szLongItemName>9x19mm，15发普通弹</szLongItemName>
+		<szItemDesc>9x19mm派拉贝鲁姆手枪弹虽有威力不足的困扰，但是由于温和的后座和良好的弹道一直是军警手枪弹的首选。</szItemDesc>
+		<szBRName>9x19mm，15发普通弹</szBRName>
+		<szBRDesc>这里面的15发高质量9x19mm手枪弹是你个人防卫的经济选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>72</uiIndex>
+		<szItemName>9x19mm SMG Mag</szItemName>
+		<szLongItemName>9x19mm，30发普通弹</szLongItemName>
+		<szItemDesc>冲锋枪弹匣，30发全金属被甲普通弹，使你的枪管不会像使用空尖弹那样很快铺上一层铅。</szItemDesc>
+		<szBRName>9x19mm，30发普通弹</szBRName>
+		<szBRDesc>这里面的30发高质量9x19mm手枪弹是每个佣兵的购买时尚。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>73</uiIndex>
+		<szItemName>9x19mm Mag 15 AP</szItemName>
+		<szLongItemName>9x19mm，15发穿甲弹</szLongItemName>
+		<szItemDesc>9x19mm穿甲弹的特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szItemDesc>
+		<szBRName>9x19mm，15发穿甲弹</szBRName>
+		<szBRDesc>他们有凯夫拉？你有穿甲弹！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>74</uiIndex>
+		<szItemName>9x19mm SMG Mag AP</szItemName>
+		<szLongItemName>9x19mm，30发穿甲弹</szLongItemName>
+		<szItemDesc>冲锋枪弹匣，装填30发钢芯穿甲弹。</szItemDesc>
+		<szBRName>9x19mm，30发穿甲弹</szBRName>
+		<szBRDesc>这些穿甲子弹保证会让那些擅闯民宅的条子抱憾终生。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>75</uiIndex>
+		<szItemName>9x19mm Mag 15 HP</szItemName>
+		<szLongItemName>9x19mm，15发空尖弹</szLongItemName>
+		<szItemDesc>15发联邦牌135格令空尖弹，穿甲能力差，但足可以让对方血肉模糊。</szItemDesc>
+		<szBRName>9x19mm，15发空尖弹</szBRName>
+		<szBRDesc>联邦牌135格令高品质空尖弹，迅速放到任何胆敢侵犯您的对手，只要他们没穿防弹衣。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>76</uiIndex>
+		<szItemName>9x19mm SMG Mag HP</szItemName>
+		<szLongItemName>9x19mm，30发空尖弹</szLongItemName>
+		<szItemDesc>30发联邦牌135格令空尖弹，综合了普通弹的穿透力和空尖弹的伤害。</szItemDesc>
+		<szBRName>9x19mm，30发空尖弹</szBRName>
+		<szBRDesc>30发联邦牌135格令空尖弹，综合了普通弹的穿透力和空尖弹的伤害，拿来喂你的MP5再好不过了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>77</uiIndex>
+		<szItemName>.38 S-Load</szItemName>
+		<szLongItemName>.38，6发普通弹</szLongItemName>
+		<szItemDesc>.38左轮手枪快速上弹器，6发，综合了普通弹的穿透力和空尖弹的伤害。</szItemDesc>
+		<szBRName>.38，6发普通弹</szBRName>
+		<szBRDesc>158格令温彻斯特标准.38左轮手枪弹，传统的警用枪弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>78</uiIndex>
+		<szItemName>.38 S-Load AP</szItemName>
+		<szLongItemName>.38，6发穿甲弹</szLongItemName>
+		<szItemDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szItemDesc>
+		<szBRName>.38，6发穿甲弹</szBRName>
+		<szBRDesc>.38特制加硬弹头能穿透一般轻型防弹衣，杀伤力稍逊于空尖弹和普通弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>79</uiIndex>
+		<szItemName>.38 S-Load HP</szItemName>
+		<szLongItemName>.38，6发空尖弹</szLongItemName>
+		<szItemDesc>虽然对付不了防弹衣，但足可以在对方身上开好几个血洞。</szItemDesc>
+		<szBRName>.38，6发空尖弹</szBRName>
+		<szBRDesc>虽然对付不了防弹衣，但足可以在对方身上开好几个血洞。注意：请不要在有聚合材料枪身的枪上长期使用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>80</uiIndex>
+		<szItemName>.45 Mag</szItemName>
+		<szLongItemName>.45，7发普通弹</szLongItemName>
+		<szItemDesc>7发.45手枪弹匣，请您的对手感受一下美国式的迷信在大口径上的执着。</szItemDesc>
+		<szBRName>.45，7发普通弹</szBRName>
+		<szBRDesc>7发.45手枪弹匣，经典的美式大口径，无论你是壮汉还是彪汉，挨中了统统都要给我倒下。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>81</uiIndex>
+		<szItemName>.45 SMG Mag</szItemName>
+		<szLongItemName>.45，30发普通弹</szLongItemName>
+		<szItemDesc>30发球型弹头.45冲锋枪弹匣，你知道你手中紧握的是令人生畏的力量。</szItemDesc>
+		<szBRName>.45，30发普通弹</szBRName>
+		<szBRDesc>枪械管制禁令前生产的大容量30发弹匣。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>82</uiIndex>
+		<szItemName>.45 Mag AP</szItemName>
+		<szLongItemName>.45，7发穿甲弹</szLongItemName>
+		<szItemDesc>.45穿甲弹可以击败大部分防弹衣，但是注意它的伤害不如其他铅弹头子弹。</szItemDesc>
+		<szBRName>.45，7发穿甲弹</szBRName>
+		<szBRDesc>.45穿甲弹可以击败大部分防弹衣，而且留下比9mm更大的伤口。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>83</uiIndex>
+		<szItemName>.45 SMG Mag AP</szItemName>
+		<szLongItemName>.45，30发穿甲弹</szLongItemName>
+		<szItemDesc>.45穿甲弹可以击败大部分防弹衣，但是注意它的伤害不如其他铅弹头子弹。</szItemDesc>
+		<szBRName>.45，30发穿甲弹</szBRName>
+		<szBRDesc>.45穿甲弹可以击败大部分防弹衣，而且留下比9mm更大的伤口。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>84</uiIndex>
+		<szItemName>.45 Mag HP</szItemName>
+		<szLongItemName>.45，7发空尖弹</szLongItemName>
+		<szItemDesc>.45空尖弹弹头在钻进皮肉里后会像蘑菇一样膨胀，造成火山爆发一样的伤口，谁也不想试试吧？</szItemDesc>
+		<szBRName>.45，7发空尖弹</szBRName>
+		<szBRDesc>如果你跟你的朋友来真的，那么这雷明顿金佩刀牌.45空尖弹会满足你的要求</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>85</uiIndex>
+		<szItemName>.45 SMG Mag HP</szItemName>
+		<szLongItemName>.45，30发空尖弹</szLongItemName>
+		<szItemDesc>30发.45空尖弹能造成巨大的组织创伤和出血。</szItemDesc>
+		<szBRName>.45，30发空尖弹</szBRName>
+		<szBRDesc>这种.45空尖弹能让你的小小冲锋枪变成杀戮机器，唯一担心的是卡壳的问题。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>86</uiIndex>
+		<szItemName>.357 S-Load</szItemName>
+		<szLongItemName>.357马格努姆，6发普通弹</szLongItemName>
+		<szItemDesc>.357马格努姆附送快速装弹器，被称作是强大的手枪弹之一，相对9mm、.45和.38而言。</szItemDesc>
+		<szBRName>.357马格努姆，6发普通弹</szBRName>
+		<szBRDesc>联邦牌.357马格努姆弹，你单手可以控制的强大子弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>87</uiIndex>
+		<szItemName>.357 Mag</szItemName>
+		<szLongItemName>.357马格努姆，9发普通弹</szLongItemName>
+		<szItemDesc>.357马格努姆，9发弹匣，专门为沙漠之鹰而设计。</szItemDesc>
+		<szBRName>.357马格努姆，9发普通弹</szBRName>
+		<szBRDesc>联邦牌.357马格努姆弹，专门为沙漠之鹰而设计，比左轮手枪还多出3发。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>88</uiIndex>
+		<szItemName>.357 S-Load AP</szItemName>
+		<szLongItemName>.357马格努姆，6发穿甲弹</szLongItemName>
+		<szItemDesc>.357马格努姆加硬弹头可以穿透许多防护，但是不太会留下惨烈的伤口。</szItemDesc>
+		<szBRName>.357马格努姆，6发穿甲弹</szBRName>
+		<szBRDesc>他们说这不可能，BR告诉你什么都可以！最新的白犀牛牌.357马格努姆穿甲弹消除你一切麻烦。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>89</uiIndex>
+		<szItemName>.357 Mag AP</szItemName>
+		<szLongItemName>.357马格努姆，9发穿甲弹</szLongItemName>
+		<szItemDesc>.357马格努姆加硬弹头可以穿透许多防护，但是不太会留下惨烈的伤口。</szItemDesc>
+		<szBRName>.357马格努姆，9发穿甲弹</szBRName>
+		<szBRDesc>他们说这不可能，BR告诉你什么都可以！最新的白犀牛牌.357马格努姆穿甲弹消除你一切麻烦。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>90</uiIndex>
+		<szItemName>.357 S-Load HP</szItemName>
+		<szLongItemName>.357马格努姆，6发空尖弹</szLongItemName>
+		<szItemDesc>空尖弹头可以在敌人身体里造成壮观的扩张再加上.357的力量，没人可以阻挡。</szItemDesc>
+		<szBRName>.357马格努姆，6发空尖弹</szBRName>
+		<szBRDesc>空尖弹头可以在敌人身体里造成壮观的扩张再加上.357的力量，没人可以阻挡。现在买我们的子弹就附送快速装弹器一个，机不可失。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>91</uiIndex>
+		<szItemName>.357 Mag HP</szItemName>
+		<szLongItemName>.357马格努姆，9发空尖弹</szLongItemName>
+		<szItemDesc>9发.357马格努姆空尖弹的威力，是在皮肉上造成浅但巨大的伤口，你有9次机会。</szItemDesc>
+		<szBRName>.357马格努姆，9发空尖弹</szBRName>
+		<szBRDesc>想在今晚的帮派斗争中立于不败之地吗？选择我们的联邦牌.357马格努姆空尖弹吧！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>92</uiIndex>
+		<szItemName>5.45x39mm Mag 30 AP</szItemName>
+		<szLongItemName>5.45x39mm，30发普通弹</szLongItemName>
+		<szItemDesc>5.45x39mm子弹是AK74枪族专用的小口径步枪弹，有一定穿甲能力，弹头巧妙地设计使其可以在人体内翻滚增加损伤。</szItemDesc>
+		<szBRName>5.45x39mm，30发普通弹</szBRName>
+		<szBRDesc>我们最热卖的货品之一！5.45x39mm子弹保证叫你的敌人永远没法爬起来诅咒你。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>93</uiIndex>
+		<szItemName>5.45x39mm Mag 30 HP</szItemName>
+		<szLongItemName>5.45x39mm，30发空尖弹</szLongItemName>
+		<szItemDesc>5.45x39mm狩猎用空尖弹结合了弹头翻滚和扩张伤害，非常致命。</szItemDesc>
+		<szBRName>5.45x39mm，30发空尖弹</szBRName>
+		<szBRDesc>想尽快拿到你的人寿保险金么？试试我们的5.45x39mm狩猎用空尖弹吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>94</uiIndex>
+		<szItemName>5.56x45mm Mag 30 AP</szItemName>
+		<szLongItemName>5.56x45mm，30发普通弹</szLongItemName>
+		<szItemDesc>M16和其他北约小口径步兵枪械的专用弹药，号称毒弹，据说高速弹头能在人体内碎裂造成无法挽回的伤害，但在现今饱受杀伤力不足的批评。</szItemDesc>
+		<szBRName>5.56x45mm，30发普通弹</szBRName>
+		<szBRDesc>30发M16专用的子弹，钢芯弹头，能够打穿现在绝大多数防弹衣。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>95</uiIndex>
+		<szItemName>5.56x45mm Mag 30 HP</szItemName>
+		<szLongItemName>5.56x45mm，30发空尖弹</szLongItemName>
+		<szItemDesc>5.56x45mm空尖弹是.223雷明顿的近亲，适合让无防护的猎物们流血倒死。</szItemDesc>
+		<szBRName>5.56x45mm，30发空尖弹</szBRName>
+		<szBRDesc>5.56x45mm空尖弹是你远距离打靶、狩猎、防贼的经济选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>96</uiIndex>
+		<szItemName>7.62x39mm Mag 10 AP</szItemName>
+		<szLongItemName>7.62x39mm，10发普通弹</szLongItemName>
+		<szItemDesc>7.62x39mm伴随着AK家族同她们的朋友和敌人们快乐地周旋了半世纪。依然稳健有力，足以击垮任何遇到的防弹衣。</szItemDesc>
+		<szBRName>7.62x39mm，10发普通弹</szBRName>
+		<szBRDesc>中国造7.62x39mm穿甲子弹，适合那些喜欢用准确的枪法打猎的人们。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>97</uiIndex>
+		<szItemName>7.62x39mm Mag 30 AP</szItemName>
+		<szLongItemName>7.62x39mm，30发普通弹</szLongItemName>
+		<szItemDesc>小口径有的问题，7.62x39mm都没有，一如既往强大的穿透和停止作用。</szItemDesc>
+		<szBRName>7.62x39mm，30发普通弹</szBRName>
+		<szBRDesc>发愁该送什么礼物给恐怖分子？就在你的眼前！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>98</uiIndex>
+		<szItemName>7.62x39mm Mag 10 HP</szItemName>
+		<szLongItemName>7.62x39mm，10发空尖弹</szLongItemName>
+		<szItemDesc>7.62x39mm狩猎用空尖弹对于防弹衣可能有问题，但动物一般都不穿衣服的是吧？</szItemDesc>
+		<szBRName>7.62x39mm，10发空尖弹</szBRName>
+		<szBRDesc>如果你觉得打死还不够，缺乏震撼的视觉效果的话，这个很适合你的口味。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>99</uiIndex>
+		<szItemName>7.62x39mm Mag 30 HP</szItemName>
+		<szLongItemName>7.62x39mm，30发空尖弹</szLongItemName>
+		<szItemDesc>在战斗中尽量找没穿防弹衣的敌人试试这种子弹，你就不会有麻烦。</szItemDesc>
+		<szBRName>7.62x39mm，30发空尖弹</szBRName>
+		<szBRDesc>想把你的敌人变成红红的肉肠？没问题，上这种子弹吧！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>100</uiIndex>
+		<szItemName>7.62x51mm Bullets 5 AP</szItemName>
+		<szLongItemName>7.62x51mm，5发普通弹</szLongItemName>
+		<szItemDesc>5发散装7.62x51mm北约步枪用普通弹，理想的狙击用弹药。</szItemDesc>
+		<szBRName>7.62x51mm，5发普通弹</szBRName>
+		<szBRDesc>7.62x51mm步枪用普通弹在穿甲和杀伤力之间的表现能令你满意。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>101</uiIndex>
+		<szItemName>7.62x51mm Mag 20 AP</szItemName>
+		<szLongItemName>7.62x51mm，20发普通弹</szLongItemName>
+		<szItemDesc>装有20发7.62x51mm北约步枪用普通弹的弹匣，长期以来被青睐远程威力的士兵在世界范围内广泛使用。</szItemDesc>
+		<szBRName>7.62x51mm，20发普通弹</szBRName>
+		<szBRDesc>7.62x51mm20发弹匣，普通弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>102</uiIndex>
+		<szItemName>7.62x51mm Bullets 5 HP</szItemName>
+		<szLongItemName>7.62x51mm，5发空尖弹</szLongItemName>
+		<szItemDesc>5发散装温彻斯特.308民用狩猎弹，空尖弹头缺乏穿甲能力，但对无防护目标可以造成极大杀伤。</szItemDesc>
+		<szBRName>7.62x51mm，5发空尖弹</szBRName>
+		<szBRDesc>温彻斯特.308民用狩猎弹5发装陈列品大减价，威力强大，一击毙命，快来买吧！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>103</uiIndex>
+		<szItemName>7.62x51mm Mag 20 HP</szItemName>
+		<szLongItemName>7.62x51mm，20发空尖弹</szLongItemName>
+		<szItemDesc>装有20发7.62x51mm温彻斯特.308民用狩猎弹的弹匣，适合无装甲防护目标。</szItemDesc>
+		<szBRName>7.62x51mm，20发空尖弹</szBRName>
+		<szBRDesc>如果你想要的是威力，那么这些温彻斯特.308民用狩猎弹足以把阻挡你的任何麻烦送上西天。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>104</uiIndex>
+		<szItemName>4.7mm Mag 45 AP</szItemName>
+		<szLongItemName>4.7x33mm，45发无壳弹</szLongItemName>
+		<szItemDesc>45发4.7x33mm无壳弹弹匣，这种弹药的弹道和杀伤和5.56mm北约弹相似，但是比它轻40％。</szItemDesc>
+		<szBRName>4.7x33mm，45发无壳弹</szBRName>
+		<szBRDesc>从一处德国的秘密仓库的箱子里挖到的，来试试传说中的4.7mm无壳弹药吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>105</uiIndex>
+		<szItemName>5.7mm Mag 50 AP</szItemName>
+		<szLongItemName>5.7x28mm，50发普通弹</szLongItemName>
+		<szItemDesc>50发5.7x28mm弹匣，不管你有没有穿防弹衣对它都不是问题。</szItemDesc>
+		<szBRName>5.7x28mm，50发普通弹</szBRName>
+		<szBRDesc>对手穿防弹衣？有了5.7x28mm子弹，哈，再见吧宝贝，审判日到了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>106</uiIndex>
+		<szItemName>5.7mm Mag 50 HP</szItemName>
+		<szLongItemName>5.7x28mm，50发空尖弹</szLongItemName>
+		<szItemDesc>50发5.7x28mm空尖弹，增强了对无防护目标的杀伤，同时保留一定的穿甲能力。</szItemDesc>
+		<szBRName>5.7x28mm，50发空尖弹</szBRName>
+		<szBRDesc>有了5.7x28mm空尖弹，你的战绩将会更加彪炳。你的对手的存活率：小或等于零。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>107</uiIndex>
+		<szItemName>12g Shells 7</szItemName>
+		<szLongItemName>12号霰弹，7发独头弹</szLongItemName>
+		<szItemDesc>7发12号独头弹，洞穿防弹衣对其而言是小菜一碟。</szItemDesc>
+		<szBRName>12号霰弹，7发独头弹</szBRName>
+		<szBRDesc>真正的男人用真正的猛弹，12号独头弹的弹丸可以像穿透手纸一样穿透防弹衣。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>108</uiIndex>
+		<szItemName>12g Shells 7 BS</szItemName>
+		<szLongItemName>12号霰弹，7发鹿弹</szLongItemName>
+		<szItemDesc>12号鹿弹是公安机关长期爱用的镇暴/执法弹药，特别适合近距离的城市作战。</szItemDesc>
+		<szBRName>12号霰弹，7发鹿弹</szBRName>
+		<szBRDesc>理想的近距离弹药，一击制敌，居家防身必不可缺。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>109</uiIndex>
+		<szItemName>CAWS Mag AP</szItemName>
+		<szLongItemName>CAWS，10发独头弹</szLongItemName>
+		<szItemDesc>CAWS弹匣装有10发子弹，每发内装钨合金弹头，可以穿透任何防弹衣或者汽车引擎。</szItemDesc>
+		<szBRName>CAWS，10发独头弹</szBRName>
+		<szBRDesc>CAWS弹匣装有10发子弹，每发内装钨合金弹头，可以穿透任何防弹衣或者汽车引擎。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>110</uiIndex>
+		<szItemName>CAWS Mag BS</szItemName>
+		<szLongItemName>CAWS，10发鹿弹</szLongItemName>
+		<szItemDesc>弹匣装有10发子弹，每发内装10粒钨合金00钢珠，可穿透防弹衣并对人体造成极大杀伤。</szItemDesc>
+		<szBRName>CAWS，10发鹿弹</szBRName>
+		<szBRDesc>弹匣装有10发子弹，每发内装10粒钨合金00钢珠，可穿透防弹衣并对人体造成极大杀伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>111</uiIndex>
+		<szItemName>Minirockets AP</szItemName>
+		<szLongItemName>迷你火箭，穿甲</szLongItemName>
+		<szItemDesc>跨时代的科技，迷你火箭可以穿透任何护甲以及让好莱坞的烟火特技师侧目。</szItemDesc>
+		<szBRName>迷你火箭，穿甲</szBRName>
+		<szBRDesc>跨时代的科技，迷你火箭可以穿透任何护甲以及让好莱坞的烟火特技师侧目。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>112</uiIndex>
+		<szItemName>Minirockets HE</szItemName>
+		<szLongItemName>迷你火箭，高爆</szLongItemName>
+		<szItemDesc>如果末日骑士带武器，那准会带这个，准备好将哈米吉多顿降临到敌人的头上了吗？</szItemDesc>
+		<szBRName>迷你火箭，高爆</szBRName>
+		<szBRDesc>如果末日骑士带武器，那准会带这个，准备好将哈米吉多顿降临到敌人的头上了吗？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>113</uiIndex>
+		<szItemName>Minirockets HEAP</szItemName>
+		<szLongItemName>迷你火箭，高爆穿甲</szLongItemName>
+		<szItemDesc>用高爆穿甲迷你火箭痛煎敌人吧，没有什么可以阻挡。</szItemDesc>
+		<szBRName>迷你火箭，高爆穿甲</szBRName>
+		<szBRDesc>用高爆穿甲迷你火箭痛煎敌人吧，没有什么可以阻挡。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>114</uiIndex>
+		<szItemName>Dart</szItemName>
+		<szLongItemName>麻醉飞标</szLongItemName>
+		<szItemDesc>通常是用来打猎，但是用在人身上也行，在知道发生什么事之前就乖乖躺下了。</szItemDesc>
+		<szBRName>麻醉飞标</szBRName>
+		<szBRDesc>通常是用来打猎，但是用在人身上也行，在知道发生什么事之前就乖乖躺下了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>115</uiIndex>
+		<szItemName>Flamethrower Clip</szItemName>
+		<szLongItemName>喷火器燃料</szLongItemName>
+		<szItemDesc>喷火器燃料</szItemDesc>
+		<szBRName>喷火器燃料</szBRName>
+		<szBRDesc>喷火器燃料</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>116</uiIndex>
+		<szItemName>.50 BMG Mag AP</szItemName>
+		<szLongItemName>.50，11发勃朗宁机枪弹</szLongItemName>
+		<szItemDesc>.50弹匣，11发（勃朗宁机枪弹），巴雷特M82A2使用。</szItemDesc>
+		<szBRName>.50，11发勃朗宁机枪弹</szBRName>
+		<szBRDesc>.50弹匣，11发（勃朗宁机枪弹），巴雷特M82A2使用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>117</uiIndex>
+		<szItemName>9x39mm Mag AP</szItemName>
+		<szLongItemName>9x39mm，20发</szLongItemName>
+		<szItemDesc>9×39mm特种亚音速步枪弹是专门为俄罗斯特种武器设计的，弹头很重，确保穿甲和杀伤力。</szItemDesc>
+		<szBRName>9x39mm，20发</szBRName>
+		<szBRDesc>9×39mm特种亚音速步枪弹是专门为俄罗斯特种武器设计的，弹头很重，确保穿甲和杀伤力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>118</uiIndex>
+		<szItemName>9x19mm Lrg Mag</szItemName>
+		<szLongItemName>9x19mm，50发普通弹</szLongItemName>
+		<szItemDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm普通弹。</szItemDesc>
+		<szBRName>9x19mm，50发普通弹</szBRName>
+		<szBRDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm普通弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>119</uiIndex>
+		<szItemName>9x19mm Lrg Mag AP</szItemName>
+		<szLongItemName>9x19mm，50发穿甲弹</szLongItemName>
+		<szItemDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm穿甲弹。</szItemDesc>
+		<szBRName>9x19mm，50发穿甲弹</szBRName>
+		<szBRDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm穿甲弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>120</uiIndex>
+		<szItemName>9x19mm Lrg Mag HP</szItemName>
+		<szLongItemName>9x19mm，50发空尖弹</szLongItemName>
+		<szItemDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm空尖弹。</szItemDesc>
+		<szBRName>9x19mm，50发空尖弹</szBRName>
+		<szBRDesc>卡立科枪族使用的大容量弹筒，内装50发9x19mm空尖弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>121</uiIndex>
+		<szItemName>5.45x39mm RPK-Mag AP</szItemName>
+		<szLongItemName>5.45x39mm，45发普通弹</szLongItemName>
+		<szItemDesc>5.45x39mm RPK弹匣，内装45发5.45mm小口径步枪弹，全金属被甲弹头，对有生力量和轻装甲目标能造成有效杀伤。</szItemDesc>
+		<szBRName>5.45x39mm，45发普通弹</szBRName>
+		<szBRDesc>5.45x39mm RPK弹匣，内装45发5.45mm小口径步枪弹，全金属被甲弹头，对有生力量和轻装甲目标能造成有效杀伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>122</uiIndex>
+		<szItemName>5.45x39mm RPK-Mag HP</szItemName>
+		<szLongItemName>5.45x39mm，45发空尖弹</szLongItemName>
+		<szItemDesc>5.45x39mm RPK弹匣，内装45发5.45mm步枪弹，空尖弹头，增加对无防护目标的创伤。</szItemDesc>
+		<szBRName>5.45x39mm，45发空尖弹</szBRName>
+		<szBRDesc>5.45x39mm RPK弹匣，内装45发5.45mm步枪弹，空尖弹头，增加对无防护目标的创伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>123</uiIndex>
+		<szItemName>5.56x45mm Belt AP</szItemName>
+		<szLongItemName>5.56x45mm，200发普通弹</szLongItemName>
+		<szItemDesc>200发5.56x45mm北约普通弹链，装在突击弹盒内，广泛使用在轻机枪上。</szItemDesc>
+		<szBRName>5.56x45mm，200发普通弹</szBRName>
+		<szBRDesc>200发5.56x45mm北约普通弹链，装在突击弹盒内，广泛使用在轻机枪上。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>124</uiIndex>
+		<szItemName>5.56x45mm Belt HP</szItemName>
+		<szLongItemName>5.56x45mm，200发空尖弹</szLongItemName>
+		<szItemDesc>200发.223雷鸣登民用狩猎弹链，装在突击弹盒内，空尖弹头的翻滚可以对无防护目标造成严重的创伤。</szItemDesc>
+		<szBRName>5.56x45mm，200发空尖弹</szBRName>
+		<szBRDesc>200发.223雷鸣登民用狩猎弹链，装在突击弹盒内，空尖弹头的翻滚可以对无防护目标造成严重的创伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>125</uiIndex>
+		<szItemName>7.62x51mm Belt AP</szItemName>
+		<szLongItemName>7.62x51mm，100发普通弹</szLongItemName>
+		<szItemDesc>100发7.62x51mm北约普通弹链，装在突击弹盒内，广泛使用在中型机枪上。</szItemDesc>
+		<szBRName>7.62x51mm，100发普通弹</szBRName>
+		<szBRDesc>100发7.62x51mm北约普通弹链，装在突击弹盒内，广泛使用在中型机枪上。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>126</uiIndex>
+		<szItemName>7.62x51mm Belt HP</szItemName>
+		<szLongItemName>7.62x51mm，100发空尖弹</szLongItemName>
+		<szItemDesc>100发.308温彻斯特民用狩猎弹链，装在突击弹盒内，空尖弹头的翻滚可以对无防护目标造成严重的创伤。</szItemDesc>
+		<szBRName>7.62x51mm，100发空尖弹</szBRName>
+		<szBRDesc>100发.308温彻斯特民用狩猎弹链，装在突击弹盒内，空尖弹头的翻滚可以对无防护目标造成严重的创伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>127</uiIndex>
+		<szItemName>7.62x54R Mag 10 AP</szItemName>
+		<szLongItemName>7.62x54mmR，10发普通弹</szLongItemName>
+		<szItemDesc>应用于苏俄步枪，古老的7.62x54mmR子弹，射程远，威力大，值得收藏。</szItemDesc>
+		<szBRName>7.62x54mmR，10发普通弹</szBRName>
+		<szBRDesc>应用于苏俄步枪，古老的7.62x54mmR子弹，射程远，威力大，值得收藏。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>128</uiIndex>
+		<szItemName>A.L.I.C.E.</szItemName>
+		<szLongItemName>A.L.I.C.E.包</szLongItemName>
+		<szItemDesc>一种可以放进四样物件的臀袋。</szItemDesc>
+		<szBRName>A.L.I.C.E. Buttpack</szBRName>
+		<szBRDesc>一种可以放进四样物件的臀袋。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>129</uiIndex>
+		<szItemName>7.62x25mm SMG Mag AP</szItemName>
+		<szLongItemName>7.62x25mm，30发普通弹</szLongItemName>
+		<szItemDesc>穿透力不足可以用连续命中来弥补，30发足够打得你的敌人满地爬了。</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag</szBRName>
+		<szBRDesc>穿透力不足可以用连续命中来弥补，30发足够打得你的敌人满地爬了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>130</uiIndex>
+		<szItemName>7.62x25mm SMG Mag HP</szItemName>
+		<szLongItemName>7.62x25mm，30发空尖弹</szLongItemName>
+		<szItemDesc>7.62x25mm空尖弹，驱除家居害虫和无防护目标时用。</szItemDesc>
+		<szBRName>7.62x25mm SMG Mag HP</szBRName>
+		<szBRDesc>7.62x25mm空尖弹，驱除家居害虫和无防护目标时用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>131</uiIndex>
+		<szItemName>Stun Grenade</szItemName>
+		<szLongItemName>震撼手雷</szLongItemName>
+		<szItemDesc>震撼手雷靠爆炸时的巨响和强光将目标击昏以达到目的。</szItemDesc>
+		<szBRName>Stun Grenade</szBRName>
+		<szBRDesc>震撼手雷靠爆炸时的巨响和强光将目标干翻以达到目的</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>132</uiIndex>
+		<szItemName>Tear Gas</szItemName>
+		<szLongItemName>催泪手雷</szLongItemName>
+		<szItemDesc>催泪手雷投掷后会释放出强力催泪瓦斯使目标迅速就范。</szItemDesc>
+		<szBRName>Tear Gas Grenade</szBRName>
+		<szBRDesc>催泪手雷释放出的强力催泪瓦斯会让壮汉像小婴儿一样一把鼻涕一把泪。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>133</uiIndex>
+		<szItemName>Mustard Gas</szItemName>
+		<szLongItemName>芥子气手雷</szLongItemName>
+		<szItemDesc>落地后释放出无色无味的芥子气，严重烧伤无妥善防护人员的肺部和全身，不尽快治疗会致命。</szItemDesc>
+		<szBRName>Mustard Gas Grenade</szBRName>
+		<szBRDesc>落地后释放出无色无味的芥子气，严重烧伤无妥善防护人员的肺部和全身，极其致命。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>134</uiIndex>
+		<szItemName>Mini Grenade</szItemName>
+		<szLongItemName>迷你手雷</szLongItemName>
+		<szItemDesc>高尔夫球大小的迷你手雷增加了投掷距距离和携带数量，同时保证基本杀伤力，深受特种部队喜爱。</szItemDesc>
+		<szBRName>Mini Grenade</szBRName>
+		<szBRDesc>迷你手雷方便易用，灵活简单，就连美眉也喜欢。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>135</uiIndex>
+		<szItemName>Mk2 Grenade</szItemName>
+		<szLongItemName>Mk2防御手雷</szLongItemName>
+		<szItemDesc>老式但非常有效的美制防御手雷，碎片范围巨大。</szItemDesc>
+		<szBRName>Mk2 Defensive Grenade</szBRName>
+		<szBRDesc>老式但非常有效的美制防御手雷，碎片范围巨大。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>136</uiIndex>
+		<szItemName>RDX</szItemName>
+		<szLongItemName>黑索金(RDX)</szLongItemName>
+		<szItemDesc>化学名环三亚甲基三硝胺，缩写RDX ，一种军用高能炸药，相比TNT而言威力大但不是很稳定。</szItemDesc>
+		<szBRName>A Jar of RDX Crystals</szBRName>
+		<szBRDesc>旋风炸药，一触就炸。威力巨大，轻拿轻放。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>137</uiIndex>
+		<szItemName>TNT</szItemName>
+		<szLongItemName>三硝基甲苯</szLongItemName>
+		<szItemDesc>三硝基甲苯（TNT）是人类历史上继硝酸甘油外第二古老的爆炸物，威力大且极其稳定。</szItemDesc>
+		<szBRName>TNT</szBRName>
+		<szBRDesc>三硝基甲苯（TNT）是人类历史上继硝酸甘油外第二古老的爆炸物，威力大且极其稳定。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>138</uiIndex>
+		<szItemName>HMX</szItemName>
+		<szLongItemName>奥托金(HMX)</szLongItemName>
+		<szItemDesc>奥托金(HMX)是通过混合TNT和RDX产生的高能炸药，虽然威力不及RDX，但无疑更加稳定。</szItemDesc>
+		<szBRName>HMX</szBRName>
+		<szBRDesc>奥托金(HMX)是通过混合TNT和RDX产生的高能炸药，虽然威力不及RDX，但无疑更加稳定。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>139</uiIndex>
+		<szItemName>C1</szItemName>
+		<szLongItemName>C1塑胶炸药</szLongItemName>
+		<szItemDesc>早期的塑胶炸药，通过修改RDX配方得成，十分稳定。</szItemDesc>
+		<szBRName>C1</szBRName>
+		<szBRDesc>早期的塑胶炸药，通过修改RDX配方得成，十分稳定。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>140</uiIndex>
+		<szItemName>Mortar Shell</szItemName>
+		<szLongItemName>60mm迫击炮弹</szLongItemName>
+		<szItemDesc>M720高爆型迫击炮弹，尾翼装有马蹄形发射药包，弹头有M734多用途引信，可视乎需要选择爆炸方式。</szItemDesc>
+		<szBRName>60mm Mortar Shell</szBRName>
+		<szBRDesc>M720高爆型迫击炮弹，尾翼装有马蹄形发射药包，弹头有M734多用途引信，可视乎需要选择爆炸方式。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>141</uiIndex>
+		<szItemName>Mine</szItemName>
+		<szLongItemName>地雷</szLongItemName>
+		<szItemDesc>反步兵地雷，灵敏的压发装置，可以在埋设后一段长时间自动失效。</szItemDesc>
+		<szBRName>Land Mine</szBRName>
+		<szBRDesc>反步兵地雷，灵敏的压发装置，可以在埋设后一段长时间自动失效。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>142</uiIndex>
+		<szItemName>C4</szItemName>
+		<szLongItemName>C4</szLongItemName>
+		<szItemDesc>C4炸药是可塑炸药的一种，成分不定，常出现在电影电视中，你必须装上一个起爆器才能使用。</szItemDesc>
+		<szBRName>C4</szBRName>
+		<szBRDesc>C4炸药是可塑炸药的一种，成分不定，常出现在电影电视中，你必须装上一个起爆器才能使用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>143</uiIndex>
+		<szItemName>Trip Flare</szItemName>
+		<szLongItemName>发光绊索</szLongItemName>
+		<szItemDesc>绊索连接着发光装置，帮助你提防不速之客的到来。</szItemDesc>
+		<szBRName>Trip Flare</szBRName>
+		<szBRDesc>绊索连接着发光装置，帮助你提防不速之客的到来。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>144</uiIndex>
+		<szItemName>Trip Klaxon</szItemName>
+		<szLongItemName>发光绊索</szLongItemName>
+		<szItemDesc>绊索连接着发光装置，帮助你提防不速之客的到来。</szItemDesc>
+		<szBRName>Trip Klaxon</szBRName>
+		<szBRDesc>绊索连接着发光装置，帮助你提防不速之客的到来。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>145</uiIndex>
+		<szItemName>Shaped Charge</szItemName>
+		<szLongItemName>破门炸药</szLongItemName>
+		<szItemDesc>一小块破门用塑胶炸药，附带起爆装置。</szItemDesc>
+		<szBRName>Shaped Charge</szBRName>
+		<szBRDesc>忘了带钥匙？这里有破门用塑胶炸药，附带起爆装置。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>146</uiIndex>
+		<szItemName>Break Light</szItemName>
+		<szLongItemName>发光棒</szLongItemName>
+		<szItemDesc>化学发光棒是非常方便的应急照明和目标指示工具，夜间行动的时候千万不要忘记带。</szItemDesc>
+		<szBRName>Chemical Break Light</szBRName>
+		<szBRDesc>化学发光棒是非常方便的应急照明和目标指示工具，夜间行动的时候千万不要忘记带。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>147</uiIndex>
+		<szItemName>40mm HE</szItemName>
+		<szLongItemName>40mm高爆弹</szLongItemName>
+		<szItemDesc>40mm高爆弹是战场上最普遍使用的面杀伤枪榴弹。</szItemDesc>
+		<szBRName>40mm高爆弹</szBRName>
+		<szBRDesc>40mm高爆弹是战场上最普遍使用的面杀伤枪榴弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>148</uiIndex>
+		<szItemName>40mm Tear Gas</szItemName>
+		<szLongItemName>40mm催泪弹</szLongItemName>
+		<szItemDesc>40mm非致命催泪弹会在落地后短时间内释放出强力催泪瓦斯使目标就范。</szItemDesc>
+		<szBRName>40mm催泪弹</szBRName>
+		<szBRDesc>40mm非致命催泪弹会在落地后短时间内释放出强力催泪瓦斯使目标就范。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>149</uiIndex>
+		<szItemName>40mm Stun</szItemName>
+		<szLongItemName>40mm震撼弹</szLongItemName>
+		<szItemDesc>40mm震撼弹爆炸后在瞬间消耗一定范围的氧气，从而使敌人窒息倒地。</szItemDesc>
+		<szBRName>40mm震撼弹</szBRName>
+		<szBRDesc>40mm震撼弹爆炸后在瞬间消耗一定范围的氧气，从而使敌人窒息倒地。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>150</uiIndex>
+		<szItemName>40mm Smoke</szItemName>
+		<szLongItemName>40mm烟雾弹</szLongItemName>
+		<szItemDesc>战术遮障工具，使用巧妙的话敌人会以为他们正面对着哈利·胡迪尼（著名脱逃大师）。</szItemDesc>
+		<szBRName>40mm烟雾弹</szBRName>
+		<szBRDesc>当发射之后40mm烟雾弹会制造出烟雾屏障掩护你的进攻和撤退。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>151</uiIndex>
+		<szItemName>Smoke Grenade</szItemName>
+		<szLongItemName>发烟手雷</szLongItemName>
+		<szItemDesc>发烟手雷是掩盖我方进攻或者撤退的好帮手，明智地使用一枚也许好过发射数百发子弹。</szItemDesc>
+		<szBRName>Smoke Grenade</szBRName>
+		<szBRDesc>发烟手雷是掩盖我方进攻或者撤退的好帮手，明智地使用一枚也许好过发射数百发子弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>152</uiIndex>
+		<szItemName>Tank Shell</szItemName>
+		<szLongItemName>坦克炮弹</szLongItemName>
+		<szItemDesc>坦克炮弹</szItemDesc>
+		<szBRName>Tank Shell</szBRName>
+		<szBRDesc>坦克炮弹</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>153</uiIndex>
+		<szItemName>Struct Ignite</szItemName>
+		<szLongItemName>建筑物燃烧</szLongItemName>
+		<szItemDesc>内部物品！</szItemDesc>
+		<szBRName>Struct Ignite</szBRName>
+		<szBRDesc>内部物品！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>154</uiIndex>
+		<szItemName>Cocktail</szItemName>
+		<szLongItemName>异型鸡尾酒</szLongItemName>
+		<szItemDesc>AXED</szItemDesc>
+		<szBRName>Creature cocktail</szBRName>
+		<szBRDesc>AXED</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>155</uiIndex>
+		<szItemName>Structure Explosion</szItemName>
+		<szLongItemName>建筑物爆炸</szLongItemName>
+		<szItemDesc>内部物品！</szItemDesc>
+		<szBRName>Structure Explosion</szBRName>
+		<szBRDesc>内部物品！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>156</uiIndex>
+		<szItemName>Great big explosion</szItemName>
+		<szLongItemName>大大爆炸</szLongItemName>
+		<szItemDesc>内部物品！</szItemDesc>
+		<szBRName>Great big explosion</szBRName>
+		<szBRDesc>内部物品！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>157</uiIndex>
+		<szItemName>Big Tear Gas</szItemName>
+		<szLongItemName>大催泪瓦斯</szLongItemName>
+		<szItemDesc>内部物品！</szItemDesc>
+		<szBRName>Big Tear Gas</szBRName>
+		<szBRDesc>内部物品！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>158</uiIndex>
+		<szItemName>Small Creature Gas</szItemName>
+		<szLongItemName>小异型气</szLongItemName>
+		<szItemDesc>小异型气</szItemDesc>
+		<szBRName>Small Creature Gas</szBRName>
+		<szBRDesc>小异型气</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>159</uiIndex>
+		<szItemName>Large Creature Gas</szItemName>
+		<szLongItemName>大异型气</szLongItemName>
+		<szItemDesc>大异型气</szItemDesc>
+		<szBRName>Large Creature Gas</szBRName>
+		<szBRDesc>大异型气</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>160</uiIndex>
+		<szItemName>Grenade Panel</szItemName>
+		<szLongItemName>枪榴弹袋</szLongItemName>
+		<szItemDesc>此款枪榴弹袋可以装下4枚枪榴弹。</szItemDesc>
+		<szBRName>Grenade Panel</szBRName>
+		<szBRDesc>此款枪榴弹袋可以装下4枚枪榴弹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>161</uiIndex>
+		<szItemName>Flak Jacket</szItemName>
+		<szLongItemName>炮兵背心</szLongItemName>
+		<szItemDesc>这件炮兵背心是比较早期的身体护甲，用防弹尼龙物料缝制内嵌铝片保护，只能抵挡低速飞行的碎片。</szItemDesc>
+		<szBRName>Flak Jacket</szBRName>
+		<szBRDesc>这件炮兵背心是比较早期的身体护甲，用防弹尼龙物料缝制内嵌铝片保护，只能抵挡低速飞行的碎片。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>162</uiIndex>
+		<szItemName>Flak-18 Jacket</szItemName>
+		<szLongItemName>加硬炮兵背心</szLongItemName>
+		<szItemDesc>经过合成物18处理的炮兵背心使这件老式的护甲又添加了生命。</szItemDesc>
+		<szBRName>Treated Flak Jacket</szBRName>
+		<szBRDesc>经过合成物18处理的炮兵背心使这件老式的护甲又添加了生命。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>163</uiIndex>
+		<szItemName>C.Flak Jacket</szItemName>
+		<szLongItemName>虫胶炮兵背心</szLongItemName>
+		<szItemDesc>经过虫胶增强的炮兵背心，但是这是不是有点浪费？</szItemDesc>
+		<szBRName>Coated Flak Jacket</szBRName>
+		<szBRDesc>经过虫胶增强的炮兵背心，但是这是不是有点浪费？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>164</uiIndex>
+		<szItemName>Kevlar Vest</szItemName>
+		<szLongItemName>凯芙拉背心</szLongItemName>
+		<szItemDesc>凯芙拉背心是一般从事战斗人员的基本护身配备，用28层凯芙拉纤维缝制，带有可拆卸的护档，可调整的肩带。</szItemDesc>
+		<szBRName>Kevlar Vest</szBRName>
+		<szBRDesc>凯芙拉背心是一般从事战斗人员的基本护身配备，用28层凯芙拉纤维缝制，带有可拆卸的护档，可调整的肩带。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>165</uiIndex>
+		<szItemName>Kevlar-18 Vest</szItemName>
+		<szLongItemName>加硬凯芙拉背心</szLongItemName>
+		<szItemDesc>经过合成物18处理的凯芙拉背心升级了防护力到中等的程度。</szItemDesc>
+		<szBRName>Treated Kevlar Vest</szBRName>
+		<szBRDesc>经过合成物18处理的凯芙拉背心升级了防护力到中等的程度。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>166</uiIndex>
+		<szItemName>C.Kevlar Vest</szItemName>
+		<szLongItemName>虫胶凯芙拉背心</szLongItemName>
+		<szItemDesc>经过虫胶处理的凯芙拉防弹背心防护能力更加提升了。</szItemDesc>
+		<szBRName>Coated Kevlar Vest</szBRName>
+		<szBRDesc>经过虫胶处理的凯芙拉防弹背心防护能力更加提升了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>167</uiIndex>
+		<szItemName>Spectra Vest</szItemName>
+		<szLongItemName>光谱护甲</szLongItemName>
+		<szItemDesc>光谱身体护甲是用顶级的光谱盾防弹纤维制成，可以插入陶瓷板。它能有效抵御多角度，多次数的射击，而且最大减低中弹时造成的钝伤。</szItemDesc>
+		<szBRName>Spectra Vest</szBRName>
+		<szBRDesc>光谱身体护甲是用顶级的光谱盾防弹纤维制成，可以插入陶瓷板。它能有效抵御多角度，多次数的射击，而且最大减低中弹时造成的钝伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>168</uiIndex>
+		<szItemName>Spec-18 Vest</szItemName>
+		<szLongItemName>加硬光谱护甲</szLongItemName>
+		<szItemDesc>经过合成物18处理的光谱护甲的坚硬程度已经令人发指，期望表现也是超级的。</szItemDesc>
+		<szBRName>Treated Spectra Vest</szBRName>
+		<szBRDesc>经过合成物18处理的光谱护甲的坚硬程度已经令人发指，期望表现也是超级的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>169</uiIndex>
+		<szItemName>C.Spec Vest</szItemName>
+		<szLongItemName>虫胶光谱护甲</szLongItemName>
+		<szItemDesc>经过虫胶处理的光谱护甲是科技和生化的完美结合，您能使用的最顶级身体护甲。</szItemDesc>
+		<szBRName>Coated Spectra Vest</szBRName>
+		<szBRDesc>经过虫胶处理的光谱护甲是科技和生化的完美结合，您能使用的最顶级身体护甲。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>170</uiIndex>
+		<szItemName>Kevlar Pants</szItemName>
+		<szLongItemName>凯芙拉裤</szLongItemName>
+		<szItemDesc>凯芙拉裤是基本的防弹物料缝制成的战斗裤，尺寸可调，给你的下身提供一定的防护。</szItemDesc>
+		<szBRName>Kevlar Leggings</szBRName>
+		<szBRDesc>凯芙拉裤是基本的防弹物料缝制成的战斗裤，尺寸可调，给你的下身提供一定的防护。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>171</uiIndex>
+		<szItemName>Kevlar-18 Pants</szItemName>
+		<szLongItemName>加硬凯芙拉裤</szLongItemName>
+		<szItemDesc>经过合成物18处理的凯芙拉裤已经到达了坚韧不拔的地步。</szItemDesc>
+		<szBRName>Treated Kevlar Leggings</szBRName>
+		<szBRDesc>经过合成物18处理的凯芙拉裤已经到达了坚韧不拔的地步。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>172</uiIndex>
+		<szItemName>C.Kevlar Pants</szItemName>
+		<szLongItemName>虫胶凯芙拉裤</szLongItemName>
+		<szItemDesc>经过虫胶处理的凯芙拉裤让您的胯下增加了许多防护。</szItemDesc>
+		<szBRName>Coated Kevlar Leggings</szBRName>
+		<szBRDesc>经过虫胶处理的凯芙拉裤让您的胯下增加了许多防护。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>173</uiIndex>
+		<szItemName>Spectra Pants</szItemName>
+		<szLongItemName>光谱战斗裤</szLongItemName>
+		<szItemDesc>光谱纤维制成的战斗裤使下半身也能得到顶级的防护。</szItemDesc>
+		<szBRName>Spectra Leggings</szBRName>
+		<szBRDesc>光谱纤维制成的战斗裤使下半身也能得到顶级的防护。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>174</uiIndex>
+		<szItemName>Spec-18 Pants</szItemName>
+		<szLongItemName>加硬光谱裤</szLongItemName>
+		<szItemDesc>经过合成物18处理的光谱战斗裤使你雄风尽情施展。</szItemDesc>
+		<szBRName>Treated Spectra Leggings</szBRName>
+		<szBRDesc>经过合成物18处理的光谱战斗裤使你雄风尽情施展。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>175</uiIndex>
+		<szItemName>C.Spec Pants</szItemName>
+		<szLongItemName>虫胶光谱裤</szLongItemName>
+		<szItemDesc>经过虫胶处理的光谱战斗裤使下半身再无后顾之忧。</szItemDesc>
+		<szBRName>Coated Spectra Leggings</szBRName>
+		<szBRDesc>经过虫胶处理的光谱战斗裤使下半身再无后顾之忧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>176</uiIndex>
+		<szItemName>Steel Helmet</szItemName>
+		<szLongItemName>钢盔</szLongItemName>
+		<szItemDesc>钢盔是最基本的头部防护，虽然比较重，不能防御所有子弹。但戴着还是让人觉得安心一点。</szItemDesc>
+		<szBRName>Steel Helmet</szBRName>
+		<szBRDesc>钢盔是最基本的头部防护，虽然比较重，不能防御所有子弹。但戴着还是让人觉得安心一点。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>177</uiIndex>
+		<szItemName>Kevlar Helmet</szItemName>
+		<szLongItemName>凯芙拉盔</szLongItemName>
+		<szItemDesc>现代士兵的基本装备，凯芙拉盔既轻盈又舒适，能最大程度保护佩戴者的头部免受弹片和碎片的伤害。</szItemDesc>
+		<szBRName>Kevlar Helmet</szBRName>
+		<szBRDesc>现代士兵的基本装备，凯芙拉盔既轻盈又舒适，能最大程度保护佩戴者的头部免受弹片和碎片的伤害。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>178</uiIndex>
+		<szItemName>Kvlr-18 Helmet</szItemName>
+		<szLongItemName>加硬凯芙拉盔</szLongItemName>
+		<szItemDesc>经过合成物18处理的凯芙拉盔增强了防护能力。</szItemDesc>
+		<szBRName>Treated Kevlar Helmet</szBRName>
+		<szBRDesc>经过合成物18处理的凯芙拉盔增强了防护能力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>179</uiIndex>
+		<szItemName>C.Kvlr Helmet</szItemName>
+		<szLongItemName>虫胶凯芙拉盔</szLongItemName>
+		<szItemDesc>经过虫胶处理的凯芙拉盔的防护变得更加强大。</szItemDesc>
+		<szBRName>Coated Kevlar Helmet</szBRName>
+		<szBRDesc>经过虫胶处理的凯芙拉盔的防护变得更加强大。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>180</uiIndex>
+		<szItemName>Spectra Helmet</szItemName>
+		<szLongItemName>光谱头盔</szLongItemName>
+		<szItemDesc>光谱头盔是现今最新的防弹头盔，采用了最轻最强壮的防弹纤维，衬里使用吸震海绵，加上牢固的绑带稳稳地固定在使用者的头部。</szItemDesc>
+		<szBRName>Spectra Helmet</szBRName>
+		<szBRDesc>光谱头盔是现今最新的防弹头盔，采用了最轻最强壮的防弹纤维，衬里使用吸震海绵，加上牢固的绑带稳稳地固定在使用者的头部。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>181</uiIndex>
+		<szItemName>Spec-18 Helmet</szItemName>
+		<szLongItemName>加硬光谱盔</szLongItemName>
+		<szItemDesc>经过合成物18处理的光谱盔大大增强了抗击打力。你现在可以开开心心打仗，平平安安回家了。</szItemDesc>
+		<szBRName>Treated Spectra Helmet</szBRName>
+		<szBRDesc>经过合成物18处理的光谱盔大大增强了抗击打力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>182</uiIndex>
+		<szItemName>C.Spec Helmet</szItemName>
+		<szLongItemName>虫胶光谱护甲</szLongItemName>
+		<szItemDesc>经过虫胶处理的光谱护甲大大增强了抗击打力。</szItemDesc>
+		<szBRName>Coated Spectra Helmet</szBRName>
+		<szBRDesc>经过虫胶处理的光谱护甲大大增强了抗击打力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>183</uiIndex>
+		<szItemName>Ceramic Plates</szItemName>
+		<szLongItemName>防弹陶瓷板</szLongItemName>
+		<szItemDesc>防弹陶瓷板可以插进大多数防弹衣的夹层里增加防护力，它的作用是分散子弹的冲击力。</szItemDesc>
+		<szBRName>Ceramic Plates</szBRName>
+		<szBRDesc>防弹陶瓷板可以插进大多数防弹衣的夹层里增加防护力，它的作用是分散子弹的冲击力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>184</uiIndex>
+		<szItemName>Infant Hide</szItemName>
+		<szLongItemName>幼幼皮</szLongItemName>
+		<szItemDesc>幼幼皮</szItemDesc>
+		<szBRName>Infant Creature Hide</szBRName>
+		<szBRDesc>幼幼皮</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>185</uiIndex>
+		<szItemName>Kiddy Hide</szItemName>
+		<szLongItemName>幼年皮</szLongItemName>
+		<szItemDesc>幼年皮</szItemDesc>
+		<szBRName>Young Adult Creature Hide</szBRName>
+		<szBRDesc>幼年皮</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>186</uiIndex>
+		<szItemName>Adult Hide</szItemName>
+		<szLongItemName>成年皮</szLongItemName>
+		<szItemDesc>成年皮</szItemDesc>
+		<szBRName>Adult Creature Hide</szBRName>
+		<szBRDesc>成年皮</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>187</uiIndex>
+		<szItemName>Queen Hide</szItemName>
+		<szLongItemName>母后皮</szLongItemName>
+		<szItemDesc>母后皮</szItemDesc>
+		<szBRName>Queen Creature Hide</szBRName>
+		<szBRDesc>母后皮</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>188</uiIndex>
+		<szItemName>Leather Jacket</szItemName>
+		<szLongItemName>皮夹克</szLongItemName>
+		<szItemDesc>很帅气的飞行皮夹克。</szItemDesc>
+		<szBRName>Leather Jacket</szBRName>
+		<szBRDesc>很帅气的飞行皮夹克。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>189</uiIndex>
+		<szItemName>Kvlr Leather</szItemName>
+		<szLongItemName>凯芙拉皮衣</szLongItemName>
+		<szItemDesc>很帅气的飞行皮夹克，人手巧妙地在内部缝进了凯芙拉布料使得它带有一定的防护力。</szItemDesc>
+		<szBRName>Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>很帅气的飞行皮夹克，人手巧妙地在内部缝进了凯芙拉布料使得它带有一定的防护力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>190</uiIndex>
+		<szItemName>Kvlr-18 Leather</szItemName>
+		<szLongItemName>加硬凯芙拉皮衣</szLongItemName>
+		<szItemDesc>经过合成物18处理过处理的凯芙拉皮衣增强了抗击打力。</szItemDesc>
+		<szBRName>Treated Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>经过合成物18处理过的凯芙拉皮衣增强了抗击打力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>191</uiIndex>
+		<szItemName>C.Kvlr Leather</szItemName>
+		<szLongItemName>虫胶凯芙拉皮衣</szLongItemName>
+		<szItemDesc>经过虫胶处理的凯芙拉皮衣增强了抗击打力。</szItemDesc>
+		<szBRName>Coated Leather &amp; Kevlar Jacket</szBRName>
+		<szBRDesc>经过虫胶处理的凯芙拉皮衣增强了抗击打力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>192</uiIndex>
+		<szItemName>YF Hide</szItemName>
+		<szLongItemName>青母皮</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Young Female Hide</szBRName>
+		<szBRDesc>无</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>193</uiIndex>
+		<szItemName>OF Hide</szItemName>
+		<szLongItemName>老母皮</szLongItemName>
+		<szItemDesc>无</szItemDesc>
+		<szBRName>Old Female Hide</szBRName>
+		<szBRDesc>无</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>194</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>阿鲁科纪念T恤</szLongItemName>
+		<szItemDesc>阿鲁科纪念T恤是女王当政之前游客十分喜爱的纪念品，百分百纯棉制造。</szItemDesc>
+		<szBRName>Arulco T-Shirt</szBRName>
+		<szBRDesc>阿鲁科纪念T恤是女王当政之前游客十分喜爱的纪念品，百分百纯棉制造。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>195</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>女王文化衫</szLongItemName>
+		<szItemDesc>当地居民必须穿上这件印有“永远忠于女王！”字样的文化衫参加政府举办的机会游行，不然就要挨鞭子。</szItemDesc>
+		<szBRName>Deidranna T-Shirt</szBRName>
+		<szBRDesc>穿上这件印有“永远忠于女王！”字样的文化衫表达你对女王的爱吧！不然你就要挨鞭子了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>196</uiIndex>
+		<szItemName>Guardian Vest</szItemName>
+		<szLongItemName>守护神防弹背心</szLongItemName>
+		<szItemDesc>这款守护神防弹背心是用36层的凯芙拉纤维缝成，而且还能让您插入防弹陶瓷板增加防护力。</szItemDesc>
+		<szBRName>Guardian Vest</szBRName>
+		<szBRDesc>这款守护神防弹背心是用36层的凯芙拉纤维缝成，而且还能让您插入防弹陶瓷板增加防护力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>197</uiIndex>
+		<szItemName>T. Guard Vest</szItemName>
+		<szLongItemName>硬化护神背心</szLongItemName>
+		<szItemDesc>经过合成物18处理过的守护神防弹背心，现在的防护力大大增强。</szItemDesc>
+		<szBRName>Treated Guardian Vest</szBRName>
+		<szBRDesc>经过合成物18处理过的守护神防弹背心，现在的防护力大大增强。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>198</uiIndex>
+		<szItemName>C. Guard Vest</szItemName>
+		<szLongItemName>虫胶处理过的守护神防弹背心</szLongItemName>
+		<szItemDesc>虫胶处理过的守护神防弹背心，现在的防护力加倍！</szItemDesc>
+		<szBRName>Coated Guardian Vest</szBRName>
+		<szBRDesc>虫胶处理过的守护神防弹背心，现在的防护力加倍！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>199</uiIndex>
+		<szItemName>Comp. Binoc.</szItemName>
+		<szLongItemName>小型望远镜</szLongItemName>
+		<szItemDesc>10x30小型望远镜，结构非常简单耐用。</szItemDesc>
+		<szBRName>10x30 Binoculars</szBRName>
+		<szBRDesc>10x30小型望远镜，结构非常简单耐用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>200</uiIndex>
+		<szItemName>Binoculars</szItemName>
+		<szLongItemName>高级望远镜</szLongItemName>
+		<szItemDesc>一款高质量的7x50望远镜。</szItemDesc>
+		<szBRName>7x50 Binoculars</szBRName>
+		<szBRDesc>为专业士兵和猎手设计的望远镜，采用多层镀膜棱镜，充氮防水，外覆橡胶包皮。即使在恶劣环境下依然可靠。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>201</uiIndex>
+		<szItemName>1st Aid Kit</szItemName>
+		<szLongItemName>单兵急救包</szLongItemName>
+		<szItemDesc>战地急救包，在你挂彩时能救你的命。如果你会用它的话。</szItemDesc>
+		<szBRName>First Aid Kit</szBRName>
+		<szBRDesc>这个急救包内含：防腐剂，药棉，体温计，碘酒，汞溴红药水，三角巾，安全针，剪刀，还有一本小说明书。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>202</uiIndex>
+		<szItemName>Med Kit</szItemName>
+		<szLongItemName>医疗箱</szLongItemName>
+		<szItemDesc>不同于急救包，这个医疗箱包括了所有实行战地外科手术所需要的设备。</szItemDesc>
+		<szBRName>Medical Kit</szBRName>
+		<szBRDesc>不同于急救包，这个医疗箱包括了缝合器材，腰形盘，手术刀，镊子，止痛剂，麻醉剂，抗生素，手术光源等外科手术设备，还有说明书。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>203</uiIndex>
+		<szItemName>Tool Kit</szItemName>
+		<szLongItemName>工具箱</szLongItemName>
+		<szItemDesc>包括了各种各样杂七杂八的工具，进行一些器械装备的维修和保养是足够的了。</szItemDesc>
+		<szBRName>Tool Kit</szBRName>
+		<szBRDesc>这个工具箱提供了很多修理工具：各种螺丝刀，棘爪，大小老虎钳，挂钩，榔头，还有缝纫器材，不一而足。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>204</uiIndex>
+		<szItemName>Locksmith Kit</szItemName>
+		<szLongItemName>开锁工具组合套装</szLongItemName>
+		<szItemDesc>撬棒，薄塑料片，钳子，万能钥匙……各种开锁工具的集合。</szItemDesc>
+		<szBRName>Locksmith Kit</szBRName>
+		<szBRDesc>在这个精致的牛皮套子里装着撬棒，薄塑料片，钳子，万能钥匙，钥匙模，指纹采集器等各种顶级的开锁工具。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>205</uiIndex>
+		<szItemName>Wood Camo Kit</szItemName>
+		<szLongItemName>丛林迷彩伪装油</szLongItemName>
+		<szItemDesc>丛林迷彩的伪装油，由绿棕两色防水油膏组成。</szItemDesc>
+		<szBRName>Camouflage Kit - Wood</szBRName>
+		<szBRDesc>这种军用伪装油包括了两管绿色和棕色的油膏和一面小镜子，不溶于水，但可以用肥皂洗去或自然褪去。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>206</uiIndex>
+		<szItemName>Traps Kit</szItemName>
+		<szLongItemName>陷阱制造工具</szLongItemName>
+		<szItemDesc>绊线式的，触发式的，爆炸式的，你能想到的陷阱，都可以用它来设置。</szItemDesc>
+		<szBRName>Boobytrap Kit</szBRName>
+		<szBRDesc>各种用于制造致命陷阱的工具都被包括在了这个工具组中。你可以用它制作爆炸陷阱，绊线式的或是触发的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>207</uiIndex>
+		<szItemName>Pistol Supp.</szItemName>
+		<szLongItemName>手枪用消音器</szLongItemName>
+		<szItemDesc>轻巧，紧凑的快拆消音器，可以在大多数手枪和冲锋枪上通用。</szItemDesc>
+		<szBRName>Pistol Suppressor</szBRName>
+		<szBRDesc>无论室内外的任务，只要需要保持安静，它就会有用武之地。配合亚音速手枪弹使用，它能让你成为寂静中致命的杀手。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>208</uiIndex>
+		<szItemName>Scope 10x</szItemName>
+		<szLongItemName>10倍狙击瞄准镜</szLongItemName>
+		<szItemDesc>这个10倍放大的瞄准镜可以装在多数突击步枪和卡宾枪上，当然更适宜狙击步枪使用。</szItemDesc>
+		<szBRName>Sniper Scope, Mag.10x</szBRName>
+		<szBRDesc>这款优秀的10倍光学瞄准镜可以大幅度提到你步枪单发射击的精确度，相信您会被它精密的光学设计，弹道调节系统和测距分划功能打动的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>209</uiIndex>
+		<szItemName>Bipod</szItemName>
+		<szLongItemName>折叠两脚架</szLongItemName>
+		<szItemDesc>通用折叠两脚架，可以提高多数突击步枪，狙击步枪和轻机枪有依托射击的精确度。</szItemDesc>
+		<szBRName>Bipod</szBRName>
+		<szBRDesc>这是一款铝合金模铸成的两脚架，可以安装在大多数突击步枪，狙击步枪和轻机枪上。在不需要使用时可以折叠，以节约空间。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>210</uiIndex>
+		<szItemName>Extended Ear</szItemName>
+		<szLongItemName>头戴式助听器</szLongItemName>
+		<szItemDesc>这个头戴式助听器可以让你分辨出周围最细微的声响。</szItemDesc>
+		<szBRName>Extended Ear</szBRName>
+		<szBRDesc>这款可调节的助听耳机按照仿生学原理设计，它的双声道声音采集系统可以采集并放大周围的声响，提供给您更精确的战场感知能力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>211</uiIndex>
+		<szItemName>NVG I</szItemName>
+		<szLongItemName>第一代夜视仪</szLongItemName>
+		<szItemDesc>第一代的微光夜视仪，图像会有一些模糊。毕竟那时候技术还刚起步呢。</szItemDesc>
+		<szBRName>Night Vision Goggles I</szBRName>
+		<szBRDesc>这是第一代的头戴式微光夜视仪系统。在性能上，这种早期的设备当然不能和现在更先进的仪器相比，但是对于手头拮据的顾客也许还是不错的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>212</uiIndex>
+		<szItemName>Sun Goggles</szItemName>
+		<szLongItemName>墨镜</szLongItemName>
+		<szItemDesc>这副军用墨镜可以让你在较刺眼的光线下仍能看清景象。</szItemDesc>
+		<szBRName>Sun Goggles</szBRName>
+		<szBRDesc>依靠着三层经过特殊处理的透镜片，这副军用墨镜不仅能够抵挡刺眼的光线，还能防雾，防冲击，防刮擦。而且它能和一般眼镜同时佩戴。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>213</uiIndex>
+		<szItemName>Gas Mask</szItemName>
+		<szLongItemName>防毒面具</szLongItemName>
+		<szItemDesc>山寨版的M17A1防毒面具，但愿能有和原品一样的保护性能。</szItemDesc>
+		<szBRName>Gas Mask</szBRName>
+		<szBRDesc>这是M17A1防毒面具的仿制品，配备了过滤罐，防刮透镜，可调节头带。在舒适佩戴的同时能在各种有害气体中为用户带来优良的保护。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>214</uiIndex>
+		<szItemName>Canteen</szItemName>
+		<szLongItemName>军用水壶</szLongItemName>
+		<szItemDesc>非常耐用的聚乙烯军用水壶。里面还有水。</szItemDesc>
+		<szBRName>Canteen</szBRName>
+		<szBRDesc>任何明智的战士都会带上这样一个灌满水的水壶上战场。当有水源时可以重复灌满。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>215</uiIndex>
+		<szItemName>Metal Detector</szItemName>
+		<szLongItemName>金属探测器</szLongItemName>
+		<szItemDesc>这是个很轻很强大的晶体管式金属探测器，以声音进行警报。你所需要做的就是把它带在身上，当探测到金属时它就会报警</szItemDesc>
+		<szBRName>Metal Detector</szBRName>
+		<szBRDesc>这个手持式金属探测器相当强大，它能够帮你找到沙滩上的一枚硬币。它是带有声音提示的晶体管式轻型金属探测器，在排爆行动中十分有效。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>216</uiIndex>
+		<szItemName>Compound 18</szItemName>
+		<szLongItemName>化合物18</szLongItemName>
+		<szItemDesc>当这种液体涂抹到装甲上时会快速硬化，据称能够提供比通常防弹材料进一步的保护</szItemDesc>
+		<szBRName>Compound 18</szBRName>
+		<szBRDesc>在防弹衣抹上点这种玩意以后你就名副其实地无敌了。这种快干液体据称能够增强一般的凯芙拉或spectra shield（一种防弹材料）的防弹性能</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>217</uiIndex>
+		<szItemName>Jelly</szItemName>
+		<szLongItemName>虫后粘液</szLongItemName>
+		<szItemDesc>这是一点怪物虫后的粘液</szItemDesc>
+		<szBRName>Royal Jelly</szBRName>
+		<szBRDesc>要是BR有得卖就怪了</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>218</uiIndex>
+		<szItemName>Elixir</szItemName>
+		<szLongItemName>一罐Elixir</szLongItemName>
+		<szItemDesc>一罐Gabby做的Elixir。由怪物的血液和另外11种草药和香料混合而成</szItemDesc>
+		<szBRName>Jar of Elixir</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>219</uiIndex>
+		<szItemName>Money</szItemName>
+		<szLongItemName>钱</szLongItemName>
+		<szItemDesc>现金，硬币，钞票，大洋。随便你怎么叫，它都能拿来买东西</szItemDesc>
+		<szBRName>Money</szBRName>
+		<szBRDesc>现金，硬币，钞票，大洋。随便你怎么叫，它都能拿来买东西（不过你真能在BR看到这个么）</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>220</uiIndex>
+		<szItemName>Jar</szItemName>
+		<szLongItemName>玻璃罐</szLongItemName>
+		<szItemDesc>一个很适合拿来存放东西的玻璃罐，比如你奶奶的牙之类的玩意</szItemDesc>
+		<szBRName>Glass Jar</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>221</uiIndex>
+		<szItemName>Full Jar</szItemName>
+		<szLongItemName>一罐怪物血</szLongItemName>
+		<szItemDesc>看起来是一罐怪物血......</szItemDesc>
+		<szBRName>Jar of Blood</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>222</uiIndex>
+		<szItemName>Energy Boost</szItemName>
+		<szLongItemName>兴奋剂</szLongItemName>
+		<szItemDesc>这个皮下注射器装满了化学兴奋剂，会使你暂时令你精力充沛。警告：反复使用会导致心脏停跳</szItemDesc>
+		<szBRName>Energy Booster</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>223</uiIndex>
+		<szItemName>Detonator</szItemName>
+		<szLongItemName>定时雷管</szLongItemName>
+		<szItemDesc>这个引爆装置带有一个定时器，可以将时间设定为5秒至10分钟之间，令你在爆炸前有足够时间转移到安全位置</szItemDesc>
+		<szBRName>Detonator</szBRName>
+		<szBRDesc>把这个玩意装到爆炸物上可以让你获得真正的控制。这个延时引爆器可以将时间设定为5秒至10分钟之间，令你在爆炸前有足够时间转移到安全位置</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>224</uiIndex>
+		<szItemName>Remote Det.</szItemName>
+		<szLongItemName>遥控雷管</szLongItemName>
+		<szItemDesc>在爆炸物上可以安装这种延时引爆器令你能够在安全位置引爆目标。雷管不会在你遥控引爆以前点火</szItemDesc>
+		<szBRName>Remote Detonator</szBRName>
+		<szBRDesc>爆炸物的必备。吧这个延时引爆器装在任何爆炸物上，引爆的时间和地点由你决定。雷管不会在你遥控引爆以前点火</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>225</uiIndex>
+		<szItemName>Videotape</szItemName>
+		<szLongItemName>录像带</szLongItemName>
+		<szItemDesc>家庭录像机的带子，名为“小裤裤萝莉塔6：怪叔叔不在家”。这是一部萝莉H动画，请确认爽翻天自High时不会被人发现（囧）</szItemDesc>
+		<szBRName>Videotape</szBRName>
+		<szBRDesc>此时此刻，BR也改行贩卖糟糕物了</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>226</uiIndex>
+		<szItemName>Deed</szItemName>
+		<szLongItemName>地契</szLongItemName>
+		<szItemDesc>这是Angel的皮革店的地契</szItemDesc>
+		<szBRName>Deed</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>227</uiIndex>
+		<szItemName>Letter</szItemName>
+		<szLongItemName>Enrico的信</szLongItemName>
+		<szItemDesc>这是Enrico让你交给叛军首领Miguel的信</szItemDesc>
+		<szBRName>Letter from Enrico</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>228</uiIndex>
+		<szItemName>Diskette</szItemName>
+		<szLongItemName>磁盘</szLongItemName>
+		<szItemDesc>这张磁盘上写有“通缉”字样的标签。包含了已知的国际恐怖分子的机密情报。已经被复制到了笔记本电脑上以便查询</szItemDesc>
+		<szBRName>Computer Diskette</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>229</uiIndex>
+		<szItemName>Chalice</szItemName>
+		<szLongItemName>圣杯</szLongItemName>
+		<szItemDesc>善良之杯，财富之杯，机遇之杯。这是Arulco的镇国之宝，谨防假冒</szItemDesc>
+		<szBRName>Chalice of Chance</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>230</uiIndex>
+		<szItemName>Claws</szItemName>
+		<szLongItemName>血猫爪</szLongItemName>
+		<szItemDesc>从血猫身上得到的，这些锋利的爪找对了地方卖也能小赚一笔</szItemDesc>
+		<szBRName>Bloodcat Claws</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>231</uiIndex>
+		<szItemName>Teeth</szItemName>
+		<szLongItemName>血猫牙</szLongItemName>
+		<szItemDesc>想拔下来这些玩意可要费些力气。血猫牙在世界的某些地区是罕见又宝贵的日用品</szItemDesc>
+		<szBRName>Bloodcat Teeth</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>232</uiIndex>
+		<szItemName>Pelt</szItemName>
+		<szLongItemName>血猫毛皮</szLongItemName>
+		<szItemDesc>想给血猫扒皮可是相当费事的工作。这外国毛皮的价格相当可观</szItemDesc>
+		<szBRName>Bloodcat Pelt</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>233</uiIndex>
+		<szItemName>Switch</szItemName>
+		<szLongItemName>开关</szLongItemName>
+		<szItemDesc>呵，呵呵......你快跳出了</szItemDesc>
+		<szBRName>Switch</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>234</uiIndex>
+		<szItemName>Action Item</szItemName>
+		<szLongItemName>动作物品</szLongItemName>
+		<szItemDesc>你还没跳出么？</szItemDesc>
+		<szBRName>Action Item</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>235</uiIndex>
+		<szItemName>Regen Boost</szItemName>
+		<szLongItemName>再生药剂</szLongItemName>
+		<szItemDesc>这个皮下注射器装有10毫升的速效愈合药物，警告标签写有：“一日使用不可超过4次”</szItemDesc>
+		<szBRName>Regeneration Booster</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>236</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>注射器</szLongItemName>
+		<szItemDesc>为什么会有这个东西</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>237</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>注射器</szLongItemName>
+		<szItemDesc>为什么会有这个东西</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>238</uiIndex>
+		<szItemName>Syringe</szItemName>
+		<szLongItemName>注射器</szLongItemName>
+		<szItemDesc>为什么会有这个东西</szItemDesc>
+		<szBRName>Syringe</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>239</uiIndex>
+		<szItemName>Full Jar</szItemName>
+		<szLongItemName>一罐人血</szLongItemName>
+		<szItemDesc>看起来是一罐人血，不过什么变态要人血</szItemDesc>
+		<szBRName>Jar of Human Blood</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>240</uiIndex>
+		<szItemName>Ownership</szItemName>
+		<szLongItemName>所有权</szLongItemName>
+		<szItemDesc>和这个在同一位置的物品都是属于某个实力的</szItemDesc>
+		<szBRName>Ownership</szBRName>
+		<szBRDesc>BR没得卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>241</uiIndex>
+		<szItemName>Laser Sight</szItemName>
+		<szLongItemName>激光瞄具</szLongItemName>
+		<szItemDesc>这种泛用可见激光能在相当距离上投射出高度可见的红点。它拥有不锈钢外壳，可以装在多数冲锋枪和手枪的扳机护圈上</szItemDesc>
+		<szBRName>Laser Sight</szBRName>
+		<szBRDesc>当使用这个的时候你便不必担心会丢失目标。这种泛用可见激光可以在日间达到100公尺，而夜间能够达到1000公尺。它能够装在多数武器的扳机护圈上。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>242</uiIndex>
+		<szItemName>Remote Trigger</szItemName>
+		<szLongItemName>遥控引爆器</szLongItemName>
+		<szItemDesc>如果遥控引信已经安装在了爆炸物上，不使用这个遥控引爆器它便不会点火</szItemDesc>
+		<szBRName>Remote Bomb Trigger</szBRName>
+		<szBRDesc>这个小型无线电遥控装置有4个可选择的频道，用来启动遥控雷管。电池的寿命几乎和你的一样长</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>243</uiIndex>
+		<szItemName>Wire Cutters</szItemName>
+		<szLongItemName>铁丝钳</szLongItemName>
+		<szItemDesc>居家旅行，杀人越货必备的老虎钳。</szItemDesc>
+		<szBRName>Wire Cutters</szBRName>
+		<szBRDesc>居家旅行，杀人越货必备的老虎钳。出门一定要随身带着！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>244</uiIndex>
+		<szItemName>Duckbill</szItemName>
+		<szLongItemName>鸭嘴</szLongItemName>
+		<szItemDesc>当把这个金属玩意装到霰弹枪的枪口上时，发射的鹿弹会以水平，而不是环形散布</szItemDesc>
+		<szBRName>Duckbill</szBRName>
+		<szBRDesc>将这个玩意装到霰弹枪枪口上可以让霰弹枪变得相当致命。它会令发射的鹿弹会以水平，而不是环形散布。向鹿弹飞行路线上的人说再见吧</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>245</uiIndex>
+		<szItemName>Alcohol</szItemName>
+		<szLongItemName>一瓶酒精</szLongItemName>
+		<szItemDesc>80度的烈酒，喝了这个玩意一定一醉不起</szItemDesc>
+		<szBRName>Bottle of Alcohol</szBRName>
+		<szBRDesc>BR酒吧？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>246</uiIndex>
+		<szItemName>NVG II</szItemName>
+		<szLongItemName>第二代夜视仪</szLongItemName>
+		<szItemDesc>第二代夜视仪有较早期型号更好的图像增强装置，图像仍然有些许噪点。一般的民用产品都是这一代。</szItemDesc>
+		<szBRName>Night Vision Goggles II</szBRName>
+		<szBRDesc>无论你是猎人、探险者还是LEO，有了它没有猎物可以在黑暗中逃过你的眼睛。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>247</uiIndex>
+		<szItemName>Discarded LAW</szItemName>
+		<szLongItemName>M72A4火箭废筒</szLongItemName>
+		<szItemDesc>射了，爽了，丢掉再换上新的吧。难道你还想再爽一次？</szItemDesc>
+		<szBRName>Discarded LAW</szBRName>
+		<szBRDesc>BR不卖，也许土鳖山有的卖？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>248</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>人头</szLongItemName>
+		<szItemDesc>某个倒霉鬼的首级。</szItemDesc>
+		<szBRName>Head</szBRName>
+		<szBRDesc>BR不做人肉买卖。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>249</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Impostor的头</szLongItemName>
+		<szItemDesc>Imposter再也不能冒充别人了。恭喜你成为这颗烂头的主人。</szItemDesc>
+		<szBRName>Impostor's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>250</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>T-Rex的头</szLongItemName>
+		<szItemDesc>T-Rex就象恐龙一样灭绝了，但这颗头仍可以换钱。</szItemDesc>
+		<szBRName>T-Rex's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>251</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Slay的头</szLongItemName>
+		<szItemDesc>Slay这个杀人狂终于被杀了，所剩的只有这颗正在腐烂的脑袋。</szItemDesc>
+		<szBRName>Slay's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>252</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Druggist的头</szLongItemName>
+		<szItemDesc>Druggist再也不能给人乱配药方了，他的脑袋已经是你的囊中之物了。</szItemDesc>
+		<szBRName>Druggist's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>253</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Matron的头</szLongItemName>
+		<szItemDesc>没有谁会想念Matron，或者她的脑袋。块拿去换钱吧。</szItemDesc>
+		<szBRName>Matron's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>254</uiIndex>
+		<szItemName>Head</szItemName>
+		<szLongItemName>Tiffany的头</szLongItemName>
+		<szItemDesc>Tiffany Eddie从来没靠脑袋赚钱，但现在你可以。</szItemDesc>
+		<szBRName>Tiffany's Head</szBRName>
+		<szBRDesc>BR不做人肉买卖</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>255</uiIndex>
+		<szItemName>Wine</szItemName>
+		<szLongItemName>山寨牌葡萄酒</szLongItemName>
+		<szItemDesc>这瓶山寨牌葡萄酒以工业酒精勾兑，正好可以糊弄老外。</szItemDesc>
+		<szBRName>Wine</szBRName>
+		<szBRDesc>BR开酒吧？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>256</uiIndex>
+		<szItemName>Beer</szItemName>
+		<szLongItemName>啤酒</szLongItemName>
+		<szItemDesc>6.9％的酒精含量，这啤酒可以把俄国酒鬼喝到桌子底下去。</szItemDesc>
+		<szBRName>Beer</szBRName>
+		<szBRDesc>BR开酒吧？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>257</uiIndex>
+		<szItemName>Porn</szItemName>
+		<szLongItemName>SY专用读物</szLongItemName>
+		<szItemDesc>7月份的哗哗公子杂志，封面是FRJJ。</szItemDesc>
+		<szBRName>Porno Magazine</szBRName>
+		<szBRDesc>坚决抵制网络色情！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>258</uiIndex>
+		<szItemName>Video Camera</szItemName>
+		<szLongItemName>摄像机</szLongItemName>
+		<szItemDesc>这款摄像机可以用来纪录和播放你的美好回忆。婚礼，会议，自拍偷拍...</szItemDesc>
+		<szBRName>Video Camera</szBRName>
+		<szBRDesc>想买摄像机找索尼好了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>259</uiIndex>
+		<szItemName>Robot Remote</szItemName>
+		<szLongItemName>机器人遥控器</szLongItemName>
+		<szItemDesc>你可以悠闲的坐在安全地带，用这支遥控器来让机器人做炮灰。</szItemDesc>
+		<szBRName>Robot Remote Control</szBRName>
+		<szBRDesc>机器人？是机械警察那种，还是终结者那种啊？</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>260</uiIndex>
+		<szItemName>Claw</szItemName>
+		<szLongItemName>异型的爪</szLongItemName>
+		<szItemDesc>异型的爪子，锋利无比，幸亏它已经死了。</szItemDesc>
+		<szBRName>Creature Claw</szBRName>
+		<szBRDesc>BR不卖这么恐怖的东西</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>261</uiIndex>
+		<szItemName>Flesh</szItemName>
+		<szLongItemName>异型的肉块</szLongItemName>
+		<szItemDesc>一块恶臭的异型肉块。至少这只已经死了。</szItemDesc>
+		<szBRName>Creature Flesh</szBRName>
+		<szBRDesc>BR不出卖肉体。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>262</uiIndex>
+		<szItemName>Organ</szItemName>
+		<szLongItemName>无法辨别的内脏</szLongItemName>
+		<szItemDesc>异型的内脏，一团糟。开饭喽！</szItemDesc>
+		<szBRName>Unidentifiable Creature Organ</szBRName>
+		<szBRDesc>你想吃溜三样？下馆子去吧。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>263</uiIndex>
+		<szItemName>Remote</szItemName>
+		<szLongItemName>遥控器</szLongItemName>
+		<szItemDesc>这遥控装置上只有一个按钮。</szItemDesc>
+		<szBRName>Remote Control</szBRName>
+		<szBRDesc>BR不卖家用电器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>264</uiIndex>
+		<szItemName>Platinum Watch</szItemName>
+		<szLongItemName>白金手表</szLongItemName>
+		<szItemDesc>这块石英手表采用瑞士工艺制造而成，有4微米厚的镀铂。</szItemDesc>
+		<szBRName>Platinum Watch</szBRName>
+		<szBRDesc>BR不卖首饰。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>265</uiIndex>
+		<szItemName>Golf Clubs</szItemName>
+		<szLongItemName>高尔夫球棒</szLongItemName>
+		<szItemDesc>这袋木杆和铁杆已有些残缺，但高手一样能打出小鸟球。</szItemDesc>
+		<szBRName>Golf Clubs</szBRName>
+		<szBRDesc>BR不卖体育用品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>266</uiIndex>
+		<szItemName>Walkman</szItemName>
+		<szLongItemName>随身听</szLongItemName>
+		<szItemDesc>随身听可以让你随时随地的摇滚。另外，欢迎进入21世纪。</szItemDesc>
+		<szBRName>Walkman</szBRName>
+		<szBRDesc>BR向你推荐ipod。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>267</uiIndex>
+		<szItemName>Portable TV</szItemName>
+		<szLongItemName>便携电视</szLongItemName>
+		<szItemDesc>有了它你就再也不会错过800集的某韩剧中的一集了！</szItemDesc>
+		<szBRName>Portable TV</szBRName>
+		<szBRDesc>BR不卖家用电器。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>268</uiIndex>
+		<szItemName>CurBal</szItemName>
+		<szLongItemName>余额:</szLongItemName>
+		<szItemDesc>从“银行”中提取一定数额的钞票后点击“完成”。有钱能使磨推鬼啊。</szItemDesc>
+		<szBRName>Current Balance:</szBRName>
+		<szBRDesc>BR不卖钱</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>269</uiIndex>
+		<szItemName>Cigars</szItemName>
+		<szLongItemName>雪茄</szLongItemName>
+		<szItemDesc>一盒雪茄，无论是在血战时或在贵宾室中叼上一根，都是男人味十足。</szItemDesc>
+		<szBRName>Cigars</szBRName>
+		<szBRDesc>吸烟有害健康。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>270</uiIndex>
+		<szItemName>Very Small Creature Gas</szItemName>
+		<szLongItemName>特小异型毒气</szLongItemName>
+		<szItemDesc>TBS汉化组是最棒的</szItemDesc>
+		<szBRName>Very Small Creature Gas</szBRName>
+		<szBRDesc>TBS汉化组是最棒的</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>271</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>小钥匙</szLongItemName>
+		<szItemDesc>多数立柜用的金色小钥匙</szItemDesc>
+		<szBRName>Small key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>272</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>监狱钥匙</szLongItemName>
+		<szItemDesc>囚犯们梦寐以求的不锈钢钥匙</szItemDesc>
+		<szBRName>Prison key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>273</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>廉价钥匙</szLongItemName>
+		<szItemDesc>廉价的钥匙配廉价锁。</szItemDesc>
+		<szBRName>Cheap key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>274</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>暗色的钥匙</szLongItemName>
+		<szItemDesc>一枚暗色的钥匙</szItemDesc>
+		<szBRName>Dull key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>275</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>闪亮的钥匙</szLongItemName>
+		<szItemDesc>一枚亮晶晶的钥匙，不是开一般的锁用的。</szItemDesc>
+		<szBRName>Shiny key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>276</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>钥匙</szLongItemName>
+		<szItemDesc>又是钥匙</szItemDesc>
+		<szBRName>Padlock key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>277</uiIndex>
+		<szItemName>Key</szItemName>
+		<szLongItemName>电子钥匙</szLongItemName>
+		<szItemDesc>带有磁条的电子钥匙，注意不要和手机放在一起。</szItemDesc>
+		<szBRName>Electronic Key</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>278</uiIndex>
+		<szItemName>Key card</szItemName>
+		<szLongItemName>钥匙卡</szLongItemName>
+		<szItemDesc>电子钥匙卡</szItemDesc>
+		<szBRName>Key card</szBRName>
+		<szBRDesc>BR又不是锁匠铺！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>279</uiIndex>
+		<szItemName>5.7mm Mag 20 AP</szItemName>
+		<szLongItemName>5.7x28mm，20发普通弹</szLongItemName>
+		<szItemDesc>20发5.7mm的弹匣。这种聚合材料的手枪弹对付穿或没穿护甲的敌人都很有效。</szItemDesc>
+		<szBRName>5.7x28mm，20发普通弹</szBRName>
+		<szBRDesc>5.7mm弹药可以在敌人体内回旋空翻转体三周半。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>280</uiIndex>
+		<szItemName>5.7mm Mag 20 HP</szItemName>
+		<szLongItemName>5.7x28mm，20发空尖弹</szLongItemName>
+		<szItemDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm普通弹的杀伤力更高，同时保留了大部分穿甲能力。</szItemDesc>
+		<szBRName>5.7x28mm，20发空尖弹</szBRName>
+		<szBRDesc>20发5.7mm空尖弹的手枪弹匣比5.7mm普通弹的杀伤力更高，同时保留了大部分穿甲能力。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>281</uiIndex>
+		<szItemName>Black Cap</szItemName>
+		<szLongItemName>黑色防寒帽</szLongItemName>
+		<szItemDesc>一顶黑色防寒帽。</szItemDesc>
+		<szBRName>Black Cap</szBRName>
+		<szBRDesc>促销中：只要原价的1/2！如果你想省下50％价格，那就快买下这顶防寒帽吧，不要犹豫了促销活动很快就要截止了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>282</uiIndex>
+		<szItemName>Zylon Combat Pants</szItemName>
+		<szLongItemName>Zylon作战裤</szLongItemName>
+		<szItemDesc>官方作战迷彩护甲。这是美国陆军的标准配备。这种材料的磨损太快了，真不知道他们怎么想的？</szItemDesc>
+		<szBRName>Zylon Combat Pants</szBRName>
+		<szBRDesc>官方作战迷彩护甲。比凯芙拉更坚固，而且还是美国陆军在伊拉克正在使用的身体护甲。它能提供有限的伪装。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>283</uiIndex>
+		<szItemName>Zylon Combat Vest</szItemName>
+		<szLongItemName>Zylon作战背心</szLongItemName>
+		<szItemDesc>官方作战迷彩护甲。这是美国陆军的标准配备。这种材料的磨损太快了，真不知道他们怎么想的？</szItemDesc>
+		<szBRName>Zylon Combat Vest</szBRName>
+		<szBRDesc>官方作战迷彩护甲。比凯芙拉更坚固，而且还是美国陆军在伊拉克正在使用的身体护甲。它能提供有限的伪装。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>284</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>作战军服</szLongItemName>
+		<szItemDesc>官方作战迷彩护甲。这是美国陆军的标准配备。这种材料的磨损太快了，真不知道他们怎么想的？</szItemDesc>
+		<szBRName>Field Uniform</szBRName>
+		<szBRDesc>官方作战迷彩护甲。比凯芙拉更坚固，而且还是美国陆军在伊拉克正在使用的身体护甲。它能提供有限的伪装。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>285</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>奔尼帽</szLongItemName>
+		<szItemDesc>当你觉得戴头盔太热时可以试试这个不错的帽子。它能提供有限的伪装。</szItemDesc>
+		<szBRName>Hat</szBRName>
+		<szBRDesc>在电视里见过？与你在动画片《特种部队》里看到“疯狂的比尔”戴的帽子一样？好吧，它和那顶不太一样，但它仍然是顶不错的帽子。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>286</uiIndex>
+		<szItemName>Uniform</szItemName>
+		<szLongItemName>军礼服</szLongItemName>
+		<szItemDesc>在Arulco如果你需要参加正式的晚宴也许应该穿上它，或者别的。</szItemDesc>
+		<szBRName>Dress Uniform</szBRName>
+		<szBRDesc>美国海军陆战队礼服。警告！穿着这件衣服上战场是不行的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>287</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>美国军官大沿帽</szLongItemName>
+		<szItemDesc>这是一顶军官大沿帽。从样式看，它很可能是来自美国。</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>一顶海军陆战队军官大沿帽。Comes with free beer-hat.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>288</uiIndex>
+		<szItemName>Beret</szItemName>
+		<szLongItemName>红色贝雷帽</szLongItemName>
+		<szItemDesc>Parlay voo francais? 这贝雷帽可能不是法国人的，但它肯定能让你看上去很受欢迎。</szItemDesc>
+		<szBRName>Red Beret</szBRName>
+		<szBRDesc>开始组建你自己的特种作战部队吧！</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>289</uiIndex>
+		<szItemName>Cap</szItemName>
+		<szLongItemName>苏联军帽</szLongItemName>
+		<szItemDesc>哇噢，多好看的帽子呀！</szItemDesc>
+		<szBRName>Russian Cap</szBRName>
+		<szBRDesc>苏联军队士兵的帽子。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>290</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>皮帽</szLongItemName>
+		<szItemDesc>在俄罗斯寒冷的冬季，你最好把皮帽子戴头上。奇怪的是在Arulco居然有人会戴着它？</szItemDesc>
+		<szBRName>Fur Hat</szBRName>
+		<szBRDesc>在俄罗斯寒冷的冬季，你最好把皮帽子戴头上。需要时它还能盖住你的耳朵，并且这项服务还是免费提供的。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>291</uiIndex>
+		<szItemName>Coat</szItemName>
+		<szLongItemName>军官大衣</szLongItemName>
+		<szItemDesc>这件大衣看上去还能在下雨时抵挡一下雨水，但并不意味着它能抵挡的住同样多的子弹。</szItemDesc>
+		<szBRName>Officer's Coat</szBRName>
+		<szBRDesc>苏联军官大衣。我们有衣服口袋带金线的或不带金线的供您选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>292</uiIndex>
+		<szItemName>Hat</szItemName>
+		<szLongItemName>苏联军官大沿帽</szLongItemName>
+		<szItemDesc>这是一顶军官大沿帽。从样式看，它很可能是前苏联时期的产物。</szItemDesc>
+		<szBRName>Officer's Hat</szBRName>
+		<szBRDesc>一顶苏联军官大沿帽。我们有带虱子的或是不带虱子的供您选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>293</uiIndex>
+		<szItemName>SWAT Helmet</szItemName>
+		<szLongItemName>SWAT头盔</szLongItemName>
+		<szItemDesc>标准SWAT护甲中的头盔。这款头盔带有护目镜，并且让人感觉非常坚固。</szItemDesc>
+		<szBRName>SWAT Helmet</szBRName>
+		<szBRDesc>标准的SWAT护甲。坚固、有弹性、柔韧性好。对需要装备轻型护甲和高机动性能的人来说是一个非常不错的选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>294</uiIndex>
+		<szItemName>SWAT Pants</szItemName>
+		<szLongItemName>SWAT裤子</szLongItemName>
+		<szItemDesc>标准SWAT护甲中的裤子。它有着比凯芙拉更坚固的合成纤维，却还能提供卓越的机动性能。</szItemDesc>
+		<szBRName>SWAT Leggings</szBRName>
+		<szBRDesc>标准的SWAT护甲。坚固、有弹性、柔韧性好。对需要装备轻型护甲和高机动性能的人来说是一个非常不错的选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>295</uiIndex>
+		<szItemName>SWAT Vest</szItemName>
+		<szLongItemName>SWAT防弹衣</szLongItemName>
+		<szItemDesc>标准SWAT护甲中的防弹衣。它有着比凯芙拉更坚固的合成纤维，却还能提供卓越的机动性能。</szItemDesc>
+		<szBRName>SWAT Vest</szBRName>
+		<szBRDesc>标准的SWAT护甲。坚固、有弹性、柔韧性好。对需要装备轻型护甲和高机动性能的人来说是一个非常不错的选择。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>296</uiIndex>
+		<szItemName>T-Shirt</szItemName>
+		<szLongItemName>T恤衫</szLongItemName>
+		<szItemDesc>哦？这件写有“KCUF”的T恤你很喜欢是吗？还要再来一件给你的好友？</szItemDesc>
+		<szBRName>T-Shirt</szBRName>
+		<szBRDesc>Not for sale through BR.</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>297</uiIndex>
+		<szItemName>Retractable Baton</szItemName>
+		<szLongItemName>甩棍</szLongItemName>
+		<szItemDesc>在许多国家它作为安全警卫的标准装备配发，非常适合用来鞭笞和殴打敌人。</szItemDesc>
+		<szBRName>Retractable Baton</szBRName>
+		<szBRDesc>安全警卫界中非常流行的标准甩棍。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>298</uiIndex>
+		<szItemName>Nightstick</szItemName>
+		<szLongItemName>警棍</szLongItemName>
+		<szItemDesc>它又长又硬适合用来欧打你的敌人。</szItemDesc>
+		<szBRName>Nightstick</szBRName>
+		<szBRDesc>用这根警棍能让某人的屁股象Rodney King的一样被打开花。（Rodney King曾被一群LAPD警察无辜痛打的黑人，最终打人者被判无罪当庭释放）</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>299</uiIndex>
+		<szItemName>Utility Knife</szItemName>
+		<szLongItemName>多功能刀</szLongItemName>
+		<szItemDesc>撬锁或者是用来刺你的敌人，这把多用途多功能刀都可以胜任。</szItemDesc>
+		<szBRName>Utility Knife</szBRName>
+		<szBRDesc>撬锁或者是用来刺你的敌人，这把多用途多功能刀都可以胜任。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>300</uiIndex>
+		<szItemName>Light Knife</szItemName>
+		<szLongItemName>小刀</szLongItemName>
+		<szItemDesc>一把经过平衡改进的小刀</szItemDesc>
+		<szBRName>Light Knife</szBRName>
+		<szBRDesc>一把经过平衡改进的小刀，伤害虽及不上战斗刀具，但是挥舞速度很快。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>301</uiIndex>
+		<szItemName>Exacto Knife</szItemName>
+		<szLongItemName>美工刀</szLongItemName>
+		<szItemDesc>用来切纸板再好不过了!但用来切人就...</szItemDesc>
+		<szBRName>Exacto Knife</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>302</uiIndex>
+		<szItemName>Camo St. Helm</szItemName>
+		<szLongItemName>迷彩钢盔</szLongItemName>
+		<szItemDesc>可以抵抗小口径枪弹，爆炸破片或者其他什么的。表面涂有伪装迷彩。</szItemDesc>
+		<szBRName>Camo Steel Helmet</szBRName>
+		<szBRDesc>舒适耐用，让你的脑袋免于小口径枪弹，爆炸破片或诸如此类的伤害。内有皮革尼龙混合衬垫，一根可调节颚带，并提供不错的伪装效果。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>303</uiIndex>
+		<szItemName>Platter</szItemName>
+		<szLongItemName>银盘子</szLongItemName>
+		<szItemDesc>一只脏兮兮的银盘子，上面没有任何刻字。这玩意儿许久以前肯定是一件不错的礼物。</szItemDesc>
+		<szBRName>Silver Platter</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>304</uiIndex>
+		<szItemName>Duct Tape</szItemName>
+		<szLongItemName>电工胶带</szLongItemName>
+		<szItemDesc>一卷灰色，两寸宽的结实胶带。非常适合用来补洞和粘接东西。</szItemDesc>
+		<szBRName>Duct Tape</szBRName>
+		<szBRDesc>一卷灰色，两寸宽的结实胶带。非常适合用来补洞和粘接东西。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>305</uiIndex>
+		<szItemName>Rod</szItemName>
+		<szLongItemName>铝管</szLongItemName>
+		<szItemDesc>一截用来挂窗帘的铝管，两端都断了。真想知道可怜的小窗帘被怎么了……</szItemDesc>
+		<szBRName>Aluminum Rod</szBRName>
+		<szBRDesc>一截用来挂窗帘的铝管，两端都断了。真想知道可怜的小窗帘被怎么了……</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>306</uiIndex>
+		<szItemName>Spring</szItemName>
+		<szLongItemName>弹簧</szLongItemName>
+		<szItemDesc>一小根弹簧，很多家用电器上都有它的身影。</szItemDesc>
+		<szBRName>Spring</szBRName>
+		<szBRDesc>一小根弹簧，很多家用电器上都有它的身影。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>307</uiIndex>
+		<szItemName>Rod &amp; Spring</szItemName>
+		<szLongItemName>弹簧铝管</szLongItemName>
+		<szItemDesc>把这个精巧的小玩意儿装到枪里面可以提高武器的射速。</szItemDesc>
+		<szBRName>Rod &amp; Spring</szBRName>
+		<szBRDesc>把这个精巧的小玩意儿装到枪里面可以提高武器的射速。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>308</uiIndex>
+		<szItemName>Steel Tube</szItemName>
+		<szLongItemName>钢管</szLongItemName>
+		<szItemDesc>一块普通的金属材料，想为它找个新家么？</szItemDesc>
+		<szBRName>Steel Tube</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>309</uiIndex>
+		<szItemName>Quick Glue</szItemName>
+		<szLongItemName>快干胶</szLongItemName>
+		<szItemDesc>一粘就牢!适用于绝大部分材质表面!只要3分钟!</szItemDesc>
+		<szBRName>Quick Glue</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>310</uiIndex>
+		<szItemName>Extender</szItemName>
+		<szLongItemName>枪身延长管</szLongItemName>
+		<szItemDesc>把这漂亮的小家伙装到你的爱枪上，你就等着看射程飙升吧。</szItemDesc>
+		<szBRName>Gun Barrel Extender</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>311</uiIndex>
+		<szItemName>String</szItemName>
+		<szLongItemName>绳子</szLongItemName>
+		<szItemDesc>一根19尺长的普通白色绳子。</szItemDesc>
+		<szBRName>String</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>312</uiIndex>
+		<szItemName>Can</szItemName>
+		<szLongItemName>易拉罐</szLongItemName>
+		<szItemDesc>看起来这个空易拉罐被人踢过无数次了...</szItemDesc>
+		<szBRName>Soda Can</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>313</uiIndex>
+		<szItemName>Can w/ String</szItemName>
+		<szLongItemName>警戒绳</szLongItemName>
+		<szItemDesc>挂在那些写着"新婚~"的车屁股后面，拖起来声音很大。</szItemDesc>
+		<szBRName>Soda Can with String</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>314</uiIndex>
+		<szItemName>Marbles</szItemName>
+		<szLongItemName>玻璃珠</szLongItemName>
+		<szItemDesc>又圆又亮的玻璃珠，通常是小孩们玩打弹子的道具。</szItemDesc>
+		<szBRName>Marbles</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>315</uiIndex>
+		<szItemName>LameBoy</szItemName>
+		<szLongItemName>Lameboy掌机</szLongItemName>
+		<szItemDesc>贴纸上写着"经典游戏掌机，绝非山寨出品!"...天知道什么意思。</szItemDesc>
+		<szBRName>LameBoy Display</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>316</uiIndex>
+		<szItemName>Copper Wire</szItemName>
+		<szLongItemName>铜线</szLongItemName>
+		<szItemDesc>铜线铜线...所有的电子设备上都有它。</szItemDesc>
+		<szBRName>Copper Wire</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>317</uiIndex>
+		<szItemName>Display Unit</szItemName>
+		<szLongItemName>显示屏</szLongItemName>
+		<szItemDesc>从Lameboy上拆下来的显示屏，并装上了铜线。</szItemDesc>
+		<szBRName>Display Unit</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>318</uiIndex>
+		<szItemName>FumblePak</szItemName>
+		<szLongItemName>游戏手柄</szLongItemName>
+		<szItemDesc>一只带振动功能的游戏手柄。</szItemDesc>
+		<szBRName>FumblePak</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>319</uiIndex>
+		<szItemName>X-ray Tube</szItemName>
+		<szLongItemName>X光管</szLongItemName>
+		<szItemDesc>从医院的X光机拆下来的。</szItemDesc>
+		<szBRName>X-ray Tube</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>320</uiIndex>
+		<szItemName>Gum</szItemName>
+		<szLongItemName>口香糖</szLongItemName>
+		<szItemDesc>一块无糖口香糖，薄荷口味。建议饭后咀嚼，口气清新每一天!</szItemDesc>
+		<szBRName>Pack of Gum</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>321</uiIndex>
+		<szItemName>X-ray Device</szItemName>
+		<szLongItemName>X光设备</szLongItemName>
+		<szItemDesc>一。。。坨由各种垃圾组装起来的设备，似乎可以散发X光并振动。</szItemDesc>
+		<szBRName>X-ray Device</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>322</uiIndex>
+		<szItemName>Batteries</szItemName>
+		<szLongItemName>电池</szLongItemName>
+		<szItemDesc>"北孚电池，聚能环锁住电力持久耐用。"---你知道这些都是狗屁，电池就像女人，在你最需要她们的时候就会把你给甩了。</szItemDesc>
+		<szBRName>Batteries</szBRName>
+		<szBRDesc>"北孚电池，聚能环锁住电力持久耐用。"---你知道这些都是狗屁，电池就像女人，在你最需要她们的时候就会把你给甩了。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>323</uiIndex>
+		<szItemName>Rubber Band</szItemName>
+		<szLongItemName>橡皮圈</szLongItemName>
+		<szItemDesc>弹力十足，适合用来扎紧某些东西。</szItemDesc>
+		<szBRName>Rubber Band</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>324</uiIndex>
+		<szItemName>X-ray Detector</szItemName>
+		<szLongItemName>X光探测仪</szLongItemName>
+		<szItemDesc>这台山寨X光探测仪貌似真的可以用!散发X光并把探测到的物体显示在屏幕上，使用AA5号电池作为能源。</szItemDesc>
+		<szBRName>X-ray Detector</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>325</uiIndex>
+		<szItemName>Silver</szItemName>
+		<szLongItemName>银块</szLongItemName>
+		<szItemDesc>一小块银块，似乎是阿卢科的银矿出产的。</szItemDesc>
+		<szBRName>Silver Nugget</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>326</uiIndex>
+		<szItemName>Gold</szItemName>
+		<szLongItemName>金块</szLongItemName>
+		<szItemDesc>这一块怎么着也得两百美金吧? 两百?!那是成本!三百起!你别嫌贵，还不打折。</szItemDesc>
+		<szBRName>Gold Nugget</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>327</uiIndex>
+		<szItemName>Gas</szItemName>
+		<szLongItemName>汽油</szLongItemName>
+		<szItemDesc>请节约使用，汽油在阿卢科可是精贵玩意儿。</szItemDesc>
+		<szBRName>Tank of Gas</szBRName>
+		<szBRDesc>BR不出售此物品。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>328</uiIndex>
+		<szItemName>5.56x45mm Mag 10 AP</szItemName>
+		<szLongItemName>5.56x45mm，10发普通弹</szLongItemName>
+		<szItemDesc>通常叫5.56弹或者.223弹，弹道能在目标物上造成可怕撕裂伤。</szItemDesc>
+		<szBRName>5.56x45mm，10发普通弹</szBRName>
+		<szBRDesc>通常叫5.56弹或者.223弹，弹道能在目标物上造成可怕撕裂伤。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>329</uiIndex>
+		<szItemName>5.56x45mm Mag 10 HP</szItemName>
+		<szLongItemName>5.56x45mm，10发空尖弹</szLongItemName>
+		<szItemDesc>已被国际条约明令禁止军队使用。(你如果想用的话我会假装没看见...)。</szItemDesc>
+		<szBRName>5.56x45mm，10发空尖弹</szBRName>
+		<szBRDesc>已被国际条约明令禁止军队使用。(你如果想用的话我会假装没看见...)。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>330</uiIndex>
+		<szItemName>Micro-Uzi</szItemName>
+		<szLongItemName>Micro-Uzi</szLongItemName>
+		<szItemDesc>枪如其名，乌兹冲锋枪。话说，先有迷你乌兹再有微型乌兹...天知道什么时候以色列的生产线会出口袋乌兹。</szItemDesc>
+		<szBRName>Micro-Uzi</szBRName>
+		<szBRDesc>枪如其名，是把乌兹冲锋枪。话说，先有迷你乌兹再有微型乌兹...天知道什么时候以色列的生产线会出口袋乌兹。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>331</uiIndex>
+		<szItemName>L85A2</szItemName>
+		<szLongItemName>Enfield L85A2</szLongItemName>
+		<szItemDesc>这只英国枪其实是在诺丁汉生产的，而非恩菲尔德。在那里由全自动的电脑生产线组装而成。</szItemDesc>
+		<szBRName>Enfield L85A2</szBRName>
+		<szBRDesc>这只英国枪其实是在诺丁汉生产的，而非恩菲尔德。在那里由全自动的电脑生产线组装而成。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>332</uiIndex>
+		<szItemName>TAR 21</szItemName>
+		<szLongItemName>Tavor TAR 21</szLongItemName>
+		<szItemDesc>这只以色列产新型机枪绝对能把你雷得里焦外嫩。空重仅5.5磅，每分钟能发射900发5.56mm弹，哇哦~~~</szItemDesc>
+		<szBRName>Tavor TAR 21</szBRName>
+		<szBRDesc>这只以色列产新型机枪绝对能把你雷得里焦外嫩。空重仅5.5磅，每分钟能发射900发5.56mm弹，哇哦~~~</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>333</uiIndex>
+		<szItemName>VSS</szItemName>
+		<szLongItemName>VSS Vintorez</szLongItemName>
+		<szItemDesc>俄产消音狙击步枪，使用杀伤力巨大的9mm重弹，在400米的距离内能够穿透几乎一切防弹衣。</szItemDesc>
+		<szBRName>VSS Vintorez</szBRName>
+		<szBRDesc>俄产消音狙击步枪，使用杀伤力巨大的9mm重弹，在400米的距离内能够穿透几乎一切防弹衣。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>334</uiIndex>
+		<szItemName>PSG1</szItemName>
+		<szLongItemName>HK PSG1</szLongItemName>
+		<szItemDesc>这只德产狙击步枪再次完美展现了德国人精益求精的制造工艺，值得一用。</szItemDesc>
+		<szBRName>HK PSG1</szBRName>
+		<szBRDesc>这只德产狙击步枪再次完美展现了德国人精益求精的制造工艺，值得一用。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>335</uiIndex>
+		<szItemName>M82A2</szItemName>
+		<szLongItemName>Barrett M82A2</szLongItemName>
+		<szItemDesc>这支改进后的M82A2采用了无托结构，在不削减枪管长度的基础上，缩短了整枪长度。</szItemDesc>
+		<szBRName>Barrett M82A2</szBRName>
+		<szBRDesc>这支改进后的M82A2采用了无托结构，在不削减枪管长度的基础上，缩短了整枪长度。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>336</uiIndex>
+		<szItemName>Hand Mortar</szItemName>
+		<szLongItemName>手炮</szLongItemName>
+		<szItemDesc>其标志是粗短的黄铜制枪膛和刻有Jourson姓氏的保险机，18世纪典型的手炮在收藏品市场上是很有价值的。</szItemDesc>
+		<szBRName>Hand Mortar</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>337</uiIndex>
+		<szItemName>Garver Knife</szItemName>
+		<szLongItemName>Sam Garver战斗刀</szLongItemName>
+		<szItemDesc>这个限量发售的Sam Garver战斗刀以一个序列号和Sam的签名作为认证。镀锌的钢刀刃和优雅的鳄鱼皮使它成为超级抢手的收藏品。</szItemDesc>
+		<szBRName>Sam Garver Combat Knife</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>338</uiIndex>
+		<szItemName>Cannon Ball</szItemName>
+		<szLongItemName>手炮弹</szLongItemName>
+		<szItemDesc>手工制作的铸铁炮弹，供手炮使用。</szItemDesc>
+		<szBRName>Cannon Ball</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>339</uiIndex>
+		<szItemName>Transmitter</szItemName>
+		<szLongItemName>笔记本电脑接收器</szLongItemName>
+		<szItemDesc>这个卫星信号接收器能让笔记本电脑在世界任何地方接入Internet。注意：不支持Windows系统。</szItemDesc>
+		<szBRName>Laptop Transmitter</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>340</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>克莱兹代尔马的进攻</szLongItemName>
+		<szItemDesc>（吐槽：恶搞克隆人的进攻）一部经典的日式西部片。一个中西部小镇被八匹踢翻啤酒车，浑身是泡沫的克莱兹代尔马搅得一团糟。</szItemDesc>
+		<szBRName>Attack of the Clydesdales</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>341</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>追风战警</szLongItemName>
+		<szItemDesc>（吐槽：恶搞飙风战警）不要把它和票房一败涂地的美国片《飙风战警》搞混了，由威尔.史密斯罗（吐槽：恶搞威尔.史密斯）和Tex Colburn主演的《追风战警》是一部从头到尾都很欢乐的电影。</szItemDesc>
+		<szBRName>Wild, Wild East</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>342</uiIndex>
+		<szItemName>Video</szItemName>
+		<szLongItemName>车到山前必有路，有路必有本田车(Have Honda, Will Travel)</szLongItemName>
+		<szItemDesc>（吐槽：恶搞Have Gun，Will Travel）或许是由弗朗西斯.本田.科佩拉（吐槽：恶搞弗朗西斯.福特.科波拉 Francis Ford Coppola）导演的最成功作品之一，这部日式西部片用原始的本田微型车替代了马作为旅行工具（吐槽：就是骂日本车马力太小了）。</szItemDesc>
+		<szBRName>Have Honda, Will Travel</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>343</uiIndex>
+		<szItemName>Canteen</szItemName>
+		<szLongItemName>切.格瓦拉水壶</szLongItemName>
+		<szItemDesc>这个手工制作的锡制水壶是叛军的必备品，它被包裹在绝缘的玛雅羊毛中，灌满了来自法属阿尔卑斯山顶的山泉水，每次游击战都会有它的身影。</szItemDesc>
+		<szBRName>Che Guevara Canteen</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>344</uiIndex>
+		<szItemName>Wrist Watch</szItemName>
+		<szLongItemName>MERC腕表</szLongItemName>
+		<szItemDesc>一个不同寻常的计时器，它是M.E.R.C.官方出品的腕表。表面是Flo身着最轻薄的比基尼，用她的双手指向准确的时间。它还是防水的，绝不起雾（影响您看见她）。</szItemDesc>
+		<szBRName>MERC Wrist Watch</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>345</uiIndex>
+		<szItemName>Umbrella</szItemName>
+		<szLongItemName>MERC雨伞</szLongItemName>
+		<szItemDesc>无论你穿的是普通衣服还是迷彩服，这个多用途雨伞适用于任何情况。它也非常耐用，特氟龙处理过的伞面可以经得住冻雨和冰雹。</szItemDesc>
+		<szBRName>MERC Umbrella</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+	<ITEM>
+		<uiIndex>346</uiIndex>
+		<szItemName>Instructions</szItemName>
+		<szLongItemName>Morris的导弹发射手册</szLongItemName>
+		<szItemDesc>这本笔记包括了所有发射点和目标的坐标，并有详细的导弹发射说明。它包含了Arulco的城镇和Tracona的发射设施。</szItemDesc>
+		<szBRName>Morris' Launch Instructions</szBRName>
+		<szBRDesc>不通过BR销售。</szBRDesc>
+	</ITEM>
+</ITEMLIST>

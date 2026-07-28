@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Oh, Roxy. Je n'ai même pas eu le temps pour te lire mon poème...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>C'est bien fait pour toi, pétasse !</szText>
+    <szTextCensored>C'est bien fait pour toi, garce !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Que puis-je dire... À part que je dégaine vite.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ta cinématographie va me manquer...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Les cendres aux cendres, la poussière à la poussière.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Va en enfer, Hellar !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Le tourniquet a tourné une fois de trop...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Va rôtir en enfer, perfide bâtard.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Je te nique, Mike ! Ça sonne bien dans ma tête...</szText>
+    <szTextCensored>Tu es un sale tique, Mike ! Ça sonne bien dans ma tête...</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Je vais te donner mon autographe Gillitt... Sur ton registre de condoléances !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Je savais que j'étais meilleur(e) que toi, Gillitt !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Je viens de buter Miguel ! Enfin, la Reine va entendre parler de moi !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>C'est l'heure d'un tour de magie... Bingo, il est parti !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Oh non, il tombe ! Attention à l'onde de choc !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Quel curieux personnage, vraiment déprimant... Mouais, tu me fait pitié !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Hé, Cordona ! Deidranna te passe le bonjour !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Je vais avoir ma promotion en te tuant, sale rebelle !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Pan-pan ! Tout comme dans "La bavure des clydesdales" !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Beaucoup de poussière et de balles !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Remonte donc sur ta Honda et retourne voyager !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Pardonnez-moi, car j'ai péché !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Retourne dans ta tombe, foutu zombi !</szText>
+    <szTextCensored>Retourne dans ta tombe, satané zombi !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>S'il te plaît, tu nous racontes à nouveau l'histoire de la bataille de Gettysburg !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Maintenant, c'est une cible facile !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Tu as de belles oreilles, Dumbo ! Elles seront bien sur mon collier !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Où est ton Dieu, maintenant ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Mon Père, que dit le cinquième commandement ? Sale hypocrite !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Qui est cette psychopathe ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>N'es-tu pas un peu trop âgé pour ça, vieux schnock ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Toute cette graisse ne protège pas les organes vitaux ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Non, pas toi Œil de Lynx ! Je voulais accrocher ta tête au-dessus de ma cheminée !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>En voilà un qui délire... Il se prend pour un orque !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Dis, tu te bats comme une grosse vache !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Arrête de trembler ! Je ne veux pas te frapper !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Arrête de bouger ! Je ne peux pas viser quand le sol tremble !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Merde alors, c'est Gus ! On est foutu !</szText>
+    <szTextCensored>Zut, c'est Gus ! On est mal parti !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Hé, c'est le gars qui joue dans "Les mystères de l'Est" ! Je suis votre plus grand fan !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Ennemi détecté ! La vache, difficile de le louper...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Bien le bonjour !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Tu me fais penser à mon ami chinois... Tai Lei !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Dites, ce n'est pas ma vedette préférée ? Eh, j'ai tous vos posters à la caserne...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Tu sais, j'aimerais te gifler en ce moment, mais je ne veux pas me salir les mains !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Jolis amortisseurs ! Ce sont des vrais ?</szText>
+    <szTextCensored>De beaux calibres que tu as là ! Ce sont des vrais ou des copies ?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Ne tirez pas sur les amortisseurs !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Hé les gars, c'est lui qui m'a mise en cloque !</szText>
+    <szTextCensored>Hé les gars, c'est lui qui m'a mise enceinte !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Vite, que quelqu'un appelle le capitaine Achab !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Tu es perdu ? Les auditions pour "Sauvez Willy " sont par là !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Please, don't eat me!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Hé chérie, que fais-tu ici ? Tu n'as pas une lessive à faire ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>Regardez, j'ai trouvé un fossile !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Regardez, j'ai trouvé un fossile !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Regardez, j'ai trouvé un fossile !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Regardez, un dinosaure vivant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Regardez, un dinosaure vivant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Regardez, un dinosaure vivant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Whoua, tu as une sacrée p... personnalité.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Tu me rappelles ce jeune... Corne-cul de Schwarzenegger !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Hé, corne-cul ! Dans les années 80, on appelait comment cette coupe de cheveux !</szText>
+  </TAUNT>
+</TAUNTS>

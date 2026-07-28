@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BACKGROUNDS>
+  <BACKGROUND>
+    <uiIndex>0</uiIndex>
+    <szName>Background name (128 letters)</szName>
+    <szShortName>short name (20)</szShortName>
+    <szDescription>Enter a description here. This will show up in the laptop and can be up to 256 letters long.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>1</uiIndex>
+    <szName>Trafiquant d'armes :</szName>
+    <szShortName>Trafiquant d'armes</szShortName>
+    <szDescription>L'expérience gagnée pendant des années de trafic d'armes,
+permet d'avoir de meilleurs prix sur ce type de marchandise.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>2</uiIndex>
+    <szName>Policier :</szName>
+    <szShortName>Policier</szShortName>
+    <szDescription>Les anciens policiers cherchent souvent du travail dans le monde des
+mercenaires et sont le choix logique pour s'occuper des prisonniers.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>3</uiIndex>
+    <szName>Gardien de prison :</szName>
+    <szShortName>Gardien de prison</szShortName>
+    <szDescription>Dans les longs et grands conflits, les anciens gardiens de prison
+sont des choix naturels pour s'occuper des camps de prisonniers.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>4</uiIndex>
+    <szName>Membre d'un gang :</szName>
+    <szShortName>Membre d'un gang</szShortName>
+    <szDescription>Devenir un mercenaire est une étape naturelle pour de nombreux membres de gangs...
+L'emploi est le même, les "outils" sont meilleurs et ça paient mieux.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>5</uiIndex>
+    <szName>Repris de justice :</szName>
+    <szShortName>Repris de justice</szShortName>
+    <szDescription>Une personne qui fait de la prison, risque sa vie tous les jours et
+sera plus dangereuse à sa sortie... Si elle a survécu jusque là.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>6</uiIndex>
+    <szName>Toxicomane :</szName>
+    <szShortName>Toxicomane</szShortName>
+    <szDescription>Vu la nature des drogues d'aujourd'hui, les toxicomanes
+sont de redoutables adversaires, mais peu fiables.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>7</uiIndex>
+    <szName>Noble :</szName>
+    <szShortName>Noble</szShortName>
+    <szDescription>Certains nobles ne deviennent pas mercenaires par nécessité. Il est facile de
+les traiter de poules mouillées d'aristos, mais certains sont en fait vraiment
+capables, car ils ont reçu la meilleure formation que l'argent peut acheter.</szDescription>    
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>8</uiIndex>
+    <szName>Avocat :</szName>
+    <szShortName>Avocat</szShortName>
+    <szDescription>Un passif peu orthodoxe pour un mercenaire, mais un ancien avocat pourrait
+s'avérer utile quand une affaire se règle sur le fil d'un rasoir</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>9</uiIndex>
+    <szName>Pilote :</szName>
+    <szShortName>Pilote</szShortName>
+    <szDescription>Habitués au stress sur de longues périodes, certains
+pilotes trouvent le combat au sol étonnamment facile.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>10</uiIndex>
+    <szName>Prêtre :</szName>
+    <szShortName>Prêtre</szShortName>
+    <szDescription>De nombreux fervents disciples d'une religion ou d'un culte sont étonnamment
+violents et zélés si on le pousse dans la bonne direction (ou la mauvaise).</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>11</uiIndex>
+    <szName>Infirmier :</szName>
+    <szShortName>Infirmier</szShortName>
+    <szDescription>Les infirmiers ne sont pas des médecins à part entière, mais elles sont toujours
+fortement demandées dans les zones de guerre, qui font toujours de nombreux blessés.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>12</uiIndex>
+    <szName>Vétéran de l'ANC :</szName>
+    <szShortName>Vétéran de l'ANC</szShortName>
+    <szDescription>Les anciens militants de l'ANC ne sont pas seulement formés
+au combat de jungle, mais aussi à la politique.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>13</uiIndex>
+    <szName>Ouvrier du bâtiment :</szName>
+    <szShortName>Ouvrier du bâtiment</szShortName>
+    <szDescription>Les ouvriers du bâtiment sont habitués au labeur difficile. Ils peuvent
+construire des fortifications bien mieux que des héros de bureau.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>14</uiIndex>
+    <szName>Parachutiste :</szName>
+    <szShortName>Parachutiste</szShortName>
+    <szDescription>Si vous aimez risquer votre vie, autant le faire en gagnant de l'argent...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>15</uiIndex>
+    <szName>Sergent instructeur :</szName>
+    <szShortName>Sergent instructeur</szShortName>
+    <szDescription>Le travail d'un sergent instructeur est de forger des soldats
+en traumatisant des jeunes hommes et femmes.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>16</uiIndex>
+    <szName>Videur :</szName>
+    <szShortName>Videur</szShortName>
+    <szDescription>Les videurs font de bons éléments en combat rapproché, mais
+tuer est une tout autre affaire pour eux (espérons-le).</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>17</uiIndex>
+    <szName>Tueur à gage :</szName>
+    <szShortName>Tueur à gage</szShortName>
+    <szDescription>Les assassins professionnels sont évidemment habitués à tuer, ce qui pourrait
+entrer en conflit avec l'idéalisme de certains membres de l'équipe.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>18</uiIndex>
+    <szName>Saboteur :</szName>
+    <szShortName>Saboteur</szShortName>
+    <szDescription>Vous les appelez "terroristes ou résistants"...
+Selon votre relation avec les personnes tuées.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>19</uiIndex>
+    <szName>Garde du corps :</szName>
+    <szShortName>Garde du corps</szShortName>
+    <szDescription>Superbement entraîné, entièrement dévoué et prêt à payer le
+prix ultime. Qu'est ce qu'un employeur peut vouloir de plus ?</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>20</uiIndex>
+    <szName>Policier du SWAT :</szName>
+    <szShortName>Policier du SWAT</szShortName>
+    <szDescription>La ligne qui sépare la police de l'armée, est mince. Le SWAT a des unités d'élite
+employées dans des opérations urbaines trop dangereuses pour la police normale.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>21</uiIndex>
+    <szName>Barman :</szName>
+    <szShortName>Barman</szShortName>
+    <szDescription>Un visage amical peut rendre la violence inutile...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>22</uiIndex>
+    <szName>Mineur :</szName>
+    <szShortName>Mineur</szShortName>
+    <szDescription>Le travail dans une mine est dur et épuisant. Pas étonnant que
+certains cherchent à gagner de l'argent plus facilement.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>23</uiIndex>
+    <szName>Mafieux :</szName>
+    <szShortName>Mafieux</szShortName>
+    <szDescription>Le crime organisé se trouve nulle part. Aucune exception.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>24</uiIndex>
+    <szName>Casque bleu :</szName>
+    <szShortName>Casque bleu</szShortName>
+    <szDescription>Les nations du monde entier fournissent des troupes à l'ONU pour résoudre tous
+les conflits sans violence. Malheureusement, cette affirmation est fausse.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>25</uiIndex>
+    <szName>Membre du SAS :</szName>
+    <szShortName>Membre du SAS</szShortName>
+    <szDescription>Le "Special Air Service" britannique est l'une des plus célèbres unités des
+forces spéciales du monde et excelle dans les missions aéroportées.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>26</uiIndex>
+    <szName>Rebelle :</szName>
+    <szShortName>Rebelle</szShortName>
+    <szDescription>Désarmés et dépassés, les rebelles de Miguel ont failli
+disparaître avant l'arrivée de l'aide extérieure.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>27</uiIndex>
+    <szName>Métavirien :</szName>
+    <szShortName>Métavirien</szShortName>
+    <szDescription>Le peuple de Métavira s'est adapté à l'hostilité de la jungle. Après la libération
+de leur île, certains ont rejoint les étrangers pour tenter leur chance ailleurs.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>28</uiIndex>
+    <szName>Shaman métavirien :</szName>
+    <szShortName>Shaman métavirien</szShortName>
+    <szDescription>Chef de leur tribu depuis des siècles, les shamans ont des connaissances
+médicales inconnues aux yeux des occidentaux.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>29</uiIndex>
+    <szName>Membre SOG :</szName>
+    <szShortName>Membre SOG</szShortName>
+    <szDescription>Le "Studies and Observations Group" (SOG) était une unité des forces spéciales hautement
+classifiée qui menait des missions de guerre non conventionnelle au Vietnam.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>30</uiIndex>
+    <szName>Conseiller militaire :</szName>
+    <szShortName>Conseiller</szShortName>
+    <szDescription>Pointer l'arme dans la bonne direction est un bon début, mais quelqu'un doit
+apprendre à ces gars comment enseigner à d'autres où pointer leur arme !</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>31</uiIndex>
+    <szName>Instructeur paramilitaire :</szName>
+    <szShortName>Instructeur</szShortName>
+    <szDescription>Tout comme chez les scouts. Mais c'est plus violent.
+En fait, ce n'est pas du tout comme chez les scouts.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>32</uiIndex>
+    <szName>Soldat Armée rouge</szName>
+    <szShortName>Soldat Armée rouge</szShortName>
+    <szDescription>Avec le stoïcisme russe, l'Armée rouge a gagné contre
+Hitler, le père Noël et les pénuries habituelles.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>33</uiIndex>
+    <szName>Croque-mort :</szName>
+    <szShortName>Croque-mort</szShortName>
+    <szDescription>Quand vous avez tout vu, rien ne peut plus vous effrayer désormais.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>34</uiIndex>
+    <szName>Ranger :</szName>
+    <szShortName>Ranger</szShortName>
+    <szDescription>Les Rangers sont l'élite de l'infanterie de l'armée américaine.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>35</uiIndex>
+    <szName>Touareg :</szName>
+    <szShortName>Touareg</szShortName>
+    <szDescription>Les Touaregs sont des Berbères, un peuple
+qui mènent une vie nomade dans le Sahara.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>36</uiIndex>
+    <szName>Pompier :</szName>
+    <szShortName>Pompier</szShortName>
+    <szDescription>Ce n'est pas parce que ça n'implique pas de fusillades que c'est moins dangereux.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>37</uiIndex>
+    <szName>Tireur sportif :</szName>
+    <szShortName>Tireur sportif</szShortName>
+    <szDescription>Certains montrent un talent pour le tir et une agressivité
+inquiétante contre d'innocentes cibles en carton.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>38</uiIndex>
+    <szName>Infirmier/tireur :</szName>
+    <szShortName>Infirmier/tireur</szShortName>
+    <szDescription>Cette combinaison pimentera au moins votre curriculum vitae.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>39</uiIndex>
+    <szName>Commerçant :</szName>
+    <szShortName>Commerçant</szShortName>
+    <szDescription>Pour beaucoup de gens, le commerce... C'est le commerce.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>40</uiIndex>
+    <szName>Mécanicien auto :</szName>
+    <szShortName>Mécanicien auto</szShortName>
+    <szDescription>Très utile, si vous avez un véhicule.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>41</uiIndex>
+    <szName>Armurier</szName>
+    <szShortName>Armurier</szShortName>
+    <szDescription>Dans une zone de guerre sans le confort habituel, il est très utile
+d'avoir une personne qui peut entretenir votre équipement.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+    <uiIndex>42</uiIndex>
+    <szName>Policier du GSG9 :</szName>
+    <szShortName>Policier du GSG9</szShortName>
+    <szDescription>Formé après le massacre de Munich (J.O) en 1972,
+GSG9 est une unité de contre-terrorisme allemand.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>43</uiIndex>
+   <szName>Employé de bureau :</szName>
+   <szShortName>Employé de bureau</szShortName>
+   <szDescription>Air conditionné, du mauvais café et quelques papiers
+à classer... Qu'espérez-vous d'autre de la vie ?</szDescription>
+ </BACKGROUND>
+ <BACKGROUND>
+   <uiIndex>44</uiIndex>
+   <szName>Touriste :</szName>
+   <szShortName>Touriste</szShortName>
+   <szDescription>Pouvez-vous me prendre en photo, s'il vous plaît ?</szDescription>
+ </BACKGROUND>
+ <BACKGROUND>
+   <uiIndex>45</uiIndex>
+   <szName>Enfant :</szName>
+   <szShortName>Enfant</szShortName>
+   <szDescription>Et ils connaissent la convention de Genève...</szDescription>
+ </BACKGROUND>
+ <BACKGROUND>
+   <uiIndex>46</uiIndex>
+   <szName>Adolescent :</szName>
+   <szShortName>Adolescent</szShortName>
+   <szDescription>Si angoissé.</szDescription>
+ </BACKGROUND>
+ <BACKGROUND>
+   <uiIndex>47</uiIndex>
+   <szName>Accessoiriste :</szName>
+   <szShortName>Accessoiriste</szShortName>
+   <szDescription>Explosions, feux d'artifice, gens qui crient... N'est-ce pas
+étrange comme la scène ressemble aux champs de bataille ?</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>48</uiIndex>
+   <szName>Bricoleur de génie :</szName>
+   <szShortName>Bricoleur de génie</szShortName>
+   <szDescription>Peu importe que ce soit de la vieille ferraille ou le dernier joujou technologique sorti,
+le bricoleur de génie peut le recâbler, réassembler et reconfigurer les yeux fermés.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>49</uiIndex>
+   <szName>Universitaire :</szName>
+   <szShortName>Universitaire</szShortName>
+   <szDescription>Fraichement sorti d'une école avec les diplômes encore chauds
+dans la main, il est finalement temps pour vous de vivre.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>50</uiIndex>
+   <szName>Policier :</szName>
+   <szShortName>Policier</szShortName>
+   <szDescription>Salut inspecteur, vous avez résolu l'affaire
+de la disparition des beignets ?</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>51</uiIndex>
+   <szName>Cambrioleur du Watergate :</szName>
+   <szShortName>Watergate</szShortName>
+   <szDescription>Eh bien, ça ne s'est pas passé comme prévu.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>52</uiIndex>
+   <szName>Mascotte :</szName>
+   <szShortName>Mascotte</szShortName>
+   <szDescription>Personne ne vous prend au sérieux, car vous vous promenez dans un costume ridicule ?
+Mais, le sourire d'un enfant est une compensation !</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>53</uiIndex>
+   <szName>Mime :</szName>
+   <szShortName>Mime</szShortName>
+   <szDescription>...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>54</uiIndex>
+   <szName>Star de série B :</szName>
+   <szShortName>Star de série B</szShortName>
+   <szDescription>Cible du popcorn jeté dans les cinémas du monde entier,
+raillé par les critiques et pourtant adulé par des fans fidèles</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>55</uiIndex>
+   <szName>Pyrotechnicien :</szName>
+   <szShortName>Pyrotechnicien</szShortName>
+   <szDescription>Quand vous voulez casser le moral de l'ennemi en faisant exploser
+ses chiottes, il vous faut un pyrotechnicien qualifié !</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>56</uiIndex>
+   <szName>Démineur :</szName>
+   <szShortName>Démineur</szShortName>
+   <szDescription>Le démineur ne peut faire que deux erreurs dans sa vie.
+La première est son choix de carrière...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>57</uiIndex>
+   <szName>Malade imaginaire :</szName>
+   <szShortName>Malade imaginaire</szShortName>
+   <szDescription>Quand vous entrez au service d'urgences, c'est l'envolée de moineaux parmi le personnel.
+Certains font semblant de s'occuper des vrais malades et d'autres tentent vainement
+de se cacher pour vous éviter. La Liste de vos maladies grandit de jour en jour !</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>58</uiIndex>
+   <szName>Agriculteur :</szName>
+   <szShortName>Agriculteur</szShortName>
+   <szDescription>Bleu de travail, de la paille qui sort des bottes et l'inséparable brin d'herbe aux lèvres. Ce
+n'est pas exactement une image flateuse, mais bon, la vie à la ferme n'est pas facile.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>59</uiIndex>
+   <szName>Fils à sa maman :</szName>
+   <szShortName>Fils à sa maman</szShortName>
+   <szDescription>Votre enfance vous a laissé d'importants troubles
+personnels qui doivent être résolus.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>60</uiIndex>
+   <szName>Académicien :</szName>
+   <szShortName>Académicien</szShortName>
+   <szDescription>Vos connaissances viennent des livres et d'anciens rapports... Mais ils ne vous ont
+pas préparé à cette triste réalité de la guerre, aussi bien que vous le pensiez.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>61</uiIndex>
+   <szName>Malade mental :</szName>
+   <szShortName>Malade mental</szShortName>
+   <szDescription>Il existe différents rapports sur comment vous avez réussi à sortir de votre internement
+psychiatrique, mais tout le monde est d'accord sur un point... Vous devriez y retourner.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>62</uiIndex>
+   <szName>Catcheur :</szName>
+   <szShortName>Catcheur</szShortName>
+   <szDescription>Ça a peut-être plus du spectacle que du vrai combat, mais être projeté
+à travers un ring sans se casser le cou nécessite beaucoup de talent.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>63</uiIndex>
+   <szName>Médecin généraliste :</szName>
+   <szShortName>Médecin généraliste</szShortName>
+   <szDescription>Le médecin généraliste est instruit pour sauver la vie humaine et
+peu importe ce que son patient a attrapé... Un virus ou une balle.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>64</uiIndex>
+   <szName>Médecin retraité :</szName>
+   <szShortName>Médecin retraité</szShortName>
+   <szDescription>Tant d'années passées à évaluer la santé de vos patients aura ironiquement laissé votre
+propre santé en déliquescence. Les cigarettes et cafés en ont sonné le glas. Votre manière
+de traiter les patients comme des objets ne vous a pas rendu très populaire.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>65</uiIndex>
+   <szName>Chirurgien :</szName>
+   <szShortName>Chirurgien</szShortName>
+   <szDescription>N'importe qui peut découper de la chair humaine,
+mais la recoudre tient de l'excellence.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>66</uiIndex>
+   <szName>Mercenaire :</szName>
+   <szShortName>Mercenaire</szShortName>
+   <szDescription>Alors que d'autres pourraient s'accrocher à leur passé et ses atours, vous avez choisi
+la vie d'un soldat de fortune et l'avez acceptée. C'est ce que vous êtes vraiment.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>67</uiIndex>
+   <szName>Mercenaire vétéran :</szName>
+   <szShortName>Vétéran</szShortName>
+   <szDescription>Vous étiez déjà célèbre dans cette activité avant que ces jeunes soient nés.
+Après des années de combats, il n'y a plus grand-chose qui peut vous ébranler.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>68</uiIndex>
+   <szName>Annihilateur de DFK :</szName>
+   <szShortName>Annihilateur de DFK</szShortName>
+   <szDescription>Avec votre exploit, vous avez gagné le respect et la reconnaissance que vous méritez.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>69</uiIndex>
+   <szName>Prisonnier :</szName>
+   <szShortName>Prisonnier</szShortName>
+   <szDescription>La détention et la torture dans une prison gouvernementale vous a laissé des cicatrices à vie.
+Vous n'avez plus peur de la mort... Mais ce n'est pas la seule chose dont on peut avoir peur...</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>70</uiIndex>
+   <szName>Lèche botte :</szName>
+   <szShortName>Lèche botte</szShortName>
+   <szDescription>On pourrait croire que tous les abus et le ridicule dont vous vous couvrez,
+vous pousseraient à reconsidérer vos choix de vie. Mais non.</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>71</uiIndex>
+   <szName>Chasseur de gros gibier :</szName>
+   <szShortName>Chasseur de brousse</szShortName>
+   <szDescription>Voyagez dans la nature vierge, cherchez des espèces fascinantes et
+TUEZ-LES TOUTES !</szDescription>
+  </BACKGROUND>
+  <BACKGROUND>
+   <uiIndex>72</uiIndex>
+   <szName>Voleur professionnel :</szName>
+   <szShortName>Voleur</szShortName>
+   <szDescription>Quand on vous propose : C'est à prendre ou à
+laisser, vous choisissez toujours "prendre".</szDescription>
+  </BACKGROUND>
+</BACKGROUNDS>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AMMOLIST>
+	<AMMO>
+		<uiIndex>0</uiIndex>
+		<AmmoCaliber>0</AmmoCaliber>
+		<BRCaliber>0</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>1</uiIndex>
+		<AmmoCaliber>.38 S&amp;W</AmmoCaliber>
+		<BRCaliber>.38 S&amp;W</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>2</uiIndex>
+		<AmmoCaliber>9x19mm</AmmoCaliber>
+		<BRCaliber>9x19mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>3</uiIndex>
+		<AmmoCaliber>.45 ACP</AmmoCaliber>
+		<BRCaliber>.45 ACP</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>4</uiIndex>
+		<AmmoCaliber>.357 MAG</AmmoCaliber>
+		<BRCaliber>.357 MAG</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>5</uiIndex>
+		<AmmoCaliber>Kal. 12/70</AmmoCaliber>
+		<BRCaliber>Kal. 12/70</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>6</uiIndex>
+		<AmmoCaliber>CAWS</AmmoCaliber>
+		<BRCaliber>CAWS</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>7</uiIndex>
+		<AmmoCaliber>5.45x39mm</AmmoCaliber>
+		<BRCaliber>5.45x39mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>8</uiIndex>
+		<AmmoCaliber>5.56x45mm</AmmoCaliber>
+		<BRCaliber>5.56x45mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>9</uiIndex>
+		<AmmoCaliber>7.62x51mm</AmmoCaliber>
+		<BRCaliber>7.62x51mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>10</uiIndex>
+		<AmmoCaliber>7.62x39mm</AmmoCaliber>
+		<BRCaliber>7.62x39mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>11</uiIndex>
+		<AmmoCaliber>4.73x33mm</AmmoCaliber>
+		<BRCaliber>4.73x33mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>12</uiIndex>
+		<AmmoCaliber>5.7x28mm</AmmoCaliber>
+		<BRCaliber>5.7x28mm</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>13</uiIndex>
+		<AmmoCaliber>Monster</AmmoCaliber>
+		<BRCaliber>Monster</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>14</uiIndex>
+		<AmmoCaliber>Rakete</AmmoCaliber>
+		<BRCaliber>Rakete</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>15</uiIndex>
+		<AmmoCaliber>Pfeil</AmmoCaliber>
+		<BRCaliber>Pfeil</BRCaliber>
+	</AMMO>
+	<AMMO>
+		<uiIndex>16</uiIndex>
+		<AmmoCaliber>Flammenw.</AmmoCaliber>
+		<BRCaliber>Flammenw.</BRCaliber>
+	</AMMO>
+</AMMOLIST>

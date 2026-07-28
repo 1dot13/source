@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Враг!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Враг!!!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Вот один из них!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Готовься страдать!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>О, привет.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Боже, ты такой урод, что хоть сейчас отдавай в музей современного искусства!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Эй, детка, а ты ничего!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Эй, детка, может встретимся как-нибудь?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Эй, детка, ты не сильно ударилась, когда упала с небес?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Ладно, зови остальных... Я подожду!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Эй, детка, ты сбежала из магазина игрушек? Ты прямо как настоящая кукла!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Посмотрите, кто пришёл на вечеринку!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Вы сошли с ума, раз пришли сюда!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Эй, братва, этот едва живой, надо его добить из сострадания!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>На помощь!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Ты выглядишь устало, может нам следует положить тебя спать... навсегда!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Твои родители были близкими родственниками?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Все мы не красавцы, но что, блять, случилось с тобой?</szText>
+    <szTextCensored>Все мы не красавцы, но что, чёрт возьми, случилось с тобой?</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Дай угадаю, твои родители кормили тебя из рогатки?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Даже выстрелив тебе в лицо из ружья, я вряд ли сделаю его хуже!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Вау! Кто выпустил гориллу из клетки?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Вау, ну и уёбище!</szText>
+    <szTextCensored>Вау, ну и урод!</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Срань господня, могу поспорить, что на самом деле ты не женщина, а трансвестит!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Надень пакет на голову, не пугай людей!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Ты что - генетический эксперимент?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Кто тебя выпустил без намордника?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Как на счёт свидания - только ты и я?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Как на счёт свидания - только ты и я?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Эй, что у тебя в задних карманах? Сэндвичи?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Эй, что у тебя в задних карманах? Сэндвичи?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Если я брошу палку, ты уйдёшь?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Как же я буду по тебе скучать, если ты никуда не уйдёшь?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Боже, только посмотри на себя. Кто-нибудь ещё пострадал в той аварии?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Боже, только посмотри на себя. Кто-нибудь ещё пострадал в той аварии?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Эй, придурок! Сюда!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Никогда не видел столько сраных дебилов в своей жизни.</szText>
+    <szTextCensored>Никогда не видел столько дебилов в своей жизни.</szTextCensored>
+  </TAUNT>
+</TAUNTS>

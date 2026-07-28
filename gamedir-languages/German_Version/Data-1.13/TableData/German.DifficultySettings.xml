@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		uiIndex : 0 - 15
+		Name : The short name of the difficulty.
+		ConfirmText :  The description of the difficulty.	
+-->
+<DIFFICULTY_SETTINGS>
+	<DIFFICULTY>
+		<uiIndex>0</uiIndex>
+		<Name>Not Used!</Name>
+		<ConfirmText>Not Used!</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>1</uiIndex>
+		<Name>Einsteiger</Name>
+		<ConfirmText>Sie haben sich für den Einsteiger-Modus entschieden. Dies ist die passende Einstellung für Spieler, die noch nie zuvor Jagged Alliance oder ähnliche Spiele gespielt haben oder für Spieler, die sich ganz einfach kürzere Schlachten wünschen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Einsteiger-Modus spielen wollen?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>2</uiIndex>
+		<Name>Profi</Name>
+		<ConfirmText>Sie haben sich für den Profi-Modus entschieden. Dies ist die passende Einstellung für Spieler, die bereits Erfahrung mit Jagged Alliance oder ähnlichen Spielen haben. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Profi-Modus spielen wollen?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>3</uiIndex>
+		<Name>Alter Hase</Name>
+		<ConfirmText>Sie haben sich für den Alter Hase-Modus entschieden. Na gut, wir haben Sie gewarnt. Machen Sie hinterher bloß nicht uns dafür verantwortlich, wenn Sie im Sarg nach Hause kommen. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im Alter Hase-Modus spielen wollen?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>4</uiIndex>
+		<Name>WAHNSINNIG</Name>
+		<ConfirmText>Sie haben sich für den WAHNSINNIG-Modus entschieden. WARNUNG: Beschweren Sie sich nicht, wenn Sie in kleinen Stücken zurückkommen ... Deidranna wird Sie in den Allerwertesten treten und das schmerzhaft. Ihre Wahl wird den Verlauf des ganzen Spiels beeinflussen. Treffen Sie also eine sorgfältige Wahl. Sind Sie ganz sicher, dass Sie im WAHNSINNIG-Modus spielen wollen?</ConfirmText>	
+	</DIFFICULTY>
+</DIFFICULTY_SETTINGS>

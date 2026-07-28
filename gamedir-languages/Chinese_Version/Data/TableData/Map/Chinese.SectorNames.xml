@@ -1,0 +1,1795 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SECTOR_NAMES>
+  <SECTOR>
+    <SectorGrid>A1</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A2</SectorGrid>
+    <szUnexploredName>Chitzena</szUnexploredName>
+    <szDetailedUnexploredName>Chitzena</szDetailedUnexploredName>
+    <szExploredName>Chitzena</szExploredName>
+    <szDetailedExploredName>Chitzena</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A3</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A4</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A5</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A6</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A7</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A8</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A9</SectorGrid>
+    <szUnexploredName>Omerta</szUnexploredName>
+    <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
+    <szExploredName>Omerta</szExploredName>
+    <szDetailedExploredName>Omerta</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A10</SectorGrid>
+    <szUnexploredName>Omerta</szUnexploredName>
+    <szDetailedUnexploredName>Omerta</szDetailedUnexploredName>
+    <szExploredName>Omerta</szExploredName>
+    <szDetailedExploredName>Omerta</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A11</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A12</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A13</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A14</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A15</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>A16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B1</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B2</SectorGrid>
+    <szUnexploredName>Chitzena矿区</szUnexploredName>
+    <szDetailedUnexploredName>Chitzena矿区</szDetailedUnexploredName>
+    <szExploredName>Chitzena矿区</szExploredName>
+    <szDetailedExploredName>Chitzena矿区</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B3</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B4</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B5</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B6</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B7</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B8</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B9</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B10</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B11</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B12</SectorGrid>
+    <szUnexploredName>农场, 道路</szUnexploredName>
+    <szDetailedUnexploredName>农场, 道路</szDetailedUnexploredName>
+    <szExploredName>农场, 道路</szExploredName>
+    <szDetailedExploredName>农场, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B13</SectorGrid>
+    <szUnexploredName>Drassen机场</szUnexploredName>
+    <szDetailedUnexploredName>Drassen机场</szDetailedUnexploredName>
+    <szExploredName>Drassen机场</szExploredName>
+    <szDetailedExploredName>Drassen机场</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B14</SectorGrid>
+    <szUnexploredName>水域</szUnexploredName>
+    <szDetailedUnexploredName>水域</szDetailedUnexploredName>
+    <szExploredName>水域</szExploredName>
+    <szDetailedExploredName>水域</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B15</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>B16</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C1</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C2</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C3</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C4</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C5</SectorGrid>
+    <szUnexploredName>San Mona</szUnexploredName>
+    <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
+    <szExploredName>San Mona</szExploredName>
+    <szDetailedExploredName>San Mona</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C6</SectorGrid>
+    <szUnexploredName>San Mona</szUnexploredName>
+    <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
+    <szExploredName>San Mona</szExploredName>
+    <szDetailedExploredName>San Mona</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C7</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C8</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C9</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+  </SECTOR>
+  <SECTOR>
+    <SectorGrid>C10</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C11</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C12</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C13</SectorGrid>
+    <szUnexploredName>Drassen</szUnexploredName>
+    <szDetailedUnexploredName>Drassen</szDetailedUnexploredName>
+    <szExploredName>Drassen</szExploredName>
+    <szDetailedExploredName>Drassen</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>C14</SectorGrid>
+    <szUnexploredName>水域</szUnexploredName>
+    <szDetailedUnexploredName>水域</szDetailedUnexploredName>
+    <szExploredName>水域</szExploredName>
+    <szDetailedExploredName>水域</szDetailedExploredName>
+   </SECTOR>	
+   <SECTOR>
+    <SectorGrid>C15</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>	
+   <SECTOR>
+    <SectorGrid>C16</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D2</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>SAM基地</szExploredName>
+    <szDetailedExploredName>热带, SAM基地</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D3</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D4</SectorGrid>
+    <szUnexploredName>San Mona矿区</szUnexploredName>
+    <szDetailedUnexploredName>San Mona矿区</szDetailedUnexploredName>
+    <szExploredName>San Mona矿区</szExploredName>
+    <szDetailedExploredName>San Mona矿区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D5</SectorGrid>
+    <szUnexploredName>San Mona</szUnexploredName>
+    <szDetailedUnexploredName>San Mona</szDetailedUnexploredName>
+    <szExploredName>San Mona</szExploredName>
+    <szDetailedExploredName>San Mona</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D6</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D7</SectorGrid>
+    <szUnexploredName>森林, 道路</szUnexploredName>
+    <szDetailedUnexploredName>森林, 道路</szDetailedUnexploredName>
+    <szExploredName>森林, 道路</szExploredName>
+    <szDetailedExploredName>森林, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D8</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D9</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D10</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D11</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D12</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D13</SectorGrid>
+    <szUnexploredName>Drassen矿区</szUnexploredName>
+    <szDetailedUnexploredName>Drassen矿区</szDetailedUnexploredName>
+    <szExploredName>Drassen矿区</szExploredName>
+    <szDetailedExploredName>Drassen矿区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D14</SectorGrid>
+    <szUnexploredName>水域</szUnexploredName>
+    <szDetailedUnexploredName>水域</szDetailedUnexploredName>
+    <szExploredName>水域</szExploredName>
+    <szDetailedExploredName>水域</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>D15</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>SAM基地</szExploredName>
+    <szDetailedExploredName>树林, SAM基地</szDetailedExploredName>
+   </SECTOR>  
+   <SECTOR>
+    <SectorGrid>D16</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E2</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E3</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E4</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E5</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E6</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR> 	  	 	
+   <SECTOR>
+    <SectorGrid>E7</SectorGrid>
+    <szUnexploredName>农场, 道路</szUnexploredName>
+    <szDetailedUnexploredName>农场, 道路</szDetailedUnexploredName>
+    <szExploredName>农场, 道路</szExploredName>
+    <szDetailedExploredName>农场, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E8</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E9</SectorGrid>
+    <szUnexploredName>农场, 道路</szUnexploredName>
+    <szDetailedUnexploredName>农场, 道路</szDetailedUnexploredName>
+    <szExploredName>农场, 道路</szExploredName>
+    <szDetailedExploredName>农场, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E10</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E11</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E12</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E13</SectorGrid>
+    <szUnexploredName>水域</szUnexploredName>
+    <szDetailedUnexploredName>水域</szDetailedUnexploredName>
+    <szExploredName>水域</szExploredName>
+    <szDetailedExploredName>水域</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E14</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>E15</SectorGrid>
+    <szUnexploredName>森林, 道路</szUnexploredName>
+    <szDetailedUnexploredName>森林, 道路</szDetailedUnexploredName>
+    <szExploredName>森林, 道路</szExploredName>
+    <szDetailedExploredName>森林, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>E16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F2</SectorGrid>
+    <szUnexploredName>海岸</szUnexploredName>
+    <szDetailedUnexploredName>海岸</szDetailedUnexploredName>
+    <szExploredName>海岸</szExploredName>
+    <szDetailedExploredName>海岸</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F3</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F4</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F5</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F6</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F7</SectorGrid>
+    <szUnexploredName>山区, 道路</szUnexploredName>
+    <szDetailedUnexploredName>山区, 道路</szDetailedUnexploredName>
+    <szExploredName>山区, 道路</szExploredName>
+    <szDetailedExploredName>山区, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F8</SectorGrid>
+    <szUnexploredName>Cambria, 医院</szUnexploredName>
+    <szDetailedUnexploredName>Cambria, 医院</szDetailedUnexploredName>
+    <szExploredName>Cambria, 医院</szExploredName>
+    <szDetailedExploredName>Cambria, 医院</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F9</SectorGrid>
+    <szUnexploredName>Cambria</szUnexploredName>
+    <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
+    <szExploredName>Cambria</szExploredName>
+    <szDetailedExploredName>Cambria</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F10</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F11</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F12</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F13</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F14</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F15</SectorGrid>
+    <szUnexploredName>森林, 道路</szUnexploredName>
+    <szDetailedUnexploredName>森林, 道路</szDetailedUnexploredName>
+    <szExploredName>森林, 道路</szExploredName>
+    <szDetailedExploredName>森林, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>F16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G1</SectorGrid>
+    <szUnexploredName>Grumm</szUnexploredName>
+    <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
+    <szExploredName>Grumm</szExploredName>
+    <szDetailedExploredName>Grumm</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G2</SectorGrid>
+    <szUnexploredName>Grumm</szUnexploredName>
+    <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
+    <szExploredName>Grumm</szExploredName>
+    <szDetailedExploredName>Grumm</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G3</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G4</SectorGrid>
+    <szUnexploredName>山区, 道路</szUnexploredName>
+    <szDetailedUnexploredName>山区, 道路</szDetailedUnexploredName>
+    <szExploredName>山区, 道路</szExploredName>
+    <szDetailedExploredName>山区, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G5</SectorGrid>
+    <szUnexploredName>山区, 道路</szUnexploredName>
+    <szDetailedUnexploredName>山区, 道路</szDetailedUnexploredName>
+    <szExploredName>山区, 道路</szExploredName>
+    <szDetailedExploredName>山区, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G6</SectorGrid>
+    <szUnexploredName>山区, 道路</szUnexploredName>
+    <szDetailedUnexploredName>山区, 道路</szDetailedUnexploredName>
+    <szExploredName>山区, 道路</szExploredName>
+    <szDetailedExploredName>山区, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G7</SectorGrid>
+    <szUnexploredName>农场, 道路</szUnexploredName>
+    <szDetailedUnexploredName>农场, 道路</szDetailedUnexploredName>
+    <szExploredName>农场, 道路</szExploredName>
+    <szDetailedExploredName>农场, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G8</SectorGrid>
+    <szUnexploredName>Cambria</szUnexploredName>
+    <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
+    <szExploredName>Cambria</szExploredName>
+    <szDetailedExploredName>Cambria</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G9</SectorGrid>
+    <szUnexploredName>Cambria</szUnexploredName>
+    <szDetailedUnexploredName>Cambria</szDetailedUnexploredName>
+    <szExploredName>Cambria</szExploredName>
+    <szDetailedExploredName>Cambria</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G10</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G11</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G12</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G13</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G14</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G15</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>G16</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H1</SectorGrid>
+    <szUnexploredName>Grumm</szUnexploredName>
+    <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
+    <szExploredName>Grumm</szExploredName>
+    <szDetailedExploredName>Grumm</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H2</SectorGrid>
+    <szUnexploredName>Grumm</szUnexploredName>
+    <szDetailedUnexploredName>Grumm</szDetailedUnexploredName>
+    <szExploredName>Grumm</szExploredName>
+    <szDetailedExploredName>Grumm</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H3</SectorGrid>
+    <szUnexploredName>Grumm矿区</szUnexploredName>
+    <szDetailedUnexploredName>Grumm矿区</szDetailedUnexploredName>
+    <szExploredName>Grumm矿区</szExploredName>
+    <szDetailedExploredName>Grumm矿区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H4</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H5</SectorGrid>
+    <szUnexploredName>山区</szUnexploredName>
+    <szDetailedUnexploredName>山区</szDetailedUnexploredName>
+    <szExploredName>山区</szExploredName>
+    <szDetailedExploredName>山区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H6</SectorGrid>
+    <szUnexploredName>山区, 道路</szUnexploredName>
+    <szDetailedUnexploredName>山区, 道路</szDetailedUnexploredName>
+    <szExploredName>山区, 道路</szExploredName>
+    <szDetailedExploredName>山区, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H7</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>  
+   <SECTOR>
+    <SectorGrid>H8</SectorGrid>
+    <szUnexploredName>Cambria矿区</szUnexploredName>
+    <szDetailedUnexploredName>Cambria矿区</szDetailedUnexploredName>
+    <szExploredName>Cambria矿区</szExploredName>
+    <szDetailedExploredName>Cambria矿区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H9</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H10</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H11</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H12</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H13</SectorGrid>
+    <szUnexploredName>Alma</szUnexploredName>
+    <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
+    <szExploredName>Alma</szExploredName>
+    <szDetailedExploredName>Alma</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H14</SectorGrid>
+    <szUnexploredName>Alma</szUnexploredName>
+    <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
+    <szExploredName>Alma</szExploredName>
+    <szDetailedExploredName>Alma</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H15</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>H16</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I2</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I3</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I4</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I5</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I6</SectorGrid>
+    <szUnexploredName>Estoni</szUnexploredName>
+    <szDetailedUnexploredName>Estoni</szDetailedUnexploredName>
+    <szExploredName>Estoni</szExploredName>
+    <szDetailedExploredName>Estoni</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I7</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I8</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>SAM基地</szExploredName>
+    <szDetailedExploredName>沙漠, SAM基地</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I9</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I10</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I11</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I12</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I13</SectorGrid>
+    <szUnexploredName>Alma</szUnexploredName>
+    <szDetailedUnexploredName>Alma</szDetailedUnexploredName>
+    <szExploredName>Alma</szExploredName>
+    <szDetailedExploredName>Alma</szDetailedExploredName>
+   </SECTOR>
+    <SECTOR>
+    <SectorGrid>I14</SectorGrid>
+    <szUnexploredName>Alma矿区</szUnexploredName>
+    <szDetailedUnexploredName>Alma矿区</szDetailedUnexploredName>
+    <szExploredName>Alma矿区</szExploredName>
+    <szDetailedExploredName>Alma矿区</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I15</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>I16</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J2</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J3</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J4</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J5</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J6</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J7</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J8</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J9</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>Tixa</szExploredName>
+    <szDetailedExploredName>Tixa</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J10</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J11</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J12</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J13</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J14</SectorGrid>
+    <szUnexploredName>农场, 道路</szUnexploredName>
+    <szDetailedUnexploredName>农场, 道路</szDetailedUnexploredName>
+    <szExploredName>农场, 道路</szExploredName>
+    <szDetailedExploredName>农场, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J15</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>J16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K2</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K3</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K4</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>Orta</szExploredName>
+    <szDetailedExploredName>Orta军事基地</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K5</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K6</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K7</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K8</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K9</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K10</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K11</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K12</SectorGrid>
+    <szUnexploredName>沙漠, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沙漠, 道路</szDetailedUnexploredName>
+    <szExploredName>沙漠, 道路</szExploredName>
+    <szDetailedExploredName>沙漠, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K13</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K14</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K15</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>K16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>L1</SectorGrid>
+    <szUnexploredName>海岸</szUnexploredName>
+    <szDetailedUnexploredName>海岸</szDetailedUnexploredName>
+    <szExploredName>海岸</szExploredName>
+    <szDetailedExploredName>海岸</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L2</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L3</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L4</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L5</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L6</SectorGrid>
+    <szUnexploredName>平原, 道路</szUnexploredName>
+    <szDetailedUnexploredName>平原, 道路</szDetailedUnexploredName>
+    <szExploredName>平原, 道路</szExploredName>
+    <szDetailedExploredName>平原, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L7</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+    <SECTOR>
+    <SectorGrid>L8</SectorGrid>
+    <szUnexploredName>沙漠</szUnexploredName>
+    <szDetailedUnexploredName>沙漠</szDetailedUnexploredName>
+    <szExploredName>沙漠</szExploredName>
+    <szDetailedExploredName>沙漠</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L9</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L10</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L11</SectorGrid>
+    <szUnexploredName>Balime</szUnexploredName>
+    <szDetailedUnexploredName>Balime</szDetailedUnexploredName>
+    <szExploredName>Balime</szExploredName>
+    <szDetailedExploredName>Balime</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L12</SectorGrid>
+    <szUnexploredName>Balime</szUnexploredName>
+    <szDetailedUnexploredName>Balime</szDetailedUnexploredName>
+    <szExploredName>Balime</szExploredName>
+    <szDetailedExploredName>Balime</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L13</SectorGrid>
+    <szUnexploredName>海岸</szUnexploredName>
+    <szDetailedUnexploredName>海岸</szDetailedUnexploredName>
+    <szExploredName>海岸</szExploredName>
+    <szDetailedExploredName>海岸</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L14</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L15</SectorGrid>
+    <szUnexploredName>森林</szUnexploredName>
+    <szDetailedUnexploredName>森林</szDetailedUnexploredName>
+    <szExploredName>森林</szExploredName>
+    <szDetailedExploredName>森林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>L16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M2</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>M3</SectorGrid>
+    <szUnexploredName>沼泽, 道路</szUnexploredName>
+    <szDetailedUnexploredName>沼泽, 道路</szDetailedUnexploredName>
+    <szExploredName>沼泽, 道路</szExploredName>
+    <szDetailedExploredName>沼泽, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M4</SectorGrid>
+    <szUnexploredName>农田</szUnexploredName>
+    <szDetailedUnexploredName>农田</szDetailedUnexploredName>
+    <szExploredName>农田</szExploredName>
+    <szDetailedExploredName>农田</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M5</SectorGrid>
+    <szUnexploredName>森林, 道路</szUnexploredName>
+    <szDetailedUnexploredName>森林, 道路</szDetailedUnexploredName>
+    <szExploredName>森林, 道路</szExploredName>
+    <szDetailedExploredName>森林, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M6</SectorGrid>
+    <szUnexploredName>森林, 道路</szUnexploredName>
+    <szDetailedUnexploredName>森林, 道路</szDetailedUnexploredName>
+    <szExploredName>森林, 道路</szExploredName>
+    <szDetailedExploredName>森林, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M7</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M8</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M9</SectorGrid>
+    <szUnexploredName>平原</szUnexploredName>
+    <szDetailedUnexploredName>平原</szDetailedUnexploredName>
+    <szExploredName>平原</szExploredName>
+    <szDetailedExploredName>平原</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M10</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M11</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M12</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M13</SectorGrid>
+    <szUnexploredName>树林</szUnexploredName>
+    <szDetailedUnexploredName>树林</szDetailedUnexploredName>
+    <szExploredName>树林</szExploredName>
+    <szDetailedExploredName>树林</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M14</SectorGrid>
+    <szUnexploredName>沼泽</szUnexploredName>
+    <szDetailedUnexploredName>沼泽</szDetailedUnexploredName>
+    <szExploredName>沼泽</szExploredName>
+    <szDetailedExploredName>沼泽</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M15</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>M16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N2</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N3</SectorGrid>
+    <szUnexploredName>Meduna机场</szUnexploredName>
+    <szDetailedUnexploredName>Meduna机场</szDetailedUnexploredName>
+    <szExploredName>Meduna机场</szExploredName>
+    <szDetailedExploredName>Meduna机场</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N4</SectorGrid>
+    <szUnexploredName>Meduna</szUnexploredName>
+    <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
+    <szExploredName>SAM基地</szExploredName>
+    <szDetailedExploredName>Meduna, SAM基地</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N5</SectorGrid>
+    <szUnexploredName>Meduna</szUnexploredName>
+    <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
+    <szExploredName>Meduna</szExploredName>
+    <szDetailedExploredName>Meduna</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N6</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N7</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N8</SectorGrid>
+    <szUnexploredName>海岸, 道路</szUnexploredName>
+    <szDetailedUnexploredName>海岸, 道路</szDetailedUnexploredName>
+    <szExploredName>海岸, 道路</szExploredName>
+    <szDetailedExploredName>海岸, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N9</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N10</SectorGrid>
+    <szUnexploredName>热带, 道路</szUnexploredName>
+    <szDetailedUnexploredName>热带, 道路</szDetailedUnexploredName>
+    <szExploredName>热带, 道路</szExploredName>
+    <szDetailedExploredName>热带, 道路</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N11</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N12</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N13</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N14</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR> 
+   <SECTOR>
+    <SectorGrid>N15</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>N16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O2</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O3</SectorGrid>
+    <szUnexploredName>Meduna</szUnexploredName>
+    <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
+    <szExploredName>Meduna</szExploredName>
+    <szDetailedExploredName>Meduna</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O4</SectorGrid>
+    <szUnexploredName>Meduna</szUnexploredName>
+    <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
+    <szExploredName>Meduna</szExploredName>
+    <szDetailedExploredName>Meduna</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O5</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O6</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O7</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O8</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O9</SectorGrid>
+    <szUnexploredName>热带</szUnexploredName>
+    <szDetailedUnexploredName>热带</szDetailedUnexploredName>
+    <szExploredName>热带</szExploredName>
+    <szDetailedExploredName>热带</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O10</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O11</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O12</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O13</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O14</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O15</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>O16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P1</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P2</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P3</SectorGrid>
+    <szUnexploredName>Meduna</szUnexploredName>
+    <szDetailedUnexploredName>Meduna</szDetailedUnexploredName>
+    <szExploredName>Meduna</szExploredName>
+    <szDetailedExploredName>Meduna</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P4</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P5</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P6</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P7</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P8</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P9</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P10</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P11</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P12</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P13</SectorGrid>
+    <szUnexploredName>无法通行</szUnexploredName>
+    <szDetailedUnexploredName>无法通行</szDetailedUnexploredName>
+    <szExploredName>无法通行</szExploredName>
+    <szDetailedExploredName>无法通行</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P14</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P15</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+   <SECTOR>
+    <SectorGrid>P16</SectorGrid>
+    <szUnexploredName>未知</szUnexploredName>
+    <szDetailedUnexploredName>未知</szDetailedUnexploredName>
+    <szExploredName>未知</szExploredName>
+    <szDetailedExploredName>未知</szDetailedExploredName>
+   </SECTOR>
+</SECTOR_NAMES>

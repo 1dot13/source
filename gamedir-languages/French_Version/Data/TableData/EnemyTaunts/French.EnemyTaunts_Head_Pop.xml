@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Bon, je crois qu'il serait raisonnable de penser qu'il est mort.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Bon, je crois qu'il serait raisonnable de penser qu'elle est morte.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Je crois que je vais sauter un repas aujourd'hui...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ha ha ha ! Putain, c'est génial !</szText>
+    <szTextCensored>Ha ha ha ! Bon sang, c'est génial !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Putain, trop cool ! J'adore ce travail !</szText>
+    <szTextCensored>Mince, trop cool ! J'adore ce travail !</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>D'accord, tu ne l'utilises pas de toute façon.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Pan, en pleine tronche !!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Wouah !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Époustouflant !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Je ne l'ai même pas fait exprès !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Quelqu'un a pris une photo ?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Et paf, le bouton éclate !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Que quelqu'un appelle une ambulance !</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Ça veut dire que je peux lire dans les pensées maintenant ?</szText>
+  </TAUNT>
+</TAUNTS>

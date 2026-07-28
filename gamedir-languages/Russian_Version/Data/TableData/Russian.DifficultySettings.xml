@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		uiIndex : 0 - 15
+		Name : The short name of the difficulty.
+		ConfirmText :  The description of the difficulty.	
+-->
+<DIFFICULTY_SETTINGS>
+	<DIFFICULTY>
+		<uiIndex>0</uiIndex>
+		<Name>Not Used!</Name>
+		<ConfirmText>Not Used!</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>1</uiIndex>
+		<Name>Новичок</Name>
+		<ConfirmText>Выбран уровень сложности НОВИЧОК. Режим подойдёт тем, кто незнаком с Jagged Alliance и с игровыми стратегиями вообще, а так же любителям коротких боёв. Выбор сложности определит ход всей игры, так что делайте его обдуманно. Начать игру в режиме НОВИЧОК?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>2</uiIndex>
+		<Name>Опытный</Name>
+		<ConfirmText>Выбран уровень сложности ОПЫТНЫЙ игрок. Этот режим подходит тем, кто уже знаком с Jagged Alliance или схожими играми. Выбор сложности определит ход всей игры, так что делайте его обдуманно. Хотите начать игру в режиме ОПЫТНЫЙ?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>3</uiIndex>
+		<Name>Эксперт</Name>
+		<ConfirmText>Выбран уровень сложности ЭКСПЕРТ. Мы предупреждали. Так что не вините нас, если тела ваших бойцов вернутся как груз 200. Выбор сложности определит ход всей игры, так что делайте его обдуманно. Хотите начать игру в режиме ЭКСПЕРТ?</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>4</uiIndex>
+		<Name>Безумец</Name>
+		<ConfirmText>Выбран БЕЗУМНЫЙ уровень сложности. Не вините нас, если тела бойцов вернут обратно по маленьким кусочкам! Дейдрана жёстко расправится с вами. Выбор сложности определит ход всей игры, так что делайте его обдуманно. Хотите начать игру в режиме БЕЗУМЕЦ?</ConfirmText>
+	</DIFFICULTY>
+</DIFFICULTY_SETTINGS>

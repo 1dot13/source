@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Ох, Лиска. У меня даже не было времени прочитать тебе свою поэму...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Так тебе и надо, шлюха!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Что я могу сказать, просто я лучше.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Я буду скучать по твоим фильмам...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText> Кесарю кесарево, а Богу богово.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Отправляйся к чёрту!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Ты слишком часто менял сторону...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Гори в аду, предатель.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Отдыхай, Майк! Чёрт, мне казалось, что это будет хорошо звучать...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Я дам тебе свой автограф, Конрад... в книге соболезнований!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Я знал, что я лучше тебя, Конрад!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Я только что замочил Мигеля Кордону! Наконец-то, королева услышит обо мне!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Хочешь увидеть фокус? Бум, его нет!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>О нет, он сейчас упадёт! Приготовиться к землетрясению!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ты грустный, странный, маленький человек, мне тебя жаль!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Эй, Кордона! Королева Ди Ди шлёт привет!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Меня повысят за твоё убийство, повстанческая мразь!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Бэнг-бэнг! Прямо как в 'Атаке на Клайдсдейл'!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Много пыли, много пуль!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Садись в свою Хонду, и проваливай обратно!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Прости мне мои грехи!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Возвращайся в свою могилу, чёртов зомби!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Давай, расскажи нам о битве при Геттисберге ещё раз!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Лёгкая мишень!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Милые ушки, Джимбо! Закопчу и повешу на шею!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>И где теперь твой бог?!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Отец, а как же пятая заповедь? Чёртов лицемер!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Кто эта психопатка?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>А ты не староват для такого?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Разве весь этот жир не защищает внутренние органы?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Нет, только не ты, Рысь! Как я теперь засуну твою голову в твою задницу?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Да у нас тут псих - он думает, что он касатка!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Ты сражаешься, как жирная корова!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Перестань дрожать! Я не могу попасть в тебя!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Перестань двигаться! Я не могу целиться, когда земля так трясётся!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Срань господня, это же Гас Тарболс! Нам пиздец!</szText>
+    <szTextCensored>Срань господня, это же Гас Тарболс! Нам конец!</szTextCensored>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Эй, это же парень из 'Дикого, дикого Востока'! Я ваш самый большой поклонник!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Враг обнаружен! Чёрт, по нему будет трудно промахнуться...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Здорова, партнёр!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Ты мне напомнил одного моего друга китайца... Уга Ли!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Да это же просто праздник какой-то! У меня вся стена в бараках оклеена вашими постерами...</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Знаешь, я бы могла тебя выпороть, но не хочу пачкать руки о такую шлюху, как ты!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Классные у тебя пушки! Они настоящие или макеты?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Парни, не стреляйте в сиськи!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Чуваки, этот по ходу беременный!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Скорее, кто-нибудь, вызывайте капитана Ахаба!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Ты заблудился? Тренинг по снижению веса проходит в той стороне!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Пожалуйста, не ешь меня!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Детка, что ты здесь делаешь? Не можешь сладить со стиральной машиной?</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Чуваки, я тут мумию нашёл!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Парни, а динозавры, оказывается, не сдохли!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Вау, а у тебя красивые... личные качества.</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Ты прямо, как если бы Шварценеггер был моложе и тупее!</szText>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Эй, задница! Звонили 80ые, сказали, что хотят свою причёску назад!</szText>
+  </TAUNT>
+</TAUNTS>

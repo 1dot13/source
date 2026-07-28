@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MINERALS>
+  <TYPE>
+	<uiIndex>0</uiIndex>
+	<sNameType>Шахта</sNameType>
+    <sMineral>Серебро</sMineral>
+  </TYPE>
+  <TYPE>
+	<uiIndex>1</uiIndex>
+	<sNameType>Шахта</sNameType>
+    <sMineral>Золото</sMineral>
+  </TYPE>
+</MINERALS>

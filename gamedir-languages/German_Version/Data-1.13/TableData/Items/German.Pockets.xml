@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<POCKETLIST>
+	<POCKET>
+		<pIndex>0</pIndex>
+		<pName>Nichts</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Schulterriemen</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Messer</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>3</pIndex>
+		<pName>Fahrzeug</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>Allg., groß</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Kampftasche</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Munitionsgurt</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>Halfter, MPi</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Allg., mittel</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>Mag., überlang</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>Mag., Gewehr</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Halfter, Pist.</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>Mag., MPi</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Granatpatrone</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Granate</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Mag., Pistole</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Allg., winzig</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Allg., klein</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>18</pIndex>
+		<pName>Gürtelklemme</pName>
+	</POCKET>
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Schnelllader</pName>
+	</POCKET>
+  <POCKET>
+    <pIndex>20</pIndex>
+    <pName>Medizintasche</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>21</pIndex>
+    <pName>Spritzentasche</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>22</pIndex>
+    <pName>Doppelter Gurt</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>23</pIndex>
+    <pName>Halfter, Gr. Pist.</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>24</pIndex>
+    <pName>Schrot. Mun.</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>25</pIndex>
+    <pName>Halfter, Schrotfl.</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>26</pIndex>
+    <pName>Wurfmesser</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>27</pIndex>
+    <pName>Allgemeines</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>28</pIndex>
+    <pName>Sprengst., klein</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>29</pIndex>
+    <pName>Kl.Gewehr Mag x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>30</pIndex>
+    <pName>Halfter, Rev.</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>31</pIndex>
+    <pName>Waffengurt</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>32</pIndex>
+    <pName>Kampft., klein</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>33</pIndex>
+    <pName>Sprengstoffe</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>34</pIndex>
+    <pName>Scharfsch. Mag</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>35</pIndex>
+    <pName>Feldflasche</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>36</pIndex>
+    <pName>Erste Hilfe</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>37</pIndex>
+    <pName>Karabiner Face</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>38</pIndex>
+    <pName>Karabiner Ring</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>39</pIndex>
+    <pName>Granate x3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>40</pIndex>
+    <pName>Pist. Mag x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>41</pIndex>
+    <pName>Gewehr Gra. x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>42</pIndex>
+    <pName>7x Schrot</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>43</pIndex>
+    <pName>SMG Mag x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>44</pIndex>
+    <pName>Ausrüstung</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>45</pIndex>
+    <pName>AR Mag x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>46</pIndex>
+    <pName>AR Mag x1</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>47</pIndex>
+    <pName>Blendgr. x3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>48</pIndex>
+    <pName>Pist. Mag x3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>49</pIndex>
+    <pName>AR Mag x3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>50</pIndex>
+    <pName>Mini Granate</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>51</pIndex>
+    <pName>MPi Mag x3</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>52</pIndex>
+    <pName>Kl. Messer</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>53</pIndex>
+    <pName>SS-Gew. Riemen</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>54</pIndex>
+    <pName>Blendgranate</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>55</pIndex>
+    <pName>Granate x2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>56</pIndex>
+    <pName>Revolver Holster</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>57</pIndex>
+    <pName>Rifle Magx2</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>58</pIndex>
+    <pName>Bladder</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>59</pIndex>
+    <pName>Tactical Gun Sling</pName>
+  </POCKET>
+  <POCKET>
+    <pIndex>60</pIndex>
+    <pName>Drum Ammo</pName>
+  </POCKET>
+</POCKETLIST>
