@@ -96,6 +96,10 @@ a millisecond of CPU — the time spent waiting on Discord is not metered.
 
 No authentication. The endpoint is public and its URL ships in every player's
 `Ja2.ini`, so assume it will eventually be found; the size and `*** CRASH` checks
-only keep out drive-by scanners. Report contents are attacker-controlled text, which
-is why the summary line strips markdown from the handle and sends
+only keep out drive-by scanners. Every field the summary line quotes is therefore
+attacker-chosen, not just the handle: all of them go through `clean()`, which keeps
+printable ASCII minus Discord's markup and link characters, and the post sends
 `allowed_mentions: {parse: []}`. Blast radius of abuse is a message we delete.
+
+The per-IP limiter does nothing against a distributed flood — that would cost
+channel noise and the 100k/day request budget, not money.
