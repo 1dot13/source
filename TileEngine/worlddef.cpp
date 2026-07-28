@@ -4636,6 +4636,7 @@ void SetWorldSize(INT32 nWorldRows, INT32 nWorldCols)
 	if(gubFOVDebugInfoInfo)
 		MemFree(gubFOVDebugInfoInfo);
 	gubFOVDebugInfoInfo = (UINT8*)MemAlloc(WORLD_MAX);
+	memset(gubFOVDebugInfoInfo, 0, WORLD_MAX);
 #endif
 
 	dirDelta[0]= -WORLD_COLS;
