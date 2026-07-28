@@ -410,7 +410,7 @@ void RevealRoofsAndItems(SOLDIERTYPE *pSoldier, UINT32 itemsToo, BOOLEAN fShowLo
 #ifdef _DEBUG
 		if ( _KeyDown( NUM_LOCK ) )
 		{
-			memset( gubFOVDebugInfoInfo, 0, sizeof( gubFOVDebugInfoInfo ) );
+			memset( gubFOVDebugInfoInfo, 0, WORLD_MAX );
 
 			SetRenderFlags( RENDER_FLAG_FULL );
 			RenderWorld( );
