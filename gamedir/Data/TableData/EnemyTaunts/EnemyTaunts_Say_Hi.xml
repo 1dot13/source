@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Enemy!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Enemy!!!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>There is one!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Prepare to suffer!</szText>
+    <say_hi>1</say_hi>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Oh, hi.</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>My God, you're so ugly, you could be a modern-art masterpiece!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Hey babe, I'll drive you crazy even without a driver's license!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Hey babe, are you a parking ticket? 'Cause you've got fine written all over you!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Hey babe, did it hurt much when you fell from heaven?</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>OK, go fetch the rest of the team... I'll wait!</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_morale_lt>40</target_morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Hey babe, did you escape from toy store? 'Cause you're a real doll!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Look who's come to the picnic!</szText>
+    <say_hi>1</say_hi>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>You've got to be crazy to come here!</szText>
+    <elite>1</elite>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Hey lads, this one's in pains, we should put an end to his misery!</szText>
+    <say_hi>1</say_hi>
+    <target_health_lt>30</target_health_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>HELP! I've run into an unstoppable monster!</szText>
+    <say_hi>1</say_hi>
+    <morale_lt>30</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>You look tired, maybe we should put you to sleep... permanently!</szText>
+    <say_hi>1</say_hi>
+    <target_energy_lt>50</target_energy_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Were your parents siblings?</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Now, we know that we aren't all that cute, but what the fuck happened to you?</szText>
+    <szTextCensored>Now, we know that we aren't all that cute, but what the hell happened to you?</szTextCensored>
+    <say_hi>1</say_hi>
+    <defensive>1</defensive>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Lemme guess, your parents fed you with a slingshot?</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>I could apply you a make up with a shotgun, and you'd still look better!</szText>
+    <say_hi>1</say_hi>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Wow! Who let the gorilla out of the cage?</szText>
+    <say_hi>1</say_hi>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Wow, you're pretty... fucking ugly!</szText>
+    <szTextCensored>Wow, you're pretty... freakin' ugly!</szTextCensored>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Holy shit, they brought in transvestites!</szText>
+    <say_hi>1</say_hi>
+    <target_female>1</target_female>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Girl, with that hair... you must be a saint - saint Bernard!</szText>
+    <say_hi>1</say_hi>
+    <target_female>1</target_female>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Did you noticed how "awesome" ends with "me", and "ugly" starts with "u"?</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>As an outsider, what do you think of the human race?</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>How about a date - just you, me and a roll of duct tape?</szText>
+    <aggressive>1</aggressive>
+    <say_hi>1</say_hi>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>How about a date - just you, me and a roll of duct tape?</szText>
+    <aggressive>1</aggressive>
+    <say_hi>1</say_hi>
+    <female>1</female>
+    <target_male>1</target_male>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Hey boy, what do you have in that backpack? Sandwiches?</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Hey girl, what do you have in that backpack? Sandwiches?</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>If I throw a stick, will you go away?</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>How can I miss you if you won't go away?</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
+    <brave>1</brave>
+    <say_hi>1</say_hi>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Oh my God, look at you. Anyone else hurt in the accident?</szText>
+    <brave>1</brave>
+    <say_hi>1</say_hi>
+    <target_appearance>2</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Hey, asshole! Over here!</szText>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Never seen so many backwards ass country fucks in my life.</szText>
+    <szTextCensored>Never seen so many backwards ass country retards in my life.</szTextCensored>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+  </TAUNT>
+</TAUNTS>

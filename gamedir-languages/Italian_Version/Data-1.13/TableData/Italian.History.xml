@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<STRINGS>
+  <TEXT>
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>1</uiIndex>																				
+    <sHistory>%s è stato assunto dall'A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>2</uiIndex>
+    <sHistory>%s è stato assunto dal M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>3</uiIndex>
+    <sHistory>%s morì.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>4</uiIndex>
+    <sHistory>Acconti stanziati al M.E.R.C.</sHistory>	
+  </TEXT>
+  <TEXT>
+	<uiIndex>5</uiIndex>	
+    <sHistory>Assegno accettato da Enrico Chivaldori</sHistory>	
+  </TEXT>
+  <TEXT>
+	<uiIndex>6</uiIndex>
+    <sHistory>Profilo generato I.M.P.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>7</uiIndex>
+    <sHistory>Acquistato contratto d'assicurazione per %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>8</uiIndex>
+    <sHistory>Annullato contratto d'assicurazione per %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>9</uiIndex>
+    <sHistory>Versamento per richiesta assicurazione per %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>10</uiIndex>
+    <sHistory>Esteso contratto di %s di 1 giorno.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>11</uiIndex>
+    <sHistory>Esteso contratto di %s di 1 settimana.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>12</uiIndex>
+    <sHistory>Esteso contratto di %s di 2 settimane.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>13</uiIndex>
+    <sHistory>%s è stato congedato.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>14</uiIndex>
+    <sHistory>%s è partito.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>15</uiIndex>
+    <sHistory>avventura iniziata.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>16</uiIndex>
+    <sHistory>avventura completata.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>17</uiIndex>
+    <sHistory>Parlato col capo minatore di %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>18</uiIndex>
+    <sHistory>Liberato %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>19</uiIndex>
+    <sHistory>Inganno utilizzato</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>20</uiIndex>
+    <sHistory>Il cibo dovrebbe arrivare a Omerta domani</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>21</uiIndex>
+    <sHistory>%s ha lasciato la squadra per diventare la moglie di Daryl Hick</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>22</uiIndex>
+    <sHistory>contratto di %s scaduto.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>23</uiIndex>
+    <sHistory>%s è stato arruolato.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico si è lamentato della mancanza di progresso</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>25</uiIndex>
+    <sHistory>Vinta battaglia</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>26</uiIndex>
+    <sHistory>%s miniera ha iniziato a esaurire i minerali</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>27</uiIndex>
+    <sHistory>%s miniera ha esaurito i minerali</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>28</uiIndex>
+    <sHistory>%s miniera è stata chiusa</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>29</uiIndex>
+    <sHistory>%s miniera è stata riaperta</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>30</uiIndex>
+    <sHistory>Trovata una prigione chiamata Tixa.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>31</uiIndex>
+    <sHistory>Sentito di una fabbrica segreta di armi chiamata Orta.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>32</uiIndex>
+    <sHistory>Alcuni scienziati a Orta hanno donato una serie di lanciamissili.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>33</uiIndex>
+    <sHistory>La regina Deidranna ha bisogno di cadaveri.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank ha parlato di scontri a San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>35</uiIndex>
+    <sHistory>Un paziente pensa che lui abbia visto qualcosa nella miniera.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>36</uiIndex>
+    <sHistory>Incontrato qualcuno di nome Devin - vende esplosivi.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>37</uiIndex>
+    <sHistory>Imbattutosi nel famoso ex-mercenario dell'A.I.M. Mike!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>38</uiIndex>
+    <sHistory>Incontrato Tony - si occupa di armi.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>39</uiIndex>
+    <sHistory>Preso un lanciamissili dal Sergente Krott.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>40</uiIndex>
+    <sHistory>Concessa a Kyle la licenza del negozio di pelle di Angel.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab ha proposto di costruire un robot.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby può effettuare operazioni di sabotaggio contro sistemi d'allarme.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith è fuori dall'affare.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard ha fornito cianuro alla regina Deidranna.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>45</uiIndex>
+    <sHistory>Incontrato Keith - si occupa di un po' di tutto a Cambria.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>46</uiIndex>
+    <sHistory>Incontrato Howard - si occupa di farmaceutica a Balime</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>47</uiIndex>
+    <sHistory>Incontrato Perko - conduce una piccola impresa di riparazioni.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>48</uiIndex>
+    <sHistory>Incontrato Sam di Balime - ha un negozio di hardware.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz si occupa di elettronica e altro.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold possiede un'impresa di riparazioni a Grumm.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo si occupa di elettronica a Grumm.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>52</uiIndex>
+    <sHistory>Donazione ricevuta da un ricco ragazzo a Balime.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>53</uiIndex>
+    <sHistory>Incontrato un rivenditore di un deposito di robivecchi di nome Jake.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>54</uiIndex>
+    <sHistory>Alcuni vagabondi ci hanno dato una scheda elettronica.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>55</uiIndex>
+    <sHistory>Corrotto Walter per aprire la porta del seminterrato.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>56</uiIndex>
+    <sHistory>Se Dave ha benzina, potrà fare il pieno gratis.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>57</uiIndex>
+    <sHistory>Corrotto Pablo.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin tiene i soldi nella miniera di San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>59</uiIndex>
+    <sHistory>%s ha vinto il Combattimento Estremo</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>60</uiIndex>
+    <sHistory>%s ha perso il Combattimento Estremo</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>61</uiIndex>
+    <sHistory>%s è stato squalificato dal Combattimento Estremo</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>62</uiIndex>
+    <sHistory>trovati moltissimi soldi nascosti nella miniera abbandonata.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>63</uiIndex>
+    <sHistory>Incontrato assassino ingaggiato da Kingpin.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>64</uiIndex>
+    <sHistory>Perso il controllo del settore</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>65</uiIndex>
+    <sHistory>Difeso il settore</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>66</uiIndex>
+    <sHistory>Persa la battaglia</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>67</uiIndex>
+    <sHistory>Imboscata fatale</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>68</uiIndex>
+    <sHistory>Annientata imboscata nemica</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>69</uiIndex>
+    <sHistory>Attacco fallito</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>70</uiIndex>
+    <sHistory>Attacco riuscito!</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>71</uiIndex>
+    <sHistory>Creature attaccate</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>72</uiIndex>
+    <sHistory>Ucciso dai Bloodcat</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>73</uiIndex>
+    <sHistory>Massacrati dai Bloodcat</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>74</uiIndex>
+    <sHistory>%s è stato ucciso</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>75</uiIndex>
+    <sHistory>Data a Carmen la testa di un terrorista</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>76</uiIndex>
+    <sHistory>Massacro sinistro</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>77</uiIndex>
+    <sHistory>Ucciso %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT>
+  <TEXT>
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT>
+</STRINGS>

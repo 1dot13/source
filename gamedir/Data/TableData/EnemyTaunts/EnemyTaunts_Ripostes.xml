@@ -1,0 +1,771 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>And I've made contact with you! Prepare to die!</szText>
+    <riposte_quote>0</riposte_quote>
+    <target_merc_profile>240</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Couple? We're not married!</szText>
+    <riposte_quote>2</riposte_quote>
+    <target_merc_profile>240</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>I don't know, maybe I'll send them my CV after I kill you!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>240</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>PX? What the fuck does that even mean?</szText>
+    <szTextCensored>PX? What the hell does that even mean?</szTextCensored>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>240</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>No shit, Sherlock!</szText>
+    <riposte_quote>20</riposte_quote>
+    <target_merc_profile>240</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>It will be a one-way trip for you!</szText>
+    <riposte_quote>1</riposte_quote>
+    <target_merc_profile>2</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Oh yes, by all means! Move out in the open!</szText>
+    <riposte_quote>20</riposte_quote>
+    <target_merc_profile>2</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Luck is for wusses, real professionals depend on their skill!</szText>
+    <riposte_quote>2</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>2</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>What? I can SEE you and HEAR you, you moron!</szText>
+    <riposte_quote>1</riposte_quote>
+    <target_merc_profile>220</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Yeah, and don't even think about a lunch break!</szText>
+    <riposte_quote>2</riposte_quote>
+    <target_merc_profile>220</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>I'm sorry, didn't catch the name!</szText>
+    <riposte_quote>22</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>220</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Doesn't matter, you'll be dead soon enough.</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>220</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>So THAT'S why she didn't get my postcard.</szText>
+    <riposte_quote>20</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>220</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Indeed I do!</szText>
+    <riposte_quote>0</riposte_quote>
+    <target_merc_profile>221</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>You know there's no such animal, right?</szText>
+    <riposte_heavy_fire>1</riposte_heavy_fire>
+    <defensive>1</defensive>
+    <target_merc_profile>221</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Not yet. But soon you'll meet him!</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>0</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Trouble is my second name!</szText>
+    <riposte_quote>2</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>0</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Like a bulldog!</szText>
+    <riposte_quote>2</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>1</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>You should be!</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+    <target_merc_profile>1</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Your wish is my command!</szText>
+    <riposte_quote>0</riposte_quote>
+    <target_merc_profile>3</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Nobody ever does.</szText>
+    <riposte_quote>22</riposte_quote>
+    <defensive>1</defensive>
+    <target_merc_profile>3</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Just wait, and this trouble will run into YOU!</szText>
+    <riposte_quote>20</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>3</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Scoundrel? I'll make you eat those words!</szText>
+    <riposte_quote>0</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>No, thank you!</szText>
+    <riposte_quote>1</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>We'll see who's about to teach whom!</szText>
+    <riposte_quote>1</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>You're right!</szText>
+    <riposte_quote>2</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>You don't deserve a chance!</szText>
+    <riposte_quote>20</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Horoscopes lie!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Ding dong!</szText>
+    <riposte_quote>2</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>5</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>It's still not too late!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>5</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>We'll check ourselves!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>6</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Need bubbles, sir?</szText>
+    <riposte_quote>2</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>6</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Did you just call me an ass?!</szText>
+    <riposte_quote>1</riposte_quote>
+    <defensive>1</defensive>
+    <target_merc_profile>7</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Whatever.</szText>
+    <riposte_quote>20</riposte_quote>
+    <target_merc_profile>7</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>I didn't understand a single word!</szText>
+    <riposte_quote>20</riposte_quote>
+    <target_merc_profile>7</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>It will only get closer!</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>7</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>I'm not really evil... just misunderstood.</szText>
+    <riposte_quote>1</riposte_quote>
+    <riposte_quote>0</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>8</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>It's about to turn into full tournee!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>8</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>"Stupid fools"? Are you even trying?</szText>
+    <riposte_quote>20</riposte_quote>
+    <defensive>1</defensive>
+    <target_merc_profile>8</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>As you wish!</szText>
+    <riposte_quote>1</riposte_quote>
+    <target_merc_profile>9</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Hey! I'm a lady!</szText>
+    <riposte_quote>0</riposte_quote>
+    <female>1</female>
+    <target_merc_profile>9</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>I'll dig you one! Six feet under!</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>9</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Don't worry, I'll send you some!</szText>
+    <riposte_quote>13</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>I'll show you!</szText>
+    <riposte_quote>14</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>You'll wish you wouldn't ask!</szText>
+    <riposte_quote>14</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>You got it wrong, let me educate you!</szText>
+    <riposte_quote>14</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Was that a rhetorical question?</szText>
+    <riposte_quote>14</riposte_quote>
+    <cunning>1</cunning>
+    <defensive>1</defensive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Now, whose fault is it, if your cocksucker boss buys second hand guns?</szText>
+    <szTextCensored>Now, whose fault is it, if your cheap ass boss buys second hand guns?</szTextCensored>
+    <riposte_quote>19</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>And soon so will be you!</szText>
+    <riposte_quote>19</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>The only thing layin' low here is you, bitch!</szText>
+    <riposte_quote>20</riposte_quote>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Yeah right, that's why you're sweating!</szText>
+    <riposte_quote>21</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Advice for today: avoid long travels, new relationships and BULLETS!</szText>
+    <riposte_quote>22</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Mine said I will kill a lot of people today! I hope it will come true too!</szText>
+    <riposte_quote>22</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Do people seriously believe in those things? Pathetic.</szText>
+    <riposte_quote>22</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Tough? I could make that shot with my eyes closed.</szText>
+    <riposte_quote>23</riposte_quote>
+    <brave>1</brave>
+    <elite>1</elite>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>And that's just the beginning!</szText>
+    <riposte_quote>24</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>He loves you no more!</szText>
+    <riposte_quote>24</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>OK, this one's out. Next!</szText>
+    <riposte_quote>26</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>You'll be sorry for saying that!</szText>
+    <riposte_quote>26</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>Well, now we can play hide and seek!</szText>
+    <riposte_quote>56</riposte_quote>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>You're right! It's the whole company here!</szText>
+    <riposte_quote>59</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>4</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>You should have used the plural! Guys, lots of guys!</szText>
+    <riposte_quote>0</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>We'll see about that...</szText>
+    <riposte_quote>1</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>No, it doesn't, but don't worry, we'll be gentle!</szText>
+    <riposte_quote>2</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>Nice grammar, asshole!</szText>
+    <riposte_quote>2</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>Need supplies, wacko?</szText>
+    <riposte_quote>13</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>Here, I'll give you some!</szText>
+    <riposte_quote>13</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>No, you just suck, that's it! No air involved!</szText>
+    <riposte_quote>14</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>Never got this - why bring a knife to a gun fight?</szText>
+    <riposte_quote>15</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>Funny indeed, we had so much fun with him as target practice!</szText>
+    <riposte_quote>16</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>70</uiIndex>
+    <szText>I know some jokes too. For example: you're a joke!</szText>
+    <riposte_quote>16</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>71</uiIndex>
+    <szText>Hey man, the gun isn't stupid, you are!</szText>
+    <riposte_quote>19</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>72</uiIndex>
+    <szText>Suits you fine, huh?</szText>
+    <riposte_quote>19</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>73</uiIndex>
+    <szText>Relax! Why make such a fuss?</szText>
+    <riposte_quote>20</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>74</uiIndex>
+    <szText>The only thing you're gonna get is your butt kicked!</szText>
+    <riposte_quote>21</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>75</uiIndex>
+    <szText>Oh yeah? Wait for the next one!</szText>
+    <riposte_quote>22</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>76</uiIndex>
+    <szText>It was just a warning shot!</szText>
+    <riposte_quote>22</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>77</uiIndex>
+    <szText>I'll scratch you to death!</szText>
+    <riposte_quote>24</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>78</uiIndex>
+    <szText>That's not a scratch. It's a fucking canyon!</szText>
+    <szTextCensored>That's not a scratch. It's a freaking canyon!</szTextCensored>
+    <riposte_quote>24</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>79</uiIndex>
+    <szText>No. You need to die!</szText>
+    <riposte_quote>26</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>80</uiIndex>
+    <szText>I'll dig you one too with it!</szText>
+    <riposte_quote>27</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>81</uiIndex>
+    <szText>Kiss my ass!</szText>
+    <riposte_quote>62</riposte_quote>
+    <aggressive>1</aggressive>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>82</uiIndex>
+    <szText>Fireball? What the fuck do you think this is, some kind of video game?</szText>
+    <szTextCensored>Fireball? What the hell do you think this is, some kind of video game?</szTextCensored>
+    <riposte_quote>56</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>83</uiIndex>
+    <szText>It's OK, I'm here. Follow my voice!</szText>
+    <riposte_quote>56</riposte_quote>
+    <target_merc_profile>13</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>84</uiIndex>
+    <szText>That's what she said!</szText>
+    <riposte_quote>0</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>85</uiIndex>
+    <szText>Please, let it be a close encounter of the sexy kind!</szText>
+    <riposte_quote>0</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>86</uiIndex>
+    <szText>I'm ready any time you are!</szText>
+    <riposte_quote>1</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>87</uiIndex>
+    <szText>Now, now, you're hurting our feelings!</szText>
+    <riposte_quote>2</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>88</uiIndex>
+    <szText>Come on, there's always a room to try something new!</szText>
+    <riposte_quote>2</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>89</uiIndex>
+    <szText>Come over here, I'll give you some.</szText>
+    <riposte_quote>13</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>90</uiIndex>
+    <szText>Is that what it's called these days?</szText>
+    <riposte_quote>13</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>91</uiIndex>
+    <szText>That must be the first time you've ever said that!</szText>
+    <riposte_quote>14</riposte_quote>
+    <brave>1</brave>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>92</uiIndex>
+    <szText>Oh, now I'm getting jealous.</szText>
+    <riposte_quote>15</riposte_quote>
+    <target_merc_profile>14</target_merc_profile>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>93</uiIndex>
+    <szText>I can help you deal with the grief, if you want!</szText>
+    <riposte_quote>15</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>94</uiIndex>
+    <szText>Where? Where?</szText>
+    <riposte_quote>19</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>95</uiIndex>
+    <szText>Maybe I could help you with that?</szText>
+    <riposte_quote>19</riposte_quote>
+    <target_merc_profile>14</target_merc_profile>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>96</uiIndex>
+    <szText>You need to empty the chamber...</szText>
+    <riposte_quote>19</riposte_quote>
+    <cunning>1</cunning>
+    <target_merc_profile>14</target_merc_profile>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>97</uiIndex>
+    <szText>But that's nothing new for you, eh?</szText>
+    <riposte_quote>20</riposte_quote>
+    <brave>1</brave>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>98</uiIndex>
+    <szText>Damn, that doesn't even deserve a witty response!</szText>
+    <riposte_quote>20</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>99</uiIndex>
+    <szText>Are you even listening to what you're saying?</szText>
+    <riposte_quote>20</riposte_quote>
+    <defensive>1</defensive>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>100</uiIndex>
+    <szText>Oh, I'll give you one! Just you wait!</szText>
+    <riposte_quote>21</riposte_quote>
+    <aggressive>1</aggressive>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>101</uiIndex>
+    <szText>You should consider changing your masseur. I volunteer!</szText>
+    <riposte_quote>21</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>102</uiIndex>
+    <szText>Yeah, I bet you did. God.</szText>
+    <riposte_quote>21</riposte_quote>
+    <female>1</female>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>103</uiIndex>
+    <szText>Oooh. Not today!</szText>
+    <riposte_quote>24</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>104</uiIndex>
+    <szText>No!</szText>
+    <riposte_quote>26</riposte_quote>
+    <aggressive>1</aggressive>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>105</uiIndex>
+    <szText>Anything for you, princess.</szText>
+    <riposte_quote>26</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>106</uiIndex>
+    <szText>I work this way on women.</szText>
+    <riposte_quote>26</riposte_quote>
+    <brave>1</brave>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>107</uiIndex>
+    <szText>Are you doing this on purpose?</szText>
+    <riposte_quote>27</riposte_quote>
+    <defensive>1</defensive>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>108</uiIndex>
+    <szText>Pffft.</szText>
+    <riposte_quote>51</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>109</uiIndex>
+    <szText>Pffft.</szText>
+    <riposte_quote>53</riposte_quote>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>110</uiIndex>
+    <szText>I'm just going to pretend I didn't hear that.</szText>
+    <defensive>1</defensive>
+    <riposte_quote>53</riposte_quote>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>111</uiIndex>
+    <szText>Hold on! I'll just drop my clothes, get my rescue tube and I'm coming to save you!</szText>
+    <riposte_quote>77</riposte_quote>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+  </TAUNT>
+</TAUNTS>

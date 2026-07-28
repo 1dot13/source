@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="yes"?>
+<JA2Data>
+  <AmmoChoices>
+    <id>19</id>
+    <name>Default Enemy Ammo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>29</id>
+    <name>Admin Enemy Ammo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>39</id>
+    <name>Regular Enemy Ammo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>49</id>
+    <name>Elite Enemy Ammo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>59</id>
+    <name>Green Militia Ammo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>69</id>
+    <name>Regular MilitiaAmmo</name>
+  </AmmoChoices>
+  <AmmoChoices>
+    <id>79</id>
+    <name>Elite Militia Ammo</name>
+  </AmmoChoices>
+</JA2Data>

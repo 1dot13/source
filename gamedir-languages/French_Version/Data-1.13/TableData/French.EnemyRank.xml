@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENEMY_RANK>
+  <RANK>
+	<uiIndex>1</uiIndex>
+    <szRank>Recru(e)</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>2</uiIndex>
+    <szRank>Soldat</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>3</uiIndex>
+    <szRank>Caporal</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>4</uiIndex>
+    <szRank>Sergent</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>5</uiIndex>
+    <szRank>Major</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>6</uiIndex>
+    <szRank>Lieutenant</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>7</uiIndex>
+    <szRank>Capitaine</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>8</uiIndex>
+    <szRank>Commandant</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>9</uiIndex>
+    <szRank>Colonel</szRank>
+  </RANK>
+</ENEMY_RANK>

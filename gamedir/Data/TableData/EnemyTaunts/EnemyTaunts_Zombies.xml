@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Is this some kind of a joke?</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>There's no more room in hell!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>They're coming to get us!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Great, that's exactly what this country needs. A fucking zombie apocalypse!</szText>
+    <szTextCensored>Great, that's exactly what this country needs. A freaking zombie apocalypse!</szTextCensored>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Remember, aim for the head, aim for the head...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Really? I mean.. c'mon!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>That's just fucked up!</szText>
+    <szTextCensored>That's just messed up!</szTextCensored>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>What's next? Werewolves? Vampires?</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Come for me! Come on, you rotting corpse!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <aggressive>1</aggressive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>I'll send you back to hell!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <aggressive>1</aggressive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Send them more paramedics!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Oh shit! It can smell my brain!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>It's not zombie! Technically, they're just infected...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Is this running one or walking one? I'm confused...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>It's alive!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Maybe it's friendly.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>It's alive... ish.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Nothing's ever real until it's real.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <defensive>1</defensive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>They live!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>There must be some rational explanation. Virus, space radiation, maybe a meteor...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <defensive>1</defensive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>I will not negotiate with undead!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>So there IS a life after death!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Holy shit. Plot twist!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Fuck, I think I forgot to take my pills.</szText>
+    <szTextCensored>Crap, I think I forgot to take my pills.</szTextCensored>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <aggressive>1</aggressive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>That's it, no more drugs for me.</szText>
+    <say_hi>1</say_hi>
+    <noticed_unseen>1</noticed_unseen>
+    <aggressive>1</aggressive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>I knew that movie was based on a true story!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>You're one spooky motherfucker, man.</szText>
+    <szTextCensored>You're one spooky dude, man.</szTextCensored>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Oooh. Zombies. How original.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Zombie over here!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Fuck global warming, we've got real problems here!</szText>
+    <szTextCensored>Screw global warming, we've got real problems here!</szTextCensored>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Undead!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <inform_about>1</inform_about>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>This is a bad dream!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <morale_lt>40</morale_lt>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Blasphemy!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Come on! It wasn't even 17 seconds!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>At a certain point in your life you realize you know more dead people than living.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <defensive>1</defensive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>I'm scared to pieces!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <morale_lt>30</morale_lt>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>It's amazing how fast the world can go from bad to total shit storm.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <defensive>1</defensive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>It could be worse. They could be nazi!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Where's my lawnmower when I need it?</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>It's against the nature, you freak!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_zombie>1</target_zombie>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Hmmm... I bet I would make a cool zombie myself.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>No! I don't want to become one of you!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <got_missed_hth>1</got_missed_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Stay away from my precious gray matter!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <got_missed_hth>1</got_missed_hth>
+    <target_zombie>1</target_zombie>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Please, don't eat me! I'm fat and have too much sugar in my blood!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <got_missed_hth>1</got_missed_hth>
+    <target_zombie>1</target_zombie>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Aaaah! Should I cut it off now?!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>They're gonna eat me! Oh my GOOOOOOD!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <got_missed_hth>1</got_missed_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Not my face! My beautiful face!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Oh, the PAIN!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Suddenly, I'm getting a real hankering for brains!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>And stay dead! This time!</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>You're dead... again.</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Rest in pieces!</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>If it stands up again, I'm gonna piss myself.</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Stay down!</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Get back where you came from!</szText>
+    <kill>1</kill>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Zed is dead.</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Looks like someone here had a bad morning.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Now that's what I call a genre shift!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>You know what could come in handy right now? A freaking chainsaw!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>Quickly, someone distract them with fireworks or something!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>*whistles* It's a dead man's party! Who could ask for more...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>It's time to kick some zombie ass!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>If it bleeds, I can kill it!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>Men, women, children, zombies... I'll kill all of you!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <aggressive>1</aggressive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>It lives... again!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>Hey! That's an insurance scam!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>OK, that's just ridiculous.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <defensive>1</defensive>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>Looks like someone got out of the wrong side of the grave!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>Yup, that should work. Unless it's one of these modern zombies, that are actually infected or some other bullshit.</szText>
+    <cunning>1</cunning>
+    <head_pop>1</head_pop>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>Either it's dead for good, or about to grow two new ones. Let's hope for the former.</szText>
+    <defensive>1</defensive>
+    <head_pop>1</head_pop>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+</TAUNTS>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Viva la revolution!</szText>
+    <fire_gun>1</fire_gun>
+    <kill>1</kill>
+    <militia>1</militia>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Save a place in hell for your Queen!</szText>
+    <kill>1</kill>
+    <militia>1</militia>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Aaand you're dead.</szText>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Next!</szText>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>That's just the beginning, fuckers!</szText>
+    <szTextCensored>That's just the beginning, bastards!</szTextCensored>
+    <aggressive>1</aggressive>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Time to loot a corpse, I guess.</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Nice job getting yourself killed.</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>You OK? You look kinda... dead!</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Another one to my collection.</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>You could at least TRY to die with some dignity.</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Pathetic.</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Amateur.</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Let this be a lesson for all of you!</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>You asked for it.</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Your luck ran out.</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Time to pay the piper!</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Someone, go check his pulse.</szText>
+    <kill>1</kill>
+    <target_male>1</target_male>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Someone, go check her pulse.</szText>
+    <kill>1</kill>
+    <target_female>1</target_female>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Adios!</szText>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>In the name of all male population around the globe: we're going to miss you.</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Oh, too bad. She was kinda cute.</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Goodnight sweet prince.</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+    <female>1</female>
+    <target_male>1</target_male>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Diagnosis: negative!</szText>
+    <cunning>1</cunning>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>It didn't have to end like this!</szText>
+    <defensive>1</defensive>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Yeah! See ya!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Look what you've made me do...</szText>
+    <defensive>1</defensive>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>That's one way to skin a cat!</szText>
+    <kill_hth>1</kill_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Struggle is the enemy, but lead is the remedy!</szText>
+    <kill_gunfire>1</kill_gunfire>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Cause of death: acute lead poisoning!</szText>
+    <kill_gunfire>1</kill_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Everyone deserves a happy ending, except you!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <female>1</female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Hahaha! Jesus, he fell funny!</szText>
+    <aggressive>1</aggressive>
+    <target_male>1</target_male>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Hahaha! Jesus, she fell funny!</szText>
+    <aggressive>1</aggressive>
+    <target_female>1</target_female>
+    <kill>1</kill>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Now I have to wash my hands!</szText>
+    <kill_hth>1</kill_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Look at my shirt, how am I going to explain this to my wife?</szText>
+    <male>1</male>
+    <kill_hth>1</kill_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Bullseye!</szText>
+    <kill_throwing_knife>1</kill_throwing_knife>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>I'm the best!</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>It's all in the reflexes!</szText>
+    <kill_throwing_knife>1</kill_throwing_knife>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Neutralised!</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Target eliminated!</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Another one bites the dust!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>I like to look in their eyes...</szText>
+    <kill_hth>1</kill_hth>
+    <kill_blade>1</kill_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>One down, six billion to go...</szText>
+    <kill>1</kill>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Close and personal. Just how I like it!</szText>
+    <kill_hth>1</kill_hth>
+    <kill_blade>1</kill_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Looks like a bad case of... split personality!</szText>
+    <kill_blade>1</kill_blade>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Did your parents have any children that lived?</szText>
+    <kill>1</kill>
+    <defensive>1</defensive>
+  </TAUNT>
+</TAUNTS>

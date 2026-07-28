@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MINERALS>
+  <TYPE>
+	<uiIndex>0</uiIndex>
+	<sNameType>矿井</sNameType>
+    <sMineral>银矿</sMineral>
+  </TYPE>
+  <TYPE>
+	<uiIndex>1</uiIndex>
+	<sNameType>矿井</sNameType>
+    <sMineral>金矿</sMineral>
+  </TYPE>
+</MINERALS>

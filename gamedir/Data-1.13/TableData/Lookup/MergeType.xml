@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<MergeType>
+		<id>0</id>
+		<name>Destruction</name>
+	</MergeType>
+	<MergeType>
+		<id>1</id>
+		<name>Combine</name>
+	</MergeType>
+	<MergeType>
+		<id>2</id>
+		<name>Treat Armour</name>
+	</MergeType>
+	<MergeType>
+		<id>3</id>
+		<name>Explosive (Hard)</name>
+	</MergeType>
+	<MergeType>
+		<id>4</id>
+		<name>Easy</name>
+	</MergeType>
+	<MergeType>
+		<id>5</id>
+		<name>Electronic</name>
+	</MergeType>
+	<MergeType>
+		<id>6</id>
+		<name>Use Item</name>
+	</MergeType>
+	<MergeType>
+		<id>7</id>
+		<name>Use Item (Hard)</name>
+	</MergeType>
+	<MergeType>
+		<id>8</id>
+		<name>Swap Barrel</name>
+	</MergeType>
+	<MergeType>
+		<id>9</id>
+		<name>Explosive (Easy)</name>
+	</MergeType>
+	<MergeType>
+		<id>10</id>
+		<name>Mechanical (Easy)</name>
+	</MergeType>
+	<MergeType>
+		<id>11</id>
+		<name>Mechanical (Hard)</name>
+	</MergeType>
+	<MergeType>
+		<id>12</id>
+		<name>Tripwire Roll</name>
+	</MergeType>
+   <MergeType>
+       <id>13</id>
+       <name>Use (Drain Status)</name>
+   </MergeType>
+	<MergeType>
+		<id>14</id>
+		<name>Cannibalize</name>
+	</MergeType>
+	<MergeType>
+		<id>15</id>
+		<name>Lose 10 percent</name>
+	</MergeType>
+</JA2Data>

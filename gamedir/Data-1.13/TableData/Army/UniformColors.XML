@@ -1,0 +1,73 @@
+<!--		
+	STANDARD UNIFORMS
+
+	Please note that you need all six uniform types defined here,
+	otherwise the game will not load:
+	ENEMY_ADMIN
+	ENEMY_TROOP
+	ENEMY_ELITE
+	MILITIA_ROOKIE
+	MILITIA_REGULAR
+	MILITIA_ELITE
+
+	Also, there's a limited choice of uniform types, and you need
+	to select from this set of choices.
+	(Please note that this is CASE SENSITIVE)
+
+	Possible vests:
+		YELLOWVEST
+		BLACKSHIRT
+		REDVEST
+		GREENVEST
+		JEANVEST
+		BLUEVEST
+		greyVEST  :: note capitalization here
+		GYELLOWSHIRT
+		WHITEVEST
+		PURPLESHIRT
+		BLUEVEST
+		BROWNVEST
+	
+	Possible pants:
+		GREENPANTS
+		BLACKPANTS
+		BEIGEPANTS
+		TANPANTS
+		JEANPANTS
+		BLUEPANTS
+
+-->		
+
+<UNIFORMS>
+
+	<ENEMY_ADMIN>
+		<Vest>YELLOWVEST</Vest>
+		<Pants>GREENPANTS</Pants>
+	</ENEMY_ADMIN>
+
+	<ENEMY_TROOP>
+		<Vest>REDVEST</Vest>
+		<Pants>GREENPANTS</Pants>
+	</ENEMY_TROOP>
+
+	<ENEMY_ELITE>
+		<Vest>BLACKSHIRT</Vest>
+		<Pants>BLACKPANTS</Pants>
+	</ENEMY_ELITE>
+
+	<MILITIA_ROOKIE>
+		<Vest>GREENVEST</Vest>
+		<Pants>BEIGEPANTS</Pants>
+	</MILITIA_ROOKIE>
+
+	<MILITIA_REGULAR>
+		<Vest>JEANVEST</Vest>
+		<Pants>BEIGEPANTS</Pants>
+	</MILITIA_REGULAR>
+
+	<MILITIA_ELITE>
+		<Vest>BLUEVEST</Vest>
+		<Pants>BEIGEPANTS</Pants>
+	</MILITIA_ELITE>
+
+</UNIFORMS>

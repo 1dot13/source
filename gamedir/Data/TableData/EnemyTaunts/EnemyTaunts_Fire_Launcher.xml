@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Say hello to my lil' friend!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Barbecue time!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Suck it down!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Bam!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Kaboom!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Dodge this!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>I like it!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Hahaha!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Die in fire, bitch!</szText>
+    <fire_launcher>1</fire_launcher>
+    <aggressive>1</aggressive>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Die in fire, son of a bitch!</szText>
+    <fire_launcher>1</fire_launcher>
+    <aggressive>1</aggressive>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Say your prayers!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Hell yeah!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>There's no kill like overkill!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>My gun's bigger than yours!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>I got a present for ya!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Watch and learn.</szText>
+    <fire_launcher>1</fire_launcher>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Special delivery!</szText>
+    <fire_launcher>1</fire_launcher>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>You should see your face now!</szText>
+    <fire_launcher>1</fire_launcher>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Didn't see THAT coming, huh?</szText>
+    <fire_launcher>1</fire_launcher>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Checkmate!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>I always wanted to do this.</szText>
+    <fire_launcher>1</fire_launcher>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Peace through power!</szText>
+    <fire_launcher>1</fire_launcher>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>This job ain't that bad.</szText>
+    <fire_launcher>1</fire_launcher>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Now I remember why I joined the army!</szText>
+    <fire_launcher>1</fire_launcher>
+    <regular>1</regular>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Ooh, somebody stop me!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>You're welcome!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>There goes the neighborhood!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Denied!</szText>
+    <fire_launcher>1</fire_launcher>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Hold my beer and watch this!</szText>
+    <brave>1</brave>
+    <fire_launcher>1</fire_launcher>
+    <throw_grenade>1</throw_grenade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>If I had a dick, this is when I would tell you to suck it!</szText>
+    <fire_launcher>1</fire_launcher>
+    <aggressive>1</aggressive>
+    <female>1</female>
+    <target_male>1</target_male>
+  </TAUNT>
+</TAUNTS>

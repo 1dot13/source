@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<NasAttachmentClass>
+		<id>0</id>
+		<name>None</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>1</id>
+		<name>Default</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>2</id>
+		<name>Barrel</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>4</id>
+		<name>Laser</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>8</id>
+		<name>Sight</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>16</id>
+		<name>Scope</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>32</id>
+		<name>Stock</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>64</id>
+		<name>Ammo</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>128</id>
+		<name>Internal</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>256</id>
+		<name>External</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>512</id>
+		<name>Underbarrel</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>1024</id>
+		<name>Grenade</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>2048</id>
+		<name>Rocket</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>4096</id>
+		<name>MOLLE Small</name>
+	</NasAttachmentClass>
+	<NasAttachmentClass>
+		<id>8192</id>
+		<name>MOLLE Medium</name>
+	</NasAttachmentClass>
+</JA2Data>

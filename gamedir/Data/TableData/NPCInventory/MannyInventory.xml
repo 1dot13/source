@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<INVENTORYLIST>
+	<INVENTORY>
+		<uiIndex>0</uiIndex>
+		<sItemIndex>245</sItemIndex>
+		<ubOptimalNumber>9</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1</uiIndex>
+		<sItemIndex>255</sItemIndex>
+		<ubOptimalNumber>6</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>2</uiIndex>
+		<sItemIndex>256</sItemIndex>
+		<ubOptimalNumber>12</ubOptimalNumber>
+	</INVENTORY>
+</INVENTORYLIST>

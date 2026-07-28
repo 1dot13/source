@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<POCKETPOPUPS>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>枪背带</pName>
+		<popup>
+			<generator>
+				<id>addWeaponGroups</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>刀</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>	
+	</POCKET>
+
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>弹链包</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>冲锋枪套</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>		
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>长弹匣包</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>AR弹匣包</pName>
+		<popup>
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>手枪枪套</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>冲锋枪弹匣包</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>枪榴弹包</pName>
+		<generator>
+			<id>addRifleGrenades</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>手榴弹包</pName>
+		<generator>
+			<id>addGrenades</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>手枪弹匣包</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>快装器弹袋</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>22</pIndex>
+		<pName>大型弹链包</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>大通用包</pName>
+		<popup>
+			<subMenu>
+				<name>武器</name>
+				<generator>
+					<id>addWeaponGroups</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>弹药</name>
+				<subMenu>
+					<name>火箭筒弹药</name>
+					<generator>
+						<id>addRocketAmmo</id>
+					</generator>
+				</subMenu>
+				<subMenu>
+					<name>枪榴弹</name>
+					<generator>
+						<id>addRifleGrenades</id>
+					</generator>
+				</subMenu>
+
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>杂物包</pName>
+		<popup>
+			<subMenu>
+				<name>武器</name>
+				<generator>
+					<id>addWeaponGroups</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>弹药</name>
+				<subMenu>
+					<name>火箭筒弹药</name>
+					<generator>
+						<id>addRocketAmmo</id>
+					</generator>
+				</subMenu>
+				<subMenu>
+					<name>枪榴弹</name>
+					<generator>
+						<id>addRifleGrenades</id>
+					</generator>
+				</subMenu>
+
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>中型杂物包</pName>
+		<popup>
+			<subMenu>
+				<name>弹药</name>
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>工具</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			
+			<subMenu>
+				<name>面部物品</name>
+				<generator>
+					<id>addFaceGear</id>
+				</generator>
+			</subMenu>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>小口袋</pName>
+		<popup>
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>其它物品</name>
+				<generator>
+					<id>addMisc</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>工具</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>大口袋</pName>
+		<popup>
+			<subMenu>
+				<name>手雷或榴弹</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>其它物品</name>
+				<generator>
+					<id>addMisc</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>工具</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>20</pIndex>
+		<pName>急救包</pName>
+		<generator>
+			<id>addKits</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>21</pIndex>
+		<pName>针筒包</pName>
+		<generator>
+			<id>addKits</id>
+		</generator>
+	</POCKET>
+
+</POCKETPOPUPS>

@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>                                                              
+                                                                                                    
+<!--                                                                                                
+uiIndex           number of profile, 0 is a template            
+szName            name of soldier                                                                  
+uiBodyType        body type:                                                                        
+                  1: REGMALE                                                                        
+                  2: BIGMALE                                                                        
+                  3: STOCKYMALE                                                                     
+                  4: REGFEMALE                                                                      
+                                                                                                    
+uiHair            hair colour:                                                                      
+                  1: WHITEHEAD                                                                      
+                  2: BLACKHEAD                                                      
+                  3: BROWNHEAD                                                                      
+                  4: BLONDHEAD                                                                      
+                  5: REDHEAD                                                                        
+                                                                                                    
+uiSkin            skin colour:                                                                      
+                  1: PINKSKIN                                                                       
+                  2: TANSKIN                                                                        
+                  3: DARKSKIN                                                                       
+                  4: BLACKSKIN                                                                      
+                                                                                                    
+uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:                                       
+                  // MAJOR TRAITS                                                                   
+                  AUTO_WEAPONS_NT, // 1                                                             
+                  HEAVY_WEAPONS_NT, // 2                                                            
+                  SNIPER_NT, // 3                                                                   
+                  RANGER_NT, // 4                                                                   
+                  GUNSLINGER_NT, // 5                                                               
+                  MARTIAL_ARTS_NT, // 6                                                             
+                  SQUADLEADER_NT, // 7                                                              
+                  TECHNICIAN_NT, // 8                                                               
+                  DOCTOR_NT, // 9                                                                   
+                                                                                                    
+                  // MINOR TRAITS                                                                   
+                  AMBIDEXTROUS_NT, // 10                                                            
+                  MELEE_NT, // 11                                                                   
+                  THROWING_NT, // 12                                                                
+                  NIGHT_OPS_NT, // 13                                                               
+                  STEALTHY_NT, // 14                                                                
+                  ATHLETICS_NT, // 15                                                               
+                  BODYBUILDING_NT, // 16                                                            
+                  DEMOLITIONS_NT, // 17                                                             
+                  TEACHING_NT, // 18                                                                
+                  SCOUTING_NT, // 19                                                                
+                                                                                                    
+                  COVERT_NT, // 20  // major trait, here for coding reasons
+                  RADIO_OPERATOR_NT, //21
+                  SNITCH_NT, //22
+                  SURVIVAL_NT, //23
+-->                                                                                                 
+<PROFILES>
+  <PROFILE>
+    <uiIndex>0</uiIndex>
+    <szName>This template should never show up ingame...</szName>
+    <uiBodyType>0</uiBodyType>
+    <uiHair>0</uiHair>
+    <uiSkin>0</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>1</uiIndex>
+    <szName>Guadalupe</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>7</uiTrait1>
+    <uiTrait2>7</uiTrait2>
+    <uiTrait3>13</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>2</uiIndex>
+    <szName>Rafaela</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>1</uiTrait1>
+    <uiTrait2>1</uiTrait2>
+    <uiTrait3>16</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>3</uiIndex>
+    <szName>Maria</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>3</uiHair>
+    <uiSkin>2</uiSkin>
+    <uiTrait1>2</uiTrait1>
+    <uiTrait2>2</uiTrait2>
+    <uiTrait3>17</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>4</uiIndex>
+    <szName>Emilia</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>3</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>3</uiTrait1>
+    <uiTrait2>3</uiTrait2>
+    <uiTrait3>13</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>5</uiIndex>
+    <szName>Mia</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>4</uiTrait2>
+    <uiTrait3>19</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>6</uiIndex>
+    <szName>Tozi</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>6</uiTrait1>
+    <uiTrait2>6</uiTrait2>
+    <uiTrait3>15</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>7</uiIndex>
+    <szName>Valeria</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>3</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>1</uiTrait1>
+    <uiTrait2>2</uiTrait2>
+    <uiTrait3>17</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>8</uiIndex>
+    <szName>Xochiquetzal</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>3</uiTrait1>
+    <uiTrait2>4</uiTrait2>
+    <uiTrait3>14</uiTrait3>
+  </PROFILE>
+  <PROFILE>
+    <uiIndex>9</uiIndex>
+    <szName>Antonella</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>5</uiTrait1>
+    <uiTrait2>6</uiTrait2>
+    <uiTrait3>15</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>10</uiIndex>
+    <szName>Martina</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>5</uiTrait1>
+    <uiTrait2>5</uiTrait2>
+    <uiTrait3>23</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>11</uiIndex>
+    <szName>Sara</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>3</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>7</uiTrait2>
+    <uiTrait3>13</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>12</uiIndex>
+    <szName>Ana</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>13</uiTrait2>
+    <uiTrait3>14</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>13</uiIndex>
+    <szName>Olivia</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>13</uiTrait2>
+    <uiTrait3>15</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>14</uiIndex>
+    <szName>Jazmin</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>4</uiSkin>
+    <uiTrait1>3</uiTrait1>
+    <uiTrait2>4</uiTrait2>
+    <uiTrait3>13</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>15</uiIndex>
+    <szName>Chantico</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>6</uiTrait2>
+    <uiTrait3>13</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>16</uiIndex>
+    <szName>Zuma</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>4</uiTrait1>
+    <uiTrait2>13</uiTrait2>
+    <uiTrait3>23</uiTrait3>
+  </PROFILE>
+ <PROFILE>
+    <uiIndex>17</uiIndex>
+    <szName>Zaniyah</szName>
+    <uiBodyType>4</uiBodyType>
+    <uiHair>2</uiHair>
+    <uiSkin>3</uiSkin>
+    <uiTrait1>7</uiTrait1>
+    <uiTrait2>13</uiTrait2>
+    <uiTrait3>19</uiTrait3>
+  </PROFILE>
+</PROFILES>

@@ -1,0 +1,23 @@
+<!--
+This is an OPTIONAL file which selects random teams for the multiplayer clients.
+If this file is not present, "hardcoded" teams will be taken.
+Only the server needs to have this file. The teams are snyced to all the clients.
+
+You can define as many teams as you would like. They are choosen randomly for each client.
+The [name] attribute from the team tag is optional and not used yet anywhere in the game.
+The [id] tag must match the index of the selected merc from ProEdit.
+-->
+<mp_teams>
+		<team name="Team1">
+			<id>16</id>
+		</team>
+		<team name="Team2">
+			<id>29</id>
+		</team>
+		<team name="Team3">
+			<id>12</id>
+		</team>
+		<team name="Team4">
+			<id>31</id>
+		</team>
+</mp_teams>

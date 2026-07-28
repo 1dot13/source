@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ENEMY_RANK>
+  <RANK>
+	<uiIndex>1</uiIndex>
+    <szRank>Gefreiter</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>2</uiIndex>
+    <szRank>Hauptgefreiter</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>3</uiIndex>
+    <szRank>Unteroffizier</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>4</uiIndex>
+    <szRank>Feldwebel</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>5</uiIndex>
+    <szRank>Hauptfeldwebel</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>6</uiIndex>
+    <szRank>Leutnant</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>7</uiIndex>
+    <szRank>Hauptmann</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>8</uiIndex>
+    <szRank>Major</szRank>
+  </RANK>
+  <RANK>
+	<uiIndex>9</uiIndex>
+    <szRank>Oberst</szRank>
+  </RANK>
+</ENEMY_RANK>

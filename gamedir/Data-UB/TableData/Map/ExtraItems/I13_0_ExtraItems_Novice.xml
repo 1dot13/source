@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   see the ExtraSectorItems-Readme.txt for details 
+<ExtraItems>
+   <Item>
+      <uiIndex>20</uiIndex>
+      <quantity>1</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>148</uiIndex>
+      <quantity>2</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>149</uiIndex>
+      <quantity>3</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>40</uiIndex>
+      <quantity>1</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>94</uiIndex>
+      <quantity>3</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+   <Item>
+      <uiIndex>213</uiIndex>
+      <quantity>1</quantity>
+      <condition>100</condition>
+      <gridno>11258</gridno>
+      <visible>1</visible>
+   </Item>
+</ExtraItems>
+-->

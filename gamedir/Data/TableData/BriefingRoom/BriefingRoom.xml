@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+Name - name of mission
+Hidden : 1 - hidden mission. Accessible mission after complete of the previous mission; 0 - displayed mission. First mission has to be visible; 
+
+MaxPages - the quantity of pages. The amount of used records from the file "missionX.edt".
+MaxImages - the quantity of pictures. 
+ImagePositionX - position X of all pictures
+ImagePositionY - position Y of all pictures
+NextMission - After the mission complete, activate the next mission. Write number ID of the next mission.
+-->
+
+<BRIEFINGROOM>
+		<!-- Mission 1 -->
+	<DATA>
+		<uiIndex>0</uiIndex>
+		<Name>Empty Mission</Name>
+		<Hidden>1</Hidden>
+		<MaxPages>0</MaxPages>
+		<MaxImages>0</MaxImages>
+		<ImagePositionX>0</ImagePositionX>
+		<ImagePositionY>0</ImagePositionY>
+		<NextMission>-1</NextMission>
+	</DATA>
+</BRIEFINGROOM>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Palettes>
+	<!--<Palette name = "default" filename = "Palettes\default.act" />	-->
+	<Palette name = "hats" filename = "Palettes\Hats.stp" />
+	<Palette name = "guns_universal" filename = "Palettes\guns_universal.stp" />
+	<Palette name = "guns_AK" filename = "Palettes\guns_AK.stp" />
+	<Palette name = "guns_v2" filename = "Palettes\guns_universal_v2.stp" />
+	<!--<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.stp" />-->
+	<Palette name = "guns_v2_pal_swap" filename = "Palettes\guns_v2_paletteswap.act" />
+	<Palette name = "grayscale" filename = "Palettes\grayscale.act" />
+	<Palette name = "WoodlandCamo" filename = "Palettes\WoodlandCamo.act" />
+	<Palette name = "UrbanlandCamo" filename = "Palettes\UrbanlandCamo.act" />
+	<Palette name = "DesertlandCamo" filename = "Palettes\DesertlandCamo.act" />
+	<Palette name = "Bluehats" filename = "Palettes\BlueHats.act" />
+	<Palette name = "Greenhats" filename = "Palettes\GreenHats.act" />
+	<Palette name = "swat_blue" filename = "Palettes\swat_blue.act" />
+	<Palette name = "guns_v2_pal_swap_wood_to_dark" filename = "Palettes\guns_v2_paletteswap_wood_to_dark.act" />
+	<Palette name = "hats_guardian_vest" filename = "Palettes\Hats_guardian_vest.act" />
+	<Palette name = "guns_v2_tan_fix" filename = "Palettes\guns_universal_v2_tan_fix.act" />
+</Palettes>

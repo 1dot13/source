@@ -1,0 +1,324 @@
+<!--
+
+This file defines patrols in game.
+
+Fields index:
+	Size			- base number of soldiers in patrol. Actual number of soldiers is
+				  calculated as base number plus/minus 1 and then max/min limits
+				  are applied. Max limit is MAX_STRATEGIC_TEAM_SIZE in INI, and
+				  min limit is *_MIN_ENEMY_GROUP_SIZE. Provide integer number.
+
+	Priority		- Hmmm... Priority is priority. It defines importance of patrol
+				  group to Queen. More important - more chances to get reinforcements,
+				  more chances to upgrade admins to regular troops. Provide 
+				  value from interval [0..100].
+
+	Waypoints		- this categiory define route of patrolling group. You are given
+				  up to 4 (2 is a minimum) sector check-points. At a check-point
+				  patrol can change direction of movement. Only horizontal and
+				  vertical movement is allowed, diagonal is restricted. In case
+				  short routes (e.g. 2 or 3 points) fill unused sectors with 0.
+				  And also you cannot use sector A1 in routes. Patrol moves through
+				  route like a ball in ping-pong, e.g. ...-1-2-3-4-3-2-1-2-3...
+				  Starting point is random.
+				  
+	Sector1..4  		- it is where patrol will be coursing. Provide valid sector name
+				  or 0, if this field is unused.
+
+NOTE: Maximum 50 patrols can be used in game.
+
+Changes require starting of a new game.
+
+-->
+<PATROL_INFO>
+	<PATROL>
+		<Size>8</Size>
+		<Priority>40</Priority>
+		<Waypoints>
+			<Sector1>B1</Sector1>
+			<Sector2>C1</Sector2>
+			<Sector3>C3</Sector3>
+			<Sector4>A3</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>6</Size>
+		<Priority>35</Priority>
+		<Waypoints>
+			<Sector1>B4</Sector1>
+			<Sector2>B7</Sector2>
+			<Sector3>C7</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>6</Size>
+		<Priority>25</Priority>
+		<Waypoints>
+			<Sector1>A8</Sector1>
+			<Sector2>B8</Sector2>
+			<Sector3>B9</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>6</Size>
+		<Priority>30</Priority>
+		<Waypoints>
+			<Sector1>B10</Sector1>
+			<Sector2>B12</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>7</Size>
+		<Priority>45</Priority>
+		<Waypoints>
+			<Sector1>A11</Sector1>
+			<Sector2>A14</Sector2>
+			<Sector3>D14</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>6</Size>
+		<Priority>50</Priority>
+		<Waypoints>
+			<Sector1>C8</Sector1>
+			<Sector2>C9</Sector2>
+			<Sector3>D9</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>55</Priority>
+		<Waypoints>
+			<Sector1>D3</Sector1>
+			<Sector2>G3</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>10</Size>
+		<Priority>50</Priority>
+		<Waypoints>
+			<Sector1>D6</Sector1>
+			<Sector2>D7</Sector2>
+			<Sector3>F7</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>10</Size>
+		<Priority>55</Priority>
+		<Waypoints>
+			<Sector1>E8</Sector1>
+			<Sector2>E11</Sector2>
+			<Sector3>F11</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>10</Size>
+		<Priority>60</Priority>
+		<Waypoints>
+			<Sector1>E12</Sector1>
+			<Sector2>E15</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>60</Priority>
+		<Waypoints>
+			<Sector1>G4</Sector1>
+			<Sector2>G7</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>65</Priority>
+		<Waypoints>
+			<Sector1>G10</Sector1>
+			<Sector2>G12</Sector2>
+			<Sector3>F12</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>65</Priority>
+		<Waypoints>
+			<Sector1>G13</Sector1>
+			<Sector2>G15</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>10</Size>
+		<Priority>65</Priority>
+		<Waypoints>
+			<Sector1>H15</Sector1>
+			<Sector2>J15</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>14</Size>
+		<Priority>65</Priority>
+		<Waypoints>
+			<Sector1>H12</Sector1>
+			<Sector2>J12</Sector2>
+			<Sector3>J13</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>13</Size>
+		<Priority>70</Priority>
+		<Waypoints>
+			<Sector1>H9</Sector1>
+			<Sector2>I9</Sector2>
+			<Sector3>I10</Sector3>
+			<Sector4>J10</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>11</Size>
+		<Priority>70</Priority>
+		<Waypoints>
+			<Sector1>K11</Sector1>
+			<Sector2>K14</Sector2>
+			<Sector3>J14</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>75</Priority>
+		<Waypoints>
+			<Sector1>J2</Sector1>
+			<Sector2>K2</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>80</Priority>
+		<Waypoints>
+			<Sector1>I3</Sector1>
+			<Sector2>J3</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>80</Priority>
+		<Waypoints>
+			<Sector1>J6</Sector1>
+			<Sector2>K6</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>13</Size>
+		<Priority>85</Priority>
+		<Waypoints>
+			<Sector1>K7</Sector1>
+			<Sector2>K10</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>90</Priority>
+		<Waypoints>
+			<Sector1>L10</Sector1>
+			<Sector2>M10</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>90</Priority>
+		<Waypoints>
+			<Sector1>N9</Sector1>
+			<Sector2>N10</Sector2>
+			<Sector3>0</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>80</Priority>
+		<Waypoints>
+			<Sector1>L7</Sector1>
+			<Sector2>L8</Sector2>
+			<Sector3>M8</Sector3>
+			<Sector4>M9</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>14</Size>
+		<Priority>80</Priority>
+		<Waypoints>
+			<Sector1>H4</Sector1>
+			<Sector2>H5</Sector2>
+			<Sector3>I5</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>7</Size>
+		<Priority>40</Priority>
+		<Waypoints>
+			<Sector1>D4</Sector1>
+			<Sector2>E4</Sector2>
+			<Sector3>E5</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>7</Size>
+		<Priority>50</Priority>
+		<Waypoints>
+			<Sector1>C10</Sector1>
+			<Sector2>C11</Sector2>
+			<Sector3>D11</Sector3>
+			<Sector4>D12</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>8</Size>
+		<Priority>40</Priority>
+		<Waypoints>
+			<Sector1>A15</Sector1>
+			<Sector2>C15</Sector2>
+			<Sector3>C16</Sector3>
+			<Sector4>0</Sector4>
+		</Waypoints>
+	</PATROL>
+	<PATROL>
+		<Size>12</Size>
+		<Priority>30</Priority>
+		<Waypoints>
+			<Sector1>L13</Sector1>
+			<Sector2>M13</Sector2>
+			<Sector3>M14</Sector3>
+			<Sector4>L14</Sector4>
+		</Waypoints>
+	</PATROL>
+</PATROL_INFO>

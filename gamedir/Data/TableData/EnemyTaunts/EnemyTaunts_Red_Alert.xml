@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>They're here!</szText>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Now the fun can start!</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>I've waited a looong time for this.</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Sucker with the lowest body count buys drinks!</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>They have no idea what they are in for...</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Everyone get ready!</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Killing time!</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>I call dibs on any rocket launchers we loot from their corpses!</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Finally! Some carnage!</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Oh, I can't wait to get my hands on them!</szText>
+    <alert>1</alert>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Finally, my training will pay off.</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Everybody, wake up!</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Time to earn my paycheck...</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Now I'll be able to prove myself.</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>We have the tactical advantage!</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Maybe I'll get a medal!</szText>
+    <alert>1</alert>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>We're under attack!</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Oh, ain't that just great?</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Can't guy get a nap around here?</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Enemy attack. That's something new.</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Yay. 'Cause nobody saw that coming.</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>I'm totally gonna desert as soon as we start losing.</szText>
+    <alert>1</alert>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Thanks for turning my shitty day into a complete disaster, assholes!</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Take positions!</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>I hoped this would never happen...</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Fire at will!</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>It was bound to happen eventually.</szText>
+    <alert>1</alert>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Alert! Alert!</szText>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Intruders!</szText>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>We've got company!</szText>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Enemy detected!</szText>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Enemy over here!</szText>
+    <alert>1</alert>
+  </TAUNT>
+</TAUNTS>

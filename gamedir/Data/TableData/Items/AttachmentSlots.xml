@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ATTACHMENTSLOTLIST>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>0</uiSlotIndex>
+		<szSlotName>Don't touch me</szSlotName>
+		<nasAttachmentClass>0</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>0</usDescPanelPosX>
+		<usDescPanelPosY>0</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>1</uiSlotIndex>
+		<szSlotName>Default slot 1</szSlotName>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>64</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>2</uiSlotIndex>
+		<szSlotName>Default slot 2</szSlotName>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>92</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>3</uiSlotIndex>
+		<szSlotName>Default slot 3</szSlotName>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>224</usDescPanelPosX>
+		<usDescPanelPosY>64</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>4</uiSlotIndex>
+		<szSlotName>Default slot 4</szSlotName>
+		<nasAttachmentClass>1</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>224</usDescPanelPosX>
+		<usDescPanelPosY>92</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>5</uiSlotIndex>
+		<szSlotName>Barrel Attachments</szSlotName>
+		<nasAttachmentClass>2</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>78</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>6</uiSlotIndex>
+		<szSlotName>Laser Attachments</szSlotName>
+		<nasAttachmentClass>4</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>58</usDescPanelPosX>
+		<usDescPanelPosY>36</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>7</uiSlotIndex>
+		<szSlotName>Sight Attachments</szSlotName>
+		<nasAttachmentClass>8</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>98</usDescPanelPosX>
+		<usDescPanelPosY>36</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>8</uiSlotIndex>
+		<szSlotName>Scope Attachments</szSlotName>
+		<nasAttachmentClass>16</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>138</usDescPanelPosX>
+		<usDescPanelPosY>36</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>9</uiSlotIndex>
+		<szSlotName>Stock Attachments</szSlotName>
+		<nasAttachmentClass>32</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>78</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>10</uiSlotIndex>
+		<szSlotName>Ammo Attachments</szSlotName>
+		<nasAttachmentClass>64</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>138</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>11</uiSlotIndex>
+		<szSlotName>Internal Attachments</szSlotName>
+		<nasAttachmentClass>128</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>98</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>12</uiSlotIndex>
+		<szSlotName>External Attachments 1</szSlotName>
+		<nasAttachmentClass>256</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>98</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>13</uiSlotIndex>
+		<szSlotName>Underbarrel Attachments</szSlotName>
+		<nasAttachmentClass>512</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>58</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>14</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>18</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>15</uiSlotIndex>
+		<szSlotName>Rocket Launcher Slot</szSlotName>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>1</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>0</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>16</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>8</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>17</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>36</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>18</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>64</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>19</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>92</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>20</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>120</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>21</uiSlotIndex>
+		<szSlotName>Rifle Grenade</szSlotName>
+		<nasAttachmentClass>1024</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>230</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>0</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>22</uiSlotIndex>
+		<szSlotName>Rocket Launcher Slot</szSlotName>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>23</uiSlotIndex>
+		<szSlotName>Rocket Launcher Slot</szSlotName>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>10</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>24</uiSlotIndex>
+		<szSlotName>Rocket Launcher Slot</szSlotName>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>10</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
+	<ATTACHMENTSLOT>
+		<uiSlotIndex>25</uiSlotIndex>
+		<szSlotName>Rocket Launcher Slot</szSlotName>
+		<nasAttachmentClass>2048</nasAttachmentClass>
+		<nasLayoutClass>2</nasLayoutClass>
+		<usDescPanelPosX>187</usDescPanelPosX>
+		<usDescPanelPosY>148</usDescPanelPosY>
+		<fMultiShot>1</fMultiShot>
+		<fBigSlot>1</fBigSlot>
+	</ATTACHMENTSLOT>
+</ATTACHMENTSLOTLIST>

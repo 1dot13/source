@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>                                                                                                
+<!--                                                                                                
+uiIndex           number of hint, 0 is a template that will not be selected
+szName            text to appear, 190 chars max
+--> 
+<LOADSCREENHINTS>
+  <LOADSCREENHINT>
+    <uiIndex>0</uiIndex>
+    <szName>This template should never show up</szName>    
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>1</uiIndex>
+    <szName>Для большинства пулеметов существуют сменные стволы. Используйте их, чтобы быстро охладить ваш пулемет в бою.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>2</uiIndex>
+    <szName>Используйте нож на трупе, чтобы получить его униформу или поднять труп.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>3</uiIndex>
+    <szName>Шпионы могут использовать униформу врагов, чтобы выдавать себя за солдат.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>4</uiIndex>
+    <szName>Можно переключать различные режимы прицеливания при помощи кнопки [.].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>5</uiIndex>
+    <szName>Еда, пролежавшая в секторе несколько дней, необратимо портится. Её употребление может вызвать болезнь.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>6</uiIndex>
+    <szName>Заражение можно устранить принятием антидота или лечением у доктора.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>7</uiIndex>
+    <szName>Если на иконке вашего оружия появилась буква 'M', это значит, что наемник поставил оружие на какую-то опору. Это повышает стабильность стрельбы.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>8</uiIndex>
+    <szName>Не забудьте посетить страничку Jagged Alliance: Flashback на Kickstarter!</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>9</uiIndex>
+    <szName>Дверной проем заблокирован? Нажмите [X], когда находитесь вплотную с кем-либо, чтобы поменяться с ним местами.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>10</uiIndex>
+    <szName>Нужна помощь? Нажмите [H] на стратегическом экране для получения подсказок. Также можете обратиться за помощью на сайты www.ja-galaxy-forum.com (на английском) и ja2.su (на русском).</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>11</uiIndex>
+    <szName>Вращением колесика мыши можно увеличивать или уменьшать шанс на попадание. Вращение колесика с зажатой кнопкой [ALT] меняет количество пуль, выпускаемых при стрельбе очередью.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>12</uiIndex>
+    <szName>В некоторых секторах есть заведения, к примеру, бары и шахты. Наемников можно назначать на работу в эти заведения.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>13</uiIndex>
+    <szName>Зажав [CTRL] и щелкнув левой кнопкой мыши по врагу, вы можете украсть его оружие. У лежащего, не умирающего врага можно стащить все до последней нитки.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>14</uiIndex>
+    <szName>Имейте в виду, что на голубой флажок, который ставится для обозначения обнаруженной мины, будут обращать внимание как ваши наемники, так и солдаты врага.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>15</uiIndex>
+    <szName>Зажав кнопку [END] на тактическом экране, вы сможете увидеть поле зрения выделенного в данный момент наемника.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>16</uiIndex>
+    <szName>Зажав кнопку [DEL] на тактическом экране, вы сможете понять, насколько заметны ваши наемники для врагов, которых вы видите.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>17</uiIndex>
+    <szName>Наемники могут прыгать сквозь окна, даже застекленные. Во втором случае при прыжке они получат повреждения. Чтобы прыгнуть, встаньте лицом к окну и нажмите [SHIFT]+[J].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>18</uiIndex>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот вызовет список вещей, которые вы можете поместить в этот слот.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>19</uiIndex>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот навесок для оружия вызовет список совместимых навесок.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>20</uiIndex>
+    <szName>При нахождении в инвентаре сектора нажатие на пустой слот с зажатой кнопкой [CTRL] вызовет список вещей этого сектора по категориям.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>21</uiIndex>
+    <szName>При выборе вещей из выпадающего списка (после нажатия на пустой слот инвентаря или пустой слот навесок для оружия) используются наименее поврежденные экземпляры.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>22</uiIndex>
+    <szName>Нажмите [CTRL]+[SHIFT]+[X] для включения скрытности в реальном времени. В этом режиме не произойдет перехода в пошаговый режим при обнаружении вами врагов, пока они сами не заметят вас.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>23</uiIndex>
+    <szName>Нажмите [CTRL]+[X] для перехода в пошаговый режим со включенной скрытностью в реальном времени. Работает только если ваши наемники видят врага.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>24</uiIndex>
+    <szName>Освещайте поле боя ночью при помощи фальшфейеров, чтобы увеличить шанс попадания по врагу.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>25</uiIndex>
+    <szName>Ваш наемник под огнем и не может выбраться? Прикройте его при помощи дымовых гранат.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>26</uiIndex>
+    <szName>В зависимости от настроек полная починка оружия также будет или не будет чистить его.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>27</uiIndex>
+    <szName>В магазинах не только продают, но и покупают некоторые ваши вещи. Правда, продавцы в них довольно придирчивы.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>28</uiIndex>
+    <szName>Боитесь, что враг прервёт ваш ход? Стреляйте по ногам и надейтесь, что он упадет.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>29</uiIndex>
+    <szName>В бегущего врага труднее попасть.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>30</uiIndex>
+    <szName>Нажатие на [CTRL]+[.] откроет удобное меню сектора.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>31</uiIndex>
+    <szName>Увеличить количество пуль, выпускаемых в режиме автоматического огня, можно нажатием на правую кнопку мыши.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>32</uiIndex>
+    <szName>Объедините алкоголь с тряпкой для создания коктейля Молотова.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>33</uiIndex>
+    <szName>Некоторых неигровых персонажей можно подкупить.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>34</uiIndex>
+    <szName>Бег в режиме скрытности кажется глупостью, но это работает.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>35</uiIndex>
+    <szName>Можно моментально убить лежащего врага при помощи ножа.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>36</uiIndex>
+    <szName>Если врагами была поднята тревога, то они могут вызвать подкрепление.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>37</uiIndex>
+    <szName>Сайт Бобби Рэя станет доступным только после взятия под контроль одного из аэропортов.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>38</uiIndex>
+    <szName>Скрытное перемещение возле ничего не подозревающих врагов тренирует вашу ловкость, однако это весьма рискованно.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>39</uiIndex>
+    <szName>Рукопашный бой увеличивает проворность и силу.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>40</uiIndex>
+    <szName>Оказание первой помощи и установка взрывчатки повышают вашу мудрость.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>41</uiIndex>
+    <szName>Взрывчатка с дистанционным управлением может быть взорвана с помощью дистанционного детонатора - возьмите детонатор в руки и нажмите правую кнопку мыши.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>42</uiIndex>
+    <szName>Если вы хотите вручную перемещать предметы, можете дать такое задание вашему наемнику, находящемуся в городе.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>43</uiIndex>
+    <szName>Вы можете переключать режимы стрельбы из оружия (включая возможность атаки присоединенным к оружию штыком) при помощи клавиши [B].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>44</uiIndex>
+    <szName>Нажмите [SHIFT]+[R] на тактическом экране, чтобы весь отряд перезарядил оружие.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>45</uiIndex>
+    <szName>Нажатие [S] заставит вашего наемника встать, [C] - присесть, [P] - лечь, а [R] - встать и бежать.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>46</uiIndex>
+    <szName>Нажмите [Z] для включения режима скрытности для одного наемника, а [ALT]+[Z] - для всего отряда.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>47</uiIndex>
+    <szName>Метание ножей в ничего не подозревающего врага может моментально его убить.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>48</uiIndex>
+    <szName>Щелкнув правой кнопкой мыши на каком-нибудь предмете, вы откроете удобное меню с описанием.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>49</uiIndex>
+    <szName>Долговременные контракты с наемниками выходят дешевле. В дальнейшей перспективе.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>50</uiIndex>
+    <szName>Неуплата счетов M.E.R.C. может вызвать определенные последствия.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>51</uiIndex>
+    <szName>Если враг завоюет принадлежащий вам сектор, он может забрать ваши вещи.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>52</uiIndex>
+    <szName>Доктора могут моментально восстановить часть потерянной жизни при помощи хирургии. Это действие, однако, быстро расходует ваши медицинские запасы.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>53</uiIndex>
+    <szName>Принятие большого числа наркотиков не проходит бесследно.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>54</uiIndex>
+    <szName>Если вы собираетесь высаживать десант, то нелишним будет захватить базы ПВО.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>55</uiIndex>
+    <szName>В начале боя нажмите [SHIFT]+[B], чтобы все наемники сбросили свои рюкзаки. В конце боя нажмите [CTRL]+[SHIFT]+[F], чтобы наемники подняли их обратно.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>56</uiIndex>
+    <szName>Можно уничтожать голубые флажки на минах, бросая на них гранаты. Враг (равно как и ваши наемники) может наступить на не помеченную флажком мину.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>57</uiIndex>
+    <szName>Нажмите [L], чтобы повернуться в сторону курсора. Нажмите [L] еще раз, чтобы взять оружие на изготовку и смотреть в указанном направлении через прицел (если он есть).</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>58</uiIndex>
+    <szName>Постарайтесь заканчивать свой ход в положении как минимум лежа. Это поможет защитить от непреднамеренного дружественного огня.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>59</uiIndex>
+    <szName>Можно вести автоматический огонь по площади. Для этого в режиме автоматического огня нажмите и удерживайте ЛКМ, затем ведите мышь вдоль линии стрельбы, а в конце отпустите ЛКМ.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>60</uiIndex>
+    <szName>В Камбрии есть госпиталь, где вы можете вылечить ваших наемников.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>61</uiIndex>
+    <szName>Сошки дают бонус только если ваш наемник лежит или установил свое оружие на опору.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>62</uiIndex>
+    <szName>Тяжелое оружие отнимает много энергии при стрельбе или даже если оно просто взято на изготовку. Для сохранения энергии лучше дать команду наемнику лечь.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>63</uiIndex>
+    <szName>При первой же возможности постарайтесь занять укрытие.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>64</uiIndex>
+    <szName>Местное ополчение может отвлечь вражеский огонь от ваших бойцов. Однако не стоит рассчитывать, что они смогут выполнить всю работу самостоятельно.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>65</uiIndex>
+    <szName>Мобильное ополчение может следовать за наемниками при перемещении по карте до тех пор, пока между ними будет не более 1 сектора. Дождитесь, пока они прибудут в ваш сектор.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>66</uiIndex>
+    <szName>В меню распределения ополчения, зажав [CTRL], можно переместить 5 человек, а зажав [SHIFT], - всех людей.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>67</uiIndex>
+    <szName>Мобильное ополчение может помочь вам атаковать города, если оно будет находиться в одном с вами секторе и вы выберете их в качестве подкреплений перед битвой.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>68</uiIndex>
+    <szName>Сверху экрана инвентаря сектора есть много кнопок, которые помогают сортировать и фильтровать вещи. Наведите на эти кнопки курсор, чтобы получить их описание.</szName>
+    <lore>1</lore>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>69</uiIndex>
+    <szName>Экспансивные боеприпасы наносят большой урон, но легко останавливаются нательной броней. Бронебойные боеприпасы могут пробивать эту броню, но наносят меньше урона.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>70</uiIndex>
+    <szName>Используйте экспансивные боеприпасы, чтобы убить кошек-убийц.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>71</uiIndex>
+    <szName>Помощь местным жителям повышает уровень лояльности города. Кроме того, из разговора с ними иногда можно узнать разную полезную информацию.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>72</uiIndex>
+    <szName>В городе должен быть определенный уровень лояльности, прежде чем вы сможете тренировать там ополчение.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>73</uiIndex>
+    <szName>Наемники с навыками обучения быстрее тренируют ополчение.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>74</uiIndex>
+    <szName>Нажмите [O], чтобы открыть меню настроек.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>75</uiIndex>
+    <szName>При помощи [ALT]+[S] делается быстрое сохранение в собственный слот, при помощи [ALT]+[L] осуществляется загрузка из этого слота.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>76</uiIndex>
+    <szName>[CTRL]+[S] открывает меню сохранения игры, [CTRL]+[L] - меню загрузки игры.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>77</uiIndex>
+    <szName>Выбор в главном меню пункта "Продолжить" с зажатой кнопкой [ALT] приведет к автоматической загрузке последней сохраненной игры.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>78</uiIndex>
+    <szName>Солдаты в желтых футболках - самый слабый тип врагов с самым плохим оружием. Их сменяют регулярные войска вскоре после вашего прибытия в Арулько.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>79</uiIndex>
+    <szName>Солдаты в красных футболах - регулярная армия Дейдраны, с ними вы будете сталкиваться большую часть игры.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>80</uiIndex>
+    <szName>Солдаты в черных футболках - наемники Дейдраны. У них лучшее вооружение, они самые трудные враги. Высокие уровни сложности увеличивают их численность.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>81</uiIndex>
+    <szName>Зеленых ополченцев можно тренировать до уровня регулярного ополчения. Они более эффективны в бою, но их дороже тренировать и содержать.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>82</uiIndex>
+    <szName>Ополченцев-ветеранов нельзя тренировать. Ветеранами ополченцы могут стать после успешного боя.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>83</uiIndex>
+    <szName>Постарайтесь перевязать умирающего наемника как можно быстрее, иначе он может истечь кровью до смерти.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>84</uiIndex>
+    <szName>Старайтесь, чтобы у вашего снайпера всегда был в запасе пистолет или пистолет-пулемет. Снайперы не очень эффективны на ближних дистанциях.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>85</uiIndex>
+    <szName>Оглушающие гранаты могут вывести ваших врагов из строя. У них можно красть вооружение.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>86</uiIndex>
+    <szName>Постарайтесь оглушить или прижать врагов к земле перед броском в них гранат со слезоточивым или перцовым газом. Это не позволит врагу покинуть область действия газа.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>87</uiIndex>
+    <szName>Прежде чем бросать во врага гранаты с газом, убедитесь, что у врага нет противогаза. Для проверки наведите курсор на врага и зажмите [ALT]. Чем ближе враг, тем больше информации вы узнаете.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>88</uiIndex>
+    <szName>Держите магазины ваших наемников всегда заряженными - пользуйтесь комбинацией кнопок [ALT]+[R].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>89</uiIndex>
+    <szName>Не забывайте использовать укрытия.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>90</uiIndex>
+    <szName>Если деревья мешают вашему обзору, нажмите [T], чтобы убрать их верхушки. Также можно зажать кнопку [DELETE], чтобы лучше представлять, что окружает ваших наемников.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>91</uiIndex>
+    <szName>Чтобы быстро натренировать силу ваших наемников, вы можете заставить бегать их с нагрузкой, значительно превышающую 100 процентов.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>92</uiIndex>
+    <szName>Переключайтесь между целями на земле и на крышах при помощи кнопки [TAB].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>93</uiIndex>
+    <szName>Рассчитывайте наперед, сколько ОД необходимо потратить, чтобы встать из-за укрытия, выстрелить и спрятаться обратно за укрытие.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>94</uiIndex>
+    <szName>Обращайте внимание на то, что слышат ваши наемники, особенно ночью - зачастую вы раньше услышите приближение врага, чем увидите его.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>95</uiIndex>
+    <szName>Любой звук, который услышит ваш наемник, отображается белыми кругами.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>96</uiIndex>
+    <szName>Сделав где-нибудь в отдалении несколько выстрелов "в никуда", вы сможете отвлечь внимание от наемника, попавшего в переплёт.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>97</uiIndex>
+    <szName>Ночью держитесь подальше от источников света и постарайтесь использовать их так, чтобы получить преимущество.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>98</uiIndex>
+    <szName>Наемников можно выбирать, нажимая кнопки [F1]...[F6]. Выбрать их всех можно, нажав на кнопку [=].</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>99</uiIndex>
+    <szName>Без надлежащего оборудования (приборов ночного видения хорошего качества) стоит больше полагаться на слух и средства его усиления.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>100</uiIndex>
+    <szName>Навык ночных операций больше подходит для раннего этапа игры, когда вы полагаетесь на пистолеты и пистолеты-пулеметы.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>101</uiIndex>
+    <szName>Нажмите [CTRL]+[ALT]+[G], чтобы включить и выключить искусственную подсветку ваших наемников.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>102</uiIndex>
+    <szName>При сражении в грозу необходимо быть начеку, так как молния может выдать ваше (и ваших врагов) местоположение, а дождь сильно ухудшает видимость.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>103</uiIndex>
+    <szName>Не стойте плотной толпой, так как автоматная очередь или граната могут нанести серьезный урон всему отряду.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>104</uiIndex>
+    <szName>Любой ваш шаг повлияет на то, как будет дальше развиваться бой.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>105</uiIndex>
+    <szName>Всегда устраняйте текущую угрозу, прежде чем начать выполнять свой новый план.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>106</uiIndex>
+    <szName>Находясь на крыше, постарайтесь двигаться по прямым линиям, так как движение по горизонтали может замедлить вас.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>107</uiIndex>
+    <szName>Камешки могут быть удивительно полезными в кулачном бою.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>108</uiIndex>
+    <szName>Постарайтесь не превышать 100-процентную нагрузку для ваших наемников, так как это заставляет их уставать гораздо быстрее.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>109</uiIndex>
+    <szName>Подсчет пуль в бою - сложная штука. Не удивляйтесь, если ваш наемник забыл, сколько точно пуль осталось в его магазине.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>110</uiIndex>
+    <szName>Каждый наемник эффективен в разных способах убеждения, пытаясь добиться чего-то от других. Не ожидайте, что Биф сможет удачно запугать кого-либо.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>111</uiIndex>
+    <szName>У каждого наемника свои потребности во сне - им требуется от 3 до 12 часов сна, чтобы полностью восполнить запасы энергии. Навык ночных операций позволяет снизить это время еще больше.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>112</uiIndex>
+    <szName>У каждого наемника свой порог смертей в вашем отряде и вашей общей репутации в Арулько.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>113</uiIndex>
+    <szName>Если в вашей команде находятся два человека, которые не любят друг друга, постарайтесь не держать их в одном секторе больше одного часа.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>114</uiIndex>
+    <szName>Некоторые наемники вообще не смогут повысить свои характеристики.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>115</uiIndex>
+    <szName>Много полезной информации можно найти в папке "Docs" в месте установки JA2.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>116</uiIndex>
+    <szName>Будьте осторожны при использовании реактивных гранатометов - реактивная струя от выстрела может здорово навредить вашим наемникам, стоящим за спиной гранатометчика.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>117</uiIndex>
+    <szName>Хотите сражаться против реальных игроков? Или же играть вместе со своими друзьями? Попробуйте многопользовательский режим 1.13.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>118</uiIndex>
+    <szName>Нажав [G], вы отдадите своим наемникам приказ держать строй при передвижении (если будет выбрано больше одного наемника).</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>119</uiIndex>
+    <szName>Нажмите [CTRL]+[SHIFT]+[S], чтобы разом продать все вещи в текущем секторе.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>120</uiIndex>
+    <szName>[CTRL]+[SHIFT]+[E] загрузит вашу машину как можно большим количеством вещей из текущего сектора. [SHIFT]+[E] выгрузит все вещи из машины в текущий сектор.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>121</uiIndex>
+    <szName>Не можете попасть в цель со своей текущей позиции? Попробуйте огнем прижать врагов к земле и перебраться на лучшую позицию.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>122</uiIndex>
+    <szName>Исследование ферм и городских секторов может помочь вам обзавестись разными полезными предметами, например, бензином для машины.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>123</uiIndex>
+    <szName>Нажав и зажав правую кнопку мыши на вашем наемнике на тактическом экране, вы откроете такое же меню наемника, что и на стратегическом экране.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>124</uiIndex>
+    <szName>Нажмите [CTRL]+[C], чтобы открыть меню показа укрытий.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>125</uiIndex>
+    <szName>Нажмите [CTRL]+[V], чтобы открыть удобное меню управления инвентарем.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>126</uiIndex>
+    <szName>Если в секторе присутствует враг, то нажатие [D] немедленно переведёт игру в пошаговый режим.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>127</uiIndex>
+    <szName>Нажмите [CTRL]+[D], чтобы закончить ваш перерыв хода; больше перерывов хода до конца хода противника не будет.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>128</uiIndex>
+    <szName>Нажатие правой кнопки мыши с зажатой кнопкой [ALT] откроет меню навыков, откуда вы можете по радио вызвать подкрепление или вызвать артиллерийский удар.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>129</uiIndex>
+    <szName>Вы можете спокойно устанавливать минные поля в захваченных городах и базах ПВО - ваши наемники и ополчение будут их избегать.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>130</uiIndex>
+    <szName>Вы можете исследовать ловушку перед тем, как попытаетесь ее обезвредить.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>131</uiIndex>
+    <szName>Нажав курсором в виде руки на голубой флажок, вы попадете в удобное меню разминирования.</szName>
+  </LOADSCREENHINT>
+  <LOADSCREENHINT>
+    <uiIndex>132</uiIndex>
+    <szName>Установку мин, колючей проволоки или мешков с песком удобнее осуществлять с зажатой кнопкой [SHIFT] - при этом из вашего инвентаря автоматически возьмется аналогичный предмет.</szName>
+  </LOADSCREENHINT>
+</LOADSCREENHINTS>

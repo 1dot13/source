@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>I heard that!</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Who's there?</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>What was that?</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Hey! What the...</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Show yourself!</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>I warn you... my detection skills are at their PEAK!</szText>
+    <seek_noise>1</seek_noise>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>What the hell was that?</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>I'm not deaf, you know?</szText>
+    <seek_noise>1</seek_noise>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Hey!</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Come out, coward!</szText>
+    <seek_noise>1</seek_noise>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Hey! Who's making all that racket?</szText>
+    <seek_noise>1</seek_noise>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Just show yourself, wherever you are!</szText>
+    <seek_noise>1</seek_noise>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Hey! I've heard something suspicious!</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Anybody there?</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Shoulda check it out.</szText>
+    <seek_noise>1</seek_noise>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Is someone being clever?</szText>
+    <seek_noise>1</seek_noise>
+    <cunning>1</cunning>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Strange noises...</szText>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>It was just a wind... wait a sec, there's no wind!</szText>
+    <seek_noise>1</seek_noise>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Show yourself! We're friendly... and don't know how to fight.</szText>
+    <seek_noise>1</seek_noise>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>I got a bad feeling on this one.</szText>
+    <defensive>1</defensive>
+    <seek_noise>1</seek_noise>
+  </TAUNT>
+</TAUNTS>

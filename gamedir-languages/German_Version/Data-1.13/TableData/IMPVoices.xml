@@ -1,0 +1,125 @@
+<!-- 
+voiceset : 0 - x
+
+bSex : 
+		0 - Male 
+		1 - Female
+-->
+
+<IMPVOICELIST>
+	<VOICE>
+		<szVoiceSetName>Male 1</szVoiceSetName>
+		<voiceset>51</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male 2</szVoiceSetName>
+		<voiceset>52</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male 3</szVoiceSetName>
+		<voiceset>53</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male 4</szVoiceSetName>
+		<voiceset>169</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male Russian 1</szVoiceSetName>
+		<voiceset>192</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male Russian 2</szVoiceSetName>
+		<voiceset>193</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male Russian 3</szVoiceSetName>
+		<voiceset>194</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Male chaotic</szVoiceSetName>
+		<voiceset>304</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Lynx</szVoiceSetName>
+		<voiceset>350</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JA1 Hitman</szVoiceSetName>
+		<voiceset>351</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Ice</szVoiceSetName>
+		<voiceset>352</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Grunty</szVoiceSetName>
+		<voiceset>353</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Nails</szVoiceSetName>
+		<voiceset>354</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Sidney</szVoiceSetName>
+		<voiceset>355</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JA1 Jimmy</szVoiceSetName>
+		<voiceset>356</voiceset>
+		<bSex>0</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 1</szVoiceSetName>
+		<voiceset>54</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 2</szVoiceSetName>
+		<voiceset>55</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 3</szVoiceSetName>
+		<voiceset>56</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 4</szVoiceSetName>
+		<voiceset>300</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female 5</szVoiceSetName>
+		<voiceset>301</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>JADG Scope</szVoiceSetName>
+		<voiceset>358</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female cunning</szVoiceSetName>
+		<voiceset>302</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+	<VOICE>
+		<szVoiceSetName>Female eccentric</szVoiceSetName>
+		<voiceset>303</voiceset>
+		<bSex>1</bSex>
+	</VOICE>
+</IMPVOICELIST>

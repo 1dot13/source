@@ -1,0 +1,232 @@
+﻿<!--
+
+In this file you can define, which mercs should be available on M.E.R.C website.
+This works for USE_PROFILE_DATA_FROM_XML = TRUE (using MercProfiles.xml) and FALSE (using BinaryData\Prof*.dat).
+If you want to hide any merc from M.E.R.C website, just delete the entry.
+
+	uiIndex:				0 - 254
+	Name:					Optional Name of the merc
+	MercBioID:				ID from the file "BinaryData\Mercbios.edt" file. Set this to -1 and no bios will be shown for the merc.
+							INFO: See list with entries below.
+	Drunk:					If you set this to 1, then the merc should also have a drunken profile defined in MercProfiles.xml/Prof*.dat
+							There also has to be an entry here in this file right underneath (with uiIndex + 1) the "normal" profile.
+							INFO: In vanilla JA2, Larry has a "normal" and a "drunken" profile.
+	AlternateIndex:			If <Drunk> is set to 0, you can always set this to -1. This indicates that there is no additional drunken profile for ther merc.
+							If <Drunk> is set to 1, then also an additional "drunken" profile has to exist.
+							In both profiles (normal, drunken) set the <AlternateIndex>, which points to the <uiIndex> of the alternating profile.
+	StartMercsAvailable:	Set to 1 and the merc is available at the beginning. Set to 0 and merc will be available after X (<usDay>) days.
+	NewMercsAvailable:		Accessible mercenary in the next day. Just set this to 0 for all mercs. This will only be set internal ingame.
+	ProfilId:			 	uiIndex from MercProfiles.xml/Prof*.dat.
+	usMoneyPaid:			The amount of money you have to pay Speck for this merc to show up on the website. If set to 0 then cost is taken from MercProfiles.xml/Prof*.dat.
+	usDay:					When <StartMercsAvailable> is set to 0, you can set the days, when the merc should be available in M.E.R.C.
+							For example, if you set <usDay> to 3, the merc will be available on Day 3 + 1 day offset on the website. 
+							Also the total amount of money you paid Speck has to be greater than <usMoneyPaid> for the merc to show up.
+   
+ 
+ The following list shows the records defined in "BinaryData\Mercbios.edt". Use this for the <MercBioID> tag.
+   
+   Record   Merc
+   0 		Biff
+   1 		Haywire
+   2 		Gastek
+   3 		Razor
+   4 		Flo
+   5 		Gumpy
+   10 		Bubba
+   6 		Larry
+   7 		Larry drunk
+   9		Numb
+   13 		Tex
+   14 		Beggins
+   8 		Couger
+   11 		Gaston
+   12 		Stogie
+
+-->
+
+<MERC_AVAILABLES>
+  <!-- Start Mercs -->
+  <MERC>
+	<uiIndex>0</uiIndex>
+	<Name>Biff</Name>
+	<MercBioID>0</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>40</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>1</uiIndex>
+	<Name>HAYWIRE</Name>
+	<MercBioID>1</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>	
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>41</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>2</uiIndex>
+	<Name>GASKET</Name>	
+	<MercBioID>2</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>42</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>3</uiIndex>
+	<Name>RAZOR</Name>	
+	<MercBioID>3</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>43</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>4</uiIndex>
+	<Name>FLO</Name>	
+	<MercBioID>4</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>44</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>5</uiIndex>
+	<Name>GUMPY</Name>	
+	<MercBioID>5</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>1</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>45</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <!-- New Mercs -->
+  <!-- Accessible mercenaries in the next day, and in next day...and next day. -->
+  <!-- ex. BUBBA 2 day ... Larry 3 day etc. -->
+  <MERC>
+	<uiIndex>6</uiIndex>
+	<Name>BUBBA</Name>	
+	<MercBioID>10</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>50</ProfilId>
+    <usMoneyPaid>500</usMoneyPaid>
+	<usDay>8</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>7</uiIndex>
+	<Name>Larry</Name>	
+	<MercBioID>6</MercBioID>
+	<Drunk>0</Drunk>
+	<uiAlternateIndex>8</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>46</ProfilId>
+    <usMoneyPaid>1000</usMoneyPaid>
+	<usDay>15</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>8</uiIndex>
+	<Name>Larry Drunk</Name>
+	<MercBioID>7</MercBioID>	
+	<Drunk>1</Drunk>	
+	<uiAlternateIndex>7</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>47</ProfilId>
+    <usMoneyPaid>0</usMoneyPaid>
+	<usDay>0</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>9</uiIndex>
+	<Name>Numb</Name>	
+	<MercBioID>9</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>49</ProfilId>
+    <usMoneyPaid>15000</usMoneyPaid>
+	<usDay>20</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>10</uiIndex>
+	<Name>Tex</Name>	
+	<MercBioID>13</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>167</ProfilId>
+    <usMoneyPaid>16000</usMoneyPaid>
+	<usDay>21</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>11</uiIndex>
+	<Name>Biggens</Name>	
+	<MercBioID>14</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>168</ProfilId>
+    <usMoneyPaid>18000</usMoneyPaid>
+	<usDay>23</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>12</uiIndex>
+	<Name>Cougar</Name>	
+	<MercBioID>8</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>48</ProfilId>
+    <usMoneyPaid>20000</usMoneyPaid>
+	<usDay>25</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>13</uiIndex>
+	<Name>Gaston</Name>	
+	<MercBioID>11</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>165</ProfilId>
+    <usMoneyPaid>25000</usMoneyPaid>
+	<usDay>30</usDay>
+  </MERC>
+  <MERC>
+	<uiIndex>14</uiIndex>
+	<Name>Stogie</Name>	
+	<MercBioID>12</MercBioID>
+	<Drunk>0</Drunk>	
+	<uiAlternateIndex>-1</uiAlternateIndex>
+	<StartMercsAvailable>0</StartMercsAvailable>
+	<NewMercsAvailable>0</NewMercsAvailable>
+	<ProfilId>166</ProfilId>
+    <usMoneyPaid>26000</usMoneyPaid>
+	<usDay>31</usDay>
+  </MERC>
+</MERC_AVAILABLES>

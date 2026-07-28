@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ARMOURDROPLIST>
+	<DROPITEM>
+		<uiIndex>0</uiIndex>
+		<ubArmourClass>0</ubArmourClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>1</uiIndex>
+		<ubArmourClass>1</ubArmourClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>2</uiIndex>
+		<ubArmourClass>2</ubArmourClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>3</uiIndex>
+		<ubArmourClass>3</ubArmourClass>
+		<ubEnemyDropRate>15</ubEnemyDropRate>
+		<ubMilitiaDropRate>2</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>4</uiIndex>
+		<ubArmourClass>4</ubArmourClass>
+		<ubEnemyDropRate>0</ubEnemyDropRate>
+		<ubMilitiaDropRate>0</ubMilitiaDropRate>
+	</DROPITEM>
+	<DROPITEM>
+		<uiIndex>5</uiIndex>
+		<ubArmourClass>5</ubArmourClass>
+		<ubEnemyDropRate>0</ubEnemyDropRate>
+		<ubMilitiaDropRate>0</ubMilitiaDropRate>
+	</DROPITEM>
+</ARMOURDROPLIST>

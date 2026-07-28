@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>                                                              
+                                                                                                    
+<!--                                                                                                
+uiIndex           number of profile, 0 is a template            
+szName            name of soldier                                                                  
+uiBodyType        body type:                                                                        
+                  1: REGMALE                                                                        
+                  2: BIGMALE                                                                        
+                  3: STOCKYMALE                                                                     
+                  4: REGFEMALE                                                                      
+                                                                                                    
+uiHair            hair colour:                                                                      
+                  1: WHITEHEAD                                                                      
+                  2: BLACKHEAD                                                      
+                  3: BROWNHEAD                                                                      
+                  4: BLONDHEAD                                                                      
+                  5: REDHEAD                                                                        
+                                                                                                    
+uiSkin            skin colour:                                                                      
+                  1: PINKSKIN                                                                       
+                  2: TANSKIN                                                                        
+                  3: DARKSKIN                                                                       
+                  4: BLACKSKIN                                                                      
+                                                                                                    
+uiTrait1, uiTrait2, uiTrait3: according to the trait numbers:                                       
+                  // MAJOR TRAITS                                                                   
+                  AUTO_WEAPONS_NT, // 1                                                             
+                  HEAVY_WEAPONS_NT, // 2                                                            
+                  SNIPER_NT, // 3                                                                   
+                  RANGER_NT, // 4                                                                   
+                  GUNSLINGER_NT, // 5                                                               
+                  MARTIAL_ARTS_NT, // 6                                                             
+                  SQUADLEADER_NT, // 7                                                              
+                  TECHNICIAN_NT, // 8                                                               
+                  DOCTOR_NT, // 9                                                                   
+                                                                                                    
+                  // MINOR TRAITS                                                                   
+                  AMBIDEXTROUS_NT, // 10                                                            
+                  MELEE_NT, // 11                                                                   
+                  THROWING_NT, // 12                                                                
+                  NIGHT_OPS_NT, // 13                                                               
+                  STEALTHY_NT, // 14                                                                
+                  ATHLETICS_NT, // 15                                                               
+                  BODYBUILDING_NT, // 16                                                            
+                  DEMOLITIONS_NT, // 17                                                             
+                  TEACHING_NT, // 18                                                                
+                  SCOUTING_NT, // 19                                                                
+                                                                                                    
+                  COVERT_NT, // 20                                               
+-->                                                                                                 
+<PROFILES>
+  <PROFILE>
+    <uiIndex>0</uiIndex>
+    <szName>This template should never show up ingame...</szName>
+    <uiBodyType>0</uiBodyType>
+    <uiHair>0</uiHair>
+    <uiSkin>0</uiSkin>
+    <uiTrait1>0</uiTrait1>
+    <uiTrait2>0</uiTrait2>
+    <uiTrait3>0</uiTrait3>
+  </PROFILE>
+</PROFILES>

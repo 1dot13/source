@@ -1,0 +1,59 @@
+﻿<!--
+	The diseases described here only affect your mercs if DISEASE in JA2_Options.ini is TRUE.
+
+	Note that some tags are only considered if the additional setting DISEASE_SEVERE_LIMITATIONS is TRUE, these are:
+	- <fSpecialFlagContractDisability>
+	- <fSpecialFlagLimitedUseArms>
+	- <fSpecialFlagLimitedUseLegs>
+-->
+<DISEASESLIST>
+	<DISEASE>
+		<uiIndex>0</uiIndex>
+		<szName>Disease</szName>
+		<szFatName>|D|i|s|e|a|s|e</szFatName>
+		<szDescription>Disease wasn't a feature in vanilla, so nothing to see here.</szDescription>
+		<sInfectionPtsInitial>0</sInfectionPtsInitial>
+		<sInfectionPtsOutbreak>0</sInfectionPtsOutbreak>
+		<sInfectionPtsFull>0</sInfectionPtsFull>
+		<sInfectionPtsGainPerHour>0</sInfectionPtsGainPerHour>		
+		<InfectionChance_SWAMP>0</InfectionChance_SWAMP>
+		<InfectionChance_TROPICS>0</InfectionChance_TROPICS>
+		<InfectionChance_SEX>0</InfectionChance_SEX>
+		<InfectionChance_CONTACT_HUMAN>0</InfectionChance_CONTACT_HUMAN>
+		<InfectionChance_CONTACT_CORPSE>0</InfectionChance_CONTACT_CORPSE>
+		<InfectionChance_WOUND_ANIMAL>0</InfectionChance_WOUND_ANIMAL>
+		<InfectionChance_WOUND_OPEN>0</InfectionChance_WOUND_OPEN>
+		<InfectionChance_WOUND_GUNSHOT>0</InfectionChance_WOUND_GUNSHOT>
+		<InfectionChance_WOUND_FIRE>0</InfectionChance_WOUND_FIRE>
+		<InfectionChance_WOUND_GAS>0</InfectionChance_WOUND_GAS>
+		<InfectionChance_WOUND_AGI>0</InfectionChance_WOUND_AGI>
+		<InfectionChance_WOUND_DEX>0</InfectionChance_WOUND_DEX>
+		<InfectionChance_WOUND_STR>0</InfectionChance_WOUND_STR>
+		<InfectionChance_WOUND_WIS>0</InfectionChance_WOUND_WIS>
+		<InfectionChance_WOUND_TRAUMATIC>0</InfectionChance_WOUND_TRAUMATIC>
+		<InfectionChance_BADFOOD>0</InfectionChance_BADFOOD>
+		<InfectionChance_BADWATER>0</InfectionChance_BADWATER>
+		<fCanBeCured>0</fCanBeCured>
+		<fReverseOnFull>0</fReverseOnFull>
+		<fCanReInfect>0</fCanReInfect>
+		<fHideSymbol>0</fHideSymbol>
+		<fDisgusting>0</fDisgusting>
+		<fSpecialFlagPTSDBuns>0</fSpecialFlagPTSDBuns>
+		<fSpecialFlagContractDisability>0</fSpecialFlagContractDisability>
+		<fSpecialFlagLimitedUseArms>0</fSpecialFlagLimitedUseArms>
+		<fSpecialFlagLimitedUseLegs>0</fSpecialFlagLimitedUseLegs>
+		<sEffStatAGI>0</sEffStatAGI>
+		<sEffStatDEX>0</sEffStatDEX>
+		<sEffStatSTR>0</sEffStatSTR>
+		<sEffStatWIS>0</sEffStatWIS>
+		<sEffStatEXP>0</sEffStatEXP>
+		<sEffAP>0</sEffAP>
+		<usMaxBreath>0</usMaxBreath>
+		<sEffCarryStrength>0</sEffCarryStrength>
+		<sLifeRegenHundreds>0</sLifeRegenHundreds>
+		<sNeedToSleep>0</sNeedToSleep>
+		<sDrinkModifier>0</sDrinkModifier>
+		<sFoodModifier>0</sFoodModifier>
+		<moralemodifier>1.0</moralemodifier>
+	</DISEASE>
+</DISEASESLIST>

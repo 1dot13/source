@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<INCOMPATIBLEATTACHMENTLIST>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>50</itemIndex>
+		<incompatibleattachmentIndex>209</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>209</itemIndex>
+		<incompatibleattachmentIndex>50</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>223</itemIndex>
+		<incompatibleattachmentIndex>224</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+	<INCOMPATIBLEATTACHMENT>
+		<itemIndex>224</itemIndex>
+		<incompatibleattachmentIndex>223</incompatibleattachmentIndex>
+	</INCOMPATIBLEATTACHMENT>
+</INCOMPATIBLEATTACHMENTLIST>

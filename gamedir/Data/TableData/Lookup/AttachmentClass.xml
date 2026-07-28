@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<AttachmentClass>
+		<id>0</id>
+		<name>Default</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>1</id>
+		<name>Bipod</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>2</id>
+		<name>Suppressor</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>4</id>
+		<name>Laser</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>8</id>
+		<name>Sight</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>12</id>
+		<name>Laser + Sight</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>16</id>
+		<name>Scope</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>20</id>
+		<name>Laser + Scope</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>24</id>
+		<name>Sight + Scope</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>28</id>
+		<name>Laser + Sight + Scope</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>32</id>
+		<name>Stock</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>64</id>
+		<name>Magwell</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>128</id>
+		<name>Internal</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>256</id>
+		<name>External</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>512</id>
+		<name>Underbarrel</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>513</id>
+		<name>Bipod + Underbarrel</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>1024</id>
+		<name>Grenade</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>2048</id>
+		<name>Rocket</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>4096</id>
+		<name>Foregrip</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>4097</id>
+		<name>Bipod + Foregrip</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>4608</id>
+		<name>Foregrip + Underbarrel</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>8192</id>
+		<name>Helmet</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>16384</id>
+		<name>Vest</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>32768</id>
+		<name>Pants</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>65536</id>
+		<name>Detonator</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>131072</id>
+		<name>Battery</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>262144</id>
+		<name>Extender</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>524288</id>
+		<name>Sling</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>1048576</id>
+		<name>Remote Detonator</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>2097152</id>
+		<name>Defuser</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>2162688</id>
+		<name>Detonator + Defuser</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>3145728</id>
+		<name>Remote Detonator + Defuser</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>4194304</id>
+		<name>Iron Sight</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>8388608</id>
+		<name>Feeder</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>16777216</id>
+		<name>Modular Pouch</name>
+	</AttachmentClass>
+	<AttachmentClass>
+		<id>33554432</id>
+		<name>Rifle Grenade</name>
+	</AttachmentClass>
+</JA2Data>

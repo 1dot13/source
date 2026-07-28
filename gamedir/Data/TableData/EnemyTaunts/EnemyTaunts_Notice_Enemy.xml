@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Fantastic.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>'Surely they wouldn't dare to attack you.' Riiight.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Everybody stay calm, and we will make it through.</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Da'ffff...!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Big mistake!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Holy crap!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Enemy!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Enemy!!!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>There is one!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Intruders!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Holy shit!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>I spy with my little eye!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <inform_about>1</inform_about>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>I have a sighting!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <inform_about>1</inform_about>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Enemy forces!</szText>
+    <noticed_unseen>1</noticed_unseen>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Enemy detected!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Enemy over here!</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <inform_about>1</inform_about>
+    <alert>1</alert>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Holy shit! Kill it before it breeds!</szText>
+    <say_hi>1</say_hi>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>No offense lady, but I wouldn't touch you with a stick!</szText>
+    <say_hi>1</say_hi>
+    <male>1</male>
+    <defensive>1</defensive>
+    <target_female>1</target_female>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Look who's come to the picnic!</szText>
+    <say_hi>1</say_hi>
+    <noticed_unseen>1</noticed_unseen>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>You've got to be crazy to come here!</szText>
+    <elite>1</elite>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Over here, you morons! </szText>
+    <inform_about>1</inform_about>
+    <brave>1</brave>
+  </TAUNT>
+</TAUNTS>

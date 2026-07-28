@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Aaaggh!</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>I see red...</szText>
+    <got_hit>1</got_hit>
+    <health_lt>40</health_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Damn, I'm barely conscious.</szText>
+    <got_hit>1</got_hit>
+    <energy_lt>40</energy_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Ugh!</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>This... hurts!</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>You will regret... uhh... this.</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Crap!</szText>
+    <got_hit>1</got_hit>
+    <miss>1</miss>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>What the...!</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Ouch!</szText>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>You fuck!</szText>
+    <szTextCensored>You bastard!</szTextCensored>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+    <miss>1</miss>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Oh, you little piece of shit!</szText>
+    <szTextCensored>Oh, you little piece of...</szTextCensored>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Fuck, you'll pay for that!</szText>
+    <szTextCensored>Damn, you'll pay for that!</szTextCensored>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>You fucked with the wrong guy!</szText>
+    <szTextCensored>You messed with the wrong guy!</szTextCensored>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Now you have... pissed me off.</szText>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>It was nothing!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>I'm still here!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>Didn't feel a thing!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Pain is just weakness leaving my body!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Pain is just an illusion!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Who do you think you are?</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Oh, come on!</szText>
+    <got_hit>1</got_hit>
+    <miss>1</miss>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Why me?!</szText>
+    <got_hit>1</got_hit>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>This hurts you more then it hurts me.</szText>
+    <got_hit>1</got_hit>
+    <defensive>1</defensive>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>I'm allergic to pain!</szText>
+    <got_hit>1</got_hit>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>You son of a bitch!</szText>
+    <got_hit>1</got_hit>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>It's a goddamn commando squad!</szText>
+    <got_hit>1</got_hit>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Why is this shit always happening to me!?</szText>
+    <got_hit>1</got_hit>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Oh no, how could this happen?</szText>
+    <got_hit>1</got_hit>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>I'm not angry! You will know when I'm angry!</szText>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Oh... I'd love to smack you right now!</szText>
+    <got_missed>1</got_missed>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>I'm going to beat the crap out of you!</szText>
+    <charge_hth>1</charge_hth>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>That's it, you're fucking dead!</szText>
+    <szTextCensored>That's it, you're freaking dead!</szTextCensored>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>I'll punch you, I'll stab you, I'll strangle you! You know... that's what friends do!</szText>
+    <charge_hth>1</charge_hth>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>God will find a way to get back at you, and it ain't gonna be pretty.</szText>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Little enemies... little wounds!</szText>
+    <got_hit>1</got_hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>I really hate needless violence.</szText>
+    <got_hit>1</got_hit>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>If you shoot me again, I'll wrap your gun around your neck!</szText>
+    <got_hit_gunfire>1</got_hit_gunfire>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Oh, poor thing... she broke her nails!</szText>
+    <got_hit_hth>1</got_hit_hth>
+    <cunning>1</cunning>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>I'll take that gun from you, stick it up your ass and pull the trigger till it goes click!</szText>
+    <got_hit_gunfire>1</got_hit_gunfire>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>This? This is nothing!</szText>
+    <aggressive>1</aggressive>
+    <got_hit>1</got_hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>It's OK! My face cushioned the fall!</szText>
+    <aggressive>1</aggressive>
+    <got_hit_fallroof>1</got_hit_fallroof>
+  </TAUNT>
+</TAUNTS>

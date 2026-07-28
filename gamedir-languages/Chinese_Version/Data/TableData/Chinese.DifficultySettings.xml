@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		uiIndex : 0 - 15
+		Name : The short name of the difficulty.
+		ConfirmText :  The description of the difficulty.	
+-->
+<DIFFICULTY_SETTINGS>
+	<DIFFICULTY>
+		<uiIndex>0</uiIndex>
+		<Name>Not Used!</Name>
+		<ConfirmText>Not Used!</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>1</uiIndex>
+		<Name>新手</Name>
+		<ConfirmText>您选择了“新手“难度。该难度适合初次接触铁血联盟游戏的玩家、初次接触战略游戏的玩家、以及希望减少战斗次数的玩家。您的选择在游戏中全程生效，请慎重选择。您确定要在"新手"难度下进行游戏吗？
+</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>2</uiIndex>
+		<Name>老兵</Name>
+		<ConfirmText>您选择了"老兵"难度。该难度适合熟悉铁血联盟游戏或同类游戏的玩家。您的选择在游戏中全程生效，请慎重选择。您确定要在"老兵"难度下进行游戏吗？</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>3</uiIndex>
+		<Name>专家</Name>
+		<ConfirmText>您选择了"专家"难度。我们严正警告您，这很危险，当您被装进尸袋运回来时，不要来向我们抱怨。您的选择在游戏中全程生效，请慎重选择。您确定要在"专家"难度下进行游戏吗？</ConfirmText>
+	</DIFFICULTY>
+	<DIFFICULTY>
+		<uiIndex>4</uiIndex>
+		<Name>疯狂</Name>
+		<ConfirmText>您选择了“疯狂”难度。警告：当您被散装运回时，不要来向我们抱怨......女王陛下会非常“乐意”狠狠地捅爆您的菊花。您的选择在游戏中全程生效，请慎重选择。您确定要在“疯狂”难度下进行游戏吗？</ConfirmText>	
+	</DIFFICULTY>
+</DIFFICULTY_SETTINGS>

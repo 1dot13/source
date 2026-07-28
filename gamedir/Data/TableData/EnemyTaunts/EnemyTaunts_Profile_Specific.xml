@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Oh, Foxy. I didn't even have time to read you my poem....</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Serves you right, you slut!</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+    <elite>1</elite>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>What can I say, I'm a better draw.</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>I'm gonna miss your cinematography...</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Ashes to ashes, dust to dust.</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>247</target_merc_profile>
+    <!--Rev-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Go to hell, Hellar!</szText>
+    <kill>1</kill>
+    <elite>1</elite>
+    <target_merc_profile>240</target_merc_profile>
+    <!--Bud-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>That door revolved one time too many...</szText>
+    <elite>1</elite>
+    <kill>1</kill>
+    <defensive>1</defensive>
+    <target_merc_profile>149</target_merc_profile>
+    <!--Mike-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Rot in hell, you backstabbing bastard.</szText>
+    <kill>1</kill>
+    <elite>1</elite>
+    <target_merc_profile>149</target_merc_profile>
+    <!--Mike-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Take a hike, Mike! Damn, that sounded better in my head...</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>149</target_merc_profile>
+    <!--Mike-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>I'll give you my autograph, Gillitt... in your condolence book!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>70</target_merc_profile>
+    <!--Conrad-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>I knew I was better than you, Gillitt!</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+    <elite>1</elite>
+    <target_merc_profile>70</target_merc_profile>
+    <!--Conrad-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>I just whacked Miguel Cordona! Finally, the Queen will hear about me!</szText>
+    <kill>1</kill>
+    <brave>1</brave>
+    <target_merc_profile>57</target_merc_profile>
+    <!--Miguel-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Wanna see a magic trick? Bam, he's gone!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <elite>1</elite>
+    <target_merc_profile>29</target_merc_profile>
+    <!--Magic-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Oh no, he's going down! Prepare for the shockwave!</szText>
+    <kill>1</kill>
+    <cunning>1</cunning>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>You are a sad, strange little man, and you have my pity!</szText>
+    <attack>1</attack>
+    <defensive>1</defensive>
+    <target_merc_profile>40</target_merc_profile>
+    <!--Biff-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Hey, Cordona! Queen Dee Dee says hi!</szText>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>57</target_merc_profile>
+    <!--Miguel-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>I'll get a promotion for killing you, rebel scum!</szText>
+    <brave>1</brave>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>57</target_merc_profile>
+    <!--Miguel-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Bang-bang! Just like in 'Attack of the Clydesdales'!</szText>
+    <cunning>1</cunning>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Much Dust, Many Bullets!</szText>
+    <cunning>1</cunning>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Get back on your Honda, and travel away!</szText>
+    <cunning>1</cunning>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Forgive me, for I have sinned!</szText>
+    <cunning>1</cunning>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>247</target_merc_profile>
+    <!--Rev-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Get back to your grave, you freakin' zombie!</szText>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>183</target_merc_profile>
+    <!--Pops-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Please, tell us the story about Gettysburg again!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>183</target_merc_profile>
+    <!--Pops-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Now that's an easy target!</szText>
+    <fire_gun>1</fire_gun>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Nice ears, Jumbo! They'll look fine on my necklace!</szText>
+    <attack_blade>1</attack_blade>
+    <aggressive>1</aggressive>
+    <target_merc_profile>249</target_merc_profile>
+    <!--Ears-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Where's your God now?!</szText>
+    <fire_launcher>1</fire_launcher>
+    <target_merc_profile>247</target_merc_profile>
+    <!--Rev-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Father, what about the fifth commandment? You damn hypocrite!</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+    <target_merc_profile>247</target_merc_profile>
+    <!--Rev-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Who's that psycho chick?</szText>
+    <got_missed>1</got_missed>
+    <target_merc_profile>23</target_merc_profile>
+    <!--Buzz-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Aren't you a bit old for this, geezer?</szText>
+    <got_missed>1</got_missed>
+    <target_merc_profile>183</target_merc_profile>
+    <!--Pops-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>All the fat didn't protect your internal organs?</szText>
+    <kill>1</kill>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>No, not you Lynx! I wanted to hang your head over the chimney!</szText>
+    <elite>1</elite>
+    <head_pop>1</head_pop>
+    <target_merc_profile>2</target_merc_profile>
+    <!--Lynx-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>This one's delusional - he thinks he's a killer whale!</szText>
+    <got_missed>1</got_missed>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>How appropriate, you fight like a big fat cow!</szText>
+    <got_missed>1</got_missed>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Stop shaking! I can't hit you!</szText>
+    <miss_gunfire>1</miss_gunfire>
+    <target_merc_profile>40</target_merc_profile>
+    <!--Bif-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Stop moving! I can't aim when the ground is shaking!</szText>
+    <miss_gunfire>1</miss_gunfire>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Holy shit, it's Gus Tarballs! We're fucked!</szText>
+    <szTextCensored>Holy shit, it's Gus Tarballs! We're screwed!</szTextCensored>
+    <elite>1</elite>
+    <noticed_unseen>1</noticed_unseen>
+    <target_merc_profile>16</target_merc_profile>
+    <!--Gus-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Hey, it's the guy from 'Wild, Wild East'! I'm your biggest fan!</szText>
+    <cunning>1</cunning>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Enemy detected! Damn, he's hard to miss...</szText>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Howdy, pardner!</szText>
+    <cunning>1</cunning>
+    <noticed_unseen>1</noticed_unseen>
+    <say_hi>1</say_hi>
+    <target_merc_profile>167</target_merc_profile>
+    <!--Tex-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>You remind me of my Chinese friend... Ug Lee!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_merc_profile>33</target_merc_profile>
+    <!--Dr.Q-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Well, if it ain't my favourite celebrity! I have all your posters back in the barracks...</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <elite>1</elite>
+    <male>1</male>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>You know, I could slap you right now, but I don't want a slut on my hand!</szText>
+    <say_hi>1</say_hi>
+    <female>1</female>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>Nice guns you've got there! Are they real, or just replicas?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <elite>1</elite>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Guys, don't shoot the cushions!</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Hey guys, I think this one's pregnant!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Quick, someone call Captain Ahab!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Are you lost? The auditions for 'Free Willy' are that way!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Please, don't eat me!</szText>
+    <say_hi>1</say_hi>
+    <cunning>1</cunning>
+    <target_merc_profile>253</target_merc_profile>
+    <!--Turtle-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Hey honey, what are you doing here? You couldn't handle the washing machine?</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <elite>1</elite>
+    <target_merc_profile>23</target_merc_profile>
+    <!--Buzz-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>Look guys, I've found a fossil!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>183</target_merc_profile>
+    <!--Pops-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Look guys, I've found a fossil!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>226</target_merc_profile>
+    <!--Sam-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Look guys, I've found a fossil!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>250</target_merc_profile>
+    <!--Moses-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>183</target_merc_profile>
+    <!--Pops-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>226</target_merc_profile>
+    <!--Sam-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Look guys, the dinosaurs are still alive!</szText>
+    <say_hi>1</say_hi>
+    <target_merc_profile>250</target_merc_profile>
+    <!--Moses-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Wow, you've got nice... personality.</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_merc_profile>14</target_merc_profile>
+    <!--Fox-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>You remind me of a younger, dumber Schwarzenegger!</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_merc_profile>8</target_merc_profile>
+    <!--Steroid-->
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Hey, asshole! Eighties called, they want their haircut back!</szText>
+    <say_hi>1</say_hi>
+    <brave>1</brave>
+    <target_merc_profile>227</target_merc_profile>
+    <!--Hurl-->
+  </TAUNT>
+</TAUNTS>

@@ -1,0 +1,1555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ENEMY_NAMES>
+<!--A-->
+  <NAME>
+	<uiIndex>0</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>1</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>2</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>3</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>4</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>5</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>6</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>7</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>8</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>9</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>10</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>11</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>12</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>13</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>14</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>15</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>A16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--B-->
+  <NAME>
+    <uiIndex>16</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>17</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>18</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>19</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>20</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>21</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>22</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>23</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>24</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>25</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>26</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>27</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>28</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>29</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>30</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>31</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>B16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--C-->
+  <NAME>
+    <uiIndex>32</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>33</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>34</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>35</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>36</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>37</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>38</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>39</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>40</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>41</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>42</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>43</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>44</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>45</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>46</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>47</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>C16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--D-->
+  <NAME>
+    <uiIndex>48</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>49</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>50</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>51</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>52</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>53</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>54</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>55</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>56</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>57</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>58</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>59</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>60</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>61</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>62</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>63</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>D16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--E-->
+  <NAME>
+    <uiIndex>64</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>65</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>66</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>67</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>68</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>69</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>70</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>71</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>72</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>73</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>74</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>75</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>76</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>77</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>78</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>79</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>E16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--F-->
+  <NAME>
+    <uiIndex>80</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>81</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>82</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>83</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>84</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>85</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>86</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>87</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>88</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>89</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>90</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>91</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>92</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>93</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>94</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>95</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>F16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--G-->
+  <NAME>
+    <uiIndex>96</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>97</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>98</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>99</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>100</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>101</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>102</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>103</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>104</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>105</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>106</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>107</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>108</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>109</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>110</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>111</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>G16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--H-->
+  <NAME>
+    <uiIndex>112</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>113</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>114</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>115</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>116</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>117</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>118</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>119</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>120</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>121</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>122</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>123</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>124</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H13</Sector>
+    <szGroup>Alma Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>125</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H14</Sector>
+    <szGroup>Alma Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>126</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>127</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>H16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--I-->
+  <NAME>
+    <uiIndex>128</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>129</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>130</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>131</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>132</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>133</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>134</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>135</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>136</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>137</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>138</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>139</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>140</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I13</Sector>
+    <szGroup>Alma Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>141</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I14</Sector>
+    <szGroup>Alma Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>142</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>143</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>I16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--J-->
+  <NAME>
+    <uiIndex>144</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>145</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>146</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>147</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>148</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>149</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>150</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>151</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>152</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>153</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>154</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>155</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>156</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>157</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>158</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>159</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>J16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--K-->
+  <NAME>
+    <uiIndex>160</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>161</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>162</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>163</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>164</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>165</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>166</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>167</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>168</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>169</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>170</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>171</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>172</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>173</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>174</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>175</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>K16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--L-->
+  <NAME>
+    <uiIndex>176</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>177</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>178</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>179</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>180</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>181</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>182</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>183</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>184</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>185</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>186</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>187</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>188</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>189</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>190</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>191</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>L16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--M-->
+  <NAME>
+    <uiIndex>192</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>193</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>194</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>195</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>196</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>197</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>198</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>199</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>200</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>201</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>202</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>203</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>204</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>205</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>206</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>207</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>M16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--N-->
+  <NAME>
+    <uiIndex>208</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>209</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>210</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>211</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>212</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>213</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>214</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>215</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>216</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>217</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>218</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>219</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>220</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>221</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>222</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>223</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>N16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--O-->
+  <NAME>
+    <uiIndex>224</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>225</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>226</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O3</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>227</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>228</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>229</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>230</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>231</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>232</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>233</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>234</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>235</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>236</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>237</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>238</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>239</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>O16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+<!--P-->
+  <NAME>
+    <uiIndex>240</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P1</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>241</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P2</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>242</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P3</Sector>
+    <szGroup>Elite Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>243</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P4</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>244</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P5</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>245</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P6</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>246</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P7</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>247</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P8</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>248</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P9</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>249</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P10</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>250</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P11</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>251</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P12</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>252</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P13</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>253</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P14</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>254</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P15</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+  <NAME>
+    <uiIndex>255</uiIndex>
+	<Enabled>1</Enabled>
+    <Sector>P16</Sector>
+    <szGroup>Enemy Soldier</szGroup>
+  </NAME>
+</ENEMY_NAMES>

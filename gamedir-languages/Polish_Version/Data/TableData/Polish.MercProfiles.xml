@@ -1,0 +1,852 @@
+﻿<MERCPROFILES>
+	<PROFILE>
+		<uiIndex>0</uiIndex>
+		<zName>Barry Unger</zName>
+		<zNickname>Barry</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>1</uiIndex>
+		<zName>Keith "Blood" Hanson</zName>
+		<zNickname>Blood</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>2</uiIndex>
+		<zName>Rudy "Lynx-Eyed" Roberts</zName>
+		<zNickname>Lynx</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>3</uiIndex>
+		<zName>Steve "Grizzly" Bornell</zName>
+		<zNickname>Grizzly</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>4</uiIndex>
+		<zName>Victoria Waters</zName>
+		<zNickname>Vicki</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>5</uiIndex>
+		<zName>Trevor Colby</zName>
+		<zNickname>Trevor</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>6</uiIndex>
+		<zName>Helmut Grunther</zName>
+		<zNickname>Grunty</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>7</uiIndex>
+		<zName>Ivan Dolvich</zName>
+		<zNickname>Ivan</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>8</uiIndex>
+		<zName>Bobby "Steroid" Gontarski</zName>
+		<zNickname>Steroid</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>9</uiIndex>
+		<zName>Igor Dolvich</zName>
+		<zNickname>Igor</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>10</uiIndex>
+		<zName>Kyle "Shadow" Simmons</zName>
+		<zNickname>Shadow</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>11</uiIndex>
+		<zName>Ernie "Red" Spragg</zName>
+		<zNickname>Red</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>12</uiIndex>
+		<zName>Carl "Reaper" Sheppards</zName>
+		<zNickname>Reaper</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>13</uiIndex>
+		<zName>Fidel Dahan </zName>
+		<zNickname>Fidel</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>14</uiIndex>
+		<zName>Cynthia "Fox" Guzzman</zName>
+		<zNickname>Fox</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>15</uiIndex>
+		<zName>Sidney Nettleson</zName>
+		<zNickname>Sidney</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>16</uiIndex>
+		<zName>Gus Tarballs</zName>
+		<zNickname>Gus</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>17</uiIndex>
+		<zName>Monica "Buns" Sondergaard</zName>
+		<zNickname>Buns</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>18</uiIndex>
+		<zName>Ice Williams</zName>
+		<zNickname>Ice</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>19</uiIndex>
+		<zName>Dr. Donna "Spider" Houston</zName>
+		<zNickname>Spider</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>20</uiIndex>
+		<zName>Dr. Clifford Highball</zName>
+		<zNickname>Cliff</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>21</uiIndex>
+		<zName>John "Bull" Peters</zName>
+		<zNickname>Bull</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>22</uiIndex>
+		<zName>Frank "Hitman" Hennessy</zName>
+		<zNickname>Hitman</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>23</uiIndex>
+		<zName>Louisa "Buzz" Garneau</zName>
+		<zNickname>Buzz</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>24</uiIndex>
+		<zName>Ron "Raider" Higgens </zName>
+		<zNickname>Raider</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>25</uiIndex>
+		<zName>Charlene "Raven" Higgens</zName>
+		<zNickname>Raven</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>26</uiIndex>
+		<zName>Kirk "Static" Stevenson </zName>
+		<zNickname>Static</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>27</uiIndex>
+		<zName>Corp. Len Anderson</zName>
+		<zNickname>Len</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>28</uiIndex>
+		<zName>Dr. Daniel Quinten</zName>
+		<zNickname>Danny</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>29</uiIndex>
+		<zName>Earl "Magic" Walker</zName>
+		<zNickname>Magic</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>30</uiIndex>
+		<zName>Stephen Rothman</zName>
+		<zNickname>Stephen</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>31</uiIndex>
+		<zName>Robert James Sullivan</zName>
+		<zNickname>Scully</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>32</uiIndex>
+		<zName>J.P. "La Malice" Viau</zName>
+		<zNickname>Malice</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>33</uiIndex>
+		<zName>Dr Q. Huaong</zName>
+		<zNickname>Dr. Q</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>34</uiIndex>
+		<zName>Edgar "Nails" Smorth</zName>
+		<zNickname>Nails</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>35</uiIndex>
+		<zName>Thor Kaufman</zName>
+		<zNickname>Thor</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>36</uiIndex>
+		<zName>Sheila "Scope" Sterling</zName>
+		<zNickname>Scope</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>37</uiIndex>
+		<zName>Peter "Wolf" Sanderson</zName>
+		<zNickname>Wolf</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>38</uiIndex>
+		<zName>Dr. Michael Dawson</zName>
+		<zNickname>MD</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>39</uiIndex>
+		<zName>Norma "Meltdown" Jessop</zName>
+		<zNickname>Meltdown</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>40</uiIndex>
+		<zName>Biff Apscott</zName>
+		<zNickname>Biff</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>41</uiIndex>
+		<zName>Frankie "Haywire" Gordon</zName>
+		<zNickname>Haywire</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>42</uiIndex>
+		<zName>Doug "Gasket" Milton</zName>
+		<zNickname>Gasket</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>43</uiIndex>
+		<zName>Bill "Razor" Lamont</zName>
+		<zNickname>Razor</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>44</uiIndex>
+		<zName>Florence Gabriel</zName>
+		<zNickname>Flo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>45</uiIndex>
+		<zName>Tim "Gumpy" Hillman</zName>
+		<zNickname>Gumpy</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>46</uiIndex>
+		<zName>Larry Roachburn</zName>
+		<zNickname>Larry</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>47</uiIndex>
+		<zName>Larry Roachburn</zName>
+		<zNickname>Larry</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>48</uiIndex>
+		<zName>Jim "Cougar" Wallace</zName>
+		<zNickname>Cougar</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>49</uiIndex>
+		<zName>Tim "Numb" Sutton</zName>
+		<zNickname>Numb</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>50</uiIndex>
+		<zName>Thorton "Bubba" Jones</zName>
+		<zNickname>Bubba</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>51</uiIndex>
+		<zName></zName>
+		<zNickname>PGmale1</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>52</uiIndex>
+		<zName></zName>
+		<zNickname>PGmale2 </zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>53</uiIndex>
+		<zName></zName>
+		<zNickname>PGmale3</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>54</uiIndex>
+		<zName></zName>
+		<zNickname>PGLady1</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>55</uiIndex>
+		<zName></zName>
+		<zNickname>PGLady2</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>56</uiIndex>
+		<zName></zName>
+		<zNickname>PGLady3</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>57</uiIndex>
+		<zName>Miguel Cordona</zName>
+		<zNickname>Miguel</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>58</uiIndex>
+		<zName>Carlos Dasouza</zName>
+		<zNickname>Carlos</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>59</uiIndex>
+		<zName>Ira Smythe</zName>
+		<zNickname>Ira</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>60</uiIndex>
+		<zName>Dimitri Guzzo</zName>
+		<zNickname>Dimitri</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>61</uiIndex>
+		<zName>Devin Connell</zName>
+		<zNickname>Devin</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>62</uiIndex>
+		<zName>Madlab's Robot</zName>
+		<zNickname>Robot</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>63</uiIndex>
+		<zName>Hamous</zName>
+		<zNickname>Hamous</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>64</uiIndex>
+		<zName>Slay</zName>
+		<zNickname>Terry</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>65</uiIndex>
+		<zName>Eskimo - Removed</zName>
+		<zNickname>RPC65</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>66</uiIndex>
+		<zName>Greg "Dynamo" Duncan</zName>
+		<zNickname>Dynamo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>67</uiIndex>
+		<zName>Breeham "Shank" Druz</zName>
+		<zNickname>Shank</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>68</uiIndex>
+		<zName>Igmus "Iggy" Palkov</zName>
+		<zNickname>Iggy</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>69</uiIndex>
+		<zName>Dr. Vincent Beaumont</zName>
+		<zNickname>Vince</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>70</uiIndex>
+		<zName>Lt. Conrad Gillitt</zName>
+		<zNickname>Conrad</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>71</uiIndex>
+		<zName></zName>
+		<zNickname>RPC71</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>72</uiIndex>
+		<zName>Kevin "Maddog" Cameron</zName>
+		<zNickname>Maddog</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>73</uiIndex>
+		<zName>Darrel Jr.</zName>
+		<zNickname>Darrel</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>74</uiIndex>
+		<zName>Alish Perkopoulos</zName>
+		<zNickname>Perko</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>75</uiIndex>
+		<zName>Queen Deidranna</zName>
+		<zNickname>Deidranna</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>76</uiIndex>
+		<zName>Auntie</zName>
+		<zNickname>Auntie</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>77</uiIndex>
+		<zName>Enrico Chivaldori</zName>
+		<zNickname>Enrico</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>78</uiIndex>
+		<zName>Carmen Dancio</zName>
+		<zNickname>Carmen</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>79</uiIndex>
+		<zName>Joseph Papanus</zName>
+		<zNickname>Joe</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>80</uiIndex>
+		<zName>Dr. Steven Willis</zName>
+		<zNickname>Steve</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>81</uiIndex>
+		<zName>Ricardo "Rat" Grimaldo</zName>
+		<zNickname>Rat</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>82</uiIndex>
+		<zName>MoM</zName>
+		<zNickname>Annie</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>83</uiIndex>
+		<zName>Imposter</zName>
+		<zNickname>Chris</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>84</uiIndex>
+		<zName>Bob</zName>
+		<zNickname>Bob</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>85</uiIndex>
+		<zName>Brenda Drake</zName>
+		<zNickname>Brenda</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>86</uiIndex>
+		<zName>Peter "Kingpin" Klauss</zName>
+		<zNickname>Kingpin</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>87</uiIndex>
+		<zName>Darren Van Haussen</zName>
+		<zNickname>Darren</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>88</uiIndex>
+		<zName>Maria DaSilva</zName>
+		<zNickname>Maria</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>89</uiIndex>
+		<zName>Angel Dasilva</zName>
+		<zNickname>Angel</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>90</uiIndex>
+		<zName>Joey Graham</zName>
+		<zNickname>Joey</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>91</uiIndex>
+		<zName>Tony</zName>
+		<zNickname>Tony</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>92</uiIndex>
+		<zName>Frank</zName>
+		<zNickname>Frank</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>93</uiIndex>
+		<zName>Spike</zName>
+		<zNickname>Spike</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>94</uiIndex>
+		<zName>Damon Warrick</zName>
+		<zNickname>Damon</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>95</uiIndex>
+		<zName>Kyle  Lemmons</zName>
+		<zNickname>Kyle</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>96</uiIndex>
+		<zName>Micky O'Brien</zName>
+		<zNickname>Micky</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>97</uiIndex>
+		<zName>James "Skyrider" Bullock</zName>
+		<zNickname>Skyrider</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>98</uiIndex>
+		<zName>Pablo Greco</zName>
+		<zNickname>Pablo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>99</uiIndex>
+		<zName>Salvatore Lappus</zName>
+		<zNickname>Sal</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>100</uiIndex>
+		<zName>Father John Walker</zName>
+		<zNickname>Father</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>101</uiIndex>
+		<zName>Fatima</zName>
+		<zNickname>Fatima</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>102</uiIndex>
+		<zName>Christine Woltz</zName>
+		<zNickname>Warden</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>103</uiIndex>
+		<zName>Gordon Jefferies</zName>
+		<zNickname>Gordon</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>104</uiIndex>
+		<zName>Gary "Gabby" Mulnick  </zName>
+		<zNickname>Gabby</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>105</uiIndex>
+		<zName>Dr. Ernest Poppin</zName>
+		<zNickname>Ernest</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>106</uiIndex>
+		<zName>Fred Morris</zName>
+		<zNickname>Fred</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>107</uiIndex>
+		<zName>Madame Layla</zName>
+		<zNickname>Madame</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>108</uiIndex>
+		<zName>Yanni Nomigotta </zName>
+		<zNickname>Yanni</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>109</uiIndex>
+		<zName>Martha Graham</zName>
+		<zNickname>Martha</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>110</uiIndex>
+		<zName>Tiffany</zName>
+		<zNickname>Joe</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>111</uiIndex>
+		<zName>T-Rex</zName>
+		<zNickname>Jasmin</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>112</uiIndex>
+		<zName>Druggist</zName>
+		<zNickname>Charlie</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>113</uiIndex>
+		<zName>Jake Cameron</zName>
+		<zNickname>Jake</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>114</uiIndex>
+		<zName>Pacos</zName>
+		<zNickname>Pacos</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>115</uiIndex>
+		<zName>Dave Gerard</zName>
+		<zNickname>Dave</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>116</uiIndex>
+		<zName>Skipper</zName>
+		<zNickname>Skipper</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>117</uiIndex>
+		<zName>Hans Vanderkilt</zName>
+		<zNickname>Hans</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>118</uiIndex>
+		<zName>John Kulba</zName>
+		<zNickname>John</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>119</uiIndex>
+		<zName>Mary Kulba</zName>
+		<zNickname>Mary</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>120</uiIndex>
+		<zName>General Theo Humphey</zName>
+		<zNickname>General</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>121</uiIndex>
+		<zName>Sergeant Krott</zName>
+		<zNickname>Sergeant</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>122</uiIndex>
+		<zName>Armand Ricci</zName>
+		<zNickname>Armand</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>123</uiIndex>
+		<zName>Lora Ricci</zName>
+		<zNickname>Lora</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>124</uiIndex>
+		<zName>Franz Hinkle</zName>
+		<zNickname>Franz</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>125</uiIndex>
+		<zName>Howard Filmore</zName>
+		<zNickname>Howard</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>126</uiIndex>
+		<zName>Sam Rozen</zName>
+		<zNickname>Sam</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>127</uiIndex>
+		<zName>Eldin Fiddes</zName>
+		<zNickname>Eldin</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>128</uiIndex>
+		<zName>Arnold Brunzwell</zName>
+		<zNickname>Arnie</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>129</uiIndex>
+		<zName>Tina Elzan</zName>
+		<zNickname>Tina</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>130</uiIndex>
+		<zName>Alexander Fredo</zName>
+		<zNickname>Fredo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>131</uiIndex>
+		<zName>Walter Bazzon</zName>
+		<zNickname>Walter</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>132</uiIndex>
+		<zName>Jenny Walden</zName>
+		<zNickname>Jenny</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>133</uiIndex>
+		<zName>Billy GoonBall</zName>
+		<zNickname>Billy</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>134</uiIndex>
+		<zName>Brewster Woltz</zName>
+		<zNickname>Brewster</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>135</uiIndex>
+		<zName>Messenger of bad news</zName>
+		<zNickname>Elliot</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>136</uiIndex>
+		<zName>Part of crowd for end game</zName>
+		<zNickname>Derek</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>137</uiIndex>
+		<zName>Part of endgame crowd</zName>
+		<zNickname>Oliver</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>138</uiIndex>
+		<zName>Waldo Zimmer</zName>
+		<zNickname>Waldo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>139</uiIndex>
+		<zName>Doreen Harrows</zName>
+		<zNickname>Doreen</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>140</uiIndex>
+		<zName>Jim Perry</zName>
+		<zNickname>Jim</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>141</uiIndex>
+		<zName>Jack Remington</zName>
+		<zNickname>Jack</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>142</uiIndex>
+		<zName>Olaf Helinski</zName>
+		<zNickname>Olaf</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>143</uiIndex>
+		<zName>Ray Baker</zName>
+		<zNickname>Ray</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>144</uiIndex>
+		<zName>Olga Statova</zName>
+		<zNickname>Olga</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>145</uiIndex>
+		<zName>Tyrone Banks</zName>
+		<zNickname>Tyrone</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>146</uiIndex>
+		<zName>Dr. Nathaniel "MadLab" Kairns</zName>
+		<zNickname>MadLab</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>147</uiIndex>
+		<zName>Keith Hemps</zName>
+		<zNickname>Keith</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>148</uiIndex>
+		<zName>Matt Duncan</zName>
+		<zNickname>Matt</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>149</uiIndex>
+		<zName>Mike</zName>
+		<zNickname>Mike</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>150</uiIndex>
+		<zName>Daryl Hick</zName>
+		<zNickname>Daryl</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>151</uiIndex>
+		<zName>Herve Santos</zName>
+		<zNickname>Herve</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>152</uiIndex>
+		<zName>Peter Santos</zName>
+		<zNickname>Peter</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>153</uiIndex>
+		<zName>Alberto Santos</zName>
+		<zNickname>Alberto</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>154</uiIndex>
+		<zName>Carlo Santos</zName>
+		<zNickname>Carlo</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>155</uiIndex>
+		<zName>Manny Santos</zName>
+		<zNickname>Manny</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>156</uiIndex>
+		<zName>Oswald  Johnston</zName>
+		<zNickname>Oswald</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>157</uiIndex>
+		<zName>Calvin Barkmore</zName>
+		<zNickname>Calvin </zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>158</uiIndex>
+		<zName>Carl Tercel</zName>
+		<zNickname>Carl</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>159</uiIndex>
+		<zName></zName>
+		<zNickname>Speck...</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>160</uiIndex>
+		<zName>Hummer</zName>
+		<zNickname>Hummer</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>161</uiIndex>
+		<zName>El Dorado</zName>
+		<zNickname>El Dorado</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>162</uiIndex>
+		<zName>Ice Cream Truck</zName>
+		<zNickname>Truck</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>163</uiIndex>
+		<zName></zName>
+		<zNickname></zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>164</uiIndex>
+		<zName></zName>
+		<zNickname></zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>165</uiIndex>
+		<zName>Gaston Cavalier</zName>
+		<zNickname>Gaston</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>166</uiIndex>
+		<zName>Lt. "Stogie" Horge</zName>
+		<zNickname>Stogie</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>167</uiIndex>
+		<zName>Tex Colburn</zName>
+		<zNickname>Tex</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>168</uiIndex>
+		<zName>Col. Frederick Biggins</zName>
+		<zNickname>Biggins</zNickname>
+	</PROFILE>
+	<PROFILE>
+		<uiIndex>169</uiIndex>
+		<zName></zName>
+		<zNickname></zNickname>
+	</PROFILE>
+</MERCPROFILES>

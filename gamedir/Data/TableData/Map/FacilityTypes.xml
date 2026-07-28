@@ -1,0 +1,25 @@
+<FACILITYTYPES>
+	<FACILITYTYPE>
+		<ubIndex>1</ubIndex>
+		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
+		<szFacilityShortName>Legacy</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+	<FACILITYTYPE>
+		<ubIndex>2</ubIndex>
+		<szFacilityName>Small Sleazy Bar</szFacilityName>
+		<szFacilityShortName>Bar</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText></szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<DRUNK>
+				<ubChance>1</ubChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+</FACILITYTYPES>

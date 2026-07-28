@@ -18,33 +18,13 @@ jobs:
           filter: 'tree:0'
           fetch-depth: 0
 
-      - name: Clone gamedir metadata
-        run: |
-          set -eux
-
-          GAMEDIR_REPOSITORY=1dot13/gamedir
-          GAMEDIR_LANGUAGES_REPOSITORY=1dot13/gamedir-languages
-
-          # filter tree is what makes this fast
-          git clone --config transfer.fsckobjects=false --no-checkout --filter=tree:0 \
-            https://github.com/$GAMEDIR_REPOSITORY \
-            gamedir
-
-          git clone --config transfer.fsckobjects=false --no-checkout --filter=tree:0 \
-            https://github.com/$GAMEDIR_LANGUAGES_REPOSITORY \
-            gamedir-languages
-
-          mkdir dist/
-          echo -n "
-          GAMEDIR_REPOSITORY=$GAMEDIR_REPOSITORY
-          GAMEDIR_LANGUAGES_REPOSITORY=$GAMEDIR_LANGUAGES_REPOSITORY
-          " > dist/versions.env
-
       - name: Generate source version information
         working-directory: source
         run: |
           set -eux
-          
+
+          mkdir ../dist/
+
           SOURCE_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GITHUB_SHA)
           SOURCE_COMMIT_DATE=$(TZ=UTC0 git log -1 --date=short-local --format=%cd $GITHUB_SHA)
           
@@ -91,35 +71,7 @@ jobs:
           GAME_VERSION=$GAME_VERSION
           GAME_BUILD_INFORMATION=$GAME_BUILD_INFORMATION
           GIT_SHA=$GIT_SHA
-          " >> ../dist/versions.env
-
-      # due to building everything in parallel, versions should be pinned at the start so everything builds based on the same versions
-      - name: Generate gamedir version information
-        working-directory: gamedir
-        run: |
-          set -eux
-          
-          GAMEDIR_COMMIT_SHA=$(git rev-parse HEAD)
-          GAMEDIR_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GAMEDIR_COMMIT_SHA)
-          
-          echo -n "
-          GAMEDIR_COMMIT_SHA=$GAMEDIR_COMMIT_SHA
-          GAMEDIR_COMMIT_DATETIME=$GAMEDIR_COMMIT_DATETIME
-          " >> ../dist/versions.env
-
-      # due to building everything in parallel, versions should be pinned at the start so everything builds based on the same versions
-      - name: Generate gamedir-languages version information
-        working-directory: gamedir-languages
-        run: |
-          set -eux
-          
-          GAMEDIR_LANGUAGES_COMMIT_SHA=$(git rev-parse HEAD)
-          GAMEDIR_LANGUAGES_COMMIT_DATETIME=$(TZ=UTC0 git log -1 --date=iso-strict-local --format=%cd $GAMEDIR_LANGUAGES_COMMIT_SHA)
-          
-          echo -n "
-          GAMEDIR_LANGUAGES_COMMIT_SHA=$GAMEDIR_LANGUAGES_COMMIT_SHA
-          GAMEDIR_LANGUAGES_COMMIT_DATETIME=$GAMEDIR_LANGUAGES_COMMIT_DATETIME
-          " >> ../dist/versions.env
+          " > ../dist/versions.env
 
       - name: Show version information summary
         run: |
@@ -145,8 +97,17 @@ jobs:
       SCCACHE_GHA_ENABLED: 'true'
 
     steps:
+      # the game data in gamedir/ and gamedir-languages/ is not needed to
+      # compile and would add gigabytes to the checkout
       - name: Checkout source
         uses: actions/checkout@v7
+        with:
+          filter: 'blob:none'
+          sparse-checkout: |
+            /*
+            !gamedir/
+            !gamedir-languages/
+          sparse-checkout-cone-mode: false
 
       - name: Download versions.env
         uses: actions/download-artifact@v8

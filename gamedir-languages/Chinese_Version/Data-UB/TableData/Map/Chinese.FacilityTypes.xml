@@ -1,0 +1,406 @@
+﻿<FACILITYTYPES>
+	<FACILITYTYPE>
+		<ubIndex>1</ubIndex>
+		<szFacilityName>医院</szFacilityName>
+		<szFacilityShortName>医院</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>DOCTOR</ubAssignmentType>
+			<szTooltipText>可以给你的伤员提供治疗，这里有先进的医疗设施，和技术精湛的医师。 </szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<usKitDegrade>40</usKitDegrade>
+			<CONDITIONS>
+				<ubMinimumMedical>60</ubMinimumMedical>
+				<ubMinimumWisdom>75</ubMinimumWisdom>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>2</ubIndex>
+		<szFacilityName>小酒吧</szFacilityName>
+		<szFacilityShortName>酒吧</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>在这里的酒吧喝上几杯吧！和镇子里的人联络联络感情，这里的酒品物美价廉。</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<sCostPerHour>15</sCostPerHour>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>700</usChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>40</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+			<DRUNK>
+				<ubChance>500</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>3</ubIndex>
+		<szFacilityName>监狱</szFacilityName>
+		<szFacilityShortName>监狱</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>4</ubIndex>
+		<szFacilityName>小型机场</szFacilityName>
+		<szFacilityShortName>机场</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_STRENGTH</ubAssignmentType>
+			<szTooltipText>去做些搬运工作吧， 这是一个锻炼力量的好机会。</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>130</usPerformance>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>5</ubIndex>
+		<szFacilityName>军工厂</szFacilityName>
+		<szFacilityShortName>工厂</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>这里的机器可以修理各种物品，你可以在这里锻炼你的修理技术，前提是你得会使用这些机器。</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<usKitDegrade>30</usKitDegrade>
+			<CONDITIONS>
+				<ubMinimumMechanical>60</ubMinimumMechanical>
+				<ubMinimumDexterity>70</ubMinimumDexterity>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>6</ubIndex>
+		<szFacilityName>军营</szFacilityName>
+		<szFacilityShortName>营房</szFacilityShortName>
+		<ubTotalStaffLimit>10</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>这里有好多好多的床，虽然有点简陋，不过也比在野外休息强得多。</szTooltipText>
+			<ubStaffLimit>10</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usSleep>105</usSleep>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>7</ubIndex>
+		<szFacilityName>军事基地</szFacilityName>
+		<szFacilityShortName>军事基地</szFacilityShortName>
+		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>这里有各种数码仪器，都是为了应对国家的各种突发情况而准备的。 这些仪器可以帮助你制定作战计划， 了解敌军的动向。</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<fCountEnemiesInWild>1</fCountEnemiesInWild>
+			<CONDITIONS>
+				<ubMinimumWisdom>80</ubMinimumWisdom>
+				<ubMinimumLeadership>60</ubMinimumLeadership>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>8</ubIndex>
+		<szFacilityName>靶场</szFacilityName>
+		<szFacilityShortName>靶场</szFacilityShortName>
+		<ubTotalStaffLimit>5</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
+			<szTooltipText>为什么不花点时间联系你的枪法呢？ 枪靶正在那里等着你用子弹把他们给打下来呢。 这肯定比你在野外联系要有效得多。</szTooltipText>
+			<ubStaffLimit>5</ubStaffLimit>
+			<usPerformance>130</usPerformance>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>9</ubIndex>
+		<szFacilityName>派出所</szFacilityName>
+		<szFacilityShortName>派出所</szFacilityShortName>
+		<ubTotalStaffLimit>1</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>当地人可能愿意为你打探附近地区的情况。 你可以在这里收集信息以便更好地掌握敌军的动向。</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<fDetectEnemiesDynamic>1</fDetectEnemiesDynamic>
+			<ubDetectEnemiesImmediate>2</ubDetectEnemiesImmediate>
+			<CONDITIONS>
+				<ubMinimumWisdom>75</ubMinimumWisdom>
+				<ubMinimumLeadership>30</ubMinimumLeadership>
+				<ubMinimumLoyaltyHere>60</ubMinimumLoyaltyHere>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>10</ubIndex>
+		<szFacilityName>SAM导弹基地</szFacilityName>
+		<szFacilityShortName>SAM导弹基地</szFacilityShortName>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>11</ubIndex>
+		<szFacilityName>矿井</szFacilityName>
+		<szFacilityShortName>矿井</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>煤矿正缺乏爆破能手呢， 你可以来这里练习爆破。</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<CONDITIONS>
+				<ubMinimumExplosives>40</ubMinimumExplosives>
+				<ubMinimumLoyaltyHere>70</ubMinimumLoyaltyHere>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>12</ubIndex>
+		<szFacilityName>小教堂</szFacilityName>
+		<szFacilityShortName>教堂</szFacilityShortName>
+		<ubTotalStaffLimit>1</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>在一个安静的小教堂里奉献自我能够提升一个人的精神高度。 当地人也会对你产生好感，因为你尊重他们的生活方式。</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<ubChance>200</ubChance>
+				<bBaseEffect>10</bBaseEffect>
+				<ubRange>10</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>50</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>13</ubIndex>
+		<szFacilityName>拳击俱乐部</szFacilityName>
+		<szFacilityShortName>拳击俱乐部</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
+			<szTooltipText>这里有很多健身器械， 就等着你去用了。这是一个不错的方法去保持健美， 对生命值得锻炼也大有帮助。</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<CONDITIONS>
+				<ubMinimumHealth>60</ubMinimumHealth>
+				<ubMinimumStrength>40</ubMinimumStrength>
+				<ubMinimumAgility>40</ubMinimumAgility>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>14</ubIndex>
+		<szFacilityName>国家艺术馆</szFacilityName>
+		<szFacilityShortName>艺术馆</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>15</ubIndex>
+		<szFacilityName>实验室</szFacilityName>
+		<szFacilityShortName>实验室</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>16</ubIndex>
+		<szFacilityName>垃圾场</szFacilityName>
+		<szFacilityShortName>垃圾场</szFacilityShortName>
+		<ubTotalStaffLimit>6</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>6</ubStaffLimit>
+			<usPerformance>120</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>60</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>75</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>175</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>90</usKitDegrade>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>17</ubIndex>
+		<szFacilityName>海滩度假村</szFacilityName>
+		<szFacilityShortName>海滩</szFacilityShortName>
+		<ubTotalStaffLimit>32</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>享受阳光，沙滩，冲浪。 这肯定比睡在战壕里要强得多。</szTooltipText>
+			<ubStaffLimit>32</ubStaffLimit>
+			<sCostPerHour>15</sCostPerHour>
+			<usPerformance>200</usPerformance>
+			<usSleep>160</usSleep>
+			<MORALE>
+				<ubChance>500</ubChance>
+				<bBaseEffect>10</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>18</ubIndex>
+		<szFacilityName>老旧的士兵训练设施。</szFacilityName>
+		<szFacilityShortName>训练场</szFacilityShortName>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+		<ubMobileMilitiaTrainersAllowed>2</ubMobileMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>19</ubIndex>
+		<szFacilityName>军营</szFacilityName>
+		<szFacilityShortName>营房</szFacilityShortName>
+		<ubTotalStaffLimit>10</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>这里有好多好多的床，虽然有点简陋，不过也比在野外休息强得多。</szTooltipText>
+			<ubStaffLimit>10</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usSleep>105</usSleep>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>20</ubIndex>
+		<szFacilityName>商店</szFacilityName>
+		<szFacilityShortName>商店</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>21</ubIndex>
+		<szFacilityName>隐藏的武器店</szFacilityName>
+		<szFacilityShortName>武器店</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>22</ubIndex>
+		<szFacilityName>体育馆</szFacilityName>
+		<szFacilityShortName>体育馆</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
+			<szTooltipText>这里有很多健身器械， 就等着你去用了。这是一个不错的方法去保持健美， 对生命值得锻炼也大有帮助。</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<CONDITIONS>
+				<ubMinimumHealth>60</ubMinimumHealth>
+				<ubMinimumStrength>40</ubMinimumStrength>
+				<ubMinimumAgility>40</ubMinimumAgility>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>23</ubIndex>
+		<szFacilityName>发电厂</szFacilityName>
+		<szFacilityShortName>发电厂</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>24</ubIndex>
+		<szFacilityName>车间</szFacilityName>
+		<szFacilityShortName>车间</szFacilityShortName>
+		<ubTotalStaffLimit>6</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>6</ubStaffLimit>
+			<usPerformance>120</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>60</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>75</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
+			<szTooltipText>这个地方摆满了各种零件， 这些零件有助于修理工作。</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>175</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>90</usKitDegrade>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>25</ubIndex>
+		<szFacilityName>隐藏的酒吧</szFacilityName>
+		<szFacilityShortName>酒吧</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>在这里的酒吧喝上几杯吧！和镇子里的人联络联络感情，这里的酒品物美价廉。</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<sCostPerHour>15</sCostPerHour>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>700</usChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>40</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+			<DRUNK>
+				<ubChance>500</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+</FACILITYTYPES>

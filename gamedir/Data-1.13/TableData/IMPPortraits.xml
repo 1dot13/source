@@ -1,0 +1,356 @@
+<!-- 
+
+PortraitId : 1 - 254
+
+uiIndex : 0 - 254
+
+bSex : 
+		0 - Male 
+		1 - Female
+
+usEyesX		-  position of eyes X
+usEyesY		-  position of eyes Y
+usMouthX	-  position of mouth X
+usMouthY	-  position of mouth Y 
+
+DefaultSkin : 
+		 0 - PINKSKIN
+		 1 - TANSKIN
+		 2 - DARKSKIN
+		 3 - BLACKSKIN
+
+DefaultHair :
+		 0 - BROWNHEAD
+		 1 - BLACKHEAD
+		 2 - WHITEHEAD
+		 3 - BLONDEHEAD
+		 4 - REDHEAD
+
+DefaultShirt :
+		 0  - YELLOWVEST
+		 1  - BLACKSHIRT
+		 2  - REDVEST
+		 3  - GREENVEST
+		 4  - JEANVEST
+		 5  - BLUEVEST
+		 6  - greyVEST
+		 7  - GYELLOWSHIRT
+		 8  - WHITEVEST
+		 9  - PURPLESHIRT
+		 10 - BLUEVEST
+		 11 -BROWNVEST
+
+DefaultPants : 
+		 0 - GREENPANTS
+		 1 - BLACKPANTS
+		 2 - BEIGEPANTS
+		 3 - TANPANTS
+		 4 - JEANPANTS
+		 5 - BLUEPANTS
+		 
+DefaultBigBody : 0/1
+
+-->
+
+<IMPPORTRAITSLIST>
+	<IMP>
+		<!-- 200.sti -->
+		<uiIndex>0</uiIndex>
+		<PortraitId>200</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>8</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>8</usMouthX>
+		<usMouthY>21</usMouthY>
+		<DefaultSkin>3</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>7</DefaultShirt>
+		<DefaultPants>2</DefaultPants>
+		<DefaultBigBody>1</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 201.sti -->
+		<uiIndex>1</uiIndex>
+		<PortraitId>201</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>9</usEyesX>
+		<usEyesY>4</usEyesY>
+		<usMouthX>9</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>3</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 202.sti -->
+		<uiIndex>2</uiIndex>
+		<PortraitId>202</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>8</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>7</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>0</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 203.sti -->
+		<uiIndex>3</uiIndex>
+		<PortraitId>203</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>6</usEyesX>
+		<usEyesY>6</usEyesY>
+		<usMouthX>7</usMouthX>
+		<usMouthY>25</usMouthY>
+		<DefaultSkin>2</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 204.sti -->
+		<uiIndex>4</uiIndex>
+		<PortraitId>204</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>13</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>11</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>3</DefaultShirt>
+		<DefaultPants>5</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 205.sti -->
+		<uiIndex>5</uiIndex>
+		<PortraitId>205</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>11</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>10</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>2</DefaultSkin>
+		<DefaultHair>1</DefaultHair>
+		<DefaultShirt>3</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 206.sti -->
+		<uiIndex>6</uiIndex>
+		<PortraitId>206</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>8</usEyesX>
+		<usEyesY>4</usEyesY>
+		<usMouthX>8</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>0</DefaultPants>
+		<DefaultBigBody>1</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 207.sti -->
+		<uiIndex>7</uiIndex>
+		<PortraitId>207</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>8</usEyesX>
+		<usEyesY>4</usEyesY>
+		<usMouthX>8</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>10</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>1</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 208.sti -->
+		<uiIndex>8</uiIndex>
+		<PortraitId>208</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>4</usEyesX>
+		<usEyesY>4</usEyesY>
+		<usMouthX>5</usMouthX>
+		<usMouthY>25</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>3</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 209.sti -->
+		<uiIndex>9</uiIndex>
+		<PortraitId>209</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>5</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>6</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>0</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>4</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 210.sti -->
+		<uiIndex>10</uiIndex>
+		<PortraitId>210</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>7</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>1</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 211.sti -->
+		<uiIndex>11</uiIndex>
+		<PortraitId>211</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>5</usEyesX>
+		<usEyesY>7</usEyesY>
+		<usMouthX>6</usMouthX>
+		<usMouthY>26</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>1</DefaultHair>
+		<DefaultShirt>10</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 212.sti -->
+		<uiIndex>12</uiIndex>
+		<PortraitId>212</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>6</usEyesY>
+		<usMouthX>7</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>0</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>5</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 213.sti -->
+		<uiIndex>13</uiIndex>
+		<PortraitId>213</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>11</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>9</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>3</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>3</DefaultShirt>
+		<DefaultPants>1</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 214.sti -->
+		<uiIndex>14</uiIndex>
+		<PortraitId>214</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>8</usEyesX>
+		<usEyesY>5</usEyesY>
+		<usMouthX>7</usMouthX>
+		<usMouthY>24</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>4</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>2</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 215.sti -->
+		<uiIndex>15</uiIndex>
+		<PortraitId>215</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>5</usEyesX>
+		<usEyesY>6</usEyesY>
+		<usMouthX>5</usMouthX>
+		<usMouthY>26</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>3</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>5</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 216.sti -->
+		<uiIndex>16</uiIndex>
+		<PortraitId>216</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>7</usEyesY>
+		<usMouthX>10</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>0</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 217.sti -->
+		<uiIndex>17</uiIndex>
+		<PortraitId>217</PortraitId>
+		<bSex>0</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>7</usEyesY>
+		<usMouthX>10</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>0</DefaultHair>
+		<DefaultShirt>0</DefaultShirt>
+		<DefaultPants>0</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 218.sti -->
+		<uiIndex>18</uiIndex>
+		<PortraitId>218</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>7</usEyesY>
+		<usMouthX>10</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>3</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>5</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+	<IMP>
+		<!-- 219.sti -->
+		<uiIndex>19</uiIndex>
+		<PortraitId>219</PortraitId>
+		<bSex>1</bSex>
+		<usEyesX>7</usEyesX>
+		<usEyesY>7</usEyesY>
+		<usMouthX>10</usMouthX>
+		<usMouthY>23</usMouthY>
+		<DefaultSkin>1</DefaultSkin>
+		<DefaultHair>3</DefaultHair>
+		<DefaultShirt>4</DefaultShirt>
+		<DefaultPants>5</DefaultPants>
+		<DefaultBigBody>0</DefaultBigBody>
+	</IMP>
+</IMPPORTRAITSLIST>
