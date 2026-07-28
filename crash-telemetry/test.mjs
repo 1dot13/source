@@ -43,7 +43,7 @@ assert.equal(await sent.body.get("files[0]").text(), REPORT);
 
 // junk: client should delete these, so they must be 400
 assert.equal((await post("hello")).status, 400);
-assert.equal((await post("x".repeat(64 * 1024 + 1))).status, 400);
+assert.equal((await post("x".repeat(32 * 1024 + 1))).status, 400);
 
 // throttled: 429, and nothing reaches Discord. reportIsSettled() leaves 429
 // unsettled, so the client keeps the report for next launch.

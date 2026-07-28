@@ -37,8 +37,10 @@ void writeConsent(bool yes) {
 	CloseHandle(h);
 }
 
-// A report bigger than this is not one of ours; never put it on the wire.
-const DWORD kMaxReportBytes = 256 * 1024;
+// A report bigger than this is not one of ours; never put it on the wire. Kept
+// equal to MAX_BYTES in the sink, which answers a settling 400 above it: sending
+// what the sink will not take is how an upload destroys the report it carries.
+const DWORD kMaxReportBytes = 32 * 1024;
 
 // POST one report file to url. Returns the HTTP status, or 0 if the request never
 // completed (no connection, DNS failure, timeout) — see reportIsSettled().
