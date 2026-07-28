@@ -51,20 +51,15 @@ jobs:
         shell: bash
         run: cat artifacts/versions.env >> $GITHUB_ENV
 
-      - name: Checkout gamedir
+      # blob:none plus a sparse checkout fetches only the game data, not the
+      # engine source; both directories come from the same pinned commit
+      - name: Checkout gamedir and gamedir-languages
         uses: actions/checkout@v7
         with:
-          repository: ${{ env.GAMEDIR_REPOSITORY }}
-          ref: ${{ env.GAMEDIR_COMMIT_SHA }}
-          path: gamedir
-
-      - name: Checkout gamedir-languages
-        if: matrix.language != 'English'
-        uses: actions/checkout@v7
-        with:
-          repository: ${{ env.GAMEDIR_LANGUAGES_REPOSITORY }}
-          ref: ${{ env.GAMEDIR_LANGUAGES_COMMIT_SHA }}
-          path: gamedir-languages
+          filter: 'blob:none'
+          sparse-checkout: |
+            gamedir
+            gamedir-languages
 
       - name: Copy gamedir-languages files to gamedir
         if: matrix.language != 'English'
@@ -95,7 +90,7 @@ jobs:
 
           # "-" separates words, "_" combines words, see double-click behavior
           DIST_PREFIX='JA2_113'
-          DIST_NAME="${DIST_PREFIX}-${GAME_VERSION}-G${GAMEDIR_COMMIT_SHA:0:4}L${GAMEDIR_LANGUAGES_COMMIT_SHA:0:4}-${{ matrix.language }}"
+          DIST_NAME="${DIST_PREFIX}-${GAME_VERSION}-${{ matrix.language }}"
           echo "DIST_NAME=$DIST_NAME" >> $GITHUB_ENV
 
           echo "If you encounter problems during gameplay, please provide the following version information:
@@ -106,12 +101,6 @@ jobs:
           Source Repository: $GITHUB_REPOSITORY
           Source Commit SHA: $GITHUB_SHA
           Source Commit Date: $SOURCE_COMMIT_DATETIME
-          Gamedir Repository: $GAMEDIR_REPOSITORY
-          Gamedir Commit SHA: $GAMEDIR_COMMIT_SHA
-          Gamedir Commit Date: $GAMEDIR_COMMIT_DATETIME
-          Gamedir Languages Repository: $GAMEDIR_LANGUAGES_REPOSITORY
-          Gamedir Languages Commit SHA: $GAMEDIR_LANGUAGES_COMMIT_SHA
-          Gamedir Languages Commit Date: $GAMEDIR_LANGUAGES_COMMIT_DATETIME
           " > "gamedir/${DIST_PREFIX}-Version.txt"
           cat "gamedir/${DIST_PREFIX}-Version.txt"
 
