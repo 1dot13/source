@@ -304,7 +304,7 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	// nor anything identifiable in a sibling module: without this table none of
 	// the addresses below can be symbolized. Walked off the PEB loader list, which
 	// costs no allocation, unlike EnumProcessModules or DbgHelp's module APIs.
-	emit(wsprintfA(line, "  modules (base size path):\r\n"));
+	emit(wsprintfA(line, "  modules (base size name):\r\n"));
 	PEB_LDR_DATA* ldr = NtCurrentTeb()->ProcessEnvironmentBlock->Ldr;
 	LIST_ENTRY* head = &ldr->InMemoryOrderModuleList;
 	int seen = 0;
@@ -318,15 +318,28 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		IMAGE_NT_HEADERS* nt = (IMAGE_NT_HEADERS*)(base + dos->e_lfanew);
 		if (nt->Signature != IMAGE_NT_SIGNATURE)
 			continue;
-		// Truncate the path into a terminated buffer: FullDllName is counted, not
-		// terminated, and wsprintf supports neither "*" precision nor a way to
-		// bound %S, so a long path would run off the end of both.
-		WCHAR path[140];
-		int pathChars = (int)(m->FullDllName.Length / sizeof(WCHAR)) + 1;
-		lstrcpynW(path, m->FullDllName.Buffer,
-			pathChars < ARRAYSIZE(path) ? pathChars : ARRAYSIZE(path));
+		// File name only, never the directory: a full path carries the player's
+		// Windows account name and whatever else their install path says about
+		// them, and the report leaves the machine. Symbolizing matches on module
+		// name and base, so the directory was never read by anything.
+		//
+		// Copied into a terminated buffer: FullDllName is counted, not terminated,
+		// and wsprintf supports neither "*" precision nor a way to bound %S, so a
+		// long name would run off the end of both.
+		const WCHAR* full = m->FullDllName.Buffer;
+		int fullChars = (int)(m->FullDllName.Length / sizeof(WCHAR));
+		if (!full || fullChars <= 0)
+			continue;
+		int start = 0;
+		for (int i = 0; i < fullChars; ++i)
+			if (full[i] == L'\\' || full[i] == L'/')
+				start = i + 1;
+		WCHAR modname[64];
+		int nameChars = fullChars - start + 1;
+		lstrcpynW(modname, full + start,
+			nameChars < ARRAYSIZE(modname) ? nameChars : ARRAYSIZE(modname));
 		emit(wsprintfA(line, "    %08lX %08lX %S\r\n", base,
-			nt->OptionalHeader.SizeOfImage, path));
+			nt->OptionalHeader.SizeOfImage, modname));
 	}
 
 	// Committed stack bounds from the TEB, so a bad ebp can't fault our reads.

@@ -148,7 +148,9 @@ void processCrashTelemetry(const wchar_t* url) {
 	if (consent < 0) { // first run: ask once, remember the answer
 		int r = MessageBoxW(NULL,
 			L"This build can send crash reports to the developers to help fix bugs.\n"
-			L"A report contains only technical crash data \x2014 no personal information.\n\n"
+			L"A report contains where the game crashed, the names of the loaded\n"
+			L"modules, and the HANDLE from your Ja2.ini if you set one. No file\n"
+			L"paths, no save games, nothing else about your machine.\n\n"
 			L"Send crash reports automatically?",
 			L"Jagged Alliance 2 v1.13 \x2014 Crash Reporting",
 			MB_YESNO | MB_ICONQUESTION);
