@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<Silhouette>
+		<id>0</id>
+		<name>Vest</name>
+	</Silhouette>
+	<Silhouette>
+		<id>1</id>
+		<name>Right Thigh</name>
+	</Silhouette>
+	<Silhouette>
+		<id>2</id>
+		<name>Left Thigh</name>
+	</Silhouette>
+	<Silhouette>
+		<id>3</id>
+		<name>Backpack</name>
+	</Silhouette>
+	<Silhouette>
+		<id>4</id>
+		<name>Combat Pack</name>
+	</Silhouette>
+	<Silhouette>
+		<id>5</id>
+		<name>Gun</name>
+	</Silhouette>
+	<Silhouette>
+		<id>6</id>
+		<name>Rocket Launcher</name>
+	</Silhouette>
+	<Silhouette>
+		<id>7</id>
+		<name>Big Bag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>8</id>
+		<name>Medium Bag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>9</id>
+		<name>SMG</name>
+	</Silhouette>
+	<Silhouette>
+		<id>10</id>
+		<name>Explosive</name>
+	</Silhouette>
+	<Silhouette>
+		<id>11</id>
+		<name>Knife</name>
+	</Silhouette>
+	<Silhouette>
+		<id>12</id>
+		<name>Small Bag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>13</id>
+		<name>Pistol</name>
+	</Silhouette>
+	<Silhouette>
+		<id>14</id>
+		<name>GL Grenade</name>
+	</Silhouette>
+	<Silhouette>
+		<id>15</id>
+		<name>Hand Grenade</name>
+	</Silhouette>
+	<Silhouette>
+		<id>16</id>
+		<name>Pistol Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>17</id>
+		<name>SMG Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>18</id>
+		<name>Rifle Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>19</id>
+		<name>Large Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>20</id>
+		<name>Shirt Pocket</name>
+	</Silhouette>
+	<Silhouette>
+		<id>21</id>
+		<name>Belt Clip</name>
+	</Silhouette>
+	<Silhouette>
+		<id>22</id>
+		<name>Huge/Belt Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>23</id>
+		<name>Revolver Ammo</name>
+	</Silhouette>
+	<Silhouette>
+		<id>24</id>
+		<name>Large Medical Cross</name>
+	</Silhouette>
+	<Silhouette>
+		<id>25</id>
+		<name>Small Medical Cross</name>
+	</Silhouette>
+	<Silhouette>
+		<id>26</id>
+		<name>Large Pistol Holster</name>
+	</Silhouette>
+	<Silhouette>
+		<id>27</id>
+		<name>Shotgun Shells</name>
+	</Silhouette>
+	<Silhouette>
+		<id>28</id>
+		<name>Short Rifle Mag x2</name>
+	</Silhouette>
+	<Silhouette>
+		<id>29</id>
+		<name>General Misc</name>
+	</Silhouette>
+<Silhouette>
+		<id>30</id>
+		<name>Revolver Holster</name>
+	</Silhouette>
+<Silhouette>
+		<id>31</id>
+		<name>Small Explosive</name>
+	</Silhouette>
+	<Silhouette>
+		<id>32</id>
+		<name>Combat Pack Gun Sling</name>
+	</Silhouette>
+	<Silhouette>
+		<id>33</id>
+		<name>Medic Kit</name>
+	</Silhouette>
+	<Silhouette>
+		<id>34</id>
+		<name>First Aid Kit Pocket</name>
+	</Silhouette>
+	<Silhouette>
+		<id>35</id>
+		<name>Sniper Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>36</id>
+		<name>Flashbang</name>
+	</Silhouette>
+	<Silhouette>
+		<id>37</id>
+		<name>Carbiner Ring</name>
+	</Silhouette>
+	<Silhouette>
+		<id>38</id>
+		<name>Kits</name>
+	</Silhouette>
+	<Silhouette>
+		<id>39</id>
+		<name>Double AR Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>40</id>
+		<name>Double Pistol Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>41</id>
+		<name>Double SMG Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>42</id>
+		<name>AR Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>43</id>
+		<name>Pistol Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>44</id>
+		<name>Mini Frag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>45</id>
+		<name>SMG Magx3</name>
+	</Silhouette>
+	<Silhouette>
+		<id>46</id>
+		<name>Small Shotgun</name>
+	</Silhouette>
+	<Silhouette>
+		<id>47</id>
+		<name>Sniper Rifle</name>
+	</Silhouette>
+		<Silhouette>
+		<id>48</id>
+		<name>Grenade x2</name>
+	</Silhouette>
+			<Silhouette>
+		<id>49</id>
+		<name>Small Revolver</name>
+	</Silhouette>
+			<Silhouette>
+		<id>50</id>
+		<name>.50 Mag</name>
+	</Silhouette>
+	<Silhouette>
+		<id>51</id>
+		<name>Bladder</name>
+	</Silhouette>
+		<Silhouette>
+		<id>52</id>
+		<name>Drum</name>
+	</Silhouette>
+		<Silhouette>
+		<id>53</id>
+		<name>Throw Knife</name>
+	</Silhouette>
+	<Silhouette>
+		<id>54</id>
+		<name>Short Riflex1</name>
+	</Silhouette>
+	<Silhouette>
+		<id>55</id>
+		<name>Belt Feeder</name>
+	</Silhouette>
+</JA2Data>

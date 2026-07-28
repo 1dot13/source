@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+This file defines the text used for various history events.
+
+These are the "history log" strings. Their length is very limited, especially with '%s'
+One way to test is to use the replacement strings on <uiIndex> 1 & 5.
+
+NOTE:
+Will only work if there's an accompanying trigger in sourcecode;
+	does not work by simply adding more lines.
+Strings containing combinations of % characters are special format characters to insert
+	a parameter as specified in code. % characters can be rearranged/removed;
+	inserting new ones will just print garbled text.
+-->
+<STRINGS>
+  <TEXT>
+	<!-- HISTORY_ENTERED_HISTORY_MODE - leave this line blank -->
+	<uiIndex>0</uiIndex>
+    <sHistory></sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_HIRED_MERC_FROM_AIM -->
+	<uiIndex>1</uiIndex>
+    <sHistory>%s was hired from A.I.M.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_HIRED_MERC_FROM_MERC -->
+	<uiIndex>2</uiIndex>
+    <sHistory>%s was hired from M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MERC_KILLED -->
+	<uiIndex>3</uiIndex>
+    <sHistory>%s died.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_SETTLED_ACCOUNTS_AT_MERC -->
+	<uiIndex>4</uiIndex>
+    <sHistory>Settled Accounts at M.E.R.C.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_ACCEPTED_ASSIGNMENT_FROM_ENRICO -->
+	<uiIndex>5</uiIndex>
+    <sHistory>Accepted Assignment From Enrico Chivaldori</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_CHARACTER_GENERATED -->
+	<uiIndex>6</uiIndex>
+    <sHistory>IMP Profile Generated</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_PURCHASED_INSURANCE -->
+	<uiIndex>7</uiIndex>
+    <sHistory>Purchased Insurance Contract for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_CANCELLED_INSURANCE -->
+	<uiIndex>8</uiIndex>
+    <sHistory>Canceled Insurance Contract for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_INSURANCE_CLAIM_PAYOUT -->
+	<uiIndex>9</uiIndex>
+    <sHistory>Insurance Claim Payout for %s.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_EXTENDED_CONTRACT_1_DAY -->
+	<uiIndex>10</uiIndex>
+    <sHistory>Extended %s's contract by a day.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_EXTENDED_CONTRACT_1_WEEK -->
+	<uiIndex>11</uiIndex>
+    <sHistory>Extended %s's contract by 1 week.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_EXTENDED_CONTRACT_2_WEEK -->
+	<uiIndex>12</uiIndex>
+    <sHistory>Extended %s's contract by 2 weeks.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MERC_FIRED -->
+	<uiIndex>13</uiIndex>
+    <sHistory>%s was dismissed.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MERC_QUIT -->
+	<uiIndex>14</uiIndex>
+    <sHistory>%s quit.</sHistory>
+  </TEXT>
+  <TEXT>
+  	<!-- HISTORY_QUEST_STARTED - strings from BINARYDATA\quests.edt -->
+	<uiIndex>15</uiIndex>
+    <sHistory>quest started.</sHistory>
+  </TEXT>
+  <TEXT>
+  	<!-- HISTORY_QUEST_FINISHED - strings from BINARYDATA\quests.edt -->
+	<uiIndex>16</uiIndex>
+    <sHistory>quest completed.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_TALKED_TO_MINER -->
+	<uiIndex>17</uiIndex>
+    <sHistory>Talked to head miner of %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_LIBERATED_TOWN -->
+	<uiIndex>18</uiIndex>
+    <sHistory>Liberated %s</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_CHEAT_ENABLED -->
+	<uiIndex>19</uiIndex>
+    <sHistory>Cheat Used</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_TALKED_TO_FATHER_WALKER -->
+	<uiIndex>20</uiIndex>
+    <sHistory>Food should be in Omerta by tomorrow</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MERC_MARRIED_OFF -->
+	<uiIndex>21</uiIndex>
+    <sHistory>%s left team to become Daryl Hick's wife</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MERC_CONTRACT_EXPIRED -->
+	<uiIndex>22</uiIndex>
+    <sHistory>%s's contract expired.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_RPC_JOINED_TEAM -->
+	<uiIndex>23</uiIndex>
+    <sHistory>%s was recruited.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_ENRICO_COMPLAINED -->
+	<uiIndex>24</uiIndex>
+    <sHistory>Enrico complained about lack of progress</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_WONBATTLE -->
+	<uiIndex>25</uiIndex>
+    <sHistory>Battle won</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MINE_RUNNING_OUT -->
+	<uiIndex>26</uiIndex>
+    <sHistory>%s mine started running out of ore</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MINE_RAN_OUT -->
+	<uiIndex>27</uiIndex>
+    <sHistory>%s mine ran out of ore</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MINE_SHUTDOWN -->
+	<uiIndex>28</uiIndex>
+    <sHistory>%s mine was shut down</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MINE_REOPENED -->
+	<uiIndex>29</uiIndex>
+    <sHistory>%s mine was reopened</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_DISCOVERED_TIXA -->
+	<uiIndex>30</uiIndex>
+    <sHistory>Found out about a prison called Tixa.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_DISCOVERED_ORTA -->
+	<uiIndex>31</uiIndex>
+    <sHistory>Heard about a secret weapons plant called Orta.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_GOT_ROCKET_RIFLES -->
+	<uiIndex>32</uiIndex>
+    <sHistory>Scientist in Orta donated a slew of rocket rifles.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_DEIDRANNA_DEAD_BODIES -->
+	<uiIndex>33</uiIndex>
+    <sHistory>Queen Deidranna has a use for dead bodies.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_BOXING_MATCHES -->
+	<uiIndex>34</uiIndex>
+    <sHistory>Frank talked about fighting matches in San Mona.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_SOMETHING_IN_MINES -->
+	<uiIndex>35</uiIndex>
+    <sHistory>A patient thinks he saw something in the mines.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_DEVIN -->
+	<uiIndex>36</uiIndex>
+    <sHistory>Met someone named Devin - he sells explosives.</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_MIKE -->
+	<uiIndex>37</uiIndex>
+    <sHistory>Ran into the famous ex-AIM merc Mike!</sHistory>
+  </TEXT>
+  <TEXT>
+	<!-- HISTORY_TONY -->
+	<uiIndex>38</uiIndex>
+    <sHistory>Met Tony - he deals in arms.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KROTT -->
+	<uiIndex>39</uiIndex>
+    <sHistory>Got a rocket rifle from Sergeant Krott.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KYLE -->
+	<uiIndex>40</uiIndex>
+    <sHistory>Gave Kyle the deed to Angel's leather shop.</sHistory>
+  </TEXT>  
+  <TEXT>
+	<!-- HISTORY_MADLAB -->
+	<uiIndex>41</uiIndex>
+    <sHistory>Madlab offered to build a robot.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_GABBY -->
+	<uiIndex>42</uiIndex>
+    <sHistory>Gabby can make stealth concoction for bugs.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KEITH_OUT_OF_BUSINESS -->
+	<uiIndex>43</uiIndex>
+    <sHistory>Keith is out of business.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_HOWARD_CYANIDE -->
+	<uiIndex>44</uiIndex>
+    <sHistory>Howard provided cyanide to Queen Deidranna.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KEITH -->
+	<uiIndex>45</uiIndex>
+    <sHistory>Met Keith - all purpose dealer in Cambria.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_HOWARD -->
+	<uiIndex>46</uiIndex>
+    <sHistory>Met Howard - deals pharmaceuticals in Balime</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_PERKO -->
+	<uiIndex>47</uiIndex>
+    <sHistory>Met Perko - runs a small repair business.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_SAM -->
+	<uiIndex>48</uiIndex>
+    <sHistory>Met Sam of Balime - runs a hardware shop.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_FRANZ -->
+	<uiIndex>49</uiIndex>
+    <sHistory>Franz deals in electronics and other goods.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_ARNOLD -->
+	<uiIndex>50</uiIndex>
+    <sHistory>Arnold runs a repair shop in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_FREDO -->
+	<uiIndex>51</uiIndex>
+    <sHistory>Fredo repairs electronics in Grumm.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_RICHGUY_BALIME -->
+	<uiIndex>52</uiIndex>
+    <sHistory>Received donation from rich guy in Balime.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_JAKE -->
+	<uiIndex>53</uiIndex>
+    <sHistory>Met a junkyard dealer named Jake.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_BUM_KEYCARD -->
+	<uiIndex>54</uiIndex>
+    <sHistory>Some bum gave us an electronic keycard.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_WALTER -->
+	<uiIndex>55</uiIndex>
+    <sHistory>Bribed Walter to unlock the door to the basement.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_DAVE -->
+	<uiIndex>56</uiIndex>
+    <sHistory>If Dave has gas, he'll provide free fillups.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_PABLO -->
+	<uiIndex>57</uiIndex>
+    <sHistory>Greased Pablo's palms.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KINGPIN_MONEY -->
+	<uiIndex>58</uiIndex>
+    <sHistory>Kingpin keeps money in San Mona mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_WON_BOXING -->
+	<uiIndex>59</uiIndex>
+    <sHistory>%s won Extreme Fighting match</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_LOST_BOXING -->
+	<uiIndex>60</uiIndex>
+    <sHistory>%s lost Extreme Fighting match</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_DISQUALIFIED_BOXING -->
+	<uiIndex>61</uiIndex>
+    <sHistory>%s was disqualified in Extreme Fighting</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_FOUND_MONEY -->
+	<uiIndex>62</uiIndex>
+    <sHistory>Found a lot of money stashed in the abandoned mine.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_ASSASSIN -->
+	<uiIndex>63</uiIndex>
+    <sHistory>Encountered assassin sent by Kingpin.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_LOSTTOWNSECTOR -->
+	<uiIndex>64</uiIndex>
+    <sHistory>Lost control of sector</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_DEFENDEDTOWNSECTOR -->
+	<uiIndex>65</uiIndex>
+    <sHistory>Defended sector</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_LOSTBATTLE -->
+	<uiIndex>66</uiIndex>
+    <sHistory>Lost battle</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_FATALAMBUSH -->
+	<uiIndex>67</uiIndex>
+    <sHistory>Fatal ambush</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_WIPEDOUTENEMYAMBUSH -->
+	<uiIndex>68</uiIndex>
+    <sHistory>Wiped out enemy ambush</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_UNSUCCESSFULATTACK -->
+	<uiIndex>69</uiIndex>
+    <sHistory>Unsuccessful attack</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_SUCCESSFULATTACK -->
+	<uiIndex>70</uiIndex>
+    <sHistory>Successful attack!</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_CREATURESATTACKED -->
+	<uiIndex>71</uiIndex>
+    <sHistory>Creatures attacked</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_KILLEDBYBLOODCATS -->
+	<uiIndex>72</uiIndex>
+    <sHistory>Killed by bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_SLAUGHTEREDBLOODCATS -->
+	<uiIndex>73</uiIndex>
+    <sHistory>Slaughtered bloodcats</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_NPC_KILLED -->
+	<uiIndex>74</uiIndex>
+    <sHistory>%s was killed</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_GAVE_CARMEN_HEAD -->
+	<uiIndex>75</uiIndex>
+    <sHistory>Gave Carmen a terrorist's head</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_SLAY_MYSTERIOUSLY_LEFT -->
+	<uiIndex>76</uiIndex>
+    <sHistory>Slay left</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_MERC_KILLED_CHARACTER -->
+	<uiIndex>77</uiIndex>
+    <sHistory>Killed %s</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_WALDO -->
+	<uiIndex>78</uiIndex>
+    <sHistory>Met Waldo - aircraft mechanic.</sHistory>
+  </TEXT> 
+  <TEXT>
+	<!-- HISTORY_HELICOPTER_REPAIR_STARTED -->
+	<uiIndex>79</uiIndex>
+    <sHistory>Helicopter repairs started. Estimated time: %d hour(s).</sHistory>
+  </TEXT> 
+</STRINGS>

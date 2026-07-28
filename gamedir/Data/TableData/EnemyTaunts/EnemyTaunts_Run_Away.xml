@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>It was all part of my plan!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>I've had enough!</szText>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Oh my God!</szText>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>They ain't paying us enough for this shit...</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>When did things go so wrong?</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>I'll be back! With friends!</szText>
+    <run_away>1</run_away>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>You'll pay for this... another day!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>You're not playing fair!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Don't think I will forgive ya!</szText>
+    <run_away>1</run_away>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Mommy!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>I'll be back when you least expect me, fucker!</szText>
+    <szTextCensored>I'll be back when you least expect me, punk!</szTextCensored>
+    <run_away>1</run_away>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>I'll leave you alive... for now.</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Enough is enough!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Screw this! I'm outta here!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Screw this! I'm not even a real soldier!</szText>
+    <run_away>1</run_away>
+    <admin>1</admin>
+    <green>1</green>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Tactical retreat!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>I've seen enough.</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Nope, nope, nope.</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Run to the hills!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Let's call it a draw.</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>They said "join the army". Not for this shit!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+    <cunning>1</cunning>
+    <army>1</army>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>I regret nothing!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>Game over, man!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>Let's be friends!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Party's over!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Violence is not an answer!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>I'm too beautiful to die!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Screw you guys, I'm going home!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Make love, not war!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>I, ehrm, left the lights on in my place. Gotta go!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Leave me your phone number, and I'll get back to ya!</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>I can't deal with this anymore!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>I'm getting the hell out of here!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>I will not fight those bastards alone!</szText>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>I am outta here.</szText>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>The army... I should have known better!</szText>
+    <army>1</army>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Coming here... What was I even thinking?</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>I'm surrounded by idiots! I'm out!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>No weapons! No friends! No hope!</szText>
+    <run_away>1</run_away>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>I never wanted to join the army! My mom forced me to!</szText>
+    <run_away>1</run_away>
+    <army>1</army>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>Wait till my brother hears about this, he's gonna kick your ass!</szText>
+    <run_away>1</run_away>
+    <admin>1</admin>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>Sometimes the road less travelled is less travelled for a reason!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>OK, that was the last straw!</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>You're cheating!</szText>
+    <run_away>1</run_away>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>It's time to consider retirement...</szText>
+    <run_away>1</run_away>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Don't think it's over! I'll hunt you down wherever you go!</szText>
+    <run_away>1</run_away>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Why can't we all just get along?</szText>
+    <run_away>1</run_away>
+    <cunning>1</cunning>
+  </TAUNT>
+</TAUNTS>

@@ -1,0 +1,10 @@
+<ADDITIONALTILEPROPERTIES>
+<bWoodCamoAffinity>0</bWoodCamoAffinity>
+<bDesertCamoAffinity>10</bDesertCamoAffinity>
+<bUrbanCamoAffinity>0</bUrbanCamoAffinity>
+<bSnowCamoAffinity>0</bSnowCamoAffinity>
+<bCamoStanceModifer>0</bCamoStanceModifer>
+<bSoundModifier>1</bSoundModifier>
+<bStealthDifficultyModifer>20</bStealthDifficultyModifer>
+<bTrapBonus>1</bTrapBonus>
+</ADDITIONALTILEPROPERTIES>

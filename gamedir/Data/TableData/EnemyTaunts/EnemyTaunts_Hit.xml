@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Does it hurt to be dead?</szText>
+    <hit>1</hit>
+    <target_zombie>1</target_zombie>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Bingo!</szText>
+    <hit>1</hit>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Excellence is not a skill. It's an attitude.</szText>
+    <hit>1</hit>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Poor thing! He's bleeding.. Hold on, I'll find you a tampon.</szText>
+    <hit>1</hit>
+    <cunning>1</cunning>
+    <female>1</female>
+    <target_male>1</target_male>
+    <target_health>50</target_health>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>How's karma tasting? Not so good?</szText>
+    <hit>1</hit>
+    <militia>1</militia>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>The doctor is in!</szText>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Operation successful!</szText>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>You taste like chicken!</szText>
+    <hit_blade>1</hit_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>You know what would be nice right now? Fava beans and a glass of chianti!</szText>
+    <hit_blade>1</hit_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Chop chop chop!</szText>
+    <aggressive>1</aggressive>
+    <attack_blade>1</attack_blade>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Fresh meat!</szText>
+    <aggressive>1</aggressive>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>I'll drink your blood!</szText>
+    <aggressive>1</aggressive>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Don't worry, it's disinfected!</szText>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Mmmmmincemeat!</szText>
+    <aggressive>1</aggressive>
+    <hit_blade>1</hit_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Bullseye!</szText>
+    <hit_gunfire>1</hit_gunfire>
+    <hit_throwing_knife>1</hit_throwing_knife>
+    <cunning>1</cunning>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Watch out, the lightning may strike... Oh, it just did!</szText>
+    <brave>1</brave>
+    <hit_gunfire>1</hit_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>I see you... and now I can see through you!</szText>
+    <hit_gunfire>1</hit_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Normally I wouldn't hit a woman... Oh, who am I kidding!</szText>
+    <attack_hth>1</attack_hth>
+    <hit_hth>1</hit_hth>
+    <brave>1</brave>
+    <male>1</male>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>See? Girls can fight too!</szText>
+    <hit_hth>1</hit_hth>
+    <female>1</female>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Girl power!</szText>
+    <hit_hth>1</hit_hth>
+    <female>1</female>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>I now pronounce you... man and bullet.</szText>
+    <hit_gunfire>1</hit_gunfire>
+    <cunning>1</cunning>
+    <target_male>1</target_male>
+  </TAUNT>
+</TAUNTS>

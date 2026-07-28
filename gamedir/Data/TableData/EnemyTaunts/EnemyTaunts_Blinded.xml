@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Fuck, my eyeballs!</szText>
+    <szTextCensored>Crap, my eyeballs!</szTextCensored>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>I can't see shit!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Who turned off the lights?!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Oh, my eyes!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Oh God, I'm blind!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Holy shit, priest was right! It DOES make you blind!</szText>
+    <got_blinded>1</got_blinded>
+    <male>1</male>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Somebody help me! I can't see!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>You think I won't get you 'cause I'm blind? I can smell your fear!</szText>
+    <got_blinded>1</got_blinded>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>My eyes are on fire!</szText>
+    <got_blinded>1</got_blinded>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>Hello darkness, my old friend.</szText>
+    <got_blinded>1</got_blinded>
+    <aggressive>1</aggressive>
+  </TAUNT>
+</TAUNTS>

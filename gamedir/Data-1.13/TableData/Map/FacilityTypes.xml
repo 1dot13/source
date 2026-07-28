@@ -1,0 +1,868 @@
+<FACILITYTYPES>
+	<FACILITYTYPE>
+		<ubIndex>1</ubIndex>
+		<szFacilityName>Hospital</szFacilityName>
+		<szFacilityShortName>Hospital</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>DOCTOR</ubAssignmentType>
+			<szTooltipText>Perform life-saving surgery on your wounded men, using state-of-the-art equipment. Increases the DOCTOR's efficiency.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<usKitDegrade>40</usKitDegrade>
+			<CONDITIONS>
+				<ubMinimumMedical>60</ubMinimumMedical>
+				<ubMinimumWisdom>75</ubMinimumWisdom>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>2</ubIndex>
+		<szFacilityName>Small Sleazy Bar</szFacilityName>
+		<szFacilityShortName>Bar</szFacilityShortName>
+		<ubTotalStaffLimit>5</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Have a drink at the local bar! Increases loyalty in this town, for a price and a chance to get drunk.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<sCostPerHour>15</sCostPerHour>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>700</usChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>40</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+			<DRUNK>
+				<ubChance>500</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+				<drugitems>
+					<drugitem>245</drugitem>
+					<drugitem>255</drugitem>
+					<drugitem>256</drugitem>
+				</drugitems>
+			</DRUNK>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>GATHER_RUMOURS</ubAssignmentType>
+			<szTooltipText>Have a drink at the... Yeah, you wish! Just buy people a round and immediately report any info they may spill.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<sCostPerHour>15</sCostPerHour>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>700</usChance>
+				<bBaseEffect>0</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>10</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+			<DRUNK>
+				<ubChance>100</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>3</ubIndex>
+		<szFacilityName>Prison Complex</szFacilityName>
+		<szFacilityShortName>Prison</szFacilityShortName>
+		<ubTotalStaffLimit>8</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause or give you helpful information.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>120</usPerformance>
+			<usPrisonBaseLimit>60</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>120</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>4</ubIndex>
+		<szFacilityName>Small Airport</szFacilityName>
+		<szFacilityShortName>Airport</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>
+		<pmcentrypoint>1</pmcentrypoint>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_STRENGTH</ubAssignmentType>
+			<szTooltipText>Spend some time loading and unloading aircraft. Increases the efficiency of STRENGTH practice.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>130</usPerformance>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>5</ubIndex>
+		<szFacilityName>Munitions Factory</szFacilityName>
+		<szFacilityShortName>Factory</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>The machinery here can manufacture all sorts of replacements parts, which will increase your efficiency at repair, assuming you know how to use the complex machinery here.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<usKitDegrade>30</usKitDegrade>
+			<CONDITIONS>
+				<ubMinimumMechanical>60</ubMinimumMechanical>
+				<ubMinimumDexterity>70</ubMinimumDexterity>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box AP -->
+			<usItemToCreate>1446</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9972</sGridNo_Creation>
+			<sHourlyCost>70</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box HP -->
+			<usItemToCreate>1447</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9973</sGridNo_Creation>
+			<sHourlyCost>50</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box Tracer -->
+			<usItemToCreate>1448</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9974</sGridNo_Creation>
+			<sHourlyCost>100</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box Match -->
+			<usItemToCreate>1449</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9975</sGridNo_Creation>
+			<sHourlyCost>150</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box Cold -->
+			<usItemToCreate>1451</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9976</sGridNo_Creation>
+			<sHourlyCost>80</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create 7.62x39mm Box HP Cold -->
+			<szProductionName>7.62x39 Box HP C</szProductionName> <!-- custom text, because the item text is very long ;-) -->
+			<usItemToCreate>1452</usItemToCreate>
+			<sMinutesRequired>180</sMinutesRequired>
+			<sGridNo_Creation>9977</sGridNo_Creation>
+			<sHourlyCost>60</sHourlyCost>
+			<usOptional_LoyaltyRequired>35</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>6</ubIndex>
+		<szFacilityName>Military Barracks</szFacilityName>
+		<szFacilityShortName>Barracks</szFacilityShortName>
+		<ubTotalStaffLimit>10</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>There are plenty of beds here. It's a bit basic, but certainly better than resting outside!</szTooltipText>
+			<ubStaffLimit>10</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usSleep>120</usSleep>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>7</ubIndex>
+		<szFacilityName>Military Headquarters</szFacilityName>
+		<szFacilityShortName>Mil. HQ</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>The war room here has all sorts of digital equipment, designed for maintaining a good grasp on the strategic situation across the country. This will help you coordinate your defenses and collecting information about enemy movements in the wilderness.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<fCountEnemiesInWild>1</fCountEnemiesInWild>
+			<CONDITIONS>
+				<ubMinimumWisdom>80</ubMinimumWisdom>
+				<ubMinimumLeadership>60</ubMinimumLeadership>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA_GLOBAL</ubAssignmentType>
+			<szTooltipText>Take control of local information channels and control the flow of news in the entire region.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>60</ubMinimumWisdom>
+				<ubMinimumLeadership>50</ubMinimumLeadership>
+				<usPerformance>80</usPerformance>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>STRATEGIC_MILITIA_MOVEMENT</ubAssignmentType>
+			<szTooltipText>This military installation has a war room that allows you to move your militia in the strategic screen.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>70</ubMinimumWisdom>
+				<ubMinimumLeadership>70</ubMinimumLeadership>
+				<ubMinimumLevel>5</ubMinimumLevel>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>8</ubIndex>
+		<szFacilityName>Shooting Range</szFacilityName>
+		<szFacilityShortName>Range</szFacilityShortName>
+		<ubTotalStaffLimit>5</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_MARKSMANSHIP</ubAssignmentType>
+			<szTooltipText>Why not spend some time practicing your aim? The dummy targets are practically begging for it. It sure as hell beats taking pot-shots at rocks out in the wilderness.</szTooltipText>
+			<ubStaffLimit>5</ubStaffLimit>
+			<usPerformance>130</usPerformance>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>9</ubIndex>
+		<szFacilityName>A.C.A Building</szFacilityName>
+		<szFacilityShortName>A.C.A</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>STAFF</ubAssignmentType>
+			<szTooltipText>The locals here may be willing to scout out the surrounding area for you. You can collect the information gleaned from them to get a better idea about enemy activity in this region.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<fDetectEnemiesDynamic>1</fDetectEnemiesDynamic>
+			<ubDetectEnemiesImmediate>2</ubDetectEnemiesImmediate>
+			<CONDITIONS>
+				<ubMinimumWisdom>75</ubMinimumWisdom>
+				<ubMinimumLeadership>30</ubMinimumLeadership>
+				<ubMinimumLoyaltyHere>60</ubMinimumLoyaltyHere>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>SPREAD_PROPAGANDA</ubAssignmentType>
+			<szTooltipText>Turn this small local office into a well-oiled propaganda machine, suppressing any bad news that reaches town and showing our actions in the best possible light.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<CONDITIONS>
+				<ubMinimumWisdom>60</ubMinimumWisdom>
+				<ubMinimumLeadership>20</ubMinimumLeadership>
+				<ubMinimumLoyaltyHere>20</ubMinimumLoyaltyHere>
+				<usPerformance>150</usPerformance>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>10</ubIndex>
+		<szFacilityName>SAM Site</szFacilityName>
+		<szFacilityShortName>SAM Site</szFacilityShortName>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>11</ubIndex>
+		<szFacilityName>Mine</szFacilityName>
+		<szFacilityShortName>Mine</szFacilityShortName>
+		<ubTotalStaffLimit>4</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>Anyone who knows how to set explosives will be welcome in a mine. Increases efficiency of EXPLOSIVES training.</szTooltipText>
+			<ubStaffLimit>4</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<CONDITIONS>
+				<ubMinimumExplosives>40</ubMinimumExplosives>
+				<ubMinimumLoyaltyHere>70</ubMinimumLoyaltyHere>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>12</ubIndex>
+		<szFacilityName>Small Church</szFacilityName>
+		<szFacilityShortName>Church</szFacilityShortName>
+		<ubTotalStaffLimit>1</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>A solemn hour of prayer and devotion in a quiet little church can help raise anyone's spirit. It might also convince the locals that you respect their way of life.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<ubChance>200</ubChance>
+				<bBaseEffect>10</bBaseEffect>
+				<ubRange>10</ubRange>
+			</MORALE>
+			<LOYALTY_LOCAL>
+				<ubChance>50</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</LOYALTY_LOCAL>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>13</ubIndex>
+		<szFacilityName>Boxing Club</szFacilityName>
+		<szFacilityShortName>Club</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>	
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_HEALTH</ubAssignmentType>
+			<szTooltipText>There's plenty of gymnastic equipment here, just waiting to be used. This is a great way to get a balanced work-out that might improve your shape considerably. Increases the efficiency of HEALTH training.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>200</usPerformance>
+			<CONDITIONS>
+				<ubMinimumHealth>60</ubMinimumHealth>
+				<ubMinimumStrength>40</ubMinimumStrength>
+				<ubMinimumAgility>40</ubMinimumAgility>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>14</ubIndex>
+		<szFacilityName>National Museum</szFacilityName>
+		<szFacilityShortName>Museum</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>15</ubIndex>
+		<szFacilityName>Laboratory</szFacilityName>
+		<szFacilityShortName>Lab</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<PRODUCTIONLINE>
+			<!-- Rocket Rifle -->
+			<szAdditionalRequirementTips> - Requires storage access</szAdditionalRequirementTips>
+			<usItemToCreate>55</usItemToCreate>
+			<sMinutesRequired>600</sMinutesRequired>
+			<sGridNo_Creation>17023</sGridNo_Creation>
+			<sHourlyCost>700</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- Auto Rocket Rifle -->
+			<usItemToCreate>65</usItemToCreate>
+			<sMinutesRequired>720</sMinutesRequired>
+			<sGridNo_Creation>17023</sGridNo_Creation>
+			<sHourlyCost>700</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- Minirockets, AP -->
+			<usItemToCreate>111</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>17026</sGridNo_Creation>
+			<sHourlyCost>350</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- Minirockets, HE -->
+			<usItemToCreate>112</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>17027</sGridNo_Creation>
+			<sHourlyCost>350</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- Minirockets, HEAP -->
+			<usItemToCreate>113</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>17028</sGridNo_Creation>
+			<sHourlyCost>350</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- Minirockets, Cryo -->
+			<usItemToCreate>1738</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>17029</sGridNo_Creation>
+			<sHourlyCost>1000</sHourlyCost>
+		</PRODUCTIONLINE>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>16</ubIndex>
+		<szFacilityName>Junkyard</szFacilityName>
+		<szFacilityShortName>Junkyard</szFacilityShortName>
+		<ubTotalStaffLimit>6</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ITEMS</ubAssignmentType>
+			<szTooltipText>This place is practically littered with spare parts for anything you might imagine. This will certainly make any repair-work considerably easier.</szTooltipText>
+			<ubStaffLimit>6</ubStaffLimit>
+			<usPerformance>120</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>60</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_VEHICLE</ubAssignmentType>
+			<szTooltipText>This place is practically littered with spare parts for anything you might imagine. This will certainly make any repair-work considerably easier.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>110</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>75</usKitDegrade>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>REPAIR_ROBOT</ubAssignmentType>
+			<szTooltipText>This place is practically littered with spare parts for anything you might imagine. This will certainly make any repair-work considerably easier.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>175</usPerformance>
+			<usFatigue>120</usFatigue>
+			<usKitDegrade>90</usKitDegrade>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>17</ubIndex>
+		<szFacilityName>Beach Resort</szFacilityName>
+		<szFacilityShortName>Beach</szFacilityShortName>
+		<ubTotalStaffLimit>32</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>REST</ubAssignmentType>
+			<szTooltipText>Sun, sand, surf. This sure as hell beats sleeping in a trench.</szTooltipText>
+			<ubStaffLimit>32</ubStaffLimit>
+			<sCostPerHour>15</sCostPerHour>
+			<usPerformance>160</usPerformance>
+			<usSleep>200</usSleep>
+			<MORALE>
+				<ubChance>500</ubChance>
+				<bBaseEffect>10</bBaseEffect>
+				<ubRange>15</ubRange>
+			</MORALE>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>18</ubIndex>
+		<szFacilityName>Legacy Militia Training Facility</szFacilityName>
+		<szFacilityShortName>Legacy</szFacilityShortName>
+		<ubMilitiaTrainersAllowed>2</ubMilitiaTrainersAllowed>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE> 
+		<ubIndex>19</ubIndex>  
+		<szFacilityName>Combat Support Hospital</szFacilityName>  
+		<szFacilityShortName>Camp Hospital</szFacilityShortName>  
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>  
+		<ASSIGNMENT> 
+			<ubAssignmentType>DOCTOR</ubAssignmentType>  
+			<szTooltipText>Perform urgent life-saving treatment on your wounded men in field conditions. Increases the DOCTOR's efficiency.</szTooltipText>  
+			<ubStaffLimit>2</ubStaffLimit>  
+			<usPerformance>150</usPerformance>  
+			<usKitDegrade>40</usKitDegrade>  
+			<CONDITIONS> 
+				<ubMinimumMedical>60</ubMinimumMedical>  
+				<ubMinimumWisdom>60</ubMinimumWisdom>  
+			</CONDITIONS> 
+		</ASSIGNMENT> 
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>20</ubIndex>
+		<szFacilityName>Army Barracks Cantina</szFacilityName>
+		<szFacilityShortName>Cantina</szFacilityShortName>
+		<ubTotalStaffLimit>10</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>FACILITY_EAT</ubAssignmentType>
+			<szTooltipText>By taking over the army's barracks, you've also taken over the cantina inside. Your mercs can eat here.</szTooltipText>
+			<ubStaffLimit>10</ubStaffLimit>
+			<sCostPerHour>10</sCostPerHour>
+			<sCantinaFoodModifier>500</sCantinaFoodModifier>
+			<CONDITIONS>
+			</CONDITIONS>
+			<MORALE>
+				<usChance>500</usChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</MORALE>
+			<DRUNK>
+				<ubChance>400</ubChance>
+				<bBaseEffect>1</bBaseEffect>
+				<ubRange>0</ubRange>
+			</DRUNK>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>21</ubIndex>
+		<szFacilityName>Military Prison</szFacilityName>
+		<szFacilityShortName>Prison</szFacilityShortName>
+		<ubTotalStaffLimit>3</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause, or give you helpful information.</szTooltipText>
+			<ubStaffLimit>3</ubStaffLimit>
+			<usPerformance>100</usPerformance>
+			<usPrisonBaseLimit>20</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>3</ubStaffLimit>
+			<usPerformance>90</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>22</ubIndex>
+		<szFacilityName>Town Prison</szFacilityName>
+		<szFacilityShortName>Prison</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>INTERROGATE_PRISONERS</ubAssignmentType>
+			<szTooltipText>Your mercs can interrogate prisoners of war here. Prisoners might join your cause, or give you helpful information.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>90</usPerformance>
+			<usPrisonBaseLimit>5</usPrisonBaseLimit>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRISON_SNITCH</ubAssignmentType>
+			<szTooltipText>Masquerade as a prisoner and gain their trust to easily gather information and prevent mutiny attempts.</szTooltipText>
+			<ubStaffLimit>1</ubStaffLimit>
+			<usPerformance>70</usPerformance>
+			<CONDITIONS>
+			</CONDITIONS>
+		</ASSIGNMENT>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>23</ubIndex>
+		<szFacilityName>T-Shirt Factory</szFacilityName>
+		<szFacilityShortName>Factory</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<PRODUCTIONLINE>
+			<!-- create string -->
+			<szAdditionalRequirementTips> - Requires: Doreen quest</szAdditionalRequirementTips>
+			<usItemToCreate>311</usItemToCreate>
+			<sMinutesRequired>10</sMinutesRequired>
+			<sGridNo_Creation>11306</sGridNo_Creation>
+			<requires_staff>0</requires_staff>
+			<sHourlyCost>2</sHourlyCost>
+			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create rag -->
+			<usItemToCreate>1022</usItemToCreate>
+			<sMinutesRequired>25</sMinutesRequired>
+			<sGridNo_Creation>11307</sGridNo_Creation>
+			<sHourlyCost>6</sHourlyCost>
+			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Surgical mask from string + rag -->
+			<usItemToCreate>1710</usItemToCreate>
+			<sMinutesRequired>35</sMinutesRequired>
+			<sGridNo_Creation>11309</sGridNo_Creation>
+			<sHourlyCost>4</sHourlyCost>			
+			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Arulco T-Shirt from string + rag (2x) -->
+			<usItemToCreate>194</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>12758</sGridNo_Creation>
+			<sHourlyCost>7</sHourlyCost>			
+			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Deidranna T-Shirt from string + rag (2x) -->
+			<usItemToCreate>195</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>12759</sGridNo_Creation>
+			<sHourlyCost>7</sHourlyCost>
+			<usOptional_LoyaltyRequired>15</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create White Shirt (Civ Disguise) from string + rag (2x) -->
+			<usItemToCreate>1612</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>12917</sGridNo_Creation>
+			<sHourlyCost>20</sHourlyCost>
+			<usOptional_LoyaltyRequired>40</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Blue Jeans (Civ Disguise) from string + rag (2x) -->
+			<usItemToCreate>1619</usItemToCreate>
+			<sMinutesRequired>120</sMinutesRequired>
+			<sGridNo_Creation>12917</sGridNo_Creation>
+			<sHourlyCost>20</sHourlyCost>
+			<usOptional_LoyaltyRequired>40</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- we have to build an upgrade before we can create uniforms -->
+			<szProductionName>Upgrade</szProductionName>
+			<sMinutesRequired>181</sMinutesRequired>
+			<sHourlyCost>100</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Woodland Boonie Hat from string (2x) + rag (2x) + WL camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>285</usItemToCreate>
+			<sMinutesRequired>200</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Woodland BDU Jacket from string (3x) + rag (3x) + WL camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>284</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Woodland BDU Pants from string (3x) + rag (3x) + WL camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1766</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>205</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Desert BDU Jacket from string (3x) + rag (3x) + Desert camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1769</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1028</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Desert BDU Pants from string (3x) + rag (3x) + Desert camo kit -->
+			<usItemToCreate>1767</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1028</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Urban BDU Jacket from string (3x) + rag (3x) + Urban camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1770</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1027</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- create Urban BDU Pants from string (3x) + rag (3x) + Urban camo kit -->
+			<szAdditionalRequirementTips> - Uniform requires upgrade</szAdditionalRequirementTips>
+			<usItemToCreate>1768</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>11316</sGridNo_Creation>
+			<sHourlyCost>25</sHourlyCost>
+			<usOptional_LoyaltyRequired>80</usOptional_LoyaltyRequired>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>311</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1022</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>1027</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+	</FACILITYTYPE>
+
+	<FACILITYTYPE>
+		<ubIndex>24</ubIndex>
+		<szFacilityName>Hicks Farm</szFacilityName>
+		<szFacilityShortName>Farm</szFacilityShortName>
+		<ubTotalStaffLimit>0</ubTotalStaffLimit>
+		<PRODUCTIONLINE>
+			<!-- cow meat -->
+			<szAdditionalRequirementTips> - Requires: Hicks dead</szAdditionalRequirementTips>
+			<usItemToCreate>1565</usItemToCreate>
+			<sMinutesRequired>300</sMinutesRequired>
+			<sGridNo_Creation>15432</sGridNo_Creation>
+			<sHourlyCost>2</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- bread -->
+			<usItemToCreate>1567</usItemToCreate>
+			<sMinutesRequired>100</sMinutesRequired>
+			<sGridNo_Creation>15592</sGridNo_Creation>
+			<sHourlyCost>2</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- apple pie -->
+			<usItemToCreate>1568</usItemToCreate>
+			<sMinutesRequired>90</sMinutesRequired>
+			<sGridNo_Creation>15272</sGridNo_Creation>
+			<sHourlyCost>3</sHourlyCost>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- milk -->
+			<usItemToCreate>1572</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>15112</sGridNo_Creation>
+			<sHourlyCost>2</sHourlyCost>
+		</PRODUCTIONLINE>
+	</FACILITYTYPE>
+	
+	<FACILITYTYPE>
+		<ubIndex>25</ubIndex>
+		<szFacilityName>Bomb Workshop</szFacilityName>
+		<szFacilityShortName>Workshop</szFacilityShortName>
+		<ubTotalStaffLimit>2</ubTotalStaffLimit>
+		<ASSIGNMENT>
+			<ubAssignmentType>PRACTICE_EXPLOSIVES</ubAssignmentType>
+			<szTooltipText>This well-equipped workshop has the tools you need to create some makeshift bombs. Very dangerous, but it just might be worth it.</szTooltipText>
+			<ubStaffLimit>2</ubStaffLimit>
+			<usPerformance>150</usPerformance>
+			<CONDITIONS>
+				<ubMinimumExplosives>70</ubMinimumExplosives>
+				<ubMinimumMechanical>50</ubMinimumMechanical>
+			</CONDITIONS>
+			<INJURY>
+				<ubChance>50</ubChance>
+				<bBaseEffect>-5</bBaseEffect>
+				<ubRange>4</ubRange>
+			</INJURY>
+		</ASSIGNMENT>
+		<PRODUCTIONLINE>
+			<!-- 60mm Mortar Shell from TNT -->
+			<usItemToCreate>140</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>19101</sGridNo_Creation>
+			<requires_staff>1</requires_staff>
+			<usOptional_ItemUsedUp>137</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>137</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- 60mm Mortar Shell from Mk2 Grenades -->
+			<usItemToCreate>140</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>18941</sGridNo_Creation>
+			<requires_staff>1</requires_staff>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>135</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- 60mm Illumination Shell from Chemical Break Light -->
+			<usItemToCreate>940</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>18781</sGridNo_Creation>
+			<requires_staff>1</requires_staff>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>146</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- 60mm Smoke Shell from Smoke Grenade -->
+			<usItemToCreate>941</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>18461</sGridNo_Creation>
+			<requires_staff>1</requires_staff>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>151</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+		<PRODUCTIONLINE>
+			<!-- 60mm Mustard Gas Shell from Mustard Gas Grenade -->
+			<usItemToCreate>951</usItemToCreate>
+			<sMinutesRequired>60</sMinutesRequired>
+			<sGridNo_Creation>18141</sGridNo_Creation>
+			<requires_staff>1</requires_staff>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+			<usOptional_ItemUsedUp>133</usOptional_ItemUsedUp>
+		</PRODUCTIONLINE>
+	</FACILITYTYPE>
+	
+</FACILITYTYPES>

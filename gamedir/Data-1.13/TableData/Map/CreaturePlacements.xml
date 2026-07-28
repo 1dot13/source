@@ -1,0 +1,334 @@
+<!--
+This file defines creatures placement & composition for SCI-FI MODE, when ENABLE_CREPITUS = TRUE.
+
+Fields index:
+Placement
+	Index						- UNIQUE number for creature site. Max 10 possible sites; only 1 will be randomly
+					activated based on 'Infectible' status, mine control and not attacking its headminer.
+	
+	ATTACKSOURCE		- sector where creature surfaces to attack town.
+					Its associated B1 underground sector MUST be defined as a habitat/queen sector.
+	
+	ALTERNATEMAP		- sector using alternate map when creature quest is initiated.
+	
+	WARPTOSECTOR	- warp destination on tactical screen exit after creature quest completion.
+					Works only when in habitat/queen sector and SectorZ >= 2.
+				  
+	QUEENSECTOR		- come to Mama!
+					
+	HABITATSECTOR		- linked underground sectors where creatures will be guests. Max 255 per site.
+					For dungeon crawling, dead-ends can be set; spawning will take time to fill though.
+
+Composition
+	CompIndex				- Max 50 compositions. The 6 percentage tags MUST add up to 100.
+	
+	MaxPopulation			- limited by MAX_NUMBER_CREATURES_IN_TACTICAL in Ja2_Options.ini
+	
+	Default Vanilla Composition. 
+		0 - QUEEN_LAIR, where the queen lives. Highly protected.
+			Reserved for QUEENSECTOR. HABITATSECTOR using Composition '0' will be ignored.
+		1 - LAIR, part of the queen's lair; lots of babies and defending mothers
+		2 - LAIR_ENTRANCE, where the creatures access the mine.
+		3 - INNER_MINE, parts of the mines that aren't close to the outside world
+		4 - OUTER_MINE, area's where miners work, close to towns, creatures love to eat :)
+		5 - FEEDING_GROUNDS, creatures love to populate these sectors :)
+		6 - MINE_EXIT, the area that creatures can initiate town attacks if lots of monsters.
+	
+NOTE:
+Quest initialized by 'CheckConditionsForTriggeringCreatureQuest' in StrategicTownLoyalty.lua script OR
+	CREPITUS_FEEDING_SECTOR in Creatures_Settings.ini
+Index sequence MUST be the same order as the 'Infectible' sequence at 'InitializeMines' in initmines.lua. 
+All QUEENSECTOR & HABITATSECTOR need to be defined at 'SectorList' in initunderground.lua script.
+Non-linked sites can only be initialized at ' PopulateSectors' in initunderground.lua script on game start.
+	Creatures will obediently stay in sector like the underground enemies.
+-->
+<CREATURE_INFO>
+	<PLACEMENT_LIST>
+		<PLACEMENT>
+			<!-- Drassen -->		
+			<Index>1</Index>
+			<ATTACKSOURCE>
+				<SectorGrid>D13</SectorGrid>
+				<GridNo>20703</GridNo>
+			</ATTACKSOURCE>
+			<ALTERNATEMAP>
+				<SectorGrid>E13</SectorGrid>
+				<SectorZ>1</SectorZ>
+			</ALTERNATEMAP>
+			<WARPTOSECTOR>
+				<SectorGrid>D13</SectorGrid>
+				<SectorZ>0</SectorZ>
+				<GridNo>20700</GridNo>
+			</WARPTOSECTOR>
+			<CREATURESECTOR>
+				<QUEENSECTOR>
+					<SectorGrid>F13</SectorGrid>
+					<SectorZ>3</SectorZ>
+				</QUEENSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>G13</SectorGrid>
+					<SectorZ>3</SectorZ>
+					<Composition>1</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>G13</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>2</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>F13</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>E13</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>E13</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>4</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>D13</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>6</Composition>
+				</HABITATSECTOR>
+			</CREATURESECTOR>
+		</PLACEMENT>
+		<PLACEMENT>
+			<!-- Alma -->
+			<Index>2</Index>
+			<ATTACKSOURCE>
+				<SectorGrid>I14</SectorGrid>
+				<GridNo>9726</GridNo>
+			</ATTACKSOURCE>
+			<ALTERNATEMAP>
+				<SectorGrid>J14</SectorGrid>
+				<SectorZ>1</SectorZ>
+			</ALTERNATEMAP>
+			<WARPTOSECTOR>
+				<SectorGrid>I14</SectorGrid>
+				<SectorZ>0</SectorZ>
+				<GridNo>9085</GridNo>
+			</WARPTOSECTOR>
+			<CREATURESECTOR>
+				<QUEENSECTOR>
+					<SectorGrid>K13</SectorGrid>
+					<SectorZ>3</SectorZ>
+				</QUEENSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>J13</SectorGrid>
+					<SectorZ>3</SectorZ>
+					<Composition>1</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>J13</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>2</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>J14</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>J14</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>4</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>I14</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>6</Composition>
+				</HABITATSECTOR>
+			</CREATURESECTOR>
+		</PLACEMENT>
+		<PLACEMENT>
+			<!-- Cambria -->
+			<Index>3</Index>
+			<ATTACKSOURCE>
+				<SectorGrid>H8</SectorGrid>
+				<GridNo>13005</GridNo>
+			</ATTACKSOURCE>
+			<ALTERNATEMAP>
+				<SectorGrid>H9</SectorGrid>
+				<SectorZ>1</SectorZ>
+			</ALTERNATEMAP>
+			<WARPTOSECTOR>
+				<SectorGrid>H8</SectorGrid>
+				<SectorZ>0</SectorZ>
+				<GridNo>13002</GridNo>
+			</WARPTOSECTOR>
+			<CREATURESECTOR>
+				<QUEENSECTOR>
+					<SectorGrid>J8</SectorGrid>
+					<SectorZ>3</SectorZ>
+				</QUEENSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>I8</SectorGrid>
+					<SectorZ>3</SectorZ>
+					<Composition>1</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H8</SectorGrid>
+					<SectorZ>3</SectorZ>
+					<Composition>1</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H8</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>2</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H9</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H9</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>4</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H8</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>6</Composition>
+				</HABITATSECTOR>
+			</CREATURESECTOR>
+		</PLACEMENT>
+		<PLACEMENT>
+			<!-- Grumm -->
+			<Index>4</Index>
+			<ATTACKSOURCE>
+				<SectorGrid>H3</SectorGrid>
+				<GridNo>10303</GridNo>
+			</ATTACKSOURCE>
+			<ALTERNATEMAP>
+				<SectorGrid>H4</SectorGrid>
+				<SectorZ>2</SectorZ>
+			</ALTERNATEMAP>
+			<WARPTOSECTOR>
+				<SectorGrid>H3</SectorGrid>
+				<SectorZ>0</SectorZ>
+				<GridNo>9822</GridNo>
+			</WARPTOSECTOR>
+			<CREATURESECTOR>
+				<QUEENSECTOR>
+					<SectorGrid>G4</SectorGrid>
+					<SectorZ>3</SectorZ>
+				</QUEENSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H4</SectorGrid>
+					<SectorZ>3</SectorZ>
+					<Composition>1</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H4</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>2</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H3</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>I3</SectorGrid>
+					<SectorZ>2</SectorZ>
+					<Composition>3</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>I3</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>4</Composition>
+				</HABITATSECTOR>
+				<HABITATSECTOR>
+					<SectorGrid>H3</SectorGrid>
+					<SectorZ>1</SectorZ>
+					<Composition>6</Composition>
+				</HABITATSECTOR>
+			</CREATURESECTOR>
+		</PLACEMENT>
+	</PLACEMENT_LIST>
+	<COMPOSITION_LIST>
+		<COMPOSITION>
+			<!-- Queen Lair -->
+			<CompIndex>0</CompIndex>
+			<LarvaePercent>20</LarvaePercent>
+			<InfantPercent>40</InfantPercent>
+			<YoungMalePercent>0</YoungMalePercent>
+			<YoungFemalePercent>0</YoungFemalePercent>
+			<AdultMalePercent>30</AdultMalePercent>
+			<AdultFemalePercent>10</AdultFemalePercent>
+			<MaxPopulation>32</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Lair -->
+			<CompIndex>1</CompIndex>
+			<LarvaePercent>15</LarvaePercent>
+			<InfantPercent>35</InfantPercent>
+			<YoungMalePercent>10</YoungMalePercent>
+			<YoungFemalePercent>5</YoungFemalePercent>
+			<AdultMalePercent>25</AdultMalePercent>
+			<AdultFemalePercent>10</AdultFemalePercent>
+			<MaxPopulation>18</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Lair Entrance -->
+			<CompIndex>2</CompIndex>
+			<LarvaePercent>0</LarvaePercent>
+			<InfantPercent>15</InfantPercent>
+			<YoungMalePercent>30</YoungMalePercent>
+			<YoungFemalePercent>10</YoungFemalePercent>
+			<AdultMalePercent>35</AdultMalePercent>
+			<AdultFemalePercent>10</AdultFemalePercent>
+			<MaxPopulation>15</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Inner MIne -->
+			<CompIndex>3</CompIndex>
+			<LarvaePercent>0</LarvaePercent>
+			<InfantPercent>0</InfantPercent>
+			<YoungMalePercent>20</YoungMalePercent>
+			<YoungFemalePercent>40</YoungFemalePercent>
+			<AdultMalePercent>10</AdultMalePercent>
+			<AdultFemalePercent>30</AdultFemalePercent>
+			<MaxPopulation>12</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Outer Mine -->
+			<CompIndex>4</CompIndex>
+			<LarvaePercent>0</LarvaePercent>
+			<InfantPercent>0</InfantPercent>
+			<YoungMalePercent>10</YoungMalePercent>
+			<YoungFemalePercent>65</YoungFemalePercent>
+			<AdultMalePercent>5</AdultMalePercent>
+			<AdultFemalePercent>20</AdultFemalePercent>
+			<MaxPopulation>10</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Feeding Grounds -->
+			<CompIndex>5</CompIndex>
+			<LarvaePercent>0</LarvaePercent>
+			<InfantPercent>0</InfantPercent>
+			<YoungMalePercent>10</YoungMalePercent>
+			<YoungFemalePercent>65</YoungFemalePercent>
+			<AdultMalePercent>5</AdultMalePercent>
+			<AdultFemalePercent>20</AdultFemalePercent>
+			<MaxPopulation>15</MaxPopulation>
+		</COMPOSITION>
+		<COMPOSITION>
+			<!-- Mine Exit -->
+			<CompIndex>6</CompIndex>
+			<LarvaePercent>0</LarvaePercent>
+			<InfantPercent>0</InfantPercent>
+			<YoungMalePercent>10</YoungMalePercent>
+			<YoungFemalePercent>65</YoungFemalePercent>
+			<AdultMalePercent>5</AdultMalePercent>
+			<AdultFemalePercent>20</AdultFemalePercent>
+			<MaxPopulation>10</MaxPopulation>
+		</COMPOSITION>
+	</COMPOSITION_LIST>
+</CREATURE_INFO>

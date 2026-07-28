@@ -1,0 +1,605 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Marry me!</szText>
+    <cunning>1</cunning>
+    <male>1</male>
+    <got_missed>1</got_missed>
+    <target_female>1</target_female>
+    <target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Pathetic!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Try again, I dare ya.</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Don't make me go over there!</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+    <aggressive>1</aggressive>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <got_missed_throwing_knife>1</got_missed_throwing_knife>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>You've just made a huge mistake!</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>I'll take that gun out of your cold hands!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>You'll regret missing!</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Who were you shootin' at?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Who taught you to shoot?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>You'll pay for that!</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Son of a bitch!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>You suck!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Lame!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Are you even trying?</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Ha, you wish!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Learn how to shoot, rookie!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>In your dreams!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Not impressed!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>That ain't gonna happen.</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Booooo!</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Children shouldn't play with guns!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Nice try!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>My grandma's a better shot!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>That shot was bad and you should feel bad!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Close enough.</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Can't touch this!</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Oh, don't let the disappointment get to you.</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Get back in the kitchen where you belong, woman!</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+    <target_male>1</target_male>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>That was close.</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>Try harder!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Whew!</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Hell no!</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Maybe next time!</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>Not today!</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Close, but no cigar.</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>That woke me up.</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Is that the best you can do?</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Very pretty, but can you fight?</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Shit, shit, shit...</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>We're all gonna die.</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>God help me.</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>We're in some real pretty shit right now!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>It ain't a dream! This is really happening!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Where is the goddamn cavalry?</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>Don't make me angry!</szText>
+    <aggressive>1</aggressive>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Is that the best you can do?</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>Very pretty, but can you fight?</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>Oh, I'm laughing at your superior skills!</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>Is that your best?</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>It's official: YOU SUCK!</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>You cannot hurt me!</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Aw, come on, why so serious? Can't you take a joke?</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Let's not make a big deal out of nothing!</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Are you trying to piss me off?</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Do you want to hurt me on purpose?</szText>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>Oh... I'd love to smack you right now!</szText>
+    <got_missed>1</got_missed>
+    <got_hit>1</got_hit>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Wow, you're even dumber than you look.</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Idiots! Idiots everywhere!</szText>
+    <got_missed>1</got_missed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>You fight so badly you make even onions cry.</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>I guess the only fan you have is the one on the ceiling.</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>Do you always take yourself so seriously?</szText>
+    <got_missed>1</got_missed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>Hey clown, have you come here to amuse me?</szText>
+    <brave>1</brave>
+    <got_missed>1</got_missed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>Next time try shooting with open eyes!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>Are you always this stupid or is it a special occasion?</szText>
+    <brave>1</brave>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>Now, you've got my attention!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>You're so cute when you're trying to shoot!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>You're so cute when you're trying to shoot!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <female>1</female>
+    <target_male>1</target_male>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>Hey babe, you should know how to please me by now...</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <male>1</male>
+    <target_female>1</target_female>
+    <target_appearance>5</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>Blast it! You've spent so many bullets, you've got me confused!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>How about that? I've got a superpower and I didn't even know about it - I can dodge bullets!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>70</uiIndex>
+    <szText>You think shooting me is gonna solve your problems?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>71</uiIndex>
+    <szText>Bored! Bored! Bored! You're boring...</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>72</uiIndex>
+    <szText>Are you trying to shoot me or did your gun just fart?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>73</uiIndex>
+    <szText>Don't ever stop trying, who knows, maybe a miracle will happen!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>74</uiIndex>
+    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <male>1</male>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>75</uiIndex>
+    <szText>Try again, honey! No pressure. No judgment. I'm here!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <female>1</female>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>76</uiIndex>
+    <szText>OK, keep shooting, I'll yawn when you hit something!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>77</uiIndex>
+    <szText>Hey, stop shooting! I'm on the phone with my mom!</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>78</uiIndex>
+    <szText>Ouch, I'm hit, I'm hit... No, just kiddin'!</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>79</uiIndex>
+    <szText>Guys, what should we do with this one, shoot him or starve him to death?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>80</uiIndex>
+    <szText>Guys, what should we do with this one, shoot her or starve her to death?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <brave>1</brave>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>81</uiIndex>
+    <szText>Oh my god, my heart almost stopped beating!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>82</uiIndex>
+    <szText>I'm scared to death!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>30</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>83</uiIndex>
+    <szText>Gee, that gave me goose bumps!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>84</uiIndex>
+    <szText>Speak of the devil!</szText>
+    <got_missed>1</got_missed>
+    <morale_lt>35</morale_lt>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>85</uiIndex>
+    <szText>Frankly, my dear, I don't give a damn!</szText>
+    <got_missed>1</got_missed>
+    <cunning>1</cunning>
+    <male>1</male>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>86</uiIndex>
+    <szText>Where did that come from?</szText>
+    <got_missed_gunfire>1</got_missed_gunfire>
+    <got_missed_throwing_knife>1</got_missed_throwing_knife>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>87</uiIndex>
+    <szText>That's what I thought. You're a gutless turd!</szText>
+    <got_missed_blade>1</got_missed_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>88</uiIndex>
+    <szText>Need a scope on that blade?</szText>
+    <got_missed_blade>1</got_missed_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>89</uiIndex>
+    <szText>Give me that, I'll do it myself!</szText>
+    <got_missed_blade>1</got_missed_blade>
+    <elite>1</elite>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>90</uiIndex>
+    <szText>I ain't your punching bag, boy!</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <aggressive>1</aggressive>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>91</uiIndex>
+    <szText>I ain't your punching bag, girl!</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <aggressive>1</aggressive>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>92</uiIndex>
+    <szText>Well, if it ain't Muhammad Ali... Drunk!</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>93</uiIndex>
+    <szText>Boxing... not your strongest suit, huh?</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>94</uiIndex>
+    <szText>You fight like a girl!</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <brave>1</brave>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>95</uiIndex>
+    <szText>You fight like a girl... Oh, nevermind.</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <brave>1</brave>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>96</uiIndex>
+    <szText>Not sure if that's the best moment - but you really should invest in some Mentos!</szText>
+    <got_missed_hth>1</got_missed_hth>
+    <got_missed_blade>1</got_missed_blade>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>97</uiIndex>
+    <szText>I love it when they try to fight back!</szText>
+    <got_missed>1</got_missed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+</TAUNTS>

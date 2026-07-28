@@ -1,0 +1,7 @@
+Download latest ja2 1.13 directly from:
+
+https://github.com/1dot13/source/releases
+
+(available in multiple language versions as well)
+
+21.08.2023

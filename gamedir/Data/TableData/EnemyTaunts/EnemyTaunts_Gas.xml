@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>I... can't... catch my breath...</szText>
+    <got_hit_gas>1</got_hit_gas>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>My... lungs...</szText>
+    <got_hit_gas>1</got_hit_gas>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Gas! Oh...</szText>
+    <got_hit_gas>1</got_hit_gas>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>I can't breathe!</szText>
+    <got_hit_gas>1</got_hit_gas>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>It burns!</szText>
+    <got_hit_gas>1</got_hit_gas>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Too much... Mexican food...</szText>
+    <got_hit_gas>1</got_hit_gas>
+    <cunning>1</cunning>
+  </TAUNT>
+</TAUNTS>

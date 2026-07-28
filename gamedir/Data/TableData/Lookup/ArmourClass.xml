@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<ArmourClass>
+		<id>0</id>
+		<name>Helmet</name>
+	</ArmourClass>
+	<ArmourClass>
+		<id>1</id>
+		<name>Vest</name>
+	</ArmourClass>
+	<ArmourClass>
+		<id>2</id>
+		<name>Leggings</name>
+	</ArmourClass>
+	<ArmourClass>
+		<id>3</id>
+		<name>Plate</name>
+	</ArmourClass>
+	<ArmourClass>
+		<id>4</id>
+		<name>Monster</name>
+	</ArmourClass>
+	<ArmourClass>
+		<id>5</id>
+		<name>Vehicle</name>
+	</ArmourClass>
+</JA2Data>

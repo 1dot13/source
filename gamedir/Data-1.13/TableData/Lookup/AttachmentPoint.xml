@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<AttachmentPoint>
+		<id>0</id>
+		<name>None</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>1</id>
+		<name>Small Molle</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>2</id>
+		<name>Medium Molle</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>3</id>
+		<name>All Molle</name>
+	</AttachmentPoint>	
+	<AttachmentPoint>
+		<id>4</id>
+		<name>Hydration Carrier</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>7</id>
+		<name>All Molle and Carrier</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>8</id>
+		<name>Surgical Mask and Gloves</name>
+	</AttachmentPoint>
+	<AttachmentPoint>
+		<id>16</id>
+		<name>Batteries</name>
+	</AttachmentPoint>	
+</JA2Data>

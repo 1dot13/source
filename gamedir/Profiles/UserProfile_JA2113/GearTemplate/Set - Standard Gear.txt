@@ -1,0 +1,96 @@
+# Any line beginning with '#' or '/' is treated as a comment
+# 1st number stands for the inventory slot
+# 2nd number is for the item that should be equipped. If 0 is used, any attachments following will be tried to be attached to an item in that slot.
+# Only entry 1 and 2 are required, thoguh more are possible
+# 3rd number is for the ammo of an item (if the item is not a gun, then this will be 0)
+# all following entries are for attachments.
+
+# This template is an example of a template. You can create new templates either ingame or by creating new .txt files in this folder.
+# This template combines several sub-templates
+# This will equip a merc with what I deem to be 'standard gear'
+# We do not select a main gun here, but will add attachments to it if we have one in place
+     
+# helmets
+0 182
+0 181
+0 180
+0 825
+0 813
+0 801
+0 834
+0 822
+0 810
+0 179
+0 178
+0 177
+0 302
+0 176
+# vests
+1 827
+1 815
+1 803
+1 836
+1 824
+1 812
+1 283
+1 166
+1 165
+1 164
+1 191
+1 190
+1 189
+1 161
+1 284
+# vest plate inserts
+1 0 0 183 837
+# legs
+2 838
+
+# face items
+3 210 
+4 212 
+
+# attach various attachments on any gun in our hands
+5 0 0 208 1000 1007 999 1030 1029 209 947 1011 902 1001 1006 1003 1012 950 1005 241 1525 307 322
+
+# LBE
+7 1089 
+8 1082 
+10 1098
+
+# Insert list of knives here.
+13 37 
+21 213 
+
+# sidearm. This obviously could be a very long list
+22 1 73
+22 2 73
+22 6 0
+# This forces any sidearm to get a laser sight
+22 0 0 1005 241
+
+# medkit
+25 201 
+
+# Smoke grenade, important for cover. We might want to smoke our own team, so this one better not be dangerous
+26 151 
+# if possible, use a 2nd smoke grenade. If that ain't possible, use something with more pep.
+27 151 
+27 133 
+27 132 
+
+# vacuum grenades
+28 131 
+
+# Hand grenades. I prefer minigrenades, as they have slightly better range. If those aren't there, use standard hand grenades.
+29 134 
+29 135 
+ # cleaning kit
+30 1576 
+
+# Water is important to replenish breath. If canteen isn't possible, we might try alcohol
+44 214 
+44 1570 
+44 255 
+44 245 
+44 256 

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>You scared, motherfucker?</szText>
+    <szTextCensored>You scared, bastard?</szTextCensored>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>This is gonna hurt!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Come to daddy!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Come to momma!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <female>1</female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>I'll chop your balls off!</szText>
+    <aggressive>1</aggressive>
+    <charge_blade>1</charge_blade>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Hey, wanna play?</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Gonna scalp ya, sucker!</szText>
+    <charge_blade>1</charge_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Come to papa.</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Show me your guts!</szText>
+    <charge_blade>1</charge_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>I'll rip you to pieces!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Motherfucker!</szText>
+    <szTextCensored>Monkey fighter!</szTextCensored>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>I can smell your fear!</szText>
+    <charge_blade>1</charge_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Chaaarge!</szText>
+    <charge_blade>1</charge_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>Guns are for pussies!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Your ass is mine!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>Welcome to the world of pain. I'll be your guide!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>I'll slice ya up like a mango!</szText>
+    <charge_blade>1</charge_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Heads are gonna roll!</szText>
+    <charge_blade>1</charge_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Closing in!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>Ready or not, here I come!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>It's time to get personal!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Stop me if you can!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>You and me! No rules! Come on, coward!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>You don't leave me a choice!</szText>
+    <charge_blade>1</charge_blade>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Who needs guns anyway?</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>I'll stab you until you say "ouch, I'm dead"!</szText>
+    <charge_blade>1</charge_blade>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>How 'bout a facelift?</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>It's Christmas! And you've been VERY naughty!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>Hugs!</szText>
+    <charge_blade>1</charge_blade>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>I promise it won't hurt... much.</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Tag!</szText>
+    <charge_hth>1</charge_hth>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Shit, I can't believe I'm doing this!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Prepare to suffer!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>I will destroy you!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>I looked for you, I found you and now I will kill you!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+    <brave>1</brave>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>Your life is over, asshole!</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Here comes Johnny!</szText>
+    <aggressive>1</aggressive>
+    <charge_blade>1</charge_blade>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>You're the disease and I'm the cure.</szText>
+    <charge_blade>1</charge_blade>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>I'm going to beat the crap out of you!</szText>
+    <charge_hth>1</charge_hth>
+    <charge_blade>1</charge_blade>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>I'll punch you, I'll stab you, I'll strangle you! You know... that's what friends do!</szText>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>I kick ass for the Queen!</szText>
+    <charge_hth>1</charge_hth>
+    <army>1</army>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>I warn you! I watched "Enter the Dragon" TWICE!</szText>
+    <charge_hth>1</charge_hth>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>I'll rip your fucking legs out of your ass!</szText>
+    <szTextCensored>I'll rip your freaking legs out of your ass!</szTextCensored>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>I'll bash your skull in!</szText>
+    <charge_hth>1</charge_hth>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>I'll stomp on your head till you're dead!</szText>
+    <charge_hth>1</charge_hth>
+  </TAUNT>
+</TAUNTS>

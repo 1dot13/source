@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Hey, who touched me?</szText>
+    <got_robbed>1</got_robbed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Hey, didn't your momma buy your own toys?</szText>
+    <got_robbed>1</got_robbed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Damn, this one was swift!</szText>
+    <got_robbed>1</got_robbed>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Stealing stuff will only get you killed!</szText>
+    <got_robbed>1</got_robbed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Hey! That's mine!</szText>
+    <got_robbed>1</got_robbed>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Get your own stuff, you cheapskate!</szText>
+    <got_robbed>1</got_robbed>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Meh... keep it, it's junk anyway!</szText>
+    <got_robbed>1</got_robbed>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>I'll cut off your hands for that, you bastard!</szText>
+    <got_robbed>1</got_robbed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>I'll show you how we treat thieves in these parts!</szText>
+    <got_robbed>1</got_robbed>
+    <aggressive>1</aggressive>
+  </TAUNT>
+</TAUNTS>

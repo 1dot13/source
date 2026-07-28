@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<POCKETPOPUPS>
+	<POCKET>
+		<pIndex>1</pIndex>
+		<pName>Gun Sling</pName>
+		<popup>
+			<generator>
+				<id>addWeaponGroups</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>2</pIndex>
+		<pName>Knife</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>	
+	</POCKET>
+
+	<POCKET>
+		<pIndex>6</pIndex>
+		<pName>Ammo Belt</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>7</pIndex>
+		<pName>SMG Holster</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>		
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>9</pIndex>
+		<pName>LgMagPocket</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>10</pIndex>
+		<pName>AR Mag</pName>
+		<popup>
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>11</pIndex>
+		<pName>Pistol Holster</pName>
+		<popup>
+			<generator>
+				<id>addWeapons</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>12</pIndex>
+		<pName>SMG Mag</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>13</pIndex>
+		<pName>Rifle Grenade</pName>
+		<generator>
+			<id>addRifleGrenades</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>14</pIndex>
+		<pName>Grenade</pName>
+		<generator>
+			<id>addGrenades</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>15</pIndex>
+		<pName>Pistol Mag</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>19</pIndex>
+		<pName>Speedloader</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>22</pIndex>
+		<pName>Double Belt</pName>
+		<popup>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>4</pIndex>
+		<pName>General Large</pName>
+		<popup>
+			<subMenu>
+				<name>weapons</name>
+				<generator>
+					<id>addWeaponGroups</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>ammo</name>
+				<subMenu>
+					<name>RPG rockets</name>
+					<generator>
+						<id>addRocketAmmo</id>
+					</generator>
+				</subMenu>
+				<subMenu>
+					<name>Rifle grenades</name>
+					<generator>
+						<id>addRifleGrenades</id>
+					</generator>
+				</subMenu>
+
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>5</pIndex>
+		<pName>Combat Pack</pName>
+		<popup>
+			<subMenu>
+				<name>weapons</name>
+				<generator>
+					<id>addWeaponGroups</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>ammo</name>
+				<subMenu>
+					<name>RPG rockets</name>
+					<generator>
+						<id>addRocketAmmo</id>
+					</generator>
+				</subMenu>
+				<subMenu>
+					<name>Rifle grenades</name>
+					<generator>
+						<id>addRifleGrenades</id>
+					</generator>
+				</subMenu>
+
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>8</pIndex>
+		<pName>Medium General</pName>
+		<popup>
+			<subMenu>
+				<name>ammo</name>
+				<generator>
+					<id>addAmmo</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+
+			<subMenu>
+				<name>kits</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			
+			<subMenu>
+				<name>face gear</name>
+				<generator>
+					<id>addFaceGear</id>
+				</generator>
+			</subMenu>
+		</popup>	
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>16</pIndex>
+		<pName>Tiny General</pName>
+		<popup>
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>misc</name>
+				<generator>
+					<id>addMisc</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>kits</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>17</pIndex>
+		<pName>Small General</pName>
+		<popup>
+			<subMenu>
+				<name>grenades</name>
+				<generator>
+					<id>addGrenades</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>misc</name>
+				<generator>
+					<id>addMisc</id>
+				</generator>
+			</subMenu>
+			<subMenu>
+				<name>kits</name>
+				<generator>
+					<id>addKits</id>
+				</generator>
+			</subMenu>
+			<generator>
+				<id>addAmmo</id>
+			</generator>
+		</popup>
+	</POCKET>
+		
+	<POCKET>
+		<pIndex>20</pIndex>
+		<pName>Medical Pocket</pName>
+		<generator>
+			<id>addKits</id>
+		</generator>
+	</POCKET>
+	
+	<POCKET>
+		<pIndex>21</pIndex>
+		<pName>Syringe Pocket</pName>
+		<generator>
+			<id>addKits</id>
+		</generator>
+	</POCKET>
+
+</POCKETPOPUPS>

@@ -1,0 +1,142 @@
+<!--
+	Possible vests:
+		YELLOWVEST
+		BLACKSHIRT
+		REDVEST
+		GREENVEST
+		JEANVEST
+		BLUEVEST
+		greyVEST  :: note capitalization here
+		GYELLOWSHIRT
+		WHITEVEST
+		PURPLESHIRT
+		BLUEVEST
+		BROWNVEST
+	
+	Possible pants:
+		GREENPANTS
+		BLACKPANTS
+		BEIGEPANTS
+		TANPANTS
+		JEANPANTS
+		BLUEPANTS
+
+-->
+
+<CLOTHESLIST>
+	<CLOTHES>
+		<uiIndex>0</uiIndex>
+		<szName>None</szName>
+		<Vest />
+		<Pants />
+	</CLOTHES>
+	<CLOTHES>
+    <uiIndex>1</uiIndex>
+		<szName>YELLOWVEST</szName>
+		<Vest>YELLOWVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>2</uiIndex>
+		<szName>BLACKSHIRT</szName>
+		<Vest>BLACKSHIRT</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>3</uiIndex>
+		<szName>REDVEST</szName>
+		<Vest>REDVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>4</uiIndex>
+		<szName>GREENVEST</szName>
+		<Vest>GREENVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>5</uiIndex>
+		<szName>JEANVEST</szName>
+		<Vest>JEANVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>6</uiIndex>
+		<szName>BLUEVEST</szName>
+		<Vest>BLUEVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>7</uiIndex>
+		<szName>grey shirt</szName>
+		<Vest>greyVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>8</uiIndex>
+		<szName>light green</szName>
+		<Vest>GYELLOWSHIRT</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>9</uiIndex>
+		<szName>WHITEVEST</szName>
+		<Vest>WHITEVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>10</uiIndex>
+		<szName>PURPLESHIRT</szName>
+		<Vest>PURPLESHIRT</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>11</uiIndex>
+		<szName>BROWNVEST</szName>
+		<Vest>BROWNVEST</Vest>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>12</uiIndex>
+		<szName>Army trousers</szName>
+		<Pants>GREENPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>13</uiIndex>
+		<szName>BLACKPANTS</szName>
+		<Pants>BLACKPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>14</uiIndex>
+		<szName>BEIGEPANTS</szName>
+		<Pants>BEIGEPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>15</uiIndex>
+		<szName>TANPANTS</szName>
+		<Pants>TANPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>16</uiIndex>
+		<szName>JEANPANTS</szName>
+		<Pants>JEANPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>17</uiIndex>
+		<szName>Bluejeans</szName>
+		<Pants>BLUEPANTS</Pants>
+	</CLOTHES>
+	
+	<CLOTHES>
+    <uiIndex>18</uiIndex>
+		<szName>white t-shirt and jeans</szName>
+		<Vest>WHITEVEST</Vest>
+		<Pants>BLUEPANTS</Pants>
+	</CLOTHES>
+
+</CLOTHESLIST>

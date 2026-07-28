@@ -1,0 +1,38 @@
+﻿<!--
+	We define various map interactions in this xml. If we hover our mouse (after right click) over a tile and it fits a set of data from here,
+	we can interact with it, setting of various actions that.
+	We can define interactions very broadly (example: we define all water taps found in any location in any map to behave a certain way) or 
+	very precise (example: set a specific computer in a specific to do something). Note that more precise actions override broad descriptions
+	(so we can set a very broad action for all water taps, and then define one specific one to behave differently).
+		
+	SectorGrid					sector that this action happens in
+	sectorlevel					0: surface 1-3: basement
+	
+	If we do not set SectorGrid and sectorlevel, this action will work in any sector in any location (sStructureGridno and sLevel are no longer used). 
+	
+	szTileSetName				tileset that the structure we 'interact' with is part of
+	usTileIndex					index of the structure in the tileset, multiple ones can be set
+	
+	These have to be set, and define what specific structures are valid for the action. We can set multiple indizes via usTileIndex (see examples).
+	
+	sStructureGridno			location of the structure (you can get that by pressing [f] in tactical), multiple ones can be set
+	sLevel						0: floor level 1: on a roof -1: don't care
+	
+	If a specific map was set above, we can set a specific location here.
+	
+	sActionType					what kind of action is possible here?
+								0: nothing
+								1: hack a computer
+								2: read a file from a file cabinet
+								3: take water from a water tap
+								4: buy soda from a soda machine
+								5: play a minigame
+	difficulty					how hard it is to perform action
+	luaactionid					if this is set, lua script HandleInteractiveActionResult() in Overhead.lua is called 
+								with this Id to perform special actions. If no ID is set, the standard action is called.
+								
+	In this file we always define in general with what we can interact, and then set specific interactions.
+-->
+<INTERACTIVEACTIONS>
+	
+</INTERACTIVEACTIONS>

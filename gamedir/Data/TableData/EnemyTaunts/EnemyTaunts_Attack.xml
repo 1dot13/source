@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Killing time!</szText>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>I'll kill you!</szText>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Show me what you've got!</szText>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Take this, you maggot!</szText>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Here is your freedom, you son of a bitch!</szText>
+    <attack>1</attack>
+    <army>1</army>
+    <elite>1</elite>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>I'll break you!</szText>
+    <aggressive>1</aggressive>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>6</uiIndex>
+    <szText>Dying ain't much of a living, boy!</szText>
+    <attack>1</attack>
+    <target_male>1</target_male>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>7</uiIndex>
+    <szText>Dying ain't much of a living, girl!</szText>
+    <attack>1</attack>
+    <target_female>1</target_female>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>8</uiIndex>
+    <szText>Trust me. I'm a professional!</szText>
+    <attack>1</attack>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>9</uiIndex>
+    <szText>You're the disease and I'm the cure.</szText>
+    <attack>1</attack>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>10</uiIndex>
+    <szText>Sucker!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>11</uiIndex>
+    <szText>Suck on this!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>12</uiIndex>
+    <szText>Come get some!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>13</uiIndex>
+    <szText>You're mine!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>14</uiIndex>
+    <szText>Die!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>15</uiIndex>
+    <szText>You scared, motherfucker?</szText>
+    <szText>You scared, bastard?</szText>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>16</uiIndex>
+    <szText>This is gonna hurt!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>17</uiIndex>
+    <szText>Eat shit and die!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>18</uiIndex>
+    <szText>Send me a postcard from hell!</szText>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>19</uiIndex>
+    <szText>I think you'll enjoy this.</szText>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>20</uiIndex>
+    <szText>Come to daddy!</szText>
+    <fire_gun>1</fire_gun>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>21</uiIndex>
+    <szText>Come to momma!</szText>
+    <fire_gun>1</fire_gun>
+    <female>1</female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>22</uiIndex>
+    <szText>This is for the Queen!</szText>
+    <fire_gun>1</fire_gun>
+    <army>1</army>
+    <elite>1</elite>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>23</uiIndex>
+    <szText>You'll be six feet under in no time!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>24</uiIndex>
+    <szText>Gonna send ya home in a pine box, loser!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>25</uiIndex>
+    <szText>Hey, wanna play?</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>26</uiIndex>
+    <szText>Viva la revolution!</szText>
+    <fire_gun>1</fire_gun>
+    <militia>1</militia>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>27</uiIndex>
+    <szText>Your move, creep!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>28</uiIndex>
+    <szText>You should have stayed home, bitch!</szText>
+    <fire_gun>1</fire_gun>
+    <target_female>1</target_female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>29</uiIndex>
+    <szText>You should have stayed home, fucker!</szText>
+    <szTextCensored>You should have stayed home, sucker!</szTextCensored>
+    <fire_gun>1</fire_gun>
+    <target_male>1</target_male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>30</uiIndex>
+    <szText>Die, vermin!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>31</uiIndex>
+    <szText>Feeling scared?</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>32</uiIndex>
+    <szText>Dance for me!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>33</uiIndex>
+    <szText>How fun!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>34</uiIndex>
+    <szText>Dakka-dakka-dakka!</szText>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>35</uiIndex>
+    <szText>Guns don't kill people, I do!</szText>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>36</uiIndex>
+    <szText>I'm the best!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>37</uiIndex>
+    <szText>Kneel before me, loser!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>38</uiIndex>
+    <szText>Come on! I don't got all day!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>39</uiIndex>
+    <szText>Eat lead!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>40</uiIndex>
+    <szText>I'm better than you!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>41</uiIndex>
+    <szText>You fucked with the wrong man!</szText>
+    <szTextCensored>You messed with the wrong man!</szTextCensored>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+    <male>1</male>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>42</uiIndex>
+    <szText>You fucked with the wrong woman!</szText>
+    <szTextCensored>You messed with the wrong woman!</szTextCensored>
+    <fire_gun>1</fire_gun>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+    <female>1</female>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>43</uiIndex>
+    <szText>Stop wasting my time!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>44</uiIndex>
+    <szText>You deserve it!</szText>
+    <fire_gun>1</fire_gun>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>45</uiIndex>
+    <szText>Yeah!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>46</uiIndex>
+    <szText>That's right!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>47</uiIndex>
+    <szText>You're dead.</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>48</uiIndex>
+    <szText>How ya like it?</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>49</uiIndex>
+    <szText>You had it coming!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>50</uiIndex>
+    <szText>Why, hello there!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>51</uiIndex>
+    <szText>Say "cheese"!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>52</uiIndex>
+    <szText>Yippie ki-yay, mister Falcon!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>53</uiIndex>
+    <szText>Could you just please die?</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>54</uiIndex>
+    <szText>Garbage day!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>55</uiIndex>
+    <szText>I'm doing the world a favor getting rid of your ugly face!</szText>
+    <fire_gun>1</fire_gun>
+    <target_appearance>1</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>56</uiIndex>
+    <szText>Hey babe, give me your number, and I'll stop shooting!</szText>
+    <cunning>1</cunning>
+    <male>1</male>
+    <fire_gun>1</fire_gun>
+    <target_female>1</target_female>
+    <target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>57</uiIndex>
+    <szText>Hey handsome, give me your number, and I'll stop shooting!</szText>
+    <cunning>1</cunning>
+    <female>1</female>
+    <fire_gun>1</fire_gun>
+    <target_male>1</target_male>
+    <target_appearance>4</target_appearance>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>58</uiIndex>
+    <szText>I will destroy you!</szText>
+    <aggressive>0</aggressive>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>59</uiIndex>
+    <szText>Dead or alive, you're coming with me.</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>60</uiIndex>
+    <szText>I looked for you, I've found you and now I will kill you!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>61</uiIndex>
+    <szText>Somebody's gonna get hurt. It ain't gonna be me!</szText>
+    <fire_gun>1</fire_gun>
+    <brave>1</brave>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>62</uiIndex>
+    <szText>Your life is over, asshole!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>63</uiIndex>
+    <szText>I deliver justice... one bullet at a time!</szText>
+    <fire_gun>1</fire_gun>
+    <militia>1</militia>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>64</uiIndex>
+    <szText>Viva la revolution!</szText>
+    <fire_gun>1</fire_gun>
+    <militia>1</militia>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>65</uiIndex>
+    <szText>Your move, creep!</szText>
+    <fire_gun>1</fire_gun>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>66</uiIndex>
+    <szText>I'm gonna blow your head off!</szText>
+    <fire_gun>1</fire_gun>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>67</uiIndex>
+    <szText>You cowboys are finished!</szText>
+    <fire_gun>1</fire_gun>
+    <defensive>1</defensive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>68</uiIndex>
+    <szText>Long live the Queen!</szText>
+    <fire_gun>1</fire_gun>
+    <army>1</army>
+    <elite>1</elite>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>69</uiIndex>
+    <szText>The Queen says: Die!</szText>
+    <fire_gun>1</fire_gun>
+    <army>1</army>
+    <elite>1</elite>
+    <aggressive>1</aggressive>
+    <brave>1</brave>
+  </TAUNT>
+</TAUNTS>

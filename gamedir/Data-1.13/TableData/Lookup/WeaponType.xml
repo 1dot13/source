@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<WeaponType>
+		<id>0</id>
+		<name>None</name>
+	</WeaponType>
+	<WeaponType>
+		<id>1</id>
+		<name>Pistol</name>
+	</WeaponType>
+	<WeaponType>
+		<id>2</id>
+		<name>Machine Pistol</name>
+	</WeaponType>
+	<WeaponType>
+		<id>3</id>
+		<name>Submachinegun</name>
+	</WeaponType>
+	<WeaponType>
+		<id>4</id>
+		<name>Rifle</name>
+	</WeaponType>
+	<WeaponType>
+		<id>5</id>
+		<name>Sniper Rifle</name>
+	</WeaponType>
+	<WeaponType>
+		<id>6</id>
+		<name>Assault Rifle</name>
+	</WeaponType>
+	<WeaponType>
+		<id>7</id>
+		<name>Light Machinegun</name>
+	</WeaponType>
+	<WeaponType>
+		<id>8</id>
+		<name>Shotgun</name>
+	</WeaponType>
+</JA2Data>

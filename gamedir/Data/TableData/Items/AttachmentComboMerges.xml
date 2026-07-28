@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ATTACHMENTCOMBOMERGELIST>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>0</uiIndex>
+		<usItem>305</usItem>
+		<usAttachment1>306</usAttachment1>
+		<usAttachment2>0</usAttachment2>
+		<usResult>307</usResult>
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>1</uiIndex>
+		<usItem>308</usItem>
+		<usAttachment1>309</usAttachment1>
+		<usAttachment2>304</usAttachment2>
+		<usResult>310</usResult>
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>2</uiIndex>
+		<usItem>318</usItem>
+		<usAttachment1>319</usAttachment1>
+		<usAttachment2>320</usAttachment2>
+		<usResult>321</usResult>
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>3</uiIndex>
+		<usItem>315</usItem>
+		<usAttachment1>316</usAttachment1>
+		<usAttachment2>0</usAttachment2>
+		<usResult>317</usResult>
+	</ATTACHMENTCOMBOMERGE>
+	<ATTACHMENTCOMBOMERGE>
+		<uiIndex>4</uiIndex>
+		<usItem>264</usItem>
+		<usAttachment1>316</usAttachment1>
+		<usAttachment2>0</usAttachment2>
+		<usResult>223</usResult>
+	</ATTACHMENTCOMBOMERGE>
+</ATTACHMENTCOMBOMERGELIST>

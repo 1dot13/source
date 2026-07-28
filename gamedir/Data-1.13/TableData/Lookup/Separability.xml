@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<Separability>
+		<id>0</id>
+		<name>Removable</name>
+	</Separability>
+	<Separability>
+		<id>1</id>
+		<name>Inseparable</name>
+	</Separability>
+	<Separability>
+		<id>2</id>
+		<name>Replaceable</name>
+	</Separability>
+</JA2Data>

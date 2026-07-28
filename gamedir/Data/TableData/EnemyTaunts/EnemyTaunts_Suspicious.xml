@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TAUNTS>
+  <TAUNT>
+    <uiIndex>0</uiIndex>
+    <szText>Attention, everyone! We've got possible contact!</szText>
+    <suspicious>1</suspicious>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>1</uiIndex>
+    <szText>Listen everyone, there's some weird shit going on.</szText>
+    <suspicious>1</suspicious>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>2</uiIndex>
+    <szText>Can someone check out these noises?</szText>
+    <suspicious>1</suspicious>
+    <brave>1</brave>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>3</uiIndex>
+    <szText>Possible contact! Oh, I hope it's them. I haven't killed anything in a long time.</szText>
+    <suspicious>1</suspicious>
+    <aggressive>1</aggressive>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>4</uiIndex>
+    <szText>Let me guess, another false alarm.</szText>
+    <suspicious>1</suspicious>
+    <cunning>1</cunning>
+  </TAUNT>
+  <TAUNT>
+    <uiIndex>5</uiIndex>
+    <szText>Can someone else check it out, please?</szText>
+    <suspicious>1</suspicious>
+    <cunning>1</cunning>
+  </TAUNT>
+</TAUNTS>

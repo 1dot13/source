@@ -1,0 +1,19 @@
+<ADDITIONALTILEPROPERTIES>
+<ubTerrainID>1</ubTerrainID> <!-- terrain type, 1-10: FLAT_GROUND, FLAT_FLOOR, PAVED_ROAD, 
+DIRT_ROAD, LOW_GRASS, HIGH_GRASS, TRAIN_TRACKS, LOW_WATER, MED_WATER, DEEP_WATER-->
+<!-- Note: ubTerrainID will be assigned dynamically if tile is used in tileset as texture, road, floor or roof. Set this tag only for other objects you want to treat as surfaces. -->
+
+<bWoodCamoAffinity>0</bWoodCamoAffinity><!-- how powerful will be wood camo on this tile (in percents, can be negative) --> 
+<bDesertCamoAffinity>0</bDesertCamoAffinity><!-- how powerful will be desert camo on this tile (in percents, can be negative) --> 
+<bUrbanCamoAffinity>0</bUrbanCamoAffinity><!-- how powerful will be urban camo on this tile (in percents, can be negative) --> 
+<bSnowCamoAffinity>0</bSnowCamoAffinity><!-- how powerful will be snow camo on this tile (in percents, can be negative) --> 
+<!-- note: affinities for all tiles put on the same map grid stack (unless specific tile is a surface, then all layers below it are ignored) -->
+
+<bCamoStanceModifer>0</bCamoStanceModifer><!-- how much less important will be merc's stance in calculating camo (-10 - 10)--> 
+<bSoundModifier>0</bSoundModifier><!-- how much louder will be footstep sound on this tile (in tile range ) (-10 - 10) -->
+<bStealthDifficultyModifer>0</bStealthDifficultyModifer><!-- how much more difficult will be sneaking through this tile (in percents, can be negative) -->
+
+<bTrapBonus>0</bTrapBonus><!-- bonus to trap level set on this tile (-10 - 10) -->
+
+</ADDITIONALTILEPROPERTIES>
+<!-- note: for "regwater" tiles (texture 6) properties will be set for edges only -->

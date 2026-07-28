@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<JA2Data>
+	<LBEClass>
+		<id>0</id>
+		<name>Nothing</name>
+	</LBEClass>
+	<LBEClass>
+		<id>1</id>
+		<name>Thigh Pack</name>
+	</LBEClass>
+	<LBEClass>
+		<id>2</id>
+		<name>Vest</name>
+	</LBEClass>
+	<LBEClass>
+		<id>3</id>
+		<name>Combat Pack</name>
+	</LBEClass>
+	<LBEClass>
+		<id>4</id>
+		<name>Backpack</name>
+	</LBEClass>
+</JA2Data>

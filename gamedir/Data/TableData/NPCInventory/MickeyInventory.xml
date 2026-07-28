@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<INVENTORYLIST>
+	<INVENTORY>
+		<uiIndex>0</uiIndex>
+		<sItemIndex>217</sItemIndex>
+		<ubOptimalNumber>0</ubOptimalNumber>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>1</uiIndex>
+		<sItemIndex>230</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>2</uiIndex>
+		<sItemIndex>231</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>3</uiIndex>
+		<sItemIndex>232</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>4</uiIndex>
+		<sItemIndex>260</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>5</uiIndex>
+		<sItemIndex>261</sItemIndex>
+	</INVENTORY>
+	<INVENTORY>
+		<uiIndex>6</uiIndex>
+		<sItemIndex>262</sItemIndex>
+	</INVENTORY>
+</INVENTORYLIST>

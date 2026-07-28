@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file defines the mine name on strategic screen and resource type name in mine infobox.
+
+Fields index:
+	uiIndex					- it is the number identifier in initmines.lua. (max 255 entries) 
+								e.g. MineType = { Silver = 0, Gold = 1.... }
+								MineType assignment for each mines is done at function InitializeMines()
+								within the same LUA script.
+	
+	sNameType			- mine name to be displayed on strategic screen.
+				  
+	sMineral				- resource type name to be displayed in mine infobox
+-->
+<MINERALS>
+	<TYPE>
+		<uiIndex>0</uiIndex>
+		<sNameType>Mine</sNameType>
+		<sMineral>Silver</sMineral>
+	</TYPE>
+	<TYPE>
+		<uiIndex>1</uiIndex>
+		<sNameType>Mine</sNameType>
+		<sMineral>Gold</sMineral>
+	</TYPE>
+</MINERALS>
