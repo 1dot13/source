@@ -21,7 +21,7 @@
 #include "Interactive Tiles.h"
 #include "Points.h"
 #include "message.h"
-#include "world items.h"
+#include "World Items.h"
 #include "physics.h"
 #include "Soldier Create.h"
 #include "Dialogue Control.h"

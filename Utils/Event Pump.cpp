@@ -3,7 +3,7 @@
 #include "sgp.h"
 #include "WCheck.h"
 #include "Event Pump.h"
-#include "Timer.h"
+#include "timer.h"
 #include "Sound Control.h"
 #include "Overhead.h"
 #include "Weapons.h"

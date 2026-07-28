@@ -35,7 +35,7 @@
 	#include "WordWrap.h"
 	#include "Interface Control.h"
 	#include "vobject_blitters.h"
-	#include "world items.h"
+	#include "World Items.h"
 	#include "Points.h"
 	#include "physics.h"
 	#include "finances.h"

@@ -5,7 +5,7 @@
 	#include "DEBUG.H"
 	#include "Timer Control.h"
 	#include "Overhead.h"
-	#include "handle items.h"
+	#include "Handle Items.h"
 	#include "worlddef.h"
 	#include "renderworld.h"
 	#include "Interface Control.h"

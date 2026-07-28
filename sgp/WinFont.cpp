@@ -18,7 +18,7 @@
 #include "vsurface_private.h"
 #include "DirectX Common.h"
 #include <ddraw.h>
-#include "winfont.h"
+#include "WinFont.h"
 #include "Font.h"
 #include "Font Control.h"
 #include "GameSettings.h"

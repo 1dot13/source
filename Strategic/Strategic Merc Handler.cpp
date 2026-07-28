@@ -14,7 +14,7 @@
 	#include "random.h"
 	#include "Morale.h"
 	#include "mercs.h"
-	#include "Mapscreen.h"
+	#include "mapscreen.h"
 	#include "Weapons.h"
 	#include "Strategic Movement.h"
 	#include "LaptopSave.h"

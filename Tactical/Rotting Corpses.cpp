@@ -5,7 +5,7 @@
 	#include "stdlib.h"
 	#include "DEBUG.H"
 	#include "Weapons.h"
-	#include "handle items.h"
+	#include "Handle Items.h"
 	#include "worlddef.h"
 	#include "worldman.h"
 	#include "Rotting Corpses.h"

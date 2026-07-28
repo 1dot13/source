@@ -15,7 +15,7 @@
 	#include <Font.h>
 	#include "Text.h"
 	#include "Interface Items.h"
-	#include "world items.h"
+	#include "World Items.h"
 	#include "Points.h"
 	#include "english.h"
 	#include "GameSettings.h"

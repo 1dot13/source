@@ -46,7 +46,7 @@
 #include "Ja25_Tactical.h"
 #include "Ja25 Strategic Ai.h"
 #else
-#include "meanwhile.h"
+#include "Meanwhile.h"
 #endif // JA2UB
 
 //forward declarations of common classes to eliminate includes

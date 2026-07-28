@@ -22,7 +22,7 @@
 	#include "Overhead.h"
 	#include "Handle UI.h"
 	#include "Event Pump.h"
-	#include "world items.h"
+	#include "World Items.h"
 	#include "LoadScreen.h"
 	#include "Render Dirty.h"
 	#include "Isometric Utils.h"
