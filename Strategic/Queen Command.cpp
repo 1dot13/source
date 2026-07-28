@@ -13,7 +13,7 @@
 	#include "message.h"
 	#include "Map Edgepoints.h"
 	#include "PreBattle Interface.h"
-	#include "strategic status.h"
+	#include "Strategic Status.h"
 	#include "Squads.h"
 	#include "Assignments.h"
 	#include "Items.h"

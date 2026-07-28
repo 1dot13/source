@@ -32,7 +32,7 @@
 	#include "expat.h"
 	#include "XML.h"
 	#include "Utilities.h"
-	#include "store inventory.h"
+	#include "Store Inventory.h"
 
 // Flugente: in order not to loop over MAXITEMS items if we only have a few thousand, remember the actual number of items in the xml
 UINT32 gMAXITEMS_READ = 0;

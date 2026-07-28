@@ -83,7 +83,7 @@
 #include "Exit Grids.h"
 #include "jascreens.h"
 #include "strategic.h"
-#include "arms dealer init.h"
+#include "Arms Dealer Init.h"
 #include "Interface Utils.h"
 #include "Air Raid.h"
 #include "Civ Quotes.h"

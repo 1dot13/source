@@ -32,7 +32,7 @@
 #include "Communication.h"
 #endif
 #include "overhead map.h"
-#include "world items.h"
+#include "World Items.h"
 #include "Game Clock.h"
 #include "Interface Items.h"
 #include "physics.h"

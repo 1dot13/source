@@ -29,7 +29,7 @@
 #include "renderworld.h"
 #include "structure.h"
 #include "Interface Panels.h"
-#include "Handle items.h"
+#include "Handle Items.h"
 #include "UI Cursors.h"
 #include "Handle UI Plan.h"
 #include "message.h"
