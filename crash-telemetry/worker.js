@@ -15,17 +15,23 @@
 
 const MAX_BYTES = 64 * 1024; // reports run 2-8 KB; anything near this is not ours
 
+// Every field below is lifted out of the uploaded file, and the endpoint is public
+// and unauthenticated: treat all of it as attacker-chosen, not just the handle.
+// Keep printable ASCII minus everything Discord reads as markup or a link, and cap
+// the length, so nothing in a report can shape the message around it.
+const clean = (s) => (s || "").replace(/[^A-Za-z0-9 .,+-]/g, "").slice(0, 64).trim();
+
 // Pull the header fields the client writes, for a one-line channel summary.
 // See writeExceptionBacktrace(): "*** CRASH code=... ***", then "  <key> <value>".
 function summarize(text) {
-  const field = (name) => (text.match(new RegExp(`^\\s+${name} (.+)$`, "m")) || [])[1]?.trim();
-  const code = (text.match(/code=(\w+)/) || [])[1] || "????????";
-  const av = (text.match(/access violation: (.+)/) || [])[1]?.trim();
+  const field = (name) => (text.match(new RegExp(`^\\s+${name} (.+)$`, "m")) || [])[1];
+  const code = clean((text.match(/code=(\w+)/) || [])[1]) || "????????";
+  const av = clean((text.match(/access violation: (.+)/) || [])[1]);
   const parts = [`\`${code}\`${av ? ` (${av})` : ""}`];
-  const build = field("build");
-  const handle = field("handle");
+  const build = clean(field("build"));
+  const handle = clean(field("handle"));
   if (build) parts.push(`build \`${build}\``);
-  if (handle) parts.push(`from **${handle.replace(/[`*_~|@]/g, "")}**`); // no pings, no markdown
+  if (handle) parts.push(`from **${handle}**`);
   return parts.join("  ·  ");
 }
 

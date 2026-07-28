@@ -7,7 +7,7 @@ const REPORT = `
   time 2026-07-26 10:41:02 UTC
   build 6a941c06
   handle @marco*evil
-  access violation: read from 00000002
+  access violation: read from 00000002 [x](https://evil.test) \`
   [0] 0071D5A0
   [1] 006BE7DE
 `;
@@ -33,6 +33,11 @@ assert.match(content, /C0000005/);
 assert.match(content, /read from 00000002/);
 assert.match(content, /build `6a941c06`/);
 assert.match(content, /marcoevil/);            // markdown and @ stripped from the handle
+// every field is attacker-chosen: no field may carry markup or a link into the
+// channel, and none may close the backticks or bold the summary wraps it in.
+assert.ok(!content.includes("]("), content);   // no link syntax out of the report
+assert.ok(!content.includes("://"), content);  // and no bare URL either
+assert.equal(content.match(/`/g).length, 4);   // only the two pairs summarize() opens
 assert.deepEqual(JSON.parse(sent.body.get("payload_json")).allowed_mentions, { parse: [] });
 assert.equal(await sent.body.get("files[0]").text(), REPORT);
 
