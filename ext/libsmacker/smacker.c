@@ -1467,6 +1467,33 @@ static char smk_render_video(struct smk_video_t * s, unsigned char * p, unsigned
 	return 0;
 }
 
+/* Ensure the audio output buffer holds buffer_size bytes. The buffer is
+	allocated from the header's max_buffer, but some encoders understate it
+	(fan-localized JA2 intro SMKs declare 2304 and deliver ~97KB frames);
+	the original SMACKW32.DLL played those fine, so trust the per-frame
+	size and grow, within a sanity cap against corrupt files. */
+static char smk_audio_fit_buffer(struct smk_audio_t * s)
+{
+	void * grown;
+
+	if (s->buffer_size <= (unsigned long)s->max_buffer)
+		return 0;
+
+	if (s->buffer_size > 0x1000000) {
+		fputs("libsmacker::smk_audio_fit_buffer() - ERROR: implausibly large audio chunk.\n", stderr);
+		return -1;
+	}
+
+	if ((grown = realloc(s->buffer, s->buffer_size)) == NULL) {
+		perror("libsmacker::smk_audio_fit_buffer() - ERROR: failed to grow audio buffer");
+		return -1;
+	}
+
+	s->buffer = grown;
+	s->max_buffer = s->buffer_size;
+	return 0;
+}
+
 /* Decompress audio track i. */
 static char smk_render_audio(struct smk_audio_t * s, unsigned char * p, unsigned long size)
 {
@@ -1484,6 +1511,11 @@ static char smk_render_audio(struct smk_audio_t * s, unsigned char * p, unsigned
 	if (!s->compress) {
 		/* Raw PCM data, update buffer size and perform copy */
 		s->buffer_size = size;
+
+		if (smk_audio_fit_buffer(s) < 0)
+			goto error;
+
+		t = s->buffer;
 		memcpy(t, p, size);
 	} else if (s->compress == 1) {
 		/* SMACKER DPCM compression */
@@ -1498,6 +1530,11 @@ static char smk_render_audio(struct smk_audio_t * s, unsigned char * p, unsigned
 			((unsigned int) p[2] << 16) |
 			((unsigned int) p[1] << 8) |
 			((unsigned int) p[0]);
+
+		if (smk_audio_fit_buffer(s) < 0)
+			goto error;
+
+		t = s->buffer;
 		p += 4;
 		size -= 4;
 		/* Compressed audio: must unpack here */
