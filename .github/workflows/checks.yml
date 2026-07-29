@@ -1,0 +1,26 @@
+name: checks
+
+# Repository checks that answer pass or fail and build nothing. Deliberately
+# not part of build.yml: that workflow is also what release.yml calls, and a
+# check has no business running again while a release is being assembled.
+on:
+  pull_request:
+
+jobs:
+  # VFS resolves paths case-insensitively, so two data files whose names differ
+  # only in case are one file to the game, and which of them wins is down to the
+  # order the directory happened to be read in. NTFS made that unrepresentable;
+  # a Linux checkout and a release assembled on Linux can both hold it, and it
+  # goes wrong quietly, so it is checked rather than discovered.
+  data_case:
+    runs-on: ubuntu-latest
+    steps:
+      # the check reads the index, not the files, so no blob has to be fetched
+      - name: Checkout source
+        uses: actions/checkout@v7
+        with:
+          filter: 'blob:none'
+          sparse-checkout: .github/scripts
+
+      - name: Check game data for paths that differ only in case
+        run: python3 .github/scripts/check-data-case.py
