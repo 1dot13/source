@@ -1,9 +1,5 @@
-#include <stdio.h>
 #include <string.h>
-#include <iostream>
 #include "Lua Interpreter.h"
-#include <windows.h>
-#include "MemMan.h"
 
 lua_State *L;
 
@@ -181,11 +177,6 @@ void InitializeLua( )
 	L = lua_open();
 	luaL_openlibs(L);
 
-	// Create the accessor metatable
-//	CreateLuaType( L, ACCESSOR_TABLE, LuaAccessors);
-//	lua_setglobal( L, ACCESSOR_TABLE); // We also want this class to be known to the script
-//	lua_pop(L, 1);
-
 	// Create a wide-character savvy string
 	CreateLuaType( L, "wstring", WStringMethods);
 	lua_setglobal( L, "wstring"); // We also want this class to be known to the script
@@ -194,37 +185,6 @@ void InitializeLua( )
 	LuaTacticalSetup( L);
 	LuaStrategicSetup( L);
 	LuaEnvironmentSetup( L);
-}
-
-int EvalLua (const wchar_t* buff) {
-	int error;
-	int newlen;
-	STR8 newstr = NULL;
-
-	// Since we get wide chars coming in, we need to convert to UTF8
-	newlen = WideCharToMultiByte( CP_UTF8, 0, buff, -1, newstr, 0, NULL, NULL);
-	newstr = (STR8) MemAlloc( newlen);
-	WideCharToMultiByte( CP_UTF8, 0, buff, -1, newstr, newlen, NULL, NULL);
-
-	error = luaL_loadbuffer(L, newstr, newlen-1, "line") ||
-		lua_pcall(L, 0, 0, 0);
-
-	MemFree( newstr);
-
-	if (error) {
-		const char *error = lua_tostring(L, -1);
-		int len = strlen( error);
-		if (len >= 7 && !strcmp( error + len - 7, "'<eof>'"))
-		{
-			lua_pop(L, 1);	/* pop error message from the stack */
-			return FALSE;
-		}
-		printf( "%s\n", lua_tostring(L, -1));
-		lua_pop(L, 1);	/* pop error message from the stack */
-		return TRUE;
-	}
-
-	return TRUE;
 }
 
 void ShutdownLua( )
