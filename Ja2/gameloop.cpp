@@ -100,7 +100,6 @@ BOOLEAN InitializeGame(void)
 
 	giStartingMemValue = MemGetFree( );
 
-	//InitializeLua();
 	is_networked = FALSE;
 	is_client = FALSE;
 	is_server = FALSE;
@@ -210,8 +209,6 @@ void ShutdownGame(void)
 
 	//Deletes all the Temp files in the Maps\Temp directory
 	InitTacticalSave( FALSE );
-
-	//ShutdownLua( );
 
 	FreeGameExternalOptions();
 }
