@@ -52,8 +52,8 @@ endif()
 # whether we are using MSBuild as a generator
 set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 
-# lua51.lib and lua51.vc9.lib have been built with /MTx, so we must as well
-# TODO: build our own Lua 5.1.2 from source so we can use whichever
+# RakNetLibStatic.lib carries /DEFAULTLIB:LIBCMT and /DEFAULTLIB:libcpmt, so the
+# static runtime is forced on us until RakNet too is built from source
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 # make Debug builds /Z7 instead of /Zi so they can be sccache'd
 set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
@@ -64,6 +64,7 @@ include_directories(
   "${CMAKE_SOURCE_DIR}/Ja2"
   "${CMAKE_SOURCE_DIR}/ext/VFS/include"
   "${CMAKE_SOURCE_DIR}/ext/libsmacker"
+  "${CMAKE_SOURCE_DIR}/ext/lua-5.1.5/src"
   "${CMAKE_SOURCE_DIR}/Utils"
   "${CMAKE_SOURCE_DIR}/TileEngine"
   "${CMAKE_SOURCE_DIR}/TacticalAI"
@@ -82,6 +83,7 @@ include_directories(
 # external libraries
 add_subdirectory("ext/libpng")
 add_subdirectory("ext/libsmacker")
+add_subdirectory("ext/lua-5.1.5")
 add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
@@ -135,8 +137,6 @@ endif()
 set(Ja2_Libraries
 "${binkw32_lib}"
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
-"${CMAKE_SOURCE_DIR}/lua51.lib"
-"${CMAKE_SOURCE_DIR}/lua51.vc9.lib"
 "dbghelp.lib"
 "winmm.lib"
 "ws2_32.lib"
@@ -206,9 +206,6 @@ foreach(app IN LISTS ApplicationTargets)
   # RakNetLibStatic.lib was built against an older CRT and still calls
   # _vsnprintf, which the UCRT only exports through this compatibility library.
   target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} legacy_stdio_definitions.lib)
-  # The prebuilt lua51.lib and smackw32 import library carry no safe exception
-  # handler table, so the image cannot claim one whatever links it.
-  target_link_options(${exe} PRIVATE /SAFESEH:NO)
   target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
 
   # language library for the application, e.g. JA2MAPEDITOR_i18n — one per app, all 8

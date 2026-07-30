@@ -10,3 +10,4 @@ add_library(Lua
 "lwstring.cpp"
 )
 target_include_directories(Lua PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_link_libraries(Lua PUBLIC lua51)
