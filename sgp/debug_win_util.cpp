@@ -226,8 +226,10 @@ void setCrashBuildId(const char* id) {
 	if (id) lstrcpynA(s_buildId, id, sizeof(s_buildId));
 }
 
-// Filled in once a report has been written; see crashReportMessage().
-static WCHAR s_crashMessage[512] = { 0 };
+// Filled in once a report has been written; see crashReportMessage(). Sized to
+// wsprintf's own output limit: it bounds nothing itself, and what goes in here is
+// a headline plus a directory the player chose, which no arithmetic here controls.
+static WCHAR s_crashMessage[1024] = { 0 };
 const wchar_t* crashReportMessage() {
 	return s_crashMessage[0] ? s_crashMessage : NULL;
 }
@@ -246,19 +248,54 @@ void setCrashUserHandle(const wchar_t* handle) {
 	s_userHandle[out] = 0;
 }
 
+// Set while a report is being written; see writeExceptionBacktrace.
+static bool s_inDump = false;
+
+// An assertion failure is a bug worth a report, but it faults nothing, so the
+// vectored handler never sees it. Raise a software exception to hand the handler
+// a real context, then swallow it: first-chance is all the handler needs, and
+// letting it travel any further would kill a game that means to show its error
+// screen. Lives here, alone in a function with no C++ objects, because SEH may
+// not share a frame with anything that unwinds.
+void raiseAssertException(unsigned lineNum, const char* sourceFileName,
+	const char* message) {
+	const ULONG_PTR args[3] = { lineNum, (ULONG_PTR)sourceFileName,
+		(ULONG_PTR)message };
+	__try {
+		RaiseException(SGP_EXCEPTION_ASSERT, 0, 3, args);
+	} __except (EXCEPTION_EXECUTE_HANDLER) {
+		// Only reached if the report writer itself faulted: this __except is what
+		// swallows that fault, so it is also the only place that can lift the
+		// re-entry latch again. Leaving it set would silence every later crash.
+		s_inDump = false;
+	}
+}
+
 void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	if (ep == NULL || ep->ContextRecord == NULL || ep->ExceptionRecord == NULL)
 		return;
 
+	const CONTEXT&          c = *ep->ContextRecord;
+	const EXCEPTION_RECORD& r = *ep->ExceptionRecord;
+	bool isAssert = (r.ExceptionCode == SGP_EXCEPTION_ASSERT && r.NumberParameters >= 2);
+
 	// The same fault storms (Wine re-dispatches the crashing window message) and
-	// walking a wrecked stack can fault us in turn. Dump each distinct faulting
-	// address once, never re-enter. ponytail: single globals, fine in a crash.
-	static void* s_lastFault = NULL;
-	static bool  s_inDump    = false;
-	void* fault = ep->ExceptionRecord->ExceptionAddress;
-	if (s_inDump || fault == s_lastFault)
+	// walking a wrecked stack can fault us in turn. Dump each distinct crash site
+	// once, never re-enter. ponytail: single globals, fine in a crash.
+	//
+	// An assertion is raised, not faulted, so its ExceptionAddress is RaiseException
+	// inside the system DLL — the same address for every assert in the process. Key
+	// those on the assert's own file and line, or the second one to fail would be
+	// dropped as a duplicate of the first.
+	static const void* s_lastSite = NULL;
+	static DWORD       s_lastLine = 0;
+	void* fault = r.ExceptionAddress;
+	const void* site = isAssert ? (const void*)r.ExceptionInformation[1] : fault;
+	DWORD assertLine = isAssert ? (DWORD)r.ExceptionInformation[0] : 0;
+	if (s_inDump || (site == s_lastSite && assertLine == s_lastLine))
 		return;
-	s_lastFault = fault;
+	s_lastSite = site;
+	s_lastLine = assertLine;
 	s_inDump = true;
 
 	// One fresh, numbered file per crash. CREATE_NEW claims the first free number,
@@ -278,9 +315,6 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	char line[192];
 	auto emit = [&](int n) { DWORD w; WriteFile(h, line, n, &w, NULL); };
 
-	const CONTEXT&          c = *ep->ContextRecord;
-	const EXCEPTION_RECORD& r = *ep->ExceptionRecord;
-
 	emit(wsprintfA(line,
 		"\r\n*** CRASH  code=%08lX  eip=%08lX  esp=%08lX  ebp=%08lX ***\r\n",
 		r.ExceptionCode, c.Eip, c.Esp, c.Ebp));
@@ -293,6 +327,41 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		emit(wsprintfA(line, "  build %s\r\n", s_buildId));
 	if (s_userHandle[0])
 		emit(wsprintfA(line, "  handle %s\r\n", s_userHandle));
+	// File name only, and copied into a bounded buffer first: __FILE__ carries the
+	// build machine's directory, and wsprintf's %s would happily run a long one off
+	// the end of line[]. Same treatment as the module names below.
+	if (isAssert) {
+		const char* file = (const char*)r.ExceptionInformation[1];
+		char base[64];
+		base[0] = 0;
+		if (file) {
+			const char* name = file;
+			for (const char* p = file; *p; ++p)
+				if (*p == '\\' || *p == '/')
+					name = p + 1;
+			lstrcpynA(base, name, sizeof(base));
+		}
+		emit(wsprintfA(line, "  assertion failed at line %lu of %s\r\n",
+			(DWORD)r.ExceptionInformation[0], base));
+
+		// AssertMsg and the WDS assertions carry the one human-written clue about
+		// what broke, so it belongs in the report. Filtered, not copied straight:
+		// some call sites build the string at runtime out of game state, and it
+		// lands in a text report the telemetry server reads line by line — a
+		// newline in it would forge a field.
+		const char* msg = r.NumberParameters >= 3 ?
+			(const char*)r.ExceptionInformation[2] : NULL;
+		if (msg && msg[0]) {
+			char clean[128];
+			size_t out = 0;
+			for (size_t i = 0; msg[i] && out < sizeof(clean) - 1; ++i)
+				if (msg[i] >= ' ' && msg[i] <= '~')
+					clean[out++] = msg[i];
+			clean[out] = 0;
+			if (out)
+				emit(wsprintfA(line, "  message: %s\r\n", clean));
+		}
+	}
 	if (r.ExceptionCode == EXCEPTION_ACCESS_VIOLATION && r.NumberParameters >= 2)
 		emit(wsprintfA(line, "  access violation: %s %08lX\r\n",
 			r.ExceptionInformation[0] == 1 ? "write to " :
@@ -372,11 +441,20 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	DWORD dirLen = GetCurrentDirectoryW(ARRAYSIZE(dir), dir);
 	if (dirLen == 0 || dirLen >= ARRAYSIZE(dir))
 		dir[0] = 0;
+	WCHAR headline[128];
+	if (isAssert)
+		wsprintfW(headline,
+			L"Jagged Alliance 2 1.13 hit an assertion failure at line %lu.",
+			(DWORD)r.ExceptionInformation[0]);
+	else
+		wsprintfW(headline,
+			L"Jagged Alliance 2 1.13 crashed: exception %08lX at %08lX.",
+			r.ExceptionCode, (DWORD)(DWORD_PTR)fault);
 	wsprintfW(s_crashMessage,
-		L"Jagged Alliance 2 1.13 crashed: exception %08lX at %08lX.\r\n\r\n"
+		L"%s\r\n\r\n"
 		L"A crash report was written to\r\n\r\n    %s\\%S\r\n\r\n"
 		L"Please attach that file to your bug report.",
-		r.ExceptionCode, (DWORD)(DWORD_PTR)fault, dir, name);
+		headline, dir, name);
 
 	s_inDump = false;
 }

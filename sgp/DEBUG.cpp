@@ -393,6 +393,10 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 		return;
 	alreadyInThisFunction = true;
 
+	// Before anything else: this leaves a crash report the player can upload, and
+	// everything below it (a stack walk, a save, a screen) can die trying.
+	sgp::raiseAssertException(lineNum, sourceFileName, message);
+
 	sgp::dumpStackTrace(message);
 
 	mprintf( 10, 10, L"%s: %s %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
