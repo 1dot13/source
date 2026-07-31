@@ -1,4 +1,15 @@
-.idea/
+*.exe
+*.pdb
+*.ilk
+
+Profiles/
+
+aidebug.txt
+stack_trace.log
+telemetry.consent
+vfs.log
+game_log.log
+sound.log
 
 # Generated files
 Ja2_Features.ini
