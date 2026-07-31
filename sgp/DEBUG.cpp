@@ -412,10 +412,12 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 	outputString << "{ " << GetTickCount() << " } " << basicInformation.str();
 
 	//Build the output strings
+	// Never as a format string: AssertMsg call sites build this out of game state,
+	// so a stray %s in it would read arguments that were never passed.
 	if( message )
-		sprintf( gubAssertString, message );	
+		snprintf( gubAssertString, sizeof( gubAssertString ), "%s", message );
 	else
-		sprintf( gubAssertString, "" );
+		gubAssertString[0] = '\0';
 
 	//Output to debugger
 	if (gfRecordToDebugger)
@@ -491,6 +493,23 @@ STR8 String(const STR8 String, ...)
 
 }
 
+// Fail with the innermost frame of the exception list, not with nothing. The crash
+// report can only stamp what _FailMessage was handed, and a caught exception knows
+// exactly where it came from — passing "",0,"" turns every one of them into the same
+// locationless report. The utf8() temporaries live to the end of the call, and the
+// crash handler reads them synchronously inside it.
+static void FailFromExceptionList()
+{
+	if (g_ExceptionList.empty())
+	{
+		_FailMessage("", 0, "");
+		return;
+	}
+	SExceptionData const& innermost = g_ExceptionList.front();
+	_FailMessage(innermost.message.utf8().c_str(), innermost.line,
+		innermost.function.utf8().c_str(), innermost.file.utf8().c_str());
+}
+
 void _ExceptionMessage( sgp::Exception &ex )
 {
 	g_ExceptionList.clear();
@@ -504,7 +523,7 @@ void _ExceptionMessage( sgp::Exception &ex )
 		exd.line = (*it).line;
 		g_ExceptionList.push_back(exd);
 	}
-	_FailMessage("",0,"");
+	FailFromExceptionList();
 }
 
 void _ExceptionMessage( vfs::Exception &ex )
@@ -520,7 +539,7 @@ void _ExceptionMessage( vfs::Exception &ex )
 		exd.line = (*it).line;
 		g_ExceptionList.push_back(exd);
 	}
-	_FailMessage("",0,"");
+	FailFromExceptionList();
 }
 
 #include <vfs/Core/vfs_string.h>
