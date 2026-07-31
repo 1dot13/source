@@ -1,14 +1,14 @@
 // Crash telemetry: upload the crash_report_*.txt files the crash handler left
 // behind, on the next launch.
 //
-// Deliberately a separate translation unit from debug_win_util.cpp. Everything in
+// Deliberately a separate translation unit from crash_report.cpp. Everything in
 // there runs inside a faulting thread and may not allocate; everything here runs at
 // startup with a healthy heap and is ordinary code. Keeping the two apart keeps the
 // no-heap rule easy to see and easy to hold.
 
 #if defined(_MSC_VER)
 
-#include "debug_util.h"
+#include "crash_report.h"
 
 #include <windows.h>
 #include <winhttp.h>

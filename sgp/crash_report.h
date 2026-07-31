@@ -1,18 +1,18 @@
-// Copyright (c) 2006-2009 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
-
 // Crash reporting: capture a fault (or an assertion) as a report file, and hand
 // the pending reports to the telemetry uploader at startup.
 
-#ifndef BASE_DEBUG_UTIL_H_
-#define BASE_DEBUG_UTIL_H_
+#ifndef SGP_CRASH_REPORT_H_
+#define SGP_CRASH_REPORT_H_
 
 struct _EXCEPTION_POINTERS;
 
 // Assertion failures raise this software exception so they get the same crash
-// report as a real fault. Bit 29 set marks it customer-defined, so it can never
-// collide with a system code; the top two bits mark it an error.
+// report as a real fault. Bit 29 set marks it customer-defined, which keeps it out
+// of the system's own codes; the top two bits mark it an error. Other user-mode
+// producers set that bit too (MSVC's C++ exception is 0xE06D7363), so it is the
+// whole value that makes this code ours, not the bit alone.
+// A debugger sees this first-chance on every assert; `sxi e1a55e27` in WinDbg
+// (Debug > Exceptions in Visual Studio) stops it breaking.
 #define SGP_EXCEPTION_ASSERT 0xE1A55E27
 
 namespace sgp
@@ -49,4 +49,4 @@ namespace sgp
 	void processCrashTelemetry(const wchar_t* url);
 }
 
-#endif  // BASE_DEBUG_UTIL_H_
+#endif  // SGP_CRASH_REPORT_H_
