@@ -47,7 +47,7 @@
 #include "GameVersion.h"
 #include "Text.h"
 
-#include "debug_util.h"
+#include "crash_report.h"
 
 BOOLEAN gfRecordToFile     = FALSE;
 BOOLEAN gfRecordToDebugger = TRUE;

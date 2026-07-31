@@ -629,7 +629,7 @@ static vfs::String getGameID()
 	return _id;
 }
 
-#include "debug_util.h"
+#include "crash_report.h"
 #include "GameVersion.h" // czVersionString, stamped into crash reports
 #include <vfs/Aspects/vfs_logging.h>
 
