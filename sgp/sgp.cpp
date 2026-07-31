@@ -22,7 +22,6 @@
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_init.h>
 #include <vfs/Tools/vfs_log.h>
-#include <vfs/Tools/vfs_file_logger.h>
 #include "sgp_logger.h"
 #include "Text.h"
 #include "ExportStrings.h"
@@ -52,7 +51,6 @@ static std::list<vfs::Path> vfs_config_ini;
 static bool			s_DebugKeyboardInput = false;
 static vfs::Path	s_CodePage;
 
-static vfs::FileLogger *vfslog = NULL;
 
 int		iWindowedMode;
 
@@ -610,7 +608,6 @@ void ShutdownStandardGamingPlatform(void)
 
 	sgp::Logger::instance().shutdown();
 	vfs::Log::flushDeleteAll();
-	if(vfslog) delete vfslog;
 	vfs::CVirtualFileSystem::shutdownVFS();
 	vfs::ObjectAllocator::clear();
 }
@@ -742,9 +739,13 @@ int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandL
 
 	sgp::Logger::instance().connectFile(VFS_LOG, L"vfs.log", false, sgp::Logger::FLUSH_ON_DELETE);
 
-	VfsLogAdapter* vfslog = new VfsLogAdapter(VFS_LOG);
+	// Static, not a scoped object: VFS keeps the bare pointer and still logs from
+	// the shutdown that atexit runs after WinMain has returned. Constructed here,
+	// before InitializeStandardGamingPlatform registers that handler, so it is
+	// destroyed after the handler has run rather than before it.
+	static VfsLogAdapter vfslog(VFS_LOG);
 
-	vfs::Aspects::setLogger(vfslog, vfslog, vfslog, NULL /* vfslog */);
+	vfs::Aspects::setLogger(&vfslog, &vfslog, &vfslog, NULL /* &vfslog */);
 
 	// Make sure that only one instance of this application is running at once
 	// // Look for prev instance by searching for the window
