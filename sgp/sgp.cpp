@@ -698,6 +698,7 @@ static LONG CALLBACK VectoredCrashHandler(EXCEPTION_POINTERS* pExceptInfo)
 		case EXCEPTION_ARRAY_BOUNDS_EXCEEDED:
 		case EXCEPTION_INT_DIVIDE_BY_ZERO:
 		case EXCEPTION_PRIV_INSTRUCTION:
+		case SGP_EXCEPTION_ASSERT: // raised by _FailMessage, never a real fault
 			sgp::writeExceptionBacktrace(pExceptInfo);
 			break;
 		default:

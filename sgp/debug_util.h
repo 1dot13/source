@@ -48,9 +48,21 @@ private:
 
 struct _EXCEPTION_POINTERS;
 
+// Assertion failures raise this software exception so they get the same crash
+// report as a real fault. Bit 29 set marks it customer-defined, so it can never
+// collide with a system code; the top two bits mark it an error.
+#define SGP_EXCEPTION_ASSERT 0xE1A55E27
+
 namespace sgp
 {
 	void dumpStackTrace(vfs::String const& msg);
+
+	// Raise SGP_EXCEPTION_ASSERT and swallow it again, so the vectored crash
+	// handler writes a report for an assertion that never faults. Carries the
+	// assert's line, file and message (NULL for a plain Assert) as exception
+	// parameters.
+	void raiseAssertException(unsigned lineNum, const char* sourceFileName,
+		const char* message);
 
 	// Write a heap-free crash report (registers + a raw return-address backtrace)
 	// for the faulting context to a numbered crash_report file; symbolize it
