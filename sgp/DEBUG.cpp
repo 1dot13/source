@@ -397,8 +397,6 @@ void _FailMessage(const char* message, unsigned lineNum, const char * functionNa
 	// everything below it (a stack walk, a save, a screen) can die trying.
 	sgp::raiseAssertException(lineNum, sourceFileName, message);
 
-	sgp::dumpStackTrace(message);
-
 	mprintf( 10, 10, L"%s: %s %s", pMessageStrings[ MSG_VERSION ], zProductLabel, zBuildInformation );
 
 	std::stringstream basicInformation;

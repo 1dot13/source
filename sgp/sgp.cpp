@@ -636,27 +636,18 @@ static vfs::String getGameID()
 class VfsLogAdapter : public vfs::Aspects::ILogger
 {
 public:
-	VfsLogAdapter(sgp::Logger_ID ID, bool stacktrace = false) : _id(ID), _trace(stacktrace) {};
+	VfsLogAdapter(sgp::Logger_ID ID) : _id(ID) {};
 
 	virtual void Msg(const wchar_t* msg)
 	{
 		SGP_LOG(_id, msg);
-		if(_trace)
-		{
-			sgp::dumpStackTrace(msg);
-		}
 	}
 	virtual void Msg(const char* msg)
 	{
 		SGP_LOG(_id, msg);
-		if(_trace)
-		{
-			sgp::dumpStackTrace(msg);
-		}
 	}
 private:
 	sgp::Logger_ID	_id;
-	bool			_trace;
 };
 
 //#include <vfs/Aspects/vfs_synchronization.h>
@@ -751,10 +742,9 @@ int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandL
 
 	sgp::Logger::instance().connectFile(VFS_LOG, L"vfs.log", false, sgp::Logger::FLUSH_ON_DELETE);
 
-	VfsLogAdapter* vfslog = new VfsLogAdapter(VFS_LOG, false);
-	VfsLogAdapter* vfslog_error = new VfsLogAdapter(VFS_LOG, true);
+	VfsLogAdapter* vfslog = new VfsLogAdapter(VFS_LOG);
 
-	vfs::Aspects::setLogger(vfslog, vfslog, vfslog_error, NULL /* vfslog */);
+	vfs::Aspects::setLogger(vfslog, vfslog, vfslog, NULL /* vfslog */);
 
 	// Make sure that only one instance of this application is running at once
 	// // Look for prev instance by searching for the window

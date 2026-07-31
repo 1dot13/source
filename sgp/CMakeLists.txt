@@ -5,7 +5,6 @@ set(sgpSrc
 "${CMAKE_CURRENT_SOURCE_DIR}/crash_telemetry.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Cursor Control.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/DEBUG.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/debug_util.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/debug_win_util.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/DirectDraw Calls.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/DirectX Common.cpp"

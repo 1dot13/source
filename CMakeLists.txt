@@ -137,7 +137,6 @@ endif()
 set(Ja2_Libraries
 "${binkw32_lib}"
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
-"dbghelp.lib"
 "winmm.lib"
 "ws2_32.lib"
 "winhttp.lib"
