@@ -45,7 +45,7 @@ Visit the [releases page](https://github.com/1dot13/source/releases) to download
 ### Installation
 
 1. Install the original Jagged Alliance 2
-2. Download the latest all-in-one release and copy its content to JA2 game directory. Overwrite when asked.
+2. Download the latest all-in-one release and copy its content to JA2 game directory.
 3. Modify ini settings if you like.
 4. Play the game.
 
