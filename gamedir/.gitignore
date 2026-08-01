@@ -2,7 +2,7 @@
 *.pdb
 *.ilk
 
-Profiles/
+/Profiles/
 
 # Vanilla Data/ copied in by the user; mod base files live in Base/
 Data/
