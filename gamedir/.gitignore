@@ -1,4 +1,18 @@
-.idea/
+*.exe
+*.pdb
+*.ilk
+
+/Profiles/
+
+# Vanilla Data/ copied in by the user; mod base files live in Base/
+Data/
+
+aidebug.txt
+stack_trace.log
+telemetry.consent
+vfs.log
+game_log.log
+sound.log
 
 # Generated files
 Ja2_Features.ini
