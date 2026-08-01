@@ -4,6 +4,9 @@
 
 Profiles/
 
+# Vanilla Data/ copied in by the user; mod base files live in Base/
+Data/
+
 aidebug.txt
 stack_trace.log
 telemetry.consent
