@@ -13,8 +13,11 @@ BOOLEAN IsPreBattleInterfaceActive();
 void SetPreBattleInterfaceActive( BOOLEAN fActive );
 BOOLEAN IsPersistantPBI();
 void SetPersistantPBI( BOOLEAN fPersistant );
+BOOLEAN AutomaticallyStartAutoResolve();
+void SetAutomaticallyStartAutoResolve( BOOLEAN fAuto );
+void SetDelayAutoResolveStart( BOOLEAN fDelay );
+void SetEnteringMapScreenToEnterPreBattleInterface( BOOLEAN fEntering );
 extern BOOLEAN gfDisplayPotentialRetreatPaths;
-extern BOOLEAN gfAutomaticallyStartAutoResolve;
 extern BOOLEAN fDisableMapInterfaceDueToBattle;
 
 extern GROUP *gpBattleGroup;
@@ -24,7 +27,6 @@ extern GROUP *gpTacticalTraversalGroup;
 extern SOLDIERTYPE *gpTacticalTraversalChosenSoldier;
 
 extern BOOLEAN gfGotoSectorTransition;
-extern BOOLEAN gfEnteringMapScreenToEnterPreBattleInterface;
 
 enum
 {

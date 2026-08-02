@@ -1210,7 +1210,7 @@ void CreatureAttackTown( UINT8 ubSectorID, BOOLEAN fOverrideTest )
 			InitPreBattleInterface( NULL, TRUE );
 			break;
 		case CREATURE_BATTLE_CODE_AUTORESOLVE:
-			gfAutomaticallyStartAutoResolve = TRUE;
+			SetAutomaticallyStartAutoResolve( TRUE );
 			InitPreBattleInterface( NULL, TRUE );
 			break;
 		case CREATURE_BATTLE_CODE_TACTICALLYADD:
@@ -1413,7 +1413,7 @@ void CreatureAttackTown_OtherCreatures( UINT8 ubSectorID, UINT8 ubType )
 		InitPreBattleInterface( NULL, TRUE );
 		break;
 	case CREATURE_BATTLE_CODE_AUTORESOLVE:
-		gfAutomaticallyStartAutoResolve = TRUE;
+		SetAutomaticallyStartAutoResolve( TRUE );
 		InitPreBattleInterface( NULL, TRUE );
 		break;
 	case CREATURE_BATTLE_CODE_TACTICALLYADD:

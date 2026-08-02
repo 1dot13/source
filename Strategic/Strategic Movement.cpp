@@ -88,8 +88,6 @@ BOOLEAN ValidateGroups( GROUP *pGroup );
 extern BOOLEAN gubNumAwareBattles;
 extern INT8 SquadMovementGroups[ ];
 
-BOOLEAN gfDelayAutoResolveStart = FALSE;
-
 
 BOOLEAN gfRandomizingPatrolGroup = FALSE;
 
@@ -1052,7 +1050,7 @@ void PrepareForPreBattleInterface( GROUP *pPlayerDialogGroup, GROUP *pInitiating
 	if ( pPlayerDialogGroup->usGroupTeam == MILITIA_TEAM )
 	{
 		// force direct transition to autoresolve
-		gfDelayAutoResolveStart = TRUE;
+		SetDelayAutoResolveStart( TRUE );
 
 		// We MUST start combat, but donot play quote...
 		InitPreBattleInterface( pInitiatingBattleGroup, TRUE );
@@ -1376,7 +1374,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		if( !fCombatAbleMerc )
 		{
 			//Prepare for instant autoresolve.
-			gfDelayAutoResolveStart = TRUE;
+			SetDelayAutoResolveStart( TRUE );
 			SetPersistantPBI( TRUE );
 			if( fMilitiaPresent )
 			{
@@ -6207,7 +6205,7 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 		if ( !fCombatAbleMerc )
 		{
 			//Prepare for instant autoresolve.
-			gfDelayAutoResolveStart = TRUE;
+			SetDelayAutoResolveStart( TRUE );
 			SetPersistantPBI( TRUE );
 			if ( fMilitiaPresent )
 			{
