@@ -142,7 +142,7 @@ SOLDIERTYPE* UninvolvedSoldier( INT32 index );
 
 
 MOUSE_REGION PBInterfaceBlanket;
-BOOLEAN gfPreBattleInterfaceActive = FALSE;
+static BOOLEAN gfPreBattleInterfaceActive = FALSE;
 UINT32 iPBButton[3] = {0,0,0};
 UINT32 iPBButtonImage[3] = {0,0,0};
 // WDS Graphics bug die to uninitialized variable
@@ -208,7 +208,13 @@ extern UINT8 gubPBSectorZ = 0;
 BOOLEAN gfCantRetreatInPBI = FALSE;
 //SAVE END
 
-BOOLEAN gfUsePersistantPBI = FALSE;
+static BOOLEAN gfUsePersistantPBI = FALSE;
+
+BOOLEAN IsPreBattleInterfaceActive() { return gfPreBattleInterfaceActive; }
+void SetPreBattleInterfaceActive( BOOLEAN fActive ) { gfPreBattleInterfaceActive = fActive; }
+
+BOOLEAN IsPersistantPBI() { return gfUsePersistantPBI; }
+void SetPersistantPBI( BOOLEAN fPersistant ) { gfUsePersistantPBI = fPersistant; }
 
 INT32 giHilitedInvolved = 0;
 INT32 giHilitedUninvolved = 0;
@@ -314,7 +320,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 		AbortMovementPlottingMode( );
 	}
 
-	if( gfPreBattleInterfaceActive )
+	if( IsPreBattleInterfaceActive() )
 		return;
 
 	//CHRISL: If for some reason we're not looking at a valid sector, leave the preBattleInterface.
@@ -361,7 +367,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			gpBattleGroup = pBattleGroup;
 			gfEnteringMapScreen = TRUE;
 			gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
-			gfUsePersistantPBI = TRUE;
+			SetPersistantPBI( TRUE );
 			return;
 		}
 #endif
@@ -375,7 +381,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 			gpBattleGroup = pBattleGroup;
 			gfEnteringMapScreen = TRUE;
 			gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
-			gfUsePersistantPBI = TRUE;
+			SetPersistantPBI( TRUE );
 			return;
 		}
 
@@ -585,7 +591,7 @@ void InitPreBattleInterface( GROUP *pBattleGroup, BOOLEAN fPersistantPBI )
 	gfPBButtonsHidden = TRUE;
 
 	// ARM: this must now be set before any calls utilizing the GetCurrentBattleSectorXYZ() function
-	gfPreBattleInterfaceActive = TRUE;
+	SetPreBattleInterfaceActive( TRUE );
 
 	CheckForRobotAndIfItsControlled();
 
@@ -1211,7 +1217,7 @@ void ScrollPreBattleInterface( BOOLEAN fUp )
 
 void KillPreBattleInterface()
 {
-	if( !gfPreBattleInterfaceActive )
+	if( !IsPreBattleInterfaceActive() )
 		return;
 
 	fDisableMapInterfaceDueToBattle = FALSE;
@@ -1234,7 +1240,7 @@ void KillPreBattleInterface()
 		MSYS_RemoveRegion( &UninvolvedRegion );
 	*/
 
-	gfPreBattleInterfaceActive = FALSE;
+	SetPreBattleInterfaceActive( FALSE );
 
 	//UpdateCharRegionHelpText( );
 
@@ -2685,17 +2691,17 @@ void HandlePreBattleInterfaceStates()
 	if( gfEnteringMapScreenToEnterPreBattleInterface && !gfEnteringMapScreen )
 	{
 		gfEnteringMapScreenToEnterPreBattleInterface = FALSE;
-		if( !gfUsePersistantPBI )
+		if( !IsPersistantPBI() )
 		{
 			InitPreBattleInterface( NULL, FALSE );
-			gfUsePersistantPBI = TRUE;
+			SetPersistantPBI( TRUE );
 		}
 		else
 		{
 			InitPreBattleInterface( gpBattleGroup, TRUE );
 		}
 	}
-	else if( gfDelayAutoResolveStart && gfPreBattleInterfaceActive )
+	else if( gfDelayAutoResolveStart && IsPreBattleInterfaceActive() )
 	{
 		gfDelayAutoResolveStart = FALSE;
 		gfAutomaticallyStartAutoResolve = TRUE;

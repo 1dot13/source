@@ -80,7 +80,6 @@ GROUP *gpPendingSimultaneousGroup = NULL;
 
 // is the bottom of the map panel dirty?
 extern BOOLEAN fMapScreenBottomDirty;
-extern BOOLEAN gfUsePersistantPBI;
 
 extern BOOLEAN gfExitViewer;
 BOOLEAN ValidateGroups( GROUP *pGroup );
@@ -1378,7 +1377,7 @@ BOOLEAN CheckConditionsForBattle( GROUP *pGroup )
 		{
 			//Prepare for instant autoresolve.
 			gfDelayAutoResolveStart = TRUE;
-			gfUsePersistantPBI = TRUE;
+			SetPersistantPBI( TRUE );
 			if( fMilitiaPresent )
 			{
 				NotifyPlayerOfInvasionByEnemyForces( pGroup->ubSectorX, pGroup->ubSectorY, 0, TriggerPrebattleInterface );
@@ -5504,7 +5503,7 @@ void NotifyPlayerOfBloodcatBattle( UINT8 ubSectorX, UINT8 ubSectorY )
 		RefreshScreen( NULL );
 	}
 
-	gfUsePersistantPBI = TRUE;
+	SetPersistantPBI( TRUE );
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, TriggerPrebattleInterface );
 }
 
@@ -6209,7 +6208,7 @@ void CheckCombatInSectorDueToUnusualEnemyArrival( UINT8 aTeam, INT16 sX, INT16 s
 		{
 			//Prepare for instant autoresolve.
 			gfDelayAutoResolveStart = TRUE;
-			gfUsePersistantPBI = TRUE;
+			SetPersistantPBI( TRUE );
 			if ( fMilitiaPresent )
 			{
 				NotifyPlayerOfInvasionByEnemyForces( sX, sY, 0, TriggerPrebattleInterface );

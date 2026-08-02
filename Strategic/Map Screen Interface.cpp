@@ -1250,7 +1250,7 @@ void JumpToLevel( INT32 iLevel )
 		return;
 	}
 
-	if( gfPreBattleInterfaceActive == TRUE )
+	if( IsPreBattleInterfaceActive() == TRUE )
 	{
 		return;
 	}
@@ -2164,7 +2164,7 @@ void UpdateMapScreenAssignmentPositions( void )
 	
 	if( bSelectedAssignChar == -1 )
 	{
-		if( gfPreBattleInterfaceActive == FALSE )
+		if( IsPreBattleInterfaceActive() == FALSE )
 		{
 			giBoxY = 0;
 		}
@@ -2173,14 +2173,14 @@ void UpdateMapScreenAssignmentPositions( void )
 
 	if( gCharactersList[ bSelectedAssignChar ].fValid == FALSE )
 	{
-		if( gfPreBattleInterfaceActive == FALSE )
+		if( IsPreBattleInterfaceActive() == FALSE )
 		{
 			giBoxY = 0;
 		}
 		return;
 	}
 
-	if( gfPreBattleInterfaceActive )
+	if( IsPreBattleInterfaceActive() )
 	{
 		// do nothing
 	}
@@ -2325,7 +2325,7 @@ void UpdateMapScreenMilitiaControlPositions( void )
 
 	if( bSelectedAssignChar == -1 )
 	{
-		if( gfPreBattleInterfaceActive == FALSE )
+		if( IsPreBattleInterfaceActive() == FALSE )
 		{
 			giBoxY = 0;
 		}
@@ -2334,14 +2334,14 @@ void UpdateMapScreenMilitiaControlPositions( void )
 
 	if( gCharactersList[ bSelectedAssignChar ].fValid == FALSE )
 	{
-		if( gfPreBattleInterfaceActive == FALSE )
+		if( IsPreBattleInterfaceActive() == FALSE )
 		{
 			giBoxY = 0;
 		}
 		return;
 	}
 
-	if( gfPreBattleInterfaceActive )
+	if( IsPreBattleInterfaceActive() )
 	{
 		// do nothing
 	}

@@ -427,7 +427,7 @@ UINT32	MainGameScreenHandle(void)
 
 // WANNE: Never show the helpscreen when leaving editor and going to the tactical game
 #ifndef JA2EDITOR
-	if( !gfPreBattleInterfaceActive && ShouldTheHelpScreenComeUp( HELP_SCREEN_TACTICAL, FALSE ) )
+	if( !IsPreBattleInterfaceActive() && ShouldTheHelpScreenComeUp( HELP_SCREEN_TACTICAL, FALSE ) )
 	{
 		// handle the help screen
 		HelpScreenHandler();
