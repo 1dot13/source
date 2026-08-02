@@ -53,7 +53,6 @@
 #include "GameInitOptionsScreen.h"
 
 extern void InitializeTacticalStatusAtBattleStart();
-extern BOOLEAN gfDelayAutoResolveStart;
 extern UILayout_Map UI_MAP;
 
 #ifdef JA2BETAVERSION
@@ -69,12 +68,13 @@ GROUP *gpTacticalTraversalGroup = NULL;
 SOLDIERTYPE *gpTacticalTraversalChosenSoldier = NULL;
 
 
-BOOLEAN gfAutomaticallyStartAutoResolve = FALSE;
+static BOOLEAN gfAutomaticallyStartAutoResolve = FALSE;
+static BOOLEAN gfDelayAutoResolveStart = FALSE;
 BOOLEAN gfAutoAmbush = FALSE;
 BOOLEAN gfHighPotentialForAmbush = FALSE;
 BOOLEAN gfGotoSectorTransition = FALSE;
 BOOLEAN gfEnterAutoResolveMode = FALSE;
-BOOLEAN gfEnteringMapScreenToEnterPreBattleInterface = FALSE;
+static BOOLEAN gfEnteringMapScreenToEnterPreBattleInterface = FALSE;
 BOOLEAN gfIgnoreAllInput = TRUE;
 
 BOOLEAN gfZoomDone = FALSE;
@@ -214,6 +214,11 @@ void SetPreBattleInterfaceActive( BOOLEAN fActive ) { gfPreBattleInterfaceActive
 
 BOOLEAN IsPersistantPBI() { return gfUsePersistantPBI; }
 void SetPersistantPBI( BOOLEAN fPersistant ) { gfUsePersistantPBI = fPersistant; }
+
+BOOLEAN AutomaticallyStartAutoResolve() { return gfAutomaticallyStartAutoResolve; }
+void SetAutomaticallyStartAutoResolve( BOOLEAN fAuto ) { gfAutomaticallyStartAutoResolve = fAuto; }
+void SetDelayAutoResolveStart( BOOLEAN fDelay ) { gfDelayAutoResolveStart = fDelay; }
+void SetEnteringMapScreenToEnterPreBattleInterface( BOOLEAN fEntering ) { gfEnteringMapScreenToEnterPreBattleInterface = fEntering; }
 
 INT32 giHilitedInvolved = 0;
 INT32 giHilitedUninvolved = 0;

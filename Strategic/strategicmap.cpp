@@ -6523,8 +6523,8 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 							 pMilitia->bSectorZ == pSectorZ )
 						{ //We have militia and enemies and no mercs!  Let's finish this battle in autoresolve.
 							gfEnteringMapScreen = TRUE;
-							gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
-							gfAutomaticallyStartAutoResolve = TRUE;
+							SetEnteringMapScreenToEnterPreBattleInterface( TRUE );
+							SetAutomaticallyStartAutoResolve( TRUE );
 							SetPersistantPBI( FALSE );
 							gubPBSectorX = (UINT8)pSectorX;
 							gubPBSectorY = (UINT8)pSectorY;

@@ -1124,7 +1124,7 @@ void HandleMilitiaStatusInCurrentMapBeforeLoadingNewMap( void )
 		HandleMilitiaDefections( gWorldSectorX, gWorldSectorY );
 		gTacticalStatus.Team[ MILITIA_TEAM ].bSide = 0;
 	}
-	else if( !gfAutomaticallyStartAutoResolve )
+	else if( !AutomaticallyStartAutoResolve() )
 	{ //Don't promote militia if we are going directly to autoresolve to finish the current battle.
 		HandleMilitiaPromotions();
 	}

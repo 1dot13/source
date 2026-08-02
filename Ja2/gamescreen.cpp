@@ -353,7 +353,7 @@ void InternalLeaveTacticalScreen( UINT32 uiNewScreen )
 	gpCustomizableTimerCallback = NULL;
 
 	// unload the sector they teleported out of
-	if ( !gfAutomaticallyStartAutoResolve )
+	if ( !AutomaticallyStartAutoResolve() )
 	{
 	CheckAndHandleUnloadingOfCurrentWorld();
 	}

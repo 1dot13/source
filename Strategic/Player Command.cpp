@@ -455,7 +455,7 @@ BOOLEAN SetThisSectorAsEnemyControlled( INT16 sMapX, INT16 sMapY, INT8 bMapZ, BO
 	//KM : August 6, 1999 Patch fix
 	//	 This check was added because this function gets called when player mercs retreat from an unresolved
 	//	 battle between militia and enemies.	It will get called again AFTER autoresolve is finished.
-	if( gfAutomaticallyStartAutoResolve )
+	if( AutomaticallyStartAutoResolve() )
 	{
 		return( FALSE );
 	}
