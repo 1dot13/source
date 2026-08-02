@@ -9,7 +9,10 @@ void KillPreBattleInterface();
 void RenderPreBattleInterface();
 void ScrollPreBattleInterface( BOOLEAN fUp );
 
-extern BOOLEAN gfPreBattleInterfaceActive;
+BOOLEAN IsPreBattleInterfaceActive();
+void SetPreBattleInterfaceActive( BOOLEAN fActive );
+BOOLEAN IsPersistantPBI();
+void SetPersistantPBI( BOOLEAN fPersistant );
 extern BOOLEAN gfDisplayPotentialRetreatPaths;
 extern BOOLEAN gfAutomaticallyStartAutoResolve;
 extern BOOLEAN fDisableMapInterfaceDueToBattle;

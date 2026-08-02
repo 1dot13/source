@@ -395,7 +395,7 @@ void CheckForMeanwhileOKStart( )
 	if ( gfMeanwhileTryingToStart )
 	{
 		// Are we in prebattle interface?
-		if ( gfPreBattleInterfaceActive )
+		if ( IsPreBattleInterfaceActive() )
 		{
 			return;
 		}

@@ -578,8 +578,6 @@ extern BOOLEAN fMapScreenBottomDirty;
 extern BOOLEAN fResetTimerForFirstEntryIntoMapScreen;
 extern BOOLEAN gfStartedFromMapScreen;
 
-extern BOOLEAN gfUsePersistantPBI;
-
 extern BOOLEAN gfOneFramePauseOnExit;
 
 // the selected list of mercs
@@ -6674,7 +6672,7 @@ UINT32 HandleMapUI( )
 			bMapZ=gCharactersList[bSelectedInfoChar].usSolID.bSectorZ;
 
 			if( ( sSelMapX != sMapX || sSelMapY != sMapY || iCurrentMapSectorZ != bMapZ ) &&
-					( gTacticalStatus.fDidGameJustStart == FALSE ) && ( gfPreBattleInterfaceActive == FALSE ) )
+					( gTacticalStatus.fDidGameJustStart == FALSE ) && ( IsPreBattleInterfaceActive() == FALSE ) )
 			{
 				ChangeSelectedMapSector( sMapX, sMapY, bMapZ );
 
@@ -7035,7 +7033,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 				case ESC:
 					gfDontStartTransitionFromLaptop = TRUE;
 					
-					if( gfPreBattleInterfaceActive && !gfPersistantPBI )
+					if( IsPreBattleInterfaceActive() && !gfPersistantPBI )
 					{ //Non persistant PBI.	Allow ESC to close it and return to mapscreen.
 						KillPreBattleInterface();
 						gpBattleGroup = NULL;
@@ -7207,7 +7205,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 					break;
 
 				case PGUP:
-					if (gfPreBattleInterfaceActive)
+					if (IsPreBattleInterfaceActive())
 					{
 						ScrollPreBattleInterface(TRUE);
 					}
@@ -7220,7 +7218,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 
 					break;
 				case PGDN:
-					if (gfPreBattleInterfaceActive)
+					if (IsPreBattleInterfaceActive())
 					{
 						ScrollPreBattleInterface(FALSE);
 					}
@@ -7650,7 +7648,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 						}
 						else
 						{
-							if( gfPreBattleInterfaceActive )
+							if( IsPreBattleInterfaceActive() )
 							{
 								//activate autoresolve in prebattle interface.
 								ActivatePreBattleAutoresolveAction();
@@ -7756,7 +7754,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 #endif
 					break;
 				case 'e':
-					if( gfPreBattleInterfaceActive )
+					if( IsPreBattleInterfaceActive() )
 					{ //activate enter sector in prebattle interface.
 						gfHotKeyEnterSector = TRUE;
 					}
@@ -8194,7 +8192,7 @@ void GetMapKeyboardInput( UINT32 *puiNewEvent )
 #endif
 					break;
 				case 'r':
-					if( gfPreBattleInterfaceActive )
+					if( IsPreBattleInterfaceActive() )
 					{ //activate autoresolve in prebattle interface.
 						ActivatePreBattleRetreatAction();
 					}
@@ -9176,7 +9174,7 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 				{
 					if ( /*( gTacticalStatus.fDidGameJustStart == TRUE ) || */
 						 // commented out to allow heli drop off change @/b4 start ;)
-							( gfPreBattleInterfaceActive == TRUE ) ||
+							( IsPreBattleInterfaceActive() == TRUE ) ||
 							( fDisableMapInterfaceDueToBattle	== TRUE ) )
 					{
 						return;
@@ -9185,7 +9183,7 @@ void PollLeftButtonInMapView( UINT32 *puiNewEvent )
 				else
 				{
 					if ( ( gTacticalStatus.fDidGameJustStart == TRUE ) ||
-							( gfPreBattleInterfaceActive == TRUE ) ||
+							( IsPreBattleInterfaceActive() == TRUE ) ||
 							( fDisableMapInterfaceDueToBattle	== TRUE ) )
 					{
 						return;
@@ -9293,7 +9291,7 @@ void PollRightButtonInMapView( UINT32 *puiNewEvent )
 				// ignore right clicks in the map area if:
 				// game just started or we're in the prebattle interface or if we are about to hit pre-battle
 				if ( ( gTacticalStatus.fDidGameJustStart == TRUE ) ||
-						( gfPreBattleInterfaceActive == TRUE ) ||
+						( IsPreBattleInterfaceActive() == TRUE ) ||
 						( fDisableMapInterfaceDueToBattle	== TRUE ) )
 				{
 					return;
@@ -10922,7 +10920,7 @@ void BlitBackgroundToSaveBuffer( void )
 		// render character info
 		RenderCharacterInfoBackground( );
 	}
-	else if( gfPreBattleInterfaceActive )
+	else if( IsPreBattleInterfaceActive() )
 	{
 		ForceButtonUnDirty( giMapContractButton );
 		ForceButtonUnDirty( giCharInfoButton[ 0 ] );
@@ -11288,7 +11286,7 @@ void TeamListInfoRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11410,7 +11408,7 @@ void TeamListInfoRegionMvtCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = 0;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11443,7 +11441,7 @@ void TeamListAssignmentRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11624,7 +11622,7 @@ void TeamListAssignmentRegionMvtCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = 0;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11683,7 +11681,7 @@ void TeamListDestinationRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 {
 	INT32 iValue = 0;
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive || fShowMapInventoryPool )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() || fShowMapInventoryPool )
 	{
 		return;
 	}
@@ -11805,7 +11803,7 @@ void TeamListDestinationRegionMvtCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = -1;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11857,7 +11855,7 @@ void TeamListSleepRegionBtnCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -11946,7 +11944,7 @@ void TeamListSleepRegionMvtCallBack( MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = -1;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -12062,7 +12060,7 @@ void TeamListContractRegionBtnCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = 0;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -12126,7 +12124,7 @@ void TeamListContractRegionMvtCallBack(MOUSE_REGION *pRegion, INT32 iReason )
 	INT32 iValue = -1;
 
 
-	if( fLockOutMapScreenInterface || gfPreBattleInterfaceActive )
+	if( fLockOutMapScreenInterface || IsPreBattleInterfaceActive() )
 	{
 		return;
 	}
@@ -13498,7 +13496,7 @@ void FaceRegionBtnCallback( MOUSE_REGION *pRegion, INT32 iReason )
 			return;
 		}
 
-		if( gfPreBattleInterfaceActive == TRUE )
+		if( IsPreBattleInterfaceActive() == TRUE )
 		{
 			return;
 		}
@@ -13736,7 +13734,7 @@ void UpdateStatusOfMapSortButtons( void )
 	static BOOLEAN fShownLastTime = FALSE;
 
 
-	if( ( gfPreBattleInterfaceActive ) || fShowInventoryFlag )
+	if( ( IsPreBattleInterfaceActive() ) || fShowInventoryFlag )
 	{
 		if ( fShownLastTime )
 		{
@@ -13752,7 +13750,7 @@ void UpdateStatusOfMapSortButtons( void )
 					HideButton( giMapMPButton[ iCounter ] );
 				}
 			}
-			if ( gfPreBattleInterfaceActive )
+			if ( IsPreBattleInterfaceActive() )
 			{
 				HideButton( giCharInfoButton[ 0 ] );
 				HideButton( giCharInfoButton[ 1 ] );
@@ -14112,7 +14110,7 @@ void MonitorMapUIMessage( void )
 
 void HandlePreBattleInterfaceWithInventoryPanelUp( void )
 {
-	if( ( gfPreBattleInterfaceActive == TRUE ) && ( fShowInventoryFlag == TRUE ) )
+	if( ( IsPreBattleInterfaceActive() == TRUE ) && ( fShowInventoryFlag == TRUE ) )
 	{
 		if( fShowDescriptionFlag == TRUE )
 		{
@@ -14334,7 +14332,7 @@ BOOLEAN CharacterIsInLoadedSectorAndWantsToMoveInventoryButIsNotAllowed( INT16 b
 
 void UpdateTheStateOfTheNextPrevMapScreenCharacterButtons( void )
 {
-	if( gfPreBattleInterfaceActive )
+	if( IsPreBattleInterfaceActive() )
 	{
 		if( IsMapScreenHelpTextUp() )
 		{
@@ -15169,7 +15167,7 @@ BOOLEAN CanToggleSelectedCharInventory( void )
 	SOLDIERTYPE *pSoldier = NULL;
 
 
-	if( gfPreBattleInterfaceActive == TRUE )
+	if( IsPreBattleInterfaceActive() == TRUE )
 	{
 		return(FALSE);
 	}
@@ -15293,7 +15291,7 @@ void ChangeSelectedMapSector( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 	if( fShowMapInventoryPool )
 		return;
 
-	if ( gfPreBattleInterfaceActive )
+	if ( IsPreBattleInterfaceActive() )
 		return;
 
 	if( !IsTheCursorAllowedToHighLightThisSector( sMapX, sMapY ) )
@@ -17196,7 +17194,7 @@ void RequestContractMenu( void )
 		return;
 	}
 
-	if( gfPreBattleInterfaceActive == TRUE )
+	if( IsPreBattleInterfaceActive() == TRUE )
 	{
 		return;
 	}
@@ -17253,7 +17251,7 @@ void ChangeCharacterListSortMethod( INT32 iValue )
 		return;
 	}
 
-	if( gfPreBattleInterfaceActive == TRUE )
+	if( IsPreBattleInterfaceActive() == TRUE )
 	{
 		return;
 	}

@@ -178,8 +178,6 @@ INT8 gbRegToElitePromotions = 0;
 INT8 gbMilitiaPromotions = 0;
 
 
-extern BOOLEAN gfUsePersistantPBI;
-
 BOOLEAN		gfUseAlternateMap = FALSE;
 // whether or not we have found Orta yet
 BOOLEAN fFoundOrta = FALSE;
@@ -6527,7 +6525,7 @@ BOOLEAN HandlePotentialBringUpAutoresolveToFinishBattle( int pSectorX, int pSect
 							gfEnteringMapScreen = TRUE;
 							gfEnteringMapScreenToEnterPreBattleInterface = TRUE;
 							gfAutomaticallyStartAutoResolve = TRUE;
-							gfUsePersistantPBI = FALSE;
+							SetPersistantPBI( FALSE );
 							gubPBSectorX = (UINT8)pSectorX;
 							gubPBSectorY = (UINT8)pSectorY;
 							gubPBSectorZ = (UINT8)pSectorZ;

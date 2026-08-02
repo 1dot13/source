@@ -239,7 +239,7 @@ BOOLEAN BeginAirRaid( )
 
 		DebugMsg(TOPIC_JA2,DBG_LEVEL_3,"BeginAirRaid: in pre-battle interface?");
 		// ( unless we are in prebattle interface, then ignore... )
-		if ( gfPreBattleInterfaceActive )
+		if ( IsPreBattleInterfaceActive() )
 		{
 			return( FALSE );
 		}
