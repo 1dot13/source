@@ -654,6 +654,11 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 
 INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength )
 {
+	return EstimateActionPointCost( pSoldier, sGridNo, bDir, usMovementMode, bPathIndex, bPathLength, pSoldier->usAnimState );
+}
+
+INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength, UINT16 usPrevMovementMode )
+{
 	// This action point cost code includes the penalty for having to change
 	// stance after jumping a fence IF our path continues...
 	INT16 sTileCost, sPoints, sSwitchValue;
@@ -723,7 +728,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		}
 	}
 
-	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode );
+	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode, usPrevMovementMode );
 
 	return (sPoints);
 }
