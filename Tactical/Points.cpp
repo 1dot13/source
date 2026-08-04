@@ -392,6 +392,13 @@ INT16 TerrainBreathPoints(SOLDIERTYPE * pSoldier, INT32 sGridNo, INT8 bDir, UINT
 
 INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode )
 {
+	// Real, per-step movement: the soldier is physically at his current stance, so his
+	// live anim state IS the previous tile's mode.
+	return ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode, pSoldier->usAnimState );
+}
+
+INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, UINT16 usPrevMovementMode )
+{
 	INT16 sTileCost, sSwitchValue;
 	FLOAT sPoints = 0;
 
@@ -535,7 +542,7 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 			sPoints = max(1.0f, ( sPoints * (100 - (FLOAT)gSkillTraitValues.ubATAPsMovementReduction) / 100.0f ) );
 		}
 
-		if (usMovementMode == RUNNING && pSoldier->usAnimState != RUNNING)
+		if (usMovementMode == RUNNING && usPrevMovementMode != RUNNING)
 		{
 			// CHRISL
 			if ((UsingNewInventorySystem() == true) && FindBackpackOnSoldier(pSoldier) != ITEM_NOT_FOUND)
@@ -647,6 +654,11 @@ INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 u
 
 INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength )
 {
+	return EstimateActionPointCost( pSoldier, sGridNo, bDir, usMovementMode, bPathIndex, bPathLength, pSoldier->usAnimState );
+}
+
+INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength, UINT16 usPrevMovementMode )
+{
 	// This action point cost code includes the penalty for having to change
 	// stance after jumping a fence IF our path continues...
 	INT16 sTileCost, sPoints, sSwitchValue;
@@ -716,7 +728,7 @@ INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, 
 		}
 	}
 
-	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode );
+	sPoints += ActionPointCost( pSoldier, sGridNo, bDir, usMovementMode, usPrevMovementMode );
 
 	return (sPoints);
 }

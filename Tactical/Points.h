@@ -282,7 +282,18 @@ INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * 
 INT16 BaseAPsToShootOrStabNoModifier( INT16 bAPs, INT16 bAimSkill, OBJECTTYPE * pObj );
 
 INT16 TerrainActionPoints( SOLDIERTYPE *pSoldier, INT32 sGridno, INT8 bDir, INT8 bLevel );
+// Per-tile movement AP cost - the single source of truth for what a step costs.
+// usPrevMovementMode is the mode the soldier was in on the PREVIOUS tile, used to
+// charge the one-time "spin up to run" penalty exactly once. Real movement passes
+// the soldier's live anim state; a path estimator must pass its simulated prior mode,
+// because the soldier doesn't actually move while the path is being summed.
+INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, UINT16 usPrevMovementMode );
+// Convenience overload: prev mode = the soldier's current anim state (correct for real, per-step movement).
 INT16 ActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode	);
+// bPathIndex/bPathLength give the fence-continuation context; usPrevMovementMode is the
+// previous tile's mode (see ActionPointCost). Estimators summing a path pass their simulated
+// prior mode; the shorter overload uses the soldier's live anim state.
+INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength, UINT16 usPrevMovementMode );
 INT16 EstimateActionPointCost( SOLDIERTYPE *pSoldier, INT32 sGridNo, INT8 bDir, UINT16 usMovementMode, INT8 bPathIndex, INT8 bPathLength );
 BOOLEAN SelectedMercCanAffordMove(	);
 
