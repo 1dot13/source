@@ -4628,33 +4628,31 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 	Assert( pGroup );
 	AssertMsg( !pGroup->fBetweenSectors, "Can't retreat a group when between sectors!" );
 
-	if( pGroup->ubPrevX != 16 || pGroup->ubPrevY != 16 )
-	{ //Group has a previous sector
-		pGroup->ubNextX = pGroup->ubPrevX;
-		pGroup->ubNextY = pGroup->ubPrevY;
-
-		//Determine the correct direction.
-		dx = pGroup->ubNextX - pGroup->ubSectorX;
-		dy = pGroup->ubNextY - pGroup->ubSectorY;
-		if( dy == -1 && !dx )
-			ubDirection = NORTH_STRATEGIC_MOVE;
-		else if( dx == 1 && !dy )
-			ubDirection = EAST_STRATEGIC_MOVE;
-		else if( dy == 1 && !dx )
-			ubDirection = SOUTH_STRATEGIC_MOVE;
-		else if( dx == -1 && !dy )
-			ubDirection = WEST_STRATEGIC_MOVE;
-		else
-		{
-
-			AssertMsg( 0, String("Player group attempting illegal retreat from %c%d to %c%d.",
-				pGroup->ubSectorY+'A'-1, pGroup->ubSectorX, pGroup->ubNextY+'A'-1, pGroup->ubNextX ) );
-		}
+	if (pGroup->ubPrevX == 16 && pGroup->ubPrevY == 16)
+	{
+		//Group doesn't have a previous sector. Create one.
+		CalculateGroupRetreatSector(pGroup);
 	}
+
+	pGroup->ubNextX = pGroup->ubPrevX;
+	pGroup->ubNextY = pGroup->ubPrevY;
+
+	//Determine the correct direction.
+	dx = pGroup->ubNextX - pGroup->ubSectorX;
+	dy = pGroup->ubNextY - pGroup->ubSectorY;
+	if( dy == -1 && !dx )
+		ubDirection = NORTH_STRATEGIC_MOVE;
+	else if( dx == 1 && !dy )
+		ubDirection = EAST_STRATEGIC_MOVE;
+	else if( dy == 1 && !dx )
+		ubDirection = SOUTH_STRATEGIC_MOVE;
+	else if( dx == -1 && !dy )
+		ubDirection = WEST_STRATEGIC_MOVE;
 	else
-	{ //Group doesn't have a previous sector. Create one, then recurse
-		CalculateGroupRetreatSector( pGroup );
-		RetreatGroupToPreviousSector( pGroup );
+	{
+
+		AssertMsg( 0, String("Player group attempting illegal retreat from %c%d to %c%d.",
+			pGroup->ubSectorY+'A'-1, pGroup->ubSectorX, pGroup->ubNextY+'A'-1, pGroup->ubNextX ) );
 	}
 
 	//Calc time to get to next waypoint...
