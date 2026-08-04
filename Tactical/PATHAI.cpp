@@ -4272,14 +4272,27 @@ INT32 PlotPath( SOLDIERTYPE *pSold, INT32 sDestGridNo, INT8 bCopyRoute, INT8 bPl
 			if ( bIgnoreNextCost )
 			{
 				bIgnoreNextCost = FALSE;
+
+				// This is the fence's landing tile. The real jump ends in a stationary stance
+				// (SoldierGotoStationaryStance in HandleGotoNewGridNo), so the merc is no longer
+				// running here. Record that as the previous mode, so the NEXT tile re-charges the
+				// one-time start-run through ActionPointCost - on that tile, with that tile's own
+				// diagonal x1.4, exactly as the real per-step deduction does. WALKING is just a
+				// non-RUNNING marker; the only thing read from prev mode is "was I running?".
+				// ponytail: the fence post-state is written by hand here. Upgrade path: a typed
+				// "movement step" (fence/climb/door) carrying its own cost + post-state, folded by
+				// one path-summer shared with the real deduction and TacticalAI/Movement.cpp (which
+				// still sums with a frozen prev mode and has the same drift).
+				usMovementModeBefore = WALKING;
 			}
 			else
 			{
-				// Single source of truth: charge exactly what the real per-step movement code
-				// deducts (ActionPointCost), routed through EstimateActionPointCost so the
-				// fence-continuation term is included, summed tile by tile. This is what keeps
-				// the cursor estimate and the real spend from ever drifting apart.
-				sPoints += EstimateActionPointCost( pSold, sTempGrid, (INT8)guiPathingData[iCnt], usMovementModeToUseForAPs, (INT8)iCnt, (INT8)iLastGrid, usPrevMovementMode );
+				// Single source of truth: charge exactly what the real per-step movement deducts,
+				// by calling the very same ActionPointCost and threading the simulated previous-tile
+				// mode. No fence-continuation shortcut here - the start-run after a fence is produced
+				// by the reset above landing on the next tile, so it lands on the right tile with the
+				// right diagonal x1.4 instead of the flat approximation EstimateActionPointCost adds.
+				sPoints += ActionPointCost( pSold, sTempGrid, (INT8)guiPathingData[iCnt], usMovementModeToUseForAPs, usPrevMovementMode );
 
 				// A fence hop covers its landing tile too - skip that tile's separate cost,
 				// mirroring the two-tile path advance in HandleGotoNewGridNo.
