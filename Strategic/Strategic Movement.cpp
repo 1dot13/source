@@ -4653,6 +4653,7 @@ void RetreatGroupToPreviousSector( GROUP *pGroup )
 
 		AssertMsg( 0, String("Player group attempting illegal retreat from %c%d to %c%d.",
 			pGroup->ubSectorY+'A'-1, pGroup->ubSectorX, pGroup->ubNextY+'A'-1, pGroup->ubNextX ) );
+		return;
 	}
 
 	//Calc time to get to next waypoint...
