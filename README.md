@@ -65,10 +65,9 @@ Visit the [releases page](https://github.com/1dot13/source/releases) to download
         * Double-click on `Folder View` in the `Solution Explorer`
     * Click `Open a local folder`
         * Use this option if you already cloned the repository yourself.
-3. Visual Studio will automatically detect the CMake configuration files and will run the CMake generation. There will bet a CMake error in the logs saying `No existing preset was found, copied a preset template to [some_path]`. This is normal and only happens once.
-4. Click on the dropdown that says `x64-Debug` and select `Manage configurations...`. This should trigger Visual Studio to load the `CMakeUserPresets.json` file it just copied. Now you can close the window for managing the configurations.
-5. The `x64-Debug` option should have been replaced by `1dot13 Debug`. Click it and select `Manage configurations...` again. Here is where you configure the language for the built executables as well as which ones to build, Most important, here is where you set `CMAKE_RUNTIME_OUTPUT_DIRECTORY` to the path to your JA2 1.13 installation. This will be used for debugging. Note that the path needs to have a working 1.13 installation, and that includes the 1.13 game data.
-6. You can use `Build -> Build All` to build the executables you selected in the configuration.
+3. Visual Studio detects `CMakePresets.json` and lists the `msvc-*` configurations. Executables are written to `gamedir/`.
+4. To build only some applications, or to debug against a different JA2 1.13 install, add/modify a `CMakeUserPresets.json` in the source root that inherits one of the shipped presets and sets the `Applications` and/or `CMAKE_RUNTIME_OUTPUT_DIRECTORY` `cacheVariables`. Language is chosen at runtime, not at configure time.
+5. Use `Build -> Build All` to build.
 
 
 ### Reports
