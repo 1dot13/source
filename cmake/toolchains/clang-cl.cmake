@@ -74,5 +74,8 @@ foreach(directory ${_includes})
 endforeach()
 set(CMAKE_RC_FLAGS_INIT "${_rc_flags}")
 
-set(CMAKE_EXE_LINKER_FLAGS_INIT
+set(_linker_libpaths
     "/libpath:${_msvc}/lib/x86 /libpath:${_sdk_lib}/ucrt/x86 /libpath:${_sdk_lib}/um/x86")
+set(CMAKE_EXE_LINKER_FLAGS_INIT    "${_linker_libpaths}")
+set(CMAKE_SHARED_LINKER_FLAGS_INIT "${_linker_libpaths}")
+set(CMAKE_MODULE_LINKER_FLAGS_INIT "${_linker_libpaths}")
