@@ -14,7 +14,12 @@ set(_asan "$<AND:$<BOOL:${ADDRESS_SANITIZER}>,$<OR:$<CONFIG:Debug>,$<CONFIG:RelW
 if(ADDRESS_SANITIZER)
   message(STATUS "AddressSanitizer ENABLED for Debug and RelWithDebInfo (first-party code only)")
   message(STATUS "  Bink stubbed into the exe; no binkw32.dll import, so the asan exe runs from gamedir untouched")
-  # keep MSVC-STL container annotations uniform across un-instrumented TUs
+  # Disable STL container-overflow annotations (_DISABLE_STL_ANNOTATION).
+  # RakNet ships prebuilt and un-annotated; leaving annotations on makes the
+  # linker reject the mix (LNK2038: mismatch detected for 'annotate_vector').
+  # When every vendored C++ lib is built from our source, drop this and add
+  # _ANNOTATE_STL to them instead — that restores detection without needing
+  # to instrument their code.
   add_compile_definitions("$<${_asan}:_DISABLE_STL_ANNOTATION>")
   # retail binkw32.dll cannot load in an asan process (image base 0x30000000 is
   # the 32-bit shadow). __RADINEXE__ makes bink.h declare the Bink functions as
