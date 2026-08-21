@@ -9,3 +9,6 @@
 /CMakeUserPresets.json
 /CMakeSettings.json
 /lib/
+
+# AddressSanitizer reports (see SANITIZERS.md)
+/gamedir/asan.report.*
