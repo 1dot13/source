@@ -33,11 +33,8 @@ else()
   message(STATUS "Configuring WITHOUT link-time optimization ${IpoError}")
 endif()
 
-option(ADDRESS_SANITIZER OFF)
-if(ADDRESS_SANITIZER)
-  message(STATUS "AddressSanitizer ENABLED for non-Release builds")
-  add_compile_options($<IF:$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>,-fsanitize=address,>)
-endif()
+# declares the ADDRESS_SANITIZER option and the _asan genexpr used below
+include(cmake/AddressSanitizer.cmake)
 
 # keep frame pointers in both MSVC and clang-cl
 add_compile_options(/Oy-)
@@ -50,8 +47,9 @@ endif()
 set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 
 # RakNetLibStatic.lib carries /DEFAULTLIB:LIBCMT and /DEFAULTLIB:libcpmt, so the
-# static runtime is forced on us until RakNet too is built from source
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+# static runtime is forced on us until RakNet too is built from source. Debug
+# keeps its /MTd only when asan is off: asan needs the release CRT (see below).
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<AND:$<CONFIG:Debug>,$<NOT:${_asan}>>:Debug>")
 # make Debug builds /Z7 instead of /Zi so they can be sccache'd
 set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
   "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
@@ -85,6 +83,9 @@ add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
 
+# turn on asan for everything defined below; 3rd party libs above keep defaults
+ja2_asan_instrument_first_party()
+
 # from here on down our own code only: vendored code above keeps default flags
 include(cmake/Warnings.cmake)
 
@@ -104,7 +105,10 @@ add_subdirectory(wine)
 # takes it without complaint but emits an import descriptor with an empty thunk
 # table, so every Bink call reaches a stale address and BinkInitialize faults the
 # process during the intro. mingw/GNU ar cannot do this at all, see mingw.cmake
-if(NOT binkw32_lib)
+#
+# asan builds skip this entirely: they compile no-op Bink stubs into the exe
+# (ja2_asan_link_binkw32_stub) so no binkw32.dll is imported at all.
+if(NOT ADDRESS_SANITIZER AND NOT binkw32_lib)
   # Only the name shape differs by toolchain: lib.exe prepends the x86 leading
   # underscore to every name in the .def, llvm-lib and llvm-dlltool take the name as
   # written. The checked-in file carries the underscore for the llvm tools, so strip
@@ -132,7 +136,6 @@ if(NOT binkw32_lib)
 endif()
 
 set(Ja2_Libraries
-"${binkw32_lib}"
 "${CMAKE_SOURCE_DIR}/libexpatMT.lib"
 "winmm.lib"
 "ws2_32.lib"
@@ -143,6 +146,10 @@ Multiplayer
 smacker
 wine
 )
+# empty under asan (stubs compiled into the exe instead, see above)
+if(binkw32_lib)
+  list(APPEND Ja2_Libraries "${binkw32_lib}")
+endif()
 
 # static libraries whose translation units rely on Application preprocessor definitions.
 set(Ja2_Libs
@@ -203,6 +210,8 @@ foreach(app IN LISTS ApplicationTargets)
   # _vsnprintf, which the UCRT only exports through this compatibility library.
   target_link_libraries(${exe} PRIVATE ${Ja2_Libraries} legacy_stdio_definitions.lib)
   target_compile_definitions(${exe} PRIVATE ${compilationFlags} ${debugFlags})
+
+  ja2_asan_link_binkw32_stub(${exe})
 
   # language library for the application, e.g. JA2MAPEDITOR_i18n — one per app, all 8
   # languages compiled in, selected at runtime by BindLanguageStrings

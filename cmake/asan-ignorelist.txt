@@ -1,0 +1,104 @@
+# AddressSanitizer ignorelist. Functions with 32-bit inline __asm blocks:
+# asan's shadow-base register reservation starves a register the asm needs,
+# so instrumenting them fails to compile. Excluded from instrumentation only
+# (still linked and called); the rest of each translation unit stays checked.
+# Patterns end in @@ so each matches one clang-cl (MSVC) mangled name exactly,
+# never a longer-named sibling (e.g. Blt16BPPTo16BPP vs Blt16BPPTo16BPPTrans).
+# Regenerate: grep the *.cpp for __asm / _asm and list the enclosing functions.
+
+[address]
+# sgp/vobject_blitters.cpp
+fun:*BlitZRect@@*
+fun:*Blt16BPPBufferPixelateRectWithColor@@*
+fun:*Blt16BPPBufferShadowRect@@*
+fun:*Blt16BPPBufferShadowRectAlternateTable@@*
+fun:*Blt16BPPDataTo16BPPBufferTransZClip@@*
+fun:*Blt16BPPDataTo16BPPBufferTransparentClip@@*
+fun:*Blt16BPPTo16BPP@@*
+fun:*Blt16BPPTo16BPPMirror@@*
+fun:*Blt8BPPDataSubTo16BPPBuffer@@*
+fun:*Blt8BPPDataTo16BPPBuffer@@*
+fun:*Blt8BPPDataTo16BPPBufferFullTransparent@@*
+fun:*Blt8BPPDataTo16BPPBufferHalf@@*
+fun:*Blt8BPPDataTo16BPPBufferHalfRect@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensity@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensityClip@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensityZ@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensityZClip@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensityZNB@@*
+fun:*Blt8BPPDataTo16BPPBufferIntensityZNBClip@@*
+fun:*Blt8BPPDataTo16BPPBufferMask@@*
+fun:*Blt8BPPDataTo16BPPBufferMonoShadow@@*
+fun:*Blt8BPPDataTo16BPPBufferMonoShadowClip@@*
+fun:*Blt8BPPDataTo16BPPBufferOutline@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineClip@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineShadow@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineShadowClip@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineZ@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineZClip@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineZNB@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineZPixelateObscured@@*
+fun:*Blt8BPPDataTo16BPPBufferOutlineZPixelateObscuredClip@@*
+fun:*Blt8BPPDataTo16BPPBufferShadow@@*
+fun:*Blt8BPPDataTo16BPPBufferShadowClip@@*
+fun:*Blt8BPPDataTo16BPPBufferShadowZ@@*
+fun:*Blt8BPPDataTo16BPPBufferShadowZClip@@*
+fun:*Blt8BPPDataTo16BPPBufferShadowZNB@@*
+fun:*Blt8BPPDataTo16BPPBufferShadowZNBClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransMirror@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadow@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowBelowOrEqualZNBClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowClipAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZ@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZClipAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNB@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBClipAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBObscured@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredClipAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransShadowZNBObscuredTest@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZ@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZClipPixelate@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZClipPixelateObscured@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZClipTranslucent@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNB@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBClipColor@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBClipPixelate@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBClipTranslucent@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBColor@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBPixelate@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZNBTranslucent@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZPixelate@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZPixelateObscured@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZTranslucent@@*
+fun:*Blt8BPPDataTo16BPPBufferTransparent@@*
+fun:*Blt8BPPDataTo16BPPBufferTransparentClip@@*
+fun:*Blt8BPPTo8BPP@@*
+fun:*FillRect16BPP@@*
+fun:*blendWithAlpha@@*
+# sgp/shading.cpp
+fun:*FindIndecies@@*
+# TileEngine/renderworld.cpp
+fun:*Blt8BPPDataTo16BPPBufferTransInvZ@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZIncClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZIncClipZSameZBurnsThrough@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZIncObscureClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZTransShadowIncClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZTransShadowIncClipAlpha@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClip@@*
+fun:*Blt8BPPDataTo16BPPBufferTransZTransShadowIncObscureClipAlpha@@*
+fun:*IsTileRedundent@@*
+fun:*Zero8BPPDataTo16BPPBufferTransparent@@*
+# TileEngine/Interactive Tiles.cpp
+fun:*CheckVideoObjectScreenCoordinateInData@@*
+# Ja2/profiler.cpp
+fun:*getCPUCount@PerfManager@@*

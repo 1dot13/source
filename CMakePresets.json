@@ -51,11 +51,30 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "name": "clang-cl-asan",
+      "inherits": "base",
+      "displayName": "clang-cl RelWithDebInfo (AddressSanitizer)",
+      "description": "AddressSanitizer build. Needs the C++ Clang tools for Windows component; see SANITIZERS.md.",
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "hostOS": [ "Windows" ],
+          "intelliSenseMode": "windows-clang-x86"
+        }
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl",
+        "ADDRESS_SANITIZER": "ON"
+      }
     }
   ],
   "buildPresets": [
     { "name": "msvc-relwithdebinfo", "configurePreset": "msvc-relwithdebinfo" },
     { "name": "msvc-debug", "configurePreset": "msvc-debug" },
-    { "name": "msvc-release", "configurePreset": "msvc-release" }
+    { "name": "msvc-release", "configurePreset": "msvc-release" },
+    { "name": "clang-cl-asan", "configurePreset": "clang-cl-asan" }
   ]
 }
