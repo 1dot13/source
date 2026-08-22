@@ -15,7 +15,6 @@
 	#include "WordWrap.h"
 	#include "Sound Control.h"
 	#include "soundman.h"
-	#include "builddefines.h"
 	#include "Dialogue Control.h"
 	#include <stdio.h>
 	#include "Game Clock.h"

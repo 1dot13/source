@@ -1,3 +1,4 @@
+#include <set>
 	#include "types.h"
 	#include <cstdlib>
 	#include "Arms Dealer Init.h"

@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "Strategic Town Loyalty.h"
 	#include "strategicmap.h"

@@ -1,6 +1,5 @@
 #ifdef PROFILER_ENABLED
 
-#include "builddefines.h"
 #include <sstream>
 
 #ifdef PERIODIC_PROFILING

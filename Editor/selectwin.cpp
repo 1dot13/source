@@ -1,6 +1,5 @@
 // WANNE: EDITOR: todo
 
-	#include "builddefines.h"
 
 #ifdef JA2EDITOR
 

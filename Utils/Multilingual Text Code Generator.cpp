@@ -29,7 +29,6 @@ CREATED:	Feb 16, 1999
 
 #ifdef _DEBUG
 
-#include "builddefines.h"
 #include <stdio.h>
 #include "types.h"
 #include "DEBUG.H"

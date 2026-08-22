@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef __EDITOR_TASKBAR_UTILS_H

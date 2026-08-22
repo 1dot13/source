@@ -1,6 +1,5 @@
 /* $Id: sgp.c,v 1.4 2004/03/19 06:16:04 digicrab Exp $ */
 //its test what doeas it do?
-#include "builddefines.h"
 #include "types.h"
 #include <windows.h>
 #include <string.h>

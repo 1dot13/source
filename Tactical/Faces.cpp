@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include <stdio.h>
 	
 	#include "worlddef.h"

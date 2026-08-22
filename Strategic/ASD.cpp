@@ -3,6 +3,7 @@
 * @author Flugente (bears-pit.com)
 */
 
+#include <set>
 #include <math.h>
 #include "ASD.h"
 #include "strategic.h"

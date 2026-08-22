@@ -18,6 +18,7 @@ Transport group compositions will vary based on the player's progress, how many 
 and the difficulty of the game.
 
 */
+#include <set>
 #include "Strategic Transport Groups.h"
 
 #include "ASD.h"

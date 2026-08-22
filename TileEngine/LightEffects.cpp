@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "DEBUG.H"
 	#include "Animation Control.h"

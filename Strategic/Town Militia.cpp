@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "Town Militia.h"
 	#include "Militia Control.h"

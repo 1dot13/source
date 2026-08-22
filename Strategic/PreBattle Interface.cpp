@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include <stdio.h>
 	#include "PreBattle Interface.h"
 	#include "Button System.h"

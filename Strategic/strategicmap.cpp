@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 #include "strategicmap.h"
 #include "strategic.h"

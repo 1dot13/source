@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include <stdlib.h>
 	#include "Strategic Movement.h"
 	#include "MemMan.h"

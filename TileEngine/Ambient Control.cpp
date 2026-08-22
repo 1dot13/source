@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "Ambient Control.h"
 	#include "Sound Control.h"

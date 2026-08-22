@@ -3,6 +3,7 @@
 * @author Flugente (bears-pit.com)
 */
 
+#include <set>
 #include "IMP Gear.h"
 #include "IMP Skill Trait.h"
 #include "Button System.h"
