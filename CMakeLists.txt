@@ -89,6 +89,25 @@ ja2_asan_instrument_first_party()
 # from here on down our own code only: vendored code above keeps default flags
 include(cmake/Warnings.cmake)
 
+# Compile-time switches for our own code. These belong to the build system, not
+# to a header: a #define buried in the source tree is invisible to anyone reading
+# the build files, and cannot be varied per configuration. Nothing below should
+# ever be reintroduced as a bare #define.
+add_compile_definitions(
+  # 0verhaul: squelch the VC2K5+ warnings about printf and string operations
+  # being unsafe, so real errors stay visible.
+  _CRT_SECURE_NO_WARNINGS
+  _CRT_NON_CONFORMING_SWPRINTFS
+  _SCL_SECURE_NO_WARNINGS
+
+  # Laptop briefing room (Jazz). Also needs BRIEFING_ROOM in ja2_options.ini and
+  # a briefing-room mod, otherwise the room comes up blank.
+  ENABLE_BRIEFINGROOM
+  ROBOT_ALWAYS_READY
+  # keep Assert() live in configurations that would otherwise compile it out
+  FORCE_ASSERTS_ON
+)
+
 # ja2export utility
 add_subdirectory("export/src")
 
