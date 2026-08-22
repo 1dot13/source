@@ -18,14 +18,6 @@
 // Basic defines for the video manager. These represent the starting values
 //
 
-#ifdef BOUNDS_CHECKER
-	#define		WINDOWED_MODE
-#endif
-
-#ifdef _DEBUG
- #define WINDOWED_MODE
-#endif
-
 extern UINT16	SCREEN_WIDTH;
 extern UINT16	SCREEN_HEIGHT;
 
