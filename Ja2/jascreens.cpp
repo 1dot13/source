@@ -36,7 +36,6 @@
 #include "sgp_logger.h"
 #include <language.hpp>
 
-#define _UNICODE
 // Networking Stuff
 #ifdef NETWORKED
 
