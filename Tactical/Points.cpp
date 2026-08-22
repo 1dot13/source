@@ -759,12 +759,6 @@ BOOLEAN EnoughPoints( SOLDIERTYPE *pSoldier, INT16 sAPCost, INT32 iBPCost, BOOLE
 		sAPCost = 0;
 	}
 
-	#ifdef NETWORKED
-	if( !IsTheSolderUnderMyControl( pSoldier->ubID)	)
-	{
-		return( TRUE );
-	}
-	#endif
 
 	if (is_networked)
 	{

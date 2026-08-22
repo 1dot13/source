@@ -37,15 +37,6 @@
 #include <language.hpp>
 
 // Networking Stuff
-#ifdef NETWORKED
-
-#include "Communication.h"
-#include "Application Msg.h"
-#include "Networking.h"
-
-extern ClientReadyType				gMsgClientReady;
-extern BOOLEAN			gfAmINetworked;
-#endif
 
 #define MAX_DEBUG_PAGES 4
 

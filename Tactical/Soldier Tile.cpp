@@ -14,10 +14,6 @@
 	#include "opplist.h"
 	#include "ai.h"
 		
-	#ifdef NETWORKED
-	#include "Networking.h"
-	#include "NetworkEvent.h"
-	#endif
 
 	#include "Items.h"
 	#include "soldier tile.h"

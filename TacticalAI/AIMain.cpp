@@ -1012,10 +1012,6 @@ void StartNPCAI(SOLDIERTYPE *pSoldier)
 	BOOLEAN fInValidSoldier = FALSE;
 
 	// Only the host should do this
-#ifdef NETWORKED
-	if(!gfAmIHost)
-		return;
-#endif
 	////pSoldier->flags.uiStatusFlags |= SOLDIER_UNDERAICONTROL;
 	//if (!(pSoldier->flags.uiStatusFlags & SOLDIER_PC))
 

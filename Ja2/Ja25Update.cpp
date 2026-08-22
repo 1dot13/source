@@ -1,8 +1,4 @@
 #include <types.h>
-#ifdef NETWORKED
-#include "Networking.h"
-#include "NetworkEvent.h"
-#endif
 
 #ifdef JA2UB
 

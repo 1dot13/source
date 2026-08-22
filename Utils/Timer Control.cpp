@@ -235,7 +235,6 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 					timerDone |= UpdateTimeCounter( giTimerCustomizable, iTimeLeft );
 				}
 
-#ifndef BOUNDS_CHECKER
 
 				// If mapscreen...
 				if( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
@@ -274,7 +273,6 @@ void CALLBACK TimeProc( UINT uID,	UINT uMsg, DWORD dwUser, DWORD dw1,	DWORD dw2	
 						}
 					}
 				}
-#endif
 			}
 		}
 

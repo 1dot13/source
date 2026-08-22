@@ -35,10 +35,6 @@
 #include "Soldier macros.h"
 #include "english.h"
 #include "Squads.h"
-#ifdef NETWORKED
-#include "Networking.h"
-#include "NetworkEvent.h"
-#endif
 #include "Structure Wrap.h"
 #include "Items.h"
 #include "soundman.h"

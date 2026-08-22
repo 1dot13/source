@@ -26,10 +26,6 @@
 #include "worldman.h"
 #include "Handle UI Plan.h"
 #include "message.h"
-#ifdef NETWORKED
-#include "Networking.h"
-#include "Communication.h"
-#endif
 #include "overhead map.h"
 #include "World Items.h"
 #include "Game Clock.h"
@@ -2337,26 +2333,6 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 #endif
 
 
-#ifdef NETWORKED
-		// DEF: Test Networking
-		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '0') && ( InputEvent.usKeyState & ALT_DOWN ))
-		{
-			DisplayMultiPlayerInfo();
-		}
-		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '9') && ( InputEvent.usKeyState & ALT_DOWN ))
-		{
-			DisplayDirectPlayInfo();
-		}
-		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '8') && ( InputEvent.usKeyState & ALT_DOWN ))
-		{
-			DisplayDirectPlayPlayerInfo();
-		}
-
-		if ((InputEvent.usEvent == KEY_DOWN )&& ( InputEvent.usParam == '7') && ( InputEvent.usKeyState & ALT_DOWN ))
-		{
-			SetDisplayFlag();
-		}
-#endif
 
 		if( InputEvent.usEvent == KEY_DOWN )
 		{

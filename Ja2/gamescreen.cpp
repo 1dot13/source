@@ -34,9 +34,6 @@
 #include "Game Init.h"
 
 //DEF: Test Code
-#ifdef NETWORKED
-#include "Networking.h"
-#endif
 #include "Interface Control.h"
 #include "physics.h"
 #include "Fade Screen.h"
@@ -824,10 +821,6 @@ UINT32	MainGameScreenHandle(void)
 		//RenderTacticalInterface( );
 	}
 
-	#ifdef NETWORKED
-	// DEF:	Test Code
-	PrintNetworkInfo();
-	#endif
 
 	// Render Interface
 	RenderTopmostTacticalInterface( );
