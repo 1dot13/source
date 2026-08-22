@@ -114,9 +114,7 @@ BOOLEAN					gfRefreshUpdate = FALSE;
 //that already exists.
 //TO REMOVE ALL DEBUG FUNCTIONALITY:	simply comment out MOUSESYSTEM_DEBUGGING definition
 	#ifdef _DEBUG
-	#ifndef BOUNDS_CHECKER
 	#define MOUSESYSTEM_DEBUGGING
-	#endif
 	#endif
 
 #ifdef MOUSESYSTEM_DEBUGGING

@@ -43,10 +43,6 @@
 #include "fov.h"
 #include "Soldier macros.h"
 #include "soldier tile.h"
-#ifdef  NETWORKED
-#include "Networking.h"
-#include "NetworkEvent.h"
-#endif
 #include "Structure Wrap.h"
 #include "Tile Animation.h"
 #include "Strategic Merc Handler.h"
@@ -217,10 +213,6 @@ extern BOOLEAN gfSurrendered;
 
 CHAR8 gDebugStr[128];
 
-#ifdef NETWORKED
-extern  BYTE                    gfAmIHost;
-extern BOOLEAN                  gfAmINetworked;
-#endif
 
 #define NEW_FADE_DELAY                  60
 
@@ -625,10 +617,6 @@ BOOLEAN InitTacticalEngine( )
     if ( !InitOverhead( ) )             // Init Overhead
         return( FALSE );
 
-#ifdef NETWORKED
-    if ( !gfAmINetworked )
-        gfAmIHost = TRUE;
-#endif
     return( TRUE );
 }
 
@@ -1182,17 +1170,8 @@ BOOLEAN ExecuteOverhead( )
 
             // Handle animation update counters
             // ATE: Added additional check here for special value of anispeed that pauses all updates
-#ifndef BOUNDS_CHECKER
             if ( TIMECOUNTERDONE( pSoldier->timeCounters.UpdateCounter, pSoldier->sAniDelay ) && pSoldier->sAniDelay != 10000 )
-#endif
             {
-#ifdef NETWORKED
-                // DEF:
-                // Check for TIMING delay here only if in Realtime
-                if( gTacticalStatus.uiFlags & REALTIME)
-                    if ( pSoldier->flags.fIsSoldierMoving )
-                        CheckForSlowSoldier( pSoldier );
-#endif
 
                 // Check if we need to look for items
                 if ( pSoldier->flags.uiStatusFlags & SOLDIER_LOOKFOR_ITEMS )
@@ -1213,11 +1192,6 @@ BOOLEAN ExecuteOverhead( )
 
                 fNoAPsForPendingAction = FALSE;
 
-#ifdef NETWORKED
-                // Get the path update, if there is 1
-                if (pSoldier->flags.fSoldierUpdatedFromNetwork)
-                    UpdateSoldierFromNetwork(pSoldier);
-#endif
 
                 // Check if we are moving and we deduct points and we have no points
                 if ( !( ( gAnimControl[ pSoldier->usAnimState ].uiFlags & ( ANIM_MOVING | ANIM_SPECIALMOVE ) ) && pSoldier->flags.fNoAPToFinishMove ) && !pSoldier->flags.fPauseAllAnimation    )
@@ -1326,10 +1300,6 @@ BOOLEAN ExecuteOverhead( )
                                 dXPos = pSoldier->pathing.sDestXPos;
                                 dYPos = pSoldier->pathing.sDestYPos;
                                 pSoldier->EVENT_SetSoldierPosition( dXPos, dYPos );
-#ifdef NETWORKED
-                                // DEF: Test Code
-                                StopSoldierMovementTime(pSoldier);
-#endif
                                 // CHECK IF WE HAVE A PENDING ANIMATION
                                 if ( pSoldier->usPendingAnimation != NO_PENDING_ANIMATION )
                                 {
@@ -1835,12 +1805,6 @@ BOOLEAN ExecuteOverhead( )
                     }
                 }
 
-#ifdef NETWORKED
-                if(!pSoldier->flags.fNoAPToFinishMove )
-                    pSoldier->usLastUpdateTime = GetJA2Clock();
-                if (pSoldier->flags.fSoldierUpdatedFromNetwork)
-                    UpdateSoldierFromNetwork(pSoldier);
-#endif
                 //haydens network soldier update ->>
                 if(is_client)
                     UpdateSoldierToNetwork ( pSoldier );

@@ -624,11 +624,6 @@ void BeginTeamTurn( UINT8 ubTeam )
 		}
 		else
 		{
-#ifdef NETWORKED
-			// Only the host should do this
-			if(!gfAmIHost)
-				break;
-#endif
 				if( is_client && !is_server ) //hayden //disable independant client AI
 					break;
 
