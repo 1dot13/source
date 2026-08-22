@@ -1,6 +1,7 @@
 #ifndef __CAMPAIGN_TYPES_H
 #define __CAMPAIGN_TYPES_H
 
+#include <vector>
 #include "types.h"
 #include "DEBUG.H"
 #include <map>

@@ -5,7 +5,6 @@
 #include "Merc Hiring.h"
 #include "Event Pump.h"
 #include "Bullets.h"
-#include "builddefines.h"
 #include "Strategic Movement.h"
 
 extern bool isOwnTeamWipedOut;

@@ -6,6 +6,8 @@
 * @author Flugente (bears-pit.com)
 */
 
+#include <vector>
+#include <set>
 #include "types.h"
 
 /** Flugente: Arulco special division decision code

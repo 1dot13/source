@@ -6,7 +6,6 @@
 // XML_FacilityTypes.cpp for the reading XML functions.
 //////////////////////////////////////////////////////////////////
 
-#include "builddefines.h"
 
 	#include "Campaign Types.h"
 	#include "Facilities.h"

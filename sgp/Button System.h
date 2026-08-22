@@ -7,6 +7,7 @@
 #ifndef __BUTTON_SYSTEM_H
 #define __BUTTON_SYSTEM_H
 
+#include <vector>
 #include "vobject.h" 
 #include "mousesystem.h"
 #include "soundman.h"

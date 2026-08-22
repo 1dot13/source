@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include "mapscreen.h"
 	#include <stdio.h>
 	#include "sgp.h"

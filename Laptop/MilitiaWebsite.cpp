@@ -3,6 +3,7 @@
 * @author Flugente (bears-pit.com)
 */
 
+#include <set>
 #include "laptop.h"
 #include "insurance.h"
 #include "insurance Contract.h"

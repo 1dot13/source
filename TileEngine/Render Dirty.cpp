@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "worlddef.h"
 	#include "Render Dirty.h"

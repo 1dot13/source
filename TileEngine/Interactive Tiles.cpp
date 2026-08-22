@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "sysutil.h"
 	#include "renderworld.h"

@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include <stdio.h>
 	#include "sgp.h"
 	#include "faces.h"
@@ -5716,7 +5715,7 @@ void DisplayJerryBreakingLaptopTransmitterPopup()
 		swprintf( zString, zNewTacticalMessages[ TCTL_MSG__JERRY_BREAKIN_LAPTOP_ANTENA ], Menptr[ bID ].name );
 	}
 */
-	#ifdef UBMODSHADYJOB   //See file builddefines.h
+	#ifdef UBMODSHADYJOB
 		swprintf( zString, XMLTacticalMessages[0] ); //Shady Job
 	#else
 		swprintf( zString, zNewTacticalMessages[TCTL_MSG__JERRY_BREAKIN_LAPTOP_ANTENA], Menptr[ bID ].name ); //UB

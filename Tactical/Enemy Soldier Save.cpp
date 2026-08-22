@@ -1,4 +1,3 @@
-	#include "builddefines.h"
     #include "GameSettings.h"
 	#include <stdio.h>
 	#include "types.h"

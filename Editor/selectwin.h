@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef _SELECTION_WIN_H_

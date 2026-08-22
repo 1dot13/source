@@ -1,3 +1,4 @@
+#include <set>
 	#include "Font.h"
 	#include "Font Control.h"
 	#include "mapscreen.h"

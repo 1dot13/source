@@ -1,6 +1,7 @@
 #ifndef _MUSIC_CONTROL_H_
 #define _MUSIC_CONTROL_H_
 
+#include <vector>
 #include "Overhead Types.h"
 
 enum MusicMode

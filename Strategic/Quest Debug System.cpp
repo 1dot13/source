@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include	"types.h"
 	#include	"Quest Debug System.h"

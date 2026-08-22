@@ -1,5 +1,4 @@
 #ifdef JA2UB
-#include "builddefines.h"
 
 	#include "strategicmap.h"
 	#include "strategic.h"

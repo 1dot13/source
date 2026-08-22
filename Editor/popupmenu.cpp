@@ -10,7 +10,6 @@
 //supported.  Just remove the commented line of code (search for UNCOMMENT), and it's fixed -- it is
 //currently disabled.
 
-	#include "builddefines.h"
 
 #ifdef JA2EDITOR
 

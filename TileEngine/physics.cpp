@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "physics.h"
 	#include "WCheck.h"

@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "WorldDat.h"
 	#include "Sys Globals.h"

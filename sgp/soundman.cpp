@@ -6,7 +6,6 @@
 * Derek Beland, May 28, 1997
 *
 *********************************************************************************/
-	#include "builddefines.h"
 	#include <stdio.h>
 	#include <string.h>
 	#include "soundman.h"

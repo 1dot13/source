@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 	#include "sgp.h"
 	#include "Radar Screen.h"

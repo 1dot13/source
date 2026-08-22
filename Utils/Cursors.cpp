@@ -1,4 +1,3 @@
-	#include "builddefines.h"
 	#include <wchar.h>
 	#include "sgp.h"
 	#include "Cursors.h"

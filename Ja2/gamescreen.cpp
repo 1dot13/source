@@ -1,4 +1,3 @@
-#include "builddefines.h"
 #include <stdio.h>
 #include "sgp.h"
 #include "gameloop.h"

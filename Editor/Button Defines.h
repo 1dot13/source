@@ -1,4 +1,3 @@
-#include "builddefines.h"
 
 #ifdef JA2EDITOR
 #ifndef __BUTTON_DEFINES_H

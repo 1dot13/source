@@ -1,6 +1,7 @@
 #ifndef __HANDLE_ITEMS_H
 #define __HANDLE_ITEMS_H
 
+#include <set>
 #include "World Items.h"
 #include "structure.h"
 #include "Soldier Control.h"

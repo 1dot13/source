@@ -64,7 +64,6 @@
 #include "local.h"
 #include "Map Screen Interface Bottom.h"
 #include "soundman.h"
-#include "builddefines.h"
 #include "Dialogue Control.h"
 #include "Multi Language Graphic Utils.h"
 #include "random.h"
