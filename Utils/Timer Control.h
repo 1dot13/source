@@ -1,10 +1,6 @@
 #ifndef __TIMER_CONTROL_H
 #define __TIMER_CONTROL_H
 
-#ifndef CALLBACKTIMER
-#define		CALLBACKTIMER
-#endif
-
 typedef INT32		TIMECOUNTER;
 
 //typedef void (__stdcall *JA2_TIMERPROC)( UINT32 uiID, UINT32 uiMsg, UINT32 uiUser, UINT32 uiDw1, UINT32 uiDw2 );

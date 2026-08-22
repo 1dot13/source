@@ -1,8 +1,6 @@
 #ifndef __RANDOM_
 #define __RANDOM_
 
-#define BMP_RANDOM
-
 #include "types.h"
 #include "DEBUG.H"
 #include "GameSettings.h"

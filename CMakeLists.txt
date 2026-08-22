@@ -106,6 +106,21 @@ add_compile_definitions(
   ROBOT_ALWAYS_READY
   # keep Assert() live in configurations that would otherwise compile it out
   FORCE_ASSERTS_ON
+  # sgp/random.h: the 32-bit PRNG. Turning this off returns the old generator,
+  # which only ever yields 2^15 distinct values -- it breaks big maps and
+  # invalidates saves.
+  BMP_RANDOM
+  # Utils/Timer Control.h
+  CALLBACKTIMER
+
+  # Multiplayer (WANNE), formerly Multiplayer/connect.h.
+  # Interrupts stay off in COOP: AI interrupts computed on a pure client are
+  # still wrong. This also drops the server-side ALT+E "override turn" dialog,
+  # which should no longer be needed.
+  DISABLE_MP_INTERRUPTS_IN_COOP
+  # r5623 workaround for the enemy AI deadlocking on a pure-client interrupt
+  INTERRUPT_MP_DEADLOCK_FIX
+  ENABLE_MP_FRIENDLY_PLAYERS_SHARE_SAME_FOV
 )
 
 # ja2export utility
@@ -199,7 +214,9 @@ ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "Applica
 
 
 # preprocessor definitions for Debug build, per the legacy MSBuild
-set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY,>)
+# WINDOWED_MODE was keyed off _DEBUG in Ja2/local.h, which an asan Debug build
+# does not get: it links the release CRT (see CMAKE_MSVC_RUNTIME_LIBRARY above).
+set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY;WINDOWED_MODE,>)
 
 foreach(app IN LISTS ApplicationTargets)
   set(isEditor $<STREQUAL:${app},JA2MAPEDITOR>)
