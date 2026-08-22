@@ -54,7 +54,7 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<AND:$<CONFIG:Debug>,$<NOT:${_as
 set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
   "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
 
-add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP _CRT_SECURE_NO_DEPRECATE)
+add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP)
 include_directories(
   "${CMAKE_SOURCE_DIR}/Ja2"
   "${CMAKE_SOURCE_DIR}/ext/VFS/include"
@@ -94,12 +94,6 @@ include(cmake/Warnings.cmake)
 # the build files, and cannot be varied per configuration. Nothing below should
 # ever be reintroduced as a bare #define.
 add_compile_definitions(
-  # 0verhaul: squelch the VC2K5+ warnings about printf and string operations
-  # being unsafe, so real errors stay visible.
-  _CRT_SECURE_NO_WARNINGS
-  _CRT_NON_CONFORMING_SWPRINTFS
-  _SCL_SECURE_NO_WARNINGS
-
   # Laptop briefing room (Jazz). Also needs BRIEFING_ROOM in ja2_options.ini and
   # a briefing-room mod, otherwise the room comes up blank.
   ENABLE_BRIEFINGROOM
