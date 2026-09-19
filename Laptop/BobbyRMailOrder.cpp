@@ -25,6 +25,9 @@
 	#include "english.h"
 	#include "email.h"
 	#include <list>
+#ifdef JA2UB
+	#include "ub_config.h"
+#endif
 
 #include "Strategic Event Handler.h"
 #include "connect.h"
