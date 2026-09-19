@@ -75,6 +75,10 @@ extern	NewBobbyRayOrderStruct	*gpNewBobbyrShipments;
 extern	INT32			giNumberOfNewBobbyRShipment;
 
 BOOLEAN AddNewBobbyRShipment( BobbyRayPurchaseStruct *pPurchaseStruct, UINT16 usDeliveryLoc, UINT8 ubDeliveryMethod, BOOLEAN fPurchasedFromBobbyR, UINT32 uiPackageWeight );
+// greymeister Bobby Ray Confirmation Email
+void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService );
+// set while the confirmation email's new-mail popup is deferred behind the order confirm graphic
+extern BOOLEAN gfBobbyROrderMailPopupPending;
 
 UINT16	CountNumberOfBobbyPurchasesThatAreInTransit();
 

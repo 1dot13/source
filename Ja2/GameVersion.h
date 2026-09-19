@@ -29,6 +29,7 @@ extern	CHAR16		zBuildInformation[256];
 //		Keeps track of the saved game version.	Increment the saved game version whenever 
 //	you will invalidate the saved game file
 
+#define			BOBBYR_ORDER_EMAIL_DATA						    187 // greymeister Bobby Ray Confirmation Email
 #define			INCREASED_TEAMSIZES								186 // Asdow: SOLDIERTYPE ubID changed from UINT8 -> UINT16
 #define			MERC_PROFILE_INSERTION_DATA					    185 // Bigmap support for AddProfileToMap function
 #define			GROWTH_MODIFIERS								184
@@ -113,7 +114,7 @@ extern	CHAR16		zBuildInformation[256];
 #define			AP100_SAVEGAME_DATATYPE_CHANGE					105	// Before this, we didn't have the 100AP structure changes
 #define			NIV_SAVEGAME_DATATYPE_CHANGE					102	// Before this, we used the old structure system
 
-#define			SAVE_GAME_VERSION								INCREASED_TEAMSIZES
+#define			SAVE_GAME_VERSION								BOBBYR_ORDER_EMAIL_DATA
 
 //#define RUSSIANGOLD
 #ifdef __cplusplus

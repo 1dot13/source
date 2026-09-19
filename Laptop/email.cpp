@@ -1125,6 +1125,9 @@ void RemoveEmailMessage(INT32 iId)
 		// in the middle of the list
 	pEmail=pEmail->Prev;
 	pTempEmail=pTempEmail->Next;
+	// greymeister Bobby Ray Confirmation Email
+	if( pEmail->Next->pOrderBody )
+		MemFree( pEmail->Next->pOrderBody );
 	MemFree(pEmail->Next->pSubject);
 	//while(pEmail->Next->pText[iCounter])
 	//{
@@ -1139,6 +1142,8 @@ void RemoveEmailMessage(INT32 iId)
 	{
 		// end of the list
 		pEmail=pEmail->Prev;
+	if( pEmail->Next->pOrderBody )
+		MemFree( pEmail->Next->pOrderBody );
 	MemFree(pEmail->Next->pSubject);
 		//while(pEmail->Next->pText[iCounter])
 		//{
@@ -1153,6 +1158,8 @@ void RemoveEmailMessage(INT32 iId)
 		// beginning of the list
 		pEmail=pTempEmail;
 		pTempEmail=pTempEmail->Next;
+	if( pEmail->pOrderBody )
+		MemFree( pEmail->pOrderBody );
 	MemFree(pEmail->pSubject);
 	//while(pEmail->pText[iCounter])
 		//{
@@ -1166,6 +1173,8 @@ void RemoveEmailMessage(INT32 iId)
 	else
 	{
 		// all alone
+	if( pEmail->pOrderBody )
+		MemFree( pEmail->pOrderBody );
 	MemFree(pEmail->pSubject);
 	//	while(pEmail->pText[iCounter])
 		//{
@@ -1459,6 +1468,31 @@ static void SortMessages(INT32 iCriteria)
     fReDrawScreenFlag = TRUE;
 }
 
+// copies the plain value fields of pSrc into pDst.
+// pSubject and pOrderBody are intentionally excluded: pSubject has to be
+// copied into the destination's own buffer and pOrderBody is a heap pointer
+// that must be exchanged between nodes, never referenced by two of them.
+static void CopyEmailDataFields( EmailPtr pDst, const EmailPtr pSrc )
+{
+    pDst->iId = pSrc->iId;
+    pDst->fRead = pSrc->fRead;
+    pDst->fNew = pSrc->fNew;
+    pDst->usOffset = pSrc->usOffset;
+    pDst->EmailVersion = pSrc->EmailVersion;
+    pDst->EmailType = pSrc->EmailType;
+    pDst->usLength = pSrc->usLength;
+    pDst->iDate = pSrc->iDate;
+    pDst->ubSender = pSrc->ubSender;
+    pDst->iFirstData = pSrc->iFirstData;
+    pDst->uiSecondData = pSrc->uiSecondData;
+    pDst->iThirdData = pSrc->iThirdData;
+    pDst->iFourthData = pSrc->iFourthData;
+    pDst->uiFifthData = pSrc->uiFifthData;
+    pDst->uiSixData = pSrc->uiSixData;
+    pDst->iCurrentIMPPosition = pSrc->iCurrentIMPPosition;
+    pDst->iCurrentShipmentDestinationID = pSrc->iCurrentShipmentDestinationID;
+}
+
 void SwapMessages(INT32 iIdA, INT32 iIdB)
 {
     // swaps locations of messages in the linked list
@@ -1468,6 +1502,9 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
     pTemp->pSubject = (STR16)MemAlloc(128 * sizeof(CHAR16));
 
     memset(pTemp->pSubject, 0, sizeof(CHAR16) * 128);
+    // pTemp is a scratch copy that gets freed below, it must not own the order body
+    pTemp->pOrderBody = NULL;
+    pTemp->uiOrderBodyLen = 0;
 
     if ( !pA->Next )
         return;
@@ -1478,18 +1515,18 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
     while ( pB->iId != iIdB )
         pB = pB->Next;
 
+    // exchange the order body heap pointers
+    STR16 pOrderBody = pA->pOrderBody;
+    UINT32 uiOrderBodyLen = pA->uiOrderBodyLen;
+    pA->pOrderBody = pB->pOrderBody;
+    pA->uiOrderBodyLen = pB->uiOrderBodyLen;
+    pB->pOrderBody = pOrderBody;
+    pB->uiOrderBodyLen = uiOrderBodyLen;
+
     // swap
 
     // pTemp becomes pA
-    pTemp->iId = pA->iId;
-    pTemp->fRead = pA->fRead;
-    pTemp->fNew = pA->fNew;
-    pTemp->usOffset = pA->usOffset;
-    pTemp->EmailVersion = pA->EmailVersion;
-    pTemp->usLength = pA->usLength;
-    pTemp->iDate = pA->iDate;
-    pTemp->ubSender = pA->ubSender;
-
+    CopyEmailDataFields( pTemp, pA );
     if ( pA->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
         wcscpy(pTemp->pSubject, EmailMercAvailableText[pA->ubSender].szSubject);
     else if ( pA->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
@@ -1498,26 +1535,11 @@ void SwapMessages(INT32 iIdA, INT32 iIdB)
         wcscpy(pTemp->pSubject, pA->pSubject);
 
     // pA becomes pB
-    pA->iId = pB->iId;
-    pA->fRead = pB->fRead;
-    pA->fNew = pB->fNew;
-    pA->usOffset = pB->usOffset;
-    pA->EmailVersion = pB->EmailVersion;
-    pA->usLength = pB->usLength;
-    pA->iDate = pB->iDate;
-    pA->ubSender = pB->ubSender;
+    CopyEmailDataFields( pA, pB );
     wcscpy(pA->pSubject, pB->pSubject);
 
     // pB becomes pTemp
-    pB->iId = pTemp->iId;
-    pB->fRead = pTemp->fRead;
-    pB->fNew = pTemp->fNew;
-    pB->usOffset = pTemp->usOffset;
-    pB->EmailVersion = pTemp->EmailVersion;
-    pB->usLength = pTemp->usLength;
-    pB->iDate = pTemp->iDate;
-    pB->ubSender = pTemp->ubSender;
-
+    CopyEmailDataFields( pB, pTemp );
     if ( pB->EmailVersion == TYPE_EMAIL_AIM_AVAILABLE )
         wcscpy(pB->pSubject, EmailMercAvailableText[pTemp->ubSender].szSubject);
     else if ( pB->EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP )
@@ -3476,6 +3498,38 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 		case( IMP_EMAIL_PROFILE_RESULTS ):
 
 			HandleIMPCharProfileResultsMessage( );
+			fSpecialCase = TRUE;
+			break;
+		// greymeister Bobby Ray Confirmation Email
+		case( BOBBYR_ORDER_CONFIRMED ):
+			if( !pMessageRecordList )
+			{
+				CHAR16 zLine[ 512 ];
+				UINT32 uiLineLen = 0;
+				CHAR16 *pBody = pMail->pOrderBody;
+				if( !pBody )
+					pBody = L"Order confirmed.";
+
+				for( UINT32 i = 0; pBody[ i ] != L'\0'; ++i )
+				{
+					if( pBody[ i ] == L'\n' )
+					{
+						zLine[ uiLineLen ] = L'\0';
+						AddEmailRecordToList( zLine );
+						uiLineLen = 0;
+					}
+					else if( uiLineLen < sizeof( zLine ) / sizeof( CHAR16 ) - 1 )
+					{
+						zLine[ uiLineLen++ ] = pBody[ i ];
+					}
+				}
+				if( uiLineLen > 0 )
+				{
+					zLine[ uiLineLen ] = L'\0';
+					AddEmailRecordToList( zLine );
+				}
+			}
+			giPrevMessageId = giMessageId;
 			fSpecialCase = TRUE;
 			break;
 #ifdef JA2UB
@@ -5462,6 +5516,9 @@ UINT32  cnt;
 
 		pEmail = pEmail->Next;
 
+		// greymeister Bobby Ray Confirmation Email
+		if( pTempEmail->pOrderBody )
+			MemFree( pTempEmail->pOrderBody );
 		MemFree( pTempEmail->pSubject );
 		pTempEmail->pSubject = NULL;
 
