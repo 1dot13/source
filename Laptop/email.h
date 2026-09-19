@@ -405,7 +405,10 @@
 #define	MERC_UP_LEVEL_GASTON			165
 #define MERC_UP_LEVEL_STOGIE			166
 #define MERC_UP_LEVEL_TEX				167
-#define MERC_UP_LEVEL_BIGGENS			168
+#define	MERC_UP_LEVEL_BIGGENS			168
+
+// greymeister Bobby Ray Confirmation Email
+#define	BOBBYR_ORDER_CONFIRMED	320
 
 struct message{
 	STR16 pString;
@@ -420,6 +423,9 @@ typedef EmailMessage *MessagePtr;
 struct email
 {
 	STR16		pSubject;
+	// greymeister Bobby Ray Confirmation Email
+	STR16		pOrderBody;
+	UINT32		uiOrderBodyLen;
 	UINT16	usOffset;
 	UINT16	usLength;
 	UINT8		ubSender;
