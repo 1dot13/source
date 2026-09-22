@@ -15,6 +15,8 @@
 #include <process.h> // _beginthreadex for the detached upload thread
 
 #include <cstring> // strstr
+#include <optional>
+#include <string>
 #include <vector>
 
 extern "C" IMAGE_DOS_HEADER __ImageBase;
@@ -45,20 +47,23 @@ void writeConsent(bool yes) {
 // what the sink will not take is how an upload destroys the report it carries.
 const DWORD kMaxReportBytes = 32 * 1024;
 
-// POST one report file to url. Returns the HTTP status, or 0 if the request never
-// completed (no connection, DNS failure, timeout) — see reportIsSettled().
-DWORD postReport(const wchar_t* url, const char* path) {
-	HANDLE fh = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+std::optional<std::string> readReport(const char* path) {
+	HANDLE file = CreateFileA(path, GENERIC_READ, FILE_SHARE_READ, NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	if (fh == INVALID_HANDLE_VALUE) return 0;
-	DWORD size = GetFileSize(fh, NULL);
-	if (size > kMaxReportBytes) { CloseHandle(fh); return 413; }
-	std::vector<char> body(size ? size : 1);
+	if (file == INVALID_HANDLE_VALUE) return std::nullopt;
+	std::string text(kMaxReportBytes + 1, '\0');
 	DWORD got = 0;
-	BOOL read_ok = ReadFile(fh, body.data(), size, &got, NULL);
-	CloseHandle(fh);
-	if (!read_ok || got != size) return 0;
+	const BOOL read = ReadFile(file, text.data(), static_cast<DWORD>(text.size()), &got, NULL);
+	CloseHandle(file);
+	if (!read || got > kMaxReportBytes) return std::nullopt;
+	text.resize(got);
+	return text;
+}
 
+// POST one report to url. Returns the HTTP status, or 0 if the request never
+// completed (no connection, DNS failure, timeout) — see reportIsSettled().
+DWORD postReport(const wchar_t* url, const std::string& body) {
+	const DWORD size = static_cast<DWORD>(body.size());
 	URL_COMPONENTS uc = {}; uc.dwStructSize = sizeof(uc);
 	wchar_t host[256] = {}, urlpath[1024] = {};
 	uc.lpszHostName = host;    uc.dwHostNameLength = _countof(host);
@@ -79,7 +84,7 @@ DWORD postReport(const wchar_t* url, const char* path) {
 		if (HINTERNET hReq = WinHttpOpenRequest(hConnect, L"POST", urlpath, NULL,
 				WINHTTP_NO_REFERER, WINHTTP_DEFAULT_ACCEPT_TYPES, flags)) {
 			if (WinHttpSendRequest(hReq, L"Content-Type: text/plain\r\n", (DWORD)-1,
-					body.data(), size, size, 0) &&
+					const_cast<char*>(body.data()), size, size, 0) &&
 				WinHttpReceiveResponse(hReq, NULL)) {
 				DWORD len = sizeof(status);
 				WinHttpQueryHeaders(hReq,
@@ -286,12 +291,15 @@ unsigned __stdcall telemetryThread(void*) {
 	int sent = 0;
 	do {
 		if (isFromLocalBuild(fd.cFileName)) continue;
-		if (olderThan(fd.ftLastWriteTime, kMaxReportAgeDays)) {
+		if (olderThan(fd.ftLastWriteTime, kMaxReportAgeDays) ||
+				fd.nFileSizeHigh != 0 || fd.nFileSizeLow > kMaxReportBytes) {
 			DeleteFileA(fd.cFileName);
 			continue;
 		}
+		const std::optional<std::string> report = readReport(fd.cFileName);
+		if (!report) continue;
 		if (sent++ >= kMaxUploadsPerRun) break;
-		if (reportIsSettled(postReport(s_telemetryUrl, fd.cFileName)))
+		if (reportIsSettled(postReport(s_telemetryUrl, *report)))
 			DeleteFileA(fd.cFileName);
 	} while (FindNextFileA(hFind, &fd));
 	FindClose(hFind);
@@ -329,7 +337,7 @@ void processCrashTelemetry(const wchar_t* url) {
 	// takes. The consent prompt above stays here, on purpose — that one is a
 	// question, and a question has to be asked before anything is sent.
 	lstrcpynW(s_telemetryUrl, url, ARRAYSIZE(s_telemetryUrl));
-	// _beginthreadex, not CreateThread: the upload path uses the CRT (std::vector),
+	// _beginthreadex, not CreateThread: the upload path uses the CRT (std::string),
 	// which wants its per-thread state set up and torn down.
 	uintptr_t t = _beginthreadex(NULL, 0, telemetryThread, NULL, 0, NULL);
 	if (t) CloseHandle((HANDLE)t);
