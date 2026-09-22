@@ -195,7 +195,9 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		//
 		// Copied into a terminated buffer: FullDllName is counted, not terminated,
 		// and wsprintf supports neither "*" precision nor a way to bound %S, so a
-		// long name would run off the end of both.
+		// long name would run off the end of both. Printable ASCII only, '?' for
+		// the rest: %S would write the player's ANSI code page, which is not text
+		// to anything that reads the report after it leaves the machine.
 		const WCHAR* full = m->FullDllName.Buffer;
 		int fullChars = (int)(m->FullDllName.Length / sizeof(WCHAR));
 		if (!full || fullChars <= 0)
@@ -204,11 +206,12 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		for (int i = 0; i < fullChars; ++i)
 			if (full[i] == L'\\' || full[i] == L'/')
 				start = i + 1;
-		WCHAR modname[64];
-		int nameChars = fullChars - start + 1;
-		lstrcpynW(modname, full + start,
-			nameChars < ARRAYSIZE(modname) ? nameChars : ARRAYSIZE(modname));
-		emit(wsprintfA(line, "    %08lX %08lX %S\r\n", base,
+		char modname[64];
+		int nameChars = 0;
+		for (int i = start; i < fullChars && nameChars < (int)sizeof(modname) - 1; ++i)
+			modname[nameChars++] = (full[i] >= L' ' && full[i] <= L'~') ? (char)full[i] : '?';
+		modname[nameChars] = 0;
+		emit(wsprintfA(line, "    %08lX %08lX %s\r\n", base,
 			nt->OptionalHeader.SizeOfImage, modname));
 	}
 
