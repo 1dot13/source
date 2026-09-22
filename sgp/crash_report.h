@@ -33,6 +33,10 @@ namespace sgp
 	// a report can be matched to the exact build's PDB. Call once at startup.
 	void setCrashBuildId(const char* id);
 
+	// The running executable's TimeDateStamp. A build id names a commit; this
+	// names the binary, which two builds of one commit do not share. Heap-free.
+	unsigned long imageFingerprint();
+
 	// What to tell the player: why we died and where the report landed. NULL if
 	// no crash was recorded. Built by the handler, shown from the exit path.
 	const wchar_t* crashReportMessage();

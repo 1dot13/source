@@ -7,6 +7,8 @@
 
 #include <winternl.h> // PEB loader list, so the module table costs no allocation
 
+extern "C" IMAGE_DOS_HEADER __ImageBase;
+
 
 
 
@@ -25,6 +27,12 @@ namespace sgp {
 static char s_buildId[64] = { 0 };
 void setCrashBuildId(const char* id) {
 	if (id) lstrcpynA(s_buildId, id, sizeof(s_buildId));
+}
+
+unsigned long imageFingerprint() {
+	const auto* headers = reinterpret_cast<const IMAGE_NT_HEADERS*>(
+		reinterpret_cast<const char*>(&__ImageBase) + __ImageBase.e_lfanew);
+	return headers->FileHeader.TimeDateStamp;
 }
 
 // Filled in once a report has been written; see crashReportMessage(). Sized to
@@ -126,6 +134,7 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		t.wYear, t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond));
 	if (s_buildId[0])
 		emit(wsprintfA(line, "  build %s\r\n", s_buildId));
+	emit(wsprintfA(line, "  image %08lX\r\n", imageFingerprint()));
 	if (s_userHandle[0])
 		emit(wsprintfA(line, "  handle %s\r\n", s_userHandle));
 	// File name only, and copied into a bounded buffer first: __FILE__ carries the
