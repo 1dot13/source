@@ -50,9 +50,12 @@ set(usingMsBuild $<STREQUAL:${CMAKE_VS_PLATFORM_NAME},Win32>)
 # static runtime is forced on us until RakNet too is built from source. Debug
 # keeps its /MTd only when asan is off: asan needs the release CRT (see below).
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<AND:$<CONFIG:Debug>,$<NOT:${_asan}>>:Debug>")
-# make Debug builds /Z7 instead of /Zi so they can be sccache'd
-set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
-  "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
+# make Debug builds /Z7 instead of /Zi so they can be sccache'd. Only a default:
+# the packaged build passes its own, for Release (.github/workflows/build.yml).
+if(NOT DEFINED CMAKE_MSVC_DEBUG_INFORMATION_FORMAT)
+  set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT
+    "$<$<CONFIG:Debug,RelWithDebInfo>:Embedded>")
+endif()
 
 add_compile_definitions(CINTERFACE XML_STATIC VFS_STATIC VFS_WITH_SLF VFS_WITH_7ZIP)
 include_directories(

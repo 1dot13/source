@@ -141,7 +141,18 @@ jobs:
           # The build identity comes from versions.env, pinned once for the whole
           # workflow. Handing it over is what makes this a packaged build rather
           # than a local one; CMake never asks git who we are.
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DApplications="$Env:JA2Application" -DGAME_BUILD_INFORMATION="$Env:GAME_BUILD_INFORMATION" -DGIT_SHA="$Env:GIT_SHA"
+          #
+          # Release, with the debug information a crash report is resolved against
+          # asked for here rather than in CMakeLists.txt: RelWithDebInfo is /Ob1,
+          # which inlines only what is marked inline, and a local Release build has
+          # no use for a PDB. The linker flags replace Release's defaults rather
+          # than add to them, and /DEBUG flips two of those: it turns incremental
+          # linking back on and unreferenced-code removal off, so both are restated.
+          # Identical-code folding stays off, as /DEBUG left it, but has to be said
+          # out loud because /OPT:REF on its own brings it back: two folded
+          # functions share one address, and a crash in either names whichever the
+          # PDB lists first.
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded -DCMAKE_EXE_LINKER_FLAGS_RELEASE="/DEBUG /INCREMENTAL:NO /OPT:REF /OPT:NOICF" -DApplications="$Env:JA2Application" -DGAME_BUILD_INFORMATION="$Env:GAME_BUILD_INFORMATION" -DGIT_SHA="$Env:GIT_SHA"
       - name: Build
         run: |
           cmake --build build/ -- -v
