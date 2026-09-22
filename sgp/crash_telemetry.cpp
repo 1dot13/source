@@ -63,7 +63,7 @@ DWORD postReport(const wchar_t* url, const char* path) {
 	wchar_t host[256] = {}, urlpath[1024] = {};
 	uc.lpszHostName = host;    uc.dwHostNameLength = _countof(host);
 	uc.lpszUrlPath = urlpath;  uc.dwUrlPathLength  = _countof(urlpath);
-	if (!WinHttpCrackUrl(url, 0, 0, &uc)) return 400;
+	if (!WinHttpCrackUrl(url, 0, 0, &uc)) return 0;
 
 	HINTERNET hSession = WinHttpOpen(L"JA2-1.13-crash-telemetry",
 		WINHTTP_ACCESS_TYPE_DEFAULT_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
