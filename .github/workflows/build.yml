@@ -155,4 +155,6 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.application }}
-          path: build/*.exe
+          path: |
+            build/*.exe
+            build/*.pdb
