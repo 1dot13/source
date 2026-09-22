@@ -70,68 +70,45 @@ assert.deepEqual(frames[3], { idx: 3, func: "invoke_main", source: "exe_common.i
 assert.deepEqual(frames[4], { idx: 4, func: null, source: null, name: "kernel32.dll", rva: 0xFC44 });
 assert.equal(frames[7].name, null);                          // 00000000: in no image at all
 
-// ---- the Worker ------------------------------------------------------------
+// ---- the Worker and the status-code contract ------------------------------
 
-const REPORT = `
-*** CRASH  code=C0000005  eip=0071D5A0  esp=202BF99C  ebp=202BFA18 ***
-  time 2026-07-26 10:41:02 UTC
-  build 6a941c06
-  handle @marco*evil
-  access violation: read from 00000002 [x](https://evil.test) \`
-  [0] 0071D5A0
-  [1] 006BE7DE
-`;
-
-let sent = null;               // what we handed Discord on the last call
-let upstream = () => new Response(null, { status: 204 });
-globalThis.fetch = async (url, init) => { sent = init; return upstream(); };
-
+// The Worker's view of D1 -- prepare, bind, run -- over the same in-memory
+// database, so a statement D1 would reject is rejected here too.
 let throttled = false;
 const ENV = {
-  DISCORD_WEBHOOK: "https://discord.test/hook",
+  DB: { prepare: (sql) => ({ bind: (...v) => ({ run: async () => db.prepare(sql).run(...v) }) }) },
   UPLOAD_LIMITER: { limit: async () => ({ success: !throttled }) },
 };
-
 const post = (body, env = ENV) =>
   worker.fetch(new Request("https://x/", { method: "POST", body }), env);
+const rows = () => one("SELECT count(*) n FROM reports").n;
 
-// happy path
-let r = await post(REPORT);
-assert.equal(r.status, 204);
-const content = JSON.parse(sent.body.get("payload_json")).content;
-assert.match(content, /C0000005/);
-assert.match(content, /read from 00000002/);
-assert.match(content, /build `6a941c06`/);
-assert.match(content, /marcoevil/);            // markdown and @ stripped from the handle
-// every field is attacker-chosen: no field may carry markup or a link into the
-// channel, and none may close the backticks or bold the summary wraps it in.
-assert.ok(!content.includes("]("), content);   // no link syntax out of the report
-assert.ok(!content.includes("://"), content);  // and no bare URL either
-assert.equal(content.match(/`/g).length, 4);   // only the two pairs summarize() opens
-assert.deepEqual(JSON.parse(sent.body.get("payload_json")).allowed_mentions, { parse: [] });
-assert.equal(await sent.body.get("files[0]").text(), REPORT);
+db.exec("DELETE FROM reports");
+assert.equal((await post(FAULT)).status, 204);
+assert.equal(one("SELECT text FROM report_text").text, FAULT);
+// Sent again, because the client reports a timeout as unsettled even when we
+// committed: still one row.
+assert.equal((await post(FAULT)).status, 204);
+assert.equal(rows(), 1);
 
-// junk: client should delete these, so they must be 400
+// Junk: the client deletes these, so they must be 400.
 assert.equal((await post("hello")).status, 400);
-assert.equal((await post("x".repeat(32 * 1024 + 1))).status, 400);
+assert.equal((await post("*** CRASH " + "x".repeat(32 * 1024))).status, 400);
+assert.equal((await worker.fetch(new Request("https://x/"), ENV)).status, 405);
+// An assertion from an older client: 400, so it is deleted rather than resent.
+assert.equal((await post(FAULT.replace("code=C0000005", "code=E1A55E27"))).status, 400);
+assert.equal(rows(), 1);
 
-// throttled: 429, and nothing reaches Discord. reportIsSettled() leaves 429
-// unsettled, so the client keeps the report for next launch.
+// Throttled: 429, and nothing stored. reportIsSettled() leaves 429 unsettled, so
+// the client keeps the report for next launch.
 throttled = true;
-sent = null;
-assert.equal((await post(REPORT)).status, 429);
-assert.equal(sent, null);
+assert.equal((await post(FAULT)).status, 429);
 throttled = false;
 
-// our failures: client must keep the report, so these must be 5xx
-upstream = () => new Response(null, { status: 429 });          // Discord rate limit
-assert.equal((await post(REPORT)).status, 503);
-upstream = () => { throw new Error("network"); };
-assert.equal((await post(REPORT)).status, 503);
-upstream = () => new Response(null, { status: 204 });
-assert.equal((await post(REPORT, {})).status, 503);            // secret not set
-
-// wrong method
-assert.equal((await worker.fetch(new Request("https://x/"), {})).status, 405);
+// Our failures must be 5xx, or the client throws away a report we never stored.
+const broken = { ...ENV, DB: { prepare: () => { throw new Error("D1_ERROR"); } } };
+assert.equal((await post(OLDER, broken)).status, 503);
+assert.equal((await post(OLDER, { ...ENV, DB: undefined })).status, 503);
+assert.equal(rows(), 1);
 
 console.log("ok");
