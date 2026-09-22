@@ -694,6 +694,24 @@ static LONG CALLBACK VectoredCrashHandler(EXCEPTION_POINTERS* pExceptInfo)
 	return EXCEPTION_CONTINUE_SEARCH; // never handle; let normal SEH run
 }
 
+static __forceinline void storeToNull(volatile int* target) { *target = 0xBADC0DE; }
+
+// A deliberate crash, for checking crash reports end to end: CRASH_TEST in
+// Ja2.ini, "assert" or "av".
+//
+// "av" writes to address zero and dies; the report goes out on the next launch.
+// "assert" raises and is swallowed, so the game keeps running and can be quit
+// normally; its report is written but never uploaded, which is the other thing
+// to check.
+static void crashTest(const wchar_t* which)
+{
+	if (which == NULL || which[0] == L'\0') return;
+	if (lstrcmpiW(which, L"av") == 0)
+		storeToNull(NULL);
+	else if (lstrcmpiW(which, L"assert") == 0)
+		AssertMsg(FALSE, "CRASH_TEST=assert");
+}
+
 int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandLine, int sCommandShow)
 {
 	AddVectoredExceptionHandler(1, VectoredCrashHandler); // 1 = call first
@@ -942,6 +960,10 @@ void GetRuntimeSettings( )
 	// report can be tied to whoever raises it with us. Unset = field omitted.
 	sgp::setCrashUserHandle(
 		oProps.getStringProperty("Ja2 Settings", L"HANDLE").c_str());
+
+	// After the handler is installed and after processCrashTelemetry has picked up
+	// the previous run's reports. See crashTest().
+	crashTest(oProps.getStringProperty("Ja2 Settings", L"CRASH_TEST").c_str());
 	
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
