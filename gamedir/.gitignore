@@ -8,7 +8,7 @@
 Data/
 
 aidebug.txt
-stack_trace.log
+crash_report_*
 telemetry.consent
 vfs.log
 game_log.log
