@@ -18,8 +18,8 @@ extern "C" IMAGE_DOS_HEADER __ImageBase;
 // allocates — the game Logger, std::vector, DbgHelp's Sym* — would fault again
 // and take the report down with it. So this path is deliberately heap-free: only
 // stack buffers and raw Win32. It emits runtime addresses plus the module table
-// needed to make sense of them; symbolize offline against the build's PDB:
-//   symbolize_crash crash_report_001.txt JA2.exe
+// needed to make sense of them; the next launch names them against the PDB beside
+// the exe (crash_telemetry.cpp).
 namespace sgp {
 
 // Stamped into every crash report so a report maps to the exact build's PDB.

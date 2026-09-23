@@ -25,8 +25,8 @@ namespace sgp
 		const char* message);
 
 	// Write a heap-free crash report (registers + a raw return-address backtrace)
-	// for the faulting context to a numbered crash_report file; symbolize it
-	// offline against the build's PDB. Call first-chance from a vectored handler.
+	// for the faulting context to a numbered crash_report file; the next launch
+	// names its frames. Call first-chance from a vectored handler.
 	void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep);
 
 	// Record the build-id (game version string) to stamp into crash reports, so
