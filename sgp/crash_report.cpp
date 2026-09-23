@@ -28,6 +28,7 @@ static char s_buildId[64] = { 0 };
 void setCrashBuildId(const char* id) {
 	if (id) lstrcpynA(s_buildId, id, sizeof(s_buildId));
 }
+const char* crashBuildId() { return s_buildId; }
 
 unsigned long imageFingerprint() {
 	const auto* headers = reinterpret_cast<const IMAGE_NT_HEADERS*>(
