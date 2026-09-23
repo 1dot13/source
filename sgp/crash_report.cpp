@@ -267,8 +267,12 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	wsprintfW(s_crashMessage,
 		L"%s\r\n\r\n"
 		L"A crash report was written to\r\n\r\n    %s\\%S\r\n\r\n"
-		L"Please attach that file to your bug report.",
-		headline, dir, name);
+		L"%s",
+		headline, dir, name,
+		lstrcmpA(s_buildId, "local") == 0
+			? L"This is a local build. Run this same exe again, before rebuilding,\r\n"
+			  L"and it adds function names and source lines to that report."
+			: L"Please attach that file to your bug report.");
 
 	s_inDump = false;
 }

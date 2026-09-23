@@ -3,6 +3,9 @@
 // exe. Only faults go out, and only once they can be named; an assertion report
 // stays on disk for the player.
 //
+// A local build uploads nothing. It names its own reports in place instead, so a
+// developer reruns the exe that crashed to read one.
+//
 // Deliberately a separate translation unit from crash_report.cpp. Everything in
 // there runs inside a faulting thread and may not allocate; everything here runs at
 // startup with a healthy heap and is ordinary code. Keeping the two apart keeps the
@@ -196,13 +199,14 @@ std::optional<std::string> nameFrames(const std::string& report, PdbBesideExe& p
 		if (!line.empty() && line.back() == '\r')
 			line.pop_back();
 		unsigned long base = 0, size = 0, address = 0;
-		int frameIndex = 0;
+		int frameIndex = 0, frameLineLength = 0;
 		if (imageSize == 0 && line.compare(0, 4, "    ") == 0 &&
 				sscanf_s(line.c_str(), "    %8lx %8lx", &base, &size) == 2) {
 			imageBase = base;
 			imageSize = size;
 		} else if (imageSize != 0 &&
-				sscanf_s(line.c_str(), "  [%d] %8lx", &frameIndex, &address) == 2 &&
+				sscanf_s(line.c_str(), "  [%d] %8lx%n", &frameIndex, &address, &frameLineLength) == 2 &&
+				frameLineLength == static_cast<int>(line.size()) &&
 				address >= imageBase && address - imageBase < imageSize) {
 			const std::vector<CrashLocation> locations =
 				pdb.resolve(frameIndex, address - imageBase);
@@ -249,6 +253,19 @@ std::optional<std::string> uploadableText(const std::string& report, PdbBesideEx
 	if (isAssertion(report))
 		return std::nullopt;
 	return withFrameNames(report, pdb);
+}
+
+void replaceReport(const char* path, const std::string& text) {
+	const std::string replacement = std::string(path) + ".tmp";
+	HANDLE file = CreateFileA(replacement.c_str(), GENERIC_WRITE, 0, NULL,
+		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (file == INVALID_HANDLE_VALUE) return;
+	DWORD written = 0;
+	const BOOL wrote = WriteFile(file, text.data(), static_cast<DWORD>(text.size()), &written, NULL);
+	CloseHandle(file);
+	if (!wrote || written != text.size() ||
+			!MoveFileExA(replacement.c_str(), path, MOVEFILE_REPLACE_EXISTING))
+		DeleteFileA(replacement.c_str());
 }
 
 // POST one report to url. Returns the HTTP status, or 0 if the request never
@@ -500,10 +517,38 @@ unsigned __stdcall telemetryThread(void*) {
 	return 0;
 }
 
+unsigned __stdcall nameLocalReports(void*) {
+	WIN32_FIND_DATAA fd;
+	HANDLE hFind = FindFirstFileA("crash_report_*.txt", &fd);
+	if (hFind == INVALID_HANDLE_VALUE) return 0;
+	PdbBesideExe pdb;
+	do {
+		const std::optional<std::string> report = readReport(fd.cFileName);
+		if (!report) continue;
+		if (const std::optional<std::string> named = withFrameNames(*report, pdb))
+			replaceReport(fd.cFileName, *named);
+	} while (FindNextFileA(hFind, &fd));
+	FindClose(hFind);
+	return 0;
+}
+
+// _beginthreadex, not CreateThread: both passes use the CRT (std::string), which
+// wants its per-thread state set up and torn down.
+void runDetached(unsigned (__stdcall* pass)(void*)) {
+	uintptr_t thread = _beginthreadex(NULL, 0, pass, NULL, 0, NULL);
+	if (thread) CloseHandle((HANDLE)thread);
+}
+
 } // anonymous namespace
 
 namespace sgp {
 void processCrashTelemetry(const wchar_t* url) {
+	// Ahead of the endpoint and the consent question: naming a report sends it
+	// nowhere, and a developer who declines uploads still wants names.
+	if (lstrcmpA(crashBuildId(), "local") == 0) {
+		runDetached(nameLocalReports);
+		return;
+	}
 	if (url == NULL || url[0] == L'\0') return; // no endpoint configured: feature off
 	// Ahead of the consent question too: without its PDB this exe has nothing
 	// readable to send, so there is nothing to ask about. See matchingPdbBesideExe().
@@ -531,10 +576,7 @@ void processCrashTelemetry(const wchar_t* url) {
 	// takes. The consent prompt above stays here, on purpose — that one is a
 	// question, and a question has to be asked before anything is sent.
 	lstrcpynW(s_telemetryUrl, url, ARRAYSIZE(s_telemetryUrl));
-	// _beginthreadex, not CreateThread: the upload path uses the CRT (std::string),
-	// which wants its per-thread state set up and torn down.
-	uintptr_t t = _beginthreadex(NULL, 0, telemetryThread, NULL, 0, NULL);
-	if (t) CloseHandle((HANDLE)t);
+	runDetached(telemetryThread);
 }
 } // namespace sgp
 

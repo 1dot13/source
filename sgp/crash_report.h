@@ -51,7 +51,8 @@ namespace sgp
 	// crash handler). If url is empty the feature is off. On first run, asks the
 	// player for consent (native dialog) and remembers it; if granted, names the
 	// frames of each pending crash_report_*.txt against the PDB beside the exe,
-	// POSTs the readable ones to url and deletes those that upload cleanly.
+	// POSTs the faults it could name to url and deletes those that upload cleanly. A
+	// local build asks nothing and sends nothing: it names its own reports in place.
 	void processCrashTelemetry(const wchar_t* url);
 }
 
