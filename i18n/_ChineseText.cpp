@@ -5700,6 +5700,16 @@ STR16			BobbyROrderFormText[] =
 	L"包裹重量**",	//"Package Weight**",		// Displays the weight of the package
 	L"** 最小重量: ",		//"** Min. Wt.",			// Disclaimer states that there is a minimum weight for the package
 	L"运货",		//"Shipments",
+	// Bobby Ray order confirmation e-mail // TODO: needs translator review
+	L"Bobby Ray订单已确认",	//L"Bobby Ray's Order Confirmed"	// BOBBYR_EMAIL_SUBJECT
+	L"送货地点：%s",		//L"Order to: %s"			// BOBBYR_EMAIL_ORDER_TO
+	L"订购日期：%s",		//L"Ordered on: %s"			// BOBBYR_EMAIL_ORDERED_ON
+	L"预计到达：%s",		//L"Expected arrival: %s"		// BOBBYR_EMAIL_EXPECTED
+	L"订单明细：",		//L"Itemized order:"			// BOBBYR_EMAIL_ITEMIZED
+	L"  %1$dx %2$s  @  %3$s  =  %4$s",	// BOBBYR_EMAIL_ITEM_LINE: 1=qty 2=item name 3=unit price 4=line total
+	L"%1$s %2$u",			// BOBBYR_EMAIL_DAY: 1="Day" 2=day number
+	L"... [订单列表已截断]",	//L"... [order list truncated]"	// BOBBYR_EMAIL_TRUNCATED
+	L"订单已确认。",		//L"Order confirmed."			// BOBBYR_EMAIL_FALLBACK
 };
 
 STR16			BobbyRFilter[] =

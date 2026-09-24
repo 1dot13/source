@@ -1422,6 +1422,18 @@ enum
 	BOBBYR_PACKAGE_WEIGHT,
 	BOBBYR_MINIMUM_WEIGHT,
 	BOBBYR_GOTOSHIPMENT_PAGE,
+	// order confirmation e-mail (greymeister)
+	BOBBYR_EMAIL_SUBJECT,
+	BOBBYR_EMAIL_ORDER_TO,
+	BOBBYR_EMAIL_ORDERED_ON,
+	BOBBYR_EMAIL_EXPECTED,
+	BOBBYR_EMAIL_ITEMIZED,
+	// item line, args: 1=qty, 2=item name, 3=unit price, 4=line total
+	BOBBYR_EMAIL_ITEM_LINE,
+	// date line, args: 1=localized "Day" word, 2=day number
+	BOBBYR_EMAIL_DAY,
+	BOBBYR_EMAIL_TRUNCATED,
+	BOBBYR_EMAIL_FALLBACK,
 	TEXT_NUM_BOBBYR_MAILORDER,
 };
 extern STR16* BobbyROrderFormText;
