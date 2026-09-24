@@ -3508,7 +3508,7 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 				UINT32 uiLineLen = 0;
 				CHAR16 *pBody = pMail->pOrderBody;
 				if( !pBody )
-					pBody = L"Order confirmed.";
+					pBody = BobbyROrderFormText[ BOBBYR_EMAIL_FALLBACK ];
 
 				for( UINT32 i = 0; pBody[ i ] != L'\0'; ++i )
 				{

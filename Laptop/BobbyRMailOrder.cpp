@@ -2396,6 +2396,7 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 	CHAR16 zBody[ 16384 ];
 	UINT32 uiBodyLen = 0;
 	BOOLEAN fTruncated = FALSE;
+	STR16 pSubject = BobbyROrderFormText[ BOBBYR_EMAIL_SUBJECT ];
 
 	auto AppendString = [&]( const CHAR16* pString )
 	{
@@ -2408,15 +2409,16 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 			if( !fTruncated )
 			{
 				fTruncated = TRUE;
-				const CHAR16* pMarker = L"... [order list truncated]\n";
+				const CHAR16* pMarker = BobbyROrderFormText[ BOBBYR_EMAIL_TRUNCATED ];
 				UINT32 uiMarkerLen = ( UINT32 ) wcslen( pMarker );
-				if( uiBodyLen + uiMarkerLen > sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+				if( uiBodyLen + uiMarkerLen + 1 > sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
 				{
 					// make room at the buffer end so the marker is always visible
-					uiBodyLen = sizeof( zBody ) / sizeof( CHAR16 ) - 1 - uiMarkerLen;
+					uiBodyLen = sizeof( zBody ) / sizeof( CHAR16 ) - 2 - uiMarkerLen;
 				}
-				memcpy( &zBody[ uiBodyLen ], pMarker, ( uiMarkerLen + 1 ) * sizeof( CHAR16 ) );
+				memcpy( &zBody[ uiBodyLen ], pMarker, uiMarkerLen * sizeof( CHAR16 ) );
 				uiBodyLen += uiMarkerLen;
+				zBody[ uiBodyLen++ ] = L'\n';
 			}
 			return;
 		}
@@ -2446,20 +2448,23 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 	UINT32 uiOrderDay = GetWorldDay();
 	UINT32 uiETADay = ( UINT32 )( uiOrderDay + iDelay );
 
-	swprintf( zDate, L"%s %u", gpGameClockString[ 0 ], uiOrderDay );
-	swprintf( zETADate, L"%s %u", gpGameClockString[ 0 ], uiETADay );
+	// the day template lets each language decide the order of "Day" and the number
+	swprintf( zDate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiOrderDay );
+	swprintf( zETADate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiETADay );
 
-	AppendString( L"Bobby Ray's Order Confirmed\n\n" );
-	AppendString( L"Order to: " );
-	AppendString( gDestinationTable[ ubDeliveryCity ]->wstrName.c_str() );
-	AppendString( L"\n" );
-	AppendString( L"Ordered on: " );
-	AppendString( zDate );
-	AppendString( L"\n" );
-	AppendString( L"Expected arrival: " );
-	AppendString( zETADate );
+	AppendString( pSubject );
 	AppendString( L"\n\n" );
-	AppendString( L"Itemized order:\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ORDER_TO ], gDestinationTable[ ubDeliveryCity ]->wstrName.c_str() );
+	AppendString( zLine );
+	AppendString( L"\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ORDERED_ON ], zDate );
+	AppendString( zLine );
+	AppendString( L"\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_EXPECTED ], zETADate );
+	AppendString( zLine );
+	AppendString( L"\n\n" );
+	AppendString( BobbyROrderFormText[ BOBBYR_EMAIL_ITEMIZED ] );
+	AppendString( L"\n" );
 
 	// clamp to the size of BobbyRayPurchases in case the option is ever set unclamped
 	UINT8 ubMaxSlots = gGameExternalOptions.ubBobbyRayMaxPurchaseAmount;
@@ -2475,14 +2480,16 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 			UINT32 uiLineTotal = ( UINT32 ) usUnitPrice * BobbyRayPurchases[ i ].ubNumberPurchased;
 			swprintf( zUnitPrice, L"%ls", FormatMoney( usUnitPrice ).data() );
 			swprintf( zLineTotal, L"%ls", FormatMoney( uiLineTotal ).data() );
-			swprintf( zLine, L"  %dx %s  @  %s  =  %s\n", BobbyRayPurchases[ i ].ubNumberPurchased, zName, zUnitPrice, zLineTotal );
+			// args in the localized template: 1=qty, 2=name, 3=unit price, 4=line total
+			swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ITEM_LINE ], BobbyRayPurchases[ i ].ubNumberPurchased, zName, zUnitPrice, zLineTotal );
 			AppendString( zLine );
+			AppendString( L"\n" );
 		}
 	}
 
 	zBody[ uiBodyLen ] = L'\0';
 
-	AddEmailMessage( BOBBYR_ORDER_CONFIRMED, 1, ( STR16 ) L"Bobby Ray's Order Confirmed", GetWorldTotalMin(), BOBBY_R, FALSE, 0, 0, -1, -1, -1, -1, -1, -1, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+	AddEmailMessage( BOBBYR_ORDER_CONFIRMED, 1, pSubject, GetWorldTotalMin(), BOBBY_R, FALSE, 0, 0, -1, -1, -1, -1, -1, -1, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
 
 	EmailPtr pEmail = pEmailList;
 	if( pEmail )
