@@ -795,12 +795,6 @@ int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandL
 	//Process the command line BEFORE initialization
 	ProcessJa2CommandLineBeforeInitialization( pCommandLine );
 
-	// Handle Check for CD
-	if ( !HandleJA2CDCheck( ) )
-	{
-		return( 0 );
-	}
-
 //	ShowCursor(FALSE);
 
 	try
