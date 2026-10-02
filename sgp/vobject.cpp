@@ -524,6 +524,7 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 		{
 			SET_ERROR("Memory allocation failed for animation file: %s", VObjectDesc->hImage->ImageFile);
 		}
+		return nullptr;
 	}
 	memset( hVObject, 0, sizeof( SGPVObject ) );
 
