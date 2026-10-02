@@ -508,10 +508,9 @@ BOOLEAN BltVideoObject(UINT32 uiDestVSurface, HVOBJECT hSrcVObject, UINT16 usReg
 
 HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 {
-	HVOBJECT						hVObject;
-	HIMAGE							hImage;
-	ETRLEData						TempETRLEData;
-//	UINT32							count;
+	HVOBJECT hVObject;
+	HIMAGE hImage;
+	ETRLEData TempETRLEData;
 
 	// Allocate memory for video object data and initialize
 	hVObject = (HVOBJECT) MemAlloc( sizeof( SGPVObject ) );
