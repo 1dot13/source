@@ -5628,13 +5628,13 @@ STR16 BobbyROrderFormText[] =
 	L"** Mindestgewicht",			// Disclaimer states that there is a minimum weight for the package
 	L"Lieferungen",	
 	// Bobby Ray order confirmation e-mail // TODO: needs translator review
-	L"Bestellung bei Bobby Ray bestätigt",	// BOBBYR_EMAIL_SUBJECT: e-mail subject and first body line
+	L"Bestellung bei Bobby Rays bestätigt",	// BOBBYR_EMAIL_SUBJECT: e-mail subject and first body line
 	L"Bestimmungsort: %s",			// BOBBYR_EMAIL_ORDER_TO: arg = delivery location
 	L"Bestellt am: %s",			// BOBBYR_EMAIL_ORDERED_ON: arg = order date
 	L"Voraussichtliche Lieferung: %s",	// BOBBYR_EMAIL_EXPECTED: arg = estimated arrival date
 	L"Aufstellung der Bestellung:",		// BOBBYR_EMAIL_ITEMIZED
-	L"  %1$dx %2$s  @  %3$s  =  %4$s",	// BOBBYR_EMAIL_ITEM_LINE: 1=qty 2=item name 3=unit price 4=line total
-	L"%1$s %2$u",				// BOBBYR_EMAIL_DAY: 1="Day" 2=day number
+	L"  %dx %s  @  %s  =  %s",	// BOBBYR_EMAIL_ITEM_LINE: args in fixed order: qty, name, unit price, line total
+	L"%s %u",				// BOBBYR_EMAIL_DAY: args in fixed order: day word, day number
 	L"... [Bestellliste gekürzt]",		// BOBBYR_EMAIL_TRUNCATED: appended if the body overflows
 	L"Bestellung bestätigt.",		// BOBBYR_EMAIL_FALLBACK: body shown when the real one is missing
 };
