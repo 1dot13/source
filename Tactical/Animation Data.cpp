@@ -977,14 +977,14 @@ BOOLEAN LoadAnimationSurface( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT
 
 		sprintf( gSystemDebugStr, "Cache Load" );
 
-	// Create video object
+		// Create video object
 		FilenameForBPP(gAnimSurfaceDatabase[ usSurfaceIndex ].Filename, sFilename);
-		hImage = CreateImage(/*gAnimSurfaceDatabase[ usSurfaceIndex ].Filename*/sFilename, IMAGE_ALLDATA );
+		hImage = CreateImage(sFilename, IMAGE_ALLDATA );
 
-	if (hImage == NULL)
-	{
-			return( SET_ERROR( "Error: Could not load animation file %s", sFilename ) );
-	}
+		if (hImage == NULL)
+		{
+				return( SET_ERROR( "Error: Could not load animation file %s", sFilename ) );
+		}
 
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMHIMAGE;
 		VObjectDesc.hImage = hImage;
