@@ -477,61 +477,19 @@ if( g_lang != i18n::Lang::en ) {
 	}
 
 	// Flugente: created separate gun and item choices for different soldier classes - read in different xmls
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENEMYGUNCHOICESFILENAME);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_NONE], fileName), ENEMYGUNCHOICESFILENAME);
+	for ( size_t i = SOLDIER_CLASS_NONE; i <= SOLDIER_CLASS_ELITE_MILITIA; i++ )
+	{
+		// Gun choices
+		strcpy(fileName, directoryName);
+		strcat(fileName, gGunChoiceFileNames[i]);
+		SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[i], fileName), gGunChoiceFileNames[i]);
 
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_ENEMY_ADMIN);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_ADMINISTRATOR], fileName), GUNCHOICESFILENAME_ENEMY_ADMIN);
+		// Item choices
+		strcpy(fileName, directoryName);
+		strcat(fileName, gItemChoiceFileNames[i]);
+		SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[i], fileName), gItemChoiceFileNames[i]);
+	}
 
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_ENEMY_REGULAR);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_ARMY], fileName), GUNCHOICESFILENAME_ENEMY_REGULAR);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_ENEMY_ELITE);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE], fileName), GUNCHOICESFILENAME_ENEMY_ELITE);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_MILITIA_GREEN);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_GREEN_MILITIA], fileName), GUNCHOICESFILENAME_MILITIA_GREEN);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_MILITIA_REGULAR);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_REG_MILITIA], fileName), GUNCHOICESFILENAME_MILITIA_REGULAR);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, GUNCHOICESFILENAME_MILITIA_ELITE);
-	SGP_THROW_IFFALSE(ReadInExtendedArmyGunChoicesStats(gExtendedArmyGunChoices[SOLDIER_CLASS_ELITE_MILITIA], fileName), GUNCHOICESFILENAME_MILITIA_ELITE);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ENEMYITEMCHOICESFILENAME);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_NONE], fileName),ENEMYITEMCHOICESFILENAME);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_ENEMY_ADMIN);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_ADMINISTRATOR], fileName),ITEMCHOICESFILENAME_ENEMY_ADMIN);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_ENEMY_REGULAR);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_ARMY], fileName),ITEMCHOICESFILENAME_ENEMY_REGULAR);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_ENEMY_ELITE);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_ELITE], fileName),ITEMCHOICESFILENAME_ENEMY_ELITE);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_MILITIA_GREEN);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_GREEN_MILITIA], fileName),ITEMCHOICESFILENAME_MILITIA_GREEN);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_MILITIA_REGULAR);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_REG_MILITIA], fileName),ITEMCHOICESFILENAME_MILITIA_REGULAR);
-
-	strcpy(fileName, directoryName);
-	strcat(fileName, ITEMCHOICESFILENAME_MILITIA_ELITE);
-	SGP_THROW_IFFALSE(ReadInArmyItemChoicesStats(gArmyItemChoices[SOLDIER_CLASS_ELITE_MILITIA], fileName),ITEMCHOICESFILENAME_MILITIA_ELITE);
 
 	strcpy(fileName, directoryName);
 	strcat(fileName, IMPITEMCHOICESFILENAME);
