@@ -7,6 +7,7 @@
 #include "WCheck.h"
 #include "vobject_blitters.h"
 #include "sgp.h"
+#include "Sys Globals.h"
 
 #include <unordered_map>
 
@@ -514,7 +515,17 @@ HVOBJECT CreateVideoObject( VOBJECT_DESC *VObjectDesc )
 
 	// Allocate memory for video object data and initialize
 	hVObject = (HVOBJECT) MemAlloc( sizeof( SGPVObject ) );
-	CHECKF( hVObject != NULL );
+	if ( hVObject == nullptr )
+	{
+		if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMFILE )
+		{
+			SET_ERROR("Memory allocation failed for animation file: %s", VObjectDesc->ImageFile);
+		}
+		else if ( VObjectDesc->fCreateFlags & VOBJECT_CREATE_FROMHIMAGE )
+		{
+			SET_ERROR("Memory allocation failed for animation file: %s", VObjectDesc->hImage->ImageFile);
+		}
+	}
 	memset( hVObject, 0, sizeof( SGPVObject ) );
 
 	// default of all members of the vobject is 0
