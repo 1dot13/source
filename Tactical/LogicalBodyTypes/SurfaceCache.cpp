@@ -98,14 +98,14 @@ bool SurfaceCache::LoadSurface(AnimationSurfaceType* animSurfaceType, STRUCTURE_
 	FilenameForBPP(animSurfaceType->Filename, sFilename);
 	AnimDebugMsg(String("SurfaceCache::LoadSurface, %s", sFilename));
 	hImage = CreateImage(sFilename, IMAGE_ALLDATA);
-	if (hImage == NULL) return TRUE == SET_ERROR("Error: Could not load animation file %s", sFilename);
+	if (hImage == NULL) return TRUE == SET_ERROR("LOBOT: Could not load animation file %s", sFilename);
 	
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMHIMAGE;
 	VObjectDesc.hImage = hImage;
 	hVObject = CreateVideoObject( &VObjectDesc );
 	if ( hVObject == NULL ) {
-		SET_ERROR("Error: Could not load animation file: %s", sFilename);
-		// Video Object will set error conition.
+		SET_ERROR("LOBOT: Could not create VideoObject for animation file: %s", sFilename);
+		// Video Object will set error condition.
 		DestroyImage( hImage );
 		return false;
 	}

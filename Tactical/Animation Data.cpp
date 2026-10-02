@@ -994,7 +994,7 @@ BOOLEAN LoadAnimationSurface( SoldierID usSoldierID, UINT16 usSurfaceIndex, UINT
 		if ( hVObject == NULL )
 		{
 			// Report error
-			SET_ERROR( "Could not load animation file: %s", gAnimSurfaceDatabase[ usSurfaceIndex ].Filename );
+			SET_ERROR( "Could not create VideoObject for animation file: %s", gAnimSurfaceDatabase[ usSurfaceIndex ].Filename );
 			// Video Object will set error conition.]
 			DestroyImage( hImage );
 			return( FALSE );
