@@ -2447,7 +2447,7 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 	UINT32 uiOrderDay = GetWorldDay();
 	UINT32 uiETADay = ( UINT32 )( uiOrderDay + iDelay );
 
-	// the day template lets each language decide the order of "Day" and the number
+	// same "Day <n>" word order the game clock and shipment pages use
 	swprintf( zDate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiOrderDay );
 	swprintf( zETADate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiETADay );
 
@@ -2479,7 +2479,7 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 			UINT32 uiLineTotal = ( UINT32 ) usUnitPrice * BobbyRayPurchases[ i ].ubNumberPurchased;
 			swprintf( zUnitPrice, L"%ls", FormatMoney( usUnitPrice ).data() );
 			swprintf( zLineTotal, L"%ls", FormatMoney( uiLineTotal ).data() );
-			// args in the localized template: 1=qty, 2=name, 3=unit price, 4=line total
+			// placeholders must appear in this order: qty, name, unit price, line total
 			swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ITEM_LINE ], BobbyRayPurchases[ i ].ubNumberPurchased, zName, zUnitPrice, zLineTotal );
 			AppendString( zLine );
 			AppendString( L"\n" );

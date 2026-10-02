@@ -5707,8 +5707,8 @@ STR16			BobbyROrderFormText[] =
 	L"Besteld op: %s",			// BOBBYR_EMAIL_ORDERED_ON: arg = order date
 	L"Verwachte aankomst: %s",		// BOBBYR_EMAIL_EXPECTED: arg = estimated arrival date
 	L"Specificatie van de bestelling:",	// BOBBYR_EMAIL_ITEMIZED
-	L"  %1$dx %2$s  @  %3$s  =  %4$s",	// BOBBYR_EMAIL_ITEM_LINE: 1=qty 2=item name 3=unit price 4=line total
-	L"%1$s %2$u",				// BOBBYR_EMAIL_DAY: 1="Day" 2=day number
+	L"  %dx %s  @  %s  =  %s",	// BOBBYR_EMAIL_ITEM_LINE: args in fixed order: qty, name, unit price, line total
+	L"%s %u",				// BOBBYR_EMAIL_DAY: args in fixed order: day word, day number
 	L"... [artikellijst ingekort]",	// BOBBYR_EMAIL_TRUNCATED: appended if the body overflows
 	L"Bestelling bevestigd.",		// BOBBYR_EMAIL_FALLBACK: body shown when the real one is missing
 };

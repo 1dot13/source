@@ -1428,9 +1428,9 @@ enum
 	BOBBYR_EMAIL_ORDERED_ON,
 	BOBBYR_EMAIL_EXPECTED,
 	BOBBYR_EMAIL_ITEMIZED,
-	// item line, args: 1=qty, 2=item name, 3=unit price, 4=line total
+	// item line, placeholder order: qty, item name, unit price, line total
 	BOBBYR_EMAIL_ITEM_LINE,
-	// date line, args: 1=localized "Day" word, 2=day number
+	// date line, placeholder order: localized "Day" word, day number (same as the game clock)
 	BOBBYR_EMAIL_DAY,
 	BOBBYR_EMAIL_TRUNCATED,
 	BOBBYR_EMAIL_FALLBACK,
