@@ -87,20 +87,6 @@ typedef PARSE_STAGE;
 #define LBEPOCKETFILENAME						"Items\\Pockets.xml"
 #define LBEPOCKETPOPUPFILENAME					"Items\\PocketPopups.xml"
 
-#define	ENEMYGUNCHOICESFILENAME					"Inventory\\EnemyGunChoices.xml"	// default selection
-#define	GUNCHOICESFILENAME_ENEMY_ADMIN			"Inventory\\GunChoices_Enemy_Admin.xml"
-#define	GUNCHOICESFILENAME_ENEMY_REGULAR		"Inventory\\GunChoices_Enemy_Regular.xml"
-#define	GUNCHOICESFILENAME_ENEMY_ELITE			"Inventory\\GunChoices_Enemy_Elite.xml"
-#define	GUNCHOICESFILENAME_MILITIA_GREEN		"Inventory\\GunChoices_Militia_Green.xml"
-#define	GUNCHOICESFILENAME_MILITIA_REGULAR		"Inventory\\GunChoices_Militia_Regular.xml"
-#define	GUNCHOICESFILENAME_MILITIA_ELITE		"Inventory\\GunChoices_Militia_Elite.xml"
-#define	ENEMYITEMCHOICESFILENAME				"Inventory\\EnemyItemChoices.xml"	// default selection
-#define ITEMCHOICESFILENAME_ENEMY_ADMIN			"Inventory\\ItemChoices_Enemy_Admin.xml"
-#define ITEMCHOICESFILENAME_ENEMY_REGULAR		"Inventory\\ItemChoices_Enemy_Regular.xml"
-#define ITEMCHOICESFILENAME_ENEMY_ELITE			"Inventory\\ItemChoices_Enemy_Elite.xml"
-#define ITEMCHOICESFILENAME_MILITIA_GREEN		"Inventory\\ItemChoices_Militia_Green.xml"
-#define ITEMCHOICESFILENAME_MILITIA_REGULAR		"Inventory\\ItemChoices_Militia_Regular.xml"
-#define ITEMCHOICESFILENAME_MILITIA_ELITE		"Inventory\\ItemChoices_Militia_Elite.xml"
 #define	IMPITEMCHOICESFILENAME					"Inventory\\IMPItemChoices.xml"
 #define MERCSTARTINGGEARFILENAME				"Inventory\\MercStartingGear.xml"
 #define ENEMYWEAPONDROPSFILENAME				"Inventory\\EnemyWeaponDrops.xml"
@@ -108,6 +94,26 @@ typedef PARSE_STAGE;
 #define ENEMYEXPLOSIVEDROPSFILENAME				"Inventory\\EnemyExplosiveDrops.xml"
 #define ENEMYARMOURDROPSFILENAME				"Inventory\\EnemyArmourDrops.xml"
 #define ENEMYMISCDROPSFILENAME					"Inventory\\EnemyMiscDrops.xml"
+
+const char* const gGunChoiceFileNames[] = {
+	"Inventory\\EnemyGunChoices.xml"	, // default selection
+	"Inventory\\GunChoices_Enemy_Admin.xml",
+	"Inventory\\GunChoices_Enemy_Elite.xml", //<- Order matches SOLDIER_CLASS enum 
+	"Inventory\\GunChoices_Enemy_Regular.xml",
+	"Inventory\\GunChoices_Militia_Green.xml",
+	"Inventory\\GunChoices_Militia_Regular.xml",
+	"Inventory\\GunChoices_Militia_Elite.xml"
+};
+
+const char* const gItemChoiceFileNames[] = {
+	"Inventory\\EnemyItemChoices.xml", // default selection
+	"Inventory\\ItemChoices_Enemy_Admin.xml",
+	"Inventory\\ItemChoices_Enemy_Elite.xml", //<- Order matches SOLDIER_CLASS enum 
+	"Inventory\\ItemChoices_Enemy_Regular.xml",
+	"Inventory\\ItemChoices_Militia_Green.xml",
+	"Inventory\\ItemChoices_Militia_Regular.xml",
+	"Inventory\\ItemChoices_Militia_Elite.xml"
+};
 
 #ifdef JA2UB
 	#define MERCSTARTINGGEAR25FILENAME			"Inventory\\MercStartingGear25.xml"
