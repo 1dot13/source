@@ -5707,6 +5707,16 @@ STR16			BobbyROrderFormText[] =
 	L"Poids total **",			// Displays the weight of the package
 	L"** Pds Min.",				// Disclaimer states that there is a minimum weight for the package
 	L"Envois",	
+	// Bobby Ray order confirmation e-mail // TODO: needs translator review
+	L"Commande Bobby Ray confirmée",	// BOBBYR_EMAIL_SUBJECT: e-mail subject and first body line
+	L"Lieu de livraison : %s",		// BOBBYR_EMAIL_ORDER_TO: arg = delivery location
+	L"Commande passée le : %s",		// BOBBYR_EMAIL_ORDERED_ON: arg = order date
+	L"Arrivée prévue : %s",		// BOBBYR_EMAIL_EXPECTED: arg = estimated arrival date
+	L"Détail de la commande :",		// BOBBYR_EMAIL_ITEMIZED
+	L"  %dx %s  @  %s  =  %s",	// BOBBYR_EMAIL_ITEM_LINE: args in fixed order: qty, name, unit price, line total
+	L"%s %u",				// BOBBYR_EMAIL_DAY: args in fixed order: day word, day number
+	L"... [liste des articles tronquée]",	// BOBBYR_EMAIL_TRUNCATED: appended if the body overflows
+	L"Commande confirmée.",		// BOBBYR_EMAIL_FALLBACK: body shown when the real one is missing
 };
 
 STR16			BobbyRFilter[] =

@@ -23,7 +23,11 @@
 	#include "Isometric Utils.h"
 	#include "PostalService.h"
 	#include "english.h"
+	#include "email.h"
 	#include <list>
+#ifdef JA2UB
+	#include "ub_config.h"
+#endif
 
 #include "Strategic Event Handler.h"
 #include "connect.h"
@@ -264,6 +268,7 @@ UINT8			gubSelectedLight=0;
 
 BOOLEAN		gfDrawConfirmOrderGrpahic;
 BOOLEAN		gfDestroyConfirmGrphiArea;
+BOOLEAN		gfBobbyROrderMailPopupPending=FALSE;
 
 BOOLEAN		gfCanAcceptOrder;
 
@@ -1432,6 +1437,13 @@ void SelectConfirmOrderRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		gfDestroyConfirmGrphiArea = TRUE;
 		gubSelectedLight = 0;
 
+		// now that the confirm graphic is dismissed, show the deferred new-mail popup
+		if( gfBobbyROrderMailPopupPending )
+		{
+			gfBobbyROrderMailPopupPending = FALSE;
+			fNewMailFlag = TRUE;
+		}
+
 		//Goto The homepage
 		guiCurrentLaptopMode = LAPTOP_MODE_BOBBY_R;
 
@@ -1446,6 +1458,13 @@ void SelectConfirmOrderRegionCallBack(MOUSE_REGION * pRegion, INT32 iReason )
 		gubSelectedLight = 0;
 		gfDestroyConfirmGrphiArea = TRUE;
 		gubSelectedLight = 0;
+
+		// now that the confirm graphic is dismissed, show the deferred new-mail popup
+		if( gfBobbyROrderMailPopupPending )
+		{
+			gfBobbyROrderMailPopupPending = FALSE;
+			fNewMailFlag = TRUE;
+		}
 
 	}
 }
@@ -2369,6 +2388,128 @@ INT8 CalculateOrderDelay( UINT8 ubSelectedService )
 	return( bDaysAhead );
 }
 
+// greymeister Bobby Ray Confirmation Email
+void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService )
+{
+	// sized for the worst case: 100 purchase slots x (79 char BR name + qty + prices) + header
+	CHAR16 zBody[ 16384 ];
+	UINT32 uiBodyLen = 0;
+	BOOLEAN fTruncated = FALSE;
+	STR16 pSubject = BobbyROrderFormText[ BOBBYR_EMAIL_SUBJECT ];
+
+	auto AppendString = [&]( const CHAR16* pString )
+	{
+		if( fTruncated )
+			return;
+		UINT32 uiLen = ( UINT32 ) wcslen( pString );
+		if( uiBodyLen + uiLen >= sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+		{
+			// make the truncation visible instead of silently dropping the tail
+			if( !fTruncated )
+			{
+				fTruncated = TRUE;
+				const CHAR16* pMarker = BobbyROrderFormText[ BOBBYR_EMAIL_TRUNCATED ];
+				UINT32 uiMarkerLen = ( UINT32 ) wcslen( pMarker );
+				if( uiBodyLen + uiMarkerLen + 1 > sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+				{
+					// make room at the buffer end so the marker is always visible
+					uiBodyLen = sizeof( zBody ) / sizeof( CHAR16 ) - 2 - uiMarkerLen;
+				}
+				memcpy( &zBody[ uiBodyLen ], pMarker, uiMarkerLen * sizeof( CHAR16 ) );
+				uiBodyLen += uiMarkerLen;
+				zBody[ uiBodyLen++ ] = L'\n';
+			}
+			return;
+		}
+		memcpy( &zBody[ uiBodyLen ], pString, ( uiLen + 1 ) * sizeof( CHAR16 ) );
+		uiBodyLen += uiLen;
+	};
+
+	CHAR16 zDate[ 128 ];
+	CHAR16 zETADate[ 128 ];
+	CHAR16 zName[ 128 ];
+	CHAR16 zUnitPrice[ 64 ];
+	CHAR16 zLineTotal[ 64 ];
+	CHAR16 zLine[ 512 ];
+
+	// use the same per-destination delay the postal service uses to schedule the delivery
+	INT8 iDelay;
+	const DeliveryMethodStruct& dMethod = gPostalService.GetDeliveryMethod( ubSelectedService );
+	if( dMethod.pDestinationDeliveryInfos &&
+		static_cast<UINT32>( gDestinationTable[ ubDeliveryCity ]->usID ) < dMethod.pDestinationDeliveryInfos->size() )
+	{
+		iDelay = dMethod.pDestinationDeliveryInfos->at( gDestinationTable[ ubDeliveryCity ]->usID ).bDaysAhead;
+	}
+	else
+	{
+		iDelay = CalculateOrderDelay( ubSelectedService );
+	}
+	UINT32 uiOrderDay = GetWorldDay();
+	UINT32 uiETADay = ( UINT32 )( uiOrderDay + iDelay );
+
+	// same "Day <n>" word order the game clock and shipment pages use
+	swprintf( zDate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiOrderDay );
+	swprintf( zETADate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiETADay );
+
+	AppendString( pSubject );
+	AppendString( L"\n\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ORDER_TO ], gDestinationTable[ ubDeliveryCity ]->wstrName.c_str() );
+	AppendString( zLine );
+	AppendString( L"\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ORDERED_ON ], zDate );
+	AppendString( zLine );
+	AppendString( L"\n" );
+	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_EXPECTED ], zETADate );
+	AppendString( zLine );
+	AppendString( L"\n\n" );
+	AppendString( BobbyROrderFormText[ BOBBYR_EMAIL_ITEMIZED ] );
+	AppendString( L"\n" );
+
+	// clamp to the size of BobbyRayPurchases in case the option is ever set unclamped
+	UINT8 ubMaxSlots = gGameExternalOptions.ubBobbyRayMaxPurchaseAmount;
+	if( ubMaxSlots > 100 )
+		ubMaxSlots = 100;
+
+	for( UINT8 i = 0; i < ubMaxSlots; i++ )
+	{
+		if( BobbyRayPurchases[ i ].ubNumberPurchased )
+		{
+			LoadBRName( BobbyRayPurchases[ i ].usItemIndex, zName );
+			UINT16 usUnitPrice = CalcBobbyRayCost( BobbyRayPurchases[ i ].usItemIndex, BobbyRayPurchases[ i ].usBobbyItemIndex, BobbyRayPurchases[ i ].fUsed );
+			UINT32 uiLineTotal = ( UINT32 ) usUnitPrice * BobbyRayPurchases[ i ].ubNumberPurchased;
+			swprintf( zUnitPrice, L"%ls", FormatMoney( usUnitPrice ).data() );
+			swprintf( zLineTotal, L"%ls", FormatMoney( uiLineTotal ).data() );
+			// placeholders must appear in this order: qty, name, unit price, line total
+			swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ITEM_LINE ], BobbyRayPurchases[ i ].ubNumberPurchased, zName, zUnitPrice, zLineTotal );
+			AppendString( zLine );
+			AppendString( L"\n" );
+		}
+	}
+
+	zBody[ uiBodyLen ] = L'\0';
+
+	AddEmailMessage( BOBBYR_ORDER_CONFIRMED, 1, pSubject, GetWorldTotalMin(), BOBBY_R, FALSE, 0, 0, -1, -1, -1, -1, -1, -1, TYPE_EMAIL_EMAIL_EDT, TYPE_E_NONE );
+
+	EmailPtr pEmail = pEmailList;
+	if( pEmail )
+	{
+		while( pEmail->Next )
+			pEmail = pEmail->Next;
+
+		pEmail->pOrderBody = ( STR16 ) MemAlloc( ( uiBodyLen + 1 ) * sizeof( CHAR16 ) );
+		if( pEmail->pOrderBody )
+		{
+			memset( pEmail->pOrderBody, 0, ( uiBodyLen + 1 ) * sizeof( CHAR16 ) );
+			wcscpy( pEmail->pOrderBody, zBody );
+			pEmail->uiOrderBodyLen = uiBodyLen;
+		}
+	}
+
+	// defer the new-mail popup so the order confirmation graphic is seen first
+	fNewMailFlag = FALSE;
+	gfBobbyROrderMailPopupPending = TRUE;
+}
+
 void PurchaseBobbyOrder()
 {
 	//if the shipment is going to Drassen, add the inventory
@@ -2430,6 +2571,17 @@ void PurchaseBobbyOrder()
 	//add the delivery
 	//AddNewBobbyRShipment( BobbyRayPurchases, gbSelectedCity, gubSelectedLight, TRUE, CalcPackageTotalWeight() );
 	AddNewBobbyRShipment( BobbyRayPurchases, gDestinationTable[gbSelectedCity]->usID, gubSelectedLight, TRUE, CalcPackageTotalWeight() );
+
+	// greymeister Bobby Ray Confirmation Email
+	if( !is_networked )
+	{
+#ifdef JA2UB
+		if( gGameUBOptions.fBobbyRSite == TRUE )
+#endif
+		{
+			AddBobbyROrderCompletedEmail( gbSelectedCity, gubSelectedLight );
+		}
+	}
 
 /*
 		//get the length of time to receive the shipment

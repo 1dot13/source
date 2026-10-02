@@ -3090,6 +3090,13 @@ BOOLEAN LeaveLapTopScreen( void )
 	INT16 sYOffset = 0;
 	INT16 sXOffset = 0;
 
+	// a Bobby Ray order confirm popup is still pending, hand it to the map screen icon
+	if( gfBobbyROrderMailPopupPending )
+	{
+		gfBobbyROrderMailPopupPending = FALSE;
+		fNewMailFlag = TRUE;
+	}
+
 	// Correct the minor cosmetic bug (laptop zooming start not correct)
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{

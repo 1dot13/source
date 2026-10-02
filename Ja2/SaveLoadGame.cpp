@@ -7394,6 +7394,27 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 			return(FALSE);
 		}
 
+		// greymeister Bobby Ray Confirmation Email
+		// length is stored in CHAR16 units (including the null terminator)
+		if( pEmail->usOffset == BOBBYR_ORDER_CONFIRMED )
+		{
+			// uiOrderBodyLen is the null-excluded length, add one for the terminator
+			uiStringLength = pEmail->pOrderBody ? pEmail->uiOrderBodyLen + 1 : 0;
+			FileWrite( hFile, &uiStringLength, sizeof( UINT32 ), &uiNumBytesWritten );
+			if( uiNumBytesWritten != sizeof( UINT32 ) )
+			{
+				return(FALSE);
+			}
+			if( uiStringLength > 0 )
+			{
+				FileWrite( hFile, pEmail->pOrderBody, uiStringLength * sizeof( CHAR16 ), &uiNumBytesWritten );
+				if( uiNumBytesWritten != uiStringLength * sizeof( CHAR16 ) )
+				{
+					return(FALSE);
+				}
+			}
+		}
+
 		//advance to the next email
 		pEmail = pEmail->Next;
 	}
@@ -7515,6 +7536,38 @@ BOOLEAN LoadEmailFromSavedGame( HWFILE hFile )
 
 		// WANNE.MAIL: Fix
 		pTempEmail->iCurrentShipmentDestinationID = SavedEmail.iCurrentShipmentDestinationID;
+
+		// greymeister Bobby Ray Confirmation Email
+		// length is stored in CHAR16 units (including the null terminator)
+		if( pTempEmail->usOffset == BOBBYR_ORDER_CONFIRMED && guiCurrentSaveGameVersion >= BOBBYR_ORDER_EMAIL_DATA )
+		{
+			UINT32 uiBodyLen = 0;
+			FileRead( hFile, &uiBodyLen, sizeof( UINT32 ), &uiNumBytesRead );
+			if( uiNumBytesRead != sizeof( UINT32 ) )
+			{
+				return( FALSE );
+			}
+
+			pTempEmail->pOrderBody = ( STR16 ) MemAlloc( ( uiBodyLen + 1 ) * sizeof( CHAR16 ) );
+			if( pTempEmail->pOrderBody == NULL )
+			{
+				pTempEmail->uiOrderBodyLen = 0;
+				return( FALSE );
+			}
+			memset( pTempEmail->pOrderBody, 0, ( uiBodyLen + 1 ) * sizeof( CHAR16 ) );
+			if( uiBodyLen > 0 )
+			{
+				FileRead( hFile, pTempEmail->pOrderBody, uiBodyLen * sizeof( CHAR16 ), &uiNumBytesRead );
+				if( uiNumBytesRead != uiBodyLen * sizeof( CHAR16 ) )
+				{
+					MemFree( pTempEmail->pOrderBody );
+					pTempEmail->pOrderBody = NULL;
+					pTempEmail->uiOrderBodyLen = 0;
+					return( FALSE );
+				}
+			}
+			pTempEmail->uiOrderBodyLen = ( UINT32 ) wcslen( pTempEmail->pOrderBody );
+		}
 
 		//add the current email in
 		pEmail->Next = pTempEmail;

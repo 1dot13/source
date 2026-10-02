@@ -227,7 +227,7 @@ public:
 	UINT8 AddDeliveryMethod(STR16 pszDescription);
 	UINT16 SetDestinationDeliveryInfo(UINT8 ubDeliveryMethodIndex, UINT32 uiDestinationIndex, UINT16 usDestinationFee, INT8 bDaysAhead);
 	UINT16 GetDestinationFee(UINT8 ubDeliveryMethodIndex, UINT16 usDestinationID);
-	RefToDeliveryMethodStruct GetDeliveryMethod(UINT8 ubDeliveryMethodIndex) const;
+	const DeliveryMethodStruct& GetDeliveryMethod(UINT8 ubDeliveryMethodIndex) const;
 
 	void Clear(bool clearOnlyData);
 	CPostalService();

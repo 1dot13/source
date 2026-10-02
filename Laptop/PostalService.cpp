@@ -1138,6 +1138,12 @@ UINT16 CPostalService::SetDestinationDeliveryInfo(UINT8 ubDeliveryMethodIndex, U
 	return uiDestinationIndex;
 }
 
+const DeliveryMethodStruct& CPostalService::GetDeliveryMethod(UINT8 ubDeliveryMethodIndex) const
+{
+	Assert(ubDeliveryMethodIndex < _DeliveryMethods.size());
+	return _DeliveryMethods[ubDeliveryMethodIndex];
+}
+
 UINT16 CPostalService::GetDestinationFee(UINT8 ubDeliveryMethodIndex, UINT16 usDestinationID)
 {
 	if(_UsedDestinationIDList.empty() || 
