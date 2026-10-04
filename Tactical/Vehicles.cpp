@@ -192,6 +192,13 @@ BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadNewVehiclesToSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	NEW_CAR tmp[NUM_PROFILES];
+	SKIPDATA(*ppBuffer, *ppBuffer, sizeof(tmp));
+	return(TRUE);
+}
+
 void InitAVehicle(int index, int x, int y)
 {
 	gubVehicleMovementGroups[ index ] = CreateNewVehicleGroupDepartingFromSector( x, y, index );
@@ -2505,6 +2512,133 @@ BOOLEAN LoadVehicleInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGam
 	return( TRUE );
 }
 
+BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+{
+	UINT32 uiTotalNodeCount = 0;
+	UINT8 cnt;
+	UINT32 uiNodeCount = 0;
+	PathSt* pPath = NULL;
+	UINT8 ubPassengerCnt = 0;
+	PathSt* pTempPath;
+
+	//Clear out th vehicle list
+	ClearOutVehicleList();
+
+	//Load the number of elements
+	LOADDATA(&ubNumberOfVehicles, *ppBuffer, sizeof(UINT8));
+
+	if ( ubNumberOfVehicles != 0 )
+	{
+		//allocate memory to hold the vehicle list
+		pVehicleList = (VEHICLETYPE*)MemAlloc(sizeof(VEHICLETYPE) * ubNumberOfVehicles);
+		if ( pVehicleList == NULL )
+			return(FALSE);
+		memset(pVehicleList, 0, sizeof(VEHICLETYPE) * ubNumberOfVehicles);
+
+
+		//loop through all the vehicles and load each one
+		for ( cnt = 0; cnt < ubNumberOfVehicles; cnt++ )
+		{
+			//Load if the vehicle spot is valid
+			LOADDATA(&pVehicleList[cnt].fValid, *ppBuffer, sizeof(BOOLEAN));
+
+			if ( pVehicleList[cnt].fValid )
+			{
+				//load the vehicle info
+				LOADDATA(&pVehicleList[cnt], *ppBuffer, sizeof(VEHICLETYPE));
+
+				//
+				// Build the passenger list
+				//
+
+				//loop through all the passengers
+				for ( ubPassengerCnt = 0; ubPassengerCnt < 10; ubPassengerCnt++ )
+				{
+					if ( uiSavedGameVersion < 86 )
+					{
+						if ( pVehicleList[cnt].pPassengers[ubPassengerCnt] != 0 )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID((UINT8)(pVehicleList[cnt].pPassengers[ubPassengerCnt]), FALSE);
+						}
+					}
+					else
+					{
+						if ( pVehicleList[cnt].pPassengers[ubPassengerCnt] != (SOLDIERTYPE*)NO_PROFILE )
+						{
+							// ! The id of the soldier was saved in the passenger pointer.	The passenger pointer is converted back
+							// ! to a UINT8 so we can get the REAL pointer to the soldier.
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = FindSoldierByProfileID((UINT8)(pVehicleList[cnt].pPassengers[ubPassengerCnt]), FALSE);
+						}
+						else
+						{
+							pVehicleList[cnt].pPassengers[ubPassengerCnt] = NULL;
+						}
+					}
+				}
+
+
+				//Load the number of nodes
+				LOADDATA(&uiTotalNodeCount, *ppBuffer, sizeof(UINT32));
+
+				if ( uiTotalNodeCount != 0 )
+				{
+					pPath = NULL;
+
+					pVehicleList[cnt].pMercPath = NULL;
+
+					//loop through each node
+					for ( uiNodeCount = 0; uiNodeCount < uiTotalNodeCount; uiNodeCount++ )
+					{
+						//allocate memory to hold the vehicle path
+						pTempPath = (PathSt*)MemAlloc(sizeof(PathSt));
+						if ( pTempPath == NULL )
+							return(FALSE);
+						memset(pTempPath, 0, sizeof(PathSt));
+
+						//Load all the nodes
+						LOADDATA(pTempPath, *ppBuffer, sizeof(PathSt));
+
+
+						//
+						//Setup the pointer info
+						//
+
+						if ( pVehicleList[cnt].pMercPath == NULL )
+							pVehicleList[cnt].pMercPath = pTempPath;
+
+
+						//if there is a previous node
+						if ( pPath != NULL )
+						{
+							pPath->pNext = pTempPath;
+
+							pTempPath->pPrev = pPath;
+						}
+						else
+							pTempPath->pPrev = NULL;
+
+
+						pTempPath->pNext = NULL;
+
+						pPath = pTempPath;
+					}
+				}
+				else
+				{
+					pVehicleList[cnt].pMercPath = NULL;
+				}
+			}
+
+			// WANNE: This should make savegames before the externalized vehicles compatible.
+			if ( pVehicleList[cnt].ubVehicleType != pVehicleList[cnt].ubProfileID )
+				pVehicleList[cnt].ubVehicleType = pVehicleList[cnt].ubProfileID;
+
+		}
+	}
+	return(TRUE);
+}
 
 void SetVehicleSectorValues( INT32 iVehId, UINT8 ubSectorX, UINT8 ubSectorY )
 {
@@ -2673,6 +2807,27 @@ BOOLEAN LoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	GROUP* pGroup = NULL;
+	UINT32	uiNumBytesRead = 0;
+
+	for ( int cnt = 0; cnt < 5; ++cnt ) {
+		LOADDATA(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8));
+	}
+
+	for ( int cnt = 5; cnt < MAX_VEHICLES; cnt++ )
+	{
+		// create mvt groups
+		gubVehicleMovementGroups[cnt] = CreateNewVehicleGroupDepartingFromSector(1, 1, cnt);
+
+		// Set persistent....
+		pGroup = GetGroup(gubVehicleMovementGroups[cnt]);
+		pGroup->fPersistant = TRUE;
+	}
+
+	return(TRUE);
+}
 
 BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 {
@@ -2696,23 +2851,31 @@ BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 
 BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile )
 {
-	UINT32	uiNumBytesRead=0;
+	UINT32	uiNumBytesRead = 0;
 	//Load in the Squad movement id's
 //	FileRead( hFile, gubVehicleMovementGroups, sizeof( INT8 ) * MAX_VEHICLES, &uiNumBytesRead );
 //	if( uiNumBytesRead != sizeof( INT8 ) * MAX_VEHICLES )
 //	{
 //		return(FALSE);
 //	}
-	for (int cnt=0; cnt<MAX_VEHICLES; ++cnt) {
-		FileRead( hFile, &gubVehicleMovementGroups[cnt], sizeof( INT8 ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( INT8 ) ) {
+	for ( int cnt = 0; cnt < MAX_VEHICLES; ++cnt ) {
+		FileRead(hFile, &gubVehicleMovementGroups[cnt], sizeof(INT8), &uiNumBytesRead);
+		if ( uiNumBytesRead != sizeof(INT8) ) {
 			return(FALSE);
 		}
 	}
 
-	return( TRUE );
+	return(TRUE);
 }
 
+BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	for ( int cnt = 0; cnt < MAX_VEHICLES; ++cnt ) {
+		LOADDATA(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8));
+	}
+
+	return(TRUE);
+}
 
 BOOLEAN OKUseVehicle( UINT8 ubProfile )
 {

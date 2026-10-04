@@ -1746,6 +1746,87 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 ui
 	return(TRUE);
 }
 
+BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+{
+	UINT32		uiTotalNodeCount = 0;
+	UINT32		uiNodeCount = 0;
+	PathSt*		pPath = NULL;
+	UINT8		ubPassengerCnt = 0;
+	UINT8		numpaths = 0;
+
+	DeleteAllMilitiaPaths();
+
+	// if this is an older savegame, nothing to read
+	if ( uiSavedGameVersion < MILITIA_PATH_PLOTTING )
+		return TRUE;
+
+	//Load the number of elements
+	LOADDATA(&numpaths, *ppBuffer, sizeof(UINT8));
+
+	if ( numpaths != MILITIA_PATROLS_MAX )
+		return(FALSE);
+
+	for ( UINT32 cnt = 0; cnt < MILITIA_PATROLS_MAX; ++cnt )
+	{
+		UINT32		uiNumOfNodes = 0;
+		PathStPtr	pTempPath = NULL;
+		PathStPtr	pTemp = NULL;
+		UINT32		uiNumBytesRead = 0;
+		INT16		groupid = 0;
+
+		//Load the number of the nodes
+		LOADDATA(&uiNumOfNodes, *ppBuffer, sizeof(UINT32));
+
+		//load all the nodes
+		for ( UINT32 cnt2 = 0; cnt2 < uiNumOfNodes; ++cnt2 )
+		{
+			//Allocate memory for the new node
+			pTemp = (PathStPtr)MemAlloc(sizeof(PathSt));
+			if ( pTemp == NULL )
+			{
+				pTempPath = MoveToBeginningOfPathList(pTempPath);
+				ClearStrategicPathList(pTempPath, -1);
+				return(FALSE);
+			}
+
+			memset(pTemp, 0, sizeof(PathSt));
+
+			//Load the node
+			LOADDATA(pTemp, *ppBuffer, sizeof(PathSt));
+
+			//Put the node into the list 
+			if ( cnt2 == 0 )
+			{
+				pTempPath = pTemp;
+				pTemp->pPrev = NULL;
+			}
+			else
+			{
+				pTempPath->pNext = pTemp;
+				pTemp->pPrev = pTempPath;
+
+				pTempPath = pTempPath->pNext;
+			}
+
+			pTemp->pNext = NULL;
+		}
+
+		//move to beginning of list
+		pTempPath = MoveToBeginningOfPathList(pTempPath);
+
+		gMilitiaPath[cnt].path = pTempPath;
+		if ( gMilitiaPath[cnt].path )
+			gMilitiaPath[cnt].path->pPrev = NULL;
+
+		//Load the number of the nodes
+		LOADDATA(&groupid, *ppBuffer, sizeof(INT16));
+
+		gMilitiaPath[cnt].sGroupid = groupid;
+	}
+
+	return(TRUE);
+}
+
 // delete a militia group and transfer its militia to the sector they are in
 void DissolveMilitiaGroup( UINT8 uGroupId )
 {

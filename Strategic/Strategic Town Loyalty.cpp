@@ -1514,6 +1514,13 @@ BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFileBuffer(CHAR8**	ppBuffer)
+{
+	//Restore the Town Loyalty
+	LOADDATA(gTownLoyalty, *ppBuffer, sizeof(TOWN_LOYALTY) * MAX_TOWNS);
+
+	return(TRUE);
+}
 
 
 void ReduceLoyaltyForRebelsBetrayed(void)

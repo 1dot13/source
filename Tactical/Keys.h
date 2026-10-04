@@ -256,6 +256,7 @@ BOOLEAN SaveKeyTableToSaveGameFile( HWFILE hFile );
 
 //Load the key table from the saved game file
 BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion );
+BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion);
 
 // Returns a doors status value, NULL if not found
 DOOR_STATUS	*GetDoorStatus( INT32 sGridNo );

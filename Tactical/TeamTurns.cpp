@@ -2639,6 +2639,26 @@ BOOLEAN	LoadTeamTurnsFromTheSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	DebugMsg(TOPIC_JA2INTERRUPT, DBG_LEVEL_3, "LoadTeamTurnsFromTheSavedGameFile");
+	UINT32	uiNumBytesRead;
+	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
+
+	LOADDATA(gubOutOfTurnOrder, *ppBuffer, sizeof(UINT16) * MAXMERCS);
+	LOADDATA(&TeamTurnStruct, *ppBuffer, sizeof(TEAM_TURN_SAVE_STRUCT));
+
+	gubOutOfTurnPersons = TeamTurnStruct.ubOutOfTurnPersons;
+
+	InterruptOnlyGuynum = TeamTurnStruct.InterruptOnlyGuynum;
+	gsWhoThrewRock = TeamTurnStruct.sWhoThrewRock;
+	InterruptsAllowed = TeamTurnStruct.InterruptsAllowed;
+	gfHiddenInterrupt = TeamTurnStruct.fHiddenInterrupt;
+	gubLastInterruptedGuy = TeamTurnStruct.ubLastInterruptedGuy;
+
+	return(TRUE);
+}
+
 BOOLEAN NPCFirstDraw( SOLDIERTYPE * pSoldier, SOLDIERTYPE * pTargetSoldier )
 {
 	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"NPCFirstDraw");

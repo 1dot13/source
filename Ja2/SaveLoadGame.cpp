@@ -490,37 +490,46 @@ extern		BOOLEAN		gfHavePurchasedItemsFromTony;
 
 BOOLEAN		SaveMercProfiles( HWFILE hFile );
 BOOLEAN		LoadSavedMercProfiles( HWFILE hwFile );
+BOOLEAN		LoadSavedMercProfilesBuffer(CHAR8** ppBuffer);
 
 BOOLEAN		SaveSoldierStructure( HWFILE hFile );
 BOOLEAN		LoadSoldierStructure( HWFILE hFile );
+BOOLEAN		LoadSoldierStructureBuffer(CHAR8** ppBuffer);
 
 //BOOLEAN		SavePtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 //BOOLEAN		LoadPtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 
 BOOLEAN		SaveEmailToSavedGame( HWFILE hFile );
 BOOLEAN		LoadEmailFromSavedGame( HWFILE hFile );
+BOOLEAN		LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer);
 
 BOOLEAN		SaveTacticalStatusToSavedGame( HWFILE hFile );
 BOOLEAN		LoadTacticalStatusFromSavedGame( HWFILE hFile );
-
+BOOLEAN		LoadTacticalStatusFromSavedGameBuffer(CHAR8** ppBuffer);
 
 BOOLEAN		SetMercsInsertionGridNo( );
 
 BOOLEAN		LoadOppListInfoFromSavedGame( HWFILE hFile );
+BOOLEAN		LoadOppListInfoFromSavedGameBuffer(CHAR8** ppBuffer);
 BOOLEAN		SaveOppListInfoToSavedGame( HWFILE hFile );
 
 BOOLEAN		LoadMercPathToSoldierStruct( HWFILE hFilem, UINT16 ubID );
+BOOLEAN		LoadMercPathToSoldierStructBuffer(CHAR8** ppBuffer, UINT16 ubID);
 BOOLEAN		SaveMercPathFromSoldierStruct( HWFILE hFilem, UINT16 ubID );
 
 BOOLEAN		LoadGeneralInfo( HWFILE hFile );
+BOOLEAN		LoadGeneralInfoBuffer(CHAR8** ppBuffer);
 BOOLEAN		SaveGeneralInfo( HWFILE hFile );
 BOOLEAN		SavePreRandomNumbersToSaveGameFile( HWFILE hFile );
 BOOLEAN		LoadPreRandomNumbersFromSaveGameFile( HWFILE hFile );
+BOOLEAN		LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer);
 
 BOOLEAN SaveWatchedLocsToSavedGame( HWFILE hFile );
 BOOLEAN LoadWatchedLocsFromSavedGame( HWFILE hFile );
+BOOLEAN LoadWatchedLocsFromSavedGameBuffer(CHAR8** ppBuffer);
 
 BOOLEAN LoadMeanwhileDefsFromSaveGameFile( HWFILE hFile );
+BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveMeanwhileDefsFromSaveGameFile( HWFILE hFile );
 
 void	PauseBeforeSaveGame( void );
@@ -606,6 +615,36 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 		inv.resize(size);
 		for (std::vector<OBJECTTYPE>::iterator iter = inv.begin(); iter != inv.end(); ++iter) {
 			if (! iter->Load(hFile)) {
+				return FALSE;
+			}
+		}
+	}
+	else
+	{
+		//we shouldn't be loading from anything before the first change
+		AssertGE(guiCurrentSaveGameVersion, NIV_SAVEGAME_DATATYPE_CHANGE);
+	}
+	return TRUE;
+}
+
+BOOLEAN LBENODE::LoadBuffer(CHAR8** ppBuffer)
+{
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		LOADDATA(this, *ppBuffer, SIZEOF_LBENODE_POD);
+		if ( uniqueID >= gLastLBEUniqueID ) {
+			//can happen because of the order things are saved and loaded,
+			//when combined with copy assignment which makes a new LBENODE
+			gLastLBEUniqueID = uniqueID + 1;
+		}
+
+		int size;
+		LOADDATA(&size, *ppBuffer, sizeof(int));
+
+		inv.resize(size);
+		for ( std::vector<OBJECTTYPE>::iterator iter = inv.begin(); iter != inv.end(); ++iter ) {
+			if ( !iter->LoadBuffer(ppBuffer) ) {
 				return FALSE;
 			}
 		}
@@ -843,6 +882,164 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT8	ubArmsDealer;
+	UINT16	usItemIndex;
+
+	//Free all the dealers special inventory arrays
+	ShutDownArmsDealers();
+
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		int dealers = 0;
+		LOADDATA(&dealers, *ppBuffer, sizeof(int));
+
+		// Flugente: regardless of the number of dealers in the old save, we need this to have the proper size from now on
+		gArmsDealersInventory.resize(NUM_ARMS_DEALERS);
+
+		if ( guiCurrentSaveGameVersion >= NONPROFILE_MERCHANTS )
+		{
+			LOADDATA(gArmsDealerStatus, *ppBuffer, sizeof(gArmsDealerStatus));
+		}
+		else
+		{
+			// Flugente: as we increased the number of dealers, we can only read part of the array
+			LOADDATA(gArmsDealerStatus, *ppBuffer, sizeof(ARMS_DEALER_STATUS) * 40);
+		}
+
+		//loop through all the dealers inventories
+		for ( ubArmsDealer = 0; ubArmsDealer < dealers; ++ubArmsDealer )
+		{
+			int size = 0;
+			LOADDATA(&size, *ppBuffer, sizeof(int));
+
+			gArmsDealersInventory[ubArmsDealer].resize(size);
+
+			//loop through this dealer's individual items
+			DealerItemList::iterator iterend = gArmsDealersInventory[ubArmsDealer].end();
+			for ( DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin(); iter != iterend; ++iter )
+			{
+				if ( !iter->LoadBuffer(ppBuffer) )
+				{
+					return FALSE;
+				}
+
+				//CHRISL: Because of the "100rnd" bug that Tony is experiencing, lets look at each item as we create it.  If the
+				//	item is ammo, reset the bItemCondition value to equal the number of rounds.  Hopefully this will be unneccessary
+				//	but for the time being, it may help to alleviate the "100rnd" bug.
+				if ( Item[iter->object.usItem].usItemClass == IC_AMMO )
+				{
+					// Flugente: this condition is unnecessary, as we afterwards make sure that iter->bItemCondition = iter->object[0]->data.ubShotsLeft anyway
+					//This condition should catch any dealer ammo items that have both invalid bItemCondition and ubShotsLeft values.
+					//	We'll only make bItemCondition valid at this point.  Let the next condition correct ubShotsLeft.
+					/*if( iter->bItemCondition > Magazine[Item[iter->object.usItem].ubClassIndex].ubMagSize)
+					{
+						iter->bItemCondition = Magazine[Item[iter->object.usItem].ubClassIndex].ubMagSize;
+					}*/
+
+					//This condition should catch any dealer ammo items that have an invalid bItemCondition assuming ubShotsLeft is valid
+					if ( iter->bItemCondition != iter->object[0]->data.ubShotsLeft )
+					{
+						iter->bItemCondition = iter->object[0]->data.ubShotsLeft;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//the format has changed and needs to be updated
+		OLD_ARMS_DEALER_STATUS_101 gOldArmsDealerStatus[NUM_ARMS_DEALERS];
+		//OLD_DEALER_ITEM_HEADER_101 gOldArmsDealersInventory[NUM_ARMS_DEALERS][MAXITEMS];
+
+		//pointer to an array of OLD_DEALER_ITEM_HEADER_101 that is sized [NUM_ARMS_DEALERS][MAXITEMS]
+		typedef OLD_DEALER_ITEM_HEADER_101(*pointerToArmsDealersInventoryArray)[NUM_ARMS_DEALERS][MAXITEMS];
+
+		pointerToArmsDealersInventoryArray pOldArmsDealersInventory
+			= (pointerToArmsDealersInventoryArray) new OLD_DEALER_ITEM_HEADER_101[NUM_ARMS_DEALERS][MAXITEMS];
+
+
+		// Elgin was added to the dealers list in Game Version #54, enlarging these 2 tables...
+		// Manny was added to the dealers list in Game Version #55, enlarging these 2 tables...
+		bool fIncludesElgin = guiCurrentSaveGameVersion >= 54;
+		bool fIncludesManny = guiCurrentSaveGameVersion >= 55;
+		UINT32	uiDealersSaved;
+		if ( fIncludesElgin && fIncludesManny ) {
+			uiDealersSaved = NUM_ORIGINAL_ARMS_DEALERS;
+		}
+		else if ( !fIncludesElgin ) {
+			// read 2 fewer element without Elgin or Manny in there...
+			uiDealersSaved = NUM_ORIGINAL_ARMS_DEALERS - 2;
+		}
+		else {
+			// read one fewer element without Elgin in there...
+			uiDealersSaved = NUM_ORIGINAL_ARMS_DEALERS - 1;
+		}
+		gArmsDealersInventory.resize(uiDealersSaved);
+
+		LOADDATA(gOldArmsDealerStatus, *ppBuffer, uiDealersSaved * sizeof(OLD_ARMS_DEALER_STATUS_101));
+		LOADDATA((*pOldArmsDealersInventory), *ppBuffer, uiDealersSaved * sizeof(OLD_DEALER_ITEM_HEADER_101) * MAXITEMS);
+
+		if ( !fIncludesElgin ) {
+			// initialize Elgin now...
+			InitializeOneArmsDealer(ARMS_DEALER_ELGIN);
+		}
+		if ( !fIncludesManny ) {
+			// initialize Manny now...
+			InitializeOneArmsDealer(ARMS_DEALER_MANNY);
+		}
+
+		OLD_DEALER_SPECIAL_ITEM_101 oldSpecial;
+		DEALER_SPECIAL_ITEM loadedSpecial;
+		//loop through all the dealers inventories
+		for ( ubArmsDealer = 0; ubArmsDealer < uiDealersSaved; ++ubArmsDealer )
+		{
+			gArmsDealerStatus[ubArmsDealer] = gOldArmsDealerStatus[ubArmsDealer];
+
+			//loop through this dealer's individual items
+			for ( usItemIndex = 1; usItemIndex < gMAXITEMS_READ; ++usItemIndex )
+			{
+				//some things are much much better stored in status now
+				gArmsDealerStatus[ubArmsDealer].fPreviouslyEligible[usItemIndex] = (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].fPreviouslyEligible;
+				gArmsDealerStatus[ubArmsDealer].ubStrayAmmo[usItemIndex] = (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubStrayAmmo;
+
+				//if there are any perfect items, insert them immediately
+				if ( (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubPerfectItems )
+				{
+					gArmsDealersInventory[ubArmsDealer].push_back(DEALER_SPECIAL_ITEM());
+					DEALER_SPECIAL_ITEM* pPerfectItem = &gArmsDealersInventory[ubArmsDealer].back();
+					CreateObjectForDealer(usItemIndex, 100, (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubPerfectItems, &pPerfectItem->object);
+					//cannot set to 100, could be ammo
+					pPerfectItem->bItemCondition = pPerfectItem->object[0]->data.objectStatus;
+				}
+
+				//if there are any items on order, order them
+				if ( (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubQtyOnOrder )
+				{
+					OrderDealerItems(ubArmsDealer, usItemIndex,
+						(*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubQtyOnOrder,
+						(*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].uiOrderArrivalTime);
+				}
+
+				//if there are any special elements allocated for this item, load them
+				for ( int x = 0; x < (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubElementsAlloced; ++x )
+				{
+					LOADDATA(&oldSpecial, *ppBuffer, sizeof(OLD_DEALER_SPECIAL_ITEM_101));
+					//not all elements alloced are full, some are empty!
+					//convert and add to arms dealer list (if applicable)
+					loadedSpecial.ConvertFrom101((*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex], oldSpecial, ubArmsDealer, usItemIndex);
+				}
+			}
+		}
+		delete[] pOldArmsDealersInventory;
+	}
+
+	// we need to refresh our selection at this point, as lua data may depend on campaign specifics
+	HandlePossibleArmsDealerIntelRefresh(TRUE);
+
+	return(TRUE);
+}
 
 BOOLEAN DEALER_SPECIAL_ITEM::Save(HWFILE hFile)
 {
@@ -869,6 +1066,26 @@ BOOLEAN DEALER_SPECIAL_ITEM::Load(HWFILE hFile)
 			return FALSE;
 		}
 		if ( !this->object.Load(hFile) )
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
+		//this will never be loaded from sometime before the first change
+		AssertGE(guiCurrentSaveGameVersion, NIV_SAVEGAME_DATATYPE_CHANGE);
+	}
+	return TRUE;
+}
+
+BOOLEAN DEALER_SPECIAL_ITEM::LoadBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiNumBytesRead;
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		LOADDATA(this, *ppBuffer, SIZEOF_DEALER_SPECIAL_ITEM_POD);
+		if ( !this->object.LoadBuffer(ppBuffer) )
 		{
 			return FALSE;
 		}
@@ -919,6 +1136,29 @@ BOOLEAN REAL_OBJECT::Load(HWFILE hFile)
 			{
 				return FALSE;
 			}
+			*this = oldObject;
+		}
+	}
+	return TRUE;
+}
+
+BOOLEAN REAL_OBJECT::LoadBuffer(CHAR8** ppBuffer)
+{
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		LOADDATA(this, *ppBuffer, SIZEOF_REAL_OBJECT_POD);
+		if ( !this->Obj.LoadBuffer(ppBuffer) )
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
+		{
+			OLD_REAL_OBJECT_101 oldObject;
+			LOADDATA(&oldObject, *ppBuffer, sizeof(OLD_REAL_OBJECT_101));
 			*this = oldObject;
 		}
 	}
@@ -1004,6 +1244,29 @@ BOOLEAN MERC_LEAVE_ITEM::Load(HWFILE hFile)
 	return TRUE;
 }
 
+BOOLEAN MERC_LEAVE_ITEM::LoadBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiNumBytesRead;
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		if ( !this->object.LoadBuffer(ppBuffer) )
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
+		{
+			OLD_MERC_LEAVE_ITEM_101 oldItem;
+			LOADDATA(&oldItem, *ppBuffer, sizeof(OLD_MERC_LEAVE_ITEM_101));
+			this->object = oldItem.oldObject;
+		}
+	}
+	return TRUE;
+}
+
 BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 {
 	UINT32 uiNumBytesRead;
@@ -1029,6 +1292,31 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 			{
 				return FALSE;
 			}
+			*this = oldInfo101;
+		}
+
+	}
+	return TRUE;
+}
+
+BOOLEAN ITEM_CURSOR_SAVE_INFO::LoadBuffer(CHAR8** ppBuffer)
+{
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		//3 bytes of info, screw being neat
+		LOADDATA(this, *ppBuffer, SIZEOF_ITEM_CURSOR_SAVE_INFO_POD);
+		if ( !this->ItemPointerInfo.LoadBuffer(ppBuffer) )
+		{
+			return FALSE;
+		}
+	}
+	else
+	{
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
+		{
+			OLD_ITEM_CURSOR_SAVE_INFO_101 oldInfo101;
+			LOADDATA(&oldInfo101, *ppBuffer, sizeof(OLD_ITEM_CURSOR_SAVE_INFO_101));
 			*this = oldInfo101;
 		}
 
@@ -1702,6 +1990,428 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 	return TRUE;
 }
 
+BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion, bool forceLoadOldEncryption, bool wasSavedWithEncryption)
+{
+	UINT32	uiNumBytesRead;
+	INT32	numBytesRead = 0, temp = 0, buffer = 0;
+	UINT8	filler = 0;
+	this->initialize();
+
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE && forceLoadOldVersion == false )
+	{
+		// WANNE - BMP: DONE!
+//		if ( !FileRead( hFile, this, SIZEOF_MERCPROFILESTRUCT_POD, &uiNumBytesRead ) )
+//		{
+//			return(FALSE);
+//		}
+		LOADDATA(this->zName, *ppBuffer, sizeof(this->zName));
+		numBytesRead += sizeof(this->zName);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->zNickname, sizeof(this->zNickname), sizeof(CHAR16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiAttnSound, sizeof(this->uiAttnSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiCurseSound, sizeof(this->uiCurseSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiDieSound, sizeof(this->uiDieSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiGoodSound, sizeof(this->uiGoodSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiGruntSound, sizeof(this->uiGruntSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiGrunt2Sound, sizeof(this->uiGrunt2Sound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiOkSound, sizeof(this->uiOkSound), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubFaceIndex, sizeof(this->ubFaceIndex), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->PANTS, sizeof(this->PANTS), sizeof(CHAR8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->VEST, sizeof(this->VEST), sizeof(CHAR8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->SKIN, sizeof(this->SKIN), sizeof(CHAR8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->HAIR, sizeof(this->HAIR), sizeof(CHAR8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSex, sizeof(this->bSex), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bArmourAttractiveness, sizeof(this->bArmourAttractiveness), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMiscFlags2, sizeof(this->ubMiscFlags2), sizeof(UINT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion < GROWTH_MODIFIERS )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+			// convert old evolution to regresses boolean
+			this->fRegresses = this->fRegresses == 2 ? TRUE : FALSE; // 2 == CharacterEvolution::DEVOLVES
+		}
+		else
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fRegresses, sizeof(this->fRegresses), sizeof(INT8), numBytesRead);
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMiscFlags, sizeof(this->ubMiscFlags), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSexist, sizeof(this->bSexist), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToHate, sizeof(this->bLearnToHate), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bStealRate, sizeof(this->bStealRate), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bVocalVolume, sizeof(this->bVocalVolume), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubQuoteRecord, sizeof(this->ubQuoteRecord), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDeathRate, sizeof(this->bDeathRate), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bScientific, sizeof(this->bScientific), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sExpLevelGain, sizeof(this->sExpLevelGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLifeGain, sizeof(this->sLifeGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sAgilityGain, sizeof(this->sAgilityGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDexterityGain, sizeof(this->sDexterityGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWisdomGain, sizeof(this->sWisdomGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sMarksmanshipGain, sizeof(this->sMarksmanshipGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sMedicalGain, sizeof(this->sMedicalGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sMechanicGain, sizeof(this->sMechanicGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sExplosivesGain, sizeof(this->sExplosivesGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubBodyType, sizeof(this->ubBodyType), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMedical, sizeof(this->bMedical), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usEyesX, sizeof(this->usEyesX), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usEyesY, sizeof(this->usEyesY), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usMouthX, sizeof(this->usMouthX), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usMouthY, sizeof(this->usMouthY), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiEyeDelay, sizeof(this->uiEyeDelay), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiMouthDelay, sizeof(this->uiMouthDelay), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiBlinkFrequency, sizeof(this->uiBlinkFrequency), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiExpressionFrequency, sizeof(this->uiExpressionFrequency), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSectorX, sizeof(this->sSectorX), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSectorY, sizeof(this->sSectorY), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiDayBecomesAvailable, sizeof(this->uiDayBecomesAvailable), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bStrength, sizeof(this->bStrength), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLifeMax, sizeof(this->bLifeMax), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExpLevelDelta, sizeof(this->bExpLevelDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLifeDelta, sizeof(this->bLifeDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAgilityDelta, sizeof(this->bAgilityDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDexterityDelta, sizeof(this->bDexterityDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bWisdomDelta, sizeof(this->bWisdomDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMarksmanshipDelta, sizeof(this->bMarksmanshipDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMedicalDelta, sizeof(this->bMedicalDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMechanicDelta, sizeof(this->bMechanicDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExplosivesDelta, sizeof(this->bExplosivesDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bStrengthDelta, sizeof(this->bStrengthDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLeadershipDelta, sizeof(this->bLeadershipDelta), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		{	// No longer included but need to read them anyway
+			temp = numBytesRead;
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usKillsRegulars, sizeof(UINT16), sizeof(UINT16), temp);
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usAssistsMercs, sizeof(UINT16), sizeof(UINT16), temp);
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usShotsFired, sizeof(UINT16), sizeof(UINT16), temp);
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usShotsHit, sizeof(UINT16), sizeof(UINT16), temp);
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usBattlesTactical, sizeof(UINT16), sizeof(UINT16), temp);
+			temp = ReadFieldByFieldFromBuffer(ppBuffer, &this->records.usTimesWoundedShot, sizeof(UINT16), sizeof(UINT16), temp);
+			numBytesRead++;
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usTotalDaysServed, sizeof(this->usTotalDaysServed), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLeadershipGain, sizeof(this->sLeadershipGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sStrengthGain, sizeof(this->sStrengthGain), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiBodyTypeSubFlags, sizeof(this->uiBodyTypeSubFlags), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSalary, sizeof(this->sSalary), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLife, sizeof(this->bLife), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDexterity, sizeof(this->bDexterity), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDisability, sizeof(this->bDisability), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE2 )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bSkillTraits, sizeof(this->bSkillTraits), sizeof(INT8), numBytesRead);
+		else	//CHRISL: Prior to STOMP12_SAVEGAME_DATATYPE_CHANGE2, bSkillTraits was only a single INT8 value
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bSkillTraits, sizeof(INT8), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bReputationTolerance, sizeof(this->bReputationTolerance), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExplosive, sizeof(this->bExplosive), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE2 && guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		{	//CHRISL: These two variables no longer exist but we should read them into bSKillTraits[1] and [2]
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSkillTraits[1], sizeof(INT8), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSkillTraits[2], sizeof(INT8), sizeof(INT8), numBytesRead);
+			numBytesRead += 27;
+		}
+		else if ( guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSkillTraits[1], sizeof(INT8), sizeof(INT8), numBytesRead);
+			numBytesRead += 28;
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLeadership, sizeof(this->bLeadership), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bBuddy, sizeof(this->bBuddy), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bHated, sizeof(this->bHated), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExpLevel, sizeof(this->bExpLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMarksmanship, sizeof(this->bMarksmanship), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMinService, sizeof(this->bMinService), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bWisdom, sizeof(this->bWisdom), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bResigned, sizeof(this->bResigned), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bActive, sizeof(this->bActive), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->usApproachFactor, sizeof(this->usApproachFactor), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMainGunAttractiveness, sizeof(this->bMainGunAttractiveness), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAgility, sizeof(this->bAgility), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fUseProfileInsertionInfo, sizeof(this->fUseProfileInsertionInfo), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->_old_sGridNo, sizeof(this->_old_sGridNo), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubQuoteActionID, sizeof(this->ubQuoteActionID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMechanical, sizeof(this->bMechanical), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubInvUndroppable, sizeof(this->ubInvUndroppable), sizeof(UINT8), numBytesRead);
+		//DBrot: More rooms
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->usRoomRangeStart, sizeof(this->usRoomRangeStart), sizeof(UINT16), numBytesRead);
+
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bMercTownReputation, sizeof(this->bMercTownReputation), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->usStatChangeChances, sizeof(this->usStatChangeChances), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->usStatChangeSuccesses, sizeof(this->usStatChangeSuccesses), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubStrategicInsertionCode, sizeof(this->ubStrategicInsertionCode), sizeof(UINT8), numBytesRead);
+		//DBrot: More rooms
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->usRoomRangeEnd, sizeof(this->usRoomRangeEnd), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLastQuoteSaid, sizeof(this->ubLastQuoteSaid), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRace, sizeof(this->bRace), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNationality, sizeof(this->bNationality), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAppearance, sizeof(this->bAppearance), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAppearanceCareLevel, sizeof(this->bAppearanceCareLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRefinement, sizeof(this->bRefinement), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRefinementCareLevel, sizeof(this->bRefinementCareLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bHatedNationality, sizeof(this->bHatedNationality), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bHatedNationalityCareLevel, sizeof(this->bHatedNationalityCareLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRacist, sizeof(this->bRacist), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiWeeklySalary, sizeof(this->uiWeeklySalary), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiBiWeeklySalary, sizeof(this->uiBiWeeklySalary), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMedicalDeposit, sizeof(this->bMedicalDeposit), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAttitude, sizeof(this->bAttitude), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCharacterTrait, sizeof(this->bCharacterTrait), sizeof(INT8), numBytesRead);
+		else
+			numBytesRead++;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBaseMorale, sizeof(this->bBaseMorale), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE )
+			ReadFieldByFieldFromBuffer(ppBuffer, &filler, sizeof(UINT8), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sMedicalDepositAmount, sizeof(this->sMedicalDepositAmount), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToLike, sizeof(this->bLearnToLike), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->ubApproachVal, sizeof(this->ubApproachVal), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->ubApproachMod, sizeof(this->ubApproachMod), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTown, sizeof(this->bTown), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTownAttachment, sizeof(this->bTownAttachment), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usOptionalGearCost, sizeof(this->usOptionalGearCost), sizeof(UINT16), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= ENLARGED_OPINIONS )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bMercOpinion, sizeof(this->bMercOpinion), sizeof(INT8), numBytesRead);
+		}
+		else
+		{
+			// Flugente: for old savegames, only read the number of old opinions, and then add a buffer value to get fitting sizes
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bMercOpinion, NUMBER_OF_OPINIONS_OLD, sizeof(INT8), numBytesRead);
+
+			for ( int i = 0; i < sizeof(this->bMercOpinion) - NUMBER_OF_OPINIONS_OLD; ++i )
+				++buffer;
+		}
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bApproached, sizeof(this->bApproached), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMercStatus, sizeof(this->bMercStatus), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bHatedTime, sizeof(this->bHatedTime), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToLikeTime, sizeof(this->bLearnToLikeTime), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToHateTime, sizeof(this->bLearnToHateTime), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->bHatedCount, sizeof(this->bHatedCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToLikeCount, sizeof(this->bLearnToLikeCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLearnToHateCount, sizeof(this->bLearnToHateCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLastDateSpokenTo, sizeof(this->ubLastDateSpokenTo), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLastQuoteSaidWasSpecial, sizeof(this->bLastQuoteSaidWasSpecial), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSectorZ, sizeof(this->bSectorZ), sizeof(INT8), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= MERC_PROFILE_INSERTION_DATA )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usStrategicInsertionData, sizeof(this->usStrategicInsertionData), sizeof(UINT32), numBytesRead);
+		}
+		else
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usStrategicInsertionData, sizeof(UINT16), sizeof(UINT16), numBytesRead);
+			buffer += 4; // To make numBytesRead check match the struct size. 2 bytes from uint32 - uint16 and 2 bytes due to struct memory layout change when usStrategicInsertionData was increased to uint32
+		}
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bFriendlyOrDirectDefaultResponseUsedRecently, sizeof(this->bFriendlyOrDirectDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRecruitDefaultResponseUsedRecently, sizeof(this->bRecruitDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bThreatenDefaultResponseUsedRecently, sizeof(this->bThreatenDefaultResponseUsedRecently), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNPCData, sizeof(this->bNPCData), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iBalance, sizeof(this->iBalance), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sTrueSalary, sizeof(this->sTrueSalary), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubCivilianGroup, sizeof(this->ubCivilianGroup), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNeedForSleep, sizeof(this->ubNeedForSleep), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiMoney, sizeof(this->uiMoney), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNPCData2, sizeof(this->bNPCData2), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMiscFlags3, sizeof(this->ubMiscFlags3), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDaysOfMoraleHangover, sizeof(this->ubDaysOfMoraleHangover), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNumTimesDrugUseInLifetime, sizeof(this->ubNumTimesDrugUseInLifetime), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiPrecedentQuoteSaid, sizeof(this->uiPrecedentQuoteSaid), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiProfileChecksum, sizeof(this->uiProfileChecksum), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->_old_sPreCombatGridNo, sizeof(this->_old_sPreCombatGridNo), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubTimeTillNextHatedComplaint, sizeof(this->ubTimeTillNextHatedComplaint), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSuspiciousDeath, sizeof(this->ubSuspiciousDeath), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iMercMercContractLength, sizeof(this->iMercMercContractLength), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTotalCostToDate, sizeof(this->uiTotalCostToDate), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sGridNo, sizeof(this->sGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPreCombatGridNo, sizeof(this->sPreCombatGridNo), sizeof(INT32), numBytesRead);
+		//numBytesRead = ReadFieldByFieldFromBuffer( ppBuffer, &this->endOfPOD, sizeof(this->endOfPOD), sizeof(char), numBytesRead);
+		while ( (numBytesRead % 2) != 0 )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
+
+		//DBrot: More rooms
+		int size = 0;
+		if ( numBytesRead + buffer != SIZEOF_MERCPROFILESTRUCT_POD )
+		{
+			return(FALSE);
+		}
+
+		LOADDATA(&size, *ppBuffer, sizeof(int));
+
+		inv.resize(size);
+		bInvStatus.resize(size);
+		bInvNumber.resize(size);
+		int item;
+		int status;
+		int number;
+		for ( int x = 0; x < size; ++x ) {
+			LOADDATA(&item, *ppBuffer, sizeof(int));
+			LOADDATA(&status, *ppBuffer, sizeof(int));
+			LOADDATA(&number, *ppBuffer, sizeof(int));
+			inv[x] = item;
+			bInvStatus[x] = status;
+			bInvNumber[x] = number;
+		}
+		// SANDRO - read records
+		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		{
+			LOADDATA(&this->records, *ppBuffer, sizeof(STRUCT_Records));
+
+			// Flugente: backgrounds
+			if ( guiCurrentSaveGameVersion >= BACKGROUNDS )
+			{
+				if ( guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8 )
+				{
+					LOADDATA(&this->usBackground, *ppBuffer, sizeof(UINT16));
+				}
+				else
+				{
+					LOADDATA(&this->usBackground, *ppBuffer, sizeof(UINT8));
+				}
+			}
+
+			if ( guiCurrentSaveGameVersion >= SNITCH_TRAIT_EXTENDED )
+			{
+				LOADDATA(&this->ubSnitchExposedCooldown, *ppBuffer, sizeof(ubSnitchExposedCooldown));
+			}
+
+			if ( guiCurrentSaveGameVersion >= DYNAMIC_OPINIONS )
+			{
+				if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
+				{
+					if ( guiCurrentSaveGameVersion >= DRUG_SYSTEM_REDONE )
+					{
+						LOADDATA(&this->usDynamicOpinionFlagmask, *ppBuffer, sizeof(usDynamicOpinionFlagmask));
+					}
+					else
+					{
+						UINT32 tmp[NUM_PROFILES][5];
+						LOADDATA(&tmp, *ppBuffer, sizeof(tmp));
+
+						for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
+						{
+							UINT8 i = 0;
+							for ( i = 0; i < 5; ++i )
+							{
+								this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+							}
+
+							for ( ; i < OPINION_FLAGMASKS_NUMBER; ++i )
+							{
+								this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+							}
+						}
+					}
+
+					LOADDATA(&this->sDynamicOpinionLongTerm, *ppBuffer, sizeof(sDynamicOpinionLongTerm));
+				}
+				else
+				{
+					UINT32 tmp[NUM_PROFILES][3];
+					LOADDATA(&tmp, *ppBuffer, sizeof(tmp));
+
+					for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
+					{
+						UINT8 i = 0;
+						for ( i = 0; i < 3; ++i )
+						{
+							this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+						}
+
+						for ( ; i < OPINION_FLAGMASKS_NUMBER; ++i )
+						{
+							this->usDynamicOpinionFlagmask[profile][i] = tmp[profile][i];
+						}
+
+						sDynamicOpinionLongTerm[profile] = 0;
+					}
+				}
+			}
+
+			// Flugente: voice set
+			if ( guiCurrentSaveGameVersion >= SEPARATE_VOICESETS )
+			{
+				LOADDATA(&this->usVoiceIndex, *ppBuffer, sizeof(UINT32));
+			}
+
+			// Flugente: if this is a an case of older file, load from separate structure
+			if ( guiCurrentSaveGameVersion >= PROFILETYPE_STORED )
+			{
+				LOADDATA(&this->Type, *ppBuffer, sizeof(UINT32));
+			}
+
+			// rftr: growth modifiers
+			if ( guiCurrentSaveGameVersion >= GROWTH_MODIFIERS )
+			{
+				LOADDATA(&this->bGrowthModifierLife, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierStrength, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierAgility, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierDexterity, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierWisdom, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierMarksmanship, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierExplosive, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierLeadership, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierMedical, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierMechanical, *ppBuffer, sizeof(INT8));
+				LOADDATA(&this->bGrowthModifierExpLevel, *ppBuffer, sizeof(INT8));
+			}
+			else
+			{
+				// zero out growth modifiers for upgrading savegames
+				this->bGrowthModifierLife = 0;
+				this->bGrowthModifierStrength = 0;
+				this->bGrowthModifierAgility = 0;
+				this->bGrowthModifierDexterity = 0;
+				this->bGrowthModifierWisdom = 0;
+				this->bGrowthModifierMarksmanship = 0;
+				this->bGrowthModifierExplosive = 0;
+				this->bGrowthModifierLeadership = 0;
+				this->bGrowthModifierMedical = 0;
+				this->bGrowthModifierMechanical = 0;
+				this->bGrowthModifierExpLevel = 0;
+			}
+		}
+
+		if ( this->uiProfileChecksum != this->GetChecksum() )
+		{
+			return(FALSE);
+		}
+	}
+	else
+	{
+		//we are loading an older version (only load once, so use "else if")
+		//first load the data based on what version was stored
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE || forceLoadOldVersion == true )
+		{
+			OLD_MERCPROFILESTRUCT_101 old;
+			typedef BOOLEAN(*functionPtr) (CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead);
+			functionPtr pLoadingFunction;
+			// Changed by ADB, rev 1513
+			//if ( guiCurrentSaveGameVersion < 87 || forceLoadOldVersion == true)
+			if ( wasSavedWithEncryption == false ) {
+				pLoadingFunction = &JA2NonEncryptedFileReadBuffer;
+			}
+			else if ( guiCurrentSaveGameVersion < 87 || forceLoadOldEncryption == true )
+			{
+				pLoadingFunction = &JA2EncryptedFileReadBuffer;
+			}
+			else
+			{
+				pLoadingFunction = &NewJA2EncryptedFileReadBuffer;
+			}
+
+			if ( !(*pLoadingFunction)(ppBuffer, &old, SIZEOF_OLD_MERCPROFILESTRUCT_101_POD) )
+			{
+				return(FALSE);
+			}
+			*this = old;
+		}
+		//skip checksum
+	}
+	return TRUE;
+}
+
+
 BOOLEAN MERCPROFILESTRUCT::Save(HWFILE hFile)
 {
 	//for now the MERCPROFILESTRUCT remains unchanged
@@ -1901,6 +2611,30 @@ INT32 ReadFieldByField(HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiEle
 	FileRead(hFile, pDest, uiFieldSize, &uiNumBytesRead );
 	uiBytesRead += uiNumBytesRead;
 
+	return uiBytesRead;
+}
+
+UINT32 ReadFieldByFieldFromBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount)
+{
+	CHAR8* pBuffer = *ppBuffer;
+	char		padding[10];
+	UINT32	uiBytesRead = uiCurByteCount;	// used to track our new byte count
+	UINT32	sampleBytesRead = uiBytesRead;	// used to determine how much padding is needed
+
+	while((sampleBytesRead % uiElementSize) > 0)	 // as long as we have a remainder
+		sampleBytesRead++;
+
+	if(sampleBytesRead != uiBytesRead)	// if we need padding
+	{
+		LOADDATA(padding, pBuffer, (sampleBytesRead-uiBytesRead));
+		uiBytesRead += (sampleBytesRead-uiBytesRead);
+	}
+
+	// the actual buffer read
+	LOADDATA(pDest, pBuffer, uiFieldSize);
+	uiBytesRead += uiFieldSize;
+	
+	*ppBuffer = pBuffer;
 	return uiBytesRead;
 }
 
@@ -2818,6 +3552,886 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 	return TRUE;
 }
 
+BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiNumBytesRead;
+	INT32 numBytesRead = 0, buffer = 0;
+	char padding[10];
+	FLOAT temp;
+
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		//the soldier type info has changed at version 102
+		//CHRISL: To accomodate future changes to this structure, we'll load each value field by field
+		numBytesRead = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubID, sizeof(ubID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->name, sizeof(name), sizeof(CHAR16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubBodyType, sizeof(ubBodyType), sizeof(UINT8), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
+		{	//CHRISL: It was  changed at version 104 to allow for 16bit action points for the 100AP system
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bActionPoints, sizeof(bActionPoints), sizeof(INT16), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bInitialActionPoints, sizeof(bInitialActionPoints), sizeof(INT16), numBytesRead);
+		}
+		else
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bActionPoints, sizeof(bActionPoints), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bInitialActionPoints, sizeof(bInitialActionPoints), sizeof(INT8), numBytesRead);
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOldLife, sizeof(bOldLife), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bVisible, sizeof(bVisible), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bActive, sizeof(bActive), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTeam, sizeof(bTeam), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pTempObject, sizeof(pTempObject), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pKeyRing, sizeof(pKeyRing), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bInSector, sizeof(bInSector), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bFlashPortraitFrame, sizeof(bFlashPortraitFrame), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sFractLife, sizeof(sFractLife), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBleeding, sizeof(bBleeding), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBreath, sizeof(bBreath), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBreathMax, sizeof(bBreathMax), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bStealthMode, sizeof(bStealthMode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sBreathRed, sizeof(sBreathRed), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubWaitActionToDo, sizeof(ubWaitActionToDo), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubInsertionDirection, sizeof(ubInsertionDirection), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bGunType, sizeof(bGunType), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubOppNum, sizeof(ubOppNum), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLastRenderVisibleValue, sizeof(bLastRenderVisibleValue), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubAttackingHand, sizeof(ubAttackingHand), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWeightCarriedAtTurnStart, sizeof(sWeightCarriedAtTurnStart), sizeof(INT16), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE ) {
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iHealableInjury, sizeof(iHealableInjury), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fDoingSurgery, sizeof(fDoingSurgery), sizeof(BOOLEAN), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->lUnregainableBreath, sizeof(lUnregainableBreath), sizeof(signed long), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubCriticalStatDamage, sizeof(ubCriticalStatDamage), sizeof(UINT8), numBytesRead);
+		}
+		else {
+			buffer += 24;
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubGroupID, sizeof(ubGroupID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMovementNoiseHeard, sizeof(ubMovementNoiseHeard), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dXPos, sizeof(dXPos), sizeof(FLOAT), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dYPos, sizeof(dYPos), sizeof(FLOAT), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= NCTH_DATATYPE_CHANGE ) {
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sOldXPos, sizeof(sOldXPos), sizeof(INT16), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sOldYPos, sizeof(sOldYPos), sizeof(INT16), numBytesRead);
+		}
+		else {
+			//CHRISL: These used to be floats but we've reduced them to INT16
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &temp, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+			this->sOldXPos = (INT16)temp;
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &temp, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+			this->sOldYPos = (INT16)temp;
+			buffer -= 4;
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sInitialGridNo, sizeof(sInitialGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sGridNo, sizeof(sGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDirection, sizeof(ubDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sHeightAdjustment, sizeof(sHeightAdjustment), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDesiredHeight, sizeof(sDesiredHeight), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sTempNewGridNo, sizeof(sTempNewGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sRoomNo, sizeof(sRoomNo), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOverTerrainType, sizeof(bOverTerrainType), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOldOverTerrainType, sizeof(bOldOverTerrainType), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCollapsed, sizeof(bCollapsed), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBreathCollapsed, sizeof(bBreathCollapsed), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDesiredHeight, sizeof(ubDesiredHeight), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usPendingAnimation, sizeof(usPendingAnimation), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPendingStanceChange, sizeof(ubPendingStanceChange), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAnimState, sizeof(usAnimState), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiAIDelay, sizeof(uiAIDelay), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sReloadDelay, sizeof(sReloadDelay), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubAttackerID, sizeof(ubAttackerID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPreviousAttackerID, sizeof(ubPreviousAttackerID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sInsertionGridNo, sizeof(sInsertionGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->AnimCache, sizeof(AnimCache), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSide, sizeof(bSide), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bViewRange, sizeof(bViewRange), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNewOppCnt, sizeof(bNewOppCnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bService, sizeof(bService), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAniCode, sizeof(usAniCode), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAniFrame, sizeof(usAniFrame), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sAniDelay, sizeof(sAniDelay), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDelayedMovementCauseMerc, sizeof(ubDelayedMovementCauseMerc), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDelayedMovementCauseGridNo, sizeof(sDelayedMovementCauseGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sReservedMovementGridNo, sizeof(sReservedMovementGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sTargetGridNo, sizeof(sTargetGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTargetLevel, sizeof(bTargetLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTargetCubeLevel, sizeof(bTargetCubeLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLastTarget, sizeof(sLastTarget), sizeof(INT32), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= NCTH_DATATYPE_CHANGE ) {
+
+			// Flugente: Sandro increased the size of these 4 variables to 2 (was 1) when the version got to DUAL_BURST_ADDED. 
+			// So if we load an old game, we set the second value to 0.0f and pretend we read it. This way old savegames will be savegame compatible 
+			if ( guiCurrentSaveGameVersion < DUAL_BURST_ADDED )
+			{
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevMuzzleOffsetX, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevMuzzleOffsetX[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevMuzzleOffsetY, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevMuzzleOffsetY[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevCounterForceX, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevCounterForceX[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevCounterForceY, sizeof(FLOAT), sizeof(FLOAT), numBytesRead);
+				this->dPrevCounterForceY[1] = 0.0f;
+				buffer += sizeof(FLOAT);
+			}
+			else
+			{
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevMuzzleOffsetX, sizeof(dPrevMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevMuzzleOffsetY, sizeof(dPrevMuzzleOffsetY), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevCounterForceX, sizeof(dPrevCounterForceX), sizeof(FLOAT), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dPrevCounterForceY, sizeof(dPrevCounterForceY), sizeof(FLOAT), numBytesRead);
+			}
+		}
+		else {
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+		}
+
+		if ( guiCurrentSaveGameVersion >= NCTH_AUTOFIRE_UPDATE ) {
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dInitialMuzzleOffsetX, sizeof(dInitialMuzzleOffsetX), sizeof(FLOAT), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dInitialMuzzleOffsetY, sizeof(dInitialMuzzleOffsetY), sizeof(FLOAT), numBytesRead);
+		}
+		else {
+			buffer += sizeof(FLOAT);
+			buffer += sizeof(FLOAT);
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTilesMoved, sizeof(bTilesMoved), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->dNextBleed, sizeof(dNextBleed), sizeof(FLOAT), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubTilesMovedPerRTBreathUpdate, sizeof(ubTilesMovedPerRTBreathUpdate), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usLastMovementAnimPerRTBreathUpdate, sizeof(usLastMovementAnimPerRTBreathUpdate), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLocatorFrame, sizeof(sLocatorFrame), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iFaceIndex, sizeof(iFaceIndex), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usFrontArcFullTileList, sizeof(usFrontArcFullTileList), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usFrontArcFullTileGridNos, sizeof(usFrontArcFullTileGridNos), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->HeadPal, sizeof(HeadPal), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->PantsPal, sizeof(PantsPal), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->VestPal, sizeof(VestPal), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->SkinPal, sizeof(SkinPal), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->MiscPal, sizeof(MiscPal), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->p8BPPPalette, sizeof(p8BPPPalette), sizeof(SGPPaletteEntry), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->p16BPPPalette, sizeof(p16BPPPalette), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pShades, sizeof(pShades), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pGlowShades, sizeof(pGlowShades), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pCurrentShade, sizeof(pCurrentShade), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubFadeLevel, sizeof(ubFadeLevel), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubServiceCount, sizeof(ubServiceCount), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubServicePartner, sizeof(ubServicePartner), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pThrowParams, sizeof(pThrowParams), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bReverse, sizeof(bReverse), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pLevelNode, sizeof(pLevelNode), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pExternShadowLevelNode, sizeof(pExternShadowLevelNode), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pRoofUILevelNode, sizeof(pRoofUILevelNode), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pBackGround, sizeof(pBackGround), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pZBackground, sizeof(pZBackground), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usUnblitX, sizeof(usUnblitX), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usUnblitY, sizeof(usUnblitY), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usUnblitWidth, sizeof(usUnblitWidth), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usUnblitHeight, sizeof(usUnblitHeight), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubStrategicInsertionCode, sizeof(ubStrategicInsertionCode), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usStrategicInsertionData, sizeof(usStrategicInsertionData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iLight, sizeof(iLight), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iMuzFlash, sizeof(iMuzFlash), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMuzFlashCount, sizeof(bMuzFlashCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sX, sizeof(sX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sY, sizeof(sY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usOldAniState, sizeof(usOldAniState), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sOldAniCode, sizeof(sOldAniCode), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBulletsLeft, sizeof(bBulletsLeft), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSuppressionPoints, sizeof(ubSuppressionPoints), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeOfLastRandomAction, sizeof(uiTimeOfLastRandomAction), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usLastRandomAnim, sizeof(usLastRandomAnim), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAnimSurface, sizeof(usAnimSurface), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sZLevel, sizeof(sZLevel), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWalkToAttackMovementMode, sizeof(sWalkToAttackMovementMode), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWalkToAttackGridNo, sizeof(sWalkToAttackGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWalkToAttackWalkToCost, sizeof(sWalkToAttackWalkToCost), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLocatorOffX, sizeof(sLocatorOffX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLocatorOffY, sizeof(sLocatorOffY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pForcedShade, sizeof(pForcedShade), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDisplayDamageCount, sizeof(bDisplayDamageCount), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sWalkToAttackEndDirection, sizeof(sWalkToAttackEndDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDamage, sizeof(sDamage), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDamageX, sizeof(sDamageX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDamageY, sizeof(sDamageY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDamageDir, sizeof(bDamageDir), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDoBurst, sizeof(bDoBurst), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usUIMovementMode, sizeof(usUIMovementMode), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bUIInterfaceLevel, sizeof(bUIInterfaceLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubProfile, sizeof(ubProfile), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubQuoteRecord, sizeof(ubQuoteRecord), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubQuoteActionID, sizeof(ubQuoteActionID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubBattleSoundID, sizeof(ubBattleSoundID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubClosePanelFrame, sizeof(ubClosePanelFrame), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDeadPanelFrame, sizeof(ubDeadPanelFrame), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOpenPanelFrame, sizeof(bOpenPanelFrame), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPanelFaceX, sizeof(sPanelFaceX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPanelFaceY, sizeof(sPanelFaceY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNumHitsThisTurn, sizeof(bNumHitsThisTurn), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usQuoteSaidFlags, sizeof(usQuoteSaidFlags), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bLastSkillCheck, sizeof(bLastSkillCheck), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSkillCheckAttempts, sizeof(ubSkillCheckAttempts), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bVocalVolume, sizeof(bVocalVolume), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bStartFallDir, sizeof(bStartFallDir), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPendingDirection, sizeof(ubPendingDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiAnimSubFlags, sizeof(uiAnimSubFlags), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAimShotLocation, sizeof(bAimShotLocation), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubHitLocation, sizeof(ubHitLocation), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAimMeleeLocation, sizeof(bAimMeleeLocation), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pEffectShades, sizeof(pEffectShades), 4, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPlannedUIAPCost, sizeof(ubPlannedUIAPCost), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPlannedTargetX, sizeof(sPlannedTargetX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPlannedTargetY, sizeof(sPlannedTargetY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSpreadLocations, sizeof(sSpreadLocations), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sStartGridNo, sizeof(sStartGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sEndGridNo, sizeof(sEndGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sForcastGridno, sizeof(sForcastGridno), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sZLevelOverride, sizeof(sZLevelOverride), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMovedPriorToInterrupt, sizeof(bMovedPriorToInterrupt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iEndofContractTime, sizeof(iEndofContractTime), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iStartContractTime, sizeof(iStartContractTime), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iTotalContractLength, sizeof(iTotalContractLength), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iNextActionSpecialData, sizeof(iNextActionSpecialData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubWhatKindOfMercAmI, sizeof(ubWhatKindOfMercAmI), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAssignment, sizeof(bAssignment), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOldAssignment, sizeof(bOldAssignment), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTrainStat, sizeof(bTrainStat), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSectorX, sizeof(sSectorX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSectorY, sizeof(sSectorY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSectorZ, sizeof(bSectorZ), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iVehicleId, sizeof(iVehicleId), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pMercPath, sizeof(pMercPath), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usMedicalDeposit, sizeof(usMedicalDeposit), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usLifeInsurance, sizeof(usLifeInsurance), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiStartMovementTime, sizeof(uiStartMovementTime), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiOptimumMovementTime, sizeof(uiOptimumMovementTime), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usLastUpdateTime, sizeof(usLastUpdateTime), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiSoldierUpdateNumber, sizeof(uiSoldierUpdateNumber), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSoldierUpdateType, sizeof(ubSoldierUpdateType), sizeof(BYTE), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sScheduledStop, sizeof(sScheduledStop), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iStartOfInsuranceContract, sizeof(iStartOfInsuranceContract), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiLastAssignmentChangeMin, sizeof(uiLastAssignmentChangeMin), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iTotalLengthOfInsuranceContract, sizeof(iTotalLengthOfInsuranceContract), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSoldierClass, sizeof(ubSoldierClass), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubAPsLostToSuppression, sizeof(ubAPsLostToSuppression), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubSuppressorID, sizeof(ubSuppressorID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDesiredSquadAssignment, sizeof(ubDesiredSquadAssignment), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNumTraversalsAllowedToMerge, sizeof(ubNumTraversalsAllowedToMerge), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usPendingAnimation2, sizeof(usPendingAnimation2), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubCivilianGroup, sizeof(ubCivilianGroup), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiUniqueSoldierIdValue, sizeof(uiUniqueSoldierIdValue), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bEndDoorOpenCode, sizeof(bEndDoorOpenCode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubScheduleID, sizeof(ubScheduleID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sEndDoorOpenCodeData, sizeof(sEndDoorOpenCodeData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBlockedByAnotherMercDirection, sizeof(bBlockedByAnotherMercDirection), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAttackingWeapon, sizeof(usAttackingWeapon), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bWeaponMode, sizeof(bWeaponMode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubTargetID, sizeof(ubTargetID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAIScheduleProgress, sizeof(bAIScheduleProgress), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sOffWorldGridNo, sizeof(sOffWorldGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pAniTile, sizeof(pAniTile), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCamo, sizeof(bCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sAbsoluteFinalDestination, sizeof(sAbsoluteFinalDestination), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubHiResDirection, sizeof(ubHiResDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubHiResDesiredDirection, sizeof(ubHiResDesiredDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLastFootPrintSound, sizeof(ubLastFootPrintSound), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bVehicleID, sizeof(bVehicleID), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bMovementDirection, sizeof(bMovementDirection), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sOldGridNo, sizeof(sOldGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usDontUpdateNewGridNoOnMoveAnimChange, sizeof(usDontUpdateNewGridNoOnMoveAnimChange), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sBoundingBoxWidth, sizeof(sBoundingBoxWidth), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sBoundingBoxHeight, sizeof(sBoundingBoxHeight), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sBoundingBoxOffsetX, sizeof(sBoundingBoxOffsetX), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sBoundingBoxOffsetY, sizeof(sBoundingBoxOffsetY), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeSameBattleSndDone, sizeof(uiTimeSameBattleSndDone), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOldBattleSnd, sizeof(bOldBattleSnd), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iBurstSoundID, sizeof(iBurstSoundID), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSlotItemTakenFrom, sizeof(bSlotItemTakenFrom), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubAutoBandagingMedic, sizeof(ubAutoBandagingMedic), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubRobotRemoteHolderID, sizeof(ubRobotRemoteHolderID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeOfLastContractUpdate, sizeof(uiTimeOfLastContractUpdate), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTypeOfLastContract, sizeof(bTypeOfLastContract), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTurnsCollapsed, sizeof(bTurnsCollapsed), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bSleepDrugCounter, sizeof(bSleepDrugCounter), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMilitiaKills, sizeof(ubMilitiaKills), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bBlindedCounter, sizeof(bBlindedCounter), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubHoursOnAssignment, sizeof(ubHoursOnAssignment), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMercJustFired, sizeof(ubMercJustFired), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubTurnsUntilCanSayHeardNoise, sizeof(ubTurnsUntilCanSayHeardNoise), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usQuoteSaidExtFlags, sizeof(usQuoteSaidExtFlags), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sContPathLocation, sizeof(sContPathLocation), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bGoodContPath, sizeof(bGoodContPath), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPendingActionInterrupted, sizeof(ubPendingActionInterrupted), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNoiseLevel, sizeof(bNoiseLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRegenerationCounter, sizeof(bRegenerationCounter), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bRegenBoostersUsedToday, sizeof(bRegenBoostersUsedToday), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bNumPelletsHitBy, sizeof(bNumPelletsHitBy), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sSkillCheckGridNo, sizeof(sSkillCheckGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLastEnemyCycledID, sizeof(ubLastEnemyCycledID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPrevSectorID, sizeof(ubPrevSectorID), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNumTilesMovesSinceLastForget, sizeof(ubNumTilesMovesSinceLastForget), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTurningIncrement, sizeof(bTurningIncrement), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiBattleSoundID, sizeof(uiBattleSoundID), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usValueGoneUp, sizeof(usValueGoneUp), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNumLocateCycles, sizeof(ubNumLocateCycles), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDelayedMovementFlags, sizeof(ubDelayedMovementFlags), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubCTGTTargetID, sizeof(ubCTGTTargetID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiMercChecksum, sizeof(uiMercChecksum), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCurrentCivQuote, sizeof(bCurrentCivQuote), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCurrentCivQuoteDelta, sizeof(bCurrentCivQuoteDelta), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMiscSoldierFlags, sizeof(ubMiscSoldierFlags), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubReasonCantFinishMove, sizeof(ubReasonCantFinishMove), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLocationOfFadeStart, sizeof(sLocationOfFadeStart), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bUseExitGridForReentryDirection, sizeof(bUseExitGridForReentryDirection), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeSinceLastSpoke, sizeof(uiTimeSinceLastSpoke), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubContractRenewalQuoteCode, sizeof(ubContractRenewalQuoteCode), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sPreTraversalGridNo, sizeof(sPreTraversalGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiXRayActivatedTime, sizeof(uiXRayActivatedTime), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bTurningFromUI, sizeof(bTurningFromUI), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bPendingActionData5, sizeof(bPendingActionData5), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDelayedStrategicMoraleMod, sizeof(bDelayedStrategicMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubDoorOpeningNoise, sizeof(ubDoorOpeningNoise), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->pGroup, sizeof(pGroup), 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLeaveHistoryCode, sizeof(ubLeaveHistoryCode), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOverrideMoveSpeed, sizeof(bOverrideMoveSpeed), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeSoldierWillArrive, sizeof(uiTimeSoldierWillArrive), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bVehicleUnderRepairID, sizeof(bVehicleUnderRepairID), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iTimeCanSignElsewhere, sizeof(iTimeCanSignElsewhere), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bHospitalPriceModifier, sizeof(bHospitalPriceModifier), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiStartTimeOfInsuranceContract, sizeof(uiStartTimeOfInsuranceContract), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bCorpseQuoteTolerance, sizeof(bCorpseQuoteTolerance), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDeafenedCounter, sizeof(bDeafenedCounter), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iPositionSndID, sizeof(iPositionSndID), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->iTuringSoundID, sizeof(iTuringSoundID), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubLastDamageReason, sizeof(ubLastDamageReason), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sLastTwoLocations, sizeof(sLastTwoLocations), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiTimeSinceLastBleedGrunt, sizeof(uiTimeSinceLastBleedGrunt), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubNextToPreviousAttackerID, sizeof(ubNextToPreviousAttackerID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDoAutofire, sizeof(bDoAutofire), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->numFlanks, sizeof(numFlanks), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->lastFlankSpot, sizeof(lastFlankSpot), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sniper, sizeof(sniper), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->origDir, sizeof(origDir), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->wornCamo, sizeof(wornCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->urbanCamo, sizeof(urbanCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->wornUrbanCamo, sizeof(wornUrbanCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->desertCamo, sizeof(desertCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->wornDesertCamo, sizeof(wornDesertCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->snowCamo, sizeof(snowCamo), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->wornSnowCamo, sizeof(wornSnowCamo), sizeof(INT8), numBytesRead);
+		// Preserve old savegames by detecting if the assignment is not saved as FACILITY_ but really should be
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sFacilityTypeOperated, sizeof(sFacilityTypeOperated), sizeof(INT16), numBytesRead);
+		if ( this->sFacilityTypeOperated > 0 )
+		{
+			if ( this->bAssignment == DOCTOR )
+				this->bAssignment = FACILITY_DOCTOR;
+			else if ( this->bAssignment == PATIENT )
+				this->bAssignment = FACILITY_PATIENT;
+			else if ( this->bAssignment == REPAIR )
+				this->bAssignment = FACILITY_REPAIR;
+		}
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bScopeMode, sizeof(bScopeMode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubMilitiaAssists, sizeof(ubMilitiaAssists), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sNonNPCTraderID, sizeof(sNonNPCTraderID), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usDragPersonID, sizeof(usDragPersonID), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDragCorpseID, sizeof(sDragCorpseID), sizeof(INT16), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion < DRAGPERSONS )
+		{
+			this->CancelDrag();
+		}
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usChatPartnerID, sizeof(usChatPartnerID), sizeof(INT16), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion < CHAT_TO_DISTRACT )
+			this->usChatPartnerID = NOBODY;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExtraStrength, sizeof(bExtraStrength), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExtraDexterity, sizeof(bExtraDexterity), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExtraAgility, sizeof(bExtraAgility), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExtraWisdom, sizeof(bExtraWisdom), sizeof(INT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bExtraExpLevel, sizeof(bExtraExpLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usSoldierFlagMask, sizeof(usSoldierFlagMask), sizeof(UINT32), numBytesRead);
+
+		if ( guiCurrentSaveGameVersion >= FOOD_CHANGES )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bFoodLevel, sizeof(bFoodLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bDrinkLevel, sizeof(bDrinkLevel), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usStarveDamageHealth, sizeof(usStarveDamageHealth), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usStarveDamageStrength, sizeof(usStarveDamageStrength), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			this->bFoodLevel = 0;
+			this->bDrinkLevel = 0;
+			this->usStarveDamageHealth = 0;
+			this->usStarveDamageStrength = 0;
+
+			for ( int i = 0; i < sizeof(bFoodLevel); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(bDrinkLevel); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usStarveDamageHealth); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usStarveDamageStrength); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= MULTITURN_ACTIONS )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bOverTurnAPS, sizeof(bOverTurnAPS), sizeof(INT16), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sMTActionGridNo, sizeof(sMTActionGridNo), sizeof(INT32), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usMultiTurnAction, sizeof(usMultiTurnAction), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->bAIIndex, sizeof(bAIIndex), sizeof(INT16), numBytesRead);
+		}
+		else
+		{
+			this->bOverTurnAPS = 0;
+			this->sMTActionGridNo = 0;
+			this->usMultiTurnAction = 0;
+			this->bAIIndex = 0;
+
+			for ( int i = 0; i < sizeof(bOverTurnAPS); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(sMTActionGridNo); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usMultiTurnAction); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(bAIIndex); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= SOLDIER_PROFILES )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usSoldierProfile, sizeof(usSoldierProfile), sizeof(UINT16), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usItemMoveSectorID, sizeof(usItemMoveSectorID), sizeof(UINT8), numBytesRead);
+		}
+		else
+		{
+			this->usSoldierProfile = 0;
+			this->usItemMoveSectorID = 0;
+
+			for ( int i = 0; i < sizeof(usSoldierProfile); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usItemMoveSectorID); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= TRAIT_RADIO_OPERATOR )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usAISkillUse, sizeof(usAISkillUse), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usSkillCounter, sizeof(usSkillCounter), sizeof(UINT16), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usSkillCooldown, sizeof(usSkillCooldown), sizeof(UINT32), numBytesRead);
+
+			if ( guiCurrentSaveGameVersion >= DISEASE_SYSTEM )
+			{
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDiseasePoints, sizeof(sDiseasePoints), sizeof(INT16), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDiseaseFlag, sizeof(sDiseaseFlag), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubHoursRemainingOnMiniEvent, sizeof(ubHoursRemainingOnMiniEvent), sizeof(UINT16), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usGLDelayMode, sizeof(usGLDelayMode), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usBarrelMode, sizeof(usBarrelMode), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usBarrelCounter, sizeof(usBarrelCounter), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sFocusGridNo, sizeof(sFocusGridNo), sizeof(INT32), numBytesRead);
+			}
+			else
+			{
+				buffer += sizeof(sDiseasePoints);
+				while ( (buffer % 4) > 0 )	++buffer;
+				buffer += sizeof(sDiseaseFlag);
+				while ( (buffer % 4) > 0 )	++buffer;
+
+				for ( UINT8 i = 0; i < NUM_DISEASES; ++i )
+				{
+					this->sDiseasePoints[i] = 0;
+					this->sDiseaseFlag[i] = 0;
+				}
+
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubFiller, sizeof(ubFiller), sizeof(UINT8), numBytesRead);
+
+				buffer += sizeof(ubHoursRemainingOnMiniEvent);
+				buffer += sizeof(usGLDelayMode);
+				buffer += sizeof(usBarrelMode);
+				buffer += sizeof(usBarrelCounter);
+				while ( (buffer % 4) > 0 )	++buffer;
+
+				buffer += sizeof(sFocusGridNo);
+				while ( (buffer % 4) > 0 )	++buffer;
+			}
+		}
+		else
+		{
+			this->usAISkillUse = 0;
+
+			for ( UINT8 i = 0; i < SOLDIER_COUNTER_MAX; ++i )
+				this->usSkillCounter[i] = 0;
+
+			for ( UINT8 i = 0; i < SOLDIER_COOLDOWN_MAX; ++i )
+				this->usSkillCooldown[i] = 0;
+
+			// Flugente: okay, this part will be a bit weird, so bear with me
+			// ubFiller had length 7 before this revision - we still need to read those. We have to do that, otherwise the next read functions will read the filler
+			UINT8 blarg[7];
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &blarg, 7, sizeof(UINT8), numBytesRead);
+
+			// usAISkillUse forms one block with usSoldierProfile and usItemMoveSectorID and thus does not need additional padding
+			buffer += 3;
+
+			for ( int i = 0; i < sizeof(usAISkillUse); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usSkillCounter) - 6; ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(usSkillCooldown); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			for ( int i = 0; i < sizeof(ubFiller); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			buffer += sizeof(ubHoursRemainingOnMiniEvent);
+			buffer += sizeof(usGLDelayMode);
+			buffer += sizeof(usBarrelMode);
+			buffer += sizeof(usBarrelCounter);
+			while ( (buffer % 4) > 0 )	++buffer;
+
+			for ( int i = 0; i < sizeof(sFocusGridNo); ++i )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+
+			// we now have to substract the 7 bytes we read from the old ubFiller, but have to account for usAISkillUse
+			buffer -= 6;
+		}
+
+		if ( guiCurrentSaveGameVersion >= SNITCH_TRAIT_EXTENDED )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usSoldierFlagMask2, sizeof(usSoldierFlagMask2), sizeof(UINT32), numBytesRead);
+		}
+		else
+		{
+			this->usSoldierFlagMask2 = 0;
+
+			for ( int i = 0; i < sizeof(usSoldierFlagMask2); ++i )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usIndividualMilitiaID, sizeof(usIndividualMilitiaID), sizeof(UINT32), numBytesRead);
+		}
+		else
+		{
+			this->usIndividualMilitiaID = 0;
+
+			for ( int i = 0; i < sizeof(usIndividualMilitiaID); ++i )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= DISABILITYFLAGMASK )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->usDisabilityFlagMask, sizeof(usDisabilityFlagMask), sizeof(UINT32), numBytesRead);
+		}
+		else
+		{
+			this->usDisabilityFlagMask = 0;
+
+			for ( int i = 0; i < sizeof(usDisabilityFlagMask); ++i )
+				buffer++;
+		}
+
+		if ( guiCurrentSaveGameVersion >= DRAGSTRUCTURE )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->sDragGridNo, sizeof(sDragGridNo), sizeof(INT32), numBytesRead);
+		}
+		else
+		{
+			this->sDragGridNo = NOWHERE;
+
+			for ( int i = 0; i < sizeof(sDragGridNo); ++i )
+				buffer++;
+		}
+
+#ifdef JA2UB
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fIgnoreGetupFromCollapseCheck, sizeof(fIgnoreGetupFromCollapseCheck), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->GetupFromJA25StartCounter, sizeof(GetupFromJA25StartCounter), sizeof(TIMECOUNTER), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->fWaitingToGetupFromJA25Start, sizeof(fWaitingToGetupFromJA25Start), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->ubPercentDamageInflictedByTeam, sizeof(ubPercentDamageInflictedByTeam), sizeof(UINT8), numBytesRead);
+#endif
+		numBytesRead += buffer;
+		const UINT32 PODsize = SIZEOF_SOLDIERTYPE_POD;
+		if ( numBytesRead != PODsize )
+			return(FALSE);
+
+		//load the OO inventory
+		if ( !this->inv.LoadBuffer(ppBuffer) )
+		{
+			return(FALSE);
+		}
+
+		// WANNE - BMP: TODO! Struktur prüfen
+		//load some structs, atm just POD but could change
+		//Load STRUCT_AIData
+		numBytesRead = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bOppList, sizeof(aiData.bOppList), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bLastAction, sizeof(aiData.bLastAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAction, sizeof(aiData.bAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.usActionData, sizeof(aiData.usActionData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNextAction, sizeof(aiData.bNextAction), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.usNextActionData, sizeof(aiData.usNextActionData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bActionInProgress, sizeof(aiData.bActionInProgress), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAlertStatus, sizeof(aiData.bAlertStatus), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bOppCnt, sizeof(aiData.bOppCnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNeutral, sizeof(aiData.bNeutral), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNewSituation, sizeof(aiData.bNewSituation), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNextTargetLevel, sizeof(aiData.bNextTargetLevel), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bOrders, sizeof(aiData.bOrders), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAttitude, sizeof(aiData.bAttitude), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bUnderFire, sizeof(aiData.bUnderFire), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bShock, sizeof(aiData.bShock), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bUnderEscort, sizeof(aiData.bUnderEscort), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bBypassToGreen, sizeof(aiData.bBypassToGreen), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubLastMercToRadio, sizeof(aiData.ubLastMercToRadio), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bDominantDir, sizeof(aiData.bDominantDir), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bPatrolCnt, sizeof(aiData.bPatrolCnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNextPatrolPnt, sizeof(aiData.bNextPatrolPnt), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.sPatrolGrid, sizeof(aiData.sPatrolGrid), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.sNoiseGridno, sizeof(aiData.sNoiseGridno), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubNoiseVolume, sizeof(aiData.ubNoiseVolume), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bLastAttackHit, sizeof(aiData.bLastAttackHit), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubXRayedBy, sizeof(aiData.ubXRayedBy), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.dHeightAdjustment, sizeof(aiData.dHeightAdjustment), sizeof(FLOAT), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bMorale, sizeof(aiData.bMorale), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bTeamMoraleMod, sizeof(aiData.bTeamMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bTacticalMoraleMod, sizeof(aiData.bTacticalMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bStrategicMoraleMod, sizeof(aiData.bStrategicMoraleMod), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAIMorale, sizeof(aiData.bAIMorale), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubPendingAction, sizeof(aiData.ubPendingAction), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubPendingActionAnimCount, sizeof(aiData.ubPendingActionAnimCount), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.uiPendingActionData1, sizeof(aiData.uiPendingActionData1), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.sPendingActionData2, sizeof(aiData.sPendingActionData2), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bPendingActionData3, sizeof(aiData.bPendingActionData3), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubDoorHandleCode, sizeof(aiData.ubDoorHandleCode), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.uiPendingActionData4, sizeof(aiData.uiPendingActionData4), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bInterruptDuelPts, sizeof(aiData.bInterruptDuelPts), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bPassedLastInterrupt, sizeof(aiData.bPassedLastInterrupt), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bIntStartAPs, sizeof(aiData.bIntStartAPs), sizeof(INT8), numBytesRead);
+		else
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bIntStartAPs, 1, 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bMoved, sizeof(aiData.bMoved), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bHunting, sizeof(aiData.bHunting), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubLastCall, sizeof(aiData.ubLastCall), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubCaller, sizeof(aiData.ubCaller), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.sCallerGridNo, sizeof(aiData.sCallerGridNo), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bCallPriority, sizeof(aiData.bCallPriority), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bCallActedUpon, sizeof(aiData.bCallActedUpon), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bFrenzied, sizeof(aiData.bFrenzied), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bNormalSmell, sizeof(aiData.bNormalSmell), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bMonsterSmell, sizeof(aiData.bMonsterSmell), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bMobility, sizeof(aiData.bMobility), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bRTPCombat, sizeof(aiData.bRTPCombat), sizeof(INT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.fAIFlags, sizeof(aiData.fAIFlags), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= AP100_SAVEGAME_DATATYPE_CHANGE )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAimTime, sizeof(aiData.bAimTime), sizeof(INT8), numBytesRead);
+		else
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bAimTime, 1, 1, numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.bShownAimTime, sizeof(aiData.bShownAimTime), sizeof(INT8), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->aiData.ubInterruptCounter, sizeof(aiData.ubInterruptCounter), sizeof(UINT8), numBytesRead); // SANDRO - interrupt counter
+		else
+		{
+			//CHRISL: We have to make sure we add a buffer to account for the lack of ubInterruptCounter and that buffer needs to be a full DWORD in size
+			buffer = 0;
+			for ( int i = 0; i < sizeof(aiData.ubInterruptCounter); i++ )
+				buffer++;
+			while ( (buffer % 4) > 0 )
+				buffer++;
+			numBytesRead += buffer;
+		}
+		//CHRISL: We also need to make sure the structure aligns properly and that we don't need to read any extra
+		//	padding bytes
+		while ( (numBytesRead % __alignof(STRUCT_AIData)) > 0 )
+		{
+			LOADDATA(&padding, *ppBuffer, 1);
+			numBytesRead += 1;
+		}
+		if ( guiCurrentSaveGameVersion < AP100_SAVEGAME_DATATYPE_CHANGE )
+		{
+			//CHRISL: Because we're increasing the size of two elements in this structure by 1byte each, we need to
+			//	increase the size of numBytesRead by 2 so that our sizes match.  However, we also need to increase the
+			//	size of numBytesRead by another 2 so that the new structure alignment is accounted for.
+			numBytesRead += 4;
+		}
+		if ( numBytesRead != sizeof(STRUCT_AIData) )
+			return(FALSE);
+
+		//Load STRUCT_Flags
+		LOADDATA(&this->flags, *ppBuffer, sizeof(STRUCT_Flags));
+		LOADDATA(&this->timeChanges, *ppBuffer, sizeof(STRUCT_TimeChanges));
+		LOADDATA(&this->timeCounters, *ppBuffer, sizeof(STRUCT_TimeCounters));
+
+		if ( guiCurrentSaveGameVersion < DRUG_SYSTEM_REDONE )
+		{
+			// read old drugs with a dummy structure of the old structs size (192)
+			UINT8 tmp[192];
+			LOADDATA(&tmp, *ppBuffer, sizeof(tmp));
+
+			/*LOADDATA( &this->drugs, *ppBuffer, sizeof(STRUCT_Drugs), &uiNumBytesRead ) )*/
+
+			// clear new drugs
+			memset(&this->newdrugs, 0, sizeof(DRUGS));
+		}
+		else
+		{
+			LOADDATA(&this->newdrugs, *ppBuffer, sizeof(DRUGS));
+		}
+
+		//Load STRUCT_Statistics
+		numBytesRead = 0;
+		buffer = 0;
+		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bExpLevel, sizeof(stats.bExpLevel), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLife, sizeof(stats.bLife), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLifeMax, sizeof(stats.bLifeMax), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bStrength, sizeof(stats.bStrength), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bAgility, sizeof(stats.bAgility), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bDexterity, sizeof(stats.bDexterity), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bWisdom, sizeof(stats.bWisdom), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLeadership, sizeof(stats.bLeadership), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMarksmanship, sizeof(stats.bMarksmanship), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMechanical, sizeof(stats.bMechanical), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bExplosive, sizeof(stats.bExplosive), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMedical, sizeof(stats.bMedical), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bScientific, sizeof(stats.bScientific), sizeof(INT8), numBytesRead);
+			if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE2 )
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits, sizeof(stats.ubSkillTraits), sizeof(UINT8), numBytesRead);
+			else
+			{
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits[0], sizeof(UINT8), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits[1], sizeof(UINT8), sizeof(UINT8), numBytesRead);
+				numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits[2], sizeof(UINT8), sizeof(UINT8), numBytesRead);
+				buffer = 27;
+			}
+		}
+		else
+		{
+			// Prior to STOMP12_SAVEGAME_DATATYPE_CHANGE, we stored these variables in a different order
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLife, sizeof(stats.bLife), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLifeMax, sizeof(stats.bLifeMax), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bExpLevel, sizeof(stats.bExpLevel), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bAgility, sizeof(stats.bAgility), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bStrength, sizeof(stats.bStrength), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMechanical, sizeof(stats.bMechanical), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMarksmanship, sizeof(stats.bMarksmanship), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bExplosive, sizeof(stats.bExplosive), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits[0], sizeof(UINT8), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.ubSkillTraits[1], sizeof(UINT8), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bDexterity, sizeof(stats.bDexterity), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bWisdom, sizeof(stats.bWisdom), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bMedical, sizeof(stats.bMedical), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bScientific, sizeof(stats.bScientific), sizeof(INT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->stats.bLeadership, sizeof(stats.bLeadership), sizeof(INT8), numBytesRead);
+			buffer = 28;
+		}
+		numBytesRead += buffer;
+
+		INT32 sizestruct = sizeof(STRUCT_Statistics);
+
+		if ( numBytesRead != sizeof(STRUCT_Statistics) )
+			return(FALSE);
+
+		LOADDATA(&this->pathing, *ppBuffer, sizeof(STRUCT_Pathing));
+		// check checksum
+		if ( this->GetChecksum() != this->uiMercChecksum )
+		{
+			return(FALSE);
+		}
+	}
+	else
+	{
+		OLDSOLDIERTYPE_101 OldSavedSoldierInfo101;
+		//we are loading an older version (only load once, so use "else if")
+		//first load the data based on what version was stored
+		typedef BOOLEAN(*functionPtr) (CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead);
+		functionPtr pLoadingFunction;
+		if ( guiCurrentSaveGameVersion < 87 )
+		{
+			pLoadingFunction = &JA2EncryptedFileReadBuffer;
+		}
+		else
+		{
+			pLoadingFunction = &NewJA2EncryptedFileReadBuffer;
+		}
+
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
+		{
+			OldSavedSoldierInfo101.initialize();
+			if ( !(*pLoadingFunction)(ppBuffer, &OldSavedSoldierInfo101, SIZEOF_OLDSOLDIERTYPE_101_POD) )
+			{
+				return(FALSE);
+			}
+		}
+
+		//now we have the data that needs to be converted (keep on converting up, so use "if")
+		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
+		{
+			OldSavedSoldierInfo101.CopyOldInventoryToNew();
+			(*this) = OldSavedSoldierInfo101;
+		}
+	}
+
+	// sevenfm: initialize other SOLDIERTYPE data
+	this->InitializeExtraData();
+
+	return TRUE;
+}
+
 BOOLEAN WORLDITEM::Save(HWFILE hFile, bool fSavingMap)
 {
 	//save the POD
@@ -3051,6 +4665,30 @@ BOOLEAN StackedObjectData::Load( HWFILE hFile )
 	}
 	return TRUE;
 }
+
+BOOLEAN StackedObjectData::LoadBuffer(CHAR8** ppBuffer)
+{
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		int size;
+		LOADDATA(&(this->data), *ppBuffer, sizeof(ObjectData));
+		LOADDATA(&size, *ppBuffer, sizeof(int));
+
+		attachments.resize(size);
+		for ( attachmentList::iterator iter = attachments.begin(); iter != attachments.end(); ++iter ) {
+			if ( !iter->LoadBuffer(ppBuffer) ) {
+				return FALSE;
+			}
+		}
+	}
+	else {
+		//we shouldn't be loading this
+		Assert(false);
+	}
+	return TRUE;
+}
+
 BOOLEAN StackedObjectData::Save( HWFILE hFile, bool fSavingMap )
 {
 	//if we are saving this to a map file it will be loaded with FileRead
@@ -3163,6 +4801,46 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 	RemoveProhibitedAttachments(NULL, this, (*this).usItem);
 	return TRUE;
 }
+
+BOOLEAN OBJECTTYPE::LoadBuffer(CHAR8** ppBuffer)
+{
+	//if we are at the most current version, then fine
+	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
+	{
+		int size;
+		LOADDATA(this, *ppBuffer, SIZEOF_OBJECTTYPE_POD);
+		LOADDATA(&size, *ppBuffer, sizeof(int));
+
+		// Sanity check before resize call
+		if ( size < 0 || size >= 512 )
+		{
+			return(FALSE);
+		}
+
+		objectStack.resize(size);
+
+		int x = 0;
+		for ( StackedObjects::iterator iter = objectStack.begin(); iter != objectStack.end(); ++iter, ++x ) {
+			iter->LoadBuffer(ppBuffer);
+
+			if ( this->IsActiveLBE(x) == true ) {
+				LBEArray.push_back(LBENODE());
+				if ( !LBEArray.back().LoadBuffer(ppBuffer) ) {
+					return FALSE;
+				}
+			}
+		}
+	}
+	else
+	{
+		OLD_OBJECTTYPE_101 OldSavedObject101;
+		LOADDATA(&OldSavedObject101, *ppBuffer, sizeof(OLD_OBJECTTYPE_101));
+		(*this) = OldSavedObject101;
+	}
+	RemoveProhibitedAttachments(NULL, this, (*this).usItem);
+	return TRUE;
+}
+
 
 BOOLEAN OBJECTTYPE::Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion )
 {
@@ -3300,6 +4978,33 @@ BOOLEAN Inventory::Load( HWFILE hFile )
 	}
 	return (TRUE);
 }
+
+BOOLEAN Inventory::LoadBuffer(CHAR8** hBuffer)
+{
+	int sizeInventory;
+	LOADDATA(&sizeInventory, *hBuffer, sizeof(int));
+	if ( sizeInventory < 0 || sizeInventory > NUM_INV_SLOTS )
+	{
+		return(FALSE);
+	}
+
+	inv.resize(sizeInventory);
+	bNewItemCount.resize(sizeInventory);
+	bNewItemCycleCount.resize(sizeInventory);
+
+	for ( int x = 0; x < sizeInventory; ++x ) {
+		//load the OO OBJECTTYPE
+		if ( !inv[x].LoadBuffer(hBuffer) )
+		{
+			return FALSE;
+		}
+
+		LOADDATA(&bNewItemCount[x], *hBuffer, sizeof(int));
+		LOADDATA(&bNewItemCycleCount[x], *hBuffer, sizeof(int));
+	}
+	return TRUE;
+}
+
 
 BOOLEAN Inventory::Load(INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion)
 {
@@ -4563,7 +6268,7 @@ FAILED_TO_SAVE:
 UINT32 guiBrokenSaveGameVersion = 0;
 extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
-
+#define USE_BUFFER
 
 BOOLEAN LoadSavedGame( int ubSavedGameID )
 {
@@ -4681,11 +6386,28 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Just Opened File" );
+	LoadGameFilePosition( FileGetPos( hFile ), "Just Opened File" );
 	#endif
 
+#ifdef USE_BUFFER
+	UINT32 uiFSize = FileGetSize(hFile);
+	CHAR8* fileBuffer = (CHAR8*)MemAlloc(uiFSize + 1);
+	UINT32 uiBytesRead;
+
+	//Read in block
+	if ( !FileRead(hFile, fileBuffer, uiFSize, &uiBytesRead) )
+	{
+		MemFree(fileBuffer);
+		FileClose(hFile);
+		return(FALSE);
+	}
+	fileBuffer[uiFSize] = 0; //add a null terminator
+	//FileSeek(hFile, 0, FILE_SEEK_FROM_START); // Temporarily until FileReads can be removed
+	FileClose(hFile);
 
 	//Load the Save Game header file
+	LOADDATA(&SaveGameHeader, fileBuffer, sizeof(SAVED_GAME_HEADER));
+#else
 	FileRead( hFile, &SaveGameHeader, sizeof( SAVED_GAME_HEADER ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( SAVED_GAME_HEADER ) )
 	{
@@ -4696,6 +6418,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Save Game Header" );
 	#endif
+#endif
 
 	guiJA2EncryptionSet = CalcJA2EncryptionSet( &SaveGameHeader );
 	guiCurrentSaveGameVersion = SaveGameHeader.uiSavedGameVersion;
@@ -4707,7 +6430,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if(guiCurrentSaveGameVersion >= MOVED_GENERAL_INFO)
 	{
-		FileRead(hFile, &gGameOptions, sizeof( GAME_OPTIONS ), &uiNumBytesRead );
+#ifdef USE_BUFFER
+		LOADDATA(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS));
+#else
+		FileRead(hFile, &gGameOptions, sizeof(GAME_OPTIONS), &uiNumBytesRead);
+#endif
 	}
 	else
 	{
@@ -4725,7 +6452,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		if(IsNIVModeValid(true) == FALSE){
 			// Only load NewInv in higher screen res
+#ifndef USE_BUFFER
 			FileClose( hFile );
+#endif
 			return(FALSE);
 		}
 		InitInventoryNew();
@@ -4747,7 +6476,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
 		(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 	{
+#ifndef USE_BUFFER
 		FileClose( hFile );
+#endif
 		return(FALSE);
 	}
 
@@ -4758,7 +6489,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		gfDisplaySaveGamesNowInvalidatedMsg = TRUE;
 #endif
 		//Fail loading the save
+#ifndef USE_BUFFER
 		FileClose( hFile );
+#endif
 		return(FALSE);
 	}
 
@@ -4780,6 +6513,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the gtactical status structure plus the current sector x,y,z
+#ifdef USE_BUFFER
+	LoadTacticalStatusFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadTacticalStatusFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTacticalStatusFromSavedGame failed" ) );
@@ -4789,6 +6525,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Tactical Status" );
 	#endif
+#endif
+
 #if LOADSAVEGAME_LOGTIME
 		TimingLog("LoadTacticalStatusFromSavedGame", 6);
 #endif
@@ -4799,6 +6537,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the game clock ingo
+#ifdef USE_BUFFER
+	LoadGameClockBuffer(&fileBuffer);
+#else
 	if( !LoadGameClock( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadGameClock failed" ) );
@@ -4808,6 +6549,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Game Clock" );
 	#endif
+#endif
 
 
 	//if we are suppose to use the alternate sector
@@ -4885,6 +6627,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	uiRelStartPerc = uiRelEndPerc;
 
 	//load the game events
+#ifdef USE_BUFFER
+	LoadStrategicEventsFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadStrategicEventsFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicEventsFromSavedGame failed" ) );
@@ -4894,6 +6639,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Events" );
 	#endif
+#endif
 
 	// anv: we need to rebuild ambient sounds now, as those added when loading tileset are removed
 	// in LoadStrategicEventsFromSavedGame
@@ -4906,6 +6652,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadLaptopInfoFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadLaptopInfoFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLaptopInfoFromSavedGame failed" ) );
@@ -4915,6 +6664,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Laptop Info" );
 	#endif
+#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadLaptopInfoFromSavedGame", 7);
@@ -4928,6 +6678,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load all the saved Merc profiles
 	//
+#ifdef USE_BUFFER
+	LoadSavedMercProfilesBuffer(&fileBuffer);
+#else
 	if( !LoadSavedMercProfiles( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSavedMercProfiles failed" ) );
@@ -4938,6 +6691,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Merc Profiles" );
 	#endif
+#endif
 
 
 
@@ -4949,6 +6703,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the soldier structure info
 	// 
+#ifdef USE_BUFFER
+	LoadSoldierStructureBuffer(&fileBuffer);
+#else
 	if( !LoadSoldierStructure( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSoldierStructure failed" ) );
@@ -4958,6 +6715,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Soldier Structure" );
 	#endif
+#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadSoldierStructure", 8);
@@ -4972,6 +6730,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Finances Data and write it to a new file
 	//
+#ifdef USE_BUFFER
+	LoadFilesFromSavedGameBuffer(FINANCES_DATA_FILE , &fileBuffer);
+#else
 	if( !LoadFilesFromSavedGame( FINANCES_DATA_FILE, hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FINANCES_DATA_FILE failed" ) );
@@ -4981,6 +6742,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Finances Data File" );
 	#endif
+#endif
 
 
 
@@ -4994,6 +6756,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the History Data and write it to a new file
 	//
+#ifdef USE_BUFFER
+	LoadFilesFromSavedGameBuffer(HISTORY_DATA_FILE, &fileBuffer);
+#else
 	if( !LoadFilesFromSavedGame( HISTORY_DATA_FILE, hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame HISTORY_DATA_FILE failed" ) );
@@ -5003,6 +6768,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "History File" );
 	#endif
+#endif
 
 
 	
@@ -5016,6 +6782,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Files Data and write it to a new file
 	//
+#ifdef USE_BUFFER
+	LoadFilesFromSavedGameBuffer(FILES_DAT_FILE, &fileBuffer);
+#else
 	if( !LoadFilesFromSavedGame( FILES_DAT_FILE, hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FILES_DAT_FILE failed" ) );
@@ -5025,6 +6794,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "The Laptop FILES file" );
 	#endif
+#endif
 
 
 
@@ -5035,6 +6805,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load the data for the emails
+#ifdef USE_BUFFER
+	LoadEmailFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadEmailFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEmailFromSavedGame failed" ) );
@@ -5044,6 +6817,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Email" );
 	#endif
+#endif
 
 
 
@@ -5055,6 +6829,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the strategic Information
+#ifdef USE_BUFFER
+	LoadStrategicInfoFromSavedFileBuffer(&fileBuffer);
+#else
 	if( !LoadStrategicInfoFromSavedFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicInfoFromSavedFile failed" ) );
@@ -5064,6 +6841,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
 	#endif
+#endif
 
 	/*// Flugente: Load strategic supply data
 	if( !LoadStrategicSupplyFromSavedFile( hFile ) )
@@ -5099,6 +6877,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the underground information
+#ifdef USE_BUFFER
+	LoadUnderGroundSectorInfoFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadUnderGroundSectorInfoFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadUnderGroundSectorInfoFromSavedGame failed" ) );
@@ -5107,6 +6888,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 #ifdef JA2BETAVERSION
 	LoadGameFilePosition( FileGetPos( hFile ), "UnderGround Information" );
+#endif
 #endif
 
 	// Flugente: at this point we need to reevaluate the fortification costs, as the fortification plan may have changed
@@ -5119,6 +6901,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the squad info from the saved game file 
+#ifdef USE_BUFFER
+	LoadSquadInfoFromSavedGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadSquadInfoFromSavedGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSquadInfoFromSavedGameFile failed" ) );
@@ -5128,6 +6913,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Squad Info" );
 	#endif
+#endif
 
 
 	uiRelEndPerc += 1;
@@ -5137,6 +6923,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the group linked list
+#ifdef USE_BUFFER
+	LoadStrategicMovementGroupsFromSavedGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadStrategicMovementGroupsFromSavedGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicMovementGroupsFromSavedGameFile failed" ) );
@@ -5146,6 +6935,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Movement Groups" );
 	#endif
+#endif
 
 	ValidateStrategicGroups();
 
@@ -5159,6 +6949,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the map temp files from the saved game file into the maps\temp directory
+#ifdef USE_BUFFER
+	LoadMapTempFilesFromSavedGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadMapTempFilesFromSavedGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMapTempFilesFromSavedGameFile failed" ) );
@@ -5168,6 +6961,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "All the Map Temp files" );
 	#endif
+#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadMapTempFilesFromSavedGameFile", 5);
@@ -5180,6 +6974,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion < QUESTS_DATATYPE_CHANGE )
 	{
+#ifdef USE_BUFFER
+		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_OLD_QUESTS);
+#else
 		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_OLD_QUESTS ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
@@ -5189,9 +6986,13 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
 		#endif
+#endif
 	}
 	else
 	{
+#ifdef USE_BUFFER
+		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_QUESTS);
+#else
 		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_QUESTS ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
@@ -5201,6 +7002,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
 		#endif
+#endif
 	}
 
 	uiRelEndPerc += 1;
@@ -5210,6 +7012,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if ( guiCurrentSaveGameVersion >= LUA_MODDERDATA )
 	{
+#ifdef USE_BUFFER
+		LoadLUAModderDataFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if ( !LoadLUAModderDataFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadLUAModderDataFromSavedGameFile failed" ) );
@@ -5218,6 +7023,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		}
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "LUA Modder Data" );
+#endif
 #endif
 	}
 	else
@@ -5232,6 +7038,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	uiRelStartPerc = uiRelEndPerc;
 
 
+#ifdef USE_BUFFER
+	LoadOppListInfoFromSavedGameBuffer(&fileBuffer);
+#else
 	if( !LoadOppListInfoFromSavedGame( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadOppListInfoFromSavedGame failed" ) );
@@ -5241,6 +7050,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "OppList Info" );
 	#endif
+#endif
 
 
 
@@ -5252,6 +7062,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadMapScreenMessagesFromSaveGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadMapScreenMessagesFromSaveGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMapScreenMessagesFromSaveGameFile failed" ) );
@@ -5261,6 +7074,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "MapScreen Messages" );
 	#endif
+#endif
 
 
 
@@ -5271,6 +7085,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 	if( !LoadNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNPCInfoFromSavedGameFile failed" ) );
@@ -5280,6 +7097,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "NPC Info" );
 	#endif
+#endif
 
 
 
@@ -5290,6 +7108,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadKeyTableFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 	if( !LoadKeyTableFromSaveedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadKeyTableFromSaveedGameFile failed" ) );
@@ -5299,6 +7120,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "KeyTable" );
 	#endif
+#endif
 
 
 
@@ -5308,6 +7130,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	uiRelStartPerc = uiRelEndPerc;
 
 
+#ifdef USE_BUFFER
+	LoadTempNpcQuoteArrayToSaveGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadTempNpcQuoteArrayToSaveGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTempNpcQuoteArrayToSaveGameFile failed" ) );
@@ -5317,6 +7142,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Npc Temp Quote File" );
 	#endif
+#endif
 
 
 
@@ -5327,6 +7153,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	uiRelStartPerc = uiRelEndPerc;
 
 
+#ifdef USE_BUFFER
+	LoadPreRandomNumbersFromSaveGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadPreRandomNumbersFromSaveGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadPreRandomNumbersFromSaveGameFile failed" ) );
@@ -5336,6 +7165,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "PreGenerated Random Files" );
 	#endif
+#endif
 
 
 
@@ -5347,6 +7177,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadSmokeEffectsFromLoadGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadSmokeEffectsFromLoadGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSmokeEffectsFromLoadGameFile failed" ) );
@@ -5356,6 +7189,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Smoke Effect Structures" );
 	#endif
+#endif
 
 
 
@@ -5366,6 +7200,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
+#ifdef USE_BUFFER
+	LoadArmsDealerInventoryFromSavedGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadArmsDealerInventoryFromSavedGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadArmsDealerInventoryFromSavedGameFile failed" ) );
@@ -5375,6 +7212,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Arms Dealers Inventory" );
 	#endif
+#endif
 
 
 	uiRelEndPerc += 0;
@@ -5382,6 +7220,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+	LoadGeneralInfoBuffer(&fileBuffer);
+#else
 	if( !LoadGeneralInfo( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadGeneralInfo failed" ) );
@@ -5391,6 +7232,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Misc info" );
 	#endif
+#endif
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Mine Status..." );
@@ -5398,6 +7240,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	uiRelStartPerc = uiRelEndPerc;
 
 
+#ifdef USE_BUFFER
+	LoadMineStatusFromSavedGameFileBuffer(&fileBuffer);
+#else
 	if( !LoadMineStatusFromSavedGameFile( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMineStatusFromSavedGameFile failed" ) );
@@ -5407,6 +7252,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Mine Status" );
 	#endif
+#endif
 
 
 
@@ -5421,6 +7267,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 21 )
 	{
+#ifdef USE_BUFFER
+		LoadStrategicTownLoyaltyFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadStrategicTownLoyaltyFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicTownLoyaltyFromSavedGameFile failed" ) );
@@ -5430,6 +7279,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Town Loyalty" );
 		#endif
+#endif
 	}
 
 
@@ -5440,6 +7290,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 22 )
 	{
+#ifdef USE_BUFFER
+		LoadVehicleInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 		if( !LoadVehicleInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleInformationFromSavedGameFile failed" ) );
@@ -5450,6 +7303,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
 #endif
+#endif
 	}
 
 	uiRelEndPerc += 1;
@@ -5457,6 +7311,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+	LoadMilitiaMovementInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 	if ( !LoadMilitiaMovementInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadMilitiaMovementInformationFromSavedGameFile failed" ) );
@@ -5466,6 +7323,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef JA2BETAVERSION
 	LoadGameFilePosition( FileGetPos( hFile ), "Militia Movement" );
+#endif
 #endif
 
 #if LOADSAVEGAME_LOGTIME
@@ -5479,6 +7337,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
+#ifdef USE_BUFFER
+		LoadBulletStructureFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadBulletStructureFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBulletStructureFromSavedGameFile failed" ) );
@@ -5488,6 +7349,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Bullet Information" );
 		#endif
+#endif
 	}
 
 
@@ -5503,6 +7365,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
+#ifdef USE_BUFFER
+		LoadPhysicsTableFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadPhysicsTableFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadPhysicsTableFromSavedGameFile failed" ) );
@@ -5512,6 +7377,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Physics table" );
 		#endif
+#endif
 	}
 
 
@@ -5526,6 +7392,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
+#ifdef USE_BUFFER
+		LoadAirRaidInfoFromSaveGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadAirRaidInfoFromSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadAirRaidInfoFromSaveGameFile failed" ) );
@@ -5535,6 +7404,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Air Raid Info" );
 		#endif
+#endif
 	}
 
 
@@ -5548,6 +7418,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
+#ifdef USE_BUFFER
+		LoadTeamTurnsFromTheSavedGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadTeamTurnsFromTheSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTeamTurnsFromTheSavedGameFile failed" ) );
@@ -5557,6 +7430,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Team Turn Info" );
 		#endif
+#endif
 	}
 
 
@@ -5571,6 +7445,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 25 )
 	{
+#ifdef USE_BUFFER
+		LoadExplosionTableFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadExplosionTableFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadExplosionTableFromSavedGameFile failed" ) );
@@ -5580,6 +7457,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Explosion Table" );
 		#endif
+#endif
 	}
 
 
@@ -5595,6 +7473,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 27 )
 	{
+#ifdef USE_BUFFER
+		LoadCreatureDirectivesBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 		if( !LoadCreatureDirectives( hFile, guiCurrentSaveGameVersion ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadCreatureDirectives failed" ) );
@@ -5604,6 +7485,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Creature Spreading" );
 		#endif
+#endif
 	}
 
 
@@ -5619,6 +7501,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 28 )
 	{
+#ifdef USE_BUFFER
+		LoadStrategicStatusFromSaveGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadStrategicStatusFromSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicStatusFromSaveGameFile failed" ) );
@@ -5628,6 +7513,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Strategic Status" );
 		#endif
+#endif
 	}
 
 
@@ -5641,6 +7527,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 31 )
 	{
+#ifdef USE_BUFFER
+		LoadStrategicAIBuffer(&fileBuffer);
+#else
 		if( !LoadStrategicAI( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicAI failed" ) );
@@ -5650,6 +7539,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Strategic AI" );
 		#endif
+#endif
 	}
 
 
@@ -5663,6 +7553,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 37 )
 	{
+#ifdef USE_BUFFER
+		LoadLightEffectsFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadLightEffectsFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLightEffectsFromLoadGameFile failed" ) );
@@ -5672,6 +7565,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Lighting Effects" );
 		#endif
+#endif
 	}
 
 
@@ -5685,16 +7579,20 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 38 )
 	{
+#ifdef USE_BUFFER
+		LoadWatchedLocsFromSavedGameBuffer(&fileBuffer);
+#else
 		if ( !LoadWatchedLocsFromSavedGame( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadWatchedLocsFromSavedGame failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Watched Locs Info" );
 	#endif
+#endif
+	}
 
 
 
@@ -5707,16 +7605,20 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 39 )
 	{
+#ifdef USE_BUFFER
+		LoadItemCursorFromSavedGameBuffer(&fileBuffer);
+#else
 		if ( !LoadItemCursorFromSavedGame( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadItemCursorFromSavedGame failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Item cursor Info" );
 	#endif
+#endif
+	}
 
 
 
@@ -5729,16 +7631,20 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 51 )
 	{
+#ifdef USE_BUFFER
+		LoadCivQuotesFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadCivQuotesFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadCivQuotesFromLoadGameFile failed" ) );
 			FileClose( hFile );
 			return FALSE;
 		}
-	}
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Civ Quote System" );
 	#endif
+#endif
+	}
 
 
 
@@ -5752,16 +7658,20 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 53 )
 	{
+#ifdef USE_BUFFER
+		LoadBackupNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+#else
 		if( !LoadBackupNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBackupNPCInfoFromSavedGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Backed up NPC Info" );
 	#endif
+#endif
+	}
 
 
 
@@ -5774,6 +7684,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 58 )
 	{
+#ifdef USE_BUFFER
+		LoadMeanwhileDefsFromSaveGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadMeanwhileDefsFromSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMeanwhileDefsFromSaveGameFile failed" ) );
@@ -5783,6 +7696,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Meanwhile definitions" );
 		#endif
+#endif
 	}
 	else
 	{
@@ -5803,6 +7717,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// trash schedules loaded from map
 		DestroyAllSchedulesWithoutDestroyingEvents();
+#ifdef USE_BUFFER
+		LoadSchedulesFromSaveBuffer(&fileBuffer);
+#else
 		if ( !LoadSchedulesFromSave( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSchedulesFromSave failed" ) );
@@ -5812,6 +7729,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Schedules" );
 		#endif
+#endif
 	}
 
 
@@ -5827,6 +7745,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 	if( guiCurrentSaveGameVersion < 84 )
 	{
+#ifdef USE_BUFFER
+		LoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if ( !LoadVehicleMovementInfoFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleMovementInfoFromSavedGameFile failed" ) );
@@ -5836,9 +7757,13 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Extra Vehicle Info" );
 		#endif
+#endif
 	}
 	else
 	{
+#ifdef USE_BUFFER
+		NewLoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+#else
 		if ( !NewLoadVehicleMovementInfoFromSavedGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("NewLoadVehicleMovementInfoFromSavedGameFile failed" ) );
@@ -5848,6 +7773,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Extra Vehicle Info" );
 		#endif
+#endif
 	}
 	}
 
@@ -5866,6 +7792,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 67 )
 	{
+#ifdef USE_BUFFER
+		LoadContractRenewalDataFromSaveGameFileBuffer(&fileBuffer);
+#else
 		if ( !LoadContractRenewalDataFromSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadContractRenewalDataFromSaveGameFile failed" ) );
@@ -5875,11 +7804,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Contract renewal sequence stuff" );
 		#endif
+#endif
 	}
 
 
 	if( guiCurrentSaveGameVersion >= 70 )
 	{
+#ifdef USE_BUFFER
+		LoadLeaveItemListBuffer(&fileBuffer);
+#else
 		if ( !LoadLeaveItemList( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLeaveItemList failed" ) );
@@ -5889,17 +7822,21 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "Leave List" );
 		#endif
+#endif
 	}
 
 	if( guiCurrentSaveGameVersion <= 73 )
 	{
-	// Patch vehicle fuel
-	AddVehicleFuelToSave( );
+		// Patch vehicle fuel
+		AddVehicleFuelToSave( );
 	}
 
 
 	if( guiCurrentSaveGameVersion >= 85 )
 	{
+#ifdef USE_BUFFER
+		NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(&fileBuffer);
+#else
 		if ( !NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("NewWayOfLoadingBobbyRMailOrdersToSaveGameFile failed" ) );
@@ -5909,6 +7846,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition( FileGetPos( hFile ), "New way of loading Bobby R mailorders" );
 		#endif
+#endif
 	}
 
 	//If there are any old Bobby R Mail orders, tranfer them to the new system
@@ -5920,12 +7858,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Dealtar's Airport Externalization
 	if( SaveGameHeader.uiSavedGameVersion >= AIRPORT_SAVEGAME_DATATYPE_CHANGE )
 	{
+#ifdef USE_BUFFER
+		gPostalService.LoadShipmentListFromSaveGameFileBuffer(&fileBuffer);
+#else
 		if ( !gPostalService.LoadShipmentListFromSaveGameFile(hFile) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gPostalService.LoadShipmentListFromSaveGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
+#endif
 	}
 
 
@@ -5937,71 +7879,88 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;	
 
-		if ( !LoadJa25SaveInfoFromSavedGame( hFile ) )
-		{
-			FileClose( hFile );
-			return( FALSE );
-		}
+#ifdef USE_BUFFER
+	LoadJa25SaveInfoFromSavedGameBuffer(&fileBuffer);
+#else
+	if ( !LoadJa25SaveInfoFromSavedGame( hFile ) )
+	{
+		FileClose( hFile );
+		return( FALSE );
+	}
 
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Tactical info" );
-		#endif
-		
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Tactical info" );
+	#endif
+#endif
+
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Ja25 Save info Struct" );
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 	
 
-		if ( !LoadJa25TacticalInfoFromSavedGame( hFile ) )
-		{
-			FileClose( hFile );
-			return( FALSE );
-		}
+#ifdef USE_BUFFER
+	LoadJa25TacticalInfoFromSavedGameBuffer(&fileBuffer);
+#else
+	if ( !LoadJa25TacticalInfoFromSavedGame( hFile ) )
+	{
+		FileClose( hFile );
+		return( FALSE );
+	}
 
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Save info Struct" );
-		#endif
-
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Save info Struct" );
+	#endif
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Mercs Prfiles..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+#endif
 
 
 	if( guiCurrentSaveGameVersion >= 113 )
 	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage(0, uiRelStartPerc, uiRelEndPerc, L"Load New Mercs Profiles...");
+		RenderProgressBar(0, 100);
+		uiRelStartPerc = uiRelEndPerc;
+
+#ifdef USE_BUFFER
+		LoadNewMercsFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadNewMercsFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewMercsFromLoadGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
 	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load Mercs Prfiles" );
+		LoadGameFilePosition( FileGetPos( hFile ), "Load Mercs Profiles" );
 	#endif
+#endif
+	}
 	
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Sytem Mercs Prfiles..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
 	
 	// Flugente: we don't need this data anymore, but need to account for older save files
 	if ( guiCurrentSaveGameVersion >= 113 && guiCurrentSaveGameVersion < PROFILETYPE_STORED )
 	{
+		uiRelEndPerc += 1;
+		SetRelativeStartAndEndPercentage(0, uiRelStartPerc, uiRelEndPerc, L"Load New System Mercs Profiles...");
+		RenderProgressBar(0, 100);
+		uiRelStartPerc = uiRelEndPerc;
+
+#ifdef USE_BUFFER
+		LoadNewSystemMercsToSaveGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadNewSystemMercsToSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewSystemMercsToSaveGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
-	}
 	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load New Sytem Mercs Prfiles" );
+		LoadGameFilePosition( FileGetPos( hFile ), "Load New System Mercs Profiles" );
 	#endif
+#endif
+	}
 
 	uiRelEndPerc += 1;
 	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
@@ -6010,23 +7969,26 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 114 )
 	{
-	
 		uiRelEndPerc += 1;
 		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Lua Global System..." );
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;	
 	
+#ifdef USE_BUFFER
+		LoadLuaGlobalFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadLuaGlobalFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLuaGlobalFromLoadGameFile failed" ) );
 			FileClose( hFile );
 			return FALSE;
 		}
-	}
 
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Lua Global System" );
 	#endif
+#endif
+	}
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadLuaGlobalFromLoadGameFile", 6);
@@ -6039,18 +8001,22 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadNewVehiclesToSaveGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadNewVehiclesToSaveGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewVehiclesToSaveGameFile failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
+#ifdef JA2BETAVERSION
+		LoadGameFilePosition(FileGetPos(hFile), "New Vehicles");
+#endif
+#endif
 	}
 
 
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "New Vehicles" );
-	#endif
 	
 	if( guiCurrentSaveGameVersion >= NEW_SAVE_GAME_GENERAL_SAVE_INFO_DATA)
 	{
@@ -6059,6 +8025,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadDataSaveFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadDataSaveFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadDataSaveFromLoadGameFile failed" ) );
@@ -6069,7 +8038,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Load Save Data" );
 	#endif		
-		
+#endif
 	}
 	
 	if( guiCurrentSaveGameVersion >= NEW_EMAIL_SAVE_GAME)
@@ -6079,6 +8048,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadNewEmailDataFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadNewEmailDataFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewEmailDataFromLoadGameFile failed" ) );
@@ -6089,7 +8061,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Load New Email Data" );
 	#endif		
-		
+#endif
 	}
 
 	if( guiCurrentSaveGameVersion >= HIDDENTOWN_DATATYPE_CHANGE)
@@ -6099,6 +8071,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadHiddenTownFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadHiddenTownFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadHiddenTownFromLoadGameFile failed" ) );
@@ -6109,7 +8084,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Load Hidden Towns" );
 	#endif
-
+#endif
 	}
 
 	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
@@ -6119,6 +8094,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadBriefingRoomFromLoadGameFileBuffer(&fileBuffer);
+#else
 		if( !LoadBriefingRoomFromLoadGameFile( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBriefingRoomFromLoadGameFile failed" ) );
@@ -6129,12 +8107,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile ), "Briefing Room" );
 	#endif
-
+#endif
 	}
 
 	if ( guiCurrentSaveGameVersion >= ENCYCLOPEDIA_ITEM_VISIBILITY )
 	{
 		// no progress bar change, loads these 16k way to fast to even notice
+#ifdef USE_BUFFER
+		LoadEncyclopediaItemVisibilityBuffer(&fileBuffer);
+#else
 		if ( !LoadEncyclopediaItemVisibility( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaItemVisibility failed") );
@@ -6144,6 +8125,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
 	#endif
+#endif
 	}
 #ifdef ENCYCLOPEDIA_WORKS
 	else
@@ -6157,20 +8139,28 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		gCampaignStats.LoadBuffer(&fileBuffer);
+#else
 		if( !gCampaignStats.Load( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCampaignStats.Load failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
+#endif
 
 		// we also have to load the currently active incident
+#ifdef USE_BUFFER
+		gCurrentIncident.LoadBuffer(&fileBuffer);
+#else
 		if( !gCurrentIncident.Load( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCurrentIncident.Load failed" ) );
 			FileClose( hFile );
 			return( FALSE );
 		}
+#endif
 	}
 
 	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
@@ -6180,12 +8170,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadDynamicDialogueBuffer(&fileBuffer);
+#else
 		if ( !LoadDynamicDialogue( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Dynamic Dialogue Load failed" ) );
 			FileClose( hFile );
 			return(FALSE);
 		}
+#endif
 	}
 		
 	uiRelEndPerc += 1;
@@ -6193,12 +8187,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+	LoadPMCBuffer(&fileBuffer);
+#else
 	if ( !LoadPMC( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "PMC data failed" ) );
 		FileClose( hFile );
 		return(FALSE);
 	}
+#endif
 
 	if ( guiCurrentSaveGameVersion >= ENEMY_HELICOPTERS )
 	{
@@ -6207,12 +8205,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadASDDataBuffer(&fileBuffer);
+#else
 		if ( !LoadASDData( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Arulco special division data Load failed" ) );
 			FileClose( hFile );
 			return(FALSE);
 		}
+#endif
 	}
 	else
 	{
@@ -6225,7 +8227,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// Flugente: if this a savegame from an older version where ASD didn't exist, we have to manually add the periodic event
 		DeleteAllStrategicEventsOfType( EVENT_ASD_UPDATE );
-
 		AddPeriodStrategicEvent( EVENT_ASD_UPDATE, 90, 0 );
 	}
 
@@ -6236,12 +8237,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		RenderProgressBar( 0, 100 );
 		uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+		LoadIndividualMilitiaDataBuffer(&fileBuffer);
+#else
 		if ( !LoadIndividualMilitiaData( hFile ) )
 		{
 			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Individual militia data Load failed" ) );
 			FileClose( hFile );
 			return(FALSE);
 		}
+#endif
 	}
 	else
 	{
@@ -6253,12 +8258,16 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	RenderProgressBar( 0, 100 );
 	uiRelStartPerc = uiRelEndPerc;
 
+#ifdef USE_BUFFER
+	RebelCommand::LoadBuffer(&fileBuffer);
+#else
 	if ( !RebelCommand::Load( hFile ) )
 	{
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Rebel Command data Load failed" ) );
 		FileClose( hFile );
 		return(FALSE);
 	}
+#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("File read done", 10);
@@ -6267,7 +8276,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	//Close the saved game file
 	//
+#ifndef USE_BUFFER
 	FileClose( hFile );
+#endif
 
 	//CHRISL: To correct a problem with the MERC email, at this point we want to see if the email has been sent and force it if necessary
 	if(gGameExternalOptions.fAllMercsAvailable == TRUE && GetWorldDay() >= 3 )
@@ -6777,6 +8788,47 @@ BOOLEAN	LoadSavedMercProfiles( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN	LoadSavedMercProfilesBuffer(CHAR8** ppBuffer)
+{
+	UINT16	cnt;
+	MERCPROFILESTRUCT tempMercProfile;
+	//Loop through all the profiles to Load
+	for ( cnt = 0; cnt < NUM_PROFILES; cnt++ )
+	{
+		// At some point after STOMP12_SAVEGAME_DATATYPE_CHANGE, NUM_PROFILES was changed from NUM_PROFILES_v111
+		if ( guiCurrentSaveGameVersion < STOMP12_SAVEGAME_DATATYPE_CHANGE && cnt >= NUM_PROFILES_v111 )
+			break;
+		// silversurfer: What if mercs are added while we are mid game?
+		// let's store the current data in a placeholder
+		tempMercProfile = gMercProfiles[cnt];
+		// now load the merc data from savegame
+		// Changed by ADB, rev 1513
+		//if ( !gMercProfiles[cnt].Load(hFile, false) )
+		if ( !gMercProfiles[cnt].LoadBuffer(ppBuffer, false, false, true) )
+		{
+			return(FALSE);
+		}
+		// now check if we loaded a valid merc profile
+		// if not then overwrite with the previously stored data
+		if ( gMercProfiles[cnt].bLifeMax <= 0 )
+			gMercProfiles[cnt] = tempMercProfile;
+
+		// Flugente: until the introduction of a separate varriable for the voiceset, the voice was identical with the slot
+		if ( guiCurrentSaveGameVersion < SEPARATE_VOICESETS )
+		{
+			gMercProfiles[cnt].usVoiceIndex = cnt;
+		}
+
+		// Flugente: if this is an older savefile, load from separate structure
+		if ( guiCurrentSaveGameVersion < PROFILETYPE_STORED )
+		{
+			gMercProfiles[cnt].Type = gProfileType[cnt];
+		}
+	}
+
+	return(TRUE);
+}
+
 
 
 //Not saving any of these in the soldier struct
@@ -7053,6 +9105,166 @@ if( g_lang == i18n::Lang::de ) {
 	return( TRUE );
 }
 
+BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
+{
+	UINT16		cnt;
+	UINT32		uiNumBytesRead = 0;
+	SoldierID	ubId;
+	UINT8		ubOne = 1;
+	UINT8		ubActive = 1;
+	UINT32		uiPercentage;
+	SOLDIERTYPE SavedSoldierInfo;
+
+	//Loop through all the soldier and delete them all
+	for ( cnt = 0; cnt < TOTAL_SOLDIERS; ++cnt )
+	{
+		TacticalRemoveSoldier(cnt);
+	}
+
+	//Loop through all the soldier structs to load
+	for ( cnt = 0; cnt < TOTAL_SOLDIERS; ++cnt )
+	{
+		//update the progress bar
+		uiPercentage = (cnt * 100) / (TOTAL_SOLDIERS - 1);
+		RenderProgressBar(0, uiPercentage);
+
+		//Read in a byte to tell us whether or not there is a soldier loaded here.
+		LOADDATA(&ubActive, *ppBuffer, 1);
+
+		// only continue if the soldier is active
+		if ( ubActive )
+		{
+			//Read in the saved soldier info into a Temp structure
+			if ( !SavedSoldierInfo.LoadBuffer(ppBuffer) )
+			{
+				return FALSE;
+			}
+
+			//Make sure all the pointer references are NULL'ed out.	
+			SavedSoldierInfo.pTempObject = NULL;
+			SavedSoldierInfo.pKeyRing = NULL;
+			SavedSoldierInfo.p8BPPPalette = NULL;
+			SavedSoldierInfo.p16BPPPalette = NULL;
+			memset(SavedSoldierInfo.pShades, 0, sizeof(UINT16*) * NUM_SOLDIER_SHADES);
+			memset(SavedSoldierInfo.pGlowShades, 0, sizeof(UINT16*) * 20);
+			SavedSoldierInfo.pCurrentShade = NULL;
+			SavedSoldierInfo.pThrowParams = NULL;
+			SavedSoldierInfo.pLevelNode = NULL;
+			SavedSoldierInfo.pExternShadowLevelNode = NULL;
+			SavedSoldierInfo.pRoofUILevelNode = NULL;
+			SavedSoldierInfo.pBackGround = NULL;
+			SavedSoldierInfo.pZBackground = NULL;
+			SavedSoldierInfo.pForcedShade = NULL;
+			SavedSoldierInfo.pMercPath = NULL;
+			memset(SavedSoldierInfo.pEffectShades, 0, sizeof(UINT16*) * NUM_SOLDIER_EFFECTSHADES);
+
+			//Create the new merc
+			SOLDIERCREATE_STRUCT CreateStruct;
+			CreateStruct.bTeam = SavedSoldierInfo.bTeam;
+			CreateStruct.ubProfile = SavedSoldierInfo.ubProfile;
+			CreateStruct.fUseExistingSoldier = TRUE;
+			CreateStruct.pExistingSoldier = &SavedSoldierInfo;
+
+			if ( !TacticalCreateSoldier(&CreateStruct, &ubId) )
+				return(FALSE);
+
+			// Load the pMercPath
+			if ( !LoadMercPathToSoldierStructBuffer(ppBuffer, ubId) )
+				return(FALSE);
+
+			//
+			//do we have a 	KEY_ON_RING *pKeyRing;
+			//
+
+			// Read the file to see if we have to load the keys
+			LOADDATA(&ubOne, *ppBuffer, 1);
+
+			if ( ubOne )
+			{
+				// WANNE - BMP: Check -> We get an assert here!
+				// Now Load the ....
+				if ( guiCurrentSaveGameVersion < MORE_LOCKS_AND_KEYS )
+				{
+					LOADDATA(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS_OLD * sizeof(KEY_ON_RING));
+				}
+				else
+				{
+					LOADDATA(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS * sizeof(KEY_ON_RING));
+				}
+			}
+			else
+			{
+				Assert(Menptr[cnt].pKeyRing == NULL);
+			}
+
+			//if the soldier is an IMP character
+			//if( Menptr[cnt].ubWhatKindOfMercAmI == MERC_TYPE__PLAYER_CHARACTER && Menptr[cnt].bTeam == gbPlayerNum )
+			//{
+			//	ResetIMPCharactersEyesAndMouthOffsets( Menptr[ cnt ].ubProfile );
+			//}
+
+			if ( guiCurrentSaveGameVersion < 99 )
+			{
+				//if the saved game version is before x, calculate the amount of money paid to mercs
+				if ( guiCurrentSaveGameVersion < 83 )
+				{
+					//if the soldier is someone
+					if ( Menptr[cnt].ubProfile != NO_PROFILE )
+					{
+						if ( Menptr[cnt].ubWhatKindOfMercAmI == MERC_TYPE__MERC )
+						{
+							gMercProfiles[Menptr[cnt].ubProfile].uiTotalCostToDate = gMercProfiles[Menptr[cnt].ubProfile].sSalary * gMercProfiles[Menptr[cnt].ubProfile].iMercMercContractLength;
+						}
+						else
+						{
+							gMercProfiles[Menptr[cnt].ubProfile].uiTotalCostToDate = gMercProfiles[Menptr[cnt].ubProfile].sSalary * Menptr[cnt].iTotalContractLength;
+						}
+					}
+				}
+
+				if ( g_lang == i18n::Lang::de ) {
+					// Fix neutral flags
+					if ( guiCurrentSaveGameVersion < 94 )
+					{
+						if ( Menptr[cnt].bTeam == OUR_TEAM && Menptr[cnt].aiData.bNeutral && Menptr[cnt].bAssignment != ASSIGNMENT_POW )
+						{
+							// turn off neutral flag
+							Menptr[cnt].aiData.bNeutral = FALSE;
+						}
+					}
+				}
+
+				// JA2Gold: fix next-to-previous attacker value
+				Menptr[cnt].ubNextToPreviousAttackerID = NOBODY;
+			}
+		}
+	}
+
+	// Fix robot
+	if ( guiCurrentSaveGameVersion <= 87 )
+	{
+		if ( gMercProfiles[ROBOT].inv[VESTPOS] == SPECTRA_VEST )
+		{
+			// update this
+			gMercProfiles[ROBOT].inv[VESTPOS] = SPECTRA_VEST_18;
+			gMercProfiles[ROBOT].inv[HELMETPOS] = SPECTRA_HELMET_18;
+			gMercProfiles[ROBOT].inv[LEGPOS] = SPECTRA_LEGGINGS_18;
+			gMercProfiles[ROBOT].bAgility = 50;
+
+			SOLDIERTYPE* pSoldier = FindSoldierByProfileID(ROBOT, FALSE);
+			if ( pSoldier )
+			{
+				pSoldier->inv[VESTPOS].usItem = SPECTRA_VEST_18;
+				pSoldier->inv[HELMETPOS].usItem = SPECTRA_HELMET_18;
+				pSoldier->inv[LEGPOS].usItem = SPECTRA_LEGGINGS_18;
+				pSoldier->stats.bAgility = 50;
+			}
+		}
+	}
+
+	return(TRUE);
+}
+
 
 /*
 BOOLEAN SavePtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile )
@@ -7317,6 +9529,83 @@ BOOLEAN LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer)
+{
+	UINT32	uiFileSize = 0;
+	UINT32	uiNumBytesWritten = 0;
+	HWFILE	hSrcFile = 0;
+	UINT8*  pData = NULL;
+	UINT32	uiNumBytesRead = 0;
+
+	//If the source file exists, delete it
+	if ( FileExists(pSrcFileName) )
+	{
+		if ( !FileDelete(pSrcFileName) )
+		{
+			//unable to delete the original file
+			return(FALSE);
+		}
+	}
+
+#ifdef JA2BETAVERSION
+	++guiNumberOfMapTempFiles;		//Increment counter:	To determine where the temp files are crashing
+#endif
+
+	//open the destination file to write to
+	hSrcFile = FileOpen(pSrcFileName, FILE_ACCESS_WRITE | FILE_CREATE_ALWAYS, FALSE);
+	if ( !hSrcFile )
+	{
+		//error, we cant open the saved game file
+		return(FALSE);
+	}
+
+	// Read the size of the data 
+	LOADDATA(&uiFileSize, *ppBuffer, sizeof(UINT32));
+
+	//if there is nothing in the file, return;
+	if ( uiFileSize == 0 )
+	{
+		FileClose(hSrcFile);
+		return(TRUE);
+	}
+
+	//Allocate a buffer to read the data into
+	pData = (UINT8*)MemAlloc(uiFileSize);
+	if ( pData == NULL )
+	{
+		FileClose(hSrcFile);
+		return(FALSE);
+	}
+
+	// Read into the buffer
+	LOADDATA(pData, *ppBuffer, uiFileSize);
+
+	// Write the buffer to the new file
+	FileWrite(hSrcFile, pData, uiFileSize, &uiNumBytesWritten);
+	if ( uiNumBytesWritten != uiFileSize )
+	{
+		FileClose(hSrcFile);
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("FAILED to Write to the %s File", pSrcFileName));
+		//Free the buffer
+		MemFree(pData);
+
+		return(FALSE);
+	}
+
+	//Free the buffer
+	MemFree(pData);
+
+	//Close the source data file
+	FileClose(hSrcFile);
+
+#ifdef JA2BETAVERSION
+	//TODO: Implement this for buffer
+	//WriteTempFileNameToFile(pSrcFileName, uiFileSize, hFile);
+#endif
+
+	return(TRUE);
+}
+
 
 BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 {
@@ -7545,6 +9834,136 @@ BOOLEAN LoadEmailFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32		uiNumOfEmails = 0;
+	UINT32		uiSizeOfSubject = 0;
+	EmailPtr	pEmail = pEmailList;
+	EmailPtr	pTempEmail = NULL;
+	UINT8* pData = NULL;
+	UINT32		cnt;
+	SavedEmailStruct SavedEmail;
+	UINT32		uiNumBytesRead = 0;
+
+	//Delete the existing list of emails
+	ShutDownEmailList();
+
+	pEmailList = NULL;
+	//Allocate memory for the header node
+	pEmailList = (EmailPtr)MemAlloc(sizeof(Email));
+	if ( pEmailList == NULL )
+		return(FALSE);
+
+	memset(pEmailList, 0, sizeof(Email));
+
+	//read in the number of email messages
+	LOADDATA(&uiNumOfEmails, *ppBuffer, sizeof(UINT32));
+
+	//loop through all the emails, add each one individually
+	pEmail = pEmailList;
+	for ( cnt = 0; cnt < uiNumOfEmails; cnt++ )
+	{
+		//get the length of the email subject
+		LOADDATA(&uiSizeOfSubject, *ppBuffer, sizeof(UINT32));
+
+		//allocate space for the subject
+		pData = (UINT8*)MemAlloc(EMAIL_SUBJECT_LENGTH * sizeof(CHAR16));
+		if ( pData == NULL )
+			return(FALSE);
+		memset(pData, 0, EMAIL_SUBJECT_LENGTH * sizeof(CHAR16));
+
+		//Get the subject
+		LOADDATA(pData, *ppBuffer, uiSizeOfSubject);
+
+		//CHRISL: Adjust this so we can change the SavedEmailStruct without hurting savegame compatability
+		//get the rest of the data from the email
+		INT32	numBytesRead = 0, temp;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.usOffset, sizeof(SavedEmail.usOffset), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.usLength, sizeof(SavedEmail.usLength), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.ubSender, sizeof(SavedEmail.ubSender), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iDate, sizeof(SavedEmail.iDate), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iId, sizeof(SavedEmail.iId), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iFirstData, sizeof(SavedEmail.iFirstData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.uiSecondData, sizeof(SavedEmail.uiSecondData), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iThirdData, sizeof(SavedEmail.iThirdData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iFourthData, sizeof(SavedEmail.iFourthData), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.uiFifthData, sizeof(SavedEmail.uiFifthData), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.uiSixData, sizeof(SavedEmail.uiSixData), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.fRead, sizeof(SavedEmail.fRead), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.fNew, sizeof(SavedEmail.fNew), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iCurrentIMPPosition, sizeof(SavedEmail.iCurrentIMPPosition), sizeof(INT32), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= BR_EMAIL_DATA_CHANGE ) {
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &SavedEmail.iCurrentShipmentDestinationID, sizeof(SavedEmail.iCurrentShipmentDestinationID), sizeof(INT16), numBytesRead);
+			//We need these extra 2 bytes so that the structure's total size is evenly divisible by 4
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &temp, sizeof(INT16), sizeof(INT16), numBytesRead);
+		}
+		else {
+			numBytesRead += sizeof(INT16);
+			numBytesRead += sizeof(INT16);
+		}
+
+		if ( numBytesRead != sizeof(SavedEmailStruct) )
+		{
+			return(FALSE);
+		}
+
+		//
+		//add the email
+		//
+
+		//if we havent allocated space yet
+		pTempEmail = (EmailPtr)MemAlloc(sizeof(Email));
+		if ( pTempEmail == NULL )
+			return(FALSE);
+		memset(pTempEmail, 0, sizeof(Email));
+
+		pTempEmail->usOffset = SavedEmail.usOffset;
+		pTempEmail->usLength = SavedEmail.usLength;
+		pTempEmail->ubSender = SavedEmail.ubSender;
+		pTempEmail->iDate = SavedEmail.iDate;
+		pTempEmail->iId = SavedEmail.iId;
+		pTempEmail->fRead = SavedEmail.fRead;
+		pTempEmail->fNew = SavedEmail.fNew;
+		pTempEmail->pSubject = (STR16)pData;
+		pTempEmail->iFirstData = SavedEmail.iFirstData;
+		pTempEmail->uiSecondData = SavedEmail.uiSecondData;
+		pTempEmail->iThirdData = SavedEmail.iThirdData;
+		pTempEmail->iFourthData = SavedEmail.iFourthData;
+		pTempEmail->uiFifthData = SavedEmail.uiFifthData;
+		pTempEmail->uiSixData = SavedEmail.uiSixData;
+		pTempEmail->iCurrentIMPPosition = SavedEmail.iCurrentIMPPosition;
+
+		// WANNE.MAIL: Fix
+		pTempEmail->iCurrentShipmentDestinationID = SavedEmail.iCurrentShipmentDestinationID;
+
+		//add the current email in
+		pEmail->Next = pTempEmail;
+		pTempEmail->Prev = pEmail;
+
+		//moved to the next email
+		pEmail = pEmail->Next;
+
+		AddMessageToPages(pTempEmail->iId);
+
+	}
+
+	//if there are emails
+	if ( cnt )
+	{
+		//the first node of the LL was a dummy, node,get rid	of it
+		pTempEmail = pEmailList;
+		pEmailList = pEmailList->Next;
+		pEmailList->Prev = NULL;
+		MemFree(pTempEmail);
+	}
+	else
+	{
+		MemFree(pEmailList);
+		pEmailList = NULL;
+	}
+
+	return(TRUE);
+}
 
 BOOLEAN SaveTacticalStatusToSavedGame( HWFILE hFile )
 {
@@ -7838,6 +10257,228 @@ BOOLEAN LoadTacticalStatusFromSavedGame( HWFILE hFile )
 }
 
 
+BOOLEAN LoadTacticalStatusFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiNumBytesRead;
+	INT32	numBytesRead = 0;
+	UINT8	filler = 0;
+
+	//	for (unsigned idx=0; idx <= MAXTEAMS; ++idx) {
+	//		savedTeamSettings[idx] = gTacticalStatus.Team[idx];
+	//	}
+
+		//Read the gTacticalStatus to the saved game file
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiFlags, sizeof(gTacticalStatus.uiFlags), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.Team, sizeof(gTacticalStatus.Team), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubCurrentTeam, sizeof(gTacticalStatus.ubCurrentTeam), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sSlideTarget, sizeof(gTacticalStatus.sSlideTarget), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sSlideReason_UNUSED, sizeof(gTacticalStatus.sSlideReason_UNUSED), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeSinceMercAIStart, sizeof(gTacticalStatus.uiTimeSinceMercAIStart), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fPanicFlags, sizeof(gTacticalStatus.fPanicFlags), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sPanicTriggerGridNoUnused, sizeof(gTacticalStatus.sPanicTriggerGridNoUnused), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sHandGrid, sizeof(gTacticalStatus.sHandGrid), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubSpottersCalledForBy, sizeof(gTacticalStatus.ubSpottersCalledForBy), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubTheChosenOne, sizeof(gTacticalStatus.ubTheChosenOne), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeOfLastInput, sizeof(gTacticalStatus.uiTimeOfLastInput), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeSinceDemoOn, sizeof(gTacticalStatus.uiTimeSinceDemoOn), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiCountdownToRestart, sizeof(gTacticalStatus.uiCountdownToRestart), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fGoingToEnterDemo, sizeof(gTacticalStatus.fGoingToEnterDemo), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fNOTDOLASTDEMO, sizeof(gTacticalStatus.fNOTDOLASTDEMO), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fMultiplayer, sizeof(gTacticalStatus.fMultiplayer), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fCivGroupHostile, sizeof(gTacticalStatus.fCivGroupHostile), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastBattleSectorX, sizeof(gTacticalStatus.ubLastBattleSectorX), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastBattleSectorY, sizeof(gTacticalStatus.ubLastBattleSectorY), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fLastBattleWon, sizeof(gTacticalStatus.fLastBattleWon), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bOriginalSizeOfEnemyForce, sizeof(gTacticalStatus.bOriginalSizeOfEnemyForce), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bPanicTriggerIsAlarmUnused, sizeof(gTacticalStatus.bPanicTriggerIsAlarmUnused), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fVirginSector, sizeof(gTacticalStatus.fVirginSector), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fEnemyInSector, sizeof(gTacticalStatus.fEnemyInSector), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fInterruptOccurred, sizeof(gTacticalStatus.fInterruptOccurred), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bRealtimeSpeed, sizeof(gTacticalStatus.bRealtimeSpeed), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemyIntention, sizeof(gTacticalStatus.ubEnemyIntention), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemyIntendedRetreatDirection, sizeof(gTacticalStatus.ubEnemyIntendedRetreatDirection), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnEnemyID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID, sizeof(gTacticalStatus.ubEnemySightingOnTheirTurnPlayerID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fEnemySightingOnTheirTurn, sizeof(gTacticalStatus.fEnemySightingOnTheirTurn), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fAutoBandageMode, sizeof(gTacticalStatus.fAutoBandageMode), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubAttackBusyCount, sizeof(gTacticalStatus.ubAttackBusyCount), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bNumEnemiesFoughtInBattleUnused, sizeof(gTacticalStatus.bNumEnemiesFoughtInBattleUnused), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEngagedInConvFromActionMercID, sizeof(gTacticalStatus.ubEngagedInConvFromActionMercID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.usTactialTurnLimitCounter, sizeof(gTacticalStatus.usTactialTurnLimitCounter), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fInTopMessage, sizeof(gTacticalStatus.fInTopMessage), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubTopMessageType, sizeof(gTacticalStatus.ubTopMessageType), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.zTopMessageString, sizeof(gTacticalStatus.zTopMessageString), sizeof(CHAR16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.usTactialTurnLimitMax, sizeof(gTacticalStatus.usTactialTurnLimitMax), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTactialTurnLimitClock, sizeof(gTacticalStatus.uiTactialTurnLimitClock), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fTactialTurnLimitStartedBeep, sizeof(gTacticalStatus.fTactialTurnLimitStartedBeep), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bBoxingState, sizeof(gTacticalStatus.bBoxingState), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bConsNumTurnsNotSeen, sizeof(gTacticalStatus.bConsNumTurnsNotSeen), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubArmyGuysKilled, sizeof(gTacticalStatus.ubArmyGuysKilled), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sPanicTriggerGridNo, sizeof(gTacticalStatus.sPanicTriggerGridNo), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bPanicTriggerIsAlarm, sizeof(gTacticalStatus.bPanicTriggerIsAlarm), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubPanicTolerance, sizeof(gTacticalStatus.ubPanicTolerance), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fAtLeastOneGuyOnMultiSelect, sizeof(gTacticalStatus.fAtLeastOneGuyOnMultiSelect), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fSaidCreatureFlavourQuote, sizeof(gTacticalStatus.fSaidCreatureFlavourQuote), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fHaveSeenCreature, sizeof(gTacticalStatus.fHaveSeenCreature), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fKilledEnemyOnAttack, sizeof(gTacticalStatus.fKilledEnemyOnAttack), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemyKilledOnAttack, sizeof(gTacticalStatus.ubEnemyKilledOnAttack), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bEnemyKilledOnAttackLevel, sizeof(gTacticalStatus.bEnemyKilledOnAttackLevel), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemyKilledOnAttackLocation, sizeof(gTacticalStatus.ubEnemyKilledOnAttackLocation), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fItemsSeenOnAttack, sizeof(gTacticalStatus.fItemsSeenOnAttack), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubItemsSeenOnAttackSoldier, sizeof(gTacticalStatus.ubItemsSeenOnAttackSoldier), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fBeenInCombatOnce, sizeof(gTacticalStatus.fBeenInCombatOnce), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fSaidCreatureSmellQuote, sizeof(gTacticalStatus.fSaidCreatureSmellQuote), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.usItemsSeenOnAttackGridNo, sizeof(gTacticalStatus.usItemsSeenOnAttackGridNo), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fLockItemLocators, sizeof(gTacticalStatus.fLockItemLocators), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastQuoteSaid, sizeof(gTacticalStatus.ubLastQuoteSaid), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastQuoteProfileNUm, sizeof(gTacticalStatus.ubLastQuoteProfileNUm), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fCantGetThrough, sizeof(gTacticalStatus.fCantGetThrough), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sCantGetThroughGridNo, sizeof(gTacticalStatus.sCantGetThroughGridNo), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sCantGetThroughSoldierGridNo, sizeof(gTacticalStatus.sCantGetThroughSoldierGridNo), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubCantGetThroughID, sizeof(gTacticalStatus.ubCantGetThroughID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fDidGameJustStart, sizeof(gTacticalStatus.fDidGameJustStart), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fStatChangeCheatOn, sizeof(gTacticalStatus.fStatChangeCheatOn), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastRequesterTargetID, sizeof(gTacticalStatus.ubLastRequesterTargetID), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fGoodToAllowCrows, sizeof(gTacticalStatus.fGoodToAllowCrows), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubNumCrowsPossible, sizeof(gTacticalStatus.ubNumCrowsPossible), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeCounterForGiveItemSrc, sizeof(gTacticalStatus.uiTimeCounterForGiveItemSrc), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fUnLockUIAfterHiddenInterrupt, sizeof(gTacticalStatus.fUnLockUIAfterHiddenInterrupt), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bNumFoughtInBattle, sizeof(gTacticalStatus.bNumFoughtInBattle), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiDecayBloodLastUpdate, sizeof(gTacticalStatus.uiDecayBloodLastUpdate), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeSinceLastInTactical, sizeof(gTacticalStatus.uiTimeSinceLastInTactical), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fHasAGameBeenStarted, sizeof(gTacticalStatus.fHasAGameBeenStarted), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes, sizeof(gTacticalStatus.bConsNumTurnsWeHaventSeenButEnemyDoes), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fSomeoneHit, sizeof(gTacticalStatus.fSomeoneHit), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiTimeSinceLastOpplistDecay, sizeof(gTacticalStatus.uiTimeSinceLastOpplistDecay), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bMercArrivingQuoteBeingUsed, sizeof(gTacticalStatus.bMercArrivingQuoteBeingUsed), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubEnemyKilledOnAttackKiller, sizeof(gTacticalStatus.ubEnemyKilledOnAttackKiller), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fCountingDownForGuideDescription, sizeof(gTacticalStatus.fCountingDownForGuideDescription), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bGuideDescriptionCountDown, sizeof(gTacticalStatus.bGuideDescriptionCountDown), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubGuideDescriptionToUse, sizeof(gTacticalStatus.ubGuideDescriptionToUse), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bGuideDescriptionSectorX, sizeof(gTacticalStatus.bGuideDescriptionSectorX), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.bGuideDescriptionSectorY, sizeof(gTacticalStatus.bGuideDescriptionSectorY), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fEnemyFlags, sizeof(gTacticalStatus.fEnemyFlags), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fAutoBandagePending, sizeof(gTacticalStatus.fAutoBandagePending), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fHasEnteredCombatModeSinceEntering, sizeof(gTacticalStatus.fHasEnteredCombatModeSinceEntering), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.fDontAddNewCrows, sizeof(gTacticalStatus.fDontAddNewCrows), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubMorePadding, sizeof(gTacticalStatus.ubMorePadding), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.sCreatureTenseQuoteDelay, sizeof(gTacticalStatus.sCreatureTenseQuoteDelay), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.uiCreatureTenseQuoteLastUpdate, sizeof(gTacticalStatus.uiCreatureTenseQuoteLastUpdate), sizeof(UINT32), numBytesRead);
+	if ( guiCurrentSaveGameVersion >= BUGFIX_NPC_DATA_FOR_BIG_MAPS )
+	{
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubLastRequesterSurgeryTargetID, sizeof(gTacticalStatus.ubLastRequesterSurgeryTargetID), sizeof(UINT16), numBytesRead);
+		if ( guiCurrentSaveGameVersion >= IMPROVED_INTERRUPT_SYSTEM )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubInterruptPending, sizeof(gTacticalStatus.ubInterruptPending), sizeof(UINT8), numBytesRead);
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gTacticalStatus.ubDisablePlayerInterrupts, sizeof(gTacticalStatus.ubDisablePlayerInterrupts), sizeof(BOOLEAN), numBytesRead);
+		}
+		while ( (numBytesRead % 4) != 0 )	// This is to make sure the total read is of DWORD length
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
+	}
+	else
+	{
+		numBytesRead++;	//&gTacticalStatus.ubLastRequesterSurgeryTargetID added with BUGFIX_NPC_DATA_FOR_BIG_MAPS
+		numBytesRead++;	//&gTacticalStatus.ubInterruptPending added with IMPROVED_INTERRUPT_SYSTEM
+		numBytesRead++; //&gTacticalStatus.ubDisablePlayerInterrupts
+		while ( (numBytesRead % 4) != 0 )	// This is to make sure the total read is of DWORD length
+			numBytesRead++;
+	}
+	//FileRead( hFile, &gTacticalStatus, sizeof( TacticalStatusType ), &uiNumBytesRead );
+	//if( uiNumBytesRead != sizeof( TacticalStatusType ) ) {
+	if ( numBytesRead != sizeof(TacticalStatusType) ) {
+		return(FALSE);
+	}
+
+	//	for (unsigned idx=0; idx <= MAXTEAMS; ++idx) {
+	//		gTacticalStatus.Team[idx] = savedTeamSettings[idx];
+	//	}
+
+		// WDS - make number of mercenaries, etc. be configurable
+		// Check that the team lists match what we expect given the .ini settings
+
+		// WANNE: In a MP game the merc counts are different than in a SP game, so disable check in a MP game
+	if ( !is_networked ) {
+		AssertEQ(OUR_TEAM, 0);
+		AssertEQ(OUR_TEAM + 1, ENEMY_TEAM);
+		AssertEQ(ENEMY_TEAM + 1, CREATURE_TEAM);
+		AssertEQ(CREATURE_TEAM + 1, MILITIA_TEAM);
+		AssertEQ(MILITIA_TEAM + 1, CIV_TEAM);
+
+		int cntFromFile[CIV_TEAM + 1];
+		for ( int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx ) {
+			cntFromFile[idx] = gTacticalStatus.Team[idx].bLastID - gTacticalStatus.Team[idx].bFirstID + 1;
+		}
+		int cntFromIni[] = { static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles),
+									  static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfEnemies), static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfCreatures),
+									  static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfRebels), static_cast<int>(gGameExternalOptions.ubGameMaximumNumberOfCivilians) };
+
+		CHAR16* errMsgTxt[] = { L"Mercenary / Vehicle", L"Enemy", L"Creature", L"Militia", L"Civilian" };
+		errMsgTxt[0] = Additional113Text[ERROR_MAX_MERCSVEHICLES];
+		errMsgTxt[1] = Additional113Text[ERROR_MAX_ENEMIES];
+		errMsgTxt[2] = Additional113Text[ERROR_MAX_CREATURES];
+		errMsgTxt[3] = Additional113Text[ERROR_MAX_MILITIA];
+		errMsgTxt[4] = Additional113Text[ERROR_MAX_CIVILIANS];
+
+		bool needToRejigger = false;
+		for ( int idx = OUR_TEAM; idx <= CIV_TEAM; ++idx )
+		{
+			// Flugente: for OUR_TEAM, from no on we use (gTacticalStatus.Team[ OUR_TEAM ].bLastID - gTacticalStatus.Team[ OUR_TEAM ].bFirstID + 1) instead of
+			// gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles (defined in OUR_TEAM_SIZE_NO_VEHICLE).
+			// As a result, this check isn't needed anymore, as the number stays fixed (it always stayed fixed, as one couldn't continue the game if one altered it, 
+			// which raises the question of why we even checked that...)
+			if ( idx != OUR_TEAM && cntFromFile[idx] < cntFromIni[idx] )
+			{
+				needToRejigger = true;
+			}
+			else if ( cntFromFile[idx] > cntFromIni[idx] )
+			{
+				CHAR16 errorMessage[512];
+				swprintf(errorMessage, Additional113Text[ADDTEXT_WRONG_TEAM_SIZE], errMsgTxt[idx], cntFromFile[idx], cntFromIni[idx]);
+				DoScreenIndependantMessageBox(errorMessage, MSG_BOX_FLAG_OK, FailedLoadingGameCallBack);
+				return FALSE;
+			}
+		}
+
+		if ( needToRejigger ) {
+			// The .ini file asked for more slots than were in the save file, so expand the slots
+			for ( int teamIdx = OUR_TEAM; teamIdx <= CIV_TEAM; ++teamIdx ) {
+				unsigned max = 0;
+				switch ( teamIdx ) {
+					case OUR_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfPlayerMercs + gGameExternalOptions.ubGameMaximumNumberOfPlayerVehicles;
+						break;
+					case ENEMY_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfEnemies;
+						break;
+					case CREATURE_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfCreatures;
+						break;
+					case MILITIA_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfRebels;
+						break;
+					case CIV_TEAM:
+						max = gGameExternalOptions.ubGameMaximumNumberOfCivilians;
+						break;
+						// Don't worry about the others
+					default:
+						//
+						break;
+				}
+				gTacticalStatus.Team[teamIdx].bLastID = gTacticalStatus.Team[teamIdx].bFirstID + max - 1;
+			}
+		}
+	}
+
+	//
+	//Load the current sector location to the saved game file
+	//
+	LOADDATA(&gWorldSectorX, *ppBuffer, sizeof(gWorldSectorX));
+	LOADDATA(&gWorldSectorY, *ppBuffer, sizeof(gWorldSectorY));
+	LOADDATA(&gbWorldSectorZ, *ppBuffer, sizeof(gbWorldSectorZ));
+
+	return(TRUE);
+}
+
 
 BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERTYPE *pSourceInfo )
 {
@@ -8030,6 +10671,45 @@ BOOLEAN LoadOppListInfoFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadOppListInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiLoadSize = 0;
+
+	// Load the Public Opplist
+	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
+	LOADDATA(gbPublicOpplist, *ppBuffer, uiLoadSize);
+
+	// Load the Seen Opponents
+	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
+	LOADDATA(gbSeenOpponents, *ppBuffer, uiLoadSize);
+
+	// Load the Last Known Opp Locations
+	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
+	LOADDATA(gsLastKnownOppLoc, *ppBuffer, uiLoadSize);
+
+	// Load the Last Known Opp Level
+	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
+	LOADDATA(gbLastKnownOppLevel, *ppBuffer, uiLoadSize);
+
+	// Load the Public Last Known Opp Locations
+	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
+	LOADDATA(gsPublicLastKnownOppLoc, *ppBuffer, uiLoadSize);
+
+	// Load the Public Last Known Opp Level
+	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
+	LOADDATA(gbPublicLastKnownOppLevel, *ppBuffer, uiLoadSize);
+
+	// Load the Public Noise Volume
+	uiLoadSize = MAXTEAMS;
+	LOADDATA(gubPublicNoiseVolume, *ppBuffer, uiLoadSize);
+
+	// Load the Public Last Noise Gridno
+	uiLoadSize = MAXTEAMS;
+	LOADDATA(gsPublicNoiseGridNo, *ppBuffer, uiLoadSize);
+
+	return(TRUE);
+}
+
 BOOLEAN SaveWatchedLocsToSavedGame( HWFILE hFile )
 {
 	UINT32	uiArraySize;
@@ -8106,6 +10786,21 @@ BOOLEAN LoadWatchedLocsFromSavedGame( HWFILE hFile )
 
 
 	return( TRUE );
+}
+
+BOOLEAN LoadWatchedLocsFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiArraySize = TOTAL_SOLDIERS * NUM_WATCHED_LOCS;
+	UINT32 uiLoadSize = uiArraySize * sizeof(INT16);
+	LOADDATA(gsWatchedLoc, *ppBuffer, uiLoadSize);
+
+	uiLoadSize = uiArraySize * sizeof(INT8);
+	LOADDATA(gbWatchedLocLevel, *ppBuffer, uiLoadSize);
+	LOADDATA(gubWatchedLocPoints, *ppBuffer, uiLoadSize);
+	LOADDATA(gfWatchedLocReset, *ppBuffer, uiLoadSize);
+
+
+	return(TRUE);
 }
 
 void CreateSavedGameFileNameFromNumber( UINT8 ubSaveGameID, STR pzNewFileName )
@@ -8276,6 +10971,60 @@ BOOLEAN LoadMercPathToSoldierStruct( HWFILE hFile, UINT16 ubID )
 	return( TRUE );
 }
 
+BOOLEAN LoadMercPathToSoldierStructBuffer(CHAR8** ppBuffer, UINT16 ubID)
+{
+	UINT32	uiNumOfNodes = 0;
+	PathStPtr	pTempPath = NULL;
+	PathStPtr	pTemp = NULL;
+	UINT32	uiNumBytesRead = 0;
+	UINT32	cnt;
+
+	//Load the number of the nodes
+	LOADDATA(&uiNumOfNodes, *ppBuffer, sizeof(UINT32));
+
+	//load all the nodes
+	for ( cnt = 0; cnt < uiNumOfNodes; ++cnt )
+	{
+		//Allocate memory for the new node
+		pTemp = (PathStPtr)MemAlloc(sizeof(PathSt));
+		if ( pTemp == NULL )
+		{
+			pTempPath = MoveToBeginningOfPathList(pTempPath);
+			ClearStrategicPathList(pTempPath, -1);
+			return(FALSE);
+		}
+
+		memset(pTemp, 0, sizeof(PathSt));
+
+		//Load the node
+		LOADDATA(pTemp, *ppBuffer, sizeof(PathSt));
+
+		//Put the node into the list 
+		if ( cnt == 0 )
+		{
+			pTempPath = pTemp;
+			pTemp->pPrev = NULL;
+		}
+		else
+		{
+			pTempPath->pNext = pTemp;
+			pTemp->pPrev = pTempPath;
+
+			pTempPath = pTempPath->pNext;
+		}
+
+		pTemp->pNext = NULL;
+	}
+
+	//move to beginning of list
+	pTempPath = MoveToBeginningOfPathList(pTempPath);
+
+	Menptr[ubID].pMercPath = pTempPath;
+	if ( Menptr[ubID].pMercPath )
+		Menptr[ubID].pMercPath->pPrev = NULL;
+
+	return(TRUE);
+}
 
 #ifdef JA2BETAVERSION
 void InitSaveGameFilePosition()
@@ -9247,6 +11996,542 @@ BOOLEAN LoadGeneralInfo( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadGeneralInfoBuffer(CHAR8** ppBuffer)
+{
+	INT32	numBytesRead = 0;
+	UINT8	filler = 0;
+
+	GENERAL_SAVE_INFO sGeneralInfo;
+	memset(&sGeneralInfo, 0, sizeof(GENERAL_SAVE_INFO));
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiCurrentScreen, sizeof(sGeneralInfo.uiCurrentScreen), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiCurrentUniqueSoldierId, sizeof(sGeneralInfo.uiCurrentUniqueSoldierId), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubMusicMode, sizeof(sGeneralInfo.ubMusicMode), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHavePurchasedItemsFromTony, sizeof(sGeneralInfo.fHavePurchasedItemsFromTony), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.usSelectedSoldier, sizeof(sGeneralInfo.usSelectedSoldier), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sRenderCenterX, sizeof(sGeneralInfo.sRenderCenterX), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sRenderCenterY, sizeof(sGeneralInfo.sRenderCenterY), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fAtLeastOneMercWasHired, sizeof(sGeneralInfo.fAtLeastOneMercWasHired), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowItemsFlag, sizeof(sGeneralInfo.fShowItemsFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowTownFlag, sizeof(sGeneralInfo.fShowTownFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowTeamFlag, sizeof(sGeneralInfo.fShowTeamFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowMineFlag, sizeof(sGeneralInfo.fShowMineFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.usMapDisplayColourMode, sizeof(sGeneralInfo.usMapDisplayColourMode), sizeof(UINT8), numBytesRead);
+	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA )
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.filler1, sizeof(sGeneralInfo.filler1), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHelicopterAvailable, sizeof(sGeneralInfo.fHelicopterAvailable), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iHelicopterVehicleId, sizeof(sGeneralInfo.iHelicopterVehicleId), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iTotalHeliDistanceSinceRefuel, sizeof(sGeneralInfo.iTotalHeliDistanceSinceRefuel), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iTotalAccumulatedCostByPlayer, sizeof(sGeneralInfo.iTotalAccumulatedCostByPlayer), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fSkyRiderAvailable, sizeof(sGeneralInfo.fSkyRiderAvailable), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.UNUSEDfSkyriderMonologue, sizeof(sGeneralInfo.UNUSEDfSkyriderMonologue), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.UNUSED, sizeof(sGeneralInfo.UNUSED), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHelicopterIsAirBorne, sizeof(sGeneralInfo.fHelicopterIsAirBorne), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHeliReturnStraightToBase, sizeof(sGeneralInfo.fHeliReturnStraightToBase), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHoveringHelicopter, sizeof(sGeneralInfo.fHoveringHelicopter), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiStartHoverTime, sizeof(sGeneralInfo.uiStartHoverTime), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiHelicopterSkyriderTalkState, sizeof(sGeneralInfo.uiHelicopterSkyriderTalkState), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowEstoniRefuelHighLight, sizeof(sGeneralInfo.fShowEstoniRefuelHighLight), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowOtherSAMHighLight, sizeof(sGeneralInfo.fShowOtherSAMHighLight), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowDrassenSAMHighLight, sizeof(sGeneralInfo.fShowDrassenSAMHighLight), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiEnvWeather, sizeof(sGeneralInfo.uiEnvWeather), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubDefaultButton, sizeof(sGeneralInfo.ubDefaultButton), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fSkyriderEmptyHelpGiven, sizeof(sGeneralInfo.fSkyriderEmptyHelpGiven), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fEnterMapDueToContract, sizeof(sGeneralInfo.fEnterMapDueToContract), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterHitsTaken, sizeof(sGeneralInfo.ubHelicopterHitsTaken), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubQuitType, sizeof(sGeneralInfo.ubQuitType), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM, sizeof(sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sContractRehireSoldierID, sizeof(sGeneralInfo.sContractRehireSoldierID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.GameOptions, sizeof(sGeneralInfo.GameOptions), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiSeedNumber, sizeof(sGeneralInfo.uiSeedNumber), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiBaseJA2Clock, sizeof(sGeneralInfo.uiBaseJA2Clock), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sCurInterfacePanel, sizeof(sGeneralInfo.sCurInterfacePanel), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubSMCurrentMercID, sizeof(sGeneralInfo.ubSMCurrentMercID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fFirstTimeInMapScreen, sizeof(sGeneralInfo.fFirstTimeInMapScreen), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fDisableDueToBattleRoster, sizeof(sGeneralInfo.fDisableDueToBattleRoster), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fDisableMapInterfaceDueToBattle, sizeof(sGeneralInfo.fDisableMapInterfaceDueToBattle), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sBoxerGridNo, sizeof(sGeneralInfo.sBoxerGridNo), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubBoxerID, sizeof(sGeneralInfo.ubBoxerID), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fBoxerFought, sizeof(sGeneralInfo.fBoxerFought), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHelicopterDestroyed, sizeof(sGeneralInfo.fHelicopterDestroyed), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowMapScreenHelpText, sizeof(sGeneralInfo.fShowMapScreenHelpText), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iSortStateForMapScreenList, sizeof(sGeneralInfo.iSortStateForMapScreenList), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fFoundTixa, sizeof(sGeneralInfo.fFoundTixa), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiTimeOfLastSkyriderMonologue, sizeof(sGeneralInfo.uiTimeOfLastSkyriderMonologue), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowCambriaHospitalHighLight, sizeof(sGeneralInfo.fShowCambriaHospitalHighLight), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fSkyRiderSetUp, sizeof(sGeneralInfo.fSkyRiderSetUp), sizeof(BOOLEAN), numBytesRead);
+
+	if ( guiCurrentSaveGameVersion >= INCREASED_REFUEL_SITES )
+	{
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fRefuelingSiteAvailable, sizeof(sGeneralInfo.fRefuelingSiteAvailable), sizeof(BOOLEAN), numBytesRead);
+	}
+	else
+	{
+		// Flugente: MAX_NUMBER_OF_REFUEL_SITES was 2, so we have to fill up the array
+		for ( UINT16 i = 0; i < MAX_NUMBER_OF_REFUEL_SITES; ++i )
+			sGeneralInfo.fRefuelingSiteAvailable[i] = FALSE;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fRefuelingSiteAvailable, 2 * sizeof(BOOLEAN), sizeof(BOOLEAN), numBytesRead);
+
+		INT32 buffer = 0;
+		for ( int i = 0; i < sizeof(BOOLEAN) * (MAX_NUMBER_OF_REFUEL_SITES - 2); ++i )
+			buffer++;
+		while ( (buffer % 4) > 0 )
+			buffer++;
+
+		numBytesRead += buffer;
+	}
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.gCurrentMeanwhileDef, sizeof(sGeneralInfo.gCurrentMeanwhileDef), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn, sizeof(sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.gfMeanwhileTryingToStart, sizeof(sGeneralInfo.gfMeanwhileTryingToStart), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.gfInMeanwhile, sizeof(sGeneralInfo.gfInMeanwhile), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sDeadMercs, sizeof(sGeneralInfo.sDeadMercs), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.gbPublicNoiseLevel, sizeof(sGeneralInfo.gbPublicNoiseLevel), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.gubScreenCount, sizeof(sGeneralInfo.gubScreenCount), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.usOldMeanWhileFlags, sizeof(sGeneralInfo.usOldMeanWhileFlags), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iPortraitNumber, sizeof(sGeneralInfo.iPortraitNumber), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sWorldSectorLocationOfFirstBattle, sizeof(sGeneralInfo.sWorldSectorLocationOfFirstBattle), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fUnReadMailFlag, sizeof(sGeneralInfo.fUnReadMailFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fNewMailFlag, sizeof(sGeneralInfo.fNewMailFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fOldUnReadFlag, sizeof(sGeneralInfo.fOldUnReadFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fOldNewMailFlag, sizeof(sGeneralInfo.fOldNewMailFlag), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fShowMilitia, sizeof(sGeneralInfo.fShowMilitia), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fNewFilesInFileViewer, sizeof(sGeneralInfo.fNewFilesInFileViewer), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fLastBoxingMatchWonByPlayer, sizeof(sGeneralInfo.fLastBoxingMatchWonByPlayer), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiUNUSED, sizeof(sGeneralInfo.uiUNUSED), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fSamSiteFound, sizeof(sGeneralInfo.fSamSiteFound), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubNumTerrorists, sizeof(sGeneralInfo.ubNumTerrorists), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubCambriaMedicalObjects, sizeof(sGeneralInfo.ubCambriaMedicalObjects), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fDisableTacticalPanelButtons, sizeof(sGeneralInfo.fDisableTacticalPanelButtons), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sSelMapX, sizeof(sGeneralInfo.sSelMapX), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sSelMapY, sizeof(sGeneralInfo.sSelMapY), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iCurrentMapSectorZ, sizeof(sGeneralInfo.iCurrentMapSectorZ), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.usHasPlayerSeenHelpScreenInCurrentScreen, sizeof(sGeneralInfo.usHasPlayerSeenHelpScreenInCurrentScreen), sizeof(UINT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fHideHelpInAllScreens, sizeof(sGeneralInfo.fHideHelpInAllScreens), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubBoxingMatchesWon, sizeof(sGeneralInfo.ubBoxingMatchesWon), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubBoxersRests, sizeof(sGeneralInfo.ubBoxersRests), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fBoxersResting, sizeof(sGeneralInfo.fBoxersResting), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubDesertTemperature, sizeof(sGeneralInfo.ubDesertTemperature), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubGlobalTemperature, sizeof(sGeneralInfo.ubGlobalTemperature), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sMercArriveSectorX, sizeof(sGeneralInfo.sMercArriveSectorX), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sMercArriveSectorY, sizeof(sGeneralInfo.sMercArriveSectorY), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fCreatureMeanwhileScenePlayed, sizeof(sGeneralInfo.fCreatureMeanwhileScenePlayed), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubPlayerNum, sizeof(sGeneralInfo.ubPlayerNum), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fPersistantPBI, sizeof(sGeneralInfo.fPersistantPBI), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubEnemyEncounterCode, sizeof(sGeneralInfo.ubEnemyEncounterCode), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubExplicitEnemyEncounterCode, sizeof(sGeneralInfo.ubExplicitEnemyEncounterCode), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fBlitBattleSectorLocator, sizeof(sGeneralInfo.fBlitBattleSectorLocator), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubPBSectorX, sizeof(sGeneralInfo.ubPBSectorX), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubPBSectorY, sizeof(sGeneralInfo.ubPBSectorY), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubPBSectorZ, sizeof(sGeneralInfo.ubPBSectorZ), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fCantRetreatInPBI, sizeof(sGeneralInfo.fCantRetreatInPBI), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fExplosionQueueActive, sizeof(sGeneralInfo.fExplosionQueueActive), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubUnused, sizeof(sGeneralInfo.ubUnused), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiMeanWhileFlags, sizeof(sGeneralInfo.uiMeanWhileFlags), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.bSelectedInfoChar, sizeof(sGeneralInfo.bSelectedInfoChar), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.bHospitalPriceModifier, sizeof(sGeneralInfo.bHospitalPriceModifier), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.bUnused2, sizeof(sGeneralInfo.bUnused2), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iHospitalTempBalance, sizeof(sGeneralInfo.iHospitalTempBalance), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iHospitalRefund, sizeof(sGeneralInfo.iHospitalRefund), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fPlayerTeamSawJoey, sizeof(sGeneralInfo.fPlayerTeamSawJoey), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fMikeShouldSayHi, sizeof(sGeneralInfo.fMikeShouldSayHi), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iTotalOwedForFacilityOperationsToday, sizeof(sGeneralInfo.iTotalOwedForFacilityOperationsToday), sizeof(INT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sSkyriderCostModifier, sizeof(sGeneralInfo.sSkyriderCostModifier), sizeof(INT16), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fOutstandingFacilityDebt, sizeof(sGeneralInfo.fOutstandingFacilityDebt), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.uiTotalUpkeepForMilitia, sizeof(sGeneralInfo.uiTotalUpkeepForMilitia), sizeof(UINT32), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sMercArrivalGridNo, sizeof(sGeneralInfo.sMercArrivalGridNo), sizeof(UINT32), numBytesRead);
+#ifdef JA2UB
+	//ja25 UB
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fMorrisShouldSayHi, sizeof(sGeneralInfo.fMorrisShouldSayHi), sizeof(INT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.fFirstTimeInGameHeliCrash, sizeof(sGeneralInfo.fFirstTimeInGameHeliCrash), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sINITIALHELIGRIDNO, sizeof(sGeneralInfo.sINITIALHELIGRIDNO), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLOCATEGRIDNO, sizeof(sGeneralInfo.sLOCATEGRIDNO), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLOCATEGRIDNO2, sizeof(sGeneralInfo.sLOCATEGRIDNO2), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sJerryGridNo, sizeof(sGeneralInfo.sJerryGridNo), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sJerryQuotes, sizeof(sGeneralInfo.sJerryQuotes), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sInJerry, sizeof(sGeneralInfo.sInJerry), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sInGameHeliCrash, sizeof(sGeneralInfo.sInGameHeliCrash), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLaptopQuestEnabled, sizeof(sGeneralInfo.sLaptopQuestEnabled), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sTEX_AND_JOHN, sizeof(sGeneralInfo.sTEX_AND_JOHN), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sRandom_Manuel_Text, sizeof(sGeneralInfo.sRandom_Manuel_Text), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB, sizeof(sGeneralInfo.sEVENT_ATTACK_INITIAL_SECTOR_IF_PLAYER_STILL_THERE_UB), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sHandleAddingEnemiesToTunnelMaps_UB, sizeof(sGeneralInfo.sHandleAddingEnemiesToTunnelMaps_UB), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sInGameHeli, sizeof(sGeneralInfo.sInGameHeli), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.spJA2UB, sizeof(sGeneralInfo.spJA2UB), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sfDeadMerc, sizeof(sGeneralInfo.sfDeadMerc), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.subEndDefaultSectorX, sizeof(sGeneralInfo.subEndDefaultSectorX), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.subEndDefaultSectorY, sizeof(sGeneralInfo.subEndDefaultSectorY), sizeof(UINT8), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.subEndDefaultSectorZ, sizeof(sGeneralInfo.subEndDefaultSectorZ), sizeof(UINT8), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sTestUB, sizeof(sGeneralInfo.sTestUB), sizeof(BOOLEAN), numBytesRead);
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLaptopLinkInsurance, sizeof(sGeneralInfo.sLaptopLinkInsurance), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLaptopLinkFuneral, sizeof(sGeneralInfo.sLaptopLinkFuneral), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.sLaptopLinkBobby, sizeof(sGeneralInfo.sLaptopLinkBobby), sizeof(BOOLEAN), numBytesRead);
+
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller2, sizeof(sGeneralInfo.ubFiller2), sizeof(BOOLEAN), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller3, sizeof(sGeneralInfo.ubFiller3), sizeof(UINT32), numBytesRead);
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller4, sizeof(sGeneralInfo.ubFiller4), sizeof(INT8), numBytesRead);
+
+#endif	
+	if ( guiCurrentSaveGameVersion >= NEW_GENERAL_SAVE_INFO_DATA )
+	{
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller1, sizeof(sGeneralInfo.ubFiller1), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterHoursToRepair, sizeof(sGeneralInfo.ubHelicopterHoursToRepair), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterBasicRepairsSoFar, sizeof(sGeneralInfo.ubHelicopterBasicRepairsSoFar), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterSeriousRepairsSoFar, sizeof(sGeneralInfo.ubHelicopterSeriousRepairsSoFar), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterHoverTime, sizeof(sGeneralInfo.ubHelicopterHoverTime), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubHelicopterTimeToFullRefuel, sizeof(sGeneralInfo.ubHelicopterTimeToFullRefuel), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.iTotalEarnedForFacilityOperationsToday, sizeof(sGeneralInfo.iTotalEarnedForFacilityOperationsToday), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller, sizeof(sGeneralInfo.ubFiller), sizeof(UINT8), numBytesRead);
+	}
+	else {
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.HiddenNames, sizeof(sGeneralInfo.HiddenNames), sizeof(BOOLEAN), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sGeneralInfo.ubFiller, sizeof(sGeneralInfo.ubFiller), sizeof(UINT8), numBytesRead);
+		for ( UINT32 count = 0; count < 256; ++count )
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
+	}
+	//CHRISL: GENERAL_SAVE_INFO is only 1586 but we have to read in DWORD lengths so we need to read additional filler bits from the save game file
+	for ( UINT32 count = numBytesRead; count < sizeof(GENERAL_SAVE_INFO); count++ )
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &filler, sizeof(filler), sizeof(UINT8), numBytesRead);
+
+	if ( numBytesRead != sizeof(GENERAL_SAVE_INFO) )
+	{
+		return(FALSE);
+	}
+
+	// Sometimes autosaves have invalid screens references esp. when generated on assert
+	EnsureValidLoadScreen(&sGeneralInfo.uiCurrentScreen);
+
+	gMusicModeToPlay = sGeneralInfo.ubMusicMode;
+
+	guiCurrentUniqueSoldierId = sGeneralInfo.uiCurrentUniqueSoldierId;
+
+	guiScreenToGotoAfterLoadingSavedGame = sGeneralInfo.uiCurrentScreen;
+
+	gusSelectedSoldier = sGeneralInfo.usSelectedSoldier;
+
+	gsRenderCenterX = sGeneralInfo.sRenderCenterX;
+	gsRenderCenterY = sGeneralInfo.sRenderCenterY;
+
+	gfAtLeastOneMercWasHired = sGeneralInfo.fAtLeastOneMercWasHired;
+
+	gfHavePurchasedItemsFromTony = sGeneralInfo.fHavePurchasedItemsFromTony;
+
+	fShowItemsFlag = sGeneralInfo.fShowItemsFlag;
+	fShowTownFlag = sGeneralInfo.fShowTownFlag;
+	fShowMineFlag = sGeneralInfo.fShowMineFlag;
+	gusMapDisplayColourMode = sGeneralInfo.usMapDisplayColourMode;
+	fShowTeamFlag = sGeneralInfo.fShowTeamFlag;
+
+	fHelicopterAvailable = sGeneralInfo.fHelicopterAvailable;
+
+	iHelicopterVehicleId = sGeneralInfo.iHelicopterVehicleId;
+
+	iTotalHeliDistanceSinceRefuel = sGeneralInfo.iTotalHeliDistanceSinceRefuel;
+
+	// total owed to player
+	iTotalAccumulatedCostByPlayer = sGeneralInfo.iTotalAccumulatedCostByPlayer;
+
+	// whether or not skyrider is alive and well? and on our side yet?
+	fSkyRiderAvailable = sGeneralInfo.fSkyRiderAvailable;
+
+	fHelicopterIsAirBorne = sGeneralInfo.fHelicopterIsAirBorne;
+
+	fHeliReturnStraightToBase = sGeneralInfo.fHeliReturnStraightToBase;
+
+	fHoveringHelicopter = sGeneralInfo.fHoveringHelicopter;
+
+	uiStartHoverTime = sGeneralInfo.uiStartHoverTime;
+
+	// what state is skyrider's dialogue in in?
+	guiHelicopterSkyriderTalkState = sGeneralInfo.uiHelicopterSkyriderTalkState;
+
+	// the flags for skyrider events
+	fShowEstoniRefuelHighLight = sGeneralInfo.fShowEstoniRefuelHighLight;
+	fShowOtherSAMHighLight = sGeneralInfo.fShowOtherSAMHighLight;
+	fShowDrassenSAMHighLight = sGeneralInfo.fShowDrassenSAMHighLight;
+	fShowCambriaHospitalHighLight = sGeneralInfo.fShowCambriaHospitalHighLight;
+
+	//rain
+	if ( guiRainLoop != NO_SAMPLE )
+	{
+		SoundStop(guiRainLoop);
+		guiRainLoop = NO_SAMPLE;
+	}
+	//end rain
+
+	gubDefaultButton = sGeneralInfo.ubDefaultButton;
+
+	gfSkyriderEmptyHelpGiven = sGeneralInfo.fSkyriderEmptyHelpGiven;
+	gubHelicopterHitsTaken = sGeneralInfo.ubHelicopterHitsTaken;
+
+	// anv: amount of hours to repair completion
+	gubHelicopterHoursToRepair = sGeneralInfo.ubHelicopterHoursToRepair;
+	// repairs so far (for dynamic cost increase)
+	gubHelicopterBasicRepairsSoFar = sGeneralInfo.ubHelicopterBasicRepairsSoFar;
+	gubHelicopterSeriousRepairsSoFar = sGeneralInfo.ubHelicopterSeriousRepairsSoFar;
+	// hover time
+	gubHelicopterHoverTime = sGeneralInfo.ubHelicopterHoverTime;
+	// time to full refuel
+	gubHelicopterTimeToFullRefuel = sGeneralInfo.ubHelicopterTimeToFullRefuel;
+
+	gfSkyriderSaidCongratsOnTakingSAM = sGeneralInfo.fSkyriderSaidCongratsOnTakingSAM;
+	gubPlayerProgressSkyriderLastCommentedOn = sGeneralInfo.ubPlayerProgressSkyriderLastCommentedOn;
+
+	fEnterMapDueToContract = sGeneralInfo.fEnterMapDueToContract;
+	ubQuitType = sGeneralInfo.ubQuitType;
+
+	//if the soldier id is valid
+	if ( sGeneralInfo.sContractRehireSoldierID == NOBODY )
+		pContractReHireSoldier = NULL;
+	else
+		pContractReHireSoldier = sGeneralInfo.sContractRehireSoldierID;
+
+	memcpy(&gGameOptions, &sGeneralInfo.GameOptions, sizeof(GAME_OPTIONS));
+#ifndef BMP_RANDOM//dnl ch55 111009
+#ifdef JA2BETAVERSION
+	//Reset the random 'seed' number
+	srand(sGeneralInfo.uiSeedNumber);
+#endif
+#endif
+	//Restore the JA2 Clock
+	guiBaseJA2Clock = sGeneralInfo.uiBaseJA2Clock;
+
+	// whenever guiBaseJA2Clock changes, we must reset all the timer variables that use it as a reference
+	ResetJA2ClockGlobalTimers();
+
+
+	// Restore the selected merc
+	if ( sGeneralInfo.ubSMCurrentMercID == NOBODY )
+		gpSMCurrentMerc = NULL;
+	else
+		gpSMCurrentMerc = sGeneralInfo.ubSMCurrentMercID;
+
+	//Set the interface panel to the team panel
+	ShutdownCurrentPanel();
+
+	//Restore the current tactical panel mode
+	gsCurInterfacePanel = sGeneralInfo.sCurInterfacePanel;
+
+	//Restore the fact that it is the first time in mapscreen
+	fFirstTimeInMapScreen = sGeneralInfo.fFirstTimeInMapScreen;
+
+	//Load map screen disabling buttons
+	fDisableDueToBattleRoster = sGeneralInfo.fDisableDueToBattleRoster;
+	fDisableMapInterfaceDueToBattle = sGeneralInfo.fDisableMapInterfaceDueToBattle;
+
+	memcpy(&gsBoxerGridNo, &sGeneralInfo.sBoxerGridNo, NUM_BOXERS * sizeof(INT32));
+	memcpy(&gubBoxerID, &sGeneralInfo.ubBoxerID, NUM_BOXERS * sizeof(UINT16));
+	memcpy(&gfBoxerFought, &sGeneralInfo.fBoxerFought, NUM_BOXERS * sizeof(BOOLEAN));
+
+	//Load the helicopter status
+	fHelicopterDestroyed = sGeneralInfo.fHelicopterDestroyed;
+	fShowMapScreenHelpText = sGeneralInfo.fShowMapScreenHelpText;
+
+
+	giSortStateForMapScreenList = sGeneralInfo.iSortStateForMapScreenList;
+	fFoundTixa = sGeneralInfo.fFoundTixa;
+
+	guiTimeOfLastSkyriderMonologue = sGeneralInfo.uiTimeOfLastSkyriderMonologue;
+	fSkyRiderSetUp = sGeneralInfo.fSkyRiderSetUp;
+
+	memcpy(&fRefuelingSiteAvailable, &sGeneralInfo.fRefuelingSiteAvailable, MAX_NUMBER_OF_REFUEL_SITES * sizeof(BOOLEAN));
+
+	//Meanwhile stuff
+	memcpy(&gCurrentMeanwhileDef, &sGeneralInfo.gCurrentMeanwhileDef, sizeof(MEANWHILE_DEFINITION));
+	//	gfMeanwhileScheduled = sGeneralInfo.gfMeanwhileScheduled;
+	gfMeanwhileTryingToStart = sGeneralInfo.gfMeanwhileTryingToStart;
+	gfInMeanwhile = sGeneralInfo.gfInMeanwhile;
+
+	// list of dead guys for squads...in id values->-1 means no one home 
+	memcpy(&sDeadMercs, &sGeneralInfo.sDeadMercs, sizeof(INT16) * NUMBER_OF_SQUADS * NUMBER_OF_SOLDIERS_PER_SQUAD);
+
+	// level of public noises
+	memcpy(&gbPublicNoiseLevel, &sGeneralInfo.gbPublicNoiseLevel, sizeof(INT8) * MAXTEAMS);
+
+	//the screen count for the init screen
+	gubScreenCount = sGeneralInfo.gubScreenCount;
+
+	//used for the mean while screen
+	if ( guiCurrentSaveGameVersion < 71 )
+	{
+		uiMeanWhileFlags = sGeneralInfo.usOldMeanWhileFlags;
+	}
+	else
+	{
+		uiMeanWhileFlags = sGeneralInfo.uiMeanWhileFlags;
+	}
+
+	//Imp portrait number
+	iPortraitNumber = sGeneralInfo.iPortraitNumber;
+
+	// location of first enocunter with enemy
+	sWorldSectorLocationOfFirstBattle = sGeneralInfo.sWorldSectorLocationOfFirstBattle;
+
+	fShowMilitia = sGeneralInfo.fShowMilitia;
+
+	fNewFilesInFileViewer = sGeneralInfo.fNewFilesInFileViewer;
+
+	gfLastBoxingMatchWonByPlayer = sGeneralInfo.fLastBoxingMatchWonByPlayer;
+
+	memcpy(&fSamSiteFound, &sGeneralInfo.fSamSiteFound, MAX_NUMBER_OF_SAMS * sizeof(BOOLEAN));
+
+	gubNumTerrorists = sGeneralInfo.ubNumTerrorists;
+	gubCambriaMedicalObjects = sGeneralInfo.ubCambriaMedicalObjects;
+
+	gfDisableTacticalPanelButtons = sGeneralInfo.fDisableTacticalPanelButtons;
+
+	sSelMapX = sGeneralInfo.sSelMapX;
+	sSelMapY = sGeneralInfo.sSelMapY;
+	iCurrentMapSectorZ = sGeneralInfo.iCurrentMapSectorZ;
+
+	//State of email flags
+	fUnReadMailFlag = sGeneralInfo.fUnReadMailFlag;
+	fNewMailFlag = sGeneralInfo.fNewMailFlag;
+	fOldUnreadFlag = sGeneralInfo.fOldUnReadFlag;
+	fOldNewMailFlag = sGeneralInfo.fOldNewMailFlag;
+
+	//Save the current status of the help screens flag that say wether or not the user has been there before
+	gHelpScreen.usHasPlayerSeenHelpScreenInCurrentScreen = sGeneralInfo.usHasPlayerSeenHelpScreenInCurrentScreen;
+
+	gubBoxingMatchesWon = sGeneralInfo.ubBoxingMatchesWon;
+	gubBoxersRests = sGeneralInfo.ubBoxersRests;
+	gfBoxersResting = sGeneralInfo.fBoxersResting;
+
+	gubDesertTemperature = sGeneralInfo.ubDesertTemperature;
+	gubGlobalTemperature = sGeneralInfo.ubGlobalTemperature;
+
+	gsMercArriveSectorX = sGeneralInfo.sMercArriveSectorX;
+	gsMercArriveSectorY = sGeneralInfo.sMercArriveSectorY;
+
+	gGameExternalOptions.ubDefaultArrivalSectorX = (UINT8)gsMercArriveSectorX;
+	gGameExternalOptions.ubDefaultArrivalSectorY = (UINT8)gsMercArriveSectorY;
+
+#ifdef JA2UB
+	JA2_5_START_SECTOR_X = gGameExternalOptions.ubDefaultArrivalSectorX;
+	JA2_5_START_SECTOR_Y = gGameExternalOptions.ubDefaultArrivalSectorY;
+#endif
+
+	gfCreatureMeanwhileScenePlayed = sGeneralInfo.fCreatureMeanwhileScenePlayed;
+
+	//load the global player num
+	gbPlayerNum = sGeneralInfo.ubPlayerNum;
+
+	//New stuff for the Prebattle interface / autoresolve
+	gfPersistantPBI = sGeneralInfo.fPersistantPBI;
+	SetEnemyEncounterCode(sGeneralInfo.ubEnemyEncounterCode);
+	SetExplicitEnemyEncounterCode(sGeneralInfo.ubExplicitEnemyEncounterCode);
+	gfBlitBattleSectorLocator = sGeneralInfo.fBlitBattleSectorLocator;
+	gubPBSectorX = sGeneralInfo.ubPBSectorX;
+	gubPBSectorY = sGeneralInfo.ubPBSectorY;
+	gubPBSectorZ = sGeneralInfo.ubPBSectorZ;
+	gfCantRetreatInPBI = sGeneralInfo.fCantRetreatInPBI;
+	gfExplosionQueueActive = sGeneralInfo.fExplosionQueueActive;
+
+	bSelectedInfoChar = sGeneralInfo.bSelectedInfoChar;
+
+	giHospitalTempBalance = sGeneralInfo.iHospitalTempBalance;
+	giHospitalRefund = sGeneralInfo.iHospitalRefund;
+	gbHospitalPriceModifier = sGeneralInfo.bHospitalPriceModifier;
+	gfPlayerTeamSawJoey = sGeneralInfo.fPlayerTeamSawJoey;
+	gfMikeShouldSayHi = sGeneralInfo.fMikeShouldSayHi;
+
+	// HEADROCK HAM 3.6: Load new global variable for facility costs
+	giTotalEarnedForFacilityOperationsToday = sGeneralInfo.iTotalEarnedForFacilityOperationsToday;
+	giTotalOwedForFacilityOperationsToday = sGeneralInfo.iTotalOwedForFacilityOperationsToday;
+
+	// HEADROCK HAM 3.6: Load Skyrider Costs Modifier
+	gsSkyriderCostModifier = sGeneralInfo.sSkyriderCostModifier;
+
+	// HEADROCK HAM 3.6: Load new global variable for facility debt
+	gfOutstandingFacilityDebt = sGeneralInfo.fOutstandingFacilityDebt;
+
+	// HEADROCK HAM 3.6: Load new global variable for militia upkeep
+	guiTotalUpkeepForMilitia = sGeneralInfo.uiTotalUpkeepForMilitia;
+
+#ifdef JA2UB	
+	//JA25 UB
+	gfMorrisShouldSayHi = sGeneralInfo.fMorrisShouldSayHi;
+	gfFirstTimeInGameHeliCrash = sGeneralInfo.fFirstTimeInGameHeliCrash;
+#endif
+
+	for ( int i = 0; i < 500; ++i )
+	{
+		zHiddenNames[i].Hidden = !sGeneralInfo.HiddenNames[i];
+	}
+
+#ifdef JA2UB
+	gGameUBOptions.InitialHeliGridNo[0] = sGeneralInfo.sINITIALHELIGRIDNO[0];//14947;
+	gGameUBOptions.InitialHeliGridNo[1] = sGeneralInfo.sINITIALHELIGRIDNO[1];//15584;//16067;
+	gGameUBOptions.InitialHeliGridNo[2] = sGeneralInfo.sINITIALHELIGRIDNO[2];//15754;
+	gGameUBOptions.InitialHeliGridNo[3] = sGeneralInfo.sINITIALHELIGRIDNO[3];//16232;
+	gGameUBOptions.InitialHeliGridNo[4] = sGeneralInfo.sINITIALHELIGRIDNO[4];//16067;
+	gGameUBOptions.InitialHeliGridNo[5] = sGeneralInfo.sINITIALHELIGRIDNO[5];//16230;
+	gGameUBOptions.InitialHeliGridNo[6] = sGeneralInfo.sINITIALHELIGRIDNO[6];//15272;
+
+	gGameUBOptions.LOCATEGRIDNO = sGeneralInfo.sLOCATEGRIDNO;
+	gGameUBOptions.LOCATEGRIDNO2 = sGeneralInfo.sLOCATEGRIDNO2;
+	gGameUBOptions.InGameHeliCrash = sGeneralInfo.sInGameHeliCrash;
+	gGameUBOptions.JerryGridNo = sGeneralInfo.sJerryGridNo;
+	gGameUBOptions.JerryQuotes = sGeneralInfo.sJerryQuotes;
+	gGameUBOptions.InJerry = sGeneralInfo.sInJerry;
+	gGameUBOptions.InGameHeli = sGeneralInfo.sInGameHeli;
+	gGameUBOptions.pJA2UB = sGeneralInfo.spJA2UB;
+
+	gGameUBOptions.fDeadMerc = sGeneralInfo.sfDeadMerc;
+
+	gGameUBOptions.ubEndDefaultSectorX = sGeneralInfo.subEndDefaultSectorX;
+	gGameUBOptions.ubEndDefaultSectorY = sGeneralInfo.subEndDefaultSectorY;
+	gGameUBOptions.ubEndDefaultSectorZ = sGeneralInfo.subEndDefaultSectorZ;
+
+	gGameUBOptions.TestUB = sGeneralInfo.sTestUB;
+
+	gGameUBOptions.LaptopLinkInsurance = sGeneralInfo.sLaptopLinkInsurance;
+	gGameUBOptions.LaptopLinkFuneral = sGeneralInfo.sLaptopLinkFuneral;
+	gGameUBOptions.LaptopLinkBobby = sGeneralInfo.sLaptopLinkBobby;
+#endif
+
+	if ( gGameExternalOptions.fShowCamouflageFaces )
+	{
+		//Camo Face by Jazz
+		for ( int i = 0; i < NUM_PROFILES; ++i )
+		{
+			gCamoFace[i].gCamoface = FALSE;
+			gCamoFace[i].gUrbanCamoface = FALSE;
+			gCamoFace[i].gDesertCamoface = FALSE;
+			gCamoFace[i].gSnowCamoface = FALSE;
+		}
+
+		SoldierID Soldier = gTacticalStatus.Team[gbPlayerNum].bFirstID;
+		SoldierID bLastTeamID = gTacticalStatus.Team[gbPlayerNum].bLastID;
+		for ( ; Soldier <= bLastTeamID; ++Soldier )
+		{
+			if ( Soldier )
+			{
+				UINT8 profile = Soldier->ubProfile;
+				gCamoFace[profile].gCamoface = (Soldier->bCamo > 0);
+				gCamoFace[profile].gUrbanCamoface = (Soldier->urbanCamo > 0);
+				gCamoFace[profile].gDesertCamoface = (Soldier->desertCamo > 0);
+				gCamoFace[profile].gSnowCamoface = (Soldier->snowCamo > 0);
+
+				DeleteSoldierFace(Soldier);
+				Soldier->iFaceIndex = InitSoldierFace(Soldier);
+			}
+		}
+	}
+
+	return(TRUE);
+}
+
 BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten;
@@ -9307,6 +12592,23 @@ BOOLEAN LoadPreRandomNumbersFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	//Load the Prerandom number index
+	LOADDATA(&guiPreRandomIndex, *ppBuffer, sizeof(UINT32));
+
+#ifndef BMP_RANDOM//dnl ch55 111009
+	//Load the Prerandom number index
+	for ( std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
+		iter != guiPreRandomNums.end(); ++iter ) {
+		LOADDATA(&*iter, *ppBuffer, sizeof(UINT32));
+	}
+#else
+	LOADDATA(guiPreRandomNums, *ppBuffer, sizeof(UINT32) * MAX_PREGENERATED_NUMS);
+#endif
+	return(TRUE);
+}
+
 BOOLEAN LoadMeanwhileDefsFromSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesRead;
@@ -9334,6 +12636,25 @@ BOOLEAN LoadMeanwhileDefsFromSaveGameFile( HWFILE hFile )
 	}
 
 	return( TRUE );
+}
+
+BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	if ( guiCurrentSaveGameVersion < 72 )
+	{
+		//Load the array of meanwhile defs
+		LOADDATA(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * (NUM_MEANWHILES - 1));
+		// and set the last one
+		memset(&(gMeanwhileDef[NUM_MEANWHILES - 1]), 0, sizeof(MEANWHILE_DEFINITION));
+
+	}
+	else
+	{
+		//Load the array of meanwhile defs
+		LOADDATA(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * NUM_MEANWHILES);
+	}
+
+	return(TRUE);
 }
 
 BOOLEAN SaveMeanwhileDefsFromSaveGameFile( HWFILE hFile )

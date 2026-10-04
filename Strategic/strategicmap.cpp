@@ -5612,6 +5612,76 @@ BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile )
 	return(TRUE);
 }
 
+BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiSize = sizeof(StrategicMapElement);
+	if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
+		uiSize = 41;
+
+	for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
+	{
+		// Load the strategic map information
+		LOADDATA(&StrategicMap[i], *ppBuffer, uiSize);
+
+		if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
+			StrategicMap[i].usFlags = 0;
+	}
+
+	if ( guiCurrentSaveGameVersion < HACKABLE_SAMS )
+	{
+		// all SAM sites start game in perfect working condition
+		for ( UINT32 cnt = 0; cnt < NUMBER_OF_SAMS; ++cnt )
+		{
+			StrategicMap[CALCULATE_STRATEGIC_INDEX(gpSamSectorX[cnt], gpSamSectorY[cnt])].sSamHackStatus = 100;
+		}
+	}
+
+	// Load the Sector Info
+	uiSize = sizeof(SECTORINFO);
+	if ( guiCurrentSaveGameVersion < ENEMY_JEEPS )
+		uiSize = 116;
+
+	for ( int sectorID = 0; sectorID <= 255; ++sectorID )
+	{
+		LOADDATA(&SectorInfo[sectorID], *ppBuffer, uiSize);
+
+		// Flugente: changes in SECTORINFO require a weird-looking remapping
+		if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
+		{
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_GENERAL] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_CIVILIAN] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET1] = 0;
+			SectorInfo[sectorID].uiNumberOfPrisonersOfWar[PRISONER_SECRET2] = 0;
+			SectorInfo[sectorID].ubNumTanks = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_GENERAL];
+			SectorInfo[sectorID].ubTanksInBattle = SectorInfo[sectorID].uiInterrogationHundredsLeft[PRISONER_CIVILIAN];
+		}
+
+		if ( guiCurrentSaveGameVersion < WORKERS )
+		{
+			SectorInfo[sectorID].usWorkers = SectorExternalData[sectorID][0].maxworkers * gGameExternalOptions.dInitialWorkerRate;
+			SectorInfo[sectorID].ubWorkerTrainingHundredths = 0;
+		}
+
+		if ( guiCurrentSaveGameVersion < CORPSE_DISPOSAL )
+		{
+			SectorInfo[sectorID].usNumCorpses = 0;		// this will get updated on the next full hour anyway
+			SectorInfo[sectorID].fDiseasePoints = 0.0f;
+			SectorInfo[sectorID].usInfectionFlag &= ~3;
+			SectorInfo[sectorID].dBurial_UnappliedProgress = 0.0f;
+		}
+	}
+
+
+	// Load the SAM Controlled Sector Information
+	uiSize = MAP_WORLD_X * MAP_WORLD_Y;
+	//FileSeek(hFile, uiSize, FILE_SEEK_FROM_CURRENT);
+	SKIPDATA(*ppBuffer, *ppBuffer, uiSize);
+
+	// Load the fFoundOrta
+	LOADDATA(&fFoundOrta, *ppBuffer, sizeof(BOOLEAN));
+
+	return(TRUE);
+}
 
 INT32 PickGridNoNearestEdge( SOLDIERTYPE *pSoldier, UINT8 ubTacticalDirection )
 {

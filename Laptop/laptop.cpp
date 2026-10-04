@@ -7266,6 +7266,74 @@ BOOLEAN LoadLaptopInfoFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiNumBytesRead = 0;
+	UINT32	uiSize;
+
+	//if there is memory allocated for the BobbyR orders
+	if ( LaptopSaveInfo.usNumberOfBobbyRayOrderItems )
+	{
+		//Free the memory
+		if ( LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray )
+			MemFree(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray);
+		LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray = NULL;
+	}
+
+	//if there is memory allocated for life insurance payouts
+	if ( LaptopSaveInfo.ubNumberLifeInsurancePayouts )
+	{
+		if ( !LaptopSaveInfo.pLifeInsurancePayouts )
+			Assert(0);	//Should never happen
+
+		//Free the memory
+		MemFree(LaptopSaveInfo.pLifeInsurancePayouts);
+		LaptopSaveInfo.pLifeInsurancePayouts = NULL;
+	}
+
+	// Load The laptop information
+	LOADDATA(&LaptopSaveInfo, *ppBuffer, sizeof(LaptopSaveInfoStruct));
+
+	//If there is anything in the Bobby Ray Orders on Delivery
+	if ( LaptopSaveInfo.usNumberOfBobbyRayOrderUsed )
+	{
+		//Allocate memory for the information
+		uiSize = sizeof(BobbyRayOrderStruct) * LaptopSaveInfo.usNumberOfBobbyRayOrderItems;
+
+		LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray = (BobbyRayOrderStruct*)MemAlloc(uiSize);
+		Assert(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray);
+
+		// Load The laptop information
+		LOADDATA(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray, *ppBuffer, uiSize);
+	}
+	else
+	{
+		LaptopSaveInfo.usNumberOfBobbyRayOrderItems = 0;
+		LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray = NULL;
+	}
+
+	//If there is any Insurance Payouts in progress
+	if ( LaptopSaveInfo.ubNumberLifeInsurancePayoutUsed )
+	{
+		//Allocate memory for the information
+		uiSize = sizeof(LIFE_INSURANCE_PAYOUT) * LaptopSaveInfo.ubNumberLifeInsurancePayouts;
+
+		LaptopSaveInfo.pLifeInsurancePayouts = (LIFE_INSURANCE_PAYOUT*)MemAlloc(uiSize);
+		Assert(LaptopSaveInfo.pLifeInsurancePayouts);
+
+		// Load The laptop information
+		LOADDATA(LaptopSaveInfo.pLifeInsurancePayouts, *ppBuffer, uiSize);
+	}
+	else
+	{
+		LaptopSaveInfo.ubNumberLifeInsurancePayouts = 0;
+		LaptopSaveInfo.pLifeInsurancePayouts = NULL;
+	}
+
+	return(TRUE);
+}
+
+
 void LaptopSaveVariablesInit()
 {
 }

@@ -494,6 +494,54 @@ BOOLEAN LuaMines::Load(HWFILE hFile)
 	return TRUE;
 }
 
+BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
+{
+	Reset();
+
+	INT32 numMines;
+	MINE_STATUS_TYPE mineStatus;
+
+	gMineStatus.clear();
+	LOADDATA(&numMines, *ppBuffer, sizeof(INT32));
+
+	for ( int i = 0; i < numMines; i++ )
+	{
+		LOADDATA(&mineStatus, *ppBuffer, sizeof(MINE_STATUS_TYPE));
+		gMineStatus.push_back(mineStatus);
+	}
+
+	MAX_NUMBER_OF_MINES = gMineStatus.size();
+
+
+	INT32 numSectors;
+	AssociatedMineSector sector;
+	associatedMineSectors.clear();
+	LOADDATA(&numSectors, *ppBuffer, sizeof(INT32));
+
+	for ( int i = 0; i < numSectors; i++ )
+	{
+		LOADDATA(&sector, *ppBuffer, sizeof(AssociatedMineSector));
+		associatedMineSectors.push_back(sector);
+	}
+
+
+	INT32 numHeadMiners;
+	HEAD_MINER_TYPE miner;
+	gHeadMinerData.clear();
+	LOADDATA(&numHeadMiners, *ppBuffer, sizeof(INT32));
+
+	for ( int i = 0; i < numHeadMiners; i++ )
+	{
+		LOADDATA(&miner, *ppBuffer, sizeof(HEAD_MINER_TYPE));
+		gHeadMinerData.push_back(miner);
+	}
+	NUM_HEAD_MINERS = gHeadMinerData.size();
+
+	InitMinerFaces();
+
+	return TRUE;
+}
+
 BOOLEAN LuaMines::Save(HWFILE hFile)
 {
 	UINT32 uiNumBytesWritten;

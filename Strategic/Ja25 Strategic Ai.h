@@ -197,6 +197,7 @@ void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UI
 
 BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile );
 BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile );
+BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer);
 
 
 void HandleAddingEnemiesToTunnelMaps();

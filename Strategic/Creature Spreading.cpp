@@ -2229,6 +2229,66 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 	return( TRUE );
 }
 
+BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+{
+	LOADDATA(&giHabitatedDistance, *ppBuffer, 4);
+	LOADDATA(&giPopulationModifier, *ppBuffer, 4);
+	LOADDATA(&giLairID, *ppBuffer, 4);
+
+	BOOLEAN fUseCreatureMusic;
+	LOADDATA(&fUseCreatureMusic, *ppBuffer, 1);
+	UseCreatureMusic(fUseCreatureMusic);
+
+	if ( uiSavedGameVersion >= 82 )
+	{
+		LOADDATA(&giDestroyedLairID, *ppBuffer, 4);
+	}
+	else
+	{
+		giDestroyedLairID = 0;
+	}
+
+#ifdef JA2BETAVERSION
+	if ( gfClearCreatureQuest && giLairID != -1 )
+	{
+		giLairID = 0;
+#ifdef JA2UB 
+		// no UB
+#else
+		gfCreatureMeanwhileScenePlayed = FALSE;
+		uiMeanWhileFlags &= ~(0x00000800);
+#endif
+	}
+	gfClearCreatureQuest = FALSE;
+#endif
+
+	//count infectible sites defined initmines.lua script
+	INT32 iNumMinesInfectibleLUA = 0;
+
+	for ( INT32 x = 0; x < MAX_NUMBER_OF_MINES; x++ )
+	{
+		if ( gMineStatus[x].fInfectible )
+			iNumMinesInfectibleLUA++;
+	}
+
+	if ( giLairID <= 0 )
+	{
+		//quest finished/lair doesn't exist yet -- it's okay
+	}
+	else if ( giLairID <= min(NUMBER_OF_INFECTIBLE_SITES, iNumMinesInfectibleLUA) )
+	{
+		InitLair(giLairID);
+	}
+	else
+	{
+#ifdef JA2BETAVERSION
+		ScreenMsg(FONT_RED, MSG_ERROR, L"Invalid restoration of creature lair ID of %d.	Save game potentially hosed.", giLairID);
+#endif
+	}
+
+	return(TRUE);
+}
+
 void ForceCreaturesToAvoidMineTemporarily( UINT8 ubMineIndex )
 {
 	gMineStatus[ ubMineIndex ].usValidDayCreaturesCanInfest = (UINT16)(GetWorldDay() + 2);

@@ -810,6 +810,68 @@ BOOLEAN LoadStrategicEventsFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiNumGameEvents;
+	STRATEGICEVENT* sGameEvent = nullptr;
+	UINT32 cnt;
+	UINT32 uiNumBytesRead = 0;
+	STRATEGICEVENT* pTemp = NULL;
+
+
+	//erase the old Game Event queue
+	DeleteAllStrategicEvents();
+
+
+	//Read the number of strategic events
+	LOADDATA(&uiNumGameEvents, *ppBuffer, sizeof(UINT32));
+
+
+	pTemp = NULL;
+
+	//loop through all the events and save them.
+	for ( cnt = 0; cnt < uiNumGameEvents; cnt++ )
+	{
+		STRATEGICEVENT* pTempEvent = NULL;
+
+		// allocate memory for the event
+		sGameEvent = (STRATEGICEVENT*)MemAlloc(sizeof(STRATEGICEVENT));
+		if ( sGameEvent == NULL )
+			return(FALSE);
+
+		//Read the current strategic event
+		LOADDATA(sGameEvent, *ppBuffer, sizeof(STRATEGICEVENT));
+
+
+		// Add the new node to the list
+		//if its the first node,
+		if ( cnt == 0 )
+		{
+			// assign it as the head node
+			gpEventList = sGameEvent;
+
+			//assign the 'current node' to the head node
+			pTemp = gpEventList;
+		}
+		else
+		{
+			// add the new node to the next field of the current node
+			pTemp->next = sGameEvent;
+
+			//advance the current node to the next node
+			pTemp = pTemp->next;
+		}
+
+		// NULL out the next field ( cause there is no next field yet )
+		sGameEvent->next = NULL;
+	}
+
+	InitMiniEvents();
+
+	return(TRUE);
+}
+
+
 void LockStrategicEventFromDeletion( STRATEGICEVENT *pEvent )
 {
 	pEvent->ubFlags |= SEF_PREVENT_DELETION;

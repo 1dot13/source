@@ -52,5 +52,6 @@ void HandlePMCArrival( UINT8 usId );
 
 BOOLEAN SavePMC( HWFILE hwFile );
 BOOLEAN LoadPMC( HWFILE hwFile );
+BOOLEAN LoadPMCBuffer(CHAR8** ppBuffer);
 
 #endif //__PMC_H

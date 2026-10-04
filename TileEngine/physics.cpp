@@ -2895,6 +2895,36 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiNumBytesRead = 0;
+	UINT16	usCnt = 0;
+
+	//make sure the objects are not allocated
+	for ( int x = 0; x < NUM_OBJECT_SLOTS; ++x )
+	{
+		ObjectSlots[x].initialize();
+	}
+
+	//Load the number of REAL_OBJECTs in the array
+	LOADDATA(&guiNumObjectSlots, *ppBuffer, sizeof(UINT32));
+
+	//loop through and add the objects
+	for ( usCnt = 0; usCnt < guiNumObjectSlots; usCnt++ )
+	{
+		//Load the the REAL_OBJECT structure
+		if ( !ObjectSlots[usCnt].LoadBuffer(ppBuffer) )
+		{
+			return(FALSE);
+		}
+
+		ObjectSlots[usCnt].pNode = NULL;
+		ObjectSlots[usCnt].pShadow = NULL;
+		ObjectSlots[usCnt].iID = usCnt;
+	}
+
+	return(TRUE);
+}
 
 INT32 RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius )
 {

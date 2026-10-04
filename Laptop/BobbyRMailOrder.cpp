@@ -2910,6 +2910,44 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	INT32		iCnt;
+	UINT32	uiNumBytesRead;
+
+	//clear out the old list
+	ShutDownBobbyRNewMailOrders();
+
+	//Read the number of orders
+	LOADDATA(&giNumberOfNewBobbyRShipment, *ppBuffer, sizeof(INT32));
+
+	if ( giNumberOfNewBobbyRShipment == 0 )
+	{
+		gpNewBobbyrShipments = NULL;
+	}
+	else
+	{
+		//Allocate memory for the list
+		gpNewBobbyrShipments = (NewBobbyRayOrderStruct*)MemAlloc(sizeof(NewBobbyRayOrderStruct) * giNumberOfNewBobbyRShipment);
+
+		if ( gpNewBobbyrShipments == NULL )
+		{
+			Assert(0);
+			return(FALSE);
+		}
+		memset(gpNewBobbyrShipments, 0, (sizeof(NewBobbyRayOrderStruct) * giNumberOfNewBobbyRShipment));
+
+		//loop through and load all the mail order slots
+		for ( iCnt = 0; iCnt < giNumberOfNewBobbyRShipment; iCnt++ )
+		{
+			//Read the order
+			LOADDATA(&gpNewBobbyrShipments[iCnt], *ppBuffer, sizeof(NewBobbyRayOrderStruct));
+		}
+	}
+
+	return(TRUE);
+}
+
 void HandleBobbyRMailOrderKeyBoardInput()
 {
 	InputAtom					InputEvent;

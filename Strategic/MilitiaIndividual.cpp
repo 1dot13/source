@@ -112,6 +112,60 @@ MILITIA::Load( HWFILE hwFile )
 	return(TRUE);
 }
 
+BOOLEAN MILITIA::LoadBuffer(CHAR8** ppBuffer)
+{
+	if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
+	{
+		UINT32 numBytesRead = 0;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &id, sizeof(id), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &flagmask, sizeof(flagmask), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &origin, sizeof(origin), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &originsector, sizeof(originsector), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sector, sizeof(sector), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &age, sizeof(age), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &militiarank, sizeof(militiarank), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &bodytype, sizeof(bodytype), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &skin, sizeof(skin), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &hair, sizeof(hair), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &forename, sizeof(forename), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &surname, sizeof(surname), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &callsign, sizeof(callsign), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &healthratio, sizeof(healthratio), sizeof(FLOAT), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &kills, sizeof(kills), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &assists, sizeof(assists), sizeof(UINT16), numBytesRead);
+
+		// promotionpoints has been changed from UINT16 to FLOAT, so we need changes here
+		if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA_EXP_FLOAT )
+		{
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &promotionpoints, sizeof(promotionpoints), sizeof(FLOAT), numBytesRead);
+		}
+		else
+		{
+			UINT16 tmp;
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &tmp, sizeof(tmp), sizeof(UINT16), numBytesRead);
+
+			promotionpoints = tmp;
+
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &tmp, sizeof(tmp), sizeof(UINT16), numBytesRead);
+		}
+
+		if ( numBytesRead != SIZEOF_MILITIA_POD )
+			return(FALSE);
+
+		UINT32 size = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &size, sizeof(size), sizeof(UINT32), numBytesRead);
+
+		for ( UINT32 i = 0; i < size; ++i )
+		{
+			MILITIA_BATTLEREPORT data;
+			LOADDATA(&data, *ppBuffer, sizeof(MILITIA_BATTLEREPORT));
+			history.push_back(data);
+		}
+	}
+
+	return(TRUE);
+}
 
 static CHAR16	gMilitiaNameText[100];
 STR16	MILITIA::GetName()
@@ -232,6 +286,35 @@ BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile )
 		// we changed variable storing the militia quality from soldierclass to militia rank, so we have to change this here
 		if ( guiCurrentSaveGameVersion < INDIVIDUAL_MILITIA_RANKFIX )
 			data.militiarank = SoldierClassToMilitiaRank( data.militiarank );
+
+		gIndividualMilitiaVector.push_back(data);
+	}
+
+
+	// reset time tracker
+	gMIWarningTime = 0;
+
+	return TRUE;
+}
+
+BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer)
+{
+	InitIndividualMilitiaData();
+
+	UINT32 numBytesRead = 0;
+
+	UINT32 size = 0;
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &size, sizeof(size), sizeof(UINT32), numBytesRead);
+
+	for ( UINT32 i = 0; i < size; ++i )
+	{
+		MILITIA data;
+		if ( !data.LoadBuffer(ppBuffer) )
+			return(FALSE);
+
+		// we changed variable storing the militia quality from soldierclass to militia rank, so we have to change this here
+		if ( guiCurrentSaveGameVersion < INDIVIDUAL_MILITIA_RANKFIX )
+			data.militiarank = SoldierClassToMilitiaRank(data.militiarank);
 
 		gIndividualMilitiaVector.push_back(data);
 	}

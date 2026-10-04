@@ -171,6 +171,7 @@ void HandleCivQuote( );
 
 BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile );
+BOOLEAN LoadCivQuotesFromLoadGameFileBuffer(CHAR8** ppBuffer);
 
 BOOLEAN ShutDownQuoteBoxIfActive( );
 

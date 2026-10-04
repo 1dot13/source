@@ -2712,6 +2712,61 @@ BOOLEAN LoadUnderGroundSectorInfoFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiNumOfRecords = 0;
+	UINT32	cnt = 0;
+	UNDERGROUND_SECTORINFO* TempNode = NULL;
+	UNDERGROUND_SECTORINFO* TempSpot = NULL;
+
+	//Clear the current LL
+	TrashUndergroundSectorInfo();
+
+	//Read in the number of nodes stored
+	LOADDATA(&uiNumOfRecords, *ppBuffer, sizeof(UINT32));
+
+	for ( cnt = 0; cnt < uiNumOfRecords; cnt++ )
+	{
+
+		//Malloc space for the new node
+		TempNode = (UNDERGROUND_SECTORINFO*)MemAlloc(sizeof(UNDERGROUND_SECTORINFO));
+		if ( TempNode == NULL )
+			return(FALSE);
+
+
+		//read in the new node
+		LOADDATA(TempNode, *ppBuffer, sizeof(UNDERGROUND_SECTORINFO));
+
+		//If its the first time in, assign the node to the list
+		if ( cnt == 0 )
+		{
+			gpUndergroundSectorInfoHead = TempNode;
+			TempSpot = gpUndergroundSectorInfoHead;
+			TempSpot->next = NULL;
+		}
+		else
+		{
+			//assign the new node to the LL
+			TempSpot->next = TempNode;
+
+			//advance to the next node
+			TempSpot = TempSpot->next;
+			TempSpot->next = NULL;
+			gpUndergroundSectorInfoTail = TempSpot;
+		}
+
+	}
+
+#ifdef JA2BETAVERSION
+	if ( !uiNumOfRecords )
+	{
+		BuildUndergroundSectorInfoList();
+		gfClearCreatureQuest = TRUE;
+	}
+#endif
+
+	return(TRUE);
+}
 
 UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ )
 {

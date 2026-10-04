@@ -2060,7 +2060,21 @@ BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 	return( TRUE );
 }
 
+BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
+{
+	if ( uiSaveGameVersion < MORE_LOCKS_AND_KEYS )
+	{
+		// Load the KeyTable
+		LOADDATA(KeyTable, *ppBuffer, sizeof(KEY) * NUM_KEYS_OLD);
+	}
+	else
+	{
+		// Load the KeyTable
+		LOADDATA(KeyTable, *ppBuffer, sizeof(KEY) * NUM_KEYS);
+	}
 
+	return(TRUE);
+}
 
 void ExamineDoorsOnEnteringSector( )
 {

@@ -877,6 +877,57 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFile(HWFILE hFile)
 	return TRUE;
 }
 
+BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	ShipmentListSaveFileDataHeaderStruct sls;
+	// Read in shipment list data header
+
+	if ( !_Shipments.empty() )
+	{
+		_Shipments.clear();
+	}
+
+	LOADDATA(&sls, *ppBuffer, sizeof(ShipmentListSaveFileDataHeaderStruct));
+
+	ShipmentPackageStruct		sps;
+
+	for ( int i = 0; i < (int)sls.uiNumberOfShipments; i++ )
+	{
+		ShipmentSaveFileDataStruct	sfs;
+
+		// Read in shipment data header
+		memset(&sfs, 0, sizeof(ShipmentSaveFileDataStruct));
+		LOADDATA(&sfs, *ppBuffer, sizeof(ShipmentSaveFileDataStruct));
+
+		// WANNE: Bugfix: Fixed CTD in VS 2008 Release EXE (by birdflu) -> This leads to item duplication!!!
+		//memset(&shs, 0, sizeof(ShipmentStruct));		
+
+		// WANNE: This is the fix for the item duplication!
+		ShipmentStruct	shs;
+
+		shs.pDestination = &(_GetDestination(sfs.usDestinationID));
+		shs.pDestinationDeliveryInfo = &(_DeliveryMethods[sfs.ubDeliveryMethodIndex].pDestinationDeliveryInfos->at(sfs.usDestinationID));
+		shs.ShipmentStatus = sfs.ShipmentStatus;
+		shs.sReceiverID = sfs.sReceiverID;
+		shs.sSenderID = sfs.sSenderID;
+		shs.usID = sfs.usID;
+		shs.uiOrderDate = sfs.uiOrderDate;
+
+		_UsedShipmentIDList.resize(sfs.usID + 1);
+		_UsedShipmentIDList[sfs.usID] = TRUE;
+
+		for ( int j = 0; j < (int)sfs.uiNumberOfPackages; j++ )
+		{
+			memset(&sps, 0, sizeof(ShipmentPackageStruct));
+			LOADDATA(&sps, *ppBuffer, sizeof(ShipmentPackageStruct));
+			shs.ShipmentPackages.push_back(sps);
+		}
+		_Shipments.push_back(shs);
+	}
+
+	return TRUE;
+}
+
 BOOLEAN CPostalService::SaveShipmentListToSaveGameFile(HWFILE hFile)
 {
 	ShipmentListSaveFileDataHeaderStruct sls;

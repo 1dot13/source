@@ -29,6 +29,7 @@ BOOLEAN AddMapModification( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 //Load the Map modifications from the saved game file
 BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile );
+BOOLEAN	LoadMapTempFilesFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 //Save the Map Temp files to the saved game file
 BOOLEAN SaveMapTempFilesToSavedGameFile( HWFILE hFile );
@@ -98,6 +99,7 @@ void AddExtraItems (UINT8, UINT8, UINT8, bool = false);
 
 //Saves the NPC temp Quote file to the saved game file
 BOOLEAN LoadTempNpcQuoteArrayToSaveGameFile( HWFILE hFile );
+BOOLEAN LoadTempNpcQuoteArrayToSaveGameFileBuffer(CHAR8** ppBuffer);
 
 //Loads the NPC temp Quote file from the saved game file
 BOOLEAN SaveTempNpcQuoteArrayToSaveGameFile( HWFILE hFile );
@@ -112,6 +114,10 @@ BOOLEAN JA2EncryptedFileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, U
 
 BOOLEAN NewJA2EncryptedFileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UINT32 *puiBytesRead );
 BOOLEAN NewJA2EncryptedFileWrite( HWFILE hFile, PTR pDest, UINT32 uiBytesToWrite, UINT32 *puiBytesWritten );
+
+BOOLEAN JA2NonEncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead);
+BOOLEAN JA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead);
+BOOLEAN NewJA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead);
 
 
 //If hacker's mess with our save/temp files, this is our final line of defence.

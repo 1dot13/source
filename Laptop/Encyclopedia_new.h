@@ -30,6 +30,7 @@ extern void EncyclopediaSetItemAsVisible( UINT16 itemIndex, ENC_ITEM_VISIBILITY_
 extern UINT8 gbEncyclopediaData_ItemVisible[];
 
 BOOLEAN LoadEncyclopediaItemVisibility( HWFILE hFile );
+BOOLEAN LoadEncyclopediaItemVisibilityBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveEncyclopediaItemVisibility( HWFILE hFile );
 
 #ifdef ENCYCLOPEDIA_WORKS
