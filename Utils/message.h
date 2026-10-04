@@ -89,6 +89,7 @@ void RemoveTacticalMessageFilter ( void );
 void ClearTacticalMessageQueue( void );
 
 BOOLEAN LoadMapScreenMessagesFromSaveGameFile( HWFILE hFile );
+BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveMapScreenMessagesToSaveGameFile( HWFILE hFile );
 
 // use these if you are not Kris

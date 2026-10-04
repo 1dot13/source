@@ -1248,6 +1248,23 @@ BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+{
+	LOADDATA(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO));
+
+	//
+	// Ai Manager
+	//
+	LOADDATA(&gJa25StrategicAi, *ppBuffer, sizeof(JA25_SECTOR_AI_MANAGER));
+
+	//
+	// Sector Info
+	//
+	LOADDATA(&gJa25AiSectorStruct, *ppBuffer, sizeof(JA25_SECTOR_AI) * CUSTOMSECTOR);
+
+	return(TRUE);
+}
+
 void InitJa25StrategicAiBloodcats( )
 {
 	INT8	bNumBloodCats=0;

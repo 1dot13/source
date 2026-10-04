@@ -11096,6 +11096,13 @@ BOOLEAN LoadLuaGlobalFromLoadGameFile(HWFILE hFile)
 
 	return(TRUE);
 }
+
+BOOLEAN LoadLuaGlobalFromLoadGameFileBuffer(CHAR8** ppBuffer)
+{
+	LOADDATA(&gLuaGlobal, *ppBuffer, sizeof(gLuaGlobal));
+
+	return(TRUE);
+}
 //--------------------------------------------------------------
 
 

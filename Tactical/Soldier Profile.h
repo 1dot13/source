@@ -60,6 +60,7 @@ enum ProfileType
 extern UINT8 gProfileType[NUM_PROFILES];
 
 extern BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile );
+BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer);
 //---------------------------------------------------
 
 enum NPCIDs

@@ -189,6 +189,7 @@ BOOLEAN DidGameJustStart();
 
 BOOLEAN SaveGameClock( HWFILE hFile, BOOLEAN fGamePaused, BOOLEAN fLockPauseState );
 BOOLEAN LoadGameClock( HWFILE hFile );
+BOOLEAN LoadGameClockBuffer(CHAR8** ppBuffer);
 
 // time compress flag stuff
 BOOLEAN HasTimeCompressOccured( void );

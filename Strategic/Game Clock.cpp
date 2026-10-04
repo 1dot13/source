@@ -1041,6 +1041,41 @@ BOOLEAN LoadGameClock( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadGameClockBuffer(CHAR8** ppBuffer)
+{
+	LOADDATA(&giTimeCompressMode, *ppBuffer, sizeof(INT32));
+	LOADDATA(&gubClockResolution, *ppBuffer, sizeof(UINT8));
+	LOADDATA(&gfGamePaused, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&gfTimeInterrupt, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&fSuperCompression, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&guiGameClock, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&guiGameSecondsPerRealSecond, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&ubAmbientLightLevel, *ppBuffer, sizeof(UINT8));
+	LOADDATA(&guiEnvTime, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&guiEnvDay, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&gubEnvLightValue, *ppBuffer, sizeof(UINT8));
+	LOADDATA(&guiTimeOfLastEventQuery, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&gfLockPauseState, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&gfPauseDueToPlayerGamePause, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&gfResetAllPlayerKnowsEnemiesFlags, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&gfTimeCompressionOn, *ppBuffer, sizeof(BOOLEAN));
+	LOADDATA(&guiPreviousGameClock, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&guiLockPauseStateLastReasonId, *ppBuffer, sizeof(UINT32));
+	LOADDATA(&gubUnusedTimePadding, *ppBuffer, TIME_PADDINGBYTES);
+
+	//Update the game clock
+	guiDay = (guiGameClock / NUM_SEC_IN_DAY);
+	guiHour = (guiGameClock - (guiDay * NUM_SEC_IN_DAY)) / NUM_SEC_IN_HOUR;
+	guiMin = (guiGameClock - ((guiDay * NUM_SEC_IN_DAY) + (guiHour * NUM_SEC_IN_HOUR))) / NUM_SEC_IN_MIN;
+
+	swprintf(WORLDTIMESTR, L"%s %d, %02d:%02d", pDayStrings[0], guiDay, guiHour, guiMin);
+
+	if ( !gfBasement && !gfCaves )
+		gfDoLighting = TRUE;
+
+	return(TRUE);
+}
+
 //
 // \brief Creates MOUSE_REGION for FastHelpText and PauseOfClockBtnCallback() centered around a box located at sX, sY (top left coords).
 //

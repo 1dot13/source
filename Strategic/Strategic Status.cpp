@@ -63,6 +63,20 @@ BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadStrategicStatusFromSaveGameFileBuffer(CHAR8 **ppBuffer)
+{
+	//Load the Strategic Status structure from the saved game file
+	LOADDATA(&gStrategicStatus, *ppBuffer, sizeof(STRATEGIC_STATUS));
+
+	// Flugente: enemy generals: if loading an old savegame that did not have this feature, or it was turned off and is now turned on, initialise generals
+	if ( guiCurrentSaveGameVersion < ENEMY_VIPS || !gStrategicStatus.usVIPsTotal )
+	{
+		// Flugente: set up VIP locations
+		InitVIPSectors();
+	}
+
+	return(TRUE);
+}
 
 #define DEATH_RATE_SEVERITY 1.0f			// increase to make death rates higher for same # of deaths/time
 

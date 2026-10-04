@@ -312,6 +312,12 @@ BOOLEAN LoadEncyclopediaItemVisibility( HWFILE hFile )
 
 	return (TRUE);
 }
+
+BOOLEAN LoadEncyclopediaItemVisibilityBuffer(CHAR8** ppBuffer)
+{
+	LOADDATA(gbEncyclopediaData_ItemVisible, *ppBuffer, MAXITEMS);
+	return (TRUE);
+}
 ///@}
 
 #ifdef ENCYCLOPEDIA_WORKS

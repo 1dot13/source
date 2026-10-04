@@ -1429,6 +1429,63 @@ BOOLEAN LoadAirRaidInfoFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadAirRaidInfoFromSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	AIR_RAID_SAVE_STRUCT sAirRaidSaveStruct;
+
+	//Load the number of REAL_OBJECTs in the array
+	LOADDATA(&sAirRaidSaveStruct, *ppBuffer, sizeof(AIR_RAID_SAVE_STRUCT));
+
+
+	// Put all the globals into the save struct
+	gfInAirRaid = sAirRaidSaveStruct.fInAirRaid;
+	gfAirRaidScheduled = sAirRaidSaveStruct.fAirRaidScheduled;
+	gubAirRaidMode = sAirRaidSaveStruct.ubAirRaidMode;
+	guiSoundSample = sAirRaidSaveStruct.uiSoundSample;
+	guiRaidLastUpdate = sAirRaidSaveStruct.uiRaidLastUpdate;
+	gfFadingRaidIn = sAirRaidSaveStruct.fFadingRaidIn;
+	gfQuoteSaid = sAirRaidSaveStruct.fQuoteSaid;
+	gbNumDives = sAirRaidSaveStruct.bNumDives;
+	gbMaxDives = sAirRaidSaveStruct.bMaxDives;
+	gfFadingRaidOut = sAirRaidSaveStruct.fFadingRaidOut;
+	gsDiveX = sAirRaidSaveStruct.sDiveX;
+	gsDiveY = sAirRaidSaveStruct.sDiveY;
+	gsDiveTargetLocation = sAirRaidSaveStruct.sDiveTargetLocation;
+	gubDiveDirection = sAirRaidSaveStruct.ubDiveDirection;
+	gsNumGridNosMoved = sAirRaidSaveStruct.sNumGridNosMoved;
+	giNumTurnsSinceLastDive = sAirRaidSaveStruct.iNumTurnsSinceLastDive;
+	giNumTurnsSinceDiveStarted = sAirRaidSaveStruct.iNumTurnsSinceDiveStarted;
+	giNumGridNosMovedThisTurn = sAirRaidSaveStruct.iNumGridNosMovedThisTurn;
+	gfAirRaidHasHadTurn = sAirRaidSaveStruct.fAirRaidHasHadTurn;
+	gubBeginTeamTurn = sAirRaidSaveStruct.ubBeginTeamTurn;
+	gfHaveTBBatton = sAirRaidSaveStruct.fHaveTBBatton;
+
+	gsNotLocatedYet = sAirRaidSaveStruct.sNotLocatedYet;
+	giNumFrames = sAirRaidSaveStruct.iNumFrames;
+
+
+	if ( sAirRaidSaveStruct.sRaidSoldierID != NOBODY )
+	{
+		gpRaidSoldier = sAirRaidSaveStruct.sRaidSoldierID;
+
+		gpRaidSoldier->pathing.bLevel = sAirRaidSaveStruct.bLevel;
+		gpRaidSoldier->bTeam = sAirRaidSaveStruct.bTeam;
+		gpRaidSoldier->bSide = sAirRaidSaveStruct.bSide;
+		gpRaidSoldier->ubAttackerID = sAirRaidSaveStruct.ubAttackerID;
+		gpRaidSoldier->usAttackingWeapon = sAirRaidSaveStruct.usAttackingWeapon;
+		gpRaidSoldier->dXPos = sAirRaidSaveStruct.dXPos;
+		gpRaidSoldier->dYPos = sAirRaidSaveStruct.dYPos;
+		gpRaidSoldier->sX = sAirRaidSaveStruct.sX;
+		gpRaidSoldier->sY = sAirRaidSaveStruct.sY;
+		gpRaidSoldier->sGridNo = sAirRaidSaveStruct.sGridNo;
+	}
+	else
+		gpRaidSoldier = NULL;
+
+	memcpy(&gAirRaidDef, &sAirRaidSaveStruct.AirRaidDef, sizeof(AIR_RAID_DEFINITION));
+
+	return(TRUE);
+}
 
 
 void EndAirRaid( )

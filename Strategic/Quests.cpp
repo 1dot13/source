@@ -1670,6 +1670,17 @@ BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest )
 	return( TRUE );
 }
 
+BOOLEAN LoadQuestInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT8 MaxQuest)
+{
+	//Save all the states if the Quests
+	LOADDATA(gubQuest, *ppBuffer, MaxQuest);
+
+	//Save all the states for the facts
+	LOADDATA(gubFact, *ppBuffer, NUM_FACTS);
+
+	return(TRUE);
+}
+
 // Flugente: a huge array that can be used exclusively by modders
 BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile )
 {
@@ -1695,6 +1706,14 @@ BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile )
 	{
 		return(FALSE);
 	}
+
+	return(TRUE);
+}
+
+BOOLEAN LoadLUAModderDataFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	//Save all the states for the facts
+	LOADDATA(gubModderLuaData, *ppBuffer, sizeof(INT32) * MODDER_LUA_DATA_MAX);
 
 	return(TRUE);
 }

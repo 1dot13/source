@@ -105,6 +105,7 @@ void TempFileLoadErrorMessageReturnCallback( UINT8 ubRetVal );
 
 BOOLEAN SaveWorldItemsToTempItemFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ, UINT32 uiNumberOfItems, WORLDITEM *pData );
 BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ );
+BOOLEAN RetrieveTempFileFromSavedGameBuffer(CHAR8** ppBuffer, UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ);
 
 BOOLEAN AddTempFileToSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
@@ -546,6 +547,224 @@ BOOLEAN	LoadMapTempFilesFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN	LoadMapTempFilesFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	UNDERGROUND_SECTORINFO* TempNode = gpUndergroundSectorInfoHead;
+	UINT32	uiPercentage;
+	UINT32	iCounter = 0;
+
+	// HACK FOR GABBY
+	if ( guiCurrentSaveGameVersion < 81 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
+	{
+		if ( gMercProfiles[GABBY].bMercStatus != MERC_IS_DEAD )
+		{
+			// turn off alternate flags for the sectors he could be in
+			// randomly place him in one of the two possible sectors
+			SectorInfo[SECTOR(14, MAP_ROW_L)].uiFlags &= ~SF_USE_ALTERNATE_MAP;
+			SectorInfo[SECTOR(8, MAP_ROW_L)].uiFlags &= ~SF_USE_ALTERNATE_MAP;
+
+			if ( Random(2) )
+			{
+				SectorInfo[SECTOR(11, MAP_ROW_H)].uiFlags |= SF_USE_ALTERNATE_MAP;
+				gMercProfiles[GABBY].sSectorX = 11;
+				gMercProfiles[GABBY].sSectorY = MAP_ROW_H;
+			}
+			else
+			{
+				SectorInfo[SECTOR(4, MAP_ROW_I)].uiFlags |= SF_USE_ALTERNATE_MAP;
+				gMercProfiles[GABBY].sSectorX = 4;
+				gMercProfiles[GABBY].sSectorY = MAP_ROW_I;
+			}
+		}
+	}
+
+
+	// Preparation for loading item temp files
+	ClearAllWorldItems();
+	//
+	//Loop though all the array elements to see if there is a data file to be loaded
+	//
+
+	//First look through the above ground sectors
+	for ( INT16 sMapY = 1; sMapY < MAP_WORLD_Y - 1; ++sMapY )
+	{
+		for ( INT16 sMapX = 1; sMapX < MAP_WORLD_X - 1; ++sMapX )
+		{
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ITEM_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+				// Load world items from map temp files into global struct
+				LoadWorldItemsFromTempFiles(sMapX, sMapY, 0);
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_DOOR_TABLE_TEMP_FILES_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			//Get the revealed status temp file From the saved game file
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			//Get the revealed status temp file From the saved game file
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_DOOR_STATUS_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+				gEnemyPreservedTempFileVersion[SECTOR(sMapX, sMapY)] = guiCurrentSaveGameVersion;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+
+				if ( guiCurrentSaveGameVersion < 78 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
+				{
+					CHAR8 pMapName[128];
+
+					// KILL IT!!! KILL KIT!!!! IT IS CORRUPTED!!!
+					GetMapTempFileName(SF_CIV_PRESERVED_TEMP_FILE_EXISTS, pMapName, sMapX, sMapY, 0);
+					FileDelete(pMapName);
+
+					// turn off the flag
+					SectorInfo[SECTOR(sMapX, sMapY)].uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
+				}
+
+				gCivPreservedTempFileVersion[SECTOR(sMapX, sMapY)] = guiCurrentSaveGameVersion;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			if ( SectorInfo[SECTOR(sMapX, sMapY)].uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
+			{
+				if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, sMapX, sMapY, 0) )
+					return FALSE;
+			}
+
+			//if any other file is to be saved
+
+			++iCounter;
+
+			//update the progress bar
+			uiPercentage = (iCounter * 100) / (255);
+
+			RenderProgressBar(0, uiPercentage);
+		}
+	}
+
+	//then look throught all the underground sectors
+	while ( TempNode )
+	{
+		if ( TempNode->uiFlags & SF_ITEM_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ITEM_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+
+			//sync up the temp file data to the sector structure data
+			LoadWorldItemsFromTempFiles(TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ);
+		}
+
+		if ( TempNode->uiFlags & SF_ROTTING_CORPSE_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ROTTING_CORPSE_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		if ( TempNode->uiFlags & SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_MAP_MODIFICATIONS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		if ( TempNode->uiFlags & SF_DOOR_TABLE_TEMP_FILES_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_DOOR_TABLE_TEMP_FILES_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		//Get the revealed status temp file From the saved game file
+		if ( TempNode->uiFlags & SF_REVEALED_STATUS_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_REVEALED_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		//Get the revealed status temp file From the saved game file
+		if ( TempNode->uiFlags & SF_DOOR_STATUS_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_DOOR_STATUS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		if ( TempNode->uiFlags & SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_ENEMY_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		if ( TempNode->uiFlags & SF_CIV_PRESERVED_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_CIV_PRESERVED_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+
+			if ( guiCurrentSaveGameVersion < 78 && (gTacticalStatus.uiFlags & LOADING_SAVED_GAME) )
+			{
+				CHAR8 pMapName[128];
+
+				// KILL IT!!! KILL KIT!!!! IT IS CORRUPTED!!!
+				GetMapTempFileName(SF_CIV_PRESERVED_TEMP_FILE_EXISTS, pMapName, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ);
+				FileDelete(pMapName);
+
+				// turn off the flag
+				TempNode->uiFlags &= (~SF_CIV_PRESERVED_TEMP_FILE_EXISTS);
+			}
+		}
+
+		if ( TempNode->uiFlags & SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_SMOKE_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		if ( TempNode->uiFlags & SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS )
+		{
+			if ( !RetrieveTempFileFromSavedGameBuffer(ppBuffer, SF_LIGHTING_EFFECTS_TEMP_FILE_EXISTS, TempNode->ubSectorX, TempNode->ubSectorY, TempNode->ubSectorZ) )
+				return FALSE;
+		}
+
+		TempNode = TempNode->next;
+	}
+	//ttt
+	return(TRUE);
+}
 
 
 /*
@@ -1672,6 +1891,18 @@ BOOLEAN RetrieveTempFileFromSavedGame( HWFILE hFile, UINT32 uiType, INT16 sMapX,
 	return( TRUE );
 }
 
+BOOLEAN RetrieveTempFileFromSavedGameBuffer(CHAR8** ppBuffer, UINT32 uiType, INT16 sMapX, INT16 sMapY, INT8 bMapZ)
+{
+	CHAR8		zMapName[128];
+
+	GetMapTempFileName(uiType, zMapName, sMapX, sMapY, bMapZ);
+
+	//Load the map temp file from the saved game file
+	if ( !LoadFilesFromSavedGameBuffer(zMapName, ppBuffer) )
+		return(FALSE);
+
+	return(TRUE);
+}
 
 
 //Deletes the Temp map Directory
@@ -2760,6 +2991,11 @@ BOOLEAN LoadTempNpcQuoteArrayToSaveGameFile( HWFILE hFile )
 	return( LoadFilesFromSavedGame( NPC_TEMP_QUOTE_FILE, hFile ) );
 }
 
+BOOLEAN LoadTempNpcQuoteArrayToSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	return(LoadFilesFromSavedGameBuffer(NPC_TEMP_QUOTE_FILE, ppBuffer));
+}
+
 void TempFileLoadErrorMessageReturnCallback( UINT8 ubRetVal )
 {
 	gfProgramIsRunning = FALSE;
@@ -2929,6 +3165,65 @@ BOOLEAN JA2EncryptedFileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UIN
 	}
 
 	return( fRet );
+}
+
+BOOLEAN JA2NonEncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
+{
+	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
+	return(true);
+}
+
+BOOLEAN JA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
+{
+	UINT32	uiLoop;
+	UINT8		ubArrayIndex = 0;
+	UINT8		ubLastByte = 0;
+	UINT8		ubLastByteForNextLoop;
+	UINT8* pMemBlock;
+
+	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
+	pMemBlock = (UINT8*)pDest;
+	for ( uiLoop = 0; uiLoop < uiBytesToRead; uiLoop++ )
+	{
+		ubLastByteForNextLoop = pMemBlock[uiLoop];
+		pMemBlock[uiLoop] -= (ubLastByte + ubRotationArray[ubArrayIndex]);
+		ubArrayIndex++;
+		if ( ubArrayIndex >= ROTATION_ARRAY_SIZE )
+		{
+			ubArrayIndex = 0;
+		}
+		ubLastByte = ubLastByteForNextLoop;
+	}
+
+	return(true);
+}
+
+BOOLEAN NewJA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
+{
+	UINT32	uiLoop;
+	UINT8		ubArrayIndex = 0;
+	UINT8		ubLastByte = 0;
+	UINT8		ubLastByteForNextLoop;
+	UINT8* pMemBlock;
+	UINT8* pubRotationArray;
+
+	pubRotationArray = GetRotationArray();
+
+	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
+	pMemBlock = (UINT8*)pDest;
+	for ( uiLoop = 0; uiLoop < uiBytesToRead; uiLoop++ )
+	{
+		ubLastByteForNextLoop = pMemBlock[uiLoop];
+		pMemBlock[uiLoop] -= (ubLastByte + pubRotationArray[ubArrayIndex]);
+		ubArrayIndex++;
+		if ( ubArrayIndex >= NEW_ROTATION_ARRAY_SIZE )
+		{
+			ubArrayIndex = 0;
+		}
+		ubLastByte = ubLastByteForNextLoop;
+	}
+
+	return(true);
 }
 
 

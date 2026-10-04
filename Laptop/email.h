@@ -792,6 +792,7 @@ extern void AddEmailFromXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMP
 extern void AddEmailWithSpecialDataXML(INT32 iMessageOffset, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, BOOLEAN alreadyRead, INT32 iFirstData, UINT32 uiSecondData, INT32 iThirdData, INT32 iFourthData, UINT32 uiFifthData, UINT32 uiSixData);
 extern BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile );
 extern BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile );
+BOOLEAN LoadNewEmailDataFromLoadGameFileBuffer(CHAR8** ppBuffer);
 
 #ifdef JA2UB
 extern void AddBobbyREmailJA2(INT32 iMessageOffset, INT32 iMessageLength, UINT8 ubSender, INT32 iDate, INT32 iCurrentIMPPosition, INT16 iCurrentShipmentDestinationID, UINT8 EmailType );

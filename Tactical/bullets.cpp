@@ -636,6 +636,38 @@ BOOLEAN LoadBulletStructureFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadBulletStructureFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT16	usCnt;
+
+	//make sure the bullets are not allocated
+	memset(gBullets, 0, NUM_BULLET_SLOTS * sizeof(BULLET));
+
+	//Load the number of Bullets in the array
+	LOADDATA(&guiNumBullets, *ppBuffer, sizeof(UINT32));
+
+	for ( usCnt = 0; usCnt < guiNumBullets; usCnt++ )
+	{
+		//Load the the Bullet structure
+		LOADDATA(&gBullets[usCnt], *ppBuffer, sizeof(BULLET));
+
+		//Set some parameters
+		gBullets[usCnt].uiLastUpdate = 0;
+		if ( gBullets[usCnt].ubFirerID != NOBODY )
+			gBullets[usCnt].pFirer = gBullets[usCnt].ubFirerID;
+		else
+			gBullets[usCnt].pFirer = NULL;
+
+		gBullets[usCnt].pAniTile = NULL;
+		gBullets[usCnt].pShadowAniTile = NULL;
+		gBullets[usCnt].iBullet = usCnt;
+
+		HandleBulletSpecialFlags(gBullets[usCnt].iBullet);
+	}
+
+	return(TRUE);
+}
+
 void StopBullet( INT32 iBullet )
 {
 	gBullets[ iBullet ].usFlags |= BULLET_STOPPED;

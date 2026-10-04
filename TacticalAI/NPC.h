@@ -207,6 +207,7 @@ extern BOOLEAN ReloadAllQuoteFiles( void );
 // Save and loads the npc info to a saved game file
 extern BOOLEAN SaveNPCInfoToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion );
+BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion);
 
 extern void TriggerFriendWithHostileQuote( UINT8 ubNPC );
 
@@ -231,6 +232,7 @@ BOOLEAN NPCWillingToAcceptItem( UINT8 ubNPC, UINT8 ubMerc, OBJECTTYPE * pObj );
 
 BOOLEAN SaveBackupNPCInfoToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadBackupNPCInfoFromSavedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion );
+BOOLEAN LoadBackupNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion);
 
 #ifdef JA2BETAVERSION
 void ToggleNPCRecordDisplay( void );

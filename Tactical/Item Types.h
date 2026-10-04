@@ -242,6 +242,7 @@ public:
 	LBENODE() { initialize();};
 	void	initialize() {inv.clear();};
 	BOOLEAN	Load( HWFILE hFile );
+	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 	BOOLEAN	Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion );
 	BOOLEAN	Save( HWFILE hFile, bool fSavingMap );
 
@@ -564,6 +565,7 @@ public:
 	bool operator==(const StackedObjectData& compare)const;
 
 	BOOLEAN	Load( HWFILE hFile );
+	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 	BOOLEAN	Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion );
 	BOOLEAN	Save( HWFILE hFile, bool fSavingMap );
 
@@ -629,6 +631,7 @@ public:
 	static	void CopyToOrCreateAt(OBJECTTYPE** ppTarget, OBJECTTYPE* pSource);
 
 	BOOLEAN	Load( HWFILE hFile );
+	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 	BOOLEAN	Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion );
 	BOOLEAN	Save( HWFILE hFile, bool fSavingMap );
 

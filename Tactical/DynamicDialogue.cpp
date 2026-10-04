@@ -336,6 +336,60 @@ BOOLEAN LoadDynamicDialogue( HWFILE hwFile )
 	return TRUE;
 }
 
+BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer)
+{
+	// clear any artefacts prior to loading
+	DestroyAllDynamicDialogueBoxes();
+
+	gDynamicDialogueEventCounter = 0;
+
+	gCurrentDynamicDialogueEventData.usId = 0;
+	gCurrentDynamicDialogueEventData.usPriority = 0;
+
+	gDynamicOpinionSpeechEventVector.clear();
+
+	gDynamicOpinionSpeechEventArchiveVector.clear();
+
+	gOpionionEventsDuringDialogue.clear();
+
+	gDynamicOpinionSpeechInCurrentDialogue.clear();
+
+	SetfDynamicOpinionSpeechInProgress(FALSE);
+
+	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
+	{
+		UINT32 numBytesRead = 0;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gCurrentDynamicDialogueEventData, sizeof(gCurrentDynamicDialogueEventData), sizeof(DynamicOpinionSpeechEvent_EventData), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gDynamicDialogueEventCounter, sizeof(gDynamicDialogueEventCounter), sizeof(UINT32), numBytesRead);
+
+		UINT32 size = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &size, sizeof(size), sizeof(UINT32), numBytesRead);
+
+		UINT32 safetycheck1 = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck1, sizeof(safetycheck1), sizeof(UINT32), numBytesRead);
+
+		for ( UINT32 i = 0; i < size; ++i )
+		{
+			DynamicOpinionSpeechEvent event;
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &event, sizeof(event), sizeof(DynamicOpinionSpeechEvent), 0);
+
+			gDynamicOpinionSpeechEventArchiveVector.push_back(event);
+		}
+
+		UINT32 safetycheck2 = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead);
+
+		if ( safetycheck1 != gDynDiaSaveCheck || safetycheck2 != gDynDiaSaveCheck )
+		{
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading dynamic dialogue events!");
+			return FALSE;
+		}
+	}
+
+	return TRUE;
+}
+
 void CleanDynamicOpinionSpeechEvents( )
 {
 	gDynamicOpinionSpeechEventVector.clear( );

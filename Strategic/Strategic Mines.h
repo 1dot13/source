@@ -168,6 +168,7 @@ BOOLEAN SaveMineStatusToSaveGameFile( HWFILE hFile );
 
 //Load the mine status from the saved game file
 BOOLEAN LoadMineStatusFromSavedGameFile( HWFILE hFile );
+BOOLEAN LoadMineStatusFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 // if the player controls a given mine
 BOOLEAN PlayerControlsMine(INT8 bMineIndex);

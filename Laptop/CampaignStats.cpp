@@ -141,6 +141,38 @@ Incident_Stats::Load( HWFILE hwFile )
 	return( TRUE );
 }
 
+BOOLEAN Incident_Stats::LoadBuffer(CHAR8** ppBuffer)
+{
+	if ( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
+	{
+		UINT32 numBytesRead = 0;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usID, sizeof(usID), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usTime, sizeof(usTime), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usSector, sizeof(usSector), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usLevel, sizeof(usLevel), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usInterestRating, sizeof(usInterestRating), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usNPCDied, sizeof(usNPCDied), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usCivFactionFought, sizeof(usCivFactionFought), sizeof(UINT8), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usIncidentFlags, sizeof(usIncidentFlags), sizeof(UINT64), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usOneTimeEventFlags, sizeof(usOneTimeEventFlags), sizeof(UINT64), numBytesRead);
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usKills, sizeof(usKills), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usWounds, sizeof(usWounds), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usPrisoners, sizeof(usPrisoners), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usShots, sizeof(usShots), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usParticipants, sizeof(usParticipants), sizeof(UINT16), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usPromotions, sizeof(usPromotions), sizeof(UINT16), numBytesRead);
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usFiller, sizeof(usFiller), sizeof(UINT8), numBytesRead);
+
+		if ( numBytesRead != SIZEOF_INCIDENT_STATS_POD )
+			return(FALSE);
+	}
+
+	return(TRUE);
+}
+
 void
 Incident_Stats::AddStat( SOLDIERTYPE* pSoldier, UINT8 aType )
 {
@@ -645,6 +677,48 @@ Campaign_Stats::Load( HWFILE hwFile )
 	}
 	
 	return( TRUE );
+}
+
+BOOLEAN Campaign_Stats::LoadBuffer(CHAR8** ppBuffer)
+{
+	if ( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
+	{
+		clear();
+
+		UINT32 numBytesRead = 0;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usKills, sizeof(usKills), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usWounds, sizeof(usWounds), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usPrisoners, sizeof(usPrisoners), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usShots, sizeof(usShots), sizeof(UINT32), numBytesRead);
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &sMoneyEarned, sizeof(sMoneyEarned), sizeof(INT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usConsumed, sizeof(usConsumed), sizeof(FLOAT), numBytesRead);
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usNumIncidents, sizeof(usNumIncidents), sizeof(UINT32), numBytesRead);
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usHighestID, sizeof(usHighestID), sizeof(UINT32), numBytesRead);
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usFiller, sizeof(usFiller), sizeof(UINT8), numBytesRead);
+
+		if ( numBytesRead != SIZEOF_CAMPAIGN_STATS_POD )
+			return(FALSE);
+
+		for ( UINT32 i = 0; i < usNumIncidents; ++i )
+		{
+			Incident_Stats incident;
+			if ( !incident.LoadBuffer(ppBuffer) )
+				return(FALSE);
+
+			// if option is active, only read the last reports and forget the rest
+			if ( gGameExternalOptions.usReportsToLoad < 0 || i >= usNumIncidents - gGameExternalOptions.usReportsToLoad )
+				mIncidentVector.push_back(incident);
+		}
+
+		// re-evaluate the vector size - we may have been ordered to forget some
+		usNumIncidents = mIncidentVector.size();
+	}
+
+	return(TRUE);
 }
 
 // Warning! As this also updates the overall kill counters, don't use this function when loading incidents

@@ -7949,6 +7949,15 @@ BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadHiddenTownFromLoadGameFileBuffer(CHAR8** ppBuffer)
+{
+	LOADDATA(&gfHiddenTown, *ppBuffer, sizeof(gfHiddenTown));
+	LOADDATA(&gfDrawHiddenTown, *ppBuffer, sizeof(gfDrawHiddenTown));
+	LOADDATA(&gfIconTown, *ppBuffer, sizeof(gfIconTown));
+
+	return(TRUE);
+}
+
 // Flugente: militia pathing
 BOOLEAN gMilitiaGroupBoxCreated = FALSE;
 UINT16 gMilitiaGroupBoxX = 0;

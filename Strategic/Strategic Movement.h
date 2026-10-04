@@ -273,6 +273,7 @@ BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile );
 
 //Load the strategic movement Group paths from the saved game file
 BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile );
+BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 // check members of mvt group, if any are bleeding, complain before moving
 void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier );

@@ -207,6 +207,7 @@ public:
 	
 	// Interfaces
 	BOOLEAN LoadShipmentListFromSaveGameFile(HWFILE hFile);
+	BOOLEAN LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer);
 	BOOLEAN SaveShipmentListToSaveGameFile(HWFILE hFile);
 
 	// Shipment utility functions

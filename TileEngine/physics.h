@@ -76,6 +76,7 @@ public:
 	REAL_OBJECT		() {initialize();};
 	REAL_OBJECT&	operator=(OLD_REAL_OBJECT_101& src);
 	BOOLEAN			Load(HWFILE hFile);
+	BOOLEAN			LoadBuffer(CHAR8** ppBuffer);
 	BOOLEAN			Save(HWFILE hFile);
 	void			initialize();
 
@@ -177,6 +178,7 @@ void SimulateWorld(	);
 BOOLEAN	SavePhysicsTableToSaveGameFile( HWFILE hFile );
 
 BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile );
+BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 // Flugente: artillery functions
 INT32  RandomGridFromRadius( INT32 sSweetGridNo, INT8 ubMinRadius, INT8 ubMaxRadius );

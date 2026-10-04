@@ -45,6 +45,7 @@ public:
 
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
+	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 
 	LuaMines();
 	virtual ~LuaMines();

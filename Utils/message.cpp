@@ -1434,6 +1434,95 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiCount;
+	UINT32	uiSizeOfString;
+	StringSaveStruct StringSave;
+	CHAR16	SavedString[512];
+
+	// clear tactical message queue
+	ClearTacticalMessageQueue();
+
+	gubEndOfMapScreenMessageList = 0;
+	gubStartOfMapScreenMessageList = 0;
+	gubCurrentMapMessageString = 0;
+
+	//	Read to the begining of the message list
+	LOADDATA(&gubEndOfMapScreenMessageList, *ppBuffer, sizeof(UINT8));
+
+	//	Read the current message string
+	LOADDATA(&gubStartOfMapScreenMessageList, *ppBuffer, sizeof(UINT8));
+
+	//	Read the current message string
+	LOADDATA(&gubCurrentMapMessageString, *ppBuffer, sizeof(UINT8));
+
+	//Loopthrough all the messages
+	for ( uiCount = 0; uiCount < 256; uiCount++ )
+	{
+		//	Read to the file the size of the message
+		LOADDATA(&uiSizeOfString, *ppBuffer, sizeof(UINT32));
+
+		//if there is a message
+		if ( uiSizeOfString )
+		{
+			//	Read the message from the file
+			LOADDATA(SavedString, *ppBuffer, uiSizeOfString);
+
+			//if there is an existing string,delete it
+			if ( gMapScreenMessageList[uiCount] )
+			{
+				if ( gMapScreenMessageList[uiCount]->pString16 )
+				{
+					MemFree(gMapScreenMessageList[uiCount]->pString16);
+					gMapScreenMessageList[uiCount]->pString16 = NULL;
+				}
+			}
+			else
+			{
+				// There is now message here, add one
+				ScrollStringSt* sScroll;
+
+
+				sScroll = (ScrollStringSt*)MemAlloc(sizeof(ScrollStringSt));
+				if ( sScroll == NULL )
+					return(FALSE);
+
+				memset(sScroll, 0, sizeof(ScrollStringSt));
+
+				gMapScreenMessageList[uiCount] = sScroll;
+			}
+
+			//allocate space for the new string
+			gMapScreenMessageList[uiCount]->pString16 = (STR16)MemAlloc(uiSizeOfString);
+			if ( gMapScreenMessageList[uiCount]->pString16 == NULL )
+				return(FALSE);
+
+			memset(gMapScreenMessageList[uiCount]->pString16, 0, uiSizeOfString);
+
+			//copy the string over
+			wcscpy(gMapScreenMessageList[uiCount]->pString16, SavedString);
+
+
+			//Read the rest of the message information to the saved game file
+			LOADDATA(&StringSave, *ppBuffer, sizeof(StringSaveStruct));
+
+			// Create the saved string struct
+			gMapScreenMessageList[uiCount]->uiFont = StringSave.uiFont;
+			gMapScreenMessageList[uiCount]->usColor = StringSave.usColor;
+			gMapScreenMessageList[uiCount]->uiFlags = StringSave.uiFlags;
+			gMapScreenMessageList[uiCount]->fBeginningOfNewString = StringSave.fBeginningOfNewString;
+			gMapScreenMessageList[uiCount]->uiTimeOfLastUpdate = StringSave.uiTimeOfLastUpdate;
+		}
+		else
+			gMapScreenMessageList[uiCount] = NULL;
+	}
+
+	// this will set a valid value for gubFirstMapscreenMessageIndex, which isn't being saved/restored
+	MoveToEndOfMapScreenMessageList();
+
+	return(TRUE);
+}
 
 void HandleLastQuotePopUpTimer( void )
 {

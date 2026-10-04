@@ -712,12 +712,14 @@ extern void CheckForQuests( UINT32 uiDay );
 void InitQuestEngine();
 
 BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest );
+BOOLEAN LoadQuestInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT8 MaxQuest);
 BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile );
 
 // Flugente: a huge array that can be used exclusively by modders
 #define MODDER_LUA_DATA_MAX	1000
 
 BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile );
+BOOLEAN LoadLUAModderDataFromSavedGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile );
 void InitLUAModderData();
 

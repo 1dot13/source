@@ -1089,6 +1089,18 @@ BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
 
 	return( TRUE );
 }
+
+BOOLEAN LoadCivQuotesFromLoadGameFileBuffer(CHAR8** ppBuffer)
+{
+	// anv: reset uiTauntFinishTimes after game is loaded (so enemies can taunt after guiBaseJA2Clock is decreased)
+	memset(&uiTauntFinishTimes, 0, sizeof(uiTauntFinishTimes));
+
+	LOADDATA(&gCivQuotes, *ppBuffer, sizeof(gCivQuotes));
+	CopyNumEntriesIntoQuoteStruct(); //Not used 
+
+	return(TRUE);
+}
+
 //--------------------------------------------------------------
 // anv: start enemy taunt with probabilty depending on taunt settings
 void PossiblyStartEnemyTaunt( SOLDIERTYPE *pCiv, TAUNTTYPE iTauntType, SoldierID uiTargetID )

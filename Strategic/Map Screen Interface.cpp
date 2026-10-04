@@ -7037,6 +7037,89 @@ BOOLEAN LoadLeaveItemList( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
+{
+	INT32 iCounter = 0;
+	MERC_LEAVE_ITEM* pCurrentItem;
+	MERC_LEAVE_ITEM* pItem;
+	UINT32 uiCount = 0;
+	UINT32	uiNumBytesRead = 0;
+	BOOLEAN	fNodeExists = FALSE;
+	UINT32	uiSubItem;
+
+	//Shutdown the list
+	ShutDownLeaveList();
+
+	//init the list
+	InitLeaveList();
+
+	//loop through all the lists
+	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
+	{
+		// load the flag that specifis that a node DOES exist
+		LOADDATA(&fNodeExists, *ppBuffer, sizeof(BOOLEAN));
+
+		// if a root node is supposed to exist
+		if ( fNodeExists )
+		{
+			// load the number specifing how many items there are in the list
+			LOADDATA(&uiCount, *ppBuffer, sizeof(UINT32));
+
+			// Sanity check
+			if ( uiCount > 1000 ) {
+				return(FALSE);
+			}
+
+			// allocate space
+			gpLeaveListHead[iCounter] = new MERC_LEAVE_ITEM;
+			if ( gpLeaveListHead[iCounter] == NULL )
+			{
+				return(FALSE);
+			}
+
+			pCurrentItem = gpLeaveListHead[iCounter];
+
+			for ( uiSubItem = 0; uiSubItem < uiCount; uiSubItem++ )
+			{
+				// allocate space
+				pItem = new MERC_LEAVE_ITEM;
+				if ( pItem == NULL )
+				{
+					return(FALSE);
+				}
+
+				// Load the items
+				if ( !pItem->LoadBuffer(ppBuffer) )
+				{
+					return(FALSE);
+				}
+
+
+				pItem->pNext = NULL;
+
+				//add the node to the list
+				if ( uiSubItem == 0 )
+				{
+					gpLeaveListHead[iCounter] = pItem;
+					pCurrentItem = gpLeaveListHead[iCounter];
+				}
+				else
+				{
+					pCurrentItem->pNext = pItem;
+					pCurrentItem = pCurrentItem->pNext;
+				}
+			}
+		}
+	}
+
+	//Load the leave list profile id's
+	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
+	{
+		LOADDATA(&guiLeaveListOwnerProfileId[iCounter], *ppBuffer, sizeof(UINT32));
+	}
+
+	return(TRUE);
+}
 
 
 void TurnOnSectorLocator( UINT8 ubProfileID )

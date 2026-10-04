@@ -6323,3 +6323,20 @@ BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile )
 
 	return( TRUE );
 }
+
+BOOLEAN LoadNewEmailDataFromLoadGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiNumOfEmails = 0;
+	EmailPtr	pEmail = pEmailList;
+
+	LOADDATA(&gEmailT, *ppBuffer, sizeof(gEmailT));
+
+	while ( pEmail )
+	{
+		pEmail->EmailVersion = gEmailT[uiNumOfEmails].EmailVersion;
+		pEmail = pEmail->Next;
+		++uiNumOfEmails;
+	}
+
+	return(TRUE);
+}

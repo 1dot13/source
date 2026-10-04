@@ -4316,6 +4316,466 @@ BOOLEAN LoadStrategicAI( HWFILE hFile )
 	return TRUE;
 }
 
+BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
+{
+	GROUP* pGroup, * next;
+	GARRISON_GROUP gTempGarrisonGroup;
+	PATROL_GROUP gTempPatrolGroup;
+	ARMY_COMPOSITION gTempArmyComp;
+	INT32 i;
+	UINT8 ubSAIVersion;
+	INT32 iMaxEnemyGroupSize = gGameExternalOptions.iMaxEnemyGroupSize;
+
+	gfUnlimitedTroops = zDiffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops;
+	gfAggressiveQueen = zDiffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
+
+	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Strategic6");
+	LOADDATA(gbPadding2, *ppBuffer, 3);
+	LOADDATA(&gfExtraElites, *ppBuffer, 1);
+	LOADDATA(&giGarrisonArraySize, *ppBuffer, 4);
+	LOADDATA(&giPatrolArraySize, *ppBuffer, 4);
+	LOADDATA(&giReinforcementPool, *ppBuffer, 4);
+	LOADDATA(&giForcePercentage, *ppBuffer, 4);
+	LOADDATA(&giArmyAlertness, *ppBuffer, 4);
+	LOADDATA(&giArmyAlertnessDecay, *ppBuffer, 4);
+	LOADDATA(&gfQueenAIAwake, *ppBuffer, 1);
+	LOADDATA(&giReinforcementPoints, *ppBuffer, 4);
+	LOADDATA(&giRequestPoints, *ppBuffer, 4);
+	LOADDATA(&gubNumAwareBattles, *ppBuffer, 1);
+	LOADDATA(&ubSAIVersion, *ppBuffer, 1);
+	LOADDATA(&gubQueenPriorityPhase, *ppBuffer, 1);
+	LOADDATA(&gfFirstBattleMeanwhileScenePending, *ppBuffer, 1);
+	LOADDATA(&gfMassFortificationOrdered, *ppBuffer, 1);
+	LOADDATA(&gubMinEnemyGroupSize, *ppBuffer, 1);
+	LOADDATA(&gubHoursGracePeriod, *ppBuffer, 1);
+	LOADDATA(&gusPlayerBattleVictories, *ppBuffer, 2);
+	LOADDATA(&gfUseAlternateQueenPosition, *ppBuffer, 1);
+	LOADDATA(&giTotalRecruitsInTraining, *ppBuffer, sizeof(giTotalRecruitsInTraining));
+	LOADDATA(gbPadding, *ppBuffer, SAI_PADDING_BYTES);
+
+	//Restore the army composition
+	LOADDATA(gArmyComp, *ppBuffer, NUM_ARMY_COMPOSITIONS * sizeof(ARMY_COMPOSITION));
+	i = SAVED_ARMY_COMPOSITIONS - NUM_ARMY_COMPOSITIONS;
+	while ( i-- )
+	{
+		LOADDATA(&gTempArmyComp, *ppBuffer, sizeof(ARMY_COMPOSITION));
+	}
+
+	//Restore the patrol group definitions
+	if ( gPatrolGroup )
+	{
+		MemFree(gPatrolGroup);
+	}
+	gPatrolGroup = (PATROL_GROUP*)MemAlloc(giPatrolArraySize * sizeof(PATROL_GROUP));
+	LOADDATA(gPatrolGroup, *ppBuffer, giPatrolArraySize * sizeof(PATROL_GROUP));
+	i = SAVED_PATROL_GROUPS - giPatrolArraySize;
+	while ( i-- )
+	{
+		LOADDATA(&gTempPatrolGroup, *ppBuffer, sizeof(PATROL_GROUP));
+	}
+
+	gubSAIVersion = SAI_VERSION;
+	//Load the garrison information!
+	if ( gGarrisonGroup )
+	{
+		MemFree(gGarrisonGroup);
+	}
+
+	/* giGarrisonArraySize has been zero here. Found it several times when loading
+	* a differnet build of JA2.1.13. Now fixed a little bit, I hope.
+	*/
+	if ( giGarrisonArraySize < iOrigGarrisonArraySize || giGarrisonArraySize < 1 )
+	{
+		giGarrisonArraySize = iOrigGarrisonArraySize;
+	}
+	if ( giGarrisonArraySize > SAVED_GARRISON_GROUPS )
+	{
+		giGarrisonArraySize = SAVED_GARRISON_GROUPS;
+	}
+
+	gGarrisonGroup = (GARRISON_GROUP*)MemAlloc(giGarrisonArraySize * sizeof(GARRISON_GROUP));
+	Assert(gGarrisonGroup);
+	LOADDATA(gGarrisonGroup, *ppBuffer, giGarrisonArraySize * sizeof(GARRISON_GROUP));
+	/* if the Savegame File contains more Garrisons then our Array, toss the remaining ones into the saucer */
+	i = SAVED_GARRISON_GROUPS - giGarrisonArraySize;
+	while ( i-- > 0 ) /* prevent underrun, 2007-03-03, Sgt. Kolja	*/
+	{
+		LOADDATA(&gTempGarrisonGroup, *ppBuffer, sizeof(GARRISON_GROUP));
+	}
+
+	//Load the list of reinforcement patrol points.
+	if ( gubPatrolReinforcementsDenied )
+	{
+		MemFree(gubPatrolReinforcementsDenied);
+		gubPatrolReinforcementsDenied = NULL;
+	}
+	gubPatrolReinforcementsDenied = (UINT8*)MemAlloc(giPatrolArraySize);
+	LOADDATA(gubPatrolReinforcementsDenied, *ppBuffer, giPatrolArraySize);
+
+	//Load the list of reinforcement garrison points.
+	if ( gubGarrisonReinforcementsDenied )
+	{
+		MemFree(gubGarrisonReinforcementsDenied);
+		gubGarrisonReinforcementsDenied = NULL;
+	}
+	gubGarrisonReinforcementsDenied = (UINT8*)MemAlloc(giGarrisonArraySize);
+	LOADDATA(gubGarrisonReinforcementsDenied, *ppBuffer, giGarrisonArraySize);
+
+#ifdef JA2BETAVERSION
+	InitStrategicMovementCosts();
+#endif
+
+	Ensure_RepairedGarrisonGroup(&gGarrisonGroup, &giGarrisonArraySize);	/* added NULL fix, 2007-03-03, Sgt. Kolja */
+
+	if ( ubSAIVersion < 6 )
+	{ //Reinitialize the costs since they have changed.
+
+		//Recreate the compositions
+		memcpy(gArmyComp, gOrigArmyComp, MAX_ARMY_COMPOSITIONS * sizeof(ARMY_COMPOSITION));
+		EvolveQueenPriorityPhase(TRUE);
+
+		//Recreate the patrol desired sizes
+		for ( i = 0; i < giPatrolArraySize; i++ )
+		{
+			gPatrolGroup[i].bSize = gOrigPatrolGroup[i].bSize;
+		}
+	}
+	if ( ubSAIVersion < 7 )
+	{
+		BuildUndergroundSectorInfoList();
+	}
+	if ( ubSAIVersion < 8 )
+	{
+		ReinitializeUnvisitedGarrisons();
+	}
+	if ( ubSAIVersion < 10 )
+	{
+		for ( i = 0; i < giPatrolArraySize; i++ )
+		{
+			if ( gPatrolGroup[i].bSize >= 16 )
+			{
+				gPatrolGroup[i].bSize = 10;
+			}
+		}
+		pGroup = gpGroupList;
+		while ( pGroup )
+		{
+			if ( pGroup->usGroupTeam == ENEMY_TEAM && pGroup->ubGroupSize >= 16 )
+			{
+				//accident in patrol groups being too large
+				UINT8	ubGetRidOfXTroops = pGroup->ubGroupSize - 10;
+				if ( gbWorldSectorZ || pGroup->ubSectorX != gWorldSectorX || pGroup->ubSectorY != gWorldSectorY )
+				{ //don't modify groups in the currently loaded sector.
+					if ( pGroup->pEnemyGroup->ubNumTroops >= ubGetRidOfXTroops )
+					{
+						pGroup->pEnemyGroup->ubNumTroops -= ubGetRidOfXTroops;
+						pGroup->ubGroupSize -= ubGetRidOfXTroops;
+					}
+				}
+			}
+			pGroup = pGroup->next;
+		}
+	}
+
+	if ( ubSAIVersion < 13 )
+	{
+		for ( i = 0; i < 255; i++ )
+		{
+			SectorInfo[i].bBloodCatPlacements = 0;
+			SectorInfo[i].bBloodCats = -1;
+		}
+		InitBloodCatSectors();
+		//This info is used to clean up the two new codes inserted into the
+		//middle of the enumeration for battle codes.
+		if ( GetEnemyEncounterCode() > CREATURE_ATTACK_CODE )
+		{
+			SetEnemyEncounterCode(GetEnemyEncounterCode() + 2);
+		}
+
+		if ( GetExplicitEnemyEncounterCode() > CREATURE_ATTACK_CODE )
+		{
+			SetExplicitEnemyEncounterCode(GetExplicitEnemyEncounterCode() + 2);
+		}
+
+	}
+	if ( ubSAIVersion < 14 )
+	{
+		UNDERGROUND_SECTORINFO* pSector;
+		pSector = FindUnderGroundSector(4, 11, 1);
+		if ( pSector->ubNumTroops + pSector->ubNumElites > 20 )
+		{
+			pSector->ubNumTroops -= 2;
+		}
+		pSector = FindUnderGroundSector(3, 15, 1);
+		if ( pSector->ubNumTroops + pSector->ubNumElites > 20 )
+		{
+			pSector->ubNumTroops -= 2;
+		}
+	}
+	if ( ubSAIVersion < 17 )
+	{ //Patch all groups that have this flag set
+		gubNumGroupsArrivedSimultaneously = 0;
+		{
+			pGroup = gpGroupList;
+			while ( pGroup )
+			{
+				if ( pGroup->uiFlags & GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY )
+				{
+					pGroup->uiFlags &= ~GROUPFLAG_GROUP_ARRIVED_SIMULTANEOUSLY;
+				}
+				pGroup = pGroup->next;
+			}
+		}
+	}
+	if ( ubSAIVersion < 18 )
+	{ //adjust down the number of bloodcats based on difficulty in the two special bloodcat levels
+		InitBloodCatSectors();
+	}
+	if ( ubSAIVersion < 19 )
+	{
+		//Clear the garrison in C5
+		gArmyComp[gGarrisonGroup[SectorInfo[SEC_C5].ubGarrisonID].ubComposition].bPriority = 0;
+		gArmyComp[gGarrisonGroup[SectorInfo[SEC_C5].ubGarrisonID].ubComposition].bDesiredPopulation = 0;
+	}
+	if ( ubSAIVersion < 20 )
+	{
+		gArmyComp[QUEEN_DEFENCE].bDesiredPopulation = 32;
+		SectorInfo[SECTOR(gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY)].ubNumElites = 32;
+	}
+	if ( ubSAIVersion < 21 )
+	{
+		pGroup = gpGroupList;
+		while ( pGroup )
+		{
+			pGroup->uiFlags = 0;
+			pGroup = pGroup->next;
+		}
+	}
+	if ( ubSAIVersion < 22 )
+	{ //adjust down the number of bloodcats based on difficulty in the two special bloodcat levels
+		// HEADROCK HAM 3.6: Run the Init function instead.
+		InitBloodCatSectors();
+		switch ( gGameOptions.ubDifficultyLevel )
+		{
+			case DIF_LEVEL_EASY: //50%
+				SectorInfo[SEC_N5].bBloodCatPlacements = 8;
+				SectorInfo[SEC_N5].bBloodCats = 10;
+				break;
+			case DIF_LEVEL_MEDIUM: //75%
+				SectorInfo[SEC_N5].bBloodCatPlacements = 8;
+				SectorInfo[SEC_N5].bBloodCats = 10;
+			case DIF_LEVEL_HARD: //100%
+				SectorInfo[SEC_N5].bBloodCatPlacements = 8;
+				SectorInfo[SEC_N5].bBloodCats = 10;
+				break;
+			case DIF_LEVEL_INSANE: //150%
+				SectorInfo[SEC_N5].bBloodCatPlacements = 12;
+				SectorInfo[SEC_N5].bBloodCats = 15;
+				break;
+			default:
+				SectorInfo[SEC_N5].bBloodCatPlacements = 8;
+				SectorInfo[SEC_N5].bBloodCats = 10;
+				break;
+		}
+	}
+	if ( ubSAIVersion < 23 )
+	{
+		if ( gWorldSectorX != gModSettings.ubSAISpawnSectorX || gWorldSectorY != gModSettings.ubSAISpawnSectorY || !gbWorldSectorZ )
+		{
+			SectorInfo[SECTOR(gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY)].ubNumElites = 32;
+		}
+	}
+	if ( ubSAIVersion < 24 )
+	{
+		//If the queen has escaped to the basement, do not use the profile insertion info
+		//when we finally go down there, otherwise she will end up in the wrong spot, possibly inside
+		//the walls.
+		if ( !gubFact[FACT_QUEEN_DEAD] && gMercProfiles[QUEEN].bSectorZ == 1 )
+			if ( gbWorldSectorZ != 1 || gWorldSectorX != 16 || gWorldSectorY != 3 )
+			{ //We aren't in the basement sector
+				gMercProfiles[QUEEN].fUseProfileInsertionInfo = FALSE;
+			}
+			else
+			{ //We are in the basement sector, relocate queen to proper position.
+				for ( SoldierID i = gTacticalStatus.Team[CIV_TEAM].bFirstID; i <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++i )
+				{
+					if ( i->ubProfile == QUEEN )
+					{ //Found queen, relocate her to 16866
+						BumpAnyExistingMerc(16866);
+						TeleportSoldier(i, 16866, TRUE);
+						break;
+					}
+				}
+			}
+	}
+	if ( ubSAIVersion < 25 )
+	{
+		if ( gubFact[FACT_SKYRIDER_CLOSE_TO_CHOPPER] )
+		{
+			gMercProfiles[SKYRIDER].fUseProfileInsertionInfo = FALSE;
+		}
+	}
+
+	//KM : July 21, 1999 patch fix
+	if ( ubSAIVersion < 26 )
+	{
+		INT32 i;
+		for ( i = 0; i < 255; ++i )
+		{
+			if ( SectorInfo[i].ubNumberOfCivsAtLevel[GREEN_MILITIA] +
+				SectorInfo[i].ubNumberOfCivsAtLevel[REGULAR_MILITIA] +
+				SectorInfo[i].ubNumberOfCivsAtLevel[ELITE_MILITIA] > 20 )
+			{
+				SectorInfo[i].ubNumberOfCivsAtLevel[GREEN_MILITIA] = 0;
+				SectorInfo[i].ubNumberOfCivsAtLevel[REGULAR_MILITIA] = 20;
+				SectorInfo[i].ubNumberOfCivsAtLevel[ELITE_MILITIA] = 0;
+			}
+		}
+	}
+
+	//KM : August 4, 1999 patch fix
+	//	 This addresses the problem of not having any soldiers in sector N7 when playing the game under easy difficulty.
+	//		If captured and interrogated, the player would find no soldiers defending the sector.	This changes the composition
+	//	 so that it will always be there, and adds the soldiers accordingly if the sector isn't loaded when the update is made.
+	if ( ubSAIVersion < 27 )
+	{
+		if ( gGameOptions.ubDifficultyLevel == DIF_LEVEL_EASY )
+		{
+			if ( gWorldSectorX != 7 || gWorldSectorY != 14 || gbWorldSectorZ )
+			{
+				INT32 cnt, iRandom;
+				INT32 iEliteChance, iTroopChance, iAdminChance;
+				INT32 iStartPop, iDesiredPop, iPriority;
+				SECTORINFO* pSector = NULL;
+
+				//Change the garrison composition to LEVEL1_DEFENCE from LEVEL2_DEFENCE
+				pSector = &SectorInfo[SEC_N7];
+				gGarrisonGroup[pSector->ubGarrisonID].ubComposition = LEVEL1_DEFENCE;
+
+				iStartPop = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bStartPopulation;
+				iDesiredPop = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bDesiredPopulation;
+				iPriority = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bPriority;
+				iEliteChance = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bElitePercentage;
+				iTroopChance = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bTroopPercentage + iEliteChance;
+				iAdminChance = gArmyComp[gGarrisonGroup[pSector->ubGarrisonID].ubComposition].bAdminPercentage;
+
+				if ( iStartPop )
+				{
+					// if population is less than maximum
+					if ( iStartPop != iMaxEnemyGroupSize )
+					{
+						// then vary it a bit (+/- 25%)
+						iStartPop = iStartPop * (100 + (Random(51) - 25)) / 100;
+					}
+
+					iStartPop = max(gubMinEnemyGroupSize, min(iMaxEnemyGroupSize, iStartPop));
+					cnt = iStartPop;
+
+					if ( iAdminChance )
+					{
+						pSector->ubNumAdmins = iAdminChance * iStartPop / 100;
+					}
+					else while ( cnt-- )
+					{ //for each person, randomly determine the types of each soldier.
+						{
+							iRandom = Random(100);
+							if ( iRandom < iEliteChance )
+							{
+								pSector->ubNumElites++;
+							}
+							else if ( iRandom < iTroopChance )
+							{
+								pSector->ubNumTroops++;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if ( ubSAIVersion < 28 )
+	{
+		GROUP* pNext;
+		if ( !StrategicMap[CALCULATE_STRATEGIC_INDEX(gModSettings.ubSAISpawnSectorX, gModSettings.ubSAISpawnSectorY)].fEnemyControlled )
+		{ //Eliminate all enemy groups in this sector, because the player owns the sector, and it is not
+			//possible for them to spawn there!
+			pGroup = gpGroupList;
+			while ( pGroup )
+			{
+				pNext = pGroup->next;
+				if ( pGroup->usGroupTeam != OUR_TEAM )
+				{
+					if ( pGroup->ubSectorX == gModSettings.ubSAISpawnSectorX && pGroup->ubSectorY == gModSettings.ubSAISpawnSectorY && !pGroup->ubPrevX && !pGroup->ubPrevY )
+					{
+						ClearPreviousAIGroupAssignment(pGroup);
+						RemovePGroup(pGroup);
+					}
+				}
+				pGroup = pNext;
+			}
+		}
+	}
+	if ( ubSAIVersion < 29 )
+	{
+		InitStrategicMovementCosts();
+	}
+
+	//KM : Aug 11, 1999 -- Patch fix:	Blindly update the airspace control.	There is a bug somewhere
+	//		that is failing to keep this information up to date, and I failed to find it.	At least this
+	//		will patch saves.
+	UpdateAirspaceControl();
+
+	EvolveQueenPriorityPhase(TRUE);
+
+	//Count and correct the floating groups
+	pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		next = pGroup->next; //store the next node as pGroup could be deleted!
+		if ( pGroup->usGroupTeam != OUR_TEAM )
+		{
+			if ( !pGroup->fBetweenSectors )
+			{
+				if ( pGroup->ubSectorX != gWorldSectorX ||
+					pGroup->ubSectorY != gWorldSectorY ||
+					gbWorldSectorZ )
+				{
+					UINT8 groupid = pGroup->ubGroupID;
+
+					RepollSAIGroup(pGroup);
+
+					// it is possible that the group gets destroyed inbetween, so recheck on that
+					pGroup = GetGroup(groupid);
+
+					if ( pGroup )
+						ValidateGroup(pGroup);
+				}
+			}
+		}
+		pGroup = next; //advance the node
+	}
+
+#ifdef JA2BETAVERSION
+	LogStrategicMsg("");
+	LogStrategicMsg("-------------------------------------------------");
+	LogStrategicMsg("Restoring saved game at Day %02d, %02d:%02d ", GetWorldDay(), GetWorldHour(), GetWorldMinutesInDay() % 60);
+	LogStrategicMsg("-------------------------------------------------");
+	LogStrategicMsg("");
+#endif
+
+	//Update the version number to the most current.
+	gubSAIVersion = SAI_VERSION;
+
+	ValidateWeights(28);
+	ValidatePendingGroups();
+#ifdef JA2BETAVERSION
+	ValidatePlayersAreInOneGroupOnly();
+#endif
+
+	return TRUE;
+}
+
 void EvolveQueenPriorityPhase( BOOLEAN fForceChange )
 {
 	INT32 i, index, num, iFactor;

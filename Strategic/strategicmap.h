@@ -157,6 +157,7 @@ BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *pu
 void SetupNewStrategicGame( );
 
 BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile );
+BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile );
 
 void AllMercsHaveWalkedOffSector( );

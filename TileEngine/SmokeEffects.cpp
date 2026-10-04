@@ -951,6 +951,63 @@ BOOLEAN LoadSmokeEffectsFromLoadGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32	uiCount;
+	UINT32	uiCnt = 0;
+	INT8 	bLevel;
+
+	//no longer need to load smoke effects.	They are now in temp files
+	if ( guiCurrentSaveGameVersion < 75 )
+	{
+		//Clear out the old list
+		memset(gSmokeEffectData, 0, sizeof(SMOKEEFFECT) * NUM_SMOKE_EFFECT_SLOTS);
+
+		//Load the Number of Smoke Effects
+		LOADDATA(&guiNumSmokeEffects, *ppBuffer, sizeof(UINT32));
+
+		//This is a TEMP hack to allow us to use the saves
+		if ( guiCurrentSaveGameVersion < 37 && guiNumSmokeEffects == 0 )
+		{
+			//Load the Smoke effect Data
+			LOADDATA(gSmokeEffectData, *ppBuffer, sizeof(SMOKEEFFECT));
+		}
+
+
+		//loop through and load the list
+		for ( uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++ )
+		{
+			//Load the Smoke effect Data
+			LOADDATA(&gSmokeEffectData[uiCnt], *ppBuffer, sizeof(SMOKEEFFECT));
+
+			//This is a TEMP hack to allow us to use the saves
+			if ( guiCurrentSaveGameVersion < 37 )
+				break;
+		}
+
+
+		//loop through and apply the smoke effects to the map
+		for ( uiCount = 0; uiCount < guiNumSmokeEffects; uiCount++ )
+		{
+			//if this slot is allocated
+			if ( gSmokeEffectData[uiCount].fAllocated )
+			{
+				if ( gSmokeEffectData[uiCount].bFlags & SMOKE_EFFECT_ON_ROOF )
+				{
+					bLevel = 1;
+				}
+				else
+				{
+					bLevel = 0;
+				}
+
+				SpreadEffect(gSmokeEffectData[uiCount].sGridNo, gSmokeEffectData[uiCount].ubRadius, gSmokeEffectData[uiCount].usItem, gSmokeEffectData[uiCount].ubOwner, TRUE, bLevel, uiCount);
+			}
+		}
+	}
+
+	return(TRUE);
+}
 
 BOOLEAN SaveSmokeEffectsToMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ )
 {

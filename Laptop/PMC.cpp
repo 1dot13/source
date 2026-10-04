@@ -852,3 +852,45 @@ BOOLEAN LoadPMC( HWFILE hwFile )
 
 	return TRUE;
 }
+
+BOOLEAN LoadPMCBuffer(CHAR8** ppBuffer)
+{
+	if ( guiCurrentSaveGameVersion >= PMC_WEBSITE )
+	{
+		gPMCHiringEvents.clear();
+
+		UINT32 numBytesRead = 0;
+
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gPMCData, sizeof(gPMCData), sizeof(PMCGlobalData), numBytesRead);
+
+		UINT32 size = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &size, sizeof(size), sizeof(UINT32), numBytesRead);
+
+		UINT32 safetycheck1 = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck1, sizeof(safetycheck1), sizeof(UINT32), numBytesRead);
+
+		for ( UINT32 i = 0; i < size; ++i )
+		{
+			PMCReinforcesHireEvent event;
+			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &event, sizeof(event), sizeof(PMCReinforcesHireEvent), 0);
+
+			gPMCHiringEvents.push_back(event);
+		}
+
+		UINT32 safetycheck2 = 0;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead);
+
+		if ( safetycheck1 != gPMCSaveCheck || safetycheck2 != gPMCSaveCheck )
+		{
+			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading PMC data!");
+			return FALSE;
+		}
+	}
+	else
+	{
+		// if loading an older savegame, initialise the PMC
+		GameInitPMC();
+	}
+
+	return TRUE;
+}

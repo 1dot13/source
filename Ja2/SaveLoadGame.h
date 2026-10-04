@@ -79,6 +79,7 @@ BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERT
 
 BOOLEAN		SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile );
 BOOLEAN		LoadFilesFromSavedGame( STR pSrcFileName, HWFILE hFile );
+BOOLEAN		LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer);
 
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 
@@ -90,5 +91,8 @@ but variables are stored in memory so that they fit neatly into a WORD resulting
 during the save game process and this function is designed to calculate where that padding is so that we can account for it during the load process.  The
 use of this function should allow changes to be made to various structures within the designated "POD", while still allowing for save game continuity.*/
 INT32 ReadFieldByField( HWFILE hFile, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
+
+/*This function is designed to allow reading from a memory buffer one field at a time, using the same padding logic as ReadFieldByField but with a CHAR8* buffer instead of HWFILE handle. */
+UINT32 ReadFieldByFieldFromBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiFieldSize, UINT32 uiElementSize, UINT32  uiCurByteCount );
 
 #endif

@@ -124,11 +124,14 @@ BOOLEAN SavePlayerGroupList( HWFILE hFile, GROUP *pGroup );
 
 //Loads the LL for the playerlist from the savegame file
 BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup );
+BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup);
 
 BOOLEAN SaveEnemyGroupStruct( HWFILE hFile, GROUP *pGroup );
 BOOLEAN LoadEnemyGroupStructFromSavedGame( HWFILE hFile, GROUP *pGroup );
+BOOLEAN LoadEnemyGroupStructFromSavedGameBuffer(CHAR8** ppBuffer, GROUP* pGroup);
 
 BOOLEAN LoadWayPointList(HWFILE hFile, GROUP *pGroup );
+BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup);
 BOOLEAN SaveWayPointList( HWFILE hFile, GROUP *pGroup );
 
 extern void RandomMercInGroupSaysQuote( GROUP *pGroup, UINT16 usQuoteNum );
@@ -4253,6 +4256,140 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	GROUP* pGroup = NULL;
+	GROUP* pTemp = NULL;
+	UINT32	uiNumberOfGroups = 0;
+	UINT32	uiNumBytesRead = 0;
+	UINT32	cnt;
+	UINT32 bit, index, mask;
+	UINT8	ubNumPlayerGroupsEmpty = 0;
+	UINT8	ubNumEnemyGroupsEmpty = 0;
+	UINT8	ubNumPlayerGroupsFull = 0;
+	UINT8	ubNumEnemyGroupsFull = 0;
+
+	//delete the existing group list
+	while ( gpGroupList )
+		RemoveGroupFromList(gpGroupList);
+
+	//load the number of nodes in the list
+	LOADDATA(&uiNumberOfGroups, *ppBuffer, sizeof(UINT32));
+
+	pGroup = gpGroupList;
+
+	//loop through all the nodes and add them to the LL
+	for ( cnt = 0; cnt < uiNumberOfGroups; ++cnt )
+	{
+		//allocate memory for the node
+		pTemp = (GROUP*)MemAlloc(sizeof(GROUP));
+		if ( pTemp == NULL )
+			return(FALSE);
+		memset(pTemp, 0, sizeof(GROUP));
+
+		//Read in the node
+		LOADDATA(pTemp, *ppBuffer, sizeof(GROUP));
+
+		// Flugente: Up to now, GROUPs were either player-controlled (fPlayer = TRUE) or enemy-controlled (fPlayer = FALSE).
+		// As a result, no other team could have any travelling groups (militia, civilians, creatures...)
+		// I've changed this - instead of BOOLEAN fPlayer; there now is UINT8 usGroupTeam;
+		// This doesn't mess with the struct size, as BOOLEAN has the same size as UINT8 here.
+		// However, 
+		if ( guiCurrentSaveGameVersion < STRATEGIC_TEAM_GROUPS )
+		{
+			// TODO
+			if ( pTemp->usGroupTeam == 0 )
+				pTemp->usGroupTeam = ENEMY_TEAM;
+			else if ( pTemp->usGroupTeam == 1 )
+				pTemp->usGroupTeam = OUR_TEAM;
+			//this shouldn't be happening...
+			else
+				Assert(0);
+		}
+
+		//
+		// Add either the pointer or the linked list.
+		//
+
+		if ( pTemp->usGroupTeam == OUR_TEAM )
+		{
+			//if there is a player list, add it
+			if ( pTemp->ubGroupSize )
+			{
+				//Save the player group list
+				LoadPlayerGroupListBuffer(ppBuffer, &pTemp);
+			}
+		}
+		else //else its an enemy group
+		{
+			LoadEnemyGroupStructFromSavedGameBuffer(ppBuffer, pTemp);
+		}
+
+		//Save the waypoint list for the group, if they have one
+		LoadWayPointListBuffer(ppBuffer, pTemp);
+
+		pTemp->next = NULL;
+
+		//add the node to the list
+
+		//if its the firs node
+		if ( cnt == 0 )
+		{
+			gpGroupList = pTemp;
+			pGroup = gpGroupList;
+		}
+		else
+		{
+			pGroup->next = pTemp;
+			pGroup = pGroup->next;
+		}
+	}
+
+	// Load the unique id mask
+	LOADDATA(uniqueIDMask, *ppBuffer, sizeof(UINT32) * 8);
+
+	//@@@ TEMP!
+	//Rebuild the uniqueIDMask as a very old bug broke the uniqueID assignments in extremely rare cases.
+	memset(uniqueIDMask, 0, sizeof(UINT32) * 8);
+	pGroup = gpGroupList;
+	while ( pGroup )
+	{
+		if ( pGroup->usGroupTeam == OUR_TEAM )
+		{
+			if ( pGroup->ubGroupSize )
+			{
+				++ubNumPlayerGroupsFull;
+			}
+			else
+			{
+				++ubNumPlayerGroupsEmpty;
+			}
+		}
+		else
+		{
+			if ( pGroup->ubGroupSize )
+			{
+				++ubNumEnemyGroupsFull;
+			}
+			else
+			{
+				++ubNumEnemyGroupsEmpty;
+			}
+		}
+		if ( ubNumPlayerGroupsEmpty || ubNumEnemyGroupsEmpty )
+		{
+			//report error?
+		}
+		index = pGroup->ubGroupID / 32;
+		bit = pGroup->ubGroupID % 32;
+		mask = 1 << bit;
+		uniqueIDMask[index] += mask;
+		pGroup = pGroup->next;
+	}
+
+	return(TRUE);
+}
+
 
 //Saves the Player's group list to the saved game file
 BOOLEAN SavePlayerGroupList( HWFILE hFile, GROUP *pGroup )
@@ -4369,6 +4506,60 @@ BOOLEAN LoadPlayerGroupList( HWFILE hFile, GROUP **pGroup )
 	return( TRUE );
 }
 
+BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup)
+{
+	PLAYERGROUP* pTemp = NULL;
+	PLAYERGROUP* pHead = NULL;
+	UINT32 uiNumberOfNodes = 0;
+	UINT32 uiProfileID = 0;
+	UINT32 cnt = 0;
+	SoldierID sTempID;
+	GROUP* pTempGroup = *ppGroup;
+
+
+	// Load the number of nodes in the player list
+	LOADDATA(&uiNumberOfNodes, *ppBuffer, sizeof(UINT32));
+
+	//loop through all the nodes and set them up
+	for ( cnt = 0; cnt < uiNumberOfNodes; ++cnt )
+	{
+		//allcate space for the current node
+		pTemp = (PLAYERGROUP*)MemAlloc(sizeof(PLAYERGROUP));
+		if ( pTemp == NULL )
+			return(FALSE);
+
+		// Load the ubProfile ID for this node
+		LOADDATA(&uiProfileID, *ppBuffer, sizeof(UINT32));
+
+		//Set up the current node
+		pTemp->ubProfileID = (UINT8)uiProfileID;
+		sTempID = GetSoldierIDFromMercID(pTemp->ubProfileID);
+
+		//Should never happen
+		Assert(sTempID != NOBODY);
+		pTemp->ubID = sTempID;
+
+		pTemp->pSoldier = pTemp->ubID;
+
+		pTemp->next = NULL;
+
+		//if its the first time through
+		if ( cnt == 0 )
+		{
+			pTempGroup->pPlayerList = pTemp;
+			pHead = pTemp;
+		}
+		else
+		{
+			pHead->next = pTemp;
+
+			//move to the next node
+			pHead = pHead->next;
+		}
+	}
+
+	return(TRUE);
+}
 
 //Saves the enemy group struct to the saved game struct
 BOOLEAN SaveEnemyGroupStruct( HWFILE hFile, GROUP *pGroup )
@@ -4413,6 +4604,22 @@ BOOLEAN LoadEnemyGroupStructFromSavedGame( HWFILE hFile, GROUP *pGroup )
 	return( TRUE );
 }
 
+BOOLEAN LoadEnemyGroupStructFromSavedGameBuffer(CHAR8** ppBuffer, GROUP* pGroup)
+{
+	//Alllocate memory for the enemy struct
+	ENEMYGROUP* pEnemyGroup = (ENEMYGROUP*)MemAlloc(sizeof(ENEMYGROUP));
+	if ( pEnemyGroup == NULL )
+		return(FALSE);
+	memset(pEnemyGroup, 0, sizeof(ENEMYGROUP));
+
+	//Load the enemy struct
+	LOADDATA(pEnemyGroup, *ppBuffer, sizeof(ENEMYGROUP));
+
+	//Assign the struct to the group list
+	pGroup->pEnemyGroup = pEnemyGroup;
+
+	return(TRUE);
+}
 
 void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier )
 {
@@ -4565,6 +4772,53 @@ BOOLEAN LoadWayPointList(HWFILE hFile, GROUP *pGroup )
 		pGroup->pWaypoints = NULL;
 
 	return( TRUE );
+}
+
+BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup)
+{
+	UINT32	cnt = 0;
+	UINT32	uiNumberOfWayPoints = 0;
+	WAYPOINT* pWayPoints = pGroup->pWaypoints;
+	WAYPOINT* pTemp = NULL;
+
+	//Load the number of waypoints
+	LOADDATA(&uiNumberOfWayPoints, *ppBuffer, sizeof(UINT32));
+
+	if ( uiNumberOfWayPoints )
+	{
+		pWayPoints = pGroup->pWaypoints;
+		for ( cnt = 0; cnt < uiNumberOfWayPoints; cnt++ )
+		{
+			//Allocate memory for the node
+			pTemp = (WAYPOINT*)MemAlloc(sizeof(WAYPOINT));
+			if ( pTemp == NULL )
+				return(FALSE);
+			memset(pTemp, 0, sizeof(WAYPOINT));
+
+			//Load the waypoint node
+			LOADDATA(pTemp, *ppBuffer, sizeof(WAYPOINT));
+
+			pTemp->next = NULL;
+
+			//if its the first node
+			if ( cnt == 0 )
+			{
+				pGroup->pWaypoints = pTemp;
+				pWayPoints = pTemp;
+			}
+			else
+			{
+				pWayPoints->next = pTemp;
+
+				//Advance to the next waypoint
+				pWayPoints = pWayPoints->next;
+			}
+		}
+	}
+	else
+		pGroup->pWaypoints = NULL;
+
+	return(TRUE);
 }
 
 void CalculateGroupRetreatSector( GROUP *pGroup )

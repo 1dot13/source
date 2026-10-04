@@ -61,6 +61,7 @@ INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwne
 
 BOOLEAN SaveSmokeEffectsToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadSmokeEffectsFromLoadGameFile( HWFILE hFile );
+BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer);
 
 BOOLEAN SaveSmokeEffectsToMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 BOOLEAN LoadSmokeEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );

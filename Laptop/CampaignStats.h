@@ -185,6 +185,7 @@ public:
 
 	BOOLEAN		Save( HWFILE hFile );
 	BOOLEAN		Load( HWFILE hwFile );
+	BOOLEAN		LoadBuffer(CHAR8** ppBuffer);
 
 	void	AddStat( SOLDIERTYPE* pSoldier, UINT8 aType );
 
@@ -274,6 +275,7 @@ public:
 
 	BOOLEAN		Save( HWFILE hFile );
 	BOOLEAN		Load( HWFILE hwFile );
+	BOOLEAN		LoadBuffer(CHAR8** ppBuffer);
 
 	void	AddNewIncident(Incident_Stats arIncident);
 	void	AddMoneyEarned(UINT8 aType, INT32 aVal);

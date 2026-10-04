@@ -939,6 +939,10 @@ BOOLEAN LoadMineStatusFromSavedGameFile( HWFILE hFile )
 #endif
 }
 
+BOOLEAN LoadMineStatusFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	return g_luaMines.LoadBuffer(ppBuffer);
+}
 
 void ShutOffMineProduction( INT8 bMineIndex )
 {

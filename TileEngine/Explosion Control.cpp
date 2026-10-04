@@ -5171,6 +5171,48 @@ BOOLEAN LoadExplosionTableFromSavedGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
+BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
+{
+	UINT32 uiCnt;
+
+	//
+	// Explosion Queue
+	//
+	//Clear the Explosion queue
+	memset(gExplosionQueue, 0, sizeof(ExplosionQueueElement) * MAX_BOMB_QUEUE);
+
+	//Read the number of explosions queue's
+	LOADDATA(&gubElementsOnExplosionQueue, *ppBuffer, sizeof(UINT32));
+
+
+	//loop through read all the active explosions fro the file
+	for ( uiCnt = 0; uiCnt < MAX_BOMB_QUEUE; uiCnt++ )
+	{
+		LOADDATA(&gExplosionQueue[uiCnt], *ppBuffer, sizeof(ExplosionQueueElement));
+	}
+
+
+
+	//
+	// Explosion Data
+	//
+
+	//Load the number of explosions
+	LOADDATA(&guiNumExplosions, *ppBuffer, sizeof(UINT32));
+
+
+	//loop through and load all the active explosions
+	for ( uiCnt = 0; uiCnt < guiNumExplosions; uiCnt++ )
+	{
+		LOADDATA(&gExplosionData[uiCnt], *ppBuffer, sizeof(EXPLOSIONTYPE));
+		gExplosionData[uiCnt].iID = uiCnt;
+		gExplosionData[uiCnt].iLightID = -1;
+
+		GenerateExplosionFromExplosionPointer(&gExplosionData[uiCnt]);
+	}
+
+	return(TRUE);
+}
 
 
 

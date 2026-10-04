@@ -89,6 +89,7 @@ public:
 
 	BOOLEAN		Save( HWFILE hFile );
 	BOOLEAN		Load( HWFILE hwFile );
+	BOOLEAN		LoadBuffer(CHAR8** ppBuffer);
 
 	STR16	GetName( );
 	STR16	GetSector( );
@@ -141,6 +142,7 @@ extern std::vector<MILITIA> gIndividualMilitiaVector;
 void InitIndividualMilitiaData();
 BOOLEAN SaveIndividualMilitiaData( HWFILE hwFile );
 BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile );
+BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer);
 
 // wrapper functions to retrieve militia
 UINT32 TotalNumberIndividualMilitia( );

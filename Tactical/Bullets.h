@@ -105,6 +105,7 @@ BOOLEAN SaveBulletStructureToSaveGameFile( HWFILE hFile );
 
 //Load the bullet table from the saved game file
 BOOLEAN LoadBulletStructureFromSavedGameFile( HWFILE hFile );
+BOOLEAN LoadBulletStructureFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 
 #endif

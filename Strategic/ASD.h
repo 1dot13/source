@@ -37,6 +37,7 @@
 void InitASD( );
 BOOLEAN SaveASDData( HWFILE hwFile );
 BOOLEAN LoadASDData( HWFILE hwFile );
+BOOLEAN LoadASDDataBuffer(CHAR8** ppBuffer);
 
 // when called, evaluate the current situation, and perform actions to harm the player if necessary
 void UpdateASD( );

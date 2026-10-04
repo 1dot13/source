@@ -80,6 +80,7 @@ extern CONTITION_FOR_MERC_AVAILABLE gConditionsForMercAvailability[ NUM_PROFILES
 extern CONTITION_FOR_MERC_AVAILABLE_TEMP gConditionsForMercAvailabilityTemp[ NUM_PROFILES ];
 
 extern BOOLEAN LoadNewMercsFromLoadGameFile( HWFILE hFile );
+BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer);
 extern BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile );
 
 //The players account information for the MERC site

@@ -42,6 +42,7 @@ void AddToBlockMoveList(INT16 sMapX, INT16 sMapY);
 // Flugente: militia movement
 BOOLEAN SaveMilitiaMovementInformationToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadMilitiaMovementInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGameVersion );
+BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion);
 
 // delete a militia group and transfer its militia to the sector they are in
 void DissolveMilitiaGroup( UINT8 uGroupId );

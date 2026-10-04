@@ -156,6 +156,40 @@ BOOLEAN LoadASDData( HWFILE hwFile )
 	return TRUE;
 }
 
+BOOLEAN LoadASDDataBuffer(CHAR8** ppBuffer)
+{
+	UINT32 numBytesRead = 0;
+
+	// ASD data
+	for ( int i = ASD_MONEY; i < ASD_RESOURCE_MAX; ++i )
+	{
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gASDResource[i], sizeof(gASDResource[i]), sizeof(INT32), numBytesRead);
+	}
+
+	for ( int i = ASD_MONEY; i < ASD_RESOURCE_MAX; ++i )
+	{
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gASDResource_Ordered[i], sizeof(gASDResource_Ordered[i]), sizeof(INT32), numBytesRead);
+	}
+
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &gASD_Flags, sizeof(gASD_Flags), sizeof(UINT32), numBytesRead);
+
+	// clear any artefacts prior to loading
+	EnemyHeliInit();
+
+	UINT32 size = 0;
+	numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &size, sizeof(size), sizeof(UINT32), numBytesRead);
+
+	for ( UINT32 i = 0; i < size; ++i )
+	{
+		ENEMY_HELI data;
+		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &data, sizeof(data), sizeof(ENEMY_HELI), 0);
+
+		gEnemyHeliVector.push_back(data);
+	}
+
+	return TRUE;
+}
+
 // when called, evaluate the current situation, and perform actions to harm the player if necessary
 void UpdateASD( )
 {

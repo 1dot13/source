@@ -296,7 +296,8 @@ class MERC_LEAVE_ITEM
 {
 public:
 	BOOLEAN Save( HWFILE hFile);
-	BOOLEAN Load( HWFILE hFile);
+	BOOLEAN Load(HWFILE hFile);
+	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 	void initialize() {object.initialize(); pNext = NULL;};
 	OBJECTTYPE object;
 	class MERC_LEAVE_ITEM *pNext;
@@ -735,6 +736,7 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier );
 INT16 GetRefreshHeightForMercList( void );
 
 BOOLEAN LoadLeaveItemList( HWFILE hFile );
+BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveLeaveItemList( HWFILE hFile );
 
 BOOLEAN CheckIfSalaryIncreasedAndSayQuote( SOLDIERTYPE *pSoldier, BOOLEAN fTriggerContractMenu );
