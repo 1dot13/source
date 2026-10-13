@@ -7228,7 +7228,7 @@ void NonCombatDecayPublicOpplist( UINT32 uiTime )
 	}
 }
 
-void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier )
+void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier, BOOLEAN fUpdateOpponents )
 {
 	UINT32					uiLoop;
 	SOLDIERTYPE *		pOpponent;
@@ -7248,7 +7248,7 @@ void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier )
 				{
 					AddOneOpponent( pSoldier );
 				}
-				if ( pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
+				if ( fUpdateOpponents && pOpponent->aiData.bOppList[pSoldier->ubID] == SEEN_CURRENTLY )
 				{
 					// WANNE: Chris, I reverted BUGZILLA #338 fix, because this leads to big problems on opponent count with enemies!
 					// have to add to opponent's oppcount as well since we just became non-neutral
