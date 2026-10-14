@@ -6402,7 +6402,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		return(FALSE);
 	}
 	fileBuffer[uiFSize] = 0; //add a null terminator
-	//FileSeek(hFile, 0, FILE_SEEK_FROM_START); // Temporarily until FileReads can be removed
 	FileClose(hFile);
 
 	//Load the Save Game header file
@@ -6497,19 +6496,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	//Store the loading screenID that was saved
 	gubLastLoadingScreenID = SaveGameHeader.ubLoadScreenID;
-
-
-/*
-	if( !LoadGeneralInfo( hFile ) )
-	{
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Misc info" );
-	#endif
-*/
-
 
 
 	//Load the gtactical status structure plus the current sector x,y,z
