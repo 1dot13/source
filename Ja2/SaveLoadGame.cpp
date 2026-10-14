@@ -6270,6 +6270,21 @@ extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
 #define USE_BUFFER
 
+// Progress-bar state shared between LoadSavedGame and ReportLoadProgress
+static UINT32 uiRelStartPerc;
+static UINT32 uiRelEndPerc;
+
+static void ReportLoadProgress( STR16 strLabel, UINT32 uiPercentage, BOOLEAN bSetEndAbsolute = FALSE )
+{
+	if ( bSetEndAbsolute )
+		uiRelEndPerc = uiPercentage;
+	else
+		uiRelEndPerc += uiPercentage;
+	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, strLabel );
+	RenderProgressBar( 0, 100 );
+	uiRelStartPerc = uiRelEndPerc;
+}
+
 BOOLEAN LoadSavedGame( int ubSavedGameID )
 {
 	HWFILE	hFile;
@@ -6280,8 +6295,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	INT16 sLoadSectorY;
 	INT8 bLoadSectorZ;
 	CHAR8		zSaveGameName[ MAX_PATH ];
-	UINT32 uiRelStartPerc;
-	UINT32 uiRelEndPerc;
+
+	uiRelStartPerc = 0;
+	uiRelEndPerc = 0;
 
 #ifdef JA2BETAVERSION
 	gfDisplaySaveGamesNowInvalidatedMsg = FALSE;
@@ -6291,8 +6307,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLogInitialize("TimeLog_LoadSavedGame.txt");
 #endif
 	
-	uiRelStartPerc = uiRelEndPerc =0;
-
 	TrashAllSoldiers( );
 
 	//Empty the dialogue Queue cause someone could still have a quote in waiting
@@ -6605,12 +6619,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		SetProgressBarTextDisplayFlag( 0, TRUE, TRUE, TRUE );
 #endif
 
-	uiRelStartPerc = 0;
-
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Strategic Events..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Strategic Events...", 1 );
 
 	//load the game events
 #ifdef USE_BUFFER
@@ -6631,10 +6640,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// in LoadStrategicEventsFromSavedGame
 	HandleNewSectorAmbience( gTilesets[ giCurrentTilesetID ].ubAmbientID );
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Laptop Info" );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Laptop Info", 0 );
 
 
 
@@ -6656,10 +6662,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadLaptopInfoFromSavedGame", 7);
 #endif
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Merc Profiles..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Merc Profiles...", 0 );
 
 	//
 	// Load all the saved Merc profiles
@@ -6681,9 +6684,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 30;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Soldier Structure..." );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Soldier Structure...", 30 );
 
 
 	//
@@ -6707,10 +6708,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadSoldierStructure", 8);
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Finances Data File..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Finances Data File...", 1 );
 
 
 	//
@@ -6733,10 +6731,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"History File..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"History File...", 1 );
 
 
 	//
@@ -6759,10 +6754,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"The Laptop FILES file..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"The Laptop FILES file...", 1 );
 
 
 	//
@@ -6784,10 +6776,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Email..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Email...", 1 );
 
 
 	// Load the data for the emails
@@ -6807,10 +6796,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Strategic Information..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Strategic Information...", 1 );
 
 
 
@@ -6856,10 +6842,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadStrategicInfoFromSavedFile", 6);
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"UnderGround Information..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"UnderGround Information...", 1 );
 
 
 	//Load the underground information
@@ -6880,10 +6863,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// Flugente: at this point we need to reevaluate the fortification costs, as the fortification plan may have changed
 	UpdateFortificationPossibleAmount();
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Squad Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Squad Info...", 1 );
 
 
 	// Load all the squad info from the saved game file 
@@ -6902,10 +6882,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Strategic Movement Groups..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Strategic Movement Groups...", 1 );
 
 
 	//Load the group linked list
@@ -6929,9 +6906,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadStrategicMovementGroupsFromSavedGameFile", 2);
 #endif
 
-	uiRelEndPerc += 30;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"All the Map Temp files..." );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"All the Map Temp files...", 30 );
 
 
 	// Load all the map temp files from the saved game file into the maps\temp directory
@@ -6953,10 +6928,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadMapTempFilesFromSavedGameFile", 5);
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Quest Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Quest Info...", 1 );
 
 	if( guiCurrentSaveGameVersion < QUESTS_DATATYPE_CHANGE )
 	{
@@ -6991,10 +6963,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"LUA Modder Data..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"LUA Modder Data...", 1 );
 
 	if ( guiCurrentSaveGameVersion >= LUA_MODDERDATA )
 	{
@@ -7018,10 +6987,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		InitLUAModderData();
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"OppList Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"OppList Info...", 1 );
 
 
 #ifdef USE_BUFFER
@@ -7041,10 +7007,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"MapScreen Messages..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"MapScreen Messages...", 1 );
 
 
 
@@ -7064,10 +7027,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"NPC Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"NPC Info...", 1 );
 
 
 
@@ -7087,10 +7047,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"KeyTable..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"KeyTable...", 1 );
 
 
 
@@ -7110,10 +7067,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Npc Temp Quote File..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Npc Temp Quote File...", 1 );
 
 
 #ifdef USE_BUFFER
@@ -7133,10 +7087,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"PreGenerated Random Files..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"PreGenerated Random Files...", 0 );
 
 
 #ifdef USE_BUFFER
@@ -7156,10 +7107,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Smoke Effect Structures..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Smoke Effect Structures...", 0 );
 
 
 
@@ -7179,10 +7127,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Arms Dealers Inventory..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Arms Dealers Inventory...", 1 );
 
 
 
@@ -7201,10 +7146,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Misc info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Misc info...", 0 );
 
 #ifdef USE_BUFFER
 	LoadGeneralInfoBuffer(&fileBuffer);
@@ -7220,10 +7162,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Mine Status..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Mine Status...", 1 );
 
 
 #ifdef USE_BUFFER
@@ -7243,10 +7182,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Town Loyalty..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Town Loyalty...", 0 );
 
 
 
@@ -7269,10 +7205,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Vehicle Information..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Vehicle Information...", 1 );
 
 	if( guiCurrentSaveGameVersion	>= 22 )
 	{
@@ -7292,10 +7225,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Militia Movement..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Militia Movement...", 1 );
 
 #ifdef USE_BUFFER
 	LoadMilitiaMovementInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
@@ -7316,10 +7246,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	TimingLog("LoadMilitiaMovementInformationFromSavedGameFile", 2);
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Bullet Information..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Bullet Information...", 1 );
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
@@ -7341,10 +7268,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Physics table..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Physics table...", 1 );
 
 
 
@@ -7369,10 +7293,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Air Raid Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Air Raid Info...", 1 );
 
 
 
@@ -7395,10 +7316,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 0;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Team Turn Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Team Turn Info...", 0 );
 
 
 
@@ -7422,10 +7340,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Explosion Table..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Explosion Table...", 1 );
 
 
 
@@ -7449,10 +7364,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Creature Spreading..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Creature Spreading...", 1 );
 
 
 
@@ -7477,10 +7389,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Strategic Status..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Strategic Status...", 1 );
 
 
 
@@ -7504,10 +7413,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Strategic AI..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Strategic AI...", 1 );
 
 
 
@@ -7530,10 +7436,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Lighting Effects..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Lighting Effects...", 1 );
 
 
 
@@ -7556,10 +7459,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Watched Locs Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Watched Locs Info...", 1 );
 
 
 
@@ -7583,10 +7483,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Item cursor Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Item cursor Info...", 1 );
 
 
 	if( guiCurrentSaveGameVersion	>= 39 )
@@ -7608,10 +7505,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Civ Quote System..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Civ Quote System...", 1 );
 
 
 
@@ -7635,10 +7529,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Backed up NPC Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Backed up NPC Info...", 1 );
 
 
 
@@ -7661,10 +7552,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Meanwhile definitions..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Meanwhile definitions...", 1 );
 
 
 
@@ -7692,10 +7580,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Schedules..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Schedules...", 1 );
 
 
 
@@ -7720,10 +7605,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Extra Vehicle Info..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Extra Vehicle Info...", 1 );
 
 
 
@@ -7763,10 +7645,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Contract renewal sequence stuff..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Contract renewal sequence stuff...", 1 );
 
 
 
@@ -7860,10 +7739,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef JA2UB	
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Ja25 Tactical info" );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;	
+	ReportLoadProgress( L"Ja25 Tactical info", 1 );	
 
 #ifdef USE_BUFFER
 	LoadJa25SaveInfoFromSavedGameBuffer(&fileBuffer);
@@ -7879,10 +7755,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#endif
 #endif
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Ja25 Save info Struct" );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Ja25 Save info Struct", 1 );
 	
 
 #ifdef USE_BUFFER
@@ -7904,10 +7777,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 113 )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage(0, uiRelStartPerc, uiRelEndPerc, L"Load New Mercs Profiles...");
-		RenderProgressBar(0, 100);
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load New Mercs Profiles...", 1 );
 
 #ifdef USE_BUFFER
 		LoadNewMercsFromLoadGameFileBuffer(&fileBuffer);
@@ -7928,10 +7798,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// Flugente: we don't need this data anymore, but need to account for older save files
 	if ( guiCurrentSaveGameVersion >= 113 && guiCurrentSaveGameVersion < PROFILETYPE_STORED )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage(0, uiRelStartPerc, uiRelEndPerc, L"Load New System Mercs Profiles...");
-		RenderProgressBar(0, 100);
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load New System Mercs Profiles...", 1 );
 
 #ifdef USE_BUFFER
 		LoadNewSystemMercsToSaveGameFileBuffer(&fileBuffer);
@@ -7948,17 +7815,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 	if( guiCurrentSaveGameVersion >= 114 )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Lua Global System..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;	
+		ReportLoadProgress( L"Lua Global System...", 1 );	
 	
 #ifdef USE_BUFFER
 		LoadLuaGlobalFromLoadGameFileBuffer(&fileBuffer);
@@ -7982,10 +7843,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	
 	if( guiCurrentSaveGameVersion >= VEHICLES_DATATYPE_CHANGE && guiCurrentSaveGameVersion < NO_VEHICLE_SAVE)
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Vehicles..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load New Vehicles...", 1 );
 
 #ifdef USE_BUFFER
 		LoadNewVehiclesToSaveGameFileBuffer(&fileBuffer);
@@ -8006,10 +7864,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	
 	if( guiCurrentSaveGameVersion >= NEW_SAVE_GAME_GENERAL_SAVE_INFO_DATA)
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Save Data..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Save Data...", 1 );
 
 #ifdef USE_BUFFER
 		LoadDataSaveFromLoadGameFileBuffer(&fileBuffer);
@@ -8029,10 +7884,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	
 	if( guiCurrentSaveGameVersion >= NEW_EMAIL_SAVE_GAME)
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load New Email Data..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load New Email Data...", 1 );
 
 #ifdef USE_BUFFER
 		LoadNewEmailDataFromLoadGameFileBuffer(&fileBuffer);
@@ -8052,10 +7904,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= HIDDENTOWN_DATATYPE_CHANGE)
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Hidden Towns..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Hidden Towns...", 1 );
 
 #ifdef USE_BUFFER
 		LoadHiddenTownFromLoadGameFileBuffer(&fileBuffer);
@@ -8075,10 +7924,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Briefing Room..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Briefing Room...", 1 );
 
 #ifdef USE_BUFFER
 		LoadBriefingRoomFromLoadGameFileBuffer(&fileBuffer);
@@ -8120,10 +7966,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Campaign Stats..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Campaign Stats...", 1 );
 
 #ifdef USE_BUFFER
 		gCampaignStats.LoadBuffer(&fileBuffer);
@@ -8151,10 +7994,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Dynamic Dialogue..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Dynamic Dialogue...", 1 );
 
 #ifdef USE_BUFFER
 		LoadDynamicDialogueBuffer(&fileBuffer);
@@ -8168,10 +8008,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #endif
 	}
 		
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load PMC data ..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Load PMC data ...", 1 );
 
 #ifdef USE_BUFFER
 	LoadPMCBuffer(&fileBuffer);
@@ -8186,10 +8023,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if ( guiCurrentSaveGameVersion >= ENEMY_HELICOPTERS )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load Arulco special division data..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load Arulco special division data...", 1 );
 
 #ifdef USE_BUFFER
 		LoadASDDataBuffer(&fileBuffer);
@@ -8218,10 +8052,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
 	{
-		uiRelEndPerc += 1;
-		SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load individual militia data..." );
-		RenderProgressBar( 0, 100 );
-		uiRelStartPerc = uiRelEndPerc;
+		ReportLoadProgress( L"Load individual militia data...", 1 );
 
 #ifdef USE_BUFFER
 		LoadIndividualMilitiaDataBuffer(&fileBuffer);
@@ -8239,10 +8070,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		InitIndividualMilitiaData();
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Load rebel command data..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Load rebel command data...", 1 );
 
 #ifdef USE_BUFFER
 	RebelCommand::LoadBuffer(&fileBuffer);
@@ -8390,10 +8218,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		guiCurrentSaveGameVersion = tempVersion;
 	}
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 	InitAI();
 
@@ -8404,10 +8229,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	PostSchedules();
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 
 	//Reset the lighting level if we are outside
@@ -8427,10 +8249,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 //	ResetMilitia();
 
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 	//if the UI was locked in the saved game file
 	if( gTacticalStatus.ubAttackBusyCount > 1 )
@@ -8458,19 +8277,13 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	SaveGameSettings();
 	SaveFeatureFlags();
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 
 	//Reset the Ai Timer clock
 	giRTAILastUpdateTime = 0;
 
-	uiRelEndPerc += 1;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Final Checks..." );
-	RenderProgressBar( 0, 100 );
-	uiRelStartPerc = uiRelEndPerc;
+	ReportLoadProgress( L"Final Checks...", 1 );
 
 
 	// init extern faces
@@ -8589,9 +8402,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	gfLoadedGame = TRUE;
 
-	uiRelEndPerc = 100;
-	SetRelativeStartAndEndPercentage( 0, uiRelStartPerc, uiRelEndPerc, L"Done!" );
-	RenderProgressBar( 0, 100 );
+	ReportLoadProgress( L"Done!", 100, TRUE );
 
 	RemoveLoadingScreenProgressBar();
 
