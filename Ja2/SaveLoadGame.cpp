@@ -6478,8 +6478,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		if(IsNIVModeValid(true) == FALSE){
 			// Only load NewInv in higher screen res
-#ifndef USE_BUFFER
-			FileClose( hFile );
+#ifdef USE_BUFFER
+			MemFree(startPos);
+#else
+			FileClose(hFile);
 #endif
 			return(FALSE);
 		}
@@ -6490,8 +6492,15 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	else
 	{
-		if(UsingNewAttachmentSystem()==true)
+		if ( UsingNewAttachmentSystem() == true )
+		{
+#ifdef USE_BUFFER
+			MemFree(startPos);
+#else
+			FileClose(hFile);
+#endif
 			return(FALSE);
+		}
 
 		InitInventoryOld();
 		InitOldInventorySystem();
@@ -6502,7 +6511,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
 		(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 	{
-#ifndef USE_BUFFER
+#ifdef USE_BUFFER
+		MemFree(startPos);
+#else
 		FileClose( hFile );
 #endif
 		return(FALSE);
@@ -6515,8 +6526,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		gfDisplaySaveGamesNowInvalidatedMsg = TRUE;
 #endif
 		//Fail loading the save
-#ifndef USE_BUFFER
-		FileClose( hFile );
+#ifdef USE_BUFFER
+		MemFree(startPos);
+#else
+		FileClose(hFile);
 #endif
 		return(FALSE);
 	}
@@ -8313,8 +8326,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	//Close the saved game file
 	//
-#ifndef USE_BUFFER
-	FileClose( hFile );
+#ifdef USE_BUFFER
+	MemFree(startPos);
+#else
+	FileClose(hFile);
 #endif
 
 	//CHRISL: To correct a problem with the MERC email, at this point we want to see if the email has been sent and force it if necessary
