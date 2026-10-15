@@ -6270,6 +6270,11 @@ extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
 #define USE_BUFFER
 
+static INT32 GetBufferPosition(CHAR8* current, CHAR8* start)
+{
+	return INT32(current - start);
+}
+
 // Progress-bar state shared between LoadSavedGame and ReportLoadProgress
 static UINT32 uiRelStartPerc;
 static UINT32 uiRelEndPerc;
@@ -6406,6 +6411,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef USE_BUFFER
 	UINT32 uiFSize = FileGetSize(hFile);
 	CHAR8* fileBuffer = (CHAR8*)MemAlloc(uiFSize + 1);
+	CHAR8* startPos = fileBuffer;
 	UINT32 uiBytesRead;
 
 	//Read in block
@@ -6418,8 +6424,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	fileBuffer[uiFSize] = 0; //add a null terminator
 	FileClose(hFile);
 
+
 	//Load the Save Game header file
 	LOADDATA(&SaveGameHeader, fileBuffer, sizeof(SAVED_GAME_HEADER));
+#ifdef JA2BETAVERSION
+	LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Save Game Header");
+#endif
 #else
 	FileRead( hFile, &SaveGameHeader, sizeof( SAVED_GAME_HEADER ), &uiNumBytesRead );
 	if( uiNumBytesRead != sizeof( SAVED_GAME_HEADER ) )
@@ -6444,7 +6454,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if(guiCurrentSaveGameVersion >= MOVED_GENERAL_INFO)
 	{
 #ifdef USE_BUFFER
-		LOADDATA(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS));
+	LOADDATA(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS));
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Game Options");
+	#endif
 #else
 		FileRead(hFile, &gGameOptions, sizeof(GAME_OPTIONS), &uiNumBytesRead);
 #endif
@@ -6515,6 +6528,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Load the gtactical status structure plus the current sector x,y,z
 #ifdef USE_BUFFER
 	LoadTacticalStatusFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Tactical Status");
+	#endif
 #else
 	if( !LoadTacticalStatusFromSavedGame( hFile ) )
 	{
@@ -6539,6 +6555,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Load the game clock ingo
 #ifdef USE_BUFFER
 	LoadGameClockBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Game Clock");
+	#endif
 #else
 	if( !LoadGameClock( hFile ) )
 	{
@@ -6624,6 +6643,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//load the game events
 #ifdef USE_BUFFER
 	LoadStrategicEventsFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Strategic Events");
+	#endif
 #else
 	if( !LoadStrategicEventsFromSavedGame( hFile ) )
 	{
@@ -6646,6 +6668,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadLaptopInfoFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Laptop Info");
+	#endif
 #else
 	if( !LoadLaptopInfoFromSavedGame( hFile ) )
 	{
@@ -6669,6 +6694,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 #ifdef USE_BUFFER
 	LoadSavedMercProfilesBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Merc Profiles");
+	#endif
 #else
 	if( !LoadSavedMercProfiles( hFile ) )
 	{
@@ -6692,6 +6720,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// 
 #ifdef USE_BUFFER
 	LoadSoldierStructureBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Soldier Structure");
+	#endif
 #else
 	if( !LoadSoldierStructure( hFile ) )
 	{
@@ -6716,6 +6747,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 #ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(FINANCES_DATA_FILE , &fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Finances Data File");
+	#endif
 #else
 	if( !LoadFilesFromSavedGame( FINANCES_DATA_FILE, hFile ) )
 	{
@@ -6739,6 +6773,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 #ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(HISTORY_DATA_FILE, &fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "History File");
+	#endif
 #else
 	if( !LoadFilesFromSavedGame( HISTORY_DATA_FILE, hFile ) )
 	{
@@ -6762,6 +6799,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 #ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(FILES_DAT_FILE, &fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "The Laptop FILES file");
+	#endif
 #else
 	if( !LoadFilesFromSavedGame( FILES_DAT_FILE, hFile ) )
 	{
@@ -6782,6 +6822,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// Load the data for the emails
 #ifdef USE_BUFFER
 	LoadEmailFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Email");
+	#endif
 #else
 	if( !LoadEmailFromSavedGame( hFile ) )
 	{
@@ -6803,6 +6846,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Load the strategic Information
 #ifdef USE_BUFFER
 	LoadStrategicInfoFromSavedFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Strategic Information");
+	#endif
 #else
 	if( !LoadStrategicInfoFromSavedFile( hFile ) )
 	{
@@ -6848,6 +6894,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Load the underground information
 #ifdef USE_BUFFER
 	LoadUnderGroundSectorInfoFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "UnderGround Information");
+	#endif
 #else
 	if( !LoadUnderGroundSectorInfoFromSavedGame( hFile ) )
 	{
@@ -6869,6 +6918,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// Load all the squad info from the saved game file 
 #ifdef USE_BUFFER
 	LoadSquadInfoFromSavedGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Squad Info");
+	#endif
 #else
 	if( !LoadSquadInfoFromSavedGameFile( hFile ) )
 	{
@@ -6888,6 +6940,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Load the group linked list
 #ifdef USE_BUFFER
 	LoadStrategicMovementGroupsFromSavedGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Strategic Movement Groups");
+	#endif
 #else
 	if( !LoadStrategicMovementGroupsFromSavedGameFile( hFile ) )
 	{
@@ -6912,6 +6967,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	// Load all the map temp files from the saved game file into the maps\temp directory
 #ifdef USE_BUFFER
 	LoadMapTempFilesFromSavedGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "All the Map Temp files");
+	#endif
 #else
 	if( !LoadMapTempFilesFromSavedGameFile( hFile ) )
 	{
@@ -6934,6 +6992,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_OLD_QUESTS);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Quest Info");
+		#endif
 #else
 		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_OLD_QUESTS ) )
 		{
@@ -6950,6 +7011,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_QUESTS);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Quest Info");
+		#endif
 #else
 		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_QUESTS ) )
 		{
@@ -6969,6 +7033,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadLUAModderDataFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "LUA Modder Data");
+		#endif
 #else
 		if ( !LoadLUAModderDataFromSavedGameFile( hFile ) )
 		{
@@ -6992,6 +7059,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadOppListInfoFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "OppList Info");
+	#endif
 #else
 	if( !LoadOppListInfoFromSavedGame( hFile ) )
 	{
@@ -7013,6 +7083,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadMapScreenMessagesFromSaveGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "MapScreen Messages");
+	#endif
 #else
 	if( !LoadMapScreenMessagesFromSaveGameFile( hFile ) )
 	{
@@ -7033,6 +7106,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "NPC Info");
+	#endif
 #else
 	if( !LoadNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
@@ -7053,6 +7129,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadKeyTableFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "KeyTable");
+	#endif
 #else
 	if( !LoadKeyTableFromSaveedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
@@ -7072,6 +7151,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadTempNpcQuoteArrayToSaveGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Npc Temp Quote File");
+	#endif
 #else
 	if( !LoadTempNpcQuoteArrayToSaveGameFile( hFile ) )
 	{
@@ -7092,6 +7174,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadPreRandomNumbersFromSaveGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "PreGenerated Random Files");
+	#endif
 #else
 	if( !LoadPreRandomNumbersFromSaveGameFile( hFile ) )
 	{
@@ -7113,6 +7198,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadSmokeEffectsFromLoadGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Smoke Effect Structures");
+	#endif
 #else
 	if( !LoadSmokeEffectsFromLoadGameFile( hFile ) )
 	{
@@ -7133,6 +7221,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadArmsDealerInventoryFromSavedGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Arms Dealers Inventory");
+	#endif
 #else
 	if( !LoadArmsDealerInventoryFromSavedGameFile( hFile ) )
 	{
@@ -7150,6 +7241,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadGeneralInfoBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Misc info");
+	#endif
 #else
 	if( !LoadGeneralInfo( hFile ) )
 	{
@@ -7167,6 +7261,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadMineStatusFromSavedGameFileBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Mine Status");
+	#endif
 #else
 	if( !LoadMineStatusFromSavedGameFile( hFile ) )
 	{
@@ -7191,6 +7288,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadStrategicTownLoyaltyFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Town Loyalty");
+		#endif
 #else
 		if( !LoadStrategicTownLoyaltyFromSavedGameFile( hFile ) )
 		{
@@ -7211,6 +7311,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadVehicleInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Vehicle Information");
+		#endif
 #else
 		if( !LoadVehicleInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 		{
@@ -7229,6 +7332,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadMilitiaMovementInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Militia Movement");
+	#endif
 #else
 	if ( !LoadMilitiaMovementInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 	{
@@ -7252,6 +7358,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadBulletStructureFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Bullet Information");
+		#endif
 #else
 		if( !LoadBulletStructureFromSavedGameFile( hFile ) )
 		{
@@ -7277,6 +7386,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadPhysicsTableFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Physics table");
+		#endif
 #else
 		if( !LoadPhysicsTableFromSavedGameFile( hFile ) )
 		{
@@ -7301,6 +7413,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadAirRaidInfoFromSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Air Raid Info");
+		#endif
 #else
 		if( !LoadAirRaidInfoFromSaveGameFile( hFile ) )
 		{
@@ -7324,6 +7439,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadTeamTurnsFromTheSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Team Turn Info");
+		#endif
 #else
 		if( !LoadTeamTurnsFromTheSavedGameFile( hFile ) )
 		{
@@ -7348,6 +7466,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadExplosionTableFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Explosion Table");
+		#endif
 #else
 		if( !LoadExplosionTableFromSavedGameFile( hFile ) )
 		{
@@ -7373,6 +7494,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadCreatureDirectivesBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Creature Spreading");
+		#endif
 #else
 		if( !LoadCreatureDirectives( hFile, guiCurrentSaveGameVersion ) )
 		{
@@ -7398,6 +7522,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadStrategicStatusFromSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Strategic Status");
+		#endif
 #else
 		if( !LoadStrategicStatusFromSaveGameFile( hFile ) )
 		{
@@ -7421,6 +7548,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadStrategicAIBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Strategic AI");
+		#endif
 #else
 		if( !LoadStrategicAI( hFile ) )
 		{
@@ -7444,6 +7574,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadLightEffectsFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Lighting Effects");
+		#endif
 #else
 		if( !LoadLightEffectsFromLoadGameFile( hFile ) )
 		{
@@ -7467,6 +7600,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadWatchedLocsFromSavedGameBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Watched Locs Info");
+		#endif
 #else
 		if ( !LoadWatchedLocsFromSavedGame( hFile ) )
 		{
@@ -7490,6 +7626,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadItemCursorFromSavedGameBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Item cursor Info");
+		#endif
 #else
 		if ( !LoadItemCursorFromSavedGame( hFile ) )
 		{
@@ -7513,6 +7652,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadCivQuotesFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Civ Quote System");
+		#endif
 #else
 		if( !LoadCivQuotesFromLoadGameFile( hFile ) )
 		{
@@ -7537,6 +7679,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadBackupNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Backed up NPC Info");
+		#endif
 #else
 		if( !LoadBackupNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
 		{
@@ -7560,6 +7705,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadMeanwhileDefsFromSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Meanwhile definitions");
+		#endif
 #else
 		if( !LoadMeanwhileDefsFromSaveGameFile( hFile ) )
 		{
@@ -7590,6 +7738,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		DestroyAllSchedulesWithoutDestroyingEvents();
 #ifdef USE_BUFFER
 		LoadSchedulesFromSaveBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Schedules");
+		#endif
 #else
 		if ( !LoadSchedulesFromSave( hFile ) )
 		{
@@ -7615,6 +7766,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Extra Vehicle Info");
+		#endif
 #else
 		if ( !LoadVehicleMovementInfoFromSavedGameFile( hFile ) )
 		{
@@ -7631,6 +7785,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		NewLoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Extra Vehicle Info");
+		#endif
 #else
 		if ( !NewLoadVehicleMovementInfoFromSavedGameFile( hFile ) )
 		{
@@ -7659,6 +7816,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadContractRenewalDataFromSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Contract renewal sequence stuff");
+		#endif
 #else
 		if ( !LoadContractRenewalDataFromSaveGameFile( hFile ) )
 		{
@@ -7677,6 +7837,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		LoadLeaveItemListBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Leave List");
+		#endif
 #else
 		if ( !LoadLeaveItemList( hFile ) )
 		{
@@ -7701,6 +7864,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "New way of loading Bobby R mailorders");
+		#endif
 #else
 		if ( !NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( hFile ) )
 		{
@@ -7725,6 +7891,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 #ifdef USE_BUFFER
 		gPostalService.LoadShipmentListFromSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Dealtar's Airport Shipment List");
+		#endif
 #else
 		if ( !gPostalService.LoadShipmentListFromSaveGameFile(hFile) )
 		{
@@ -7743,6 +7912,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadJa25SaveInfoFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Ja25 Tactical info");
+	#endif
 #else
 	if ( !LoadJa25SaveInfoFromSavedGame( hFile ) )
 	{
@@ -7760,6 +7932,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadJa25TacticalInfoFromSavedGameBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Ja25 Save info Struct");
+	#endif
 #else
 	if ( !LoadJa25TacticalInfoFromSavedGame( hFile ) )
 	{
@@ -7781,6 +7956,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadNewMercsFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Load Mercs Profiles");
+		#endif
 #else
 		if( !LoadNewMercsFromLoadGameFile( hFile ) )
 		{
@@ -7802,6 +7980,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadNewSystemMercsToSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Load New System Mercs Profiles");
+		#endif
 #else
 		if( !LoadNewSystemMercsToSaveGameFile( hFile ) )
 		{
@@ -7823,6 +8004,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	
 #ifdef USE_BUFFER
 		LoadLuaGlobalFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Lua Global System");
+		#endif
 #else
 		if( !LoadLuaGlobalFromLoadGameFile( hFile ) )
 		{
@@ -7847,6 +8031,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadNewVehiclesToSaveGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "New Vehicles");
+		#endif
 #else
 		if( !LoadNewVehiclesToSaveGameFile( hFile ) )
 		{
@@ -7868,6 +8055,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadDataSaveFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Load Save Data");
+		#endif
 #else
 		if( !LoadDataSaveFromLoadGameFile( hFile ) )
 		{
@@ -7888,6 +8078,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadNewEmailDataFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Load New Email Data");
+		#endif
 #else
 		if( !LoadNewEmailDataFromLoadGameFile( hFile ) )
 		{
@@ -7908,6 +8101,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadHiddenTownFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Load Hidden Towns");
+		#endif
 #else
 		if( !LoadHiddenTownFromLoadGameFile( hFile ) )
 		{
@@ -7928,6 +8124,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadBriefingRoomFromLoadGameFileBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Briefing Room");
+		#endif
 #else
 		if( !LoadBriefingRoomFromLoadGameFile( hFile ) )
 		{
@@ -7947,6 +8146,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		// no progress bar change, loads these 16k way to fast to even notice
 #ifdef USE_BUFFER
 		LoadEncyclopediaItemVisibilityBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Encyclopedia item visibility");
+		#endif
 #else
 		if ( !LoadEncyclopediaItemVisibility( hFile ) )
 		{
@@ -7970,6 +8172,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		gCampaignStats.LoadBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Campaign Stats");
+		#endif
 #else
 		if( !gCampaignStats.Load( hFile ) )
 		{
@@ -7982,6 +8187,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		// we also have to load the currently active incident
 #ifdef USE_BUFFER
 		gCurrentIncident.LoadBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Current Incident");
+		#endif
 #else
 		if( !gCurrentIncident.Load( hFile ) )
 		{
@@ -7998,6 +8206,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadDynamicDialogueBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Dynamic Dialogue");
+		#endif
 #else
 		if ( !LoadDynamicDialogue( hFile ) )
 		{
@@ -8012,6 +8223,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	LoadPMCBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "PMC data");
+	#endif
 #else
 	if ( !LoadPMC( hFile ) )
 	{
@@ -8027,6 +8241,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadASDDataBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Arulco special division data");
+		#endif
 #else
 		if ( !LoadASDData( hFile ) )
 		{
@@ -8056,6 +8273,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 		LoadIndividualMilitiaDataBuffer(&fileBuffer);
+		#ifdef JA2BETAVERSION
+			LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Individual militia data");
+		#endif
 #else
 		if ( !LoadIndividualMilitiaData( hFile ) )
 		{
@@ -8074,6 +8294,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 #ifdef USE_BUFFER
 	RebelCommand::LoadBuffer(&fileBuffer);
+	#ifdef JA2BETAVERSION
+		LoadGameFilePosition(GetBufferPosition(fileBuffer, startPos), "Rebel Command data");
+	#endif
 #else
 	if ( !RebelCommand::Load( hFile ) )
 	{
