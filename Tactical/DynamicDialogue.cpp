@@ -27,6 +27,7 @@
 #include "connect.h"
 #include "Campaign.h"
 #include "Points.h"
+#include "SaveLoadBuffer.h"
 
 #ifndef JA2UB
 #include "Meanwhile.h"
@@ -380,7 +381,7 @@ BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer)
 		UINT32 safetycheck2 = 0;
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead);
 
-		if ( safetycheck1 != gDynDiaSaveCheck || safetycheck2 != gDynDiaSaveCheck )
+		if ( gfBufferLoadFailed || safetycheck1 != gDynDiaSaveCheck || safetycheck2 != gDynDiaSaveCheck )
 		{
 			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading dynamic dialogue events!");
 			return FALSE;

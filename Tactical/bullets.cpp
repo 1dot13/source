@@ -11,6 +11,7 @@
 	#include "GameSettings.h"
 	#include "FileMan.h"
 	#include "lighting.h"
+#include "SaveLoadBuffer.h"
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.
@@ -644,12 +645,15 @@ BOOLEAN LoadBulletStructureFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	memset(gBullets, 0, NUM_BULLET_SLOTS * sizeof(BULLET));
 
 	//Load the number of Bullets in the array
-	LOADDATA(&guiNumBullets, *ppBuffer, sizeof(UINT32));
+	if (!LoadDataBuffered(&guiNumBullets, *ppBuffer, sizeof(UINT32), "BULLET amount"))
+		return false;
+
 
 	for ( usCnt = 0; usCnt < guiNumBullets; usCnt++ )
 	{
 		//Load the the Bullet structure
-		LOADDATA(&gBullets[usCnt], *ppBuffer, sizeof(BULLET));
+		if (!LoadDataBuffered(&gBullets[usCnt], *ppBuffer, sizeof(BULLET), "BULLET"))
+			return false;
 
 		//Set some parameters
 		gBullets[usCnt].uiLastUpdate = 0;

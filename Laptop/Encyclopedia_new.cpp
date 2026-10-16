@@ -47,6 +47,7 @@
 	//#include "Quests.h"
 	//#include "Tactical Save.h"
 	#include "Encyclopedia_Data_new.h"
+	#include "SaveLoadBuffer.h"
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @defgroup ENCYCLOPEDIA Encyclopedia
@@ -315,7 +316,11 @@ BOOLEAN LoadEncyclopediaItemVisibility( HWFILE hFile )
 
 BOOLEAN LoadEncyclopediaItemVisibilityBuffer(CHAR8** ppBuffer)
 {
-	LOADDATA(gbEncyclopediaData_ItemVisible, *ppBuffer, MAXITEMS);
+	if ( !LoadDataBuffered(gbEncyclopediaData_ItemVisible, *ppBuffer, MAXITEMS, "Encyclopedia Item Visibility") )
+	{
+		return(FALSE);
+	}
+
 	return (TRUE);
 }
 ///@}

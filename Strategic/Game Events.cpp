@@ -8,6 +8,7 @@
 	#include "message.h"
 	#include "MiniEvents.h"
 	#include "Text.h"
+#include "SaveLoadBuffer.h"
 
 #ifdef JA2TESTVERSION
 
@@ -824,7 +825,10 @@ BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
 
 
 	//Read the number of strategic events
-	LOADDATA(&uiNumGameEvents, *ppBuffer, sizeof(UINT32));
+	if (!LoadDataBuffered(&uiNumGameEvents, *ppBuffer, sizeof(UINT32), "uiNumGameEvents"))
+	{
+		return false;
+	}
 
 
 	pTemp = NULL;
@@ -836,11 +840,13 @@ BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
 
 		// allocate memory for the event
 		sGameEvent = (STRATEGICEVENT*)MemAlloc(sizeof(STRATEGICEVENT));
-		if ( sGameEvent == NULL )
-			return(FALSE);
 
 		//Read the current strategic event
-		LOADDATA(sGameEvent, *ppBuffer, sizeof(STRATEGICEVENT));
+		if ( sGameEvent == NULL || !LoadDataBuffered(sGameEvent, *ppBuffer, sizeof(STRATEGICEVENT), "sGameEvent") )
+		{
+			gfBufferLoadFailed = true;
+			break;
+		}
 
 
 		// Add the new node to the list
@@ -864,6 +870,13 @@ BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
 
 		// NULL out the next field ( cause there is no next field yet )
 		sGameEvent->next = NULL;
+	}
+
+	// Erase partly loaded event queue upon failure
+	if ( gfBufferLoadFailed )
+	{
+		DeleteAllStrategicEvents();
+		return FALSE;
 	}
 
 	InitMiniEvents();

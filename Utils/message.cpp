@@ -20,6 +20,7 @@
 	#include "Game Clock.h"
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
+#include "SaveLoadBuffer.h"
 
 #include <language.hpp>
 typedef struct
@@ -1449,25 +1450,34 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	gubCurrentMapMessageString = 0;
 
 	//	Read to the begining of the message list
-	LOADDATA(&gubEndOfMapScreenMessageList, *ppBuffer, sizeof(UINT8));
-
+	LoadDataBuffered(&gubEndOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubEndOfMapScreenMessageList");
 	//	Read the current message string
-	LOADDATA(&gubStartOfMapScreenMessageList, *ppBuffer, sizeof(UINT8));
-
+	LoadDataBuffered(&gubStartOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubStartOfMapScreenMessageList");
 	//	Read the current message string
-	LOADDATA(&gubCurrentMapMessageString, *ppBuffer, sizeof(UINT8));
+	LoadDataBuffered(&gubCurrentMapMessageString, *ppBuffer, sizeof(UINT8), "gubCurrentMapMessageString");
+
+	if ( gfBufferLoadFailed )
+	{
+		return false;
+	}
 
 	//Loopthrough all the messages
 	for ( uiCount = 0; uiCount < 256; uiCount++ )
 	{
 		//	Read to the file the size of the message
-		LOADDATA(&uiSizeOfString, *ppBuffer, sizeof(UINT32));
+		if ( !LoadDataBuffered(&uiSizeOfString, *ppBuffer, sizeof(UINT32), "Screen message size") )
+		{
+			break;
+		}
 
 		//if there is a message
 		if ( uiSizeOfString )
 		{
 			//	Read the message from the file
-			LOADDATA(SavedString, *ppBuffer, uiSizeOfString);
+			if ( !LoadDataBuffered(SavedString, *ppBuffer, uiSizeOfString, "Screen message") )
+			{
+				break;
+			}
 
 			//if there is an existing string,delete it
 			if ( gMapScreenMessageList[uiCount] )
@@ -1486,7 +1496,10 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 
 				sScroll = (ScrollStringSt*)MemAlloc(sizeof(ScrollStringSt));
 				if ( sScroll == NULL )
-					return(FALSE);
+				{
+					gfBufferLoadFailed = true;
+					break;
+				}
 
 				memset(sScroll, 0, sizeof(ScrollStringSt));
 
@@ -1496,7 +1509,10 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 			//allocate space for the new string
 			gMapScreenMessageList[uiCount]->pString16 = (STR16)MemAlloc(uiSizeOfString);
 			if ( gMapScreenMessageList[uiCount]->pString16 == NULL )
-				return(FALSE);
+			{
+				gfBufferLoadFailed = true;
+				break;
+			}
 
 			memset(gMapScreenMessageList[uiCount]->pString16, 0, uiSizeOfString);
 
@@ -1505,7 +1521,10 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 
 
 			//Read the rest of the message information to the saved game file
-			LOADDATA(&StringSave, *ppBuffer, sizeof(StringSaveStruct));
+			if ( !LoadDataBuffered(&StringSave, *ppBuffer, sizeof(StringSaveStruct), "StringSaveStruct") )
+			{
+				break;
+			}
 
 			// Create the saved string struct
 			gMapScreenMessageList[uiCount]->uiFont = StringSave.uiFont;
@@ -1516,6 +1535,12 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		}
 		else
 			gMapScreenMessageList[uiCount] = NULL;
+	}
+
+	if ( gfBufferLoadFailed )
+	{
+		ClearTacticalMessageQueue();
+		return false;
 	}
 
 	// this will set a valid value for gubFirstMapscreenMessageIndex, which isn't being saved/restored

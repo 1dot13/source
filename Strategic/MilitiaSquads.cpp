@@ -23,6 +23,7 @@
 #include "Reinforcement.h"
 #include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
 #include "MilitiaIndividual.h"		// added by Flugente
+#include "SaveLoadBuffer.h"
 
 // Debug defines
 
@@ -1761,13 +1762,18 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 		return TRUE;
 
 	//Load the number of elements
-	LOADDATA(&numpaths, *ppBuffer, sizeof(UINT8));
+	LoadDataBuffered(&numpaths, *ppBuffer, sizeof(UINT8), "MilitiaMovementInfo numpaths");
 
-	if ( numpaths != MILITIA_PATROLS_MAX )
+	if ( gfBufferLoadFailed || numpaths != MILITIA_PATROLS_MAX )
 		return(FALSE);
 
 	for ( UINT32 cnt = 0; cnt < MILITIA_PATROLS_MAX; ++cnt )
 	{
+		if ( gfBufferLoadFailed )
+		{
+			break;
+		}
+
 		UINT32		uiNumOfNodes = 0;
 		PathStPtr	pTempPath = NULL;
 		PathStPtr	pTemp = NULL;
@@ -1775,7 +1781,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 		INT16		groupid = 0;
 
 		//Load the number of the nodes
-		LOADDATA(&uiNumOfNodes, *ppBuffer, sizeof(UINT32));
+		LoadDataBuffered(&uiNumOfNodes, *ppBuffer, sizeof(UINT32), "MilitiaMovementInfo node amount");
 
 		//load all the nodes
 		for ( UINT32 cnt2 = 0; cnt2 < uiNumOfNodes; ++cnt2 )
@@ -1792,7 +1798,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 			memset(pTemp, 0, sizeof(PathSt));
 
 			//Load the node
-			LOADDATA(pTemp, *ppBuffer, sizeof(PathSt));
+			LoadDataBuffered(pTemp, *ppBuffer, sizeof(PathSt), "MilitiaMovementInfo nodes");
 
 			//Put the node into the list 
 			if ( cnt2 == 0 )
@@ -1819,11 +1825,16 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 			gMilitiaPath[cnt].path->pPrev = NULL;
 
 		//Load the number of the nodes
-		LOADDATA(&groupid, *ppBuffer, sizeof(INT16));
+		LoadDataBuffered(&groupid, *ppBuffer, sizeof(INT16), "MilitiaMovementInfo groupid");
 
 		gMilitiaPath[cnt].sGroupid = groupid;
 	}
 
+	if ( gfBufferLoadFailed )
+	{
+		DeleteAllMilitiaPaths();
+		return false;
+	}
 	return(TRUE);
 }
 

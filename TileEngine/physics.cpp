@@ -20,6 +20,7 @@
 	#include "Map Information.h"	// added by Shadooow
 #include "connect.h"
 #include "PATHAI.H"
+#include "SaveLoadBuffer.h"
 
 
 //forward declarations of common classes to eliminate includes
@@ -2907,7 +2908,8 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	//Load the number of REAL_OBJECTs in the array
-	LOADDATA(&guiNumObjectSlots, *ppBuffer, sizeof(UINT32));
+	if ( !LoadDataBuffered(&guiNumObjectSlots, *ppBuffer, sizeof(UINT32), "PhysicsTable object amount") )
+		return false;
 
 	//loop through and add the objects
 	for ( usCnt = 0; usCnt < guiNumObjectSlots; usCnt++ )

@@ -36,6 +36,8 @@
 #include <language.hpp>
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
+
 extern WorldItems gAllWorldItems;
 
 // loyalty Omerta drops to and maxes out at if the player betrays the rebels
@@ -1517,9 +1519,7 @@ BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFile( HWFILE hFile )
 BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFileBuffer(CHAR8**	ppBuffer)
 {
 	//Restore the Town Loyalty
-	LOADDATA(gTownLoyalty, *ppBuffer, sizeof(TOWN_LOYALTY) * MAX_TOWNS);
-
-	return(TRUE);
+	return LoadDataBuffered(gTownLoyalty, *ppBuffer, sizeof(TOWN_LOYALTY) * MAX_TOWNS, "TOWN_LOYALTY");
 }
 
 

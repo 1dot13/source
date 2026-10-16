@@ -30,6 +30,7 @@
 #endif
 
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 UINT8	NUMBER_OF_MERCS = 0;
 UINT8	LAST_MERC_ID = -1;
@@ -386,7 +387,10 @@ BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[NUM_PROFILES];
 
-	LOADDATA(&ConditionsForMercAvailabilityLoad, *ppBuffer, sizeof(ConditionsForMercAvailabilityLoad));
+	if ( !LoadDataBuffered(&ConditionsForMercAvailabilityLoad, *ppBuffer, sizeof(ConditionsForMercAvailabilityLoad), "ConditionsForMercAvailabilityLoad") )
+	{
+		return(FALSE);
+	}
 
 	// silversurfer: Now update the true gConditionsForMercAvailability array with the data from the savegame.
 	// Take every index of gConditionsForMercAvailability array that we initialized in GameInitMercs() and see

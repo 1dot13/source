@@ -5,6 +5,7 @@
 #include "Strategic Mines.h"
 #include "BobbyRMailOrder.h"
 #include "Tactical Save.h"
+#include "SaveLoadBuffer.h"
 #include "Strategic Movement.h"
 #include <Soldier Create.h>
 #include "FileMan.h"
@@ -11099,7 +11100,10 @@ BOOLEAN LoadLuaGlobalFromLoadGameFile(HWFILE hFile)
 
 BOOLEAN LoadLuaGlobalFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
-	LOADDATA(&gLuaGlobal, *ppBuffer, sizeof(gLuaGlobal));
+	if ( !LoadDataBuffered(&gLuaGlobal, *ppBuffer, sizeof(gLuaGlobal), "gLuaGlobal") )
+	{
+		return(FALSE);
+	}
 
 	return(TRUE);
 }

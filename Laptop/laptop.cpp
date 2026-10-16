@@ -92,6 +92,7 @@
 #include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"
 #include "BriefingRoomM.h"
+#include "SaveLoadBuffer.h"
 
 
 #ifdef JA2UB
@@ -7292,7 +7293,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 	}
 
 	// Load The laptop information
-	LOADDATA(&LaptopSaveInfo, *ppBuffer, sizeof(LaptopSaveInfoStruct));
+	LoadDataBuffered(&LaptopSaveInfo, *ppBuffer, sizeof(LaptopSaveInfoStruct), "LaptopSaveInfo");
 
 	//If there is anything in the Bobby Ray Orders on Delivery
 	if ( LaptopSaveInfo.usNumberOfBobbyRayOrderUsed )
@@ -7304,7 +7305,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 		Assert(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray);
 
 		// Load The laptop information
-		LOADDATA(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray, *ppBuffer, uiSize);
+		LoadDataBuffered(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray, *ppBuffer, uiSize, "BobbyRaOrderOnDeliveryArray");
 	}
 	else
 	{
@@ -7322,7 +7323,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 		Assert(LaptopSaveInfo.pLifeInsurancePayouts);
 
 		// Load The laptop information
-		LOADDATA(LaptopSaveInfo.pLifeInsurancePayouts, *ppBuffer, uiSize);
+		LoadDataBuffered(LaptopSaveInfo.pLifeInsurancePayouts, *ppBuffer, uiSize, "LifeInsurancePayouts");
 	}
 	else
 	{
@@ -7330,6 +7331,11 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 		LaptopSaveInfo.pLifeInsurancePayouts = NULL;
 	}
 
+
+	if ( gfBufferLoadFailed )
+	{
+		return FALSE;
+	}
 	return(TRUE);
 }
 

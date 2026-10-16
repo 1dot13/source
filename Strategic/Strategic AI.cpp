@@ -33,6 +33,7 @@
 	#include "Strategic Transport Groups.h"
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
 
 #define SAI_VERSION		29
 
@@ -4329,36 +4330,42 @@ BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
 	gfUnlimitedTroops = zDiffSetting[gGameOptions.ubDifficultyLevel].bUnlimitedPoolOfTroops;
 	gfAggressiveQueen = zDiffSetting[gGameOptions.ubDifficultyLevel].bAggressiveQueenAi;
 
-	DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Strategic6");
-	LOADDATA(gbPadding2, *ppBuffer, 3);
-	LOADDATA(&gfExtraElites, *ppBuffer, 1);
-	LOADDATA(&giGarrisonArraySize, *ppBuffer, 4);
-	LOADDATA(&giPatrolArraySize, *ppBuffer, 4);
-	LOADDATA(&giReinforcementPool, *ppBuffer, 4);
-	LOADDATA(&giForcePercentage, *ppBuffer, 4);
-	LOADDATA(&giArmyAlertness, *ppBuffer, 4);
-	LOADDATA(&giArmyAlertnessDecay, *ppBuffer, 4);
-	LOADDATA(&gfQueenAIAwake, *ppBuffer, 1);
-	LOADDATA(&giReinforcementPoints, *ppBuffer, 4);
-	LOADDATA(&giRequestPoints, *ppBuffer, 4);
-	LOADDATA(&gubNumAwareBattles, *ppBuffer, 1);
-	LOADDATA(&ubSAIVersion, *ppBuffer, 1);
-	LOADDATA(&gubQueenPriorityPhase, *ppBuffer, 1);
-	LOADDATA(&gfFirstBattleMeanwhileScenePending, *ppBuffer, 1);
-	LOADDATA(&gfMassFortificationOrdered, *ppBuffer, 1);
-	LOADDATA(&gubMinEnemyGroupSize, *ppBuffer, 1);
-	LOADDATA(&gubHoursGracePeriod, *ppBuffer, 1);
-	LOADDATA(&gusPlayerBattleVictories, *ppBuffer, 2);
-	LOADDATA(&gfUseAlternateQueenPosition, *ppBuffer, 1);
-	LOADDATA(&giTotalRecruitsInTraining, *ppBuffer, sizeof(giTotalRecruitsInTraining));
-	LOADDATA(gbPadding, *ppBuffer, SAI_PADDING_BYTES);
+    DebugMsg(TOPIC_JA2, DBG_LEVEL_3, "Strategic6");
+    LoadDataBuffered(gbPadding2, *ppBuffer, 3, "bPadding2");
+    LoadDataBuffered(&gfExtraElites, *ppBuffer, 1, "gfExtraElites");
+    LoadDataBuffered(&giGarrisonArraySize, *ppBuffer, 4, "giGarrisonArraySize");
+    LoadDataBuffered(&giPatrolArraySize, *ppBuffer, 4, "giPatrolArraySize");
+    LoadDataBuffered(&giReinforcementPool, *ppBuffer, 4, "giReinforcementPool");
+    LoadDataBuffered(&giForcePercentage, *ppBuffer, 4, "giForcePercentage");
+    LoadDataBuffered(&giArmyAlertness, *ppBuffer, 4, "giArmyAlertness");
+    LoadDataBuffered(&giArmyAlertnessDecay, *ppBuffer, 4, "giArmyAlertnessDecay");
+    LoadDataBuffered(&gfQueenAIAwake, *ppBuffer, 1, "gfQueenAIAwake");
+    LoadDataBuffered(&giReinforcementPoints, *ppBuffer, 4, "giReinforcementPoints");
+    LoadDataBuffered(&giRequestPoints, *ppBuffer, 4, "giRequestPoints");
+    LoadDataBuffered(&gubNumAwareBattles, *ppBuffer, 1, "gubNumAwareBattles");
+    LoadDataBuffered(&ubSAIVersion, *ppBuffer, 1, "ubSAIVersion");
+    LoadDataBuffered(&gubQueenPriorityPhase, *ppBuffer, 1, "gubQueenPriorityPhase");
+    LoadDataBuffered(&gfFirstBattleMeanwhileScenePending, *ppBuffer, 1, "gfFirstBattleMeanwhileScenePending");
+    LoadDataBuffered(&gfMassFortificationOrdered, *ppBuffer, 1, "gfMassFortificationOrdered");
+    LoadDataBuffered(&gubMinEnemyGroupSize, *ppBuffer, 1, "gubMinEnemyGroupSize");
+    LoadDataBuffered(&gubHoursGracePeriod, *ppBuffer, 1, "gubHoursGracePeriod");
+    LoadDataBuffered(&gusPlayerBattleVictories, *ppBuffer, 2, "gusPlayerBattleVictories");
+    LoadDataBuffered(&gfUseAlternateQueenPosition, *ppBuffer, 1, "gfUseAlternateQueenPosition");
+    LoadDataBuffered(&giTotalRecruitsInTraining, *ppBuffer, sizeof(giTotalRecruitsInTraining), "giTotalRecruitsInTraining");
+    LoadDataBuffered(gbPadding, *ppBuffer, SAI_PADDING_BYTES, "bPadding");
+
+	if ( gfBufferLoadFailed )
+		return false;
 
 	//Restore the army composition
-	LOADDATA(gArmyComp, *ppBuffer, NUM_ARMY_COMPOSITIONS * sizeof(ARMY_COMPOSITION));
+	if ( !LoadDataBuffered(gArmyComp, *ppBuffer, NUM_ARMY_COMPOSITIONS * sizeof(ARMY_COMPOSITION), "NUM_ARMY_COMPOSITIONS") )
+		return false;
+
 	i = SAVED_ARMY_COMPOSITIONS - NUM_ARMY_COMPOSITIONS;
 	while ( i-- )
 	{
-		LOADDATA(&gTempArmyComp, *ppBuffer, sizeof(ARMY_COMPOSITION));
+		if ( !LoadDataBuffered(&gTempArmyComp, *ppBuffer, sizeof(ARMY_COMPOSITION), "ARMY_COMPOSITION") )
+			return false;
 	}
 
 	//Restore the patrol group definitions
@@ -4367,11 +4374,17 @@ BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
 		MemFree(gPatrolGroup);
 	}
 	gPatrolGroup = (PATROL_GROUP*)MemAlloc(giPatrolArraySize * sizeof(PATROL_GROUP));
-	LOADDATA(gPatrolGroup, *ppBuffer, giPatrolArraySize * sizeof(PATROL_GROUP));
+	if ( !LoadDataBuffered(gPatrolGroup, *ppBuffer, giPatrolArraySize * sizeof(PATROL_GROUP), "giPatrolArraySize") )
+	{
+		MemFree(gPatrolGroup);
+		return false;
+	}
+
 	i = SAVED_PATROL_GROUPS - giPatrolArraySize;
 	while ( i-- )
 	{
-		LOADDATA(&gTempPatrolGroup, *ppBuffer, sizeof(PATROL_GROUP));
+		if ( !LoadDataBuffered(&gTempPatrolGroup, *ppBuffer, sizeof(PATROL_GROUP), "PATROL_GROUP") )
+			return false;
 	}
 
 	gubSAIVersion = SAI_VERSION;
@@ -4395,12 +4408,17 @@ BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
 
 	gGarrisonGroup = (GARRISON_GROUP*)MemAlloc(giGarrisonArraySize * sizeof(GARRISON_GROUP));
 	Assert(gGarrisonGroup);
-	LOADDATA(gGarrisonGroup, *ppBuffer, giGarrisonArraySize * sizeof(GARRISON_GROUP));
+	if ( !LoadDataBuffered(gGarrisonGroup, *ppBuffer, giGarrisonArraySize * sizeof(GARRISON_GROUP), "GARRISON_GROUP") )
+	{
+		MemFree(gGarrisonGroup);
+		return false;
+	}
 	/* if the Savegame File contains more Garrisons then our Array, toss the remaining ones into the saucer */
 	i = SAVED_GARRISON_GROUPS - giGarrisonArraySize;
 	while ( i-- > 0 ) /* prevent underrun, 2007-03-03, Sgt. Kolja	*/
 	{
-		LOADDATA(&gTempGarrisonGroup, *ppBuffer, sizeof(GARRISON_GROUP));
+		if ( !LoadDataBuffered(&gTempGarrisonGroup, *ppBuffer, sizeof(GARRISON_GROUP), "GARRISON_GROUP discard") )
+			return false;
 	}
 
 	//Load the list of reinforcement patrol points.
@@ -4410,7 +4428,12 @@ BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
 		gubPatrolReinforcementsDenied = NULL;
 	}
 	gubPatrolReinforcementsDenied = (UINT8*)MemAlloc(giPatrolArraySize);
-	LOADDATA(gubPatrolReinforcementsDenied, *ppBuffer, giPatrolArraySize);
+	Assert(gubPatrolReinforcementsDenied);
+	if ( !LoadDataBuffered(gubPatrolReinforcementsDenied, *ppBuffer, giPatrolArraySize, "gubPatrolReinforcementsDenied") )
+	{
+		MemFree(gubPatrolReinforcementsDenied);
+		return false;
+	}
 
 	//Load the list of reinforcement garrison points.
 	if ( gubGarrisonReinforcementsDenied )
@@ -4419,7 +4442,12 @@ BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
 		gubGarrisonReinforcementsDenied = NULL;
 	}
 	gubGarrisonReinforcementsDenied = (UINT8*)MemAlloc(giGarrisonArraySize);
-	LOADDATA(gubGarrisonReinforcementsDenied, *ppBuffer, giGarrisonArraySize);
+	Assert(gubGarrisonReinforcementsDenied);
+	if (!LoadDataBuffered(gubGarrisonReinforcementsDenied, *ppBuffer, giGarrisonArraySize, "gubGarrisonReinforcementsDenied"))
+	{
+		MemFree(gubGarrisonReinforcementsDenied);
+		return false;
+	}
 
 #ifdef JA2BETAVERSION
 	InitStrategicMovementCosts();

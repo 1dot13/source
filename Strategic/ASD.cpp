@@ -31,6 +31,7 @@
 #include "renderworld.h"
 #include "Isometric Utils.h"
 #include "Rebel Command.h"
+#include "SaveLoadBuffer.h"
 
 
 extern BOOLEAN gfTacticalDoHeliRun;
@@ -187,6 +188,10 @@ BOOLEAN LoadASDDataBuffer(CHAR8** ppBuffer)
 		gEnemyHeliVector.push_back(data);
 	}
 
+	if ( gfBufferLoadFailed )
+	{
+		return false;
+	}
 	return TRUE;
 }
 

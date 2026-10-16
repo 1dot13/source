@@ -32,6 +32,7 @@
 	#include "Dialogue Control.h" // added by Flugente
 
 #include "GameVersion.h"
+#include "SaveLoadBuffer.h"
 
 DOOR_STATUS		*gpDoorStatus = NULL;
 UINT8					gubNumDoorStatus=0;
@@ -2062,15 +2063,16 @@ BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
 
 BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
 {
+	INT32 size = sizeof(KEY) * NUM_KEYS;
 	if ( uiSaveGameVersion < MORE_LOCKS_AND_KEYS )
 	{
-		// Load the KeyTable
-		LOADDATA(KeyTable, *ppBuffer, sizeof(KEY) * NUM_KEYS_OLD);
+		size = sizeof(KEY) * NUM_KEYS_OLD;
 	}
-	else
+
+	// Load the KeyTable
+	if (!LoadDataBuffered(KeyTable, *ppBuffer, size, "KeyTable"))
 	{
-		// Load the KeyTable
-		LOADDATA(KeyTable, *ppBuffer, sizeof(KEY) * NUM_KEYS);
+		return false;
 	}
 
 	return(TRUE);

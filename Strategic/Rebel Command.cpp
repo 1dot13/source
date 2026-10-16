@@ -73,6 +73,7 @@ Points of interest:
 #include "Game Clock.h"
 #include "Game Event Hook.h"
 #include "GameSettings.h"
+#include "SaveLoadBuffer.h"
 #include "GameVersion.h"
 #include "input.h"
 #include "line.h"
@@ -4136,7 +4137,10 @@ BOOLEAN LoadBuffer(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= REBELCOMMAND )
 	{
-		LOADDATA(&rebelCommandSaveInfo, *ppBuffer, sizeof(RebelCommand::SaveInfo));
+		if ( !LoadDataBuffered(&rebelCommandSaveInfo, *ppBuffer, sizeof(RebelCommand::SaveInfo), "Rebel Command SaveInfo") )
+		{
+			return(FALSE);
+		}
 		SetupInfo();
 	}
 	else

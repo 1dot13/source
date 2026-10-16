@@ -116,6 +116,7 @@
 
 #include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #include "ASD.h"	// added by Flugente
+#include "SaveLoadBuffer.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -5621,7 +5622,10 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 	for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
 	{
 		// Load the strategic map information
-		LOADDATA(&StrategicMap[i], *ppBuffer, uiSize);
+		if (!LoadDataBuffered(&StrategicMap[i], *ppBuffer, uiSize, "StrategicMapElement"))
+		{
+			return false;
+		}
 
 		if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )
 			StrategicMap[i].usFlags = 0;
@@ -5643,7 +5647,10 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 
 	for ( int sectorID = 0; sectorID <= 255; ++sectorID )
 	{
-		LOADDATA(&SectorInfo[sectorID], *ppBuffer, uiSize);
+		if (!LoadDataBuffered(&SectorInfo[sectorID], *ppBuffer, uiSize, "SECTORINFO"))
+		{
+			return false;
+		}
 
 		// Flugente: changes in SECTORINFO require a weird-looking remapping
 		if ( guiCurrentSaveGameVersion < PRISONER_EXPANSION )
@@ -5672,13 +5679,15 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 	}
 
 
-	// Load the SAM Controlled Sector Information
+	// Skip loading the SAM Controlled Sector Information
 	uiSize = MAP_WORLD_X * MAP_WORLD_Y;
-	//FileSeek(hFile, uiSize, FILE_SEEK_FROM_CURRENT);
 	SKIPDATA(*ppBuffer, *ppBuffer, uiSize);
 
 	// Load the fFoundOrta
-	LOADDATA(&fFoundOrta, *ppBuffer, sizeof(BOOLEAN));
+	if (!LoadDataBuffered(&fFoundOrta, *ppBuffer, sizeof(BOOLEAN), "fFoundOrta"))
+	{
+		return false;
+	}
 
 	return(TRUE);
 }

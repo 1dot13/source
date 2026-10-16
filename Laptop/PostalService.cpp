@@ -7,6 +7,7 @@
 #include "random.h"
 #include "Game Clock.h"
 #include "GameSettings.h"
+#include "SaveLoadBuffer.h"
 #include <list>
 #include <string>
 #include <iostream>
@@ -887,7 +888,10 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		_Shipments.clear();
 	}
 
-	LOADDATA(&sls, *ppBuffer, sizeof(ShipmentListSaveFileDataHeaderStruct));
+	if ( !LoadDataBuffered(&sls, *ppBuffer, sizeof(ShipmentListSaveFileDataHeaderStruct), "Postal Shipment Header") )
+	{
+		return(FALSE);
+	}
 
 	ShipmentPackageStruct		sps;
 
@@ -897,7 +901,10 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 
 		// Read in shipment data header
 		memset(&sfs, 0, sizeof(ShipmentSaveFileDataStruct));
-		LOADDATA(&sfs, *ppBuffer, sizeof(ShipmentSaveFileDataStruct));
+		if ( !LoadDataBuffered(&sfs, *ppBuffer, sizeof(ShipmentSaveFileDataStruct), "Postal Shipment Data") )
+		{
+			return(FALSE);
+		}
 
 		// WANNE: Bugfix: Fixed CTD in VS 2008 Release EXE (by birdflu) -> This leads to item duplication!!!
 		//memset(&shs, 0, sizeof(ShipmentStruct));		
@@ -919,7 +926,10 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		for ( int j = 0; j < (int)sfs.uiNumberOfPackages; j++ )
 		{
 			memset(&sps, 0, sizeof(ShipmentPackageStruct));
-			LOADDATA(&sps, *ppBuffer, sizeof(ShipmentPackageStruct));
+			if ( !LoadDataBuffered(&sps, *ppBuffer, sizeof(ShipmentPackageStruct), "Postal Shipment Package") )
+			{
+				return(FALSE);
+			}
 			shs.ShipmentPackages.push_back(sps);
 		}
 		_Shipments.push_back(shs);

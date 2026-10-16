@@ -32,6 +32,7 @@
 
 #include "GameSettings.h"
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 #ifdef JA2UB
 #include "ub_config.h"
@@ -140,10 +141,16 @@ BOOLEAN LoadContractRenewalDataFromSaveGameFile( HWFILE hFile )
 BOOLEAN LoadContractRenewalDataFromSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	for ( int idx = 0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++ ) {
-		LOADDATA(&ContractRenewalList[idx], *ppBuffer, sizeof(CONTRACT_NEWAL_LIST_NODE));
+		if ( !LoadDataBuffered(&ContractRenewalList[idx], *ppBuffer, sizeof(CONTRACT_NEWAL_LIST_NODE), "Contract Renewal Node") )
+		{
+			return(FALSE);
+		}
 	}
 
-	LOADDATA(&ubNumContractRenewals, *ppBuffer, sizeof(ubNumContractRenewals));
+	if ( !LoadDataBuffered(&ubNumContractRenewals, *ppBuffer, sizeof(ubNumContractRenewals), "Num Contract Renewals") )
+	{
+		return(FALSE);
+	}
 
 	return(TRUE);
 }

@@ -1,5 +1,6 @@
 ﻿#include "laptop.h"
 #include "email.h"
+#include "SaveLoadBuffer.h"
 #include "Utilities.h"
 #include "WCheck.h"
 #include "DEBUG.H"
@@ -6329,7 +6330,10 @@ BOOLEAN LoadNewEmailDataFromLoadGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumOfEmails = 0;
 	EmailPtr	pEmail = pEmailList;
 
-	LOADDATA(&gEmailT, *ppBuffer, sizeof(gEmailT));
+	if ( !LoadDataBuffered(&gEmailT, *ppBuffer, sizeof(gEmailT), "gEmailT") )
+	{
+		return(FALSE);
+	}
 
 	while ( pEmail )
 	{

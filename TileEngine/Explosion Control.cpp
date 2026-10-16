@@ -41,6 +41,7 @@
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"
 #include "Item Statistics.h"
+#include "SaveLoadBuffer.h"
 
 
 #ifdef JA2UB
@@ -5182,13 +5183,13 @@ BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	memset(gExplosionQueue, 0, sizeof(ExplosionQueueElement) * MAX_BOMB_QUEUE);
 
 	//Read the number of explosions queue's
-	LOADDATA(&gubElementsOnExplosionQueue, *ppBuffer, sizeof(UINT32));
+	LoadDataBuffered(&gubElementsOnExplosionQueue, *ppBuffer, sizeof(UINT32), "Explosion queue size");
 
 
 	//loop through read all the active explosions fro the file
 	for ( uiCnt = 0; uiCnt < MAX_BOMB_QUEUE; uiCnt++ )
 	{
-		LOADDATA(&gExplosionQueue[uiCnt], *ppBuffer, sizeof(ExplosionQueueElement));
+		LoadDataBuffered(&gExplosionQueue[uiCnt], *ppBuffer, sizeof(ExplosionQueueElement), "ExplosionQueueElement");
 	}
 
 
@@ -5198,19 +5199,23 @@ BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	//
 
 	//Load the number of explosions
-	LOADDATA(&guiNumExplosions, *ppBuffer, sizeof(UINT32));
+	LoadDataBuffered(&guiNumExplosions, *ppBuffer, sizeof(UINT32), "EXPLOSIONTYPE amount");
 
 
 	//loop through and load all the active explosions
 	for ( uiCnt = 0; uiCnt < guiNumExplosions; uiCnt++ )
 	{
-		LOADDATA(&gExplosionData[uiCnt], *ppBuffer, sizeof(EXPLOSIONTYPE));
+		LoadDataBuffered(&gExplosionData[uiCnt], *ppBuffer, sizeof(EXPLOSIONTYPE), "EXPLOSIONTYPE");
 		gExplosionData[uiCnt].iID = uiCnt;
 		gExplosionData[uiCnt].iLightID = -1;
 
 		GenerateExplosionFromExplosionPointer(&gExplosionData[uiCnt]);
 	}
 
+	if ( gfBufferLoadFailed )
+	{
+		return false;
+	}
 	return(TRUE);
 }
 

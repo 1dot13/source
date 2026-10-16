@@ -4105,6 +4105,7 @@ BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile )
 
 #include "SaveLoadGame.h"
 #include "GameVersion.h"
+#include "SaveLoadBuffer.h"
 
 BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile( HWFILE hFile )
 {
@@ -4274,7 +4275,8 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		RemoveGroupFromList(gpGroupList);
 
 	//load the number of nodes in the list
-	LOADDATA(&uiNumberOfGroups, *ppBuffer, sizeof(UINT32));
+	if ( !LoadDataBuffered(&uiNumberOfGroups, *ppBuffer, sizeof(UINT32), "Strategic Movement Group node amount") )
+		return false;
 
 	pGroup = gpGroupList;
 
@@ -4288,7 +4290,8 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		memset(pTemp, 0, sizeof(GROUP));
 
 		//Read in the node
-		LOADDATA(pTemp, *ppBuffer, sizeof(GROUP));
+		if (!LoadDataBuffered(pTemp, *ppBuffer, sizeof(GROUP), "GROUP"))
+			return false;
 
 		// Flugente: Up to now, GROUPs were either player-controlled (fPlayer = TRUE) or enemy-controlled (fPlayer = FALSE).
 		// As a result, no other team could have any travelling groups (militia, civilians, creatures...)
@@ -4317,16 +4320,19 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 			if ( pTemp->ubGroupSize )
 			{
 				//Save the player group list
-				LoadPlayerGroupListBuffer(ppBuffer, &pTemp);
+				if (!LoadPlayerGroupListBuffer(ppBuffer, &pTemp))
+					return false;
 			}
 		}
 		else //else its an enemy group
 		{
-			LoadEnemyGroupStructFromSavedGameBuffer(ppBuffer, pTemp);
+			if (!LoadEnemyGroupStructFromSavedGameBuffer(ppBuffer, pTemp))
+				return false;
 		}
 
 		//Save the waypoint list for the group, if they have one
-		LoadWayPointListBuffer(ppBuffer, pTemp);
+		if (!LoadWayPointListBuffer(ppBuffer, pTemp))
+			return false;
 
 		pTemp->next = NULL;
 
@@ -4346,7 +4352,8 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	// Load the unique id mask
-	LOADDATA(uniqueIDMask, *ppBuffer, sizeof(UINT32) * 8);
+	if (!LoadDataBuffered(uniqueIDMask, *ppBuffer, sizeof(UINT32) * 8, "Strategic Movement Group uniqueIDMask"))
+		return false;
 
 	//@@@ TEMP!
 	//Rebuild the uniqueIDMask as a very old bug broke the uniqueID assignments in extremely rare cases.
@@ -4518,7 +4525,8 @@ BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup)
 
 
 	// Load the number of nodes in the player list
-	LOADDATA(&uiNumberOfNodes, *ppBuffer, sizeof(UINT32));
+	if ( !LoadDataBuffered(&uiNumberOfNodes, *ppBuffer, sizeof(UINT32), "PLAYERGROUP size") )
+		return false;
 
 	//loop through all the nodes and set them up
 	for ( cnt = 0; cnt < uiNumberOfNodes; ++cnt )
@@ -4529,7 +4537,8 @@ BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup)
 			return(FALSE);
 
 		// Load the ubProfile ID for this node
-		LOADDATA(&uiProfileID, *ppBuffer, sizeof(UINT32));
+		if ( !LoadDataBuffered(&uiProfileID, *ppBuffer, sizeof(UINT32), "PLAYERGROUP id") )
+			return false;
 
 		//Set up the current node
 		pTemp->ubProfileID = (UINT8)uiProfileID;
@@ -4613,7 +4622,8 @@ BOOLEAN LoadEnemyGroupStructFromSavedGameBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 	memset(pEnemyGroup, 0, sizeof(ENEMYGROUP));
 
 	//Load the enemy struct
-	LOADDATA(pEnemyGroup, *ppBuffer, sizeof(ENEMYGROUP));
+	if ( !LoadDataBuffered(pEnemyGroup, *ppBuffer, sizeof(ENEMYGROUP), "ENEMYGROUP") )
+		return false;
 
 	//Assign the struct to the group list
 	pGroup->pEnemyGroup = pEnemyGroup;
@@ -4782,7 +4792,8 @@ BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 	WAYPOINT* pTemp = NULL;
 
 	//Load the number of waypoints
-	LOADDATA(&uiNumberOfWayPoints, *ppBuffer, sizeof(UINT32));
+	if ( !LoadDataBuffered(&uiNumberOfWayPoints, *ppBuffer, sizeof(UINT32), "WAYPOINT size") )
+		return false;
 
 	if ( uiNumberOfWayPoints )
 	{
@@ -4796,7 +4807,8 @@ BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 			memset(pTemp, 0, sizeof(WAYPOINT));
 
 			//Load the waypoint node
-			LOADDATA(pTemp, *ppBuffer, sizeof(WAYPOINT));
+			if ( !LoadDataBuffered(pTemp, *ppBuffer, sizeof(WAYPOINT), "WAYPOINT") )
+				return false;
 
 			pTemp->next = NULL;
 

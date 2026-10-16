@@ -24,6 +24,7 @@
 	#include "Soldier Profile.h"
 	#include "soldier profile type.h"
 	#include "Quests.h"
+	#include "SaveLoadBuffer.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -430,9 +431,12 @@ BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
 
 	UINT32	uiNumBytesRead, uiNumBytesToRead;
 
-	//LOADDATA( &ubNum, *hBuffer, sizeof( UINT8 ) );
+
 	uiNumBytesToRead = sizeof(UINT8);
-	LOADDATA(&ubNum, *ppBuffer, uiNumBytesToRead);
+	if ( !LoadDataBuffered(&ubNum, *ppBuffer, uiNumBytesToRead, "Schedule Count") )
+	{
+		return(FALSE);
+	}
 
 	//Hack problem with schedules getting misaligned.
 	ubRealNum = gfSchedulesHosed ? ubNum + 256 : ubNum;
@@ -441,7 +445,10 @@ BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
 	while ( ubRealNum )
 	{
 		uiNumBytesToRead = sizeof(SCHEDULENODE);
-		LOADDATA(&temp, *ppBuffer, uiNumBytesToRead);
+		if ( !LoadDataBuffered(&temp, *ppBuffer, uiNumBytesToRead, "Schedule Node") )
+		{
+			return(FALSE);
+		}
 
 		if ( gpScheduleList )
 		{

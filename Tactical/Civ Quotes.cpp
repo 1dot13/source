@@ -33,6 +33,7 @@
 #include "Campaign.h"
 #include "opplist.h"
 #include "Sound Control.h"	// sevenfm: voice taunts
+#include "SaveLoadBuffer.h"	// anv: LoadDataBuffered for buffered save/load
 
 #define			DIALOGUE_DEFAULT_WIDTH			200
 #define			EXTREAMLY_LOW_TOWN_LOYALTY	20
@@ -1095,7 +1096,11 @@ BOOLEAN LoadCivQuotesFromLoadGameFileBuffer(CHAR8** ppBuffer)
 	// anv: reset uiTauntFinishTimes after game is loaded (so enemies can taunt after guiBaseJA2Clock is decreased)
 	memset(&uiTauntFinishTimes, 0, sizeof(uiTauntFinishTimes));
 
-	LOADDATA(&gCivQuotes, *ppBuffer, sizeof(gCivQuotes));
+	if ( !LoadDataBuffered(&gCivQuotes, *ppBuffer, sizeof(gCivQuotes), "gCivQuotes") )
+	{
+		return(FALSE);
+	}
+
 	CopyNumEntriesIntoQuoteStruct(); //Not used 
 
 	return(TRUE);

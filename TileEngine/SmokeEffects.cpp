@@ -29,6 +29,7 @@
 #include "Debug Control.h"
 
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -964,13 +965,13 @@ BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		memset(gSmokeEffectData, 0, sizeof(SMOKEEFFECT) * NUM_SMOKE_EFFECT_SLOTS);
 
 		//Load the Number of Smoke Effects
-		LOADDATA(&guiNumSmokeEffects, *ppBuffer, sizeof(UINT32));
+		LoadDataBuffered(&guiNumSmokeEffects, *ppBuffer, sizeof(UINT32), "guiNumSmokeEffects");
 
 		//This is a TEMP hack to allow us to use the saves
 		if ( guiCurrentSaveGameVersion < 37 && guiNumSmokeEffects == 0 )
 		{
 			//Load the Smoke effect Data
-			LOADDATA(gSmokeEffectData, *ppBuffer, sizeof(SMOKEEFFECT));
+			LoadDataBuffered(gSmokeEffectData, *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
 		}
 
 
@@ -978,7 +979,7 @@ BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		for ( uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++ )
 		{
 			//Load the Smoke effect Data
-			LOADDATA(&gSmokeEffectData[uiCnt], *ppBuffer, sizeof(SMOKEEFFECT));
+			LoadDataBuffered(&gSmokeEffectData[uiCnt], *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
 
 			//This is a TEMP hack to allow us to use the saves
 			if ( guiCurrentSaveGameVersion < 37 )

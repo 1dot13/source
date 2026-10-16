@@ -15,6 +15,7 @@
 #include "LaptopSave.h"
 #include "email.h"
 #include "DynamicDialogue.h"
+#include "SaveLoadBuffer.h"
 
 Campaign_Stats	gCampaignStats;
 Incident_Stats	gCurrentIncident;		// we might save during an incident, thus we have to store the ongoing incident
@@ -166,7 +167,7 @@ BOOLEAN Incident_Stats::LoadBuffer(CHAR8** ppBuffer)
 
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usFiller, sizeof(usFiller), sizeof(UINT8), numBytesRead);
 
-		if ( numBytesRead != SIZEOF_INCIDENT_STATS_POD )
+		if ( gfBufferLoadFailed || numBytesRead != SIZEOF_INCIDENT_STATS_POD )
 			return(FALSE);
 	}
 
@@ -700,7 +701,7 @@ BOOLEAN Campaign_Stats::LoadBuffer(CHAR8** ppBuffer)
 
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &usFiller, sizeof(usFiller), sizeof(UINT8), numBytesRead);
 
-		if ( numBytesRead != SIZEOF_CAMPAIGN_STATS_POD )
+		if ( gfBufferLoadFailed || numBytesRead != SIZEOF_CAMPAIGN_STATS_POD )
 			return(FALSE);
 
 		for ( UINT32 i = 0; i < usNumIncidents; ++i )

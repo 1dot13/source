@@ -15,6 +15,7 @@
 	#include "screenids.h"
 	#include "Soldier macros.h"
 	#include "GameSettings.h"
+#include "SaveLoadBuffer.h"
 
 
 typedef struct
@@ -1286,7 +1287,10 @@ BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 
 	// Load in the squad info
 	uiSaveSize = sizeof(SAVE_SQUAD_INFO_STRUCT) * NUMBER_OF_SQUADS * NUMBER_OF_SOLDIERS_PER_SQUAD;
-	LOADDATA(sSquadSaveStruct, *ppBuffer, uiSaveSize);
+	if (!LoadDataBuffered(sSquadSaveStruct, *ppBuffer, uiSaveSize, "SAVE_SQUAD_INFO_STRUCT"))
+	{
+		return false;
+	}
 
 	// Loop through the array loaded in
 	for ( iCounter = 0; iCounter < NUMBER_OF_SQUADS; iCounter++ )
@@ -1301,7 +1305,10 @@ BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	//Load in the Squad movement id's
-	LOADDATA(SquadMovementGroups, *ppBuffer, sizeof(INT8) * NUMBER_OF_SQUADS);
+	if (!LoadDataBuffered(SquadMovementGroups, *ppBuffer, sizeof(INT8) * NUMBER_OF_SQUADS, "SquadMovementGroups"))
+	{
+		return false;
+	}
 
 	return(TRUE);
 }

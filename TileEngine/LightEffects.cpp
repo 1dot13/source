@@ -9,6 +9,7 @@
 	#include "Tactical Save.h"
 
 #include "SaveLoadGame.h"
+#include "SaveLoadBuffer.h"
 #include "GameVersion.h"	// added by Flugente
 
 
@@ -390,7 +391,8 @@ BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		memset(gLightEffectData, 0, sizeof(LIGHTEFFECT) * NUM_LIGHT_EFFECT_SLOTS);
 
 		//Load the Number of Light Effects
-		LOADDATA(&guiNumLightEffects, *ppBuffer, sizeof(UINT32));
+		if ( !LoadDataBuffered(&guiNumLightEffects, *ppBuffer, sizeof(UINT32), "guiNumLightEffects") )
+			return(FALSE);
 
 		//if there are lights saved.
 		if ( guiNumLightEffects != 0 )
@@ -399,7 +401,8 @@ BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 			for ( uiCount = 0; uiCount < guiNumLightEffects; uiCount++ )
 			{
 				//Load the Light effect Data
-				LOADDATA(&gLightEffectData[uiCount], *ppBuffer, sizeof(LIGHTEFFECT));
+				if ( !LoadDataBuffered(&gLightEffectData[uiCount], *ppBuffer, sizeof(LIGHTEFFECT), "gLightEffectData") )
+					return(FALSE);
 			}
 		}
 

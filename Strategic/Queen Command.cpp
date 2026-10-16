@@ -61,6 +61,7 @@
 #endif
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
 
 #include <vector>
 
@@ -2723,7 +2724,10 @@ BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 	TrashUndergroundSectorInfo();
 
 	//Read in the number of nodes stored
-	LOADDATA(&uiNumOfRecords, *ppBuffer, sizeof(UINT32));
+	if (!LoadDataBuffered(&uiNumOfRecords, *ppBuffer, sizeof(UINT32), "uiNumOfRecords"))
+	{
+		return false;
+	}
 
 	for ( cnt = 0; cnt < uiNumOfRecords; cnt++ )
 	{
@@ -2735,7 +2739,11 @@ BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 
 
 		//read in the new node
-		LOADDATA(TempNode, *ppBuffer, sizeof(UNDERGROUND_SECTORINFO));
+		if (!LoadDataBuffered(TempNode, *ppBuffer, sizeof(UNDERGROUND_SECTORINFO), "UNDERGROUND_SECTORINFO"))
+		{
+			MemFree(TempNode);
+			return false;
+		}
 
 		//If its the first time in, assign the node to the list
 		if ( cnt == 0 )

@@ -10,6 +10,7 @@
 	#include "Soldier Profile.h"
 	#include "Text.h"
 	#include "GameSettings.h"
+	#include "SaveLoadBuffer.h"
 	#include "Campaign Types.h"
 	#include "strategicmap.h"
 	#include "Soldier Create.h"
@@ -1179,7 +1180,10 @@ BOOLEAN LoadJa25TacticalInfoFromSavedGame( HWFILE hFile )
 BOOLEAN LoadJa25TacticalInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 {
 	UINT32	uiSize = sizeof(NEW_GUN_QUOTES_STRUCT) * NUM_NEW_GUN_QUOTES;
-	LOADDATA(&gNewGunQuotes, *ppBuffer, uiSize);
+	if ( !LoadDataBuffered(&gNewGunQuotes, *ppBuffer, uiSize, "Ja25 New Gun Quotes") )
+	{
+		return( FALSE );
+	}
 	InitNewGunArray();
 
 	return(TRUE);

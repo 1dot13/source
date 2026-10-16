@@ -12,6 +12,7 @@
 	#include "Quests.h"
 	#include "Tactical Save.h"
 	#include "BriefingRoom_Data.h"
+	#include "SaveLoadBuffer.h"
 
 
 #define MAX_FILTR_LOCATION_BUTTONS 11
@@ -1268,7 +1269,10 @@ BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer)
 	BOOLEAN briefingroomreadingdone = FALSE;
 
 	//Briefing room
-	LOADDATA(&saveBriefingRoomData, *ppBuffer, sizeof(saveBriefingRoomData));
+	if ( !LoadDataBuffered(&saveBriefingRoomData, *ppBuffer, sizeof(saveBriefingRoomData), "saveBriefingRoomData") )
+	{
+		return(FALSE);
+	}
 
 	//FIXME: reimplement this compatibility fix
 	//if ( uiNumBytesRead != sizeof(saveBriefingRoomData) )
@@ -1292,7 +1296,10 @@ BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		}
 
 		//Briefing room , special mission
-		LOADDATA(&saveBriefingRoomSpecialMissionData, *ppBuffer, sizeof(saveBriefingRoomSpecialMissionData));
+		if ( !LoadDataBuffered(&saveBriefingRoomSpecialMissionData, *ppBuffer, sizeof(saveBriefingRoomSpecialMissionData), "saveBriefingRoomSpecialMissionData") )
+		{
+			return(FALSE);
+		}
 
 		for ( i = 0; i < NUM_MISSION; ++i )
 		{

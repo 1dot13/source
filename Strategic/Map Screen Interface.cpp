@@ -51,6 +51,7 @@
 	#include "mapscreen.h"
 
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;
@@ -7057,13 +7058,19 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
 	{
 		// load the flag that specifis that a node DOES exist
-		LOADDATA(&fNodeExists, *ppBuffer, sizeof(BOOLEAN));
+		if ( !LoadDataBuffered(&fNodeExists, *ppBuffer, sizeof(BOOLEAN), "Leave List Node Exists") )
+		{
+			return(FALSE);
+		}
 
 		// if a root node is supposed to exist
 		if ( fNodeExists )
 		{
 			// load the number specifing how many items there are in the list
-			LOADDATA(&uiCount, *ppBuffer, sizeof(UINT32));
+			if ( !LoadDataBuffered(&uiCount, *ppBuffer, sizeof(UINT32), "Leave List Item Count") )
+			{
+				return(FALSE);
+			}
 
 			// Sanity check
 			if ( uiCount > 1000 ) {
@@ -7115,7 +7122,10 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 	//Load the leave list profile id's
 	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
 	{
-		LOADDATA(&guiLeaveListOwnerProfileId[iCounter], *ppBuffer, sizeof(UINT32));
+		if ( !LoadDataBuffered(&guiLeaveListOwnerProfileId[iCounter], *ppBuffer, sizeof(UINT32), "Leave List Owner Profile Id") )
+		{
+			return(FALSE);
+		}
 	}
 
 	return(TRUE);
