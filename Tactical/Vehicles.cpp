@@ -34,6 +34,7 @@
 	#include "Queen Command.h"
 #include "Points.h"
 #include "Init.h"
+#include "SaveLoadBuffer.h"
 
 //INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
 std::vector<INT8>	gubVehicleMovementGroups (MAX_VEHICLES, 0);
@@ -2525,7 +2526,10 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 	ClearOutVehicleList();
 
 	//Load the number of elements
-	LOADDATA(&ubNumberOfVehicles, *ppBuffer, sizeof(UINT8));
+	if (!LoadDataBuffered(&ubNumberOfVehicles, *ppBuffer, sizeof(UINT8), "VehicleInformation"))
+	{
+		return false;
+	}
 
 	if ( ubNumberOfVehicles != 0 )
 	{
@@ -2539,13 +2543,17 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 		//loop through all the vehicles and load each one
 		for ( cnt = 0; cnt < ubNumberOfVehicles; cnt++ )
 		{
+			if ( gfBufferLoadFailed )
+			{
+				break;
+			}
 			//Load if the vehicle spot is valid
-			LOADDATA(&pVehicleList[cnt].fValid, *ppBuffer, sizeof(BOOLEAN));
+			LoadDataBuffered(&pVehicleList[cnt].fValid, *ppBuffer, sizeof(BOOLEAN), "Valid vehicle spot");
 
 			if ( pVehicleList[cnt].fValid )
 			{
 				//load the vehicle info
-				LOADDATA(&pVehicleList[cnt], *ppBuffer, sizeof(VEHICLETYPE));
+				LoadDataBuffered(&pVehicleList[cnt], *ppBuffer, sizeof(VEHICLETYPE), "VEHICLETYPE");
 
 				//
 				// Build the passenger list
@@ -2580,7 +2588,7 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 
 
 				//Load the number of nodes
-				LOADDATA(&uiTotalNodeCount, *ppBuffer, sizeof(UINT32));
+				LoadDataBuffered(&uiTotalNodeCount, *ppBuffer, sizeof(UINT32), "VehicleInformation node count");
 
 				if ( uiTotalNodeCount != 0 )
 				{
@@ -2598,7 +2606,7 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 						memset(pTempPath, 0, sizeof(PathSt));
 
 						//Load all the nodes
-						LOADDATA(pTempPath, *ppBuffer, sizeof(PathSt));
+						LoadDataBuffered(pTempPath, *ppBuffer, sizeof(PathSt), "VehicleInformation node");
 
 
 						//
@@ -2636,6 +2644,11 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 				pVehicleList[cnt].ubVehicleType = pVehicleList[cnt].ubProfileID;
 
 		}
+	}
+
+	if ( gfBufferLoadFailed )
+	{
+		return false;
 	}
 	return(TRUE);
 }
@@ -2813,7 +2826,15 @@ BOOLEAN LoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumBytesRead = 0;
 
 	for ( int cnt = 0; cnt < 5; ++cnt ) {
-		LOADDATA(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8));
+		if (!LoadDataBuffered(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "VehicleMovementInfo"))
+		{
+			break;
+		}
+	}
+
+	if ( gfBufferLoadFailed )
+	{
+		return false;
 	}
 
 	for ( int cnt = 5; cnt < MAX_VEHICLES; cnt++ )
@@ -2871,9 +2892,16 @@ BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile )
 BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	for ( int cnt = 0; cnt < MAX_VEHICLES; ++cnt ) {
-		LOADDATA(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8));
+		if (!LoadDataBuffered(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "NewVehicleMovementInfo"))
+		{
+			break;
+		}
 	}
 
+	if ( gfBufferLoadFailed )
+	{
+		return false;
+	}
 	return(TRUE);
 }
 

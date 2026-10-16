@@ -40,6 +40,7 @@
 #include "Reinforcement.h"
 #include "fresh_header.h"
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 
 #ifdef JA2UB
@@ -2645,8 +2646,10 @@ BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumBytesRead;
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
-	LOADDATA(gubOutOfTurnOrder, *ppBuffer, sizeof(UINT16) * MAXMERCS);
-	LOADDATA(&TeamTurnStruct, *ppBuffer, sizeof(TEAM_TURN_SAVE_STRUCT));
+	if ( !LoadDataBuffered(gubOutOfTurnOrder, *ppBuffer, sizeof(UINT16) * MAXMERCS, "gubOutOfTurnOrder") )
+		return false;
+	if ( !LoadDataBuffered(&TeamTurnStruct, *ppBuffer, sizeof(TEAM_TURN_SAVE_STRUCT), "TEAM_TURN_SAVE_STRUCT") )
+		return false;
 
 	gubOutOfTurnPersons = TeamTurnStruct.ubOutOfTurnPersons;
 

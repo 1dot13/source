@@ -81,6 +81,7 @@
 #include "Campaign.h"
 #include "Strategic Status.h"
 #include "ub_config.h"
+#include "SaveLoadBuffer.h"
 //** Defines *******************************************************************
 
 #define		JA25_SECTOR_H7_INITIAL_ATTACK													( 7 * 60 + 10 )
@@ -1250,17 +1251,17 @@ BOOLEAN LoadJa25SaveInfoFromSavedGame( HWFILE hFile )
 
 BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 {
-	LOADDATA(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO));
+	LoadDataBuffered(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO), "JA25_SAVE_INFO");
 
 	//
 	// Ai Manager
 	//
-	LOADDATA(&gJa25StrategicAi, *ppBuffer, sizeof(JA25_SECTOR_AI_MANAGER));
+	LoadDataBuffered(&gJa25StrategicAi, *ppBuffer, sizeof(JA25_SECTOR_AI_MANAGER), "JA25_SECTOR_AI_MANAGER");
 
 	//
 	// Sector Info
 	//
-	LOADDATA(&gJa25AiSectorStruct, *ppBuffer, sizeof(JA25_SECTOR_AI) * CUSTOMSECTOR);
+	LoadDataBuffered(&gJa25AiSectorStruct, *ppBuffer, sizeof(JA25_SECTOR_AI) * CUSTOMSECTOR, "JA25_SECTOR_AI");
 
 	return(TRUE);
 }

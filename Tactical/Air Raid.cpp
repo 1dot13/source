@@ -27,6 +27,7 @@
 	#include "Meanwhile.h"
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
 
 #define		SCRIPT_DELAY													10
 #define		AIR_RAID_SAY_QUOTE_TIME								3000
@@ -1434,7 +1435,8 @@ BOOLEAN LoadAirRaidInfoFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	AIR_RAID_SAVE_STRUCT sAirRaidSaveStruct;
 
 	//Load the number of REAL_OBJECTs in the array
-	LOADDATA(&sAirRaidSaveStruct, *ppBuffer, sizeof(AIR_RAID_SAVE_STRUCT));
+	if ( !LoadDataBuffered(&sAirRaidSaveStruct, *ppBuffer, sizeof(AIR_RAID_SAVE_STRUCT), "AIR_RAID_SAVE_STRUCT") )
+		return false;
 
 
 	// Put all the globals into the save struct

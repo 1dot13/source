@@ -6,6 +6,7 @@
 	#include	"Render Dirty.h"
 	#include	"Text Input.h"
 	#include	"SaveLoadGame.h"
+	#include	"SaveLoadBuffer.h"	// anv: LoadDataBuffered for buffered save/load
 	#include	"stdio.h"
 	#include	"WordWrap.h"
 	#include	"strategicmap.h"
@@ -2993,7 +2994,10 @@ BOOLEAN LoadDataSaveFromLoadGameFile( HWFILE hFile )
 BOOLEAN LoadDataSaveFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	//Briefing room
-	LOADDATA(&AutoSaveToSlot, *ppBuffer, sizeof(AutoSaveToSlot));
+	if ( !LoadDataBuffered(&AutoSaveToSlot, *ppBuffer, sizeof(AutoSaveToSlot), "AutoSaveToSlot") )
+	{
+		return(FALSE);
+	}
 
 	// Set the slot, which will be the next auto save slot (current slot + 1)
 	if ( AutoSaveToSlot[0] == TRUE )

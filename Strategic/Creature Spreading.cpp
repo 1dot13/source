@@ -32,6 +32,7 @@
 #include "connect.h"
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
 
 #ifdef JA2BETAVERSION
 	BOOLEAN gfClearCreatureQuest = FALSE;
@@ -2231,17 +2232,24 @@ BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion )
 
 BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
 {
-	LOADDATA(&giHabitatedDistance, *ppBuffer, 4);
-	LOADDATA(&giPopulationModifier, *ppBuffer, 4);
-	LOADDATA(&giLairID, *ppBuffer, 4);
+	LoadDataBuffered(&giHabitatedDistance, *ppBuffer, 4, "giHabitatedDistance");
+	LoadDataBuffered(&giPopulationModifier, *ppBuffer, 4, "giPopulationModifier");
+	LoadDataBuffered(&giLairID, *ppBuffer, 4, "giLairID");
 
 	BOOLEAN fUseCreatureMusic;
-	LOADDATA(&fUseCreatureMusic, *ppBuffer, 1);
+	LoadDataBuffered(&fUseCreatureMusic, *ppBuffer, 1, "fUseCreatureMusic");
+
+	if ( gfBufferLoadFailed )
+	{
+		return false;
+	}
+
 	UseCreatureMusic(fUseCreatureMusic);
 
 	if ( uiSavedGameVersion >= 82 )
 	{
-		LOADDATA(&giDestroyedLairID, *ppBuffer, 4);
+		if ( !LoadDataBuffered(&giDestroyedLairID, *ppBuffer, 4, "giDestroyedLairID") )
+			return false;
 	}
 	else
 	{

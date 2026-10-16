@@ -50,6 +50,7 @@
 	#include "Map Screen Helicopter.h"
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHavePersonality( ... )
 	#include "SaveLoadGame.h"
+#include "SaveLoadBuffer.h"
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"
@@ -3505,7 +3506,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 	for ( cnt = 0; cnt < uiNumberToLoad; cnt++ )
 	{
 		//Load a byte specify that there is an npc quote Loadd
-		LOADDATA(&ubLoadQuote, *ppBuffer, sizeof(UINT8));
+		LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPC quote flag");
 
 		//if there is an existing quote
 		if ( gpNPCQuoteInfoArray[cnt] )
@@ -3597,7 +3598,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 			}
 			//FileRead( hFile, gpNPCQuoteInfoArray[ cnt ], sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS, &uiNumBytesRead );
 			//if( uiNumBytesRead != sizeof( NPCQuoteInfo )  * NUM_NPC_QUOTE_RECORDS )
-			if ( numBytesRead != sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS )
+			if ( gfBufferLoadFailed || numBytesRead != sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS )
 			{
 				return(FALSE);
 			}
@@ -3611,7 +3612,10 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 	{
 		for ( cnt = 0; cnt < NUM_CIVQUOTE_SECTORS; cnt++ )
 		{
-			LOADDATA(&ubLoadQuote, *ppBuffer, sizeof(UINT8));
+			if ( !LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPCInfo old quote") )
+			{
+				break;
+			}
 
 			//if there is an existing quote
 			if ( gpCivQuoteInfoArray[cnt] )
@@ -3630,14 +3634,25 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 					//allocate memory for the quote
 					gpCivQuoteInfoArray[cnt] = (NPCQuoteInfo*)MemAlloc(sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS);
 					if ( gpCivQuoteInfoArray[cnt] == NULL )
-						return(FALSE);
+					{
+						gfBufferLoadFailed = true;
+						break;
+					}
 					memset(gpCivQuoteInfoArray[cnt], 0, sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS);
 				}
 
 				//Load the civ quote entry
-				LOADDATA(gpCivQuoteInfoArray[cnt], *ppBuffer, sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS);
+				if (!LoadDataBuffered(gpCivQuoteInfoArray[cnt], *ppBuffer, sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS, "NPCInfo old quote entry"))
+				{
+					break;
+				}
 			}
 		}
+	}
+
+	if ( gfBufferLoadFailed )
+	{
+		return false;
 	}
 
 	if ( uiSaveGameVersion < 88 )
@@ -3907,7 +3922,10 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSave
 	for ( cnt = 0; cnt < uiNumberOfProfilesToLoad; cnt++ )
 	{
 		//Load a byte specify that there is an npc quote Loadd
-		LOADDATA(&ubLoadQuote, *ppBuffer, sizeof(UINT8));
+		if ( !LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "ubLoadQuote") )
+		{
+			return(FALSE);
+		}
 
 		//if there is an existing quote
 		if ( gpBackupNPCQuoteInfoArray[cnt] )
@@ -3989,7 +4007,7 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSave
 				numBytesRead += 200;
 			}
 
-			if ( numBytesRead != sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS )
+			if ( gfBufferLoadFailed || numBytesRead != sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS )
 			{
 				return(FALSE);
 			}

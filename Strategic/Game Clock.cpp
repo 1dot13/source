@@ -20,6 +20,7 @@
 #include "Map Information.h"
 #include "GameSettings.h"
 #include "LuaInitNPCs.h"
+#include "SaveLoadBuffer.h"
 
 //#define DEBUG_GAME_CLOCK
 
@@ -1043,25 +1044,30 @@ BOOLEAN LoadGameClock( HWFILE hFile )
 
 BOOLEAN LoadGameClockBuffer(CHAR8** ppBuffer)
 {
-	LOADDATA(&giTimeCompressMode, *ppBuffer, sizeof(INT32));
-	LOADDATA(&gubClockResolution, *ppBuffer, sizeof(UINT8));
-	LOADDATA(&gfGamePaused, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&gfTimeInterrupt, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&fSuperCompression, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&guiGameClock, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&guiGameSecondsPerRealSecond, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&ubAmbientLightLevel, *ppBuffer, sizeof(UINT8));
-	LOADDATA(&guiEnvTime, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&guiEnvDay, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&gubEnvLightValue, *ppBuffer, sizeof(UINT8));
-	LOADDATA(&guiTimeOfLastEventQuery, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&gfLockPauseState, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&gfPauseDueToPlayerGamePause, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&gfResetAllPlayerKnowsEnemiesFlags, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&gfTimeCompressionOn, *ppBuffer, sizeof(BOOLEAN));
-	LOADDATA(&guiPreviousGameClock, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&guiLockPauseStateLastReasonId, *ppBuffer, sizeof(UINT32));
-	LOADDATA(&gubUnusedTimePadding, *ppBuffer, TIME_PADDINGBYTES);
+    LoadDataBuffered(&giTimeCompressMode, *ppBuffer, sizeof(INT32), "TimeCompressMode");
+    LoadDataBuffered(&gubClockResolution, *ppBuffer, sizeof(UINT8), "gubClockResolution");
+    LoadDataBuffered(&gfGamePaused, *ppBuffer, sizeof(BOOLEAN), "gfGamePaused");
+    LoadDataBuffered(&gfTimeInterrupt, *ppBuffer, sizeof(BOOLEAN), "gfTimeInterrupt");
+    LoadDataBuffered(&fSuperCompression, *ppBuffer, sizeof(BOOLEAN), "fSuperCompression");
+    LoadDataBuffered(&guiGameClock, *ppBuffer, sizeof(UINT32), "guiGameClock");
+    LoadDataBuffered(&guiGameSecondsPerRealSecond, *ppBuffer, sizeof(UINT32), "guiGameSecondsPerRealSecond");
+    LoadDataBuffered(&ubAmbientLightLevel, *ppBuffer, sizeof(UINT8), "ubAmbientLightLevel");
+    LoadDataBuffered(&guiEnvTime, *ppBuffer, sizeof(UINT32), "guiEnvTime");
+    LoadDataBuffered(&guiEnvDay, *ppBuffer, sizeof(UINT32), "guiEnvDay");
+    LoadDataBuffered(&gubEnvLightValue, *ppBuffer, sizeof(UINT8), "gubEnvLightValue");
+    LoadDataBuffered(&guiTimeOfLastEventQuery, *ppBuffer, sizeof(UINT32), "guiTimeOfLastEventQuery");
+    LoadDataBuffered(&gfLockPauseState, *ppBuffer, sizeof(BOOLEAN), "gfLockPauseState");
+    LoadDataBuffered(&gfPauseDueToPlayerGamePause, *ppBuffer, sizeof(BOOLEAN), "gfPauseDueToPlayerGamePause");
+    LoadDataBuffered(&gfResetAllPlayerKnowsEnemiesFlags, *ppBuffer, sizeof(BOOLEAN), "gfResetAllPlayerKnowsEnemiesFlags");
+    LoadDataBuffered(&gfTimeCompressionOn, *ppBuffer, sizeof(BOOLEAN), "gfTimeCompressionOn");
+    LoadDataBuffered(&guiPreviousGameClock, *ppBuffer, sizeof(UINT32), "guiPreviousGameClock");
+    LoadDataBuffered(&guiLockPauseStateLastReasonId, *ppBuffer, sizeof(UINT32), "guiLockPauseStateLastReasonId");
+    LoadDataBuffered(&gubUnusedTimePadding, *ppBuffer, TIME_PADDINGBYTES, "gubUnusedTimePadding");
+
+	if ( gfBufferLoadFailed )
+	{
+		return FALSE;
+	}
 
 	//Update the game clock
 	guiDay = (guiGameClock / NUM_SEC_IN_DAY);

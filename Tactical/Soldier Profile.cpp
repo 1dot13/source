@@ -2,6 +2,7 @@
 	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
+	#include "SaveLoadBuffer.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
 	#include "Render Fun.h"
@@ -289,7 +290,10 @@ BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer)
 
 	for ( int profiletype = PROFILETYPE_AIM; profiletype < PROFILETYPE_MAX; ++profiletype )
 	{
-		LOADDATA(&tmpprofilewedontreallyneed, *ppBuffer, sizeof(tmpprofilewedontreallyneed));
+		if ( !LoadDataBuffered(&tmpprofilewedontreallyneed, *ppBuffer, sizeof(tmpprofilewedontreallyneed), "New System Mercs Profiles") )
+		{
+			return( FALSE );
+		}
 
 		for ( int i = 0; i < NUM_PROFILES; ++i )
 		{

@@ -36,6 +36,7 @@
 	#include "screenids.h"
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
+#include "SaveLoadBuffer.h"
 
 #ifdef JA2UB
 #else
@@ -3169,8 +3170,11 @@ BOOLEAN JA2EncryptedFileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UIN
 
 BOOLEAN JA2NonEncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
 {
-	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
-	return(true);
+	if (!LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "JA2NonEncryptedFileReadBuffer"))
+	{
+		return(false);
+	}
+	return true;
 }
 
 BOOLEAN JA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
@@ -3181,7 +3185,11 @@ BOOLEAN JA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesTo
 	UINT8		ubLastByteForNextLoop;
 	UINT8* pMemBlock;
 
-	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
+	if ( !LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "JA2EncryptedFileReadBuffer") )
+	{
+		return false;
+	}
+
 	pMemBlock = (UINT8*)pDest;
 	for ( uiLoop = 0; uiLoop < uiBytesToRead; uiLoop++ )
 	{
@@ -3209,7 +3217,11 @@ BOOLEAN NewJA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiByte
 
 	pubRotationArray = GetRotationArray();
 
-	LOADDATA(pDest, *ppBuffer, uiBytesToRead);
+	if ( !LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "NewJA2EncryptedFileReadBuffer") )
+	{
+		return false;
+	}
+
 	pMemBlock = (UINT8*)pDest;
 	for ( uiLoop = 0; uiLoop < uiBytesToRead; uiLoop++ )
 	{

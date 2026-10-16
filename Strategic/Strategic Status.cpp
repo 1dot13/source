@@ -15,6 +15,7 @@
 	#include "SaveLoadGame.h"		// added by Flugente
 
 #include "GameInitOptionsScreen.h"
+#include "SaveLoadBuffer.h"
 
 STRATEGIC_STATUS	gStrategicStatus;
 
@@ -66,7 +67,9 @@ BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile )
 BOOLEAN LoadStrategicStatusFromSaveGameFileBuffer(CHAR8 **ppBuffer)
 {
 	//Load the Strategic Status structure from the saved game file
-	LOADDATA(&gStrategicStatus, *ppBuffer, sizeof(STRATEGIC_STATUS));
+	if (!LoadDataBuffered(&gStrategicStatus, *ppBuffer, sizeof(STRATEGIC_STATUS), "STRATEGIC_STATUS") )
+		return false;
+
 
 	// Flugente: enemy generals: if loading an old savegame that did not have this feature, or it was turned off and is now turned on, initialise generals
 	if ( guiCurrentSaveGameVersion < ENEMY_VIPS || !gStrategicStatus.usVIPsTotal )

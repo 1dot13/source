@@ -36,6 +36,7 @@
 #include "Town Militia.h"
 #include "Strategic Town Loyalty.h"
 #include "MilitiaIndividual.h"
+#include "SaveLoadBuffer.h"
 
 std::vector<PMCReinforcesHireEvent> gPMCHiringEvents;
 PMCGlobalData gPMCData;
@@ -880,7 +881,7 @@ BOOLEAN LoadPMCBuffer(CHAR8** ppBuffer)
 		UINT32 safetycheck2 = 0;
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead);
 
-		if ( safetycheck1 != gPMCSaveCheck || safetycheck2 != gPMCSaveCheck )
+		if ( gfBufferLoadFailed || safetycheck1 != gPMCSaveCheck || safetycheck2 != gPMCSaveCheck )
 		{
 			ScreenMsg(FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading PMC data!");
 			return FALSE;

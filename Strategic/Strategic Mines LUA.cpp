@@ -15,6 +15,7 @@
 #include "UndergroundInit.h"
 
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 using namespace std;
 
@@ -502,11 +503,11 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	MINE_STATUS_TYPE mineStatus;
 
 	gMineStatus.clear();
-	LOADDATA(&numMines, *ppBuffer, sizeof(INT32));
+	LoadDataBuffered(&numMines, *ppBuffer, sizeof(INT32), "numMines");
 
 	for ( int i = 0; i < numMines; i++ )
 	{
-		LOADDATA(&mineStatus, *ppBuffer, sizeof(MINE_STATUS_TYPE));
+		LoadDataBuffered(&mineStatus, *ppBuffer, sizeof(MINE_STATUS_TYPE), "MINE_STATUS_TYPE");
 		gMineStatus.push_back(mineStatus);
 	}
 
@@ -516,11 +517,11 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	INT32 numSectors;
 	AssociatedMineSector sector;
 	associatedMineSectors.clear();
-	LOADDATA(&numSectors, *ppBuffer, sizeof(INT32));
+	LoadDataBuffered(&numSectors, *ppBuffer, sizeof(INT32), "AssociatedMineSector amount");
 
 	for ( int i = 0; i < numSectors; i++ )
 	{
-		LOADDATA(&sector, *ppBuffer, sizeof(AssociatedMineSector));
+		LoadDataBuffered(&sector, *ppBuffer, sizeof(AssociatedMineSector), "AssociatedMineSector");
 		associatedMineSectors.push_back(sector);
 	}
 
@@ -528,14 +529,22 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	INT32 numHeadMiners;
 	HEAD_MINER_TYPE miner;
 	gHeadMinerData.clear();
-	LOADDATA(&numHeadMiners, *ppBuffer, sizeof(INT32));
+	LoadDataBuffered(&numHeadMiners, *ppBuffer, sizeof(INT32), "HeadMiner amount");
 
 	for ( int i = 0; i < numHeadMiners; i++ )
 	{
-		LOADDATA(&miner, *ppBuffer, sizeof(HEAD_MINER_TYPE));
+		LoadDataBuffered(&miner, *ppBuffer, sizeof(HEAD_MINER_TYPE), "HEAD_MINER_TYPE");
 		gHeadMinerData.push_back(miner);
 	}
 	NUM_HEAD_MINERS = gHeadMinerData.size();
+
+	if ( gfBufferLoadFailed )
+	{
+		gMineStatus.clear();
+		associatedMineSectors.clear();
+		gHeadMinerData.clear();
+		return false;
+	}
 
 	InitMinerFaces();
 

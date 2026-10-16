@@ -52,6 +52,7 @@
 #include "Facilities.h"
 
 #include "LaptopSave.h"
+#include "SaveLoadBuffer.h"
 #include <language.hpp>
 
 // added by Flugente
@@ -7951,9 +7952,20 @@ BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile )
 
 BOOLEAN LoadHiddenTownFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
-	LOADDATA(&gfHiddenTown, *ppBuffer, sizeof(gfHiddenTown));
-	LOADDATA(&gfDrawHiddenTown, *ppBuffer, sizeof(gfDrawHiddenTown));
-	LOADDATA(&gfIconTown, *ppBuffer, sizeof(gfIconTown));
+	if ( !LoadDataBuffered(&gfHiddenTown, *ppBuffer, sizeof(gfHiddenTown), "gfHiddenTown") )
+	{
+		return(FALSE);
+	}
+
+	if ( !LoadDataBuffered(&gfDrawHiddenTown, *ppBuffer, sizeof(gfDrawHiddenTown), "gfDrawHiddenTown") )
+	{
+		return(FALSE);
+	}
+
+	if ( !LoadDataBuffered(&gfIconTown, *ppBuffer, sizeof(gfIconTown), "gfIconTown") )
+	{
+		return(FALSE);
+	}
 
 	return(TRUE);
 }

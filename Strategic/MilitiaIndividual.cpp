@@ -16,6 +16,7 @@
 #include "Town Militia.h"
 #include "message.h"
 #include "Auto Resolve.h"		// added for IndividualMilitiaInUse_AutoResolve(...)
+#include "SaveLoadBuffer.h"
 
 // we use this to keep track of when we displayed a warning in order not to spam
 UINT32 gMIWarningTime = 0;
@@ -150,7 +151,7 @@ BOOLEAN MILITIA::LoadBuffer(CHAR8** ppBuffer)
 			numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &tmp, sizeof(tmp), sizeof(UINT16), numBytesRead);
 		}
 
-		if ( numBytesRead != SIZEOF_MILITIA_POD )
+		if ( gfBufferLoadFailed || numBytesRead != SIZEOF_MILITIA_POD )
 			return(FALSE);
 
 		UINT32 size = 0;
@@ -159,7 +160,10 @@ BOOLEAN MILITIA::LoadBuffer(CHAR8** ppBuffer)
 		for ( UINT32 i = 0; i < size; ++i )
 		{
 			MILITIA_BATTLEREPORT data;
-			LOADDATA(&data, *ppBuffer, sizeof(MILITIA_BATTLEREPORT));
+			if ( !LoadDataBuffered(&data, *ppBuffer, sizeof(MILITIA_BATTLEREPORT), "Militia Battle Report") )
+			{
+				return(FALSE);
+			}
 			history.push_back(data);
 		}
 	}

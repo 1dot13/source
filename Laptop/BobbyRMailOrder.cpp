@@ -28,6 +28,7 @@
 #include "Strategic Event Handler.h"
 #include "connect.h"
 #include "GameSettings.h"
+#include "SaveLoadBuffer.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/File/vfs_file.h>
 #include <language.hpp>
@@ -2919,7 +2920,10 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
 	ShutDownBobbyRNewMailOrders();
 
 	//Read the number of orders
-	LOADDATA(&giNumberOfNewBobbyRShipment, *ppBuffer, sizeof(INT32));
+	if ( !LoadDataBuffered(&giNumberOfNewBobbyRShipment, *ppBuffer, sizeof(INT32), "BobbyR Num Shipments") )
+	{
+		return(FALSE);
+	}
 
 	if ( giNumberOfNewBobbyRShipment == 0 )
 	{
@@ -2941,7 +2945,10 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
 		for ( iCnt = 0; iCnt < giNumberOfNewBobbyRShipment; iCnt++ )
 		{
 			//Read the order
-			LOADDATA(&gpNewBobbyrShipments[iCnt], *ppBuffer, sizeof(NewBobbyRayOrderStruct));
+			if ( !LoadDataBuffered(&gpNewBobbyrShipments[iCnt], *ppBuffer, sizeof(NewBobbyRayOrderStruct), "BobbyR Mail Order") )
+			{
+				return(FALSE);
+			}
 		}
 	}
 

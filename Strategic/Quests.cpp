@@ -28,6 +28,7 @@
 
 #include "BobbyRMailOrder.h"
 #include "connect.h"
+#include "SaveLoadBuffer.h"
 
 #ifdef JA2UB
 #include "email.h"
@@ -1673,10 +1674,12 @@ BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest )
 BOOLEAN LoadQuestInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT8 MaxQuest)
 {
 	//Save all the states if the Quests
-	LOADDATA(gubQuest, *ppBuffer, MaxQuest);
+	if ( !LoadDataBuffered(gubQuest, *ppBuffer, MaxQuest, "MaxQuest") )
+		return false;
 
 	//Save all the states for the facts
-	LOADDATA(gubFact, *ppBuffer, NUM_FACTS);
+	if ( !LoadDataBuffered(gubFact, *ppBuffer, NUM_FACTS, "QuestInfo NUM_FACTS") )
+		return false;
 
 	return(TRUE);
 }
@@ -1713,7 +1716,8 @@ BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile )
 BOOLEAN LoadLUAModderDataFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	//Save all the states for the facts
-	LOADDATA(gubModderLuaData, *ppBuffer, sizeof(INT32) * MODDER_LUA_DATA_MAX);
+	if ( !LoadDataBuffered(gubModderLuaData, *ppBuffer, sizeof(INT32) * MODDER_LUA_DATA_MAX, "LUAModderData") )
+		return false;
 
 	return(TRUE);
 }
