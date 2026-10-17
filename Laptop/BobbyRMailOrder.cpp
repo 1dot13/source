@@ -2392,9 +2392,12 @@ INT8 CalculateOrderDelay( UINT8 ubSelectedService )
 // greymeister Bobby Ray Confirmation Email
 void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService )
 {
-	// sized for the worst case: 100 purchase slots x (79 char BR name + qty + prices) + header
+	// sized for the worst case: 100 purchase slots x (79 char BR name + qty + prices) + header + totals
 	CHAR16 zBody[ 16384 ];
 	UINT32 uiBodyLen = 0;
+	// capacity spent on the item lines; the totals block is carved out of the end
+	// so subtotal / S&H / grand total are never lost to a truncated item list
+	UINT32 uiItemCap = sizeof( zBody ) / sizeof( CHAR16 ) - 1;
 	BOOLEAN fTruncated = FALSE;
 	STR16 pSubject = BobbyROrderFormText[ BOBBYR_EMAIL_SUBJECT ];
 
@@ -2403,7 +2406,7 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 		if( fTruncated )
 			return;
 		UINT32 uiLen = ( UINT32 ) wcslen( pString );
-		if( uiBodyLen + uiLen >= sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+		if( uiBodyLen + uiLen >= uiItemCap )
 		{
 			// make the truncation visible instead of silently dropping the tail
 			if( !fTruncated )
@@ -2411,10 +2414,10 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 				fTruncated = TRUE;
 				const CHAR16* pMarker = BobbyROrderFormText[ BOBBYR_EMAIL_TRUNCATED ];
 				UINT32 uiMarkerLen = ( UINT32 ) wcslen( pMarker );
-				if( uiBodyLen + uiMarkerLen + 1 > sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+				if( uiBodyLen + uiMarkerLen + 1 > uiItemCap )
 				{
-					// make room at the buffer end so the marker is always visible
-					uiBodyLen = sizeof( zBody ) / sizeof( CHAR16 ) - 2 - uiMarkerLen;
+					// make room so the marker is always visible within the item area
+					uiBodyLen = uiItemCap - 1 - uiMarkerLen;
 				}
 				memcpy( &zBody[ uiBodyLen ], pMarker, uiMarkerLen * sizeof( CHAR16 ) );
 				uiBodyLen += uiMarkerLen;
@@ -2452,6 +2455,33 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 	swprintf( zDate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiOrderDay );
 	swprintf( zETADate, BobbyROrderFormText[ BOBBYR_EMAIL_DAY ], gpGameClockString[ 0 ], uiETADay );
 
+	// build the totals block up front so uiItemCap can reserve room for it;
+	// the amounts are exactly what the confirm page showed and the finance
+	// page is charged (DisplayShippingCosts globals, billed in PurchaseBobbyOrder)
+	CHAR16 zTotals[ 512 ];
+	UINT32 uiTotalsLen = 0;
+	{
+		const UINT32 uiValues[ 3 ] = { guiSubTotal, guiShippingCost, ( UINT32 ) giGrandTotal };
+		const STR16 pLabels[ 3 ] =
+		{
+			BobbyROrderFormText[ BOBBYR_SUB_TOTAL ],
+			BobbyROrderFormText[ BOBBYR_S_H ],
+			BobbyROrderFormText[ BOBBYR_GRAND_TOTAL ],
+		};
+		zTotals[ uiTotalsLen++ ] = L'\n';
+		for( UINT8 i = 0; i < 3; i++ )
+		{
+			// literal format, not a table entry: "label  amount" is language-invariant
+			INT32 iLen = swprintf( zLine, L"%s  %s\n", pLabels[ i ], FormatMoney( ( INT32 ) uiValues[ i ] ).data() );
+			if( iLen > 0 && uiTotalsLen + ( UINT32 ) iLen < sizeof( zTotals ) / sizeof( CHAR16 ) - 1 )
+			{
+				memcpy( &zTotals[ uiTotalsLen ], zLine, ( UINT32 ) iLen * sizeof( CHAR16 ) );
+				uiTotalsLen += ( UINT32 ) iLen;
+			}
+		}
+	}
+	uiItemCap -= uiTotalsLen;
+
 	AppendString( pSubject );
 	AppendString( L"\n\n" );
 	swprintf( zLine, BobbyROrderFormText[ BOBBYR_EMAIL_ORDER_TO ], gDestinationTable[ ubDeliveryCity ]->wstrName.c_str() );
@@ -2485,6 +2515,13 @@ void AddBobbyROrderCompletedEmail( UINT8 ubDeliveryCity, UINT8 ubSelectedService
 			AppendString( zLine );
 			AppendString( L"\n" );
 		}
+	}
+
+	// the totals always make the e-mail, even when the item list truncated above
+	if( uiBodyLen + uiTotalsLen < sizeof( zBody ) / sizeof( CHAR16 ) - 1 )
+	{
+		memcpy( &zBody[ uiBodyLen ], zTotals, uiTotalsLen * sizeof( CHAR16 ) );
+		uiBodyLen += uiTotalsLen;
 	}
 
 	zBody[ uiBodyLen ] = L'\0';
