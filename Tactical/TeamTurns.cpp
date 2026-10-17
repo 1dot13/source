@@ -40,7 +40,7 @@
 #include "Reinforcement.h"
 #include "fresh_header.h"
 #include "connect.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 #ifdef JA2UB

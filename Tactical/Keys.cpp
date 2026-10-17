@@ -32,7 +32,7 @@
 	#include "Dialogue Control.h" // added by Flugente
 
 #include "GameVersion.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 DOOR_STATUS		*gpDoorStatus = NULL;
 UINT8					gubNumDoorStatus=0;

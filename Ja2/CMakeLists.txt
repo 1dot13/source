@@ -69,7 +69,6 @@ set(Ja2Src
 "${CMAKE_CURRENT_SOURCE_DIR}/MPXmlTeams.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Options Screen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/profiler.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadBuffer.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadGame.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/SaveLoadScreen.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/Screens.cpp"

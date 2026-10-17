@@ -16,7 +16,7 @@
 #include "Town Militia.h"
 #include "message.h"
 #include "Auto Resolve.h"		// added for IndividualMilitiaInUse_AutoResolve(...)
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 // we use this to keep track of when we displayed a warning in order not to spam
 UINT32 gMIWarningTime = 0;

@@ -36,7 +36,7 @@
 	#include "screenids.h"
 	#include "Queen Command.h"
 	#include "Map Screen Interface Map Inventory.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #ifdef JA2UB
 #else

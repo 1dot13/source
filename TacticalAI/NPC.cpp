@@ -50,7 +50,7 @@
 	#include "Map Screen Helicopter.h"
 	#include "Drugs And Alcohol.h"	// added by Flugente for DoesMercHavePersonality( ... )
 	#include "SaveLoadGame.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 	
 #ifdef JA2UB
 #include "Ja25_Tactical.h"

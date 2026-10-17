@@ -20,7 +20,7 @@
 	#include "Map Information.h"	// added by Shadooow
 #include "connect.h"
 #include "PATHAI.H"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 //forward declarations of common classes to eliminate includes

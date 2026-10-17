@@ -34,7 +34,7 @@
 	#include "Queen Command.h"
 #include "Points.h"
 #include "Init.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 //INT8 gubVehicleMovementGroups[ MAX_VEHICLES ];
 std::vector<INT8>	gubVehicleMovementGroups (MAX_VEHICLES, 0);

@@ -52,7 +52,7 @@
 #include "Facilities.h"
 
 #include "LaptopSave.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include <language.hpp>
 
 // added by Flugente

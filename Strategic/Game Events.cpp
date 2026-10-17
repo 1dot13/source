@@ -8,7 +8,7 @@
 	#include "message.h"
 	#include "MiniEvents.h"
 	#include "Text.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #ifdef JA2TESTVERSION
 

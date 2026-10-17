@@ -32,7 +32,7 @@
 #include "connect.h"
 
 #include "GameInitOptionsScreen.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #ifdef JA2BETAVERSION
 	BOOLEAN gfClearCreatureQuest = FALSE;

@@ -15,7 +15,7 @@
 #include "UndergroundInit.h"
 
 #include "connect.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 using namespace std;
 

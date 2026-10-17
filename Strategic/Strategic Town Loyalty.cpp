@@ -36,7 +36,7 @@
 #include <language.hpp>
 
 #include "GameInitOptionsScreen.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 extern WorldItems gAllWorldItems;
 

@@ -20,7 +20,7 @@
 	#include "Game Clock.h"
 	#include "GameSettings.h"
 	#include "sgp_logger.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #include <language.hpp>
 typedef struct

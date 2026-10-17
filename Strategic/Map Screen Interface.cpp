@@ -51,7 +51,7 @@
 	#include "mapscreen.h"
 
 #include "connect.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

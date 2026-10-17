@@ -33,7 +33,7 @@
 	#include "Strategic Transport Groups.h"
 
 #include "GameInitOptionsScreen.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #define SAI_VERSION		29
 

@@ -47,7 +47,7 @@
 	//#include "Quests.h"
 	//#include "Tactical Save.h"
 	#include "Encyclopedia_Data_new.h"
-	#include "SaveLoadBuffer.h"
+	#include "BufferMan.h"
 
 #ifdef ENCYCLOPEDIA_WORKS
 /** @defgroup ENCYCLOPEDIA Encyclopedia

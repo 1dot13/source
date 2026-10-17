@@ -11,7 +11,7 @@
 	#include "GameSettings.h"
 	#include "FileMan.h"
 	#include "lighting.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 // Defines
 // HEADROCK HAM 5: Increasing... with the hope of making spectacular fragmenting explosives.

@@ -20,7 +20,7 @@
 #include "Map Information.h"
 #include "GameSettings.h"
 #include "LuaInitNPCs.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 //#define DEBUG_GAME_CLOCK
 

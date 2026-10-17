@@ -116,7 +116,7 @@
 
 #include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #include "ASD.h"	// added by Flugente
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

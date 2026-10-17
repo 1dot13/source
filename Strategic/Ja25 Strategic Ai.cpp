@@ -81,7 +81,7 @@
 #include "Campaign.h"
 #include "Strategic Status.h"
 #include "ub_config.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 //** Defines *******************************************************************
 
 #define		JA25_SECTOR_H7_INITIAL_ATTACK													( 7 * 60 + 10 )
