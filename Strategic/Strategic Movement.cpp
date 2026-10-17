@@ -4125,7 +4125,7 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		RemoveGroupFromList(gpGroupList);
 
 	//load the number of nodes in the list
-	if ( !LoadDataBuffered(&uiNumberOfGroups, *ppBuffer, sizeof(UINT32), "Strategic Movement Group node amount") )
+	if ( !LoadDataFromBuffer(&uiNumberOfGroups, *ppBuffer, sizeof(UINT32), "Strategic Movement Group node amount") )
 		return false;
 
 	pGroup = gpGroupList;
@@ -4140,7 +4140,7 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		memset(pTemp, 0, sizeof(GROUP));
 
 		//Read in the node
-		if (!LoadDataBuffered(pTemp, *ppBuffer, sizeof(GROUP), "GROUP"))
+		if (!LoadDataFromBuffer(pTemp, *ppBuffer, sizeof(GROUP), "GROUP"))
 			return false;
 
 		// Flugente: Up to now, GROUPs were either player-controlled (fPlayer = TRUE) or enemy-controlled (fPlayer = FALSE).
@@ -4202,7 +4202,7 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	// Load the unique id mask
-	if (!LoadDataBuffered(uniqueIDMask, *ppBuffer, sizeof(UINT32) * 8, "Strategic Movement Group uniqueIDMask"))
+	if (!LoadDataFromBuffer(uniqueIDMask, *ppBuffer, sizeof(UINT32) * 8, "Strategic Movement Group uniqueIDMask"))
 		return false;
 
 	//@@@ TEMP!
@@ -4375,7 +4375,7 @@ BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup)
 
 
 	// Load the number of nodes in the player list
-	if ( !LoadDataBuffered(&uiNumberOfNodes, *ppBuffer, sizeof(UINT32), "PLAYERGROUP size") )
+	if ( !LoadDataFromBuffer(&uiNumberOfNodes, *ppBuffer, sizeof(UINT32), "PLAYERGROUP size") )
 		return false;
 
 	//loop through all the nodes and set them up
@@ -4387,7 +4387,7 @@ BOOLEAN LoadPlayerGroupListBuffer(CHAR8** ppBuffer, GROUP** ppGroup)
 			return(FALSE);
 
 		// Load the ubProfile ID for this node
-		if ( !LoadDataBuffered(&uiProfileID, *ppBuffer, sizeof(UINT32), "PLAYERGROUP id") )
+		if ( !LoadDataFromBuffer(&uiProfileID, *ppBuffer, sizeof(UINT32), "PLAYERGROUP id") )
 			return false;
 
 		//Set up the current node
@@ -4472,7 +4472,7 @@ BOOLEAN LoadEnemyGroupStructFromSavedGameBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 	memset(pEnemyGroup, 0, sizeof(ENEMYGROUP));
 
 	//Load the enemy struct
-	if ( !LoadDataBuffered(pEnemyGroup, *ppBuffer, sizeof(ENEMYGROUP), "ENEMYGROUP") )
+	if ( !LoadDataFromBuffer(pEnemyGroup, *ppBuffer, sizeof(ENEMYGROUP), "ENEMYGROUP") )
 		return false;
 
 	//Assign the struct to the group list
@@ -4642,7 +4642,7 @@ BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 	WAYPOINT* pTemp = NULL;
 
 	//Load the number of waypoints
-	if ( !LoadDataBuffered(&uiNumberOfWayPoints, *ppBuffer, sizeof(UINT32), "WAYPOINT size") )
+	if ( !LoadDataFromBuffer(&uiNumberOfWayPoints, *ppBuffer, sizeof(UINT32), "WAYPOINT size") )
 		return false;
 
 	if ( uiNumberOfWayPoints )
@@ -4657,7 +4657,7 @@ BOOLEAN LoadWayPointListBuffer(CHAR8** ppBuffer, GROUP* pGroup)
 			memset(pTemp, 0, sizeof(WAYPOINT));
 
 			//Load the waypoint node
-			if ( !LoadDataBuffered(pTemp, *ppBuffer, sizeof(WAYPOINT), "WAYPOINT") )
+			if ( !LoadDataFromBuffer(pTemp, *ppBuffer, sizeof(WAYPOINT), "WAYPOINT") )
 				return false;
 
 			pTemp->next = NULL;

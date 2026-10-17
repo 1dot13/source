@@ -1651,11 +1651,11 @@ BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile )
 BOOLEAN LoadQuestInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT8 MaxQuest)
 {
 	//Save all the states if the Quests
-	if ( !LoadDataBuffered(gubQuest, *ppBuffer, MaxQuest, "MaxQuest") )
+	if ( !LoadDataFromBuffer(gubQuest, *ppBuffer, MaxQuest, "MaxQuest") )
 		return false;
 
 	//Save all the states for the facts
-	if ( !LoadDataBuffered(gubFact, *ppBuffer, NUM_FACTS, "QuestInfo NUM_FACTS") )
+	if ( !LoadDataFromBuffer(gubFact, *ppBuffer, NUM_FACTS, "QuestInfo NUM_FACTS") )
 		return false;
 
 	return(TRUE);
@@ -1679,7 +1679,7 @@ BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile )
 BOOLEAN LoadLUAModderDataFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	//Save all the states for the facts
-	if ( !LoadDataBuffered(gubModderLuaData, *ppBuffer, sizeof(INT32) * MODDER_LUA_DATA_MAX, "LUAModderData") )
+	if ( !LoadDataFromBuffer(gubModderLuaData, *ppBuffer, sizeof(INT32) * MODDER_LUA_DATA_MAX, "LUAModderData") )
 		return false;
 
 	return(TRUE);

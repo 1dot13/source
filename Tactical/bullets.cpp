@@ -604,14 +604,14 @@ BOOLEAN LoadBulletStructureFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	memset(gBullets, 0, NUM_BULLET_SLOTS * sizeof(BULLET));
 
 	//Load the number of Bullets in the array
-	if (!LoadDataBuffered(&guiNumBullets, *ppBuffer, sizeof(UINT32), "BULLET amount"))
+	if (!LoadDataFromBuffer(&guiNumBullets, *ppBuffer, sizeof(UINT32), "BULLET amount"))
 		return false;
 
 
 	for ( usCnt = 0; usCnt < guiNumBullets; usCnt++ )
 	{
 		//Load the the Bullet structure
-		if (!LoadDataBuffered(&gBullets[usCnt], *ppBuffer, sizeof(BULLET), "BULLET"))
+		if (!LoadDataFromBuffer(&gBullets[usCnt], *ppBuffer, sizeof(BULLET), "BULLET"))
 			return false;
 
 		//Set some parameters

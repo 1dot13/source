@@ -822,7 +822,7 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		_Shipments.clear();
 	}
 
-	if ( !LoadDataBuffered(&sls, *ppBuffer, sizeof(ShipmentListSaveFileDataHeaderStruct), "Postal Shipment Header") )
+	if ( !LoadDataFromBuffer(&sls, *ppBuffer, sizeof(ShipmentListSaveFileDataHeaderStruct), "Postal Shipment Header") )
 	{
 		return(FALSE);
 	}
@@ -835,7 +835,7 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 
 		// Read in shipment data header
 		memset(&sfs, 0, sizeof(ShipmentSaveFileDataStruct));
-		if ( !LoadDataBuffered(&sfs, *ppBuffer, sizeof(ShipmentSaveFileDataStruct), "Postal Shipment Data") )
+		if ( !LoadDataFromBuffer(&sfs, *ppBuffer, sizeof(ShipmentSaveFileDataStruct), "Postal Shipment Data") )
 		{
 			return(FALSE);
 		}
@@ -860,7 +860,7 @@ BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		for ( int j = 0; j < (int)sfs.uiNumberOfPackages; j++ )
 		{
 			memset(&sps, 0, sizeof(ShipmentPackageStruct));
-			if ( !LoadDataBuffered(&sps, *ppBuffer, sizeof(ShipmentPackageStruct), "Postal Shipment Package") )
+			if ( !LoadDataFromBuffer(&sps, *ppBuffer, sizeof(ShipmentPackageStruct), "Postal Shipment Package") )
 			{
 				return(FALSE);
 			}

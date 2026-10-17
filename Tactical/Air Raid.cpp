@@ -1371,7 +1371,7 @@ BOOLEAN LoadAirRaidInfoFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	AIR_RAID_SAVE_STRUCT sAirRaidSaveStruct;
 
 	//Load the number of REAL_OBJECTs in the array
-	if ( !LoadDataBuffered(&sAirRaidSaveStruct, *ppBuffer, sizeof(AIR_RAID_SAVE_STRUCT), "AIR_RAID_SAVE_STRUCT") )
+	if ( !LoadDataFromBuffer(&sAirRaidSaveStruct, *ppBuffer, sizeof(AIR_RAID_SAVE_STRUCT), "AIR_RAID_SAVE_STRUCT") )
 		return false;
 
 

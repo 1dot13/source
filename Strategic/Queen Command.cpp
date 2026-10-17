@@ -2659,7 +2659,7 @@ BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 	TrashUndergroundSectorInfo();
 
 	//Read in the number of nodes stored
-	if (!LoadDataBuffered(&uiNumOfRecords, *ppBuffer, sizeof(UINT32), "uiNumOfRecords"))
+	if (!LoadDataFromBuffer(&uiNumOfRecords, *ppBuffer, sizeof(UINT32), "uiNumOfRecords"))
 	{
 		return false;
 	}
@@ -2674,7 +2674,7 @@ BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 
 
 		//read in the new node
-		if (!LoadDataBuffered(TempNode, *ppBuffer, sizeof(UNDERGROUND_SECTORINFO), "UNDERGROUND_SECTORINFO"))
+		if (!LoadDataFromBuffer(TempNode, *ppBuffer, sizeof(UNDERGROUND_SECTORINFO), "UNDERGROUND_SECTORINFO"))
 		{
 			MemFree(TempNode);
 			return false;

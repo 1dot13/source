@@ -1661,7 +1661,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 		return TRUE;
 
 	//Load the number of elements
-	LoadDataBuffered(&numpaths, *ppBuffer, sizeof(UINT8), "MilitiaMovementInfo numpaths");
+	LoadDataFromBuffer(&numpaths, *ppBuffer, sizeof(UINT8), "MilitiaMovementInfo numpaths");
 
 	if ( gfBufferLoadFailed || numpaths != MILITIA_PATROLS_MAX )
 		return(FALSE);
@@ -1680,7 +1680,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 		INT16		groupid = 0;
 
 		//Load the number of the nodes
-		LoadDataBuffered(&uiNumOfNodes, *ppBuffer, sizeof(UINT32), "MilitiaMovementInfo node amount");
+		LoadDataFromBuffer(&uiNumOfNodes, *ppBuffer, sizeof(UINT32), "MilitiaMovementInfo node amount");
 
 		//load all the nodes
 		for ( UINT32 cnt2 = 0; cnt2 < uiNumOfNodes; ++cnt2 )
@@ -1697,7 +1697,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 			memset(pTemp, 0, sizeof(PathSt));
 
 			//Load the node
-			LoadDataBuffered(pTemp, *ppBuffer, sizeof(PathSt), "MilitiaMovementInfo nodes");
+			LoadDataFromBuffer(pTemp, *ppBuffer, sizeof(PathSt), "MilitiaMovementInfo nodes");
 
 			//Put the node into the list 
 			if ( cnt2 == 0 )
@@ -1724,7 +1724,7 @@ BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, 
 			gMilitiaPath[cnt].path->pPrev = NULL;
 
 		//Load the number of the nodes
-		LoadDataBuffered(&groupid, *ppBuffer, sizeof(INT16), "MilitiaMovementInfo groupid");
+		LoadDataFromBuffer(&groupid, *ppBuffer, sizeof(INT16), "MilitiaMovementInfo groupid");
 
 		gMilitiaPath[cnt].sGroupid = groupid;
 	}

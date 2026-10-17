@@ -1169,7 +1169,7 @@ BOOLEAN SaveJa25TacticalInfoToSaveGame( HWFILE hFile )
 BOOLEAN LoadJa25TacticalInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 {
 	UINT32	uiSize = sizeof(NEW_GUN_QUOTES_STRUCT) * NUM_NEW_GUN_QUOTES;
-	if ( !LoadDataBuffered(&gNewGunQuotes, *ppBuffer, uiSize, "Ja25 New Gun Quotes") )
+	if ( !LoadDataFromBuffer(&gNewGunQuotes, *ppBuffer, uiSize, "Ja25 New Gun Quotes") )
 	{
 		return( FALSE );
 	}

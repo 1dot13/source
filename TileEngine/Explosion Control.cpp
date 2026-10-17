@@ -5121,13 +5121,13 @@ BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	memset(gExplosionQueue, 0, sizeof(ExplosionQueueElement) * MAX_BOMB_QUEUE);
 
 	//Read the number of explosions queue's
-	LoadDataBuffered(&gubElementsOnExplosionQueue, *ppBuffer, sizeof(UINT32), "Explosion queue size");
+	LoadDataFromBuffer(&gubElementsOnExplosionQueue, *ppBuffer, sizeof(UINT32), "Explosion queue size");
 
 
 	//loop through read all the active explosions fro the file
 	for ( uiCnt = 0; uiCnt < MAX_BOMB_QUEUE; uiCnt++ )
 	{
-		LoadDataBuffered(&gExplosionQueue[uiCnt], *ppBuffer, sizeof(ExplosionQueueElement), "ExplosionQueueElement");
+		LoadDataFromBuffer(&gExplosionQueue[uiCnt], *ppBuffer, sizeof(ExplosionQueueElement), "ExplosionQueueElement");
 	}
 
 
@@ -5137,13 +5137,13 @@ BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	//
 
 	//Load the number of explosions
-	LoadDataBuffered(&guiNumExplosions, *ppBuffer, sizeof(UINT32), "EXPLOSIONTYPE amount");
+	LoadDataFromBuffer(&guiNumExplosions, *ppBuffer, sizeof(UINT32), "EXPLOSIONTYPE amount");
 
 
 	//loop through and load all the active explosions
 	for ( uiCnt = 0; uiCnt < guiNumExplosions; uiCnt++ )
 	{
-		LoadDataBuffered(&gExplosionData[uiCnt], *ppBuffer, sizeof(EXPLOSIONTYPE), "EXPLOSIONTYPE");
+		LoadDataFromBuffer(&gExplosionData[uiCnt], *ppBuffer, sizeof(EXPLOSIONTYPE), "EXPLOSIONTYPE");
 		gExplosionData[uiCnt].iID = uiCnt;
 		gExplosionData[uiCnt].iLightID = -1;
 

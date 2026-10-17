@@ -2873,7 +2873,7 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	//Load the number of REAL_OBJECTs in the array
-	if ( !LoadDataBuffered(&guiNumObjectSlots, *ppBuffer, sizeof(UINT32), "PhysicsTable object amount") )
+	if ( !LoadDataFromBuffer(&guiNumObjectSlots, *ppBuffer, sizeof(UINT32), "PhysicsTable object amount") )
 		return false;
 
 	//loop through and add the objects

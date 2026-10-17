@@ -5525,7 +5525,7 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 	for ( UINT16 i = 0; i < MAP_WORLD_X * MAP_WORLD_Y; ++i )
 	{
 		// Load the strategic map information
-		if (!LoadDataBuffered(&StrategicMap[i], *ppBuffer, uiSize, "StrategicMapElement"))
+		if (!LoadDataFromBuffer(&StrategicMap[i], *ppBuffer, uiSize, "StrategicMapElement"))
 		{
 			return false;
 		}
@@ -5550,7 +5550,7 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 
 	for ( int sectorID = 0; sectorID <= 255; ++sectorID )
 	{
-		if (!LoadDataBuffered(&SectorInfo[sectorID], *ppBuffer, uiSize, "SECTORINFO"))
+		if (!LoadDataFromBuffer(&SectorInfo[sectorID], *ppBuffer, uiSize, "SECTORINFO"))
 		{
 			return false;
 		}
@@ -5587,7 +5587,7 @@ BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
 	SKIPDATA(*ppBuffer, *ppBuffer, uiSize);
 
 	// Load the fFoundOrta
-	if (!LoadDataBuffered(&fFoundOrta, *ppBuffer, sizeof(BOOLEAN), "fFoundOrta"))
+	if (!LoadDataFromBuffer(&fFoundOrta, *ppBuffer, sizeof(BOOLEAN), "fFoundOrta"))
 	{
 		return false;
 	}

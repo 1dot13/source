@@ -2932,7 +2932,7 @@ BOOLEAN JA2EncryptedFileRead( HWFILE hFile, PTR pDest, UINT32 uiBytesToRead, UIN
 
 BOOLEAN JA2NonEncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesToRead)
 {
-	if (!LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "JA2NonEncryptedFileReadBuffer"))
+	if (!LoadDataFromBuffer(pDest, *ppBuffer, uiBytesToRead, "JA2NonEncryptedFileReadBuffer"))
 	{
 		return(false);
 	}
@@ -2947,7 +2947,7 @@ BOOLEAN JA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiBytesTo
 	UINT8		ubLastByteForNextLoop;
 	UINT8* pMemBlock;
 
-	if ( !LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "JA2EncryptedFileReadBuffer") )
+	if ( !LoadDataFromBuffer(pDest, *ppBuffer, uiBytesToRead, "JA2EncryptedFileReadBuffer") )
 	{
 		return false;
 	}
@@ -2979,7 +2979,7 @@ BOOLEAN NewJA2EncryptedFileReadBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiByte
 
 	pubRotationArray = GetRotationArray();
 
-	if ( !LoadDataBuffered(pDest, *ppBuffer, uiBytesToRead, "NewJA2EncryptedFileReadBuffer") )
+	if ( !LoadDataFromBuffer(pDest, *ppBuffer, uiBytesToRead, "NewJA2EncryptedFileReadBuffer") )
 	{
 		return false;
 	}

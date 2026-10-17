@@ -2361,7 +2361,7 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 	ClearOutVehicleList();
 
 	//Load the number of elements
-	if (!LoadDataBuffered(&ubNumberOfVehicles, *ppBuffer, sizeof(UINT8), "VehicleInformation"))
+	if (!LoadDataFromBuffer(&ubNumberOfVehicles, *ppBuffer, sizeof(UINT8), "VehicleInformation"))
 	{
 		return false;
 	}
@@ -2383,12 +2383,12 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 				break;
 			}
 			//Load if the vehicle spot is valid
-			LoadDataBuffered(&pVehicleList[cnt].fValid, *ppBuffer, sizeof(BOOLEAN), "Valid vehicle spot");
+			LoadDataFromBuffer(&pVehicleList[cnt].fValid, *ppBuffer, sizeof(BOOLEAN), "Valid vehicle spot");
 
 			if ( pVehicleList[cnt].fValid )
 			{
 				//load the vehicle info
-				LoadDataBuffered(&pVehicleList[cnt], *ppBuffer, sizeof(VEHICLETYPE), "VEHICLETYPE");
+				LoadDataFromBuffer(&pVehicleList[cnt], *ppBuffer, sizeof(VEHICLETYPE), "VEHICLETYPE");
 
 				//
 				// Build the passenger list
@@ -2423,7 +2423,7 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 
 
 				//Load the number of nodes
-				LoadDataBuffered(&uiTotalNodeCount, *ppBuffer, sizeof(UINT32), "VehicleInformation node count");
+				LoadDataFromBuffer(&uiTotalNodeCount, *ppBuffer, sizeof(UINT32), "VehicleInformation node count");
 
 				if ( uiTotalNodeCount != 0 )
 				{
@@ -2441,7 +2441,7 @@ BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 u
 						memset(pTempPath, 0, sizeof(PathSt));
 
 						//Load all the nodes
-						LoadDataBuffered(pTempPath, *ppBuffer, sizeof(PathSt), "VehicleInformation node");
+						LoadDataFromBuffer(pTempPath, *ppBuffer, sizeof(PathSt), "VehicleInformation node");
 
 
 						//
@@ -2631,7 +2631,7 @@ BOOLEAN LoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumBytesRead = 0;
 
 	for ( int cnt = 0; cnt < 5; ++cnt ) {
-		if (!LoadDataBuffered(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "VehicleMovementInfo"))
+		if (!LoadDataFromBuffer(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "VehicleMovementInfo"))
 		{
 			break;
 		}
@@ -2678,7 +2678,7 @@ BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	for ( int cnt = 0; cnt < MAX_VEHICLES; ++cnt ) {
-		if (!LoadDataBuffered(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "NewVehicleMovementInfo"))
+		if (!LoadDataFromBuffer(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "NewVehicleMovementInfo"))
 		{
 			break;
 		}

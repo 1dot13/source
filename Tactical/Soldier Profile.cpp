@@ -251,7 +251,7 @@ BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer)
 
 	for ( int profiletype = PROFILETYPE_AIM; profiletype < PROFILETYPE_MAX; ++profiletype )
 	{
-		if ( !LoadDataBuffered(&tmpprofilewedontreallyneed, *ppBuffer, sizeof(tmpprofilewedontreallyneed), "New System Mercs Profiles") )
+		if ( !LoadDataFromBuffer(&tmpprofilewedontreallyneed, *ppBuffer, sizeof(tmpprofilewedontreallyneed), "New System Mercs Profiles") )
 		{
 			return( FALSE );
 		}

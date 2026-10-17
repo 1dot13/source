@@ -1333,11 +1333,11 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	gubCurrentMapMessageString = 0;
 
 	//	Read to the begining of the message list
-	LoadDataBuffered(&gubEndOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubEndOfMapScreenMessageList");
+	LoadDataFromBuffer(&gubEndOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubEndOfMapScreenMessageList");
 	//	Read the current message string
-	LoadDataBuffered(&gubStartOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubStartOfMapScreenMessageList");
+	LoadDataFromBuffer(&gubStartOfMapScreenMessageList, *ppBuffer, sizeof(UINT8), "gubStartOfMapScreenMessageList");
 	//	Read the current message string
-	LoadDataBuffered(&gubCurrentMapMessageString, *ppBuffer, sizeof(UINT8), "gubCurrentMapMessageString");
+	LoadDataFromBuffer(&gubCurrentMapMessageString, *ppBuffer, sizeof(UINT8), "gubCurrentMapMessageString");
 
 	if ( gfBufferLoadFailed )
 	{
@@ -1348,7 +1348,7 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	for ( uiCount = 0; uiCount < 256; uiCount++ )
 	{
 		//	Read to the file the size of the message
-		if ( !LoadDataBuffered(&uiSizeOfString, *ppBuffer, sizeof(UINT32), "Screen message size") )
+		if ( !LoadDataFromBuffer(&uiSizeOfString, *ppBuffer, sizeof(UINT32), "Screen message size") )
 		{
 			break;
 		}
@@ -1357,7 +1357,7 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 		if ( uiSizeOfString )
 		{
 			//	Read the message from the file
-			if ( !LoadDataBuffered(SavedString, *ppBuffer, uiSizeOfString, "Screen message") )
+			if ( !LoadDataFromBuffer(SavedString, *ppBuffer, uiSizeOfString, "Screen message") )
 			{
 				break;
 			}
@@ -1404,7 +1404,7 @@ BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
 
 
 			//Read the rest of the message information to the saved game file
-			if ( !LoadDataBuffered(&StringSave, *ppBuffer, sizeof(StringSaveStruct), "StringSaveStruct") )
+			if ( !LoadDataFromBuffer(&StringSave, *ppBuffer, sizeof(StringSaveStruct), "StringSaveStruct") )
 			{
 				break;
 			}

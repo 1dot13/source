@@ -46,7 +46,7 @@ BOOLEAN SaveStrategicStatusToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadStrategicStatusFromSaveGameFileBuffer(CHAR8 **ppBuffer)
 {
 	//Load the Strategic Status structure from the saved game file
-	if (!LoadDataBuffered(&gStrategicStatus, *ppBuffer, sizeof(STRATEGIC_STATUS), "STRATEGIC_STATUS") )
+	if (!LoadDataFromBuffer(&gStrategicStatus, *ppBuffer, sizeof(STRATEGIC_STATUS), "STRATEGIC_STATUS") )
 		return false;
 
 

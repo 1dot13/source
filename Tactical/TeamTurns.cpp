@@ -2613,9 +2613,9 @@ BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumBytesRead;
 	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
 
-	if ( !LoadDataBuffered(gubOutOfTurnOrder, *ppBuffer, sizeof(UINT16) * MAXMERCS, "gubOutOfTurnOrder") )
+	if ( !LoadDataFromBuffer(gubOutOfTurnOrder, *ppBuffer, sizeof(UINT16) * MAXMERCS, "gubOutOfTurnOrder") )
 		return false;
-	if ( !LoadDataBuffered(&TeamTurnStruct, *ppBuffer, sizeof(TEAM_TURN_SAVE_STRUCT), "TEAM_TURN_SAVE_STRUCT") )
+	if ( !LoadDataFromBuffer(&TeamTurnStruct, *ppBuffer, sizeof(TEAM_TURN_SAVE_STRUCT), "TEAM_TURN_SAVE_STRUCT") )
 		return false;
 
 	gubOutOfTurnPersons = TeamTurnStruct.ubOutOfTurnPersons;

@@ -7212,7 +7212,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 	}
 
 	// Load The laptop information
-	LoadDataBuffered(&LaptopSaveInfo, *ppBuffer, sizeof(LaptopSaveInfoStruct), "LaptopSaveInfo");
+	LoadDataFromBuffer(&LaptopSaveInfo, *ppBuffer, sizeof(LaptopSaveInfoStruct), "LaptopSaveInfo");
 
 	//If there is anything in the Bobby Ray Orders on Delivery
 	if ( LaptopSaveInfo.usNumberOfBobbyRayOrderUsed )
@@ -7224,7 +7224,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 		Assert(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray);
 
 		// Load The laptop information
-		LoadDataBuffered(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray, *ppBuffer, uiSize, "BobbyRaOrderOnDeliveryArray");
+		LoadDataFromBuffer(LaptopSaveInfo.BobbyRayOrdersOnDeliveryArray, *ppBuffer, uiSize, "BobbyRaOrderOnDeliveryArray");
 	}
 	else
 	{
@@ -7242,7 +7242,7 @@ BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 		Assert(LaptopSaveInfo.pLifeInsurancePayouts);
 
 		// Load The laptop information
-		LoadDataBuffered(LaptopSaveInfo.pLifeInsurancePayouts, *ppBuffer, uiSize, "LifeInsurancePayouts");
+		LoadDataFromBuffer(LaptopSaveInfo.pLifeInsurancePayouts, *ppBuffer, uiSize, "LifeInsurancePayouts");
 	}
 	else
 	{
