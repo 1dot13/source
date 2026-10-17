@@ -3514,6 +3514,14 @@ BOOLEAN HandleMailSpecialMessages( UINT16 usMessageId, INT32 *iResults, EmailPtr
 				{
 					if( pBody[ i ] == L'\n' )
 					{
+						// a truly empty record latches PreProcessEmail's fOnLastPageFlag (its
+						// "end of message" marker for EDT files), which deadens the next-page
+						// arrow on every page; render spacer lines as a single space instead
+						if( uiLineLen == 0 )
+						{
+							zLine[ 0 ] = L' ';
+							uiLineLen = 1;
+						}
 						zLine[ uiLineLen ] = L'\0';
 						AddEmailRecordToList( zLine );
 						uiLineLen = 0;
