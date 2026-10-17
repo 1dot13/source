@@ -165,7 +165,7 @@ public:
 	//could use a little tidying up
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
-	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN Load(CHAR8** ppBuffer);
 
 	SoldierID			ubSoldierID;
 	UINT8				ubInvSlot;
@@ -313,7 +313,7 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 void CancelItemPointer( );
 
-BOOLEAN LoadItemCursorFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadItemCursorFromSavedGame(CHAR8** ppBuffer);
 BOOLEAN SaveItemCursorToSavedGame( HWFILE hFile );
 
 void EnableKeyRing( BOOLEAN fEnable );

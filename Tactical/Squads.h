@@ -157,7 +157,7 @@ void GetLocationOfSquad( INT16 *sX, INT16 *sY, INT8 *bZ, INT8 bSquadValue );
 BOOLEAN SaveSquadInfoToSavedGameFile( HWFILE hFile );
 
 //Load all the squad info from the saved game file
-BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadSquadInfoFromSavedGameFile(CHAR8** ppBuffer);
 
 // get squad id of first free squad
 INT8 GetFirstEmptySquad( void );

@@ -3222,7 +3222,7 @@ BOOLEAN SaveNPCInfoToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
+BOOLEAN LoadNPCInfoFromSavedGameFile(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
 {
 	UINT32		uiNumBytesRead = 0;
 	UINT32		cnt;
@@ -3526,7 +3526,7 @@ BOOLEAN SaveBackupNPCInfoToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadBackupNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
+BOOLEAN LoadBackupNPCInfoFromSavedGame(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
 {
 	UINT32		uiNumBytesRead = 0;
 	UINT32		cnt;

@@ -57,5 +57,5 @@ void			DeleteSaveGameNumber( UINT8 ubSaveGameSlotID );
 
 extern BOOLEAN DoAutoSave( int ubSaveGameID, STR16 pGameDesc );
 extern BOOLEAN SaveDataSaveToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadDataSaveFromLoadGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadDataSaveFromSavedGame(CHAR8** ppBuffer);
 #endif

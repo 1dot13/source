@@ -57,7 +57,7 @@ BOOLEAN SaveAirRaidInfoToSaveGameFile( HWFILE hFile );
 
 
 //load the air raid info from the saved game
-BOOLEAN LoadAirRaidInfoFromSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadAirRaidInfoFromSaveGame(CHAR8** ppBuffer);
 
 void EndAirRaid( );
 

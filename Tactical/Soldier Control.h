@@ -763,7 +763,7 @@ public:
 	OBJECTTYPE& operator [] (unsigned int idx);
 
 	BOOLEAN	Load( HWFILE hFile );
-	BOOLEAN LoadBuffer(CHAR8** hBuffer);
+	BOOLEAN Load(CHAR8** hBuffer);
 	BOOLEAN	Load( INT8** hBuffer, float dMajorMapVersion, UINT8 ubMinorMapVersion);
 	BOOLEAN	Save( HWFILE hFile, bool fSavingMap );
 
@@ -1089,7 +1089,7 @@ public:
 	~SOLDIERTYPE();
 
 	BOOLEAN Load(HWFILE hFile);
-	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN Load(CHAR8** ppBuffer);
 	BOOLEAN Save(HWFILE hFile);
 	UINT32	GetChecksum();
 

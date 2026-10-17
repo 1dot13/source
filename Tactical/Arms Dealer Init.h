@@ -286,7 +286,7 @@ public:
 	void ConvertFrom101(OLD_DEALER_ITEM_HEADER_101& header, OLD_DEALER_SPECIAL_ITEM_101& special, int ubArmsDealer, int usItemIndex);
 	BOOLEAN Save(HWFILE hFile);
 	BOOLEAN Load(HWFILE hFile);
-	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN Load(CHAR8** ppBuffer);
 	void	initialize();
 	bool	operator == (const DEALER_SPECIAL_ITEM& compare);
 

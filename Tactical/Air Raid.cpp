@@ -1366,7 +1366,7 @@ BOOLEAN SaveAirRaidInfoToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadAirRaidInfoFromSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadAirRaidInfoFromSaveGame(CHAR8** ppBuffer)
 {
 	AIR_RAID_SAVE_STRUCT sAirRaidSaveStruct;
 

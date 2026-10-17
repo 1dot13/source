@@ -739,7 +739,7 @@ BOOLEAN SaveStrategicEventsToSavedGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadStrategicEventsFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32 uiNumGameEvents;
 	STRATEGICEVENT* sGameEvent = nullptr;

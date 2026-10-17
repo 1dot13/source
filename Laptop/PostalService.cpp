@@ -812,7 +812,7 @@ BOOLEAN CPostalService::RegisterDeliveryCallback(INT16 sSenderID, PtrToDeliveryC
 	return TRUE;
 }
 
-BOOLEAN CPostalService::LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN CPostalService::LoadShipmentListFromSaveGame(CHAR8** ppBuffer)
 {
 	ShipmentListSaveFileDataHeaderStruct sls;
 	// Read in shipment list data header

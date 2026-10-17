@@ -947,7 +947,7 @@ BOOLEAN SaveGameClock( HWFILE hFile, BOOLEAN fGamePaused, BOOLEAN fLockPauseStat
 }
 
 
-BOOLEAN LoadGameClockBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadGameClock(CHAR8** ppBuffer)
 {
     LoadDataFromBuffer(&giTimeCompressMode, *ppBuffer, sizeof(INT32), "TimeCompressMode");
     LoadDataFromBuffer(&gubClockResolution, *ppBuffer, sizeof(UINT8), "gubClockResolution");

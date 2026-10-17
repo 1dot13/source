@@ -1318,7 +1318,7 @@ BOOLEAN SaveMapScreenMessagesToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadMapScreenMessagesFromSaveGameFile(CHAR8** ppBuffer)
 {
 	UINT32	uiCount;
 	UINT32	uiSizeOfString;

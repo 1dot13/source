@@ -1069,7 +1069,7 @@ BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadCivQuotesFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadCivQuotesFromSavedGame(CHAR8** ppBuffer)
 {
 	// anv: reset uiTauntFinishTimes after game is loaded (so enemies can taunt after guiBaseJA2Clock is decreased)
 	memset(&uiTauntFinishTimes, 0, sizeof(uiTauntFinishTimes));

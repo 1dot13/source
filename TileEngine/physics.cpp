@@ -2861,7 +2861,7 @@ BOOLEAN	SavePhysicsTableToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN	LoadPhysicsTableFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead = 0;
 	UINT16	usCnt = 0;
@@ -2880,7 +2880,7 @@ BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	for ( usCnt = 0; usCnt < guiNumObjectSlots; usCnt++ )
 	{
 		//Load the the REAL_OBJECT structure
-		if ( !ObjectSlots[usCnt].LoadBuffer(ppBuffer) )
+		if ( !ObjectSlots[usCnt].Load(ppBuffer) )
 		{
 			return(FALSE);
 		}

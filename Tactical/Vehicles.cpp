@@ -177,7 +177,7 @@ void SetDriver( INT32 iID, SoldierID ubID );
 void TeleportVehicleToItsClosestSector( INT32 iVehicleId, UINT8 ubGroupID );
 
 // Flugente 2013-05-12: saving and loading an array that is read from xml is utterly pointless. The loading function has to remain for compatibility reasons - please remove the next time savegame compatibility is broken
-BOOLEAN LoadNewVehiclesToSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadNewVehiclesFromSaveGame(CHAR8** ppBuffer)
 {
 	NEW_CAR tmp[NUM_PROFILES];
 	SKIPDATA(*ppBuffer, *ppBuffer, sizeof(tmp));
@@ -2348,7 +2348,7 @@ BOOLEAN SaveVehicleInformationToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+BOOLEAN LoadVehicleInformationFromSavedGame(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
 {
 	UINT32 uiTotalNodeCount = 0;
 	UINT8 cnt;
@@ -2625,7 +2625,7 @@ BOOLEAN SaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadVehicleMovementInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	GROUP* pGroup = NULL;
 	UINT32	uiNumBytesRead = 0;
@@ -2675,7 +2675,7 @@ BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN NewLoadVehicleMovementInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	for ( int cnt = 0; cnt < MAX_VEHICLES; ++cnt ) {
 		if (!LoadDataFromBuffer(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "NewVehicleMovementInfo"))

@@ -1147,7 +1147,7 @@ BOOLEAN SaveBriefingRoomToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadBriefingRoomFromSavedGame(CHAR8** ppBuffer)
 {
 #ifdef ENABLE_BRIEFINGROOM
 	UINT32	uiNumBytesRead;

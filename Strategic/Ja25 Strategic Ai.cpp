@@ -1129,7 +1129,7 @@ BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadJa25SaveInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	LoadDataFromBuffer(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO), "JA25_SAVE_INFO");
 

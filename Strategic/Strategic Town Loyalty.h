@@ -172,7 +172,7 @@ UINT32 BuildLoyaltyEventValue( INT8 bTownValue, UINT32 uiValue, BOOLEAN fIncreme
 */
 
 
-BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadStrategicTownLoyaltyFromSavedGame(CHAR8** ppBuffer);
 BOOLEAN SaveStrategicTownLoyaltyToSaveGameFile( HWFILE hFile );
 
 void ReduceLoyaltyForRebelsBetrayed(void);

@@ -490,37 +490,37 @@ extern		BOOLEAN		gfHavePurchasedItemsFromTony;
 /////////////////////////////////////////////////////
 
 BOOLEAN		SaveMercProfiles( HWFILE hFile );
-BOOLEAN		LoadSavedMercProfilesBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadSavedMercProfiles(CHAR8** ppBuffer);
 
 BOOLEAN		SaveSoldierStructure( HWFILE hFile );
-BOOLEAN		LoadSoldierStructureBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadSoldierStructure(CHAR8** ppBuffer);
 
 //BOOLEAN		SavePtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 //BOOLEAN		LoadPtrInfo( PTR *pData, UINT32 uiSizeOfObject, HWFILE hFile );
 
 BOOLEAN		SaveEmailToSavedGame( HWFILE hFile );
-BOOLEAN		LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadEmailFromSavedGame(CHAR8** ppBuffer);
 
 BOOLEAN		SaveTacticalStatusToSavedGame( HWFILE hFile );
-BOOLEAN		LoadTacticalStatusFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadTacticalStatusFromSavedGame(CHAR8** ppBuffer);
 
 BOOLEAN		SetMercsInsertionGridNo( );
 
-BOOLEAN		LoadOppListInfoFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadOppListInfoFromSavedGame(CHAR8** ppBuffer);
 BOOLEAN		SaveOppListInfoToSavedGame( HWFILE hFile );
 
 BOOLEAN		LoadMercPathToSoldierStructBuffer(CHAR8** ppBuffer, UINT16 ubID);
 BOOLEAN		SaveMercPathFromSoldierStruct( HWFILE hFilem, UINT16 ubID );
 
-BOOLEAN		LoadGeneralInfoBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadGeneralInfo(CHAR8** ppBuffer);
 BOOLEAN		SaveGeneralInfo( HWFILE hFile );
 BOOLEAN		SavePreRandomNumbersToSaveGameFile( HWFILE hFile );
-BOOLEAN		LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN		LoadPreRandomNumbersFromSaveGameFile(CHAR8** ppBuffer);
 
 BOOLEAN SaveWatchedLocsToSavedGame( HWFILE hFile );
-BOOLEAN LoadWatchedLocsFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadWatchedLocsFromSavedGame(CHAR8** ppBuffer);
 
-BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadMeanwhileDefsFromSaveGame(CHAR8** ppBuffer);
 BOOLEAN SaveMeanwhileDefsFromSaveGameFile( HWFILE hFile );
 
 void	PauseBeforeSaveGame( void );
@@ -618,7 +618,7 @@ BOOLEAN LBENODE::Load( HWFILE hFile )
 	return TRUE;
 }
 
-BOOLEAN LBENODE::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN LBENODE::Load(CHAR8** ppBuffer)
 {
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
@@ -641,7 +641,7 @@ BOOLEAN LBENODE::LoadBuffer(CHAR8** ppBuffer)
 
 		inv.resize(size);
 		for ( std::vector<OBJECTTYPE>::iterator iter = inv.begin(); iter != inv.end(); ++iter ) {
-			if ( !iter->LoadBuffer(ppBuffer) ) {
+			if ( !iter->Load(ppBuffer) ) {
 				return FALSE;
 			}
 		}
@@ -698,7 +698,7 @@ BOOLEAN LBENODE::Save( HWFILE hFile, bool fSavingMap )
 	return TRUE;
 }
 
-static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
+static BOOLEAN LoadArmsDealerInventoryFromSavedGameFile(CHAR8** ppBuffer)
 {
 	UINT8	ubArmsDealer;
 	UINT16	usItemIndex;
@@ -748,7 +748,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 			DealerItemList::iterator iterend = gArmsDealersInventory[ubArmsDealer].end();
 			for ( DealerItemList::iterator iter = gArmsDealersInventory[ubArmsDealer].begin(); iter != iterend; ++iter )
 			{
-				if ( !iter->LoadBuffer(ppBuffer) )
+				if ( !iter->Load(ppBuffer) )
 				{
 					return FALSE;
 				}
@@ -915,7 +915,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::Load(HWFILE hFile)
 	return TRUE;
 }
 
-BOOLEAN DEALER_SPECIAL_ITEM::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN DEALER_SPECIAL_ITEM::Load(CHAR8** ppBuffer)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
@@ -925,7 +925,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::LoadBuffer(CHAR8** ppBuffer)
 		{
 			return FALSE;
 		}
-		if ( !this->object.LoadBuffer(ppBuffer) )
+		if ( !this->object.Load(ppBuffer) )
 		{
 			return FALSE;
 		}
@@ -982,7 +982,7 @@ BOOLEAN REAL_OBJECT::Load(HWFILE hFile)
 	return TRUE;
 }
 
-BOOLEAN REAL_OBJECT::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN REAL_OBJECT::Load(CHAR8** ppBuffer)
 {
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
@@ -991,7 +991,7 @@ BOOLEAN REAL_OBJECT::LoadBuffer(CHAR8** ppBuffer)
 		{
 			return FALSE;
 		}
-		if ( !this->Obj.LoadBuffer(ppBuffer) )
+		if ( !this->Obj.Load(ppBuffer) )
 		{
 			return FALSE;
 		}
@@ -1090,13 +1090,13 @@ BOOLEAN MERC_LEAVE_ITEM::Load(HWFILE hFile)
 	return TRUE;
 }
 
-BOOLEAN MERC_LEAVE_ITEM::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN MERC_LEAVE_ITEM::Load(CHAR8** ppBuffer)
 {
 	UINT32 uiNumBytesRead;
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
-		if ( !this->object.LoadBuffer(ppBuffer) )
+		if ( !this->object.Load(ppBuffer) )
 		{
 			return FALSE;
 		}
@@ -1148,7 +1148,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(HWFILE hFile)
 	return TRUE;
 }
 
-BOOLEAN ITEM_CURSOR_SAVE_INFO::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN ITEM_CURSOR_SAVE_INFO::Load(CHAR8** ppBuffer)
 {
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
@@ -1158,7 +1158,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::LoadBuffer(CHAR8** ppBuffer)
 		{
 			return FALSE;
 		}
-		if ( !this->ItemPointerInfo.LoadBuffer(ppBuffer) )
+		if ( !this->ItemPointerInfo.Load(ppBuffer) )
 		{
 			return FALSE;
 		}
@@ -1845,7 +1845,7 @@ BOOLEAN MERCPROFILESTRUCT::Load(HWFILE hFile, bool forceLoadOldVersion, bool for
 	return TRUE;
 }
 
-BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion, bool forceLoadOldEncryption, bool wasSavedWithEncryption)
+BOOLEAN MERCPROFILESTRUCT::Load(CHAR8 **ppBuffer, bool forceLoadOldVersion, bool forceLoadOldEncryption, bool wasSavedWithEncryption)
 {
 	UINT32	uiNumBytesRead;
 	INT32	numBytesRead = 0, temp = 0, buffer = 0;
@@ -3425,7 +3425,7 @@ BOOLEAN SOLDIERTYPE::Load(HWFILE hFile)
 	return TRUE;
 }
 
-BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN SOLDIERTYPE::Load(CHAR8** ppBuffer)
 {
 	UINT32 uiNumBytesRead;
 	INT32 numBytesRead = 0, buffer = 0;
@@ -4081,7 +4081,7 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 			return(FALSE);
 
 		//load the OO inventory
-		if ( !this->inv.LoadBuffer(ppBuffer) )
+		if ( !this->inv.Load(ppBuffer) )
 		{
 			return(FALSE);
 		}
@@ -4560,7 +4560,7 @@ BOOLEAN StackedObjectData::Load( HWFILE hFile )
 	return TRUE;
 }
 
-BOOLEAN StackedObjectData::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN StackedObjectData::Load(CHAR8** ppBuffer)
 {
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
@@ -4577,7 +4577,7 @@ BOOLEAN StackedObjectData::LoadBuffer(CHAR8** ppBuffer)
 
 		attachments.resize(size);
 		for ( attachmentList::iterator iter = attachments.begin(); iter != attachments.end(); ++iter ) {
-			if ( !iter->LoadBuffer(ppBuffer) ) {
+			if ( !iter->Load(ppBuffer) ) {
 				return FALSE;
 			}
 		}
@@ -4702,7 +4702,7 @@ BOOLEAN OBJECTTYPE::Load( HWFILE hFile )
 	return TRUE;
 }
 
-BOOLEAN OBJECTTYPE::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN OBJECTTYPE::Load(CHAR8** ppBuffer)
 {
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
@@ -4727,11 +4727,11 @@ BOOLEAN OBJECTTYPE::LoadBuffer(CHAR8** ppBuffer)
 
 		int x = 0;
 		for ( StackedObjects::iterator iter = objectStack.begin(); iter != objectStack.end(); ++iter, ++x ) {
-			iter->LoadBuffer(ppBuffer);
+			iter->Load(ppBuffer);
 
 			if ( this->IsActiveLBE(x) == true ) {
 				LBEArray.push_back(LBENODE());
-				if ( !LBEArray.back().LoadBuffer(ppBuffer) ) {
+				if ( !LBEArray.back().Load(ppBuffer) ) {
 					return FALSE;
 				}
 			}
@@ -4888,7 +4888,7 @@ BOOLEAN Inventory::Load( HWFILE hFile )
 	return (TRUE);
 }
 
-BOOLEAN Inventory::LoadBuffer(CHAR8** hBuffer)
+BOOLEAN Inventory::Load(CHAR8** hBuffer)
 {
 	int sizeInventory;
 	LoadDataFromBuffer(&sizeInventory, *hBuffer, sizeof(int), "sizeInventory");
@@ -4903,7 +4903,7 @@ BOOLEAN Inventory::LoadBuffer(CHAR8** hBuffer)
 
 	for ( int x = 0; x < sizeInventory; ++x ) {
 		//load the OO OBJECTTYPE
-		if ( !inv[x].LoadBuffer(hBuffer) )
+		if ( !inv[x].Load(hBuffer) )
 		{
 			return FALSE;
 		}
@@ -6429,10 +6429,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the gtactical status structure plus the current sector x,y,z
-	LoadTacticalStatusFromSavedGameBuffer(&fileBuffer);
+	LoadTacticalStatusFromSavedGame(&fileBuffer);
 	if( gfBufferLoadFailed )
 	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTacticalStatusFromSavedGameBuffer failed" ) );
+		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTacticalStatusFromSavedGame failed" ) );
 		MemFree(gpLoadBufferStart);
 		return(FALSE);
 	}
@@ -6450,10 +6450,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the game clock ingo
-	LoadGameClockBuffer(&fileBuffer);
+	LoadGameClock(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
-		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadGameClockBuffer failed"));
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadGameClock failed"));
 		MemFree(gpLoadBufferStart);
 		return(FALSE);
 	}
@@ -6532,10 +6532,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"Strategic Events...", 1 );
 
 	//load the game events
-	LoadStrategicEventsFromSavedGameBuffer(&fileBuffer);
+	LoadStrategicEventsFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
-		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicEventsFromSavedGameBuffer failed"));
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicEventsFromSavedGame failed"));
 		MemFree(gpLoadBufferStart);
 		return(FALSE);
 	}
@@ -6549,7 +6549,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Laptop Info", 0 );
 
-	LoadLaptopInfoFromSavedGameBuffer(&fileBuffer);
+	LoadLaptopInfoFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLaptopInfoFromSavedGame failed"));
@@ -6569,10 +6569,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load all the saved Merc profiles
 	//
-	LoadSavedMercProfilesBuffer(&fileBuffer);
+	LoadSavedMercProfiles(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
-		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSavedMercProfilesBuffer failed"));
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSavedMercProfiles failed"));
 		MemFree(gpLoadBufferStart);
 		return(FALSE);
 	}
@@ -6588,7 +6588,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the soldier structure info
 	// 
-	LoadSoldierStructureBuffer(&fileBuffer);
+	LoadSoldierStructure(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSoldierStructure failed"));
@@ -6609,7 +6609,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Finances Data and write it to a new file
 	//
-	LoadFilesFromSavedGameBuffer(FINANCES_DATA_FILE , &fileBuffer);
+	LoadFilesFromSavedGame(FINANCES_DATA_FILE , &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FINANCES_DATA_FILE failed"));
@@ -6629,7 +6629,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the History Data and write it to a new file
 	//
-	LoadFilesFromSavedGameBuffer(HISTORY_DATA_FILE, &fileBuffer);
+	LoadFilesFromSavedGame(HISTORY_DATA_FILE, &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame HISTORY_DATA_FILE failed"));
@@ -6649,7 +6649,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Files Data and write it to a new file
 	//
-	LoadFilesFromSavedGameBuffer(FILES_DAT_FILE, &fileBuffer);
+	LoadFilesFromSavedGame(FILES_DAT_FILE, &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FILES_DATA_FILE failed"));
@@ -6666,7 +6666,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load the data for the emails
-	LoadEmailFromSavedGameBuffer(&fileBuffer);
+	LoadEmailFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadEmailFromSavedGame failed"));
@@ -6684,7 +6684,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the strategic Information
-	LoadStrategicInfoFromSavedFileBuffer(&fileBuffer);
+	LoadStrategicInfoFromSavedFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicInfoFromSavedFile failed"));
@@ -6726,7 +6726,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the underground information
-	LoadUnderGroundSectorInfoFromSavedGameBuffer(&fileBuffer);
+	LoadUnderGroundSectorInfoFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadUnderGroundSectorInfoFromSavedGame failed"));
@@ -6744,7 +6744,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the squad info from the saved game file 
-	LoadSquadInfoFromSavedGameFileBuffer(&fileBuffer);
+	LoadSquadInfoFromSavedGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSquadInfoFromSavedGameFile failed"));
@@ -6760,7 +6760,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the group linked list
-	LoadStrategicMovementGroupsFromSavedGameFileBuffer(&fileBuffer);
+	LoadStrategicMovementGroupsFromSavedGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicMovementGroupsFromSavedGameFile failed"));
@@ -6781,7 +6781,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the map temp files from the saved game file into the maps\temp directory
-	LoadMapTempFilesFromSavedGameFileBuffer(&fileBuffer);
+	LoadMapTempFilesFromSavedGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMapTempFilesFromSavedGameFile failed"));
@@ -6800,7 +6800,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion < QUESTS_DATATYPE_CHANGE )
 	{
-		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_OLD_QUESTS);
+		LoadQuestInfoFromSavedGameFile(&fileBuffer, MAX_OLD_QUESTS);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed"));
@@ -6813,7 +6813,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	else
 	{
-		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_QUESTS);
+		LoadQuestInfoFromSavedGameFile(&fileBuffer, MAX_QUESTS);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed"));
@@ -6829,7 +6829,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if ( guiCurrentSaveGameVersion >= LUA_MODDERDATA )
 	{
-		LoadLUAModderDataFromSavedGameFileBuffer(&fileBuffer);
+		LoadLUAModderDataFromSavedGameFile(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLUAModderDataFromSavedGameFile failed"));
@@ -6849,7 +6849,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"OppList Info...", 1 );
 
 
-	LoadOppListInfoFromSavedGameBuffer(&fileBuffer);
+	LoadOppListInfoFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadOppListInfoFromSavedGame failed"));
@@ -6867,7 +6867,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	LoadMapScreenMessagesFromSaveGameFileBuffer(&fileBuffer);
+	LoadMapScreenMessagesFromSaveGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMapScreenMessagesFromSaveGameFile failed"));
@@ -6884,7 +6884,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	LoadNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	LoadNPCInfoFromSavedGameFile(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNPCInfoFromSavedGameFile failed"));
@@ -6901,7 +6901,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	LoadKeyTableFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	LoadKeyTableFromSavedGameFile(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadKeyTableFromSaveedGameFile failed"));
@@ -6917,7 +6917,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"Npc Temp Quote File...", 1 );
 
 
-	LoadTempNpcQuoteArrayToSaveGameFileBuffer(&fileBuffer);
+	LoadTempNpcQuoteArrayToSaveGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadTempNpcQuoteArrayToSaveGameFile failed"));
@@ -6934,7 +6934,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"PreGenerated Random Files...", 0 );
 
 
-	LoadPreRandomNumbersFromSaveGameFileBuffer(&fileBuffer);
+	LoadPreRandomNumbersFromSaveGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadPreRandomNumbersFromSaveGameFile failed"));
@@ -6952,7 +6952,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	LoadSmokeEffectsFromLoadGameFileBuffer(&fileBuffer);
+	LoadSmokeEffectsFromLoadGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSmokeEffectsFromLoadGameFile failed"));
@@ -6969,7 +6969,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-	LoadArmsDealerInventoryFromSavedGameFileBuffer(&fileBuffer);
+	LoadArmsDealerInventoryFromSavedGameFile(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadArmsDealerInventoryFromSavedGameFile failed"));
@@ -6983,7 +6983,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Misc info...", 0 );
 
-	LoadGeneralInfoBuffer(&fileBuffer);
+	LoadGeneralInfo(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadGeneralInfo failed"));
@@ -6997,10 +6997,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"Mine Status...", 1 );
 
 
-	LoadMineStatusFromSavedGameFileBuffer(&fileBuffer);
+	LoadMineStatusFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
-		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMineStatusFromSavedGameFile failed"));
+		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMineStatusFromSavedGame failed"));
 		MemFree(gpLoadBufferStart);
 		return(FALSE);
 	}
@@ -7018,10 +7018,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 21 )
 	{
-		LoadStrategicTownLoyaltyFromSavedGameFileBuffer(&fileBuffer);
+		LoadStrategicTownLoyaltyFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicTownLoyaltyFromSavedGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicTownLoyaltyFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7035,10 +7035,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 22 )
 	{
-		LoadVehicleInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		LoadVehicleInformationFromSavedGame(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleInformationFromSavedGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleInformationFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7049,7 +7049,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Militia Movement...", 1 );
 
-	LoadMilitiaMovementInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+	LoadMilitiaMovementInformationFromSavedGame(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMilitiaMovementInformationFromSavedGameFile failed"));
@@ -7068,7 +7068,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-		LoadBulletStructureFromSavedGameFileBuffer(&fileBuffer);
+		LoadBulletStructureFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadBulletStructureFromSavedGameFile failed"));
@@ -7090,7 +7090,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-		LoadPhysicsTableFromSavedGameFileBuffer(&fileBuffer);
+		LoadPhysicsTableFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadPhysicsTableFromSavedGameFile failed"));
@@ -7111,7 +7111,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-		LoadAirRaidInfoFromSaveGameFileBuffer(&fileBuffer);
+		LoadAirRaidInfoFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadAirRaidInfoFromSaveGameFile failed"));
@@ -7131,7 +7131,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-		LoadTeamTurnsFromTheSavedGameFileBuffer(&fileBuffer);
+		LoadTeamTurnsFromTheSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadTeamTurnsFromTheSavedGameFile failed"));
@@ -7152,7 +7152,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 25 )
 	{
-		LoadExplosionTableFromSavedGameFileBuffer(&fileBuffer);
+		LoadExplosionTableFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadExplosionTableFromSavedGameFile failed"));
@@ -7174,7 +7174,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 27 )
 	{
-		LoadCreatureDirectivesBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		LoadCreatureDirectives(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadCreatureDirectives failed"));
@@ -7196,7 +7196,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 28 )
 	{
-		LoadStrategicStatusFromSaveGameFileBuffer(&fileBuffer);
+		LoadStrategicStatusFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicStatusFromSaveGameFile failed"));
@@ -7216,7 +7216,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 31 )
 	{
-		LoadStrategicAIBuffer(&fileBuffer);
+		LoadStrategicAI(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicAI failed"));
@@ -7236,10 +7236,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 37 )
 	{
-		LoadLightEffectsFromLoadGameFileBuffer(&fileBuffer);
+		LoadLightEffectsFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLightEffectsFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLightEffectsFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7256,7 +7256,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 38 )
 	{
-		LoadWatchedLocsFromSavedGameBuffer(&fileBuffer);
+		LoadWatchedLocsFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadWatchedLocsFromSavedGame failed"));
@@ -7276,7 +7276,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 39 )
 	{
-		LoadItemCursorFromSavedGameBuffer(&fileBuffer);
+		LoadItemCursorFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadItemCursorFromSavedGame failed"));
@@ -7296,10 +7296,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 51 )
 	{
-		LoadCivQuotesFromLoadGameFileBuffer(&fileBuffer);
+		LoadCivQuotesFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadCivQuotesFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadCivQuotesFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7317,10 +7317,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 53 )
 	{
-		LoadBackupNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
+		LoadBackupNPCInfoFromSavedGame(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadBackupNPCInfoFromSavedGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadBackupNPCInfoFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7337,10 +7337,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 58 )
 	{
-		LoadMeanwhileDefsFromSaveGameFileBuffer(&fileBuffer);
+		LoadMeanwhileDefsFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMeanwhileDefsFromSaveGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadMeanwhileDefsFromSaveGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7364,7 +7364,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// trash schedules loaded from map
 		DestroyAllSchedulesWithoutDestroyingEvents();
-		LoadSchedulesFromSaveBuffer(&fileBuffer);
+		LoadSchedulesFromSave(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadSchedulesFromSave failed"));
@@ -7386,10 +7386,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 	if( guiCurrentSaveGameVersion < 84 )
 	{
-		LoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+		LoadVehicleMovementInfoFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleMovementInfoFromSavedGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleMovementInfoFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7399,10 +7399,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	}
 	else
 	{
-		NewLoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
+		NewLoadVehicleMovementInfoFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("NewLoadVehicleMovementInfoFromSavedGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("NewLoadVehicleMovementInfoFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7424,10 +7424,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 67 )
 	{
-		LoadContractRenewalDataFromSaveGameFileBuffer(&fileBuffer);
+		LoadContractRenewalDataFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadContractRenewalDataFromSaveGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadContractRenewalDataFromSaveGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7439,7 +7439,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 70 )
 	{
-		LoadLeaveItemListBuffer(&fileBuffer);
+		LoadLeaveItemList(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLeaveItemList failed"));
@@ -7460,10 +7460,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 85 )
 	{
-		NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(&fileBuffer);
+		NewWayOfLoadingBobbyRMailOrdersToSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("NewWayOfLoadingBobbyRMailOrdersToSaveGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("NewWayOfLoadingBobbyRMailOrdersToSaveGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7481,10 +7481,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Dealtar's Airport Externalization
 	if( SaveGameHeader.uiSavedGameVersion >= AIRPORT_SAVEGAME_DATATYPE_CHANGE )
 	{
-		gPostalService.LoadShipmentListFromSaveGameFileBuffer(&fileBuffer);
+		gPostalService.LoadShipmentListFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("gPostalService.LoadShipmentListFromSaveGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("gPostalService.LoadShipmentListFromSaveGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7499,7 +7499,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Ja25 Tactical info", 1 );	
 
-	LoadJa25SaveInfoFromSavedGameBuffer(&fileBuffer);
+	LoadJa25SaveInfoFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadJa25SaveInfoFromSavedGame failed"));
@@ -7513,7 +7513,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"Ja25 Save info Struct", 1 );
 	
 
-	LoadJa25TacticalInfoFromSavedGameBuffer(&fileBuffer);
+	LoadJa25TacticalInfoFromSavedGame(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadJa25TacticalInfoFromSavedGame failed"));
@@ -7531,10 +7531,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New Mercs Profiles...", 1 );
 
-		LoadNewMercsFromLoadGameFileBuffer(&fileBuffer);
+		LoadNewMercsFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewMercsFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewMercsFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7549,10 +7549,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New System Mercs Profiles...", 1 );
 
-		LoadNewSystemMercsToSaveGameFileBuffer(&fileBuffer);
+		LoadNewSystemMercsFromSaveGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewSystemMercsToSaveGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewSystemMercsFromSaveGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7567,10 +7567,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Lua Global System...", 1 );	
 	
-		LoadLuaGlobalFromLoadGameFileBuffer(&fileBuffer);
+		LoadLuaGlobalFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLuaGlobalFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadLuaGlobalFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7588,7 +7588,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		ReportLoadProgress( L"Load New Vehicles...", 1 );
 
 		// No load check because these are read from XML and we use SKIPDATA inside the function
-		LoadNewVehiclesToSaveGameFileBuffer(&fileBuffer);
+		LoadNewVehiclesFromSaveGame(&fileBuffer);
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "New Vehicles");
 		#endif
@@ -7600,10 +7600,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Save Data...", 1 );
 
-		LoadDataSaveFromLoadGameFileBuffer(&fileBuffer);
+		LoadDataSaveFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadDataSaveFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadDataSaveFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7616,10 +7616,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New Email Data...", 1 );
 
-		LoadNewEmailDataFromLoadGameFileBuffer(&fileBuffer);
+		LoadNewEmailDataFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewEmailDataFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadNewEmailDataFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7632,10 +7632,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Hidden Towns...", 1 );
 
-		LoadHiddenTownFromLoadGameFileBuffer(&fileBuffer);
+		LoadHiddenTownFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadHiddenTownFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadHiddenTownFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7648,10 +7648,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Briefing Room...", 1 );
 
-		LoadBriefingRoomFromLoadGameFileBuffer(&fileBuffer);
+		LoadBriefingRoomFromSavedGame(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
-			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadBriefingRoomFromLoadGameFile failed"));
+			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadBriefingRoomFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);
 			return(FALSE);
 		}
@@ -7663,7 +7663,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if ( guiCurrentSaveGameVersion >= ENCYCLOPEDIA_ITEM_VISIBILITY )
 	{
 		// no progress bar change, loads these 16k way to fast to even notice
-		LoadEncyclopediaItemVisibilityBuffer(&fileBuffer);
+		LoadEncyclopediaItemVisibility(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaItemVisibility failed"));
@@ -7683,7 +7683,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Campaign Stats...", 1 );
 
-		gCampaignStats.LoadBuffer(&fileBuffer);
+		gCampaignStats.Load(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("gCampaignStats.Load failed"));
@@ -7695,7 +7695,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#endif
 
 		// we also have to load the currently active incident
-		gCurrentIncident.LoadBuffer(&fileBuffer);
+		gCurrentIncident.Load(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("gCurrentIncident.Load failed"));
@@ -7711,7 +7711,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Dynamic Dialogue...", 1 );
 
-		LoadDynamicDialogueBuffer(&fileBuffer);
+		LoadDynamicDialogue(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadDynamicDialogue failed"));
@@ -7725,7 +7725,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		
 	ReportLoadProgress( L"Load PMC data ...", 1 );
 
-	LoadPMCBuffer(&fileBuffer);
+	LoadPMC(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadPMC failed"));
@@ -7740,7 +7740,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Arulco special division data...", 1 );
 
-		LoadASDDataBuffer(&fileBuffer);
+		LoadASDData(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadASDData failed"));
@@ -7769,7 +7769,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load individual militia data...", 1 );
 
-		LoadIndividualMilitiaDataBuffer(&fileBuffer);
+		LoadIndividualMilitiaData(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadIndividualMilitiaData failed"));
@@ -7787,7 +7787,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Load rebel command data...", 1 );
 
-	RebelCommand::LoadBuffer(&fileBuffer);
+	RebelCommand::Load(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("RebelCommand::Load failed"));
@@ -8257,7 +8257,7 @@ BOOLEAN SaveMercProfiles( HWFILE hFile )
 
 
 
-BOOLEAN	LoadSavedMercProfilesBuffer(CHAR8** ppBuffer)
+BOOLEAN	LoadSavedMercProfiles(CHAR8** ppBuffer)
 {
 	UINT16	cnt;
 	MERCPROFILESTRUCT tempMercProfile;
@@ -8271,7 +8271,7 @@ BOOLEAN	LoadSavedMercProfilesBuffer(CHAR8** ppBuffer)
 		// let's store the current data in a placeholder
 		tempMercProfile = gMercProfiles[cnt];
 		// now load the merc data from savegame
-		if ( !gMercProfiles[cnt].LoadBuffer(ppBuffer, false, false, true) )
+		if ( !gMercProfiles[cnt].Load(ppBuffer, false, false, true) )
 		{
 			return(FALSE);
 		}
@@ -8396,7 +8396,7 @@ BOOLEAN SaveSoldierStructure( HWFILE hFile )
 }
 
 
-BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadSoldierStructure(CHAR8** ppBuffer)
 {
 	UINT16		cnt;
 	UINT32		uiNumBytesRead = 0;
@@ -8429,7 +8429,7 @@ BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
 		if ( ubActive )
 		{
 			//Read in the saved soldier info into a Temp structure
-			if ( !SavedSoldierInfo.LoadBuffer(ppBuffer) )
+			if ( !SavedSoldierInfo.Load(ppBuffer) )
 			{
 				return FALSE;
 			}
@@ -8739,7 +8739,7 @@ BOOLEAN SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer)
+BOOLEAN LoadFilesFromSavedGame(STR pSrcFileName, CHAR8** ppBuffer)
 {
 	UINT32	uiFileSize = 0;
 	UINT32	uiNumBytesWritten = 0;
@@ -8911,7 +8911,7 @@ BOOLEAN SaveEmailToSavedGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadEmailFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32		uiNumOfEmails = 0;
 	UINT32		uiSizeOfSubject = 0;
@@ -9094,7 +9094,7 @@ void FailedLoadingGameCallBack( UINT8 bExitValue );
 //TacticalTeamType savedTeamSettings[MAXTEAMS];
 
 
-BOOLEAN LoadTacticalStatusFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadTacticalStatusFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead;
 	INT32	numBytesRead = 0;
@@ -9423,7 +9423,7 @@ BOOLEAN SaveOppListInfoToSavedGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadOppListInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadOppListInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiLoadSize = 0;
 
@@ -9510,7 +9510,7 @@ BOOLEAN SaveWatchedLocsToSavedGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadWatchedLocsFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadWatchedLocsFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32 uiArraySize = TOTAL_SOLDIERS * NUM_WATCHED_LOCS;
 	UINT32 uiLoadSize = uiArraySize * sizeof(INT16);
@@ -10089,7 +10089,7 @@ static void EnsureValidLoadScreen( UINT32* puiScreen )
 }
 
 
-BOOLEAN LoadGeneralInfoBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadGeneralInfo(CHAR8** ppBuffer)
 {
 	INT32	numBytesRead = 0;
 	UINT8	filler = 0;
@@ -10656,7 +10656,7 @@ BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadPreRandomNumbersFromSaveGameFile(CHAR8** ppBuffer)
 {
 	//Load the Prerandom number index
 	if ( !LoadDataFromBuffer(&guiPreRandomIndex, *ppBuffer, sizeof(UINT32), "PreRandom Index") )
@@ -10677,7 +10677,7 @@ BOOLEAN LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer)
 }
 
 
-BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadMeanwhileDefsFromSaveGame(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion < 72 )
 	{

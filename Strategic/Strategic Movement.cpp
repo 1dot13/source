@@ -4107,7 +4107,7 @@ BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile )
 #include "GameVersion.h"
 #include "SaveLoadBuffer.h"
 
-BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile(CHAR8** ppBuffer)
 {
 	GROUP* pGroup = NULL;
 	GROUP* pTemp = NULL;

@@ -345,7 +345,7 @@ BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadNewMercsFromSavedGame(CHAR8** ppBuffer)
 {
 	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[NUM_PROFILES];
 

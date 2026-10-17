@@ -8,7 +8,7 @@ void InitStrategicAI();
 void KillStrategicAI();
 
 BOOLEAN SaveStrategicAI( HWFILE hFile );
-BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadStrategicAI(CHAR8** ppBuffer);
 
 //NPC ACTION TRIGGERS SPECIAL CASE AI
 enum

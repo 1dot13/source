@@ -59,7 +59,7 @@ enum ProfileType
 // Flugente: why do we require 6 different structures and arrays if all we keep track of is the profile type? A simple array is enough (and only needed during loading anyway)
 extern UINT8 gProfileType[NUM_PROFILES];
 
-BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadNewSystemMercsFromSaveGame(CHAR8** ppBuffer);
 //---------------------------------------------------
 
 enum NPCIDs

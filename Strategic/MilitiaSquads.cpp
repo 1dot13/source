@@ -1646,7 +1646,7 @@ BOOLEAN SaveMilitiaMovementInformationToSaveGameFile( HWFILE hFile )
 	return(TRUE);
 }
 
-BOOLEAN LoadMilitiaMovementInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+BOOLEAN LoadMilitiaMovementInformationFromSavedGame(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
 {
 	UINT32		uiTotalNodeCount = 0;
 	UINT32		uiNodeCount = 0;

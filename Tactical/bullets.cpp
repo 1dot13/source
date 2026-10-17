@@ -596,7 +596,7 @@ BOOLEAN SaveBulletStructureToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadBulletStructureFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadBulletStructureFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT16	usCnt;
 

@@ -305,7 +305,7 @@ BOOLEAN SaveEncyclopediaItemVisibility( HWFILE hFile )
 *
 * @return TRUE if data is read.
 */
-BOOLEAN LoadEncyclopediaItemVisibilityBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadEncyclopediaItemVisibility(CHAR8** ppBuffer)
 {
 	if ( !LoadDataFromBuffer(gbEncyclopediaData_ItemVisible, *ppBuffer, MAXITEMS, "Encyclopedia Item Visibility") )
 	{

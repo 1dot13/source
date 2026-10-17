@@ -1209,7 +1209,7 @@ BOOLEAN SaveSquadInfoToSavedGameFile( HWFILE hFile )
 
 
 
-BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadSquadInfoFromSavedGameFile(CHAR8** ppBuffer)
 {
 	SAVE_SQUAD_INFO_STRUCT sSquadSaveStruct[NUMBER_OF_SQUADS][NUMBER_OF_SOLDIERS_PER_SQUAD];
 	UINT32	uiNumBytesRead = 0;

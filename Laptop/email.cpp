@@ -6278,7 +6278,7 @@ BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadNewEmailDataFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadNewEmailDataFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumOfEmails = 0;
 	EmailPtr	pEmail = pEmailList;

@@ -812,7 +812,7 @@ BOOLEAN SavePMC( HWFILE hwFile )
 	return(TRUE);
 }
 
-BOOLEAN LoadPMCBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadPMC(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= PMC_WEBSITE )
 	{
