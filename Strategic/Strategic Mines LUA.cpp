@@ -436,7 +436,7 @@ LuaMines::~LuaMines()
 	lua_close(m_L);
 }
 
-BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN LuaMines::Load(CHAR8** ppBuffer)
 {
 	Reset();
 

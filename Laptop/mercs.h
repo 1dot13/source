@@ -79,7 +79,7 @@ typedef struct
 extern CONTITION_FOR_MERC_AVAILABLE gConditionsForMercAvailability[ NUM_PROFILES ]; //NUM_MERC_ARRIVALS ];
 extern CONTITION_FOR_MERC_AVAILABLE_TEMP gConditionsForMercAvailabilityTemp[ NUM_PROFILES ];
 
-BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadNewMercsFromSavedGame(CHAR8** ppBuffer);
 extern BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile );
 
 //The players account information for the MERC site

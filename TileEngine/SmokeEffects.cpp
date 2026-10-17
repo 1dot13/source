@@ -882,7 +882,7 @@ BOOLEAN SaveSmokeEffectsToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadSmokeEffectsFromLoadGameFile(CHAR8** ppBuffer)
 {
 	UINT32	uiCount;
 	UINT32	uiCnt = 0;

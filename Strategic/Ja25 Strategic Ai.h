@@ -196,7 +196,7 @@ void InitJa25StrategicAiBloodcats( );
 void SetNumberJa25EnemiesInSurfaceSector( INT32 iSectorID, UINT8 ubNumAdmins, UINT8 ubNumTroops, UINT8 ubNumElites, UINT8 ubNumTanks, UINT8 ubNumJeeps, UINT8 ubNumRobots );
 
 BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile );
-BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadJa25SaveInfoFromSavedGame(CHAR8** ppBuffer);
 
 
 void HandleAddingEnemiesToTunnelMaps();

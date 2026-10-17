@@ -2120,7 +2120,7 @@ BOOLEAN SaveCreatureDirectives( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
+BOOLEAN LoadCreatureDirectives(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
 {
 	LoadDataFromBuffer(&giHabitatedDistance, *ppBuffer, 4, "giHabitatedDistance");
 	LoadDataFromBuffer(&giPopulationModifier, *ppBuffer, 4, "giPopulationModifier");

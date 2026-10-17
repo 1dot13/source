@@ -4085,7 +4085,7 @@ void Init()
 	}
 }
 
-BOOLEAN LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN Load(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= REBELCOMMAND )
 	{

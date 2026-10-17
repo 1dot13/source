@@ -88,7 +88,7 @@ void RemoveTacticalMessageFilter ( void );
 // clear ALL strings in the tactical Message Queue
 void ClearTacticalMessageQueue( void );
 
-BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadMapScreenMessagesFromSaveGameFile(CHAR8** ppBuffer);
 BOOLEAN SaveMapScreenMessagesToSaveGameFile( HWFILE hFile );
 
 // use these if you are not Kris

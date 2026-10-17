@@ -12845,12 +12845,12 @@ void CancelItemPointer( )
 }
 
 
-BOOLEAN LoadItemCursorFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadItemCursorFromSavedGame(CHAR8** ppBuffer)
 {
 	ITEM_CURSOR_SAVE_INFO		SaveStruct;
 
 	// Load structure
-	if ( !SaveStruct.LoadBuffer(ppBuffer) )
+	if ( !SaveStruct.Load(ppBuffer) )
 	{
 		return(FALSE);
 	}

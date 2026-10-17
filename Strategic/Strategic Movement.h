@@ -272,7 +272,7 @@ void SetGroupPosition( UINT8 ubNextX, UINT8 ubNextY, UINT8 ubPrevX, UINT8 ubPrev
 BOOLEAN SaveStrategicMovementGroupsToSaveGameFile( HWFILE hFile );
 
 //Load the strategic movement Group paths from the saved game file
-BOOLEAN LoadStrategicMovementGroupsFromSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile(CHAR8** ppBuffer);
 
 // check members of mvt group, if any are bleeding, complain before moving
 void CheckMembersOfMvtGroupAndComplainAboutBleeding( SOLDIERTYPE *pSoldier );

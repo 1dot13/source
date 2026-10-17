@@ -78,7 +78,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID );
 BOOLEAN CopySavedSoldierInfoToNewSoldier( SOLDIERTYPE *pDestSourceInfo, SOLDIERTYPE *pSourceInfo );
 
 BOOLEAN		SaveFilesToSavedGame( STR pSrcFileName, HWFILE hFile );
-BOOLEAN		LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer);
+BOOLEAN		LoadFilesFromSavedGame(STR pSrcFileName, CHAR8** ppBuffer);
 
 void GetBestPossibleSectorXYZValues( INT16 *psSectorX, INT16 *psSectorY, INT8 *pbSectorZ );
 

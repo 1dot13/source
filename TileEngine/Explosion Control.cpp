@@ -5110,7 +5110,7 @@ BOOLEAN SaveExplosionTableToSaveGameFile( HWFILE hFile )
 
 
 
-BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadExplosionTableFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32 uiCnt;
 

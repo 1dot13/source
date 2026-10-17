@@ -23,7 +23,7 @@ void ClearIntList( void );
 
 BOOLEAN	SaveTeamTurnsToTheSaveGameFile( HWFILE hFile );
 
-BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN	LoadTeamTurnsFromTheSavedGame(CHAR8** ppBuffer);
 
 void EndAllAITurns( void );
 void EndTurnEvents( void );

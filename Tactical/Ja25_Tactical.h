@@ -74,7 +74,7 @@ extern void HandleHowPlayerGotThroughFan();
 void HandlePlayingQuoteWhenHiringNpc( UINT8 ubProfile );
 
 
-BOOLEAN LoadJa25TacticalInfoFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadJa25TacticalInfoFromSavedGame(CHAR8** ppBuffer);
 BOOLEAN SaveJa25TacticalInfoToSaveGame( HWFILE hFile );
 
 BOOLEAN HandleNewGunComment( SOLDIERTYPE *pSoldier, INT32 iItemIndex, BOOLEAN fFromGround );

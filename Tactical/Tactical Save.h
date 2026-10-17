@@ -28,7 +28,7 @@ BOOLEAN AddMapModification( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 
 
 //Load the Map modifications from the saved game file
-BOOLEAN	LoadMapTempFilesFromSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN	LoadMapTempFilesFromSavedGameFile(CHAR8** ppBuffer);
 
 //Save the Map Temp files to the saved game file
 BOOLEAN SaveMapTempFilesToSavedGameFile( HWFILE hFile );
@@ -97,7 +97,7 @@ void AddExtraItems (UINT8, UINT8, UINT8, bool = false);
 
 
 //Saves the NPC temp Quote file to the saved game file
-BOOLEAN LoadTempNpcQuoteArrayToSaveGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadTempNpcQuoteArrayToSaveGameFile(CHAR8** ppBuffer);
 
 //Loads the NPC temp Quote file from the saved game file
 BOOLEAN SaveTempNpcQuoteArrayToSaveGameFile( HWFILE hFile );

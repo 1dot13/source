@@ -113,7 +113,7 @@ MILITIA::Load( HWFILE hwFile )
 	return(TRUE);
 }
 
-BOOLEAN MILITIA::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN MILITIA::Load(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= INDIVIDUAL_MILITIA )
 	{
@@ -272,7 +272,7 @@ void InitIndividualMilitiaData()
 	gIndividualMilitiaVector.clear();
 }
 
-BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadIndividualMilitiaData(CHAR8** ppBuffer)
 {
 	InitIndividualMilitiaData();
 
@@ -284,7 +284,7 @@ BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer)
 	for ( UINT32 i = 0; i < size; ++i )
 	{
 		MILITIA data;
-		if ( !data.LoadBuffer(ppBuffer) )
+		if ( !data.Load(ppBuffer) )
 			return(FALSE);
 
 		// we changed variable storing the militia quality from soldierclass to militia rank, so we have to change this here

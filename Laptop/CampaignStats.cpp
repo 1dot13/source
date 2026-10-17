@@ -109,7 +109,7 @@ Incident_Stats::Save( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN Incident_Stats::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN Incident_Stats::Load(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
 	{
@@ -604,7 +604,7 @@ Campaign_Stats::Save( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN Campaign_Stats::LoadBuffer(CHAR8** ppBuffer)
+BOOLEAN Campaign_Stats::Load(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
 	{
@@ -631,7 +631,7 @@ BOOLEAN Campaign_Stats::LoadBuffer(CHAR8** ppBuffer)
 		for ( UINT32 i = 0; i < usNumIncidents; ++i )
 		{
 			Incident_Stats incident;
-			if ( !incident.LoadBuffer(ppBuffer) )
+			if ( !incident.Load(ppBuffer) )
 				return(FALSE);
 
 			// if option is active, only read the last reports and forget the rest

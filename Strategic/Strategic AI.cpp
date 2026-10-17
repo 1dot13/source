@@ -3760,7 +3760,7 @@ BOOLEAN SaveStrategicAI( HWFILE hFile )
 	return TRUE;
 }
 
-BOOLEAN LoadStrategicAIBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadStrategicAI(CHAR8** ppBuffer)
 {
 	GROUP* pGroup, * next;
 	GARRISON_GROUP gTempGarrisonGroup;

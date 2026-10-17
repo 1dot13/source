@@ -5516,7 +5516,7 @@ BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile )
 
 
 
-BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadStrategicInfoFromSavedFile(CHAR8** ppBuffer)
 {
 	UINT32 uiSize = sizeof(StrategicMapElement);
 	if ( guiCurrentSaveGameVersion < MILITIA_MOVEMENT )

@@ -283,7 +283,7 @@ BOOLEAN SaveDynamicDialogue( HWFILE hwFile )
 	return(TRUE);
 }
 
-BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadDynamicDialogue(CHAR8** ppBuffer)
 {
 	// clear any artefacts prior to loading
 	DestroyAllDynamicDialogueBoxes();

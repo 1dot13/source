@@ -46,7 +46,7 @@ INT32 NewLightEffect( INT32 sGridNo, UINT8 ubDuration, UINT8 ubStartRadius );
 
 
 BOOLEAN SaveLightEffectsToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadLightEffectsFromSavedGame(CHAR8** ppBuffer);
 
 BOOLEAN SaveLightEffectsToMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );
 BOOLEAN LoadLightEffectsFromMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );

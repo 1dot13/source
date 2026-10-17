@@ -2862,7 +2862,7 @@ BOOLEAN NewWayOfSavingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 
 
 
-BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGame(CHAR8** ppBuffer)
 {
 	INT32		iCnt;
 	UINT32	uiNumBytesRead;

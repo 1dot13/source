@@ -2035,7 +2035,7 @@ BOOLEAN SaveKeyTableToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
+BOOLEAN LoadKeyTableFromSavedGameFile(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
 {
 	INT32 size = sizeof(KEY) * NUM_KEYS;
 	if ( uiSaveGameVersion < MORE_LOCKS_AND_KEYS )

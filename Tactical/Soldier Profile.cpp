@@ -236,7 +236,7 @@ void DecideActiveTerrorists( void );
 extern SOLDIERTYPE			*gpSMCurrentMerc;
 extern BOOLEAN	gfRerenderInterfaceFromHelpText;
 
-BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadNewSystemMercsFromSaveGame(CHAR8** ppBuffer)
 {
 	// read the old data from the save file and store it in the new array while you're at it
 	for ( int i = 0; i < NUM_PROFILES; ++i )

@@ -2607,7 +2607,7 @@ BOOLEAN	SaveTeamTurnsToTheSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN	LoadTeamTurnsFromTheSavedGame(CHAR8** ppBuffer)
 {
 	DebugMsg(TOPIC_JA2INTERRUPT, DBG_LEVEL_3, "LoadTeamTurnsFromTheSavedGameFile");
 	UINT32	uiNumBytesRead;

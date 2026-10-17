@@ -120,7 +120,7 @@ void UpdateSAMDoneRepair( INT16 sSectorX, INT16 sSectorY, INT16 sSectorZ	);
 
 BOOLEAN SaveExplosionTableToSaveGameFile( HWFILE hFile );
 
-BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadExplosionTableFromSavedGame(CHAR8** ppBuffer);
 
 INT32 FindActiveTimedBomb( void );
 BOOLEAN ActiveTimedBombExists( void );

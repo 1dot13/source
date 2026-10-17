@@ -7186,7 +7186,7 @@ BOOLEAN SaveLaptopInfoToSavedGame( HWFILE hFile )
 }
 
 
-BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadLaptopInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead = 0;
 	UINT32	uiSize;

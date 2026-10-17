@@ -2648,7 +2648,7 @@ BOOLEAN SaveUnderGroundSectorInfoToSaveGame( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadUnderGroundSectorInfoFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumOfRecords = 0;
 	UINT32	cnt = 0;

@@ -184,7 +184,7 @@ public:
 	void	CalcInterestRating();
 
 	BOOLEAN		Save( HWFILE hFile );
-	BOOLEAN		LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN		Load(CHAR8** ppBuffer);
 
 	void	AddStat( SOLDIERTYPE* pSoldier, UINT8 aType );
 
@@ -273,7 +273,7 @@ public:
 	//Campaign_Stats* GetObject();	// TODO: ist das überhaupt nötig?
 
 	BOOLEAN		Save( HWFILE hFile );
-	BOOLEAN		LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN		Load(CHAR8** ppBuffer);
 
 	void	AddNewIncident(Incident_Stats arIncident);
 	void	AddMoneyEarned(UINT8 aType, INT32 aVal);

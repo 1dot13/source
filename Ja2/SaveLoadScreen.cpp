@@ -2950,7 +2950,7 @@ BOOLEAN SaveDataSaveToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadDataSaveFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadDataSaveFromSavedGame(CHAR8** ppBuffer)
 {
 	//Briefing room
 	if ( !LoadDataFromBuffer(&AutoSaveToSlot, *ppBuffer, sizeof(AutoSaveToSlot), "AutoSaveToSlot") )

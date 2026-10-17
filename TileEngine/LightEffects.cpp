@@ -336,7 +336,7 @@ BOOLEAN SaveLightEffectsToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadLightEffectsFromSavedGame(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead;
 	UINT32	uiCount;

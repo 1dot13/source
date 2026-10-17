@@ -448,7 +448,7 @@ BOOLEAN DynamicOpinionSpeechInProgress( );
 void SetfDynamicOpinionSpeechInProgress( BOOLEAN aVal );
 
 BOOLEAN SaveDynamicDialogue( HWFILE hwFile );
-BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadDynamicDialogue(CHAR8** ppBuffer);
 
 
 //  modify usProfileA's opinion of usProfileB because of usEvent

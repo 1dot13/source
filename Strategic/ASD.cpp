@@ -123,7 +123,7 @@ BOOLEAN SaveASDData( HWFILE hwFile )
 	return TRUE;
 }
 
-BOOLEAN LoadASDDataBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadASDData(CHAR8** ppBuffer)
 {
 	UINT32 numBytesRead = 0;
 

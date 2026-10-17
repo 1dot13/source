@@ -6942,7 +6942,7 @@ BOOLEAN SaveLeaveItemList( HWFILE hFile )
 
 
 
-BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadLeaveItemList(CHAR8** ppBuffer)
 {
 	INT32 iCounter = 0;
 	MERC_LEAVE_ITEM* pCurrentItem;
@@ -7000,7 +7000,7 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 				}
 
 				// Load the items
-				if ( !pItem->LoadBuffer(ppBuffer) )
+				if ( !pItem->Load(ppBuffer) )
 				{
 					return(FALSE);
 				}

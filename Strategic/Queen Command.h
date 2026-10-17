@@ -47,7 +47,7 @@ void EndTacticalBattleForEnemy();
 void ProcessQueenCmdImplicationsOfDeath( SOLDIERTYPE *pSoldier );
 
 BOOLEAN SaveUnderGroundSectorInfoToSaveGame( HWFILE hFile );
-BOOLEAN LoadUnderGroundSectorInfoFromSavedGameBuffer(CHAR8** ppBuffer);
+BOOLEAN LoadUnderGroundSectorInfoFromSavedGame(CHAR8** ppBuffer);
 
 //Finds and returns the specified underground structure ( DONT MODIFY IT ).	Else returns NULL
 UNDERGROUND_SECTORINFO* FindUnderGroundSector( INT16 sMapX, INT16 sMapY, UINT8 bMapZ );

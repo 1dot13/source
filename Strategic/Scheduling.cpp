@@ -360,7 +360,7 @@ void PrepareSchedulesForEditorExit()
 }
 
 extern BOOLEAN gfSchedulesHosed;
-BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadSchedulesFromSave(CHAR8** ppBuffer)
 {
 	SCHEDULENODE* pSchedule = NULL;
 	SCHEDULENODE temp;

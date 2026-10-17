@@ -921,9 +921,9 @@ BOOLEAN SaveMineStatusToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadMineStatusFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadMineStatusFromSavedGame(CHAR8** ppBuffer)
 {
-	return g_luaMines.LoadBuffer(ppBuffer);
+	return g_luaMines.Load(ppBuffer);
 }
 
 void ShutOffMineProduction( INT8 bMineIndex )

@@ -328,7 +328,7 @@ extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
 
 // LoadMapTempFilesFromSavedGameFile() loads all the temp files from the saved game file and writes them into the temp directory
-BOOLEAN	LoadMapTempFilesFromSavedGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN	LoadMapTempFilesFromSavedGameFile(CHAR8** ppBuffer)
 {
 	UNDERGROUND_SECTORINFO* TempNode = gpUndergroundSectorInfoHead;
 	UINT32	uiPercentage;
@@ -1666,7 +1666,7 @@ BOOLEAN RetrieveTempFileFromSavedGameBuffer(CHAR8** ppBuffer, UINT32 uiType, INT
 	GetMapTempFileName(uiType, zMapName, sMapX, sMapY, bMapZ);
 
 	//Load the map temp file from the saved game file
-	if ( !LoadFilesFromSavedGameBuffer(zMapName, ppBuffer) )
+	if ( !LoadFilesFromSavedGame(zMapName, ppBuffer) )
 		return(FALSE);
 
 	return(TRUE);
@@ -2754,9 +2754,9 @@ BOOLEAN SaveTempNpcQuoteArrayToSaveGameFile( HWFILE hFile )
 	return( SaveFilesToSavedGame( NPC_TEMP_QUOTE_FILE, hFile ) );
 }
 
-BOOLEAN LoadTempNpcQuoteArrayToSaveGameFileBuffer(CHAR8** ppBuffer)
+BOOLEAN LoadTempNpcQuoteArrayToSaveGameFile(CHAR8** ppBuffer)
 {
-	return(LoadFilesFromSavedGameBuffer(NPC_TEMP_QUOTE_FILE, ppBuffer));
+	return(LoadFilesFromSavedGame(NPC_TEMP_QUOTE_FILE, ppBuffer));
 }
 
 void TempFileLoadErrorMessageReturnCallback( UINT8 ubRetVal )

@@ -44,7 +44,7 @@ public:
 	BOOLEAN InitializeHeadMiners(UINT8 firstMineID);
 
 	BOOLEAN Save(HWFILE hFile);
-	BOOLEAN LoadBuffer(CHAR8** ppBuffer);
+	BOOLEAN Load(CHAR8** ppBuffer);
 
 	LuaMines();
 	virtual ~LuaMines();
