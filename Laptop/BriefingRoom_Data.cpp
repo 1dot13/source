@@ -1157,23 +1157,22 @@ BOOLEAN LoadBriefingRoomFromSavedGame(CHAR8** ppBuffer)
 	BOOLEAN briefingroomreadingdone = FALSE;
 
 	//Briefing room
+	CHAR8* BeforeRead = *ppBuffer;
 	if ( !LoadDataFromBuffer(&saveBriefingRoomData, *ppBuffer, sizeof(saveBriefingRoomData), "saveBriefingRoomData") )
 	{
-		return(FALSE);
+		INT32 BytesRead = INT32(*ppBuffer - BeforeRead);
+		if ( BytesRead != sizeof(saveBriefingRoomData) )
+		{
+			// Flugente: one can start a game without this feature and later switch to an exe where it is enabled. At that point, loading the savgame would not be possible - 
+			// the game expects saveBriefingRoomData but doesn't get any. Pretty odd, considering that the data has ALREADY BEEN READ into gBriefingRoomData at this point. Sigh.
+			// For this reason, we don't return with an error here an simply use what the xml gave us here.
+			// Of course, I'm not familiar with this feature. It would be good if someone who knows this fixes this.
+			if ( BytesRead == 0 )
+				briefingroomreadingdone = TRUE;
+			else
+				return(FALSE);
+		}
 	}
-
-	//FIXME: reimplement this compatibility fix
-	//if ( uiNumBytesRead != sizeof(saveBriefingRoomData) )
-	//{
-	//	// Flugente: one can start a game without this feature and later switch to an exe where it is enabled. At that point, loading the savgame would not be possible - 
-	//	// the game expects saveBriefingRoomData but doesn't get any. Pretty odd, considering that the data has ALREADY BEEN READ into gBriefingRoomData at this point. Sigh.
-	//	// For this reason, we don't return with an error here an simply use what the xml gave us here.
-	//	// Of course, I'm not familiar with this feature. It would be good if someone who knows this fixes this.
-	//	if ( uiNumBytesRead == 0 )
-	//		briefingroomreadingdone = TRUE;
-	//	else
-	//		return(FALSE);
-	//}
 
 	if ( !briefingroomreadingdone )
 	{
