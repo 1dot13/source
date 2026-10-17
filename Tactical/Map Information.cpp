@@ -9,6 +9,7 @@
 	#include "environment.h"
 	#include "lighting.h"
 	#include "Animated ProgressBar.h"
+#include "BufferMan.h"
 
 //CHRISL: MAJOR_MAP_VERSION information moved to worlddef.h by ADB.  We're using these values elsewhere and need them
 //	in the header file

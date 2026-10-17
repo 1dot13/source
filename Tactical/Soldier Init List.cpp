@@ -43,6 +43,7 @@
 #include "LuaInitNPCs.h"		// added by Flugente
 #include "Soldier macros.h"		// added by Flugente
 #include "Creature Spreading.h"	// added by Flugente
+#include "BufferMan.h"
 
 #ifdef JA2UB
 #else

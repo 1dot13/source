@@ -11,6 +11,7 @@
 	#include "Sys Globals.h"
 	#include "SaveLoadMap.h"
 	#include "Text.h"
+#include "BufferMan.h"
 
 BOOLEAN gfLoadingExitGrids = FALSE;
 BOOLEAN gfOverrideInsertionWithExitGrid = FALSE;
