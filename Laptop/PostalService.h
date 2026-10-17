@@ -206,7 +206,6 @@ public:
 	BOOLEAN RegisterDeliveryCallback(INT16 sSenderID, PtrToDeliveryCallbackFunc DeliveryCallbackFunc);	
 	
 	// Interfaces
-	BOOLEAN LoadShipmentListFromSaveGameFile(HWFILE hFile);
 	BOOLEAN LoadShipmentListFromSaveGameFileBuffer(CHAR8** ppBuffer);
 	BOOLEAN SaveShipmentListToSaveGameFile(HWFILE hFile);
 

@@ -261,7 +261,6 @@ BOOLEAN ReadXMLEmail = TRUE; // TRUE - read email from XML, FALSE - read email f
 EMAIL_TYPE gEmailT[EMAIL_VAL];
 std::vector<EMAIL_XML> gEmails{};
 BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile );
 
 // the enumeration of headers
 enum{
@@ -6276,52 +6275,6 @@ BOOLEAN SaveNewEmailDataToSaveGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 	
-	return( TRUE );
-}
-
-BOOLEAN LoadNewEmailDataFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-	UINT32	uiNumOfEmails=0;
-	EmailPtr	pEmail = pEmailList;
-	
-	FileRead( hFile, &gEmailT, sizeof( gEmailT), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gEmailT ) )
-	{
-		return( FALSE );
-	}
-/*
-	while(pEmail)
-	{
-		pEmail=pEmail->Next;
-		uiNumOfEmails++;
-	}
-	
-	for( UINT32 cnt=0; cnt<uiNumOfEmails; cnt++)
-	{
-		if ( ReadXMLEmail == FALSE )
-		{
-			if ( gEmailT[ cnt ].EmailVersion == TYPE_EMAIL_AIM_AVAILABLE || gEmailT[ cnt ].EmailVersion == TYPE_EMAIL_MERC_LEVEL_UP ) 
-			{
-				gEmailT[ cnt ].EmailVersion = TYPE_EMAIL_EMAIL_EDT_NAME_MERC;
-			}
-		}
-		else
-		{
-			if ( gEmailT[ cnt ].EmailVersion == TYPE_EMAIL_EMAIL_EDT_NAME_MERC ) 
-			{
-				gEmailT[ cnt ].EmailVersion = TYPE_EMAIL_AIM_AVAILABLE;
-			}
-		}
-	}
-*/
-	while(pEmail)
-	{
-		pEmail->EmailVersion = gEmailT[ uiNumOfEmails ].EmailVersion;
-		pEmail=pEmail->Next;
-		++uiNumOfEmails;
-	}
-
 	return( TRUE );
 }
 

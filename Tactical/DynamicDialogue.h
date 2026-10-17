@@ -448,7 +448,6 @@ BOOLEAN DynamicOpinionSpeechInProgress( );
 void SetfDynamicOpinionSpeechInProgress( BOOLEAN aVal );
 
 BOOLEAN SaveDynamicDialogue( HWFILE hwFile );
-BOOLEAN LoadDynamicDialogue( HWFILE hwFile );
 BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer);
 
 

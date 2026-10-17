@@ -217,7 +217,6 @@ static int l_StartVideo(lua_State* L);
 
 extern UNDERGROUND_SECTORINFO* NewUndergroundNode(UINT8 ubSectorX, UINT8 ubSectorY, UINT8 ubSectorZ);
 
-BOOLEAN LoadLuaGlobalFromLoadGameFile(HWFILE hFile);
 BOOLEAN SaveLuaGlobalToSaveGameFile(HWFILE hFile);
 
 BOOLEAN LetHandleLoyaltyChangeForNPCAction(UINT8 ubNPCProfileId, UINT8 Init);
@@ -11078,19 +11077,6 @@ BOOLEAN SaveLuaGlobalToSaveGameFile(HWFILE hFile)
 
 	FileWrite(hFile, &gLuaGlobal, sizeof(gLuaGlobal), &uiNumBytesWritten);
 	if (uiNumBytesWritten != sizeof(gLuaGlobal))
-	{
-		return(FALSE);
-	}
-
-	return(TRUE);
-}
-
-BOOLEAN LoadLuaGlobalFromLoadGameFile(HWFILE hFile)
-{
-	UINT32	uiNumBytesRead;
-
-	FileRead(hFile, &gLuaGlobal, sizeof(gLuaGlobal), &uiNumBytesRead);
-	if (uiNumBytesRead != sizeof(gLuaGlobal))
 	{
 		return(FALSE);
 	}

@@ -75,7 +75,6 @@ extern BOOLEAN LuaExecuteStrategicEvent( UINT8 EventCallbackID, UINT32 uiTimeSta
 
 extern void IniLuaGlobal();
 
-extern BOOLEAN LoadLuaGlobalFromLoadGameFile( HWFILE hFile );
 BOOLEAN LoadLuaGlobalFromLoadGameFileBuffer(CHAR8** ppBuffer);
 extern BOOLEAN SaveLuaGlobalToSaveGameFile( HWFILE hFile );
 

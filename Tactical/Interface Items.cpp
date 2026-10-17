@@ -12845,47 +12845,6 @@ void CancelItemPointer( )
 }
 
 
-BOOLEAN LoadItemCursorFromSavedGame( HWFILE hFile )
-{
-	ITEM_CURSOR_SAVE_INFO		SaveStruct;
-
-	// Load structure
-	if ( !SaveStruct.Load(hFile) )
-	{
-		return( FALSE );
-	}
-
-	// Now set things up.....
-	// Copy object
-	gItemPointer = (SaveStruct.ItemPointerInfo);
-
-	// Copy soldier ID
-	if ( SaveStruct.ubSoldierID == NOBODY )
-	{
-		gpItemPointerSoldier = NULL;
-	}
-	else
-	{
-		gpItemPointerSoldier = SaveStruct.ubSoldierID;
-	}
-
-	// Inv slot
-	gbItemPointerSrcSlot = SaveStruct.ubInvSlot;
-
-	// Boolean
-	if ( SaveStruct.fCursorActive )
-	{
-		gpItemPointer = &( gItemPointer );
-		ReEvaluateDisabledINVPanelButtons( );
-	}
-	else
-	{
-		gpItemPointer = NULL;
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadItemCursorFromSavedGameBuffer(CHAR8** ppBuffer)
 {
 	ITEM_CURSOR_SAVE_INFO		SaveStruct;

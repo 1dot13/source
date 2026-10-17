@@ -146,7 +146,6 @@ extern STRATEGIC_STATUS	gStrategicStatus;
 
 BOOLEAN SaveStrategicStatusToSaveGameFile( HWFILE hFile );
 
-BOOLEAN LoadStrategicStatusFromSaveGameFile( HWFILE hFile );
 BOOLEAN LoadStrategicStatusFromSaveGameFileBuffer(CHAR8** ppBuffer);
 
 UINT8 CalcDeathRate(void);

@@ -75,7 +75,6 @@ BOOLEAN ContractIsExpiring( SOLDIERTYPE *pSoldier );
 UINT32 GetHourWhenContractDone( SOLDIERTYPE *pSoldier );
 BOOLEAN ContractIsGoingToExpireSoon( SOLDIERTYPE *pSoldier );
 
-BOOLEAN LoadContractRenewalDataFromSaveGameFile( HWFILE hFile );
 BOOLEAN LoadContractRenewalDataFromSaveGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveContractRenewalDataToSaveGameFile( HWFILE hFile );
 

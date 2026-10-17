@@ -2862,55 +2862,6 @@ BOOLEAN NewWayOfSavingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
 
 
 
-BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( HWFILE hFile )
-{
-	INT32		iCnt;
-	UINT32	uiNumBytesRead;
-
-	//clear out the old list
-	ShutDownBobbyRNewMailOrders();
-
-
-	//Read the number of orders
-	FileRead( hFile, &giNumberOfNewBobbyRShipment, sizeof( INT32 ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( INT32 ) )
-	{
-		FileClose( hFile );
-		return( FALSE );
-	}
-
-	if ( giNumberOfNewBobbyRShipment == 0 )
-	{
-		gpNewBobbyrShipments = NULL;
-	}
-	else
-	{
-		//Allocate memory for the list
-		gpNewBobbyrShipments = (NewBobbyRayOrderStruct *) MemAlloc( sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment );
-
-        if( gpNewBobbyrShipments == NULL )
-		{
-			Assert(0);
-			return(FALSE );
-		}
-		memset(gpNewBobbyrShipments, 0, (sizeof( NewBobbyRayOrderStruct ) * giNumberOfNewBobbyRShipment) );
-
-		//loop through and load all the mail order slots
-		for( iCnt=0; iCnt<giNumberOfNewBobbyRShipment; iCnt++ )
-		{
-			//Read the order
-			FileRead( hFile, &gpNewBobbyrShipments[iCnt], sizeof( NewBobbyRayOrderStruct ), &uiNumBytesRead );
-			if( uiNumBytesRead != sizeof( NewBobbyRayOrderStruct ) )
-			{
-				FileClose( hFile );
-				return( FALSE );
-			}
-		}
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	INT32		iCnt;

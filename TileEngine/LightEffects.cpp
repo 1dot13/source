@@ -336,50 +336,6 @@ BOOLEAN SaveLightEffectsToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadLightEffectsFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-	UINT32	uiCount;
-
-	//no longer need to load Light effects.	They are now in temp files
-	if( guiCurrentSaveGameVersion < 76 )
-	{
-		memset( gLightEffectData, 0, sizeof( LIGHTEFFECT ) *	NUM_LIGHT_EFFECT_SLOTS );
-
-		//Load the Number of Light Effects
-		FileRead( hFile, &guiNumLightEffects, sizeof( UINT32 ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( UINT32 ) )
-		{
-			return( FALSE );
-		}
-
-		//if there are lights saved.
-		if( guiNumLightEffects != 0 )
-		{
-			//loop through and apply the light effects to the map
-			for(uiCount=0; uiCount < guiNumLightEffects; uiCount++)
-			{
-				//Load the Light effect Data
-				FileRead( hFile, &gLightEffectData[ uiCount ], sizeof( LIGHTEFFECT ), &uiNumBytesRead );
-				if( uiNumBytesRead != sizeof( LIGHTEFFECT ) )
-				{
-					return( FALSE );
-				}
-			}
-		}
-
-
-		//loop through and apply the light effects to the map
-		for(uiCount=0; uiCount < guiNumLightEffects; uiCount++)
-		{
-			if( gLightEffectData[uiCount].fAllocated )
-				UpdateLightingSprite( &( gLightEffectData[uiCount] ) );
-		}
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead;

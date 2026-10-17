@@ -2950,47 +2950,6 @@ BOOLEAN SaveDataSaveToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadDataSaveFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	//Briefing room
-	FileRead( hFile, &AutoSaveToSlot, sizeof( AutoSaveToSlot), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( AutoSaveToSlot ) )
-	{
-		return( FALSE );
-	}
-
-	// Set the slot, which will be the next auto save slot (current slot + 1)
-	if (AutoSaveToSlot[0] == TRUE)
-	{
-		AutoSaveToSlot[0] = FALSE;
-		AutoSaveToSlot[1] = TRUE;
-	}
-	else if (AutoSaveToSlot[1] == TRUE)
-	{
-		AutoSaveToSlot[1] = FALSE;
-		AutoSaveToSlot[2] = TRUE;
-	}
-	else if (AutoSaveToSlot[2] == TRUE)
-	{
-		AutoSaveToSlot[2] = FALSE;
-		AutoSaveToSlot[3] = TRUE;
-	}
-	else if (AutoSaveToSlot[3] == TRUE)
-	{
-		AutoSaveToSlot[3] = FALSE;
-		AutoSaveToSlot[4] = TRUE;
-	}
-	else if (AutoSaveToSlot[4] == TRUE)
-	{
-		AutoSaveToSlot[4] = FALSE;
-		AutoSaveToSlot[0] = TRUE;
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadDataSaveFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	//Briefing room

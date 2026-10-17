@@ -141,7 +141,6 @@ extern std::vector<MILITIA> gIndividualMilitiaVector;
 
 void InitIndividualMilitiaData();
 BOOLEAN SaveIndividualMilitiaData( HWFILE hwFile );
-BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile );
 BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer);
 
 // wrapper functions to retrieve militia

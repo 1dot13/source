@@ -167,7 +167,6 @@ BOOLEAN IsThereAMineInThisSector( INT16 sX, INT16 sY );
 BOOLEAN SaveMineStatusToSaveGameFile( HWFILE hFile );
 
 //Load the mine status from the saved game file
-BOOLEAN LoadMineStatusFromSavedGameFile( HWFILE hFile );
 BOOLEAN LoadMineStatusFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 // if the player controls a given mine

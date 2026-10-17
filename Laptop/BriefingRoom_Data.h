@@ -128,7 +128,6 @@ extern BOOLEAN ResetVal;
 extern void CopyToTemp ( BRIEFINGROOM_M_DATA *Ency, BOOLEAN bFiltr, INT32 sort, INT32 TypFiltr, BOOLEAN ShowBox );
 extern void ResetTemp();
 
-extern BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile );
 BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer);
 extern BOOLEAN SaveBriefingRoomToSaveGameFile( HWFILE hFile );
 

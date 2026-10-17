@@ -2035,32 +2035,6 @@ BOOLEAN SaveKeyTableToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadKeyTableFromSaveedGameFile( HWFILE hFile, UINT32 uiSaveGameVersion )
-{
-	UINT32	uiNumBytesRead=0;
-
-	if( uiSaveGameVersion < MORE_LOCKS_AND_KEYS )
-	{
-		// Load the KeyTable
-		FileRead( hFile, KeyTable, sizeof( KEY ) * NUM_KEYS_OLD, &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( KEY ) * NUM_KEYS_OLD )
-		{
-			return( FALSE );
-		}
-	}
-	else
-	{
-		// Load the KeyTable
-		FileRead( hFile, KeyTable, sizeof( KEY ) * NUM_KEYS, &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( KEY ) * NUM_KEYS )
-		{
-			return( FALSE );
-		}
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVersion)
 {
 	INT32 size = sizeof(KEY) * NUM_KEYS;

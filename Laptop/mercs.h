@@ -79,7 +79,6 @@ typedef struct
 extern CONTITION_FOR_MERC_AVAILABLE gConditionsForMercAvailability[ NUM_PROFILES ]; //NUM_MERC_ARRIVALS ];
 extern CONTITION_FOR_MERC_AVAILABLE_TEMP gConditionsForMercAvailabilityTemp[ NUM_PROFILES ];
 
-extern BOOLEAN LoadNewMercsFromLoadGameFile( HWFILE hFile );
 BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer);
 extern BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile );
 

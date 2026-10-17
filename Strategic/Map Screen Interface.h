@@ -735,7 +735,6 @@ BOOLEAN AnyMercInSameSquadOrVehicleIsSelected( SOLDIERTYPE *pSoldier );
 
 INT16 GetRefreshHeightForMercList( void );
 
-BOOLEAN LoadLeaveItemList( HWFILE hFile );
 BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveLeaveItemList( HWFILE hFile );
 

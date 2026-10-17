@@ -4085,54 +4085,6 @@ void Init()
 	}
 }
 
-BOOLEAN Load(HWFILE file)
-{
-	if (guiCurrentSaveGameVersion >= REBELCOMMAND)
-	{
-		UINT32 numBytesRead = 0;
-
-		numBytesRead = FileRead(file, &rebelCommandSaveInfo, sizeof(RebelCommand::SaveInfo), &numBytesRead);
-
-		SetupInfo();
-	}
-	else
-	{
-		Init();
-	}
-
-	// missions update check
-	if (rebelCommandSaveInfo.availableMissions[0] == rebelCommandSaveInfo.availableMissions[1] && rebelCommandSaveInfo.availableMissions[0] != RCAM_NONE)
-	{
-		// init missions
-		for (int i = 0; i < NUM_ARC_AGENT_SLOTS; ++i)
-		{
-			rebelCommandSaveInfo.availableMissions[i] = RCAM_NONE;
-		}
-	}
-
-	// go through every strategic event to find active agent missions
-	std::vector<std::pair<UINT32,UINT32>> missions = GetAllStrategicEventsOfType(EVENT_REBELCOMMAND);
-	missionMap.clear();
-	for (std::vector<std::pair<UINT32,UINT32>>::iterator it = missions.begin(); it != missions.end(); ++it)
-	{
-		MissionFirstEvent evt1;
-		DeserialiseMissionFirstEvent(it->second, evt1);
-		if (evt1.isFirstEvent)
-		{
-			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt1.missionId), it->second));
-		}
-
-		MissionSecondEvent evt2;
-		DeserialiseMissionSecondEvent(it->second, evt2);
-
-		if (evt2.isSecondEvent)
-		{
-			missionMap.insert(std::make_pair(static_cast<RebelCommandAgentMissions>(evt2.missionId), it->second));
-		}
-	}
-	return TRUE;
-}
-
 BOOLEAN LoadBuffer(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= REBELCOMMAND )

@@ -112,32 +112,6 @@ BOOLEAN SaveContractRenewalDataToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadContractRenewalDataFromSaveGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	for (int idx=0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++) {
-		FileRead( hFile, &ContractRenewalList[idx], sizeof( CONTRACT_NEWAL_LIST_NODE ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( CONTRACT_NEWAL_LIST_NODE ) )
-		{
-			return( FALSE );
-		}
-	}
-	//FileRead( hFile, ContractRenewalList, sizeof( ContractRenewalList ), &uiNumBytesRead );
-	//if( uiNumBytesRead != sizeof( ContractRenewalList ) )
-	//{
-	//	return( FALSE );
-	//}
-
-	FileRead( hFile, &ubNumContractRenewals, sizeof( ubNumContractRenewals ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( ubNumContractRenewals ) )
-	{
-		return( FALSE );
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadContractRenewalDataFromSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	for ( int idx = 0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++ ) {

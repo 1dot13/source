@@ -60,7 +60,6 @@ void RemoveSmokeEffectFromTile( INT32 sGridNo, INT8 bLevel );
 INT32 NewSmokeEffect(INT32 sGridNo, UINT16 usItem, INT8 bLevel, SoldierID ubOwner, BOOLEAN fFromRemoteClient = 0, UINT8 ubDuration = 0, UINT8 ubRadius = 0, UINT8 ubGeneration = 0);
 
 BOOLEAN SaveSmokeEffectsToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadSmokeEffectsFromLoadGameFile( HWFILE hFile );
 BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer);
 
 BOOLEAN SaveSmokeEffectsToMapTempFile( INT16 sMapX, INT16 sMapY, INT8 bMapZ );

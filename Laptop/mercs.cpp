@@ -345,44 +345,6 @@ BOOLEAN SaveNewMercsToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadNewMercsFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[ NUM_PROFILES ];
-
-	FileRead( hFile, &ConditionsForMercAvailabilityLoad, sizeof( ConditionsForMercAvailabilityLoad ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( ConditionsForMercAvailabilityLoad ) )
-	{
-		return( FALSE );
-	}
-
-	// silversurfer: Now update the true gConditionsForMercAvailability array with the data from the savegame.
-	// Take every index of gConditionsForMercAvailability array that we initialized in GameInitMercs() and see
-	// if we can find a matching profile ID in ConditionsForMercAvailabilityLoad array that we loaded from the savegame.
-	// This prevents some issues when old savegames are loaded with updated MercAvailability.xml.
-	for ( UINT8 i=0; i<NUM_PROFILES; i++)
-	{
-		if ( gConditionsForMercAvailability[i].ProfilId != 0 )
-		{
-			for ( UINT8 ilook=0; ilook<NUM_PROFILES; ilook++)
-			{
-				if ( ConditionsForMercAvailabilityLoad[ilook].ProfilId == gConditionsForMercAvailability[i].ProfilId )
-				{
-					// found a match! Now copy the data from the savegame to the gConditionsForMercAvailability array but ONLY relevant data!
-					gConditionsForMercAvailability[i].NewMercsAvailable = ConditionsForMercAvailabilityLoad[ilook].NewMercsAvailable;
-					gConditionsForMercAvailability[i].StartMercsAvailable = ConditionsForMercAvailabilityLoad[ilook].StartMercsAvailable;
-					break;
-				}
-			}
-		}
-	}
-
-	// update list of mercs for M.E.R.C website
-	RevaluateMercArray();
-
-	return( TRUE );
-}
-
 BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[NUM_PROFILES];

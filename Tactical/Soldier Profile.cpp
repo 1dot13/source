@@ -236,45 +236,6 @@ void DecideActiveTerrorists( void );
 extern SOLDIERTYPE			*gpSMCurrentMerc;
 extern BOOLEAN	gfRerenderInterfaceFromHelpText;
 
-BOOLEAN LoadNewSystemMercsToSaveGameFile( HWFILE hFile )
-{
-	// read the old data from the save file and store it in the new array while you're at it
-	UINT32	uiNumBytesRead;
-
-	for ( int i = 0; i < NUM_PROFILES; ++i )
-		gProfileType[i] = PROFILETYPE_NONE;
-
-	typedef struct
-	{
-		UINT8 ProfilId;
-	} TMP_PROFIL;
-
-	TMP_PROFIL  tmpprofilewedontreallyneed[NUM_PROFILES];
-
-	for ( int profiletype = PROFILETYPE_AIM; profiletype < PROFILETYPE_MAX; ++profiletype )
-	{
-		FileRead( hFile, &tmpprofilewedontreallyneed, sizeof( tmpprofilewedontreallyneed ), &uiNumBytesRead );
-		if ( uiNumBytesRead != sizeof( tmpprofilewedontreallyneed ) )
-		{
-			return( FALSE );
-		}
-
-		for ( int i = 0; i < NUM_PROFILES; ++i )
-		{
-			if ( tmpprofilewedontreallyneed[i].ProfilId == i )
-				gProfileType[i] = profiletype;
-		}
-	}
-	
-	// for whatever bizarre reason, this function is called way after the profiles themselves are loaded - so we now have to overwrite the types in there
-	for ( int i = 0; i < NUM_PROFILES; ++i )
-	{
-		gMercProfiles[i].Type = gProfileType[i];
-	}
-	
-	return( TRUE );
-}
-
 BOOLEAN LoadNewSystemMercsToSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	// read the old data from the save file and store it in the new array while you're at it

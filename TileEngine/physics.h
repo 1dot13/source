@@ -177,7 +177,6 @@ void SimulateWorld(	);
 
 BOOLEAN	SavePhysicsTableToSaveGameFile( HWFILE hFile );
 
-BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile );
 BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 // Flugente: artillery functions

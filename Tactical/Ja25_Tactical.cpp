@@ -83,7 +83,6 @@ void		SetNewGunQuoteToBePlayedForThisGun( INT32 iItemIndex );
 BOOLEAN HasNewGunQuoteBeenPlayedForThisGun( INT32 iItemIndex );
 BOOLEAN IsThisGunANewJa25Gun( INT32 iItemIndex );
 BOOLEAN SaveNewGunQuotesArrayToSaveGameFile( HWFILE hFile );
-BOOLEAN LoadNewGunQuotesArrayToSaveGameFile( HWFILE hFile );
 void		HandlePickingUpMorrisInstructionNote( SOLDIERTYPE *pSoldier, INT32 iIndex );
 BOOLEAN IsSoldierAliveWithInitListGridNo( INT16 sInitListID );
 
@@ -1167,16 +1166,6 @@ BOOLEAN SaveJa25TacticalInfoToSaveGame( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadJa25TacticalInfoFromSavedGame( HWFILE hFile )
-{
-	if( !LoadNewGunQuotesArrayToSaveGameFile( hFile ) )
-	{
-		return( FALSE );
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadJa25TacticalInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 {
 	UINT32	uiSize = sizeof(NEW_GUN_QUOTES_STRUCT) * NUM_NEW_GUN_QUOTES;
@@ -1201,22 +1190,6 @@ BOOLEAN SaveNewGunQuotesArrayToSaveGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 
-	return( TRUE );
-}
-
-BOOLEAN LoadNewGunQuotesArrayToSaveGameFile( HWFILE hFile )
-{
-	UINT32 uiNumBytesRead;
-	UINT32	uiSize = sizeof( NEW_GUN_QUOTES_STRUCT ) * NUM_NEW_GUN_QUOTES;
-
-	FileRead( hFile, &gNewGunQuotes, uiSize, &uiNumBytesRead );
-	if( uiNumBytesRead != uiSize )
-	{
-		return( FALSE );
-	}
-	
-	InitNewGunArray();
-	
 	return( TRUE );
 }
 

@@ -9,7 +9,6 @@ void ClearCreatureQuest();
 void DeleteCreatureDirectives();
 
 BOOLEAN SaveCreatureDirectives( HWFILE hFile );
-BOOLEAN LoadCreatureDirectives( HWFILE hFile, UINT32 uiSavedGameVersion );
 BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion);
 
 UINT8 CreaturesInUndergroundSector( UINT8 ubSectorID, UINT8 ubSectorZ );

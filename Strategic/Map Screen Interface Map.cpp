@@ -593,7 +593,6 @@ ICON_FILE gHiddenIcon[ 256 ];
 void SetUpValidCampaignSectors( void );
 #endif
 
-BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 
 // Flugente: added getter/setter so that we can easily check when a new char is set
@@ -7922,31 +7921,6 @@ BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile )
 		return( FALSE );
 	}
 	
-	return( TRUE );
-}
-
-BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	FileRead( hFile, &gfHiddenTown, sizeof( gfHiddenTown), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gfHiddenTown ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gfDrawHiddenTown, sizeof( gfDrawHiddenTown), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gfDrawHiddenTown ) )
-	{
-		return( FALSE );
-	}
-	
-	FileRead( hFile, &gfIconTown, sizeof( gfIconTown), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gfIconTown ) )
-	{
-		return( FALSE );
-	}
-
 	return( TRUE );
 }
 
