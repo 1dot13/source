@@ -6177,7 +6177,6 @@ FAILED_TO_SAVE:
 UINT32 guiBrokenSaveGameVersion = 0;
 extern int gEnemyPreservedTempFileVersion[256];
 extern int gCivPreservedTempFileVersion[256];
-#define USE_BUFFER
 
 static INT32 GetBufferPosition(CHAR8* current, CHAR8* start)
 {
@@ -6317,7 +6316,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	LoadGameFilePosition( FileGetPos( hFile ), "Just Opened File" );
 	#endif
 
-#ifdef USE_BUFFER
 	UINT32 fileSize = FileGetSize(hFile);
 	CHAR8* fileBuffer = (CHAR8*)MemAlloc(fileSize + 1);
 	UINT32 uiBytesRead;
@@ -6349,18 +6347,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 	LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Save Game Header");
 #endif
-#else
-	FileRead( hFile, &SaveGameHeader, sizeof( SAVED_GAME_HEADER ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( SAVED_GAME_HEADER ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Loading Save Game Header failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Save Game Header" );
-	#endif
-#endif
 
 	guiJA2EncryptionSet = CalcJA2EncryptionSet( &SaveGameHeader );
 	guiCurrentSaveGameVersion = SaveGameHeader.uiSavedGameVersion;
@@ -6372,7 +6358,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if(guiCurrentSaveGameVersion >= MOVED_GENERAL_INFO)
 	{
-#ifdef USE_BUFFER
 		if ( !LoadDataBuffered(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS), gpLoadBufferStart, giLoadBufferSize, "gGameOptions") )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("Loading GAME_OPTIONS failed"));
@@ -6382,9 +6367,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Game Options");
 	#endif
-#else
-		FileRead(hFile, &gGameOptions, sizeof(GAME_OPTIONS), &uiNumBytesRead);
-#endif
 	}
 	else
 	{
@@ -6402,11 +6384,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		if(IsNIVModeValid(true) == FALSE){
 			// Only load NewInv in higher screen res
-#ifdef USE_BUFFER
 			MemFree(gpLoadBufferStart);
-#else
-			FileClose(hFile);
-#endif
 			return(FALSE);
 		}
 		InitInventoryNew();
@@ -6418,11 +6396,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		if ( UsingNewAttachmentSystem() == true )
 		{
-#ifdef USE_BUFFER
 			MemFree(gpLoadBufferStart);
-#else
-			FileClose(hFile);
-#endif
 			return(FALSE);
 		}
 
@@ -6435,11 +6409,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	if ((gGameOptions.ubSquadSize == 8 && iResolution < _800x600) || 
 		(gGameOptions.ubSquadSize == 10 && iResolution < _1280x720))
 	{
-#ifdef USE_BUFFER
 		MemFree(gpLoadBufferStart);
-#else
-		FileClose( hFile );
-#endif
 		return(FALSE);
 	}
 
@@ -6450,11 +6420,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		gfDisplaySaveGamesNowInvalidatedMsg = TRUE;
 #endif
 		//Fail loading the save
-#ifdef USE_BUFFER
 		MemFree(gpLoadBufferStart);
-#else
-		FileClose(hFile);
-#endif
 		return(FALSE);
 	}
 
@@ -6463,7 +6429,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the gtactical status structure plus the current sector x,y,z
-#ifdef USE_BUFFER
 	LoadTacticalStatusFromSavedGameBuffer(&fileBuffer);
 	if( gfBufferLoadFailed )
 	{
@@ -6474,17 +6439,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Tactical Status");
 	#endif
-#else
-	if( !LoadTacticalStatusFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTacticalStatusFromSavedGame failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Tactical Status" );
-	#endif
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 		TimingLog("LoadTacticalStatusFromSavedGame", 6);
@@ -6496,7 +6450,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the game clock ingo
-#ifdef USE_BUFFER
 	LoadGameClockBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6507,17 +6460,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Game Clock");
 	#endif
-#else
-	if( !LoadGameClock( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadGameClock failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Game Clock" );
-	#endif
-#endif
 
 
 	//if we are suppose to use the alternate sector
@@ -6590,7 +6532,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"Strategic Events...", 1 );
 
 	//load the game events
-#ifdef USE_BUFFER
 	LoadStrategicEventsFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6601,17 +6542,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Strategic Events");
 	#endif
-#else
-	if( !LoadStrategicEventsFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicEventsFromSavedGame failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Events" );
-	#endif
-#endif
 
 	// anv: we need to rebuild ambient sounds now, as those added when loading tileset are removed
 	// in LoadStrategicEventsFromSavedGame
@@ -6619,9 +6549,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Laptop Info", 0 );
 
-
-
-#ifdef USE_BUFFER
 	LoadLaptopInfoFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6632,17 +6559,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Laptop Info");
 	#endif
-#else
-	if( !LoadLaptopInfoFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLaptopInfoFromSavedGame failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Laptop Info" );
-	#endif
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadLaptopInfoFromSavedGame", 7);
@@ -6653,7 +6569,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load all the saved Merc profiles
 	//
-#ifdef USE_BUFFER
 	LoadSavedMercProfilesBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6664,18 +6579,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Merc Profiles");
 	#endif
-#else
-	if( !LoadSavedMercProfiles( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSavedMercProfiles failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Merc Profiles" );
-	#endif
-#endif
 
 
 
@@ -6685,7 +6588,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the soldier structure info
 	// 
-#ifdef USE_BUFFER
 	LoadSoldierStructureBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6696,17 +6598,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Soldier Structure");
 	#endif
-#else
-	if( !LoadSoldierStructure( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSoldierStructure failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Soldier Structure" );
-	#endif
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadSoldierStructure", 8);
@@ -6718,7 +6609,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Finances Data and write it to a new file
 	//
-#ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(FINANCES_DATA_FILE , &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6729,17 +6619,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Finances Data File");
 	#endif
-#else
-	if( !LoadFilesFromSavedGame( FINANCES_DATA_FILE, hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FINANCES_DATA_FILE failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Finances Data File" );
-	#endif
-#endif
 
 
 
@@ -6750,7 +6629,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the History Data and write it to a new file
 	//
-#ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(HISTORY_DATA_FILE, &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6761,17 +6639,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "History File");
 	#endif
-#else
-	if( !LoadFilesFromSavedGame( HISTORY_DATA_FILE, hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame HISTORY_DATA_FILE failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "History File" );
-	#endif
-#endif
 
 
 	
@@ -6782,7 +6649,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	// Load the Files Data and write it to a new file
 	//
-#ifdef USE_BUFFER
 	LoadFilesFromSavedGameBuffer(FILES_DAT_FILE, &fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6793,17 +6659,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "The Laptop FILES file");
 	#endif
-#else
-	if( !LoadFilesFromSavedGame( FILES_DAT_FILE, hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadFilesFromSavedGame FILES_DAT_FILE failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "The Laptop FILES file" );
-	#endif
-#endif
 
 
 
@@ -6811,7 +6666,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load the data for the emails
-#ifdef USE_BUFFER
 	LoadEmailFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6822,17 +6676,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Email");
 	#endif
-#else
-	if( !LoadEmailFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEmailFromSavedGame failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Email" );
-	#endif
-#endif
 
 
 
@@ -6841,7 +6684,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the strategic Information
-#ifdef USE_BUFFER
 	LoadStrategicInfoFromSavedFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6852,17 +6694,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Strategic Information");
 	#endif
-#else
-	if( !LoadStrategicInfoFromSavedFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicInfoFromSavedFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Information" );
-	#endif
-#endif
 
 	/*// Flugente: Load strategic supply data
 	if( !LoadStrategicSupplyFromSavedFile( hFile ) )
@@ -6895,7 +6726,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the underground information
-#ifdef USE_BUFFER
 	LoadUnderGroundSectorInfoFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6906,17 +6736,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "UnderGround Information");
 	#endif
-#else
-	if( !LoadUnderGroundSectorInfoFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadUnderGroundSectorInfoFromSavedGame failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-#ifdef JA2BETAVERSION
-	LoadGameFilePosition( FileGetPos( hFile ), "UnderGround Information" );
-#endif
-#endif
 
 	// Flugente: at this point we need to reevaluate the fortification costs, as the fortification plan may have changed
 	UpdateFortificationPossibleAmount();
@@ -6925,7 +6744,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the squad info from the saved game file 
-#ifdef USE_BUFFER
 	LoadSquadInfoFromSavedGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6936,24 +6754,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Squad Info");
 	#endif
-#else
-	if( !LoadSquadInfoFromSavedGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSquadInfoFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Squad Info" );
-	#endif
-#endif
 
 
 	ReportLoadProgress( L"Strategic Movement Groups...", 1 );
 
 
 	//Load the group linked list
-#ifdef USE_BUFFER
 	LoadStrategicMovementGroupsFromSavedGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6964,17 +6770,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Strategic Movement Groups");
 	#endif
-#else
-	if( !LoadStrategicMovementGroupsFromSavedGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicMovementGroupsFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Strategic Movement Groups" );
-	#endif
-#endif
 
 	ValidateStrategicGroups();
 
@@ -6986,7 +6781,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	// Load all the map temp files from the saved game file into the maps\temp directory
-#ifdef USE_BUFFER
 	LoadMapTempFilesFromSavedGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -6997,17 +6791,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "All the Map Temp files");
 	#endif
-#else
-	if( !LoadMapTempFilesFromSavedGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMapTempFilesFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "All the Map Temp files" );
-	#endif
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadMapTempFilesFromSavedGameFile", 5);
@@ -7017,7 +6800,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion < QUESTS_DATATYPE_CHANGE )
 	{
-#ifdef USE_BUFFER
 		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_OLD_QUESTS);
 		if ( gfBufferLoadFailed )
 		{
@@ -7028,21 +6810,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Quest Info");
 		#endif
-#else
-		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_OLD_QUESTS ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
-		#endif
-#endif
 	}
 	else
 	{
-#ifdef USE_BUFFER
 		LoadQuestInfoFromSavedGameFileBuffer(&fileBuffer, MAX_QUESTS);
 		if ( gfBufferLoadFailed )
 		{
@@ -7053,24 +6823,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Quest Info");
 		#endif
-#else
-		if( !LoadQuestInfoFromSavedGameFile( hFile, MAX_QUESTS ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadQuestInfoFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Quest Info" );
-		#endif
-#endif
 	}
 
 	ReportLoadProgress( L"LUA Modder Data...", 1 );
 
 	if ( guiCurrentSaveGameVersion >= LUA_MODDERDATA )
 	{
-#ifdef USE_BUFFER
 		LoadLUAModderDataFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7081,17 +6839,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "LUA Modder Data");
 		#endif
-#else
-		if ( !LoadLUAModderDataFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadLUAModderDataFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "LUA Modder Data" );
-#endif
-#endif
 	}
 	else
 	{
@@ -7102,7 +6849,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"OppList Info...", 1 );
 
 
-#ifdef USE_BUFFER
 	LoadOppListInfoFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7113,17 +6859,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "OppList Info");
 	#endif
-#else
-	if( !LoadOppListInfoFromSavedGame( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadOppListInfoFromSavedGame failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "OppList Info" );
-	#endif
-#endif
 
 
 
@@ -7132,7 +6867,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-#ifdef USE_BUFFER
 	LoadMapScreenMessagesFromSaveGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7143,17 +6877,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "MapScreen Messages");
 	#endif
-#else
-	if( !LoadMapScreenMessagesFromSaveGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMapScreenMessagesFromSaveGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "MapScreen Messages" );
-	#endif
-#endif
 
 
 
@@ -7161,7 +6884,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-#ifdef USE_BUFFER
 	LoadNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
@@ -7172,17 +6894,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "NPC Info");
 	#endif
-#else
-	if( !LoadNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNPCInfoFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "NPC Info" );
-	#endif
-#endif
 
 
 
@@ -7190,7 +6901,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-#ifdef USE_BUFFER
 	LoadKeyTableFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
@@ -7201,24 +6911,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "KeyTable");
 	#endif
-#else
-	if( !LoadKeyTableFromSaveedGameFile( hFile, guiCurrentSaveGameVersion ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadKeyTableFromSaveedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "KeyTable" );
-	#endif
-#endif
 
 
 
 	ReportLoadProgress( L"Npc Temp Quote File...", 1 );
 
 
-#ifdef USE_BUFFER
 	LoadTempNpcQuoteArrayToSaveGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7229,17 +6927,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 #ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Npc Temp Quote File");
 	#endif
-#else
-	if( !LoadTempNpcQuoteArrayToSaveGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTempNpcQuoteArrayToSaveGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Npc Temp Quote File" );
-	#endif
-#endif
 
 
 
@@ -7247,7 +6934,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	ReportLoadProgress( L"PreGenerated Random Files...", 0 );
 
 
-#ifdef USE_BUFFER
 	LoadPreRandomNumbersFromSaveGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7258,17 +6944,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "PreGenerated Random Files");
 	#endif
-#else
-	if( !LoadPreRandomNumbersFromSaveGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadPreRandomNumbersFromSaveGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "PreGenerated Random Files" );
-	#endif
-#endif
 
 
 
@@ -7277,7 +6952,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-#ifdef USE_BUFFER
 	LoadSmokeEffectsFromLoadGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7288,17 +6962,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Smoke Effect Structures");
 	#endif
-#else
-	if( !LoadSmokeEffectsFromLoadGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSmokeEffectsFromLoadGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Smoke Effect Structures" );
-	#endif
-#endif
 
 
 
@@ -7306,7 +6969,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 
-#ifdef USE_BUFFER
 	LoadArmsDealerInventoryFromSavedGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7317,22 +6979,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Arms Dealers Inventory");
 	#endif
-#else
-	if( !LoadArmsDealerInventoryFromSavedGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadArmsDealerInventoryFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return( FALSE );
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Arms Dealers Inventory" );
-	#endif
-#endif
 
 
 	ReportLoadProgress( L"Misc info...", 0 );
 
-#ifdef USE_BUFFER
 	LoadGeneralInfoBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7343,22 +6993,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Misc info");
 	#endif
-#else
-	if( !LoadGeneralInfo( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadGeneralInfo failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Misc info" );
-	#endif
-#endif
 
 	ReportLoadProgress( L"Mine Status...", 1 );
 
 
-#ifdef USE_BUFFER
 	LoadMineStatusFromSavedGameFileBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -7369,17 +7007,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Mine Status");
 	#endif
-#else
-	if( !LoadMineStatusFromSavedGameFile( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMineStatusFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Mine Status" );
-	#endif
-#endif
 
 
 
@@ -7391,7 +7018,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 21 )
 	{
-#ifdef USE_BUFFER
 		LoadStrategicTownLoyaltyFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7402,17 +7028,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Town Loyalty");
 		#endif
-#else
-		if( !LoadStrategicTownLoyaltyFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicTownLoyaltyFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Town Loyalty" );
-		#endif
-#endif
 	}
 
 
@@ -7420,7 +7035,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 22 )
 	{
-#ifdef USE_BUFFER
 		LoadVehicleInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
@@ -7431,23 +7045,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Vehicle Information");
 		#endif
-#else
-		if( !LoadVehicleInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleInformationFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-
-#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Vehicle Information" );
-#endif
-#endif
 	}
 
 	ReportLoadProgress( L"Militia Movement...", 1 );
 
-#ifdef USE_BUFFER
 	LoadMilitiaMovementInformationFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 	if ( gfBufferLoadFailed )
 	{
@@ -7458,18 +7059,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Militia Movement");
 	#endif
-#else
-	if ( !LoadMilitiaMovementInformationFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "LoadMilitiaMovementInformationFromSavedGameFile failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-
-#ifdef JA2BETAVERSION
-	LoadGameFilePosition( FileGetPos( hFile ), "Militia Movement" );
-#endif
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("LoadMilitiaMovementInformationFromSavedGameFile", 2);
@@ -7479,7 +7068,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-#ifdef USE_BUFFER
 		LoadBulletStructureFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7490,17 +7078,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Bullet Information");
 		#endif
-#else
-		if( !LoadBulletStructureFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBulletStructureFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Bullet Information" );
-		#endif
-#endif
 	}
 
 
@@ -7513,7 +7090,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-#ifdef USE_BUFFER
 		LoadPhysicsTableFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7524,17 +7100,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Physics table");
 		#endif
-#else
-		if( !LoadPhysicsTableFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadPhysicsTableFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Physics table" );
-		#endif
-#endif
 	}
 
 
@@ -7546,7 +7111,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-#ifdef USE_BUFFER
 		LoadAirRaidInfoFromSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7557,17 +7121,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Air Raid Info");
 		#endif
-#else
-		if( !LoadAirRaidInfoFromSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadAirRaidInfoFromSaveGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Air Raid Info" );
-		#endif
-#endif
 	}
 
 
@@ -7578,7 +7131,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 24 )
 	{
-#ifdef USE_BUFFER
 		LoadTeamTurnsFromTheSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7589,17 +7141,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Team Turn Info");
 		#endif
-#else
-		if( !LoadTeamTurnsFromTheSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadTeamTurnsFromTheSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Team Turn Info" );
-		#endif
-#endif
 	}
 
 
@@ -7611,7 +7152,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 25 )
 	{
-#ifdef USE_BUFFER
 		LoadExplosionTableFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7622,17 +7162,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Explosion Table");
 		#endif
-#else
-		if( !LoadExplosionTableFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadExplosionTableFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Explosion Table" );
-		#endif
-#endif
 	}
 
 
@@ -7645,7 +7174,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 27 )
 	{
-#ifdef USE_BUFFER
 		LoadCreatureDirectivesBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
@@ -7656,17 +7184,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Creature Spreading");
 		#endif
-#else
-		if( !LoadCreatureDirectives( hFile, guiCurrentSaveGameVersion ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadCreatureDirectives failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Creature Spreading" );
-		#endif
-#endif
 	}
 
 
@@ -7679,7 +7196,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 28 )
 	{
-#ifdef USE_BUFFER
 		LoadStrategicStatusFromSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7690,17 +7206,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Strategic Status");
 		#endif
-#else
-		if( !LoadStrategicStatusFromSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicStatusFromSaveGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Strategic Status" );
-		#endif
-#endif
 	}
 
 
@@ -7711,7 +7216,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 31 )
 	{
-#ifdef USE_BUFFER
 		LoadStrategicAIBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7722,17 +7226,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Strategic AI");
 		#endif
-#else
-		if( !LoadStrategicAI( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadStrategicAI failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Strategic AI" );
-		#endif
-#endif
 	}
 
 
@@ -7743,7 +7236,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 37 )
 	{
-#ifdef USE_BUFFER
 		LoadLightEffectsFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7754,17 +7246,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Lighting Effects");
 		#endif
-#else
-		if( !LoadLightEffectsFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLightEffectsFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Lighting Effects" );
-		#endif
-#endif
 	}
 
 
@@ -7775,7 +7256,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 38 )
 	{
-#ifdef USE_BUFFER
 		LoadWatchedLocsFromSavedGameBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7786,17 +7266,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Watched Locs Info");
 		#endif
-#else
-		if ( !LoadWatchedLocsFromSavedGame( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadWatchedLocsFromSavedGame failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Watched Locs Info" );
-	#endif
-#endif
 	}
 
 
@@ -7807,7 +7276,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion	>= 39 )
 	{
-#ifdef USE_BUFFER
 		LoadItemCursorFromSavedGameBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7818,17 +7286,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Item cursor Info");
 		#endif
-#else
-		if ( !LoadItemCursorFromSavedGame( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadItemCursorFromSavedGame failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Item cursor Info" );
-	#endif
-#endif
 	}
 
 
@@ -7839,7 +7296,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 51 )
 	{
-#ifdef USE_BUFFER
 		LoadCivQuotesFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7850,17 +7306,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Civ Quote System");
 		#endif
-#else
-		if( !LoadCivQuotesFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadCivQuotesFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return FALSE;
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Civ Quote System" );
-	#endif
-#endif
 	}
 
 
@@ -7872,7 +7317,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 53 )
 	{
-#ifdef USE_BUFFER
 		LoadBackupNPCInfoFromSavedGameFileBuffer(&fileBuffer, guiCurrentSaveGameVersion);
 		if ( gfBufferLoadFailed )
 		{
@@ -7883,17 +7327,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Backed up NPC Info");
 		#endif
-#else
-		if( !LoadBackupNPCInfoFromSavedGameFile( hFile, guiCurrentSaveGameVersion ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBackupNPCInfoFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Backed up NPC Info" );
-	#endif
-#endif
 	}
 
 
@@ -7904,7 +7337,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 58 )
 	{
-#ifdef USE_BUFFER
 		LoadMeanwhileDefsFromSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7915,17 +7347,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Meanwhile definitions");
 		#endif
-#else
-		if( !LoadMeanwhileDefsFromSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadMeanwhileDefsFromSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Meanwhile definitions" );
-		#endif
-#endif
 	}
 	else
 	{
@@ -7943,7 +7364,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		// trash schedules loaded from map
 		DestroyAllSchedulesWithoutDestroyingEvents();
-#ifdef USE_BUFFER
 		LoadSchedulesFromSaveBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7954,17 +7374,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Schedules");
 		#endif
-#else
-		if ( !LoadSchedulesFromSave( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadSchedulesFromSave failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Schedules" );
-		#endif
-#endif
 	}
 
 
@@ -7977,7 +7386,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 	if( guiCurrentSaveGameVersion < 84 )
 	{
-#ifdef USE_BUFFER
 		LoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -7988,21 +7396,9 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Extra Vehicle Info");
 		#endif
-#else
-		if ( !LoadVehicleMovementInfoFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleMovementInfoFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Extra Vehicle Info" );
-		#endif
-#endif
 	}
 	else
 	{
-#ifdef USE_BUFFER
 		NewLoadVehicleMovementInfoFromSavedGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8013,17 +7409,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Extra Vehicle Info");
 		#endif
-#else
-		if ( !NewLoadVehicleMovementInfoFromSavedGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("NewLoadVehicleMovementInfoFromSavedGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Extra Vehicle Info" );
-		#endif
-#endif
 	}
 	}
 
@@ -8039,7 +7424,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 67 )
 	{
-#ifdef USE_BUFFER
 		LoadContractRenewalDataFromSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8050,23 +7434,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Contract renewal sequence stuff");
 		#endif
-#else
-		if ( !LoadContractRenewalDataFromSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadContractRenewalDataFromSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Contract renewal sequence stuff" );
-		#endif
-#endif
 	}
 
 
 	if( guiCurrentSaveGameVersion >= 70 )
 	{
-#ifdef USE_BUFFER
 		LoadLeaveItemListBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8077,17 +7449,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Leave List");
 		#endif
-#else
-		if ( !LoadLeaveItemList( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLeaveItemList failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "Leave List" );
-		#endif
-#endif
 	}
 
 	if( guiCurrentSaveGameVersion <= 73 )
@@ -8099,7 +7460,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if( guiCurrentSaveGameVersion >= 85 )
 	{
-#ifdef USE_BUFFER
 		NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8110,17 +7470,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "New way of loading Bobby R mailorders");
 		#endif
-#else
-		if ( !NewWayOfLoadingBobbyRMailOrdersToSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("NewWayOfLoadingBobbyRMailOrdersToSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		#ifdef JA2BETAVERSION
-			LoadGameFilePosition( FileGetPos( hFile ), "New way of loading Bobby R mailorders" );
-		#endif
-#endif
 	}
 
 	//If there are any old Bobby R Mail orders, tranfer them to the new system
@@ -8132,7 +7481,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//Dealtar's Airport Externalization
 	if( SaveGameHeader.uiSavedGameVersion >= AIRPORT_SAVEGAME_DATATYPE_CHANGE )
 	{
-#ifdef USE_BUFFER
 		gPostalService.LoadShipmentListFromSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8143,14 +7491,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Dealtar's Airport Shipment List");
 		#endif
-#else
-		if ( !gPostalService.LoadShipmentListFromSaveGameFile(hFile) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gPostalService.LoadShipmentListFromSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-#endif
 	}
 
 
@@ -8159,7 +7499,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Ja25 Tactical info", 1 );	
 
-#ifdef USE_BUFFER
 	LoadJa25SaveInfoFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -8170,22 +7509,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Ja25 Tactical info");
 	#endif
-#else
-	if ( !LoadJa25SaveInfoFromSavedGame( hFile ) )
-	{
-		FileClose( hFile );
-		return( FALSE );
-	}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Tactical info" );
-	#endif
-#endif
 
 	ReportLoadProgress( L"Ja25 Save info Struct", 1 );
 	
 
-#ifdef USE_BUFFER
 	LoadJa25TacticalInfoFromSavedGameBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -8196,17 +7523,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Ja25 Save info Struct");
 	#endif
-#else
-	if ( !LoadJa25TacticalInfoFromSavedGame( hFile ) )
-	{
-		FileClose( hFile );
-		return( FALSE );
-	}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Ja25 Save info Struct" );
-	#endif
-#endif
 
 #endif
 
@@ -8215,7 +7531,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New Mercs Profiles...", 1 );
 
-#ifdef USE_BUFFER
 		LoadNewMercsFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8226,17 +7541,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Load Mercs Profiles");
 		#endif
-#else
-		if( !LoadNewMercsFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewMercsFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load Mercs Profiles" );
-	#endif
-#endif
 	}
 	
 	
@@ -8245,7 +7549,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New System Mercs Profiles...", 1 );
 
-#ifdef USE_BUFFER
 		LoadNewSystemMercsToSaveGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8256,17 +7559,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Load New System Mercs Profiles");
 		#endif
-#else
-		if( !LoadNewSystemMercsToSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewSystemMercsToSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load New System Mercs Profiles" );
-	#endif
-#endif
 	}
 
 	ReportLoadProgress( L"Final Checks...", 1 );
@@ -8275,7 +7567,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Lua Global System...", 1 );	
 	
-#ifdef USE_BUFFER
 		LoadLuaGlobalFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8286,18 +7577,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Lua Global System");
 		#endif
-#else
-		if( !LoadLuaGlobalFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadLuaGlobalFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return FALSE;
-		}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Lua Global System" );
-	#endif
-#endif
 	}
 
 #if LOADSAVEGAME_LOGTIME
@@ -8308,23 +7587,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load New Vehicles...", 1 );
 
-#ifdef USE_BUFFER
 		// No load check because these are read from XML and we use SKIPDATA inside the function
 		LoadNewVehiclesToSaveGameFileBuffer(&fileBuffer);
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "New Vehicles");
 		#endif
-#else
-		if( !LoadNewVehiclesToSaveGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewVehiclesToSaveGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-#ifdef JA2BETAVERSION
-		LoadGameFilePosition(FileGetPos(hFile), "New Vehicles");
-#endif
-#endif
 	}
 
 
@@ -8333,7 +7600,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Save Data...", 1 );
 
-#ifdef USE_BUFFER
 		LoadDataSaveFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8344,25 +7610,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Load Save Data");
 		#endif
-#else
-		if( !LoadDataSaveFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadDataSaveFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load Save Data" );
-	#endif		
-#endif
 	}
 	
 	if( guiCurrentSaveGameVersion >= NEW_EMAIL_SAVE_GAME)
 	{
 		ReportLoadProgress( L"Load New Email Data...", 1 );
 
-#ifdef USE_BUFFER
 		LoadNewEmailDataFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8373,25 +7626,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Load New Email Data");
 		#endif
-#else
-		if( !LoadNewEmailDataFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadNewEmailDataFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-		
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load New Email Data" );
-	#endif		
-#endif
 	}
 
 	if( guiCurrentSaveGameVersion >= HIDDENTOWN_DATATYPE_CHANGE)
 	{
 		ReportLoadProgress( L"Load Hidden Towns...", 1 );
 
-#ifdef USE_BUFFER
 		LoadHiddenTownFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8402,25 +7642,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Load Hidden Towns");
 		#endif
-#else
-		if( !LoadHiddenTownFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadHiddenTownFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Load Hidden Towns" );
-	#endif
-#endif
 	}
 
 	if( guiCurrentSaveGameVersion > ENCYCLOPEDIA_SAVEGAME_CHANGE)
 	{
 		ReportLoadProgress( L"Load Briefing Room...", 1 );
 
-#ifdef USE_BUFFER
 		LoadBriefingRoomFromLoadGameFileBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8431,24 +7658,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Briefing Room");
 		#endif
-#else
-		if( !LoadBriefingRoomFromLoadGameFile( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadBriefingRoomFromLoadGameFile failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile ), "Briefing Room" );
-	#endif
-#endif
 	}
 
 	if ( guiCurrentSaveGameVersion >= ENCYCLOPEDIA_ITEM_VISIBILITY )
 	{
 		// no progress bar change, loads these 16k way to fast to even notice
-#ifdef USE_BUFFER
 		LoadEncyclopediaItemVisibilityBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8459,17 +7673,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Encyclopedia item visibility");
 		#endif
-#else
-		if ( !LoadEncyclopediaItemVisibility( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("LoadEncyclopediaItemVisibility failed") );
-			FileClose( hFile );
-			return (FALSE);
-		}
-	#ifdef JA2BETAVERSION
-		LoadGameFilePosition( FileGetPos( hFile), "Encyclopedia item visibility" );
-	#endif
-#endif
 	}
 #ifdef ENCYCLOPEDIA_WORKS
 	else
@@ -8480,7 +7683,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load Campaign Stats...", 1 );
 
-#ifdef USE_BUFFER
 		gCampaignStats.LoadBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8491,17 +7693,8 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Campaign Stats");
 		#endif
-#else
-		if( !gCampaignStats.Load( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCampaignStats.Load failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-#endif
 
 		// we also have to load the currently active incident
-#ifdef USE_BUFFER
 		gCurrentIncident.LoadBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8512,21 +7705,12 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Current Incident");
 		#endif
-#else
-		if( !gCurrentIncident.Load( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("gCurrentIncident.Load failed" ) );
-			FileClose( hFile );
-			return( FALSE );
-		}
-#endif
 	}
 
 	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
 	{
 		ReportLoadProgress( L"Load Dynamic Dialogue...", 1 );
 
-#ifdef USE_BUFFER
 		LoadDynamicDialogueBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8537,19 +7721,10 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Dynamic Dialogue");
 		#endif
-#else
-		if ( !LoadDynamicDialogue( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Dynamic Dialogue Load failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-#endif
 	}
 		
 	ReportLoadProgress( L"Load PMC data ...", 1 );
 
-#ifdef USE_BUFFER
 	LoadPMCBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -8560,20 +7735,11 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "PMC data");
 	#endif
-#else
-	if ( !LoadPMC( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "PMC data failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-#endif
 
 	if ( guiCurrentSaveGameVersion >= ENEMY_HELICOPTERS )
 	{
 		ReportLoadProgress( L"Load Arulco special division data...", 1 );
 
-#ifdef USE_BUFFER
 		LoadASDDataBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8584,14 +7750,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Arulco special division data");
 		#endif
-#else
-		if ( !LoadASDData( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Arulco special division data Load failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-#endif
 	}
 	else
 	{
@@ -8611,7 +7769,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 		ReportLoadProgress( L"Load individual militia data...", 1 );
 
-#ifdef USE_BUFFER
 		LoadIndividualMilitiaDataBuffer(&fileBuffer);
 		if ( gfBufferLoadFailed )
 		{
@@ -8622,14 +7779,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 		#ifdef JA2BETAVERSION
 			LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Individual militia data");
 		#endif
-#else
-		if ( !LoadIndividualMilitiaData( hFile ) )
-		{
-			DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Individual militia data Load failed" ) );
-			FileClose( hFile );
-			return(FALSE);
-		}
-#endif
 	}
 	else
 	{
@@ -8638,7 +7787,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	ReportLoadProgress( L"Load rebel command data...", 1 );
 
-#ifdef USE_BUFFER
 	RebelCommand::LoadBuffer(&fileBuffer);
 	if ( gfBufferLoadFailed )
 	{
@@ -8649,14 +7797,6 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	#ifdef JA2BETAVERSION
 		LoadGameFilePosition(GetBufferPosition(fileBuffer, gpLoadBufferStart), "Rebel Command data");
 	#endif
-#else
-	if ( !RebelCommand::Load( hFile ) )
-	{
-		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "Rebel Command data Load failed" ) );
-		FileClose( hFile );
-		return(FALSE);
-	}
-#endif
 
 #if LOADSAVEGAME_LOGTIME
 	TimingLog("File read done", 10);
@@ -8665,11 +7805,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	//
 	//Close the saved game file
 	//
-#ifdef USE_BUFFER
 	MemFree(gpLoadBufferStart);
-#else
-	FileClose(hFile);
-#endif
 
 	//CHRISL: To correct a problem with the MERC email, at this point we want to see if the email has been sent and force it if necessary
 	if(gGameExternalOptions.fAllMercsAvailable == TRUE && GetWorldDay() >= 3 )
