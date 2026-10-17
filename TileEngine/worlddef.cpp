@@ -42,6 +42,7 @@
 	#include "GameSettings.h"
 	#include "editscreen.h"
 	#include "Editor Taskbar Utils.h"
+#include "BufferMan.h"
 
 #ifdef JA2EDITOR
 	#include "Summary Info.h"

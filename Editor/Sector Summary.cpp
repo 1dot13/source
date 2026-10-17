@@ -36,6 +36,7 @@
 	#include "GameSettings.h"
 	#include "EditorTerrain.h"//dnl ch78 261113
 	#include "Render Dirty.h"//dnl ch78 271113
+#include "BufferMan.h"
 
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/vfs_file_raii.h>

@@ -19,6 +19,7 @@
 	#include "message.h"
 	#include "Map Screen Interface Map Inventory.h"	// added by Flugente
 #include "connect.h"
+#include "BufferMan.h"
 
 
 #ifdef JA2EDITOR//dnl ch84 290114

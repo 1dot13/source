@@ -12,6 +12,7 @@
 	#include "worldman.h"
 	#include "PreBattle Interface.h"	// added by Flugente
 	#include "Rebel Command.h"
+#include "BufferMan.h"
 
 #include "connect.h"
 

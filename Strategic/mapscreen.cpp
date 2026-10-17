@@ -94,6 +94,7 @@
 	#include "MilitiaSquads.h"
 	#include "Auto Bandage.h"	// added by Flugente
 	#include "WordWrap.h"
+#include "BufferMan.h"
 
 #include "connect.h" //hayden
 #include "InterfaceItemImages.h"
