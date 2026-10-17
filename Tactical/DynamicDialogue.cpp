@@ -27,7 +27,7 @@
 #include "connect.h"
 #include "Campaign.h"
 #include "Points.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 #ifndef JA2UB
 #include "Meanwhile.h"

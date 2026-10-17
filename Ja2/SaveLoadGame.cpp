@@ -98,7 +98,7 @@
 #include "Rebel Command.h"
 #include	 "BobbyR.h"
 #include	 "IMP Portraits.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include	 "Loading Screen.h"
 #include	 "Interface Utils.h"
 #include "Enemy Soldier Save.h"

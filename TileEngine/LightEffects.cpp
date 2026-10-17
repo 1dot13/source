@@ -9,7 +9,7 @@
 	#include "Tactical Save.h"
 
 #include "SaveLoadGame.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include "GameVersion.h"	// added by Flugente
 
 

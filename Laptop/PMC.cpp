@@ -36,7 +36,7 @@
 #include "Town Militia.h"
 #include "Strategic Town Loyalty.h"
 #include "MilitiaIndividual.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 std::vector<PMCReinforcesHireEvent> gPMCHiringEvents;
 PMCGlobalData gPMCData;

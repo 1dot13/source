@@ -7,7 +7,7 @@
 #include "random.h"
 #include "Game Clock.h"
 #include "GameSettings.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include <list>
 #include <string>
 #include <iostream>

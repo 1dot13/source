@@ -15,7 +15,7 @@
 	#include "screenids.h"
 	#include "Soldier macros.h"
 	#include "GameSettings.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 typedef struct

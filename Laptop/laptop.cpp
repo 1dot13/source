@@ -92,7 +92,7 @@
 #include "BriefingRoom_Data.h"
 #include "BriefingRoom.h"
 #include "BriefingRoomM.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 #ifdef JA2UB

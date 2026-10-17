@@ -31,7 +31,7 @@
 #include "renderworld.h"
 #include "Isometric Utils.h"
 #include "Rebel Command.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 extern BOOLEAN gfTacticalDoHeliRun;

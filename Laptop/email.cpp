@@ -1,6 +1,6 @@
 ﻿#include "laptop.h"
 #include "email.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include "Utilities.h"
 #include "WCheck.h"
 #include "DEBUG.H"

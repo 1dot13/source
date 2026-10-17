@@ -23,7 +23,7 @@
 #include "Reinforcement.h"
 #include "Inventory Choosing.h"		// added by Flugente for MoveOneMilitiaEquipmentSet() and MoveMilitiaEquipment()
 #include "MilitiaIndividual.h"		// added by Flugente
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 // Debug defines
 

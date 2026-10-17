@@ -6,7 +6,7 @@
 	#include	"Render Dirty.h"
 	#include	"Text Input.h"
 	#include	"SaveLoadGame.h"
-	#include	"SaveLoadBuffer.h"	// anv: LoadDataFromBuffer for buffered save/load
+	#include "BufferMan.h"
 	#include	"stdio.h"
 	#include	"WordWrap.h"
 	#include	"strategicmap.h"

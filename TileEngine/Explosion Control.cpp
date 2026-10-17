@@ -41,7 +41,7 @@
 #include "LuaInitNPCs.h"
 #include "Luaglobal.h"
 #include "Item Statistics.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 
 #ifdef JA2UB

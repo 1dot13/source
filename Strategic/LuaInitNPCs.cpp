@@ -5,7 +5,7 @@
 #include "Strategic Mines.h"
 #include "BobbyRMailOrder.h"
 #include "Tactical Save.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include "Strategic Movement.h"
 #include <Soldier Create.h>
 #include "FileMan.h"

@@ -73,7 +73,7 @@ Points of interest:
 #include "Game Clock.h"
 #include "Game Event Hook.h"
 #include "GameSettings.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include "GameVersion.h"
 #include "input.h"
 #include "line.h"

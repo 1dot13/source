@@ -24,7 +24,7 @@
 	#include "Soldier Profile.h"
 	#include "soldier profile type.h"
 	#include "Quests.h"
-	#include "SaveLoadBuffer.h"
+	#include "BufferMan.h"
 
 //forward declarations of common classes to eliminate includes
 class OBJECTTYPE;

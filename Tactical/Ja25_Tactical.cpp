@@ -10,7 +10,7 @@
 	#include "Soldier Profile.h"
 	#include "Text.h"
 	#include "GameSettings.h"
-	#include "SaveLoadBuffer.h"
+	#include "BufferMan.h"
 	#include "Campaign Types.h"
 	#include "strategicmap.h"
 	#include "Soldier Create.h"

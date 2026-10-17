@@ -2,7 +2,7 @@
 	#include "DEBUG.H"
 	#include "math.h"
 	#include "worlddef.h"
-	#include "SaveLoadBuffer.h"
+	#include "BufferMan.h"
 	#include "Animation Data.h"
 	#include "Isometric Utils.h"
 	#include "Render Fun.h"

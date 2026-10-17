@@ -28,7 +28,7 @@
 #include "Strategic Event Handler.h"
 #include "connect.h"
 #include "GameSettings.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 #include <vfs/Core/vfs.h>
 #include <vfs/Core/File/vfs_file.h>
 #include <language.hpp>

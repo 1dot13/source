@@ -30,7 +30,7 @@
 #endif
 
 #include "connect.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 UINT8	NUMBER_OF_MERCS = 0;
 UINT8	LAST_MERC_ID = -1;

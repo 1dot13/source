@@ -15,7 +15,7 @@
 	#include "SaveLoadGame.h"		// added by Flugente
 
 #include "GameInitOptionsScreen.h"
-#include "SaveLoadBuffer.h"
+#include "BufferMan.h"
 
 STRATEGIC_STATUS	gStrategicStatus;
 
