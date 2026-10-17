@@ -33,7 +33,7 @@
 #include "Campaign.h"
 #include "opplist.h"
 #include "Sound Control.h"	// sevenfm: voice taunts
-#include "SaveLoadBuffer.h"	// anv: LoadDataFromBuffer for buffered save/load
+#include "SaveLoadBuffer.h"
 
 #define			DIALOGUE_DEFAULT_WIDTH			200
 #define			EXTREAMLY_LOW_TOWN_LOYALTY	20
