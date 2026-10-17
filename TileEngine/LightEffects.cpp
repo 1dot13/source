@@ -347,7 +347,7 @@ BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		memset(gLightEffectData, 0, sizeof(LIGHTEFFECT) * NUM_LIGHT_EFFECT_SLOTS);
 
 		//Load the Number of Light Effects
-		if ( !LoadDataBuffered(&guiNumLightEffects, *ppBuffer, sizeof(UINT32), "guiNumLightEffects") )
+		if ( !LoadDataFromBuffer(&guiNumLightEffects, *ppBuffer, sizeof(UINT32), "guiNumLightEffects") )
 			return(FALSE);
 
 		//if there are lights saved.
@@ -357,7 +357,7 @@ BOOLEAN LoadLightEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 			for ( uiCount = 0; uiCount < guiNumLightEffects; uiCount++ )
 			{
 				//Load the Light effect Data
-				if ( !LoadDataBuffered(&gLightEffectData[uiCount], *ppBuffer, sizeof(LIGHTEFFECT), "gLightEffectData") )
+				if ( !LoadDataFromBuffer(&gLightEffectData[uiCount], *ppBuffer, sizeof(LIGHTEFFECT), "gLightEffectData") )
 					return(FALSE);
 			}
 		}

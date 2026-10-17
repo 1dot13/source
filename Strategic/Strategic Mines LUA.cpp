@@ -444,11 +444,11 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	MINE_STATUS_TYPE mineStatus;
 
 	gMineStatus.clear();
-	LoadDataBuffered(&numMines, *ppBuffer, sizeof(INT32), "numMines");
+	LoadDataFromBuffer(&numMines, *ppBuffer, sizeof(INT32), "numMines");
 
 	for ( int i = 0; i < numMines; i++ )
 	{
-		LoadDataBuffered(&mineStatus, *ppBuffer, sizeof(MINE_STATUS_TYPE), "MINE_STATUS_TYPE");
+		LoadDataFromBuffer(&mineStatus, *ppBuffer, sizeof(MINE_STATUS_TYPE), "MINE_STATUS_TYPE");
 		gMineStatus.push_back(mineStatus);
 	}
 
@@ -458,11 +458,11 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	INT32 numSectors;
 	AssociatedMineSector sector;
 	associatedMineSectors.clear();
-	LoadDataBuffered(&numSectors, *ppBuffer, sizeof(INT32), "AssociatedMineSector amount");
+	LoadDataFromBuffer(&numSectors, *ppBuffer, sizeof(INT32), "AssociatedMineSector amount");
 
 	for ( int i = 0; i < numSectors; i++ )
 	{
-		LoadDataBuffered(&sector, *ppBuffer, sizeof(AssociatedMineSector), "AssociatedMineSector");
+		LoadDataFromBuffer(&sector, *ppBuffer, sizeof(AssociatedMineSector), "AssociatedMineSector");
 		associatedMineSectors.push_back(sector);
 	}
 
@@ -470,11 +470,11 @@ BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 	INT32 numHeadMiners;
 	HEAD_MINER_TYPE miner;
 	gHeadMinerData.clear();
-	LoadDataBuffered(&numHeadMiners, *ppBuffer, sizeof(INT32), "HeadMiner amount");
+	LoadDataFromBuffer(&numHeadMiners, *ppBuffer, sizeof(INT32), "HeadMiner amount");
 
 	for ( int i = 0; i < numHeadMiners; i++ )
 	{
-		LoadDataBuffered(&miner, *ppBuffer, sizeof(HEAD_MINER_TYPE), "HEAD_MINER_TYPE");
+		LoadDataFromBuffer(&miner, *ppBuffer, sizeof(HEAD_MINER_TYPE), "HEAD_MINER_TYPE");
 		gHeadMinerData.push_back(miner);
 	}
 	NUM_HEAD_MINERS = gHeadMinerData.size();

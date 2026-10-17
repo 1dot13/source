@@ -2122,12 +2122,12 @@ BOOLEAN SaveCreatureDirectives( HWFILE hFile )
 
 BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion)
 {
-	LoadDataBuffered(&giHabitatedDistance, *ppBuffer, 4, "giHabitatedDistance");
-	LoadDataBuffered(&giPopulationModifier, *ppBuffer, 4, "giPopulationModifier");
-	LoadDataBuffered(&giLairID, *ppBuffer, 4, "giLairID");
+	LoadDataFromBuffer(&giHabitatedDistance, *ppBuffer, 4, "giHabitatedDistance");
+	LoadDataFromBuffer(&giPopulationModifier, *ppBuffer, 4, "giPopulationModifier");
+	LoadDataFromBuffer(&giLairID, *ppBuffer, 4, "giLairID");
 
 	BOOLEAN fUseCreatureMusic;
-	LoadDataBuffered(&fUseCreatureMusic, *ppBuffer, 1, "fUseCreatureMusic");
+	LoadDataFromBuffer(&fUseCreatureMusic, *ppBuffer, 1, "fUseCreatureMusic");
 
 	if ( gfBufferLoadFailed )
 	{
@@ -2138,7 +2138,7 @@ BOOLEAN LoadCreatureDirectivesBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion
 
 	if ( uiSavedGameVersion >= 82 )
 	{
-		if ( !LoadDataBuffered(&giDestroyedLairID, *ppBuffer, 4, "giDestroyedLairID") )
+		if ( !LoadDataFromBuffer(&giDestroyedLairID, *ppBuffer, 4, "giDestroyedLairID") )
 			return false;
 	}
 	else

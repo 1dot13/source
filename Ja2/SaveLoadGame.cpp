@@ -623,7 +623,7 @@ BOOLEAN LBENODE::LoadBuffer(CHAR8** ppBuffer)
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
-		if ( !LoadDataBuffered(this, *ppBuffer, SIZEOF_LBENODE_POD, "LBENODE") )
+		if ( !LoadDataFromBuffer(this, *ppBuffer, SIZEOF_LBENODE_POD, "LBENODE") )
 		{
 			return FALSE;
 		}
@@ -634,7 +634,7 @@ BOOLEAN LBENODE::LoadBuffer(CHAR8** ppBuffer)
 		}
 
 		int size;
-		if ( !LoadDataBuffered(&size, *ppBuffer, sizeof(int), "LBENODE inv size") )
+		if ( !LoadDataFromBuffer(&size, *ppBuffer, sizeof(int), "LBENODE inv size") )
 		{
 			return FALSE;
 		}
@@ -709,7 +709,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		int dealers = 0;
-		if ( !LoadDataBuffered(&dealers, *ppBuffer, sizeof(int), "ArmsDealer count") )
+		if ( !LoadDataFromBuffer(&dealers, *ppBuffer, sizeof(int), "ArmsDealer count") )
 		{
 			return FALSE;
 		}
@@ -719,7 +719,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 
 		if ( guiCurrentSaveGameVersion >= NONPROFILE_MERCHANTS )
 		{
-			if ( !LoadDataBuffered(gArmsDealerStatus, *ppBuffer, sizeof(gArmsDealerStatus), "ArmsDealerStatus") )
+			if ( !LoadDataFromBuffer(gArmsDealerStatus, *ppBuffer, sizeof(gArmsDealerStatus), "ArmsDealerStatus") )
 			{
 				return FALSE;
 			}
@@ -727,7 +727,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		else
 		{
 			// Flugente: as we increased the number of dealers, we can only read part of the array
-			if ( !LoadDataBuffered(gArmsDealerStatus, *ppBuffer, sizeof(ARMS_DEALER_STATUS) * 40, "ArmsDealerStatus 101") )
+			if ( !LoadDataFromBuffer(gArmsDealerStatus, *ppBuffer, sizeof(ARMS_DEALER_STATUS) * 40, "ArmsDealerStatus 101") )
 			{
 				return FALSE;
 			}
@@ -737,7 +737,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		for ( ubArmsDealer = 0; ubArmsDealer < dealers; ++ubArmsDealer )
 		{
 			int size = 0;
-			if ( !LoadDataBuffered(&size, *ppBuffer, sizeof(int), "ArmsDealer inventory size") )
+			if ( !LoadDataFromBuffer(&size, *ppBuffer, sizeof(int), "ArmsDealer inventory size") )
 			{
 				return FALSE;
 			}
@@ -806,11 +806,11 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 		}
 		gArmsDealersInventory.resize(uiDealersSaved);
 
-		if ( !LoadDataBuffered(gOldArmsDealerStatus, *ppBuffer, uiDealersSaved * sizeof(OLD_ARMS_DEALER_STATUS_101), "OldArmsDealerStatus") )
+		if ( !LoadDataFromBuffer(gOldArmsDealerStatus, *ppBuffer, uiDealersSaved * sizeof(OLD_ARMS_DEALER_STATUS_101), "OldArmsDealerStatus") )
 		{
 			return FALSE;
 		}
-		if ( !LoadDataBuffered((*pOldArmsDealersInventory), *ppBuffer, uiDealersSaved * sizeof(OLD_DEALER_ITEM_HEADER_101) * MAXITEMS, "OldArmsDealersInventory") )
+		if ( !LoadDataFromBuffer((*pOldArmsDealersInventory), *ppBuffer, uiDealersSaved * sizeof(OLD_DEALER_ITEM_HEADER_101) * MAXITEMS, "OldArmsDealersInventory") )
 		{
 			return FALSE;
 		}
@@ -859,7 +859,7 @@ static BOOLEAN LoadArmsDealerInventoryFromSavedGameFileBuffer(CHAR8** ppBuffer)
 				//if there are any special elements allocated for this item, load them
 				for ( int x = 0; x < (*pOldArmsDealersInventory)[ubArmsDealer][usItemIndex].ubElementsAlloced; ++x )
 				{
-					if ( !LoadDataBuffered(&oldSpecial, *ppBuffer, sizeof(OLD_DEALER_SPECIAL_ITEM_101), "OldDealerSpecialItem") )
+					if ( !LoadDataFromBuffer(&oldSpecial, *ppBuffer, sizeof(OLD_DEALER_SPECIAL_ITEM_101), "OldDealerSpecialItem") )
 					{
 						return FALSE;
 					}
@@ -921,7 +921,7 @@ BOOLEAN DEALER_SPECIAL_ITEM::LoadBuffer(CHAR8** ppBuffer)
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
-		if ( !LoadDataBuffered(this, *ppBuffer, SIZEOF_DEALER_SPECIAL_ITEM_POD, "DEALER_SPECIAL_ITEM") )
+		if ( !LoadDataFromBuffer(this, *ppBuffer, SIZEOF_DEALER_SPECIAL_ITEM_POD, "DEALER_SPECIAL_ITEM") )
 		{
 			return FALSE;
 		}
@@ -987,7 +987,7 @@ BOOLEAN REAL_OBJECT::LoadBuffer(CHAR8** ppBuffer)
 	//if we are at the most current version, then fine
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
-		if ( !LoadDataBuffered(this, *ppBuffer, SIZEOF_REAL_OBJECT_POD, "REAL_OBJECT") )
+		if ( !LoadDataFromBuffer(this, *ppBuffer, SIZEOF_REAL_OBJECT_POD, "REAL_OBJECT") )
 		{
 			return FALSE;
 		}
@@ -1001,7 +1001,7 @@ BOOLEAN REAL_OBJECT::LoadBuffer(CHAR8** ppBuffer)
 		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_REAL_OBJECT_101 oldObject;
-			if ( !LoadDataBuffered(&oldObject, *ppBuffer, sizeof(OLD_REAL_OBJECT_101), "OldRealObject101") )
+			if ( !LoadDataFromBuffer(&oldObject, *ppBuffer, sizeof(OLD_REAL_OBJECT_101), "OldRealObject101") )
 		{
 			return FALSE;
 		}
@@ -1106,7 +1106,7 @@ BOOLEAN MERC_LEAVE_ITEM::LoadBuffer(CHAR8** ppBuffer)
 		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_MERC_LEAVE_ITEM_101 oldItem;
-			if ( !LoadDataBuffered(&oldItem, *ppBuffer, sizeof(OLD_MERC_LEAVE_ITEM_101), "OldMercLeaveItem101") )
+			if ( !LoadDataFromBuffer(&oldItem, *ppBuffer, sizeof(OLD_MERC_LEAVE_ITEM_101), "OldMercLeaveItem101") )
 		{
 			return FALSE;
 		}
@@ -1154,7 +1154,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::LoadBuffer(CHAR8** ppBuffer)
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		//3 bytes of info, screw being neat
-		if ( !LoadDataBuffered(this, *ppBuffer, SIZEOF_ITEM_CURSOR_SAVE_INFO_POD, "ITEM_CURSOR_SAVE_INFO") )
+		if ( !LoadDataFromBuffer(this, *ppBuffer, SIZEOF_ITEM_CURSOR_SAVE_INFO_POD, "ITEM_CURSOR_SAVE_INFO") )
 		{
 			return FALSE;
 		}
@@ -1168,7 +1168,7 @@ BOOLEAN ITEM_CURSOR_SAVE_INFO::LoadBuffer(CHAR8** ppBuffer)
 		if ( guiCurrentSaveGameVersion < NIV_SAVEGAME_DATATYPE_CHANGE )
 		{
 			OLD_ITEM_CURSOR_SAVE_INFO_101 oldInfo101;
-			if ( !LoadDataBuffered(&oldInfo101, *ppBuffer, sizeof(OLD_ITEM_CURSOR_SAVE_INFO_101), "OldItemCursorSaveInfo101") )
+			if ( !LoadDataFromBuffer(&oldInfo101, *ppBuffer, sizeof(OLD_ITEM_CURSOR_SAVE_INFO_101), "OldItemCursorSaveInfo101") )
 		{
 			return FALSE;
 		}
@@ -1860,7 +1860,7 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 //		{
 //			return(FALSE);
 //		}
-		LoadDataBuffered(this->zName, *ppBuffer, sizeof(this->zName), "MERCPROFILE::zName");
+		LoadDataFromBuffer(this->zName, *ppBuffer, sizeof(this->zName), "MERCPROFILE::zName");
 		numBytesRead += sizeof(this->zName);
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, this->zNickname, sizeof(this->zNickname), sizeof(CHAR16), numBytesRead);
 		numBytesRead = ReadFieldByFieldFromBuffer(ppBuffer, &this->uiAttnSound, sizeof(this->uiAttnSound), sizeof(UINT32), numBytesRead);
@@ -2091,7 +2091,7 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 		}
 
 		int size = 0;
-		LoadDataBuffered(&size, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT invsize");
+		LoadDataFromBuffer(&size, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT invsize");
 
 		inv.resize(size);
 		bInvStatus.resize(size);
@@ -2100,9 +2100,9 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 		int status;
 		int number;
 		for ( int x = 0; x < size; ++x ) {
-			LoadDataBuffered(&item, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::item");
-			LoadDataBuffered(&status, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::status");
-			LoadDataBuffered(&number, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::number");
+			LoadDataFromBuffer(&item, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::item");
+			LoadDataFromBuffer(&status, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::status");
+			LoadDataFromBuffer(&number, *ppBuffer, sizeof(int), "MERCPROFILESTRUCT::number");
 			inv[x] = item;
 			bInvStatus[x] = status;
 			bInvNumber[x] = number;
@@ -2110,24 +2110,24 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 		// SANDRO - read records
 		if ( guiCurrentSaveGameVersion >= STOMP12_SAVEGAME_DATATYPE_CHANGE )
 		{
-			LoadDataBuffered(&this->records, *ppBuffer, sizeof(STRUCT_Records), "STRUCT_Records");
+			LoadDataFromBuffer(&this->records, *ppBuffer, sizeof(STRUCT_Records), "STRUCT_Records");
 
 			// Flugente: backgrounds
 			if ( guiCurrentSaveGameVersion >= BACKGROUNDS )
 			{
 				if ( guiCurrentSaveGameVersion >= BACKGROUNDS_FIX_UINT8 )
 				{
-					LoadDataBuffered(&this->usBackground, *ppBuffer, sizeof(UINT16), "MERCPROFILESTRUCT::usBackground");
+					LoadDataFromBuffer(&this->usBackground, *ppBuffer, sizeof(UINT16), "MERCPROFILESTRUCT::usBackground");
 				}
 				else
 				{
-					LoadDataBuffered(&this->usBackground, *ppBuffer, sizeof(UINT8), "MERCPROFILESTRUCT::usBackground");
+					LoadDataFromBuffer(&this->usBackground, *ppBuffer, sizeof(UINT8), "MERCPROFILESTRUCT::usBackground");
 				}
 			}
 
 			if ( guiCurrentSaveGameVersion >= SNITCH_TRAIT_EXTENDED )
 			{
-				LoadDataBuffered(&this->ubSnitchExposedCooldown, *ppBuffer, sizeof(ubSnitchExposedCooldown), "MERCPROFILESTRUCT::ubSnitchExposedCooldown");
+				LoadDataFromBuffer(&this->ubSnitchExposedCooldown, *ppBuffer, sizeof(ubSnitchExposedCooldown), "MERCPROFILESTRUCT::ubSnitchExposedCooldown");
 			}
 
 			if ( guiCurrentSaveGameVersion >= DYNAMIC_OPINIONS )
@@ -2136,12 +2136,12 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 				{
 					if ( guiCurrentSaveGameVersion >= DRUG_SYSTEM_REDONE )
 					{
-						LoadDataBuffered(&this->usDynamicOpinionFlagmask, *ppBuffer, sizeof(usDynamicOpinionFlagmask), "MERCPROFILESTRUCT::usDynamicOpinionFlagmask");
+						LoadDataFromBuffer(&this->usDynamicOpinionFlagmask, *ppBuffer, sizeof(usDynamicOpinionFlagmask), "MERCPROFILESTRUCT::usDynamicOpinionFlagmask");
 					}
 					else
 					{
 						UINT32 tmp[NUM_PROFILES][5];
-						LoadDataBuffered(&tmp, *ppBuffer, sizeof(tmp), "MERCPROFILESTRUCT::tmp");
+						LoadDataFromBuffer(&tmp, *ppBuffer, sizeof(tmp), "MERCPROFILESTRUCT::tmp");
 
 						for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
 						{
@@ -2158,12 +2158,12 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 						}
 					}
 
-					LoadDataBuffered(&this->sDynamicOpinionLongTerm, *ppBuffer, sizeof(sDynamicOpinionLongTerm), "MERCPROFILESTRUCT::sDynamicOpinionLongTerm");
+					LoadDataFromBuffer(&this->sDynamicOpinionLongTerm, *ppBuffer, sizeof(sDynamicOpinionLongTerm), "MERCPROFILESTRUCT::sDynamicOpinionLongTerm");
 				}
 				else
 				{
 					UINT32 tmp[NUM_PROFILES][3];
-					LoadDataBuffered(&tmp, *ppBuffer, sizeof(tmp), "MERCPROFILESTRUCT::tmp2");
+					LoadDataFromBuffer(&tmp, *ppBuffer, sizeof(tmp), "MERCPROFILESTRUCT::tmp2");
 
 					for ( UINT16 profile = 0; profile < NUM_PROFILES; ++profile )
 					{
@@ -2186,29 +2186,29 @@ BOOLEAN MERCPROFILESTRUCT::LoadBuffer(CHAR8 **ppBuffer, bool forceLoadOldVersion
 			// Flugente: voice set
 			if ( guiCurrentSaveGameVersion >= SEPARATE_VOICESETS )
 			{
-				LoadDataBuffered(&this->usVoiceIndex, *ppBuffer, sizeof(UINT32), "MERCPROFILESTRUCT::usVoiceIndex");
+				LoadDataFromBuffer(&this->usVoiceIndex, *ppBuffer, sizeof(UINT32), "MERCPROFILESTRUCT::usVoiceIndex");
 			}
 
 			// Flugente: if this is a an case of older file, load from separate structure
 			if ( guiCurrentSaveGameVersion >= PROFILETYPE_STORED )
 			{
-				LoadDataBuffered(&this->Type, *ppBuffer, sizeof(UINT32), "MERCPROFILESTRUCT::Type");
+				LoadDataFromBuffer(&this->Type, *ppBuffer, sizeof(UINT32), "MERCPROFILESTRUCT::Type");
 			}
 
 			// rftr: growth modifiers
 			if ( guiCurrentSaveGameVersion >= GROWTH_MODIFIERS )
 			{
-                LoadDataBuffered(&this->bGrowthModifierLife, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierLife");
-                LoadDataBuffered(&this->bGrowthModifierStrength, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierStrength");
-                LoadDataBuffered(&this->bGrowthModifierAgility, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierAgility");
-                LoadDataBuffered(&this->bGrowthModifierDexterity, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierDexterity");
-                LoadDataBuffered(&this->bGrowthModifierWisdom, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierWisdom");
-                LoadDataBuffered(&this->bGrowthModifierMarksmanship, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMarksmanship");
-                LoadDataBuffered(&this->bGrowthModifierExplosive, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierExplosive");
-                LoadDataBuffered(&this->bGrowthModifierLeadership, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierLeadership");
-                LoadDataBuffered(&this->bGrowthModifierMedical, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMedical");
-                LoadDataBuffered(&this->bGrowthModifierMechanical, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMechanical");
-                LoadDataBuffered(&this->bGrowthModifierExpLevel, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierExpLevel");
+                LoadDataFromBuffer(&this->bGrowthModifierLife, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierLife");
+                LoadDataFromBuffer(&this->bGrowthModifierStrength, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierStrength");
+                LoadDataFromBuffer(&this->bGrowthModifierAgility, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierAgility");
+                LoadDataFromBuffer(&this->bGrowthModifierDexterity, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierDexterity");
+                LoadDataFromBuffer(&this->bGrowthModifierWisdom, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierWisdom");
+                LoadDataFromBuffer(&this->bGrowthModifierMarksmanship, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMarksmanship");
+                LoadDataFromBuffer(&this->bGrowthModifierExplosive, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierExplosive");
+                LoadDataFromBuffer(&this->bGrowthModifierLeadership, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierLeadership");
+                LoadDataFromBuffer(&this->bGrowthModifierMedical, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMedical");
+                LoadDataFromBuffer(&this->bGrowthModifierMechanical, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierMechanical");
+                LoadDataFromBuffer(&this->bGrowthModifierExpLevel, *ppBuffer, sizeof(INT8), "MERCPROFILESTRUCT::bGrowthModifierExpLevel");
 			}
 			else
 			{
@@ -2486,7 +2486,7 @@ UINT32 ReadFieldByFieldFromBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiFieldSiz
 
 	if(sampleBytesRead != uiBytesRead)	// if we need padding
 	{
-		if(!LoadDataBuffered(padding, pBuffer, (sampleBytesRead-uiBytesRead), "field padding"))
+		if(!LoadDataFromBuffer(padding, pBuffer, (sampleBytesRead-uiBytesRead), "field padding"))
 		{
 			// No memcpy happened; still advance the logical count so callers' padding loops
 			// make forward progress.  gfBufferLoadFailed aborts the load, and the grown count
@@ -2499,7 +2499,7 @@ UINT32 ReadFieldByFieldFromBuffer(CHAR8** ppBuffer, PTR pDest, UINT32 uiFieldSiz
 	}
 
 	// the actual buffer read
-	if(!LoadDataBuffered(pDest, pBuffer, uiFieldSize, "field by field data"))
+	if(!LoadDataFromBuffer(pDest, pBuffer, uiFieldSize, "field by field data"))
 	{
 		*ppBuffer = pBuffer;
 		return uiBytesRead + uiFieldSize;
@@ -4170,7 +4170,7 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 		//	padding bytes
 		while ( (numBytesRead % __alignof(STRUCT_AIData)) > 0 )
 		{
-			if ( !LoadDataBuffered(&padding, *ppBuffer, 1, "AIData padding") )
+			if ( !LoadDataFromBuffer(&padding, *ppBuffer, 1, "AIData padding") )
 			{
 				break;
 			}
@@ -4187,15 +4187,15 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 			return(FALSE);
 
 		//Load STRUCT_Flags
-		if ( !LoadDataBuffered(&this->flags, *ppBuffer, sizeof(STRUCT_Flags), "STRUCT_Flags") )
+		if ( !LoadDataFromBuffer(&this->flags, *ppBuffer, sizeof(STRUCT_Flags), "STRUCT_Flags") )
 		{
 			return(FALSE);
 		}
-		if ( !LoadDataBuffered(&this->timeChanges, *ppBuffer, sizeof(STRUCT_TimeChanges), "STRUCT_TimeChanges") )
+		if ( !LoadDataFromBuffer(&this->timeChanges, *ppBuffer, sizeof(STRUCT_TimeChanges), "STRUCT_TimeChanges") )
 		{
 			return(FALSE);
 		}
-		if ( !LoadDataBuffered(&this->timeCounters, *ppBuffer, sizeof(STRUCT_TimeCounters), "STRUCT_TimeCounters") )
+		if ( !LoadDataFromBuffer(&this->timeCounters, *ppBuffer, sizeof(STRUCT_TimeCounters), "STRUCT_TimeCounters") )
 		{
 			return(FALSE);
 		}
@@ -4204,7 +4204,7 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 		{
 			// read old drugs with a dummy structure of the old structs size (192)
 			UINT8 tmp[192];
-			if ( !LoadDataBuffered(&tmp, *ppBuffer, sizeof(tmp), "old drugs") )
+			if ( !LoadDataFromBuffer(&tmp, *ppBuffer, sizeof(tmp), "old drugs") )
 			{
 				return(FALSE);
 			}
@@ -4216,7 +4216,7 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 		}
 		else
 		{
-			if ( !LoadDataBuffered(&this->newdrugs, *ppBuffer, sizeof(DRUGS), "STRUCT_NewDrugs") )
+			if ( !LoadDataFromBuffer(&this->newdrugs, *ppBuffer, sizeof(DRUGS), "STRUCT_NewDrugs") )
 			{
 				return(FALSE);
 			}
@@ -4277,7 +4277,7 @@ BOOLEAN SOLDIERTYPE::LoadBuffer(CHAR8** ppBuffer)
 		if ( numBytesRead != sizeof(STRUCT_Statistics) )
 			return(FALSE);
 
-		if ( !LoadDataBuffered(&this->pathing, *ppBuffer, sizeof(STRUCT_Pathing), "STRUCT_Pathing") )
+		if ( !LoadDataFromBuffer(&this->pathing, *ppBuffer, sizeof(STRUCT_Pathing), "STRUCT_Pathing") )
 		{
 			return(FALSE);
 		}
@@ -4566,11 +4566,11 @@ BOOLEAN StackedObjectData::LoadBuffer(CHAR8** ppBuffer)
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		int size;
-		if ( !LoadDataBuffered(&(this->data), *ppBuffer, sizeof(ObjectData), "StackedObjectData data") )
+		if ( !LoadDataFromBuffer(&(this->data), *ppBuffer, sizeof(ObjectData), "StackedObjectData data") )
 		{
 			return(FALSE);
 		}
-		if ( !LoadDataBuffered(&size, *ppBuffer, sizeof(int), "StackedObjectData size") )
+		if ( !LoadDataFromBuffer(&size, *ppBuffer, sizeof(int), "StackedObjectData size") )
 		{
 			return(FALSE);
 		}
@@ -4708,11 +4708,11 @@ BOOLEAN OBJECTTYPE::LoadBuffer(CHAR8** ppBuffer)
 	if ( guiCurrentSaveGameVersion >= NIV_SAVEGAME_DATATYPE_CHANGE )
 	{
 		int size;
-		if ( !LoadDataBuffered(this, *ppBuffer, SIZEOF_OBJECTTYPE_POD, "OBJECTTYPE") )
+		if ( !LoadDataFromBuffer(this, *ppBuffer, SIZEOF_OBJECTTYPE_POD, "OBJECTTYPE") )
 		{
 			return(FALSE);
 		}
-		if ( !LoadDataBuffered(&size, *ppBuffer, sizeof(int), "OBJECTTYPE size") )
+		if ( !LoadDataFromBuffer(&size, *ppBuffer, sizeof(int), "OBJECTTYPE size") )
 		{
 			return(FALSE);
 		}
@@ -4740,7 +4740,7 @@ BOOLEAN OBJECTTYPE::LoadBuffer(CHAR8** ppBuffer)
 	else
 	{
 		OLD_OBJECTTYPE_101 OldSavedObject101;
-		if ( !LoadDataBuffered(&OldSavedObject101, *ppBuffer, sizeof(OLD_OBJECTTYPE_101), "OldSavedObject101") )
+		if ( !LoadDataFromBuffer(&OldSavedObject101, *ppBuffer, sizeof(OLD_OBJECTTYPE_101), "OldSavedObject101") )
 		{
 			return(FALSE);
 		}
@@ -4891,7 +4891,7 @@ BOOLEAN Inventory::Load( HWFILE hFile )
 BOOLEAN Inventory::LoadBuffer(CHAR8** hBuffer)
 {
 	int sizeInventory;
-	LoadDataBuffered(&sizeInventory, *hBuffer, sizeof(int), "sizeInventory");
+	LoadDataFromBuffer(&sizeInventory, *hBuffer, sizeof(int), "sizeInventory");
 	if ( gfBufferLoadFailed || sizeInventory < 0 || sizeInventory > NUM_INV_SLOTS )
 	{
 		return(FALSE);
@@ -4908,8 +4908,8 @@ BOOLEAN Inventory::LoadBuffer(CHAR8** hBuffer)
 			return FALSE;
 		}
 
-		LoadDataBuffered(&bNewItemCount[x], *hBuffer, sizeof(int), "Inventory::bNewItemCount");
-		LoadDataBuffered(&bNewItemCycleCount[x], *hBuffer, sizeof(int), "Inventory::bNewItemCycleCount");
+		LoadDataFromBuffer(&bNewItemCount[x], *hBuffer, sizeof(int), "Inventory::bNewItemCount");
+		LoadDataFromBuffer(&bNewItemCycleCount[x], *hBuffer, sizeof(int), "Inventory::bNewItemCycleCount");
 	}
 	return TRUE;
 }
@@ -6337,7 +6337,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 
 	//Load the Save Game header file
-	if ( !LoadDataBuffered(&SaveGameHeader, fileBuffer, sizeof(SAVED_GAME_HEADER), gpLoadBufferStart, giLoadBufferSize, "SaveGameHeader") )
+	if ( !LoadDataFromBuffer(&SaveGameHeader, fileBuffer, sizeof(SAVED_GAME_HEADER), gpLoadBufferStart, giLoadBufferSize, "SaveGameHeader") )
 	{
 		DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("Loading SAVED_GAME_HEADER failed"));
 		MemFree(gpLoadBufferStart);
@@ -6358,7 +6358,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 
 	if(guiCurrentSaveGameVersion >= MOVED_GENERAL_INFO)
 	{
-		if ( !LoadDataBuffered(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS), gpLoadBufferStart, giLoadBufferSize, "gGameOptions") )
+		if ( !LoadDataFromBuffer(&gGameOptions, fileBuffer, sizeof(GAME_OPTIONS), gpLoadBufferStart, giLoadBufferSize, "gGameOptions") )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("Loading GAME_OPTIONS failed"));
 			MemFree(gpLoadBufferStart);
@@ -8420,7 +8420,7 @@ BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
 		RenderProgressBar(0, uiPercentage);
 
 		//Read in a byte to tell us whether or not there is a soldier loaded here.
-		if ( !LoadDataBuffered(&ubActive, *ppBuffer, 1, "Soldier active flag") )
+		if ( !LoadDataFromBuffer(&ubActive, *ppBuffer, 1, "Soldier active flag") )
 		{
 			return(FALSE);
 		}
@@ -8471,7 +8471,7 @@ BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
 			//
 
 			// Read the file to see if we have to load the keys
-			if ( !LoadDataBuffered(&ubOne, *ppBuffer, 1, "Soldier keys present") )
+			if ( !LoadDataFromBuffer(&ubOne, *ppBuffer, 1, "Soldier keys present") )
 			{
 				return(FALSE);
 			}
@@ -8482,14 +8482,14 @@ BOOLEAN LoadSoldierStructureBuffer(CHAR8** ppBuffer)
 				// Now Load the ....
 				if ( guiCurrentSaveGameVersion < MORE_LOCKS_AND_KEYS )
 				{
-					if ( !LoadDataBuffered(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS_OLD * sizeof(KEY_ON_RING), "Keys old") )
+					if ( !LoadDataFromBuffer(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS_OLD * sizeof(KEY_ON_RING), "Keys old") )
 					{
 						return(FALSE);
 					}
 				}
 				else
 				{
-					if ( !LoadDataBuffered(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS * sizeof(KEY_ON_RING), "Keys") )
+					if ( !LoadDataFromBuffer(Menptr[cnt].pKeyRing, *ppBuffer, NUM_KEYS * sizeof(KEY_ON_RING), "Keys") )
 					{
 						return(FALSE);
 					}
@@ -8770,7 +8770,7 @@ BOOLEAN LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer)
 	}
 
 	// Read the size of the data 
-	if ( !LoadDataBuffered(&uiFileSize, *ppBuffer, sizeof(UINT32), "Temp file size") )
+	if ( !LoadDataFromBuffer(&uiFileSize, *ppBuffer, sizeof(UINT32), "Temp file size") )
 	{
 		FileClose(hSrcFile);
 		return(FALSE);
@@ -8792,7 +8792,7 @@ BOOLEAN LoadFilesFromSavedGameBuffer(STR pSrcFileName, CHAR8** ppBuffer)
 	}
 
 	// Read into the buffer
-	if ( !LoadDataBuffered(pData, *ppBuffer, (INT32)uiFileSize, "Temp file data") )
+	if ( !LoadDataFromBuffer(pData, *ppBuffer, (INT32)uiFileSize, "Temp file data") )
 	{
 		//Free the buffer
 		MemFree(pData);
@@ -8934,7 +8934,7 @@ BOOLEAN LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer)
 	memset(pEmailList, 0, sizeof(Email));
 
 	//read in the number of email messages
-	if ( !LoadDataBuffered(&uiNumOfEmails, *ppBuffer, sizeof(UINT32), "Num of emails") )
+	if ( !LoadDataFromBuffer(&uiNumOfEmails, *ppBuffer, sizeof(UINT32), "Num of emails") )
 		return(FALSE);
 
 	//loop through all the emails, add each one individually
@@ -8942,7 +8942,7 @@ BOOLEAN LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer)
 	for ( cnt = 0; cnt < uiNumOfEmails; cnt++ )
 	{
 		//get the length of the email subject
-		if ( !LoadDataBuffered(&uiSizeOfSubject, *ppBuffer, sizeof(UINT32), "Email subject size") )
+		if ( !LoadDataFromBuffer(&uiSizeOfSubject, *ppBuffer, sizeof(UINT32), "Email subject size") )
 			return(FALSE);
 
 		//allocate space for the subject
@@ -8952,7 +8952,7 @@ BOOLEAN LoadEmailFromSavedGameBuffer(CHAR8** ppBuffer)
 		memset(pData, 0, EMAIL_SUBJECT_LENGTH * sizeof(CHAR16));
 
 		//Get the subject
-		if ( !LoadDataBuffered(pData, *ppBuffer, uiSizeOfSubject, "Email subject") )
+		if ( !LoadDataFromBuffer(pData, *ppBuffer, uiSizeOfSubject, "Email subject") )
 			return(FALSE);
 
 		//CHRISL: Adjust this so we can change the SavedEmailStruct without hurting savegame compatability
@@ -9300,9 +9300,9 @@ BOOLEAN LoadTacticalStatusFromSavedGameBuffer(CHAR8** ppBuffer)
 	//
 	//Load the current sector location to the saved game file
 	//
-	LoadDataBuffered(&gWorldSectorX, *ppBuffer, sizeof(gWorldSectorX), "WorldSectorX");
-	LoadDataBuffered(&gWorldSectorY, *ppBuffer, sizeof(gWorldSectorY), "WorldSectorY");
-	LoadDataBuffered(&gbWorldSectorZ, *ppBuffer, sizeof(gbWorldSectorZ), "WorldSectorZ");
+	LoadDataFromBuffer(&gWorldSectorX, *ppBuffer, sizeof(gWorldSectorX), "WorldSectorX");
+	LoadDataFromBuffer(&gWorldSectorY, *ppBuffer, sizeof(gWorldSectorY), "WorldSectorY");
+	LoadDataFromBuffer(&gbWorldSectorZ, *ppBuffer, sizeof(gbWorldSectorZ), "WorldSectorZ");
 
 	return(TRUE);
 }
@@ -9429,42 +9429,42 @@ BOOLEAN LoadOppListInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 
 	// Load the Public Opplist
 	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gbPublicOpplist, *ppBuffer, uiLoadSize, "Public Opplist") )
+	if ( !LoadDataFromBuffer(gbPublicOpplist, *ppBuffer, uiLoadSize, "Public Opplist") )
 		return(FALSE);
 
 	// Load the Seen Opponents
 	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gbSeenOpponents, *ppBuffer, uiLoadSize, "Seen Opponents") )
+	if ( !LoadDataFromBuffer(gbSeenOpponents, *ppBuffer, uiLoadSize, "Seen Opponents") )
 		return(FALSE);
 
 	// Load the Last Known Opp Locations
 	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gsLastKnownOppLoc, *ppBuffer, uiLoadSize, "Last Known Opp Locations") )
+	if ( !LoadDataFromBuffer(gsLastKnownOppLoc, *ppBuffer, uiLoadSize, "Last Known Opp Locations") )
 		return(FALSE);
 
 	// Load the Last Known Opp Level
 	uiLoadSize = TOTAL_SOLDIERS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gbLastKnownOppLevel, *ppBuffer, uiLoadSize, "Last Known Opp Level") )
+	if ( !LoadDataFromBuffer(gbLastKnownOppLevel, *ppBuffer, uiLoadSize, "Last Known Opp Level") )
 		return(FALSE);
 
 	// Load the Public Last Known Opp Locations
 	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gsPublicLastKnownOppLoc, *ppBuffer, uiLoadSize, "Public Last Known Opp Locations") )
+	if ( !LoadDataFromBuffer(gsPublicLastKnownOppLoc, *ppBuffer, uiLoadSize, "Public Last Known Opp Locations") )
 		return(FALSE);
 
 	// Load the Public Last Known Opp Level
 	uiLoadSize = MAXTEAMS * TOTAL_SOLDIERS;
-	if ( !LoadDataBuffered(gbPublicLastKnownOppLevel, *ppBuffer, uiLoadSize, "Public Last Known Opp Level") )
+	if ( !LoadDataFromBuffer(gbPublicLastKnownOppLevel, *ppBuffer, uiLoadSize, "Public Last Known Opp Level") )
 		return(FALSE);
 
 	// Load the Public Noise Volume
 	uiLoadSize = MAXTEAMS;
-	if ( !LoadDataBuffered(gubPublicNoiseVolume, *ppBuffer, uiLoadSize, "Public Noise Volume") )
+	if ( !LoadDataFromBuffer(gubPublicNoiseVolume, *ppBuffer, uiLoadSize, "Public Noise Volume") )
 		return(FALSE);
 
 	// Load the Public Last Noise Gridno
 	uiLoadSize = MAXTEAMS;
-	if ( !LoadDataBuffered(gsPublicNoiseGridNo, *ppBuffer, uiLoadSize, "Public Noise GridNo") )
+	if ( !LoadDataFromBuffer(gsPublicNoiseGridNo, *ppBuffer, uiLoadSize, "Public Noise GridNo") )
 		return(FALSE);
 
 	return(TRUE);
@@ -9514,15 +9514,15 @@ BOOLEAN LoadWatchedLocsFromSavedGameBuffer(CHAR8** ppBuffer)
 {
 	UINT32 uiArraySize = TOTAL_SOLDIERS * NUM_WATCHED_LOCS;
 	UINT32 uiLoadSize = uiArraySize * sizeof(INT16);
-	if ( !LoadDataBuffered(gsWatchedLoc, *ppBuffer, uiLoadSize, "Watched Loc") )
+	if ( !LoadDataFromBuffer(gsWatchedLoc, *ppBuffer, uiLoadSize, "Watched Loc") )
 		return(FALSE);
 
 	uiLoadSize = uiArraySize * sizeof(INT8);
-	if ( !LoadDataBuffered(gbWatchedLocLevel, *ppBuffer, uiLoadSize, "Watched Loc Level") )
+	if ( !LoadDataFromBuffer(gbWatchedLocLevel, *ppBuffer, uiLoadSize, "Watched Loc Level") )
 		return(FALSE);
-	if ( !LoadDataBuffered(gubWatchedLocPoints, *ppBuffer, uiLoadSize, "Watched Loc Points") )
+	if ( !LoadDataFromBuffer(gubWatchedLocPoints, *ppBuffer, uiLoadSize, "Watched Loc Points") )
 		return(FALSE);
-	if ( !LoadDataBuffered(gfWatchedLocReset, *ppBuffer, uiLoadSize, "Watched Loc Reset") )
+	if ( !LoadDataFromBuffer(gfWatchedLocReset, *ppBuffer, uiLoadSize, "Watched Loc Reset") )
 		return(FALSE);
 
 
@@ -9621,7 +9621,7 @@ BOOLEAN LoadMercPathToSoldierStructBuffer(CHAR8** ppBuffer, UINT16 ubID)
 	UINT32	cnt;
 
 	//Load the number of the nodes
-	if ( !LoadDataBuffered(&uiNumOfNodes, *ppBuffer, sizeof(UINT32), "Merc Path Num Nodes") )
+	if ( !LoadDataFromBuffer(&uiNumOfNodes, *ppBuffer, sizeof(UINT32), "Merc Path Num Nodes") )
 		return(FALSE);
 
 	//load all the nodes
@@ -9639,7 +9639,7 @@ BOOLEAN LoadMercPathToSoldierStructBuffer(CHAR8** ppBuffer, UINT16 ubID)
 		memset(pTemp, 0, sizeof(PathSt));
 
 		//Load the node
-		LoadDataBuffered(pTemp, *ppBuffer, sizeof(PathSt), "Merc Path Node");
+		LoadDataFromBuffer(pTemp, *ppBuffer, sizeof(PathSt), "Merc Path Node");
 		if ( gfBufferLoadFailed )
 		{
 				//could not load node
@@ -10659,18 +10659,18 @@ BOOLEAN SavePreRandomNumbersToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadPreRandomNumbersFromSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	//Load the Prerandom number index
-	if ( !LoadDataBuffered(&guiPreRandomIndex, *ppBuffer, sizeof(UINT32), "PreRandom Index") )
+	if ( !LoadDataFromBuffer(&guiPreRandomIndex, *ppBuffer, sizeof(UINT32), "PreRandom Index") )
 		return(FALSE);
 
 #ifndef BMP_RANDOM//dnl ch55 111009
 	//Load the Prerandom number index
 	for ( std::vector<UINT32>::iterator iter = guiPreRandomNums.begin();
 		iter != guiPreRandomNums.end(); ++iter ) {
-		if ( !LoadDataBuffered(&*iter, *ppBuffer, sizeof(UINT32), "PreRandom Num") )
+		if ( !LoadDataFromBuffer(&*iter, *ppBuffer, sizeof(UINT32), "PreRandom Num") )
 			return(FALSE);
 	}
 #else
-	if ( !LoadDataBuffered(guiPreRandomNums, *ppBuffer, sizeof(UINT32) * MAX_PREGENERATED_NUMS, "PreRandom Nums") )
+	if ( !LoadDataFromBuffer(guiPreRandomNums, *ppBuffer, sizeof(UINT32) * MAX_PREGENERATED_NUMS, "PreRandom Nums") )
 		return(FALSE);
 #endif
 	return(TRUE);
@@ -10682,7 +10682,7 @@ BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	if ( guiCurrentSaveGameVersion < 72 )
 	{
 		//Load the array of meanwhile defs
-		if ( !LoadDataBuffered(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * (NUM_MEANWHILES - 1), "Meanwhile Defs") )
+		if ( !LoadDataFromBuffer(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * (NUM_MEANWHILES - 1), "Meanwhile Defs") )
 			return(FALSE);
 		// and set the last one
 		memset(&(gMeanwhileDef[NUM_MEANWHILES - 1]), 0, sizeof(MEANWHILE_DEFINITION));
@@ -10691,7 +10691,7 @@ BOOLEAN LoadMeanwhileDefsFromSaveGameFileBuffer(CHAR8** ppBuffer)
 	else
 	{
 		//Load the array of meanwhile defs
-		if ( !LoadDataBuffered(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * NUM_MEANWHILES, "Meanwhile Defs") )
+		if ( !LoadDataFromBuffer(gMeanwhileDef, *ppBuffer, sizeof(MEANWHILE_DEFINITION) * NUM_MEANWHILES, "Meanwhile Defs") )
 			return(FALSE);
 	}
 

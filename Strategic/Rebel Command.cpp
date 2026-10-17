@@ -4089,7 +4089,7 @@ BOOLEAN LoadBuffer(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= REBELCOMMAND )
 	{
-		if ( !LoadDataBuffered(&rebelCommandSaveInfo, *ppBuffer, sizeof(RebelCommand::SaveInfo), "Rebel Command SaveInfo") )
+		if ( !LoadDataFromBuffer(&rebelCommandSaveInfo, *ppBuffer, sizeof(RebelCommand::SaveInfo), "Rebel Command SaveInfo") )
 		{
 			return(FALSE);
 		}

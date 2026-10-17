@@ -2871,7 +2871,7 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
 	ShutDownBobbyRNewMailOrders();
 
 	//Read the number of orders
-	if ( !LoadDataBuffered(&giNumberOfNewBobbyRShipment, *ppBuffer, sizeof(INT32), "BobbyR Num Shipments") )
+	if ( !LoadDataFromBuffer(&giNumberOfNewBobbyRShipment, *ppBuffer, sizeof(INT32), "BobbyR Num Shipments") )
 	{
 		return(FALSE);
 	}
@@ -2896,7 +2896,7 @@ BOOLEAN NewWayOfLoadingBobbyRMailOrdersToSaveGameFileBuffer(CHAR8** ppBuffer)
 		for ( iCnt = 0; iCnt < giNumberOfNewBobbyRShipment; iCnt++ )
 		{
 			//Read the order
-			if ( !LoadDataBuffered(&gpNewBobbyrShipments[iCnt], *ppBuffer, sizeof(NewBobbyRayOrderStruct), "BobbyR Mail Order") )
+			if ( !LoadDataFromBuffer(&gpNewBobbyrShipments[iCnt], *ppBuffer, sizeof(NewBobbyRayOrderStruct), "BobbyR Mail Order") )
 			{
 				return(FALSE);
 			}

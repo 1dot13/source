@@ -1232,7 +1232,7 @@ BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 
 	// Load in the squad info
 	uiSaveSize = sizeof(SAVE_SQUAD_INFO_STRUCT) * NUMBER_OF_SQUADS * NUMBER_OF_SOLDIERS_PER_SQUAD;
-	if (!LoadDataBuffered(sSquadSaveStruct, *ppBuffer, uiSaveSize, "SAVE_SQUAD_INFO_STRUCT"))
+	if (!LoadDataFromBuffer(sSquadSaveStruct, *ppBuffer, uiSaveSize, "SAVE_SQUAD_INFO_STRUCT"))
 	{
 		return false;
 	}
@@ -1250,7 +1250,7 @@ BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 	}
 
 	//Load in the Squad movement id's
-	if (!LoadDataBuffered(SquadMovementGroups, *ppBuffer, sizeof(INT8) * NUMBER_OF_SQUADS, "SquadMovementGroups"))
+	if (!LoadDataFromBuffer(SquadMovementGroups, *ppBuffer, sizeof(INT8) * NUMBER_OF_SQUADS, "SquadMovementGroups"))
 	{
 		return false;
 	}

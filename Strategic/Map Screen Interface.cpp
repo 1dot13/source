@@ -6962,7 +6962,7 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
 	{
 		// load the flag that specifis that a node DOES exist
-		if ( !LoadDataBuffered(&fNodeExists, *ppBuffer, sizeof(BOOLEAN), "Leave List Node Exists") )
+		if ( !LoadDataFromBuffer(&fNodeExists, *ppBuffer, sizeof(BOOLEAN), "Leave List Node Exists") )
 		{
 			return(FALSE);
 		}
@@ -6971,7 +6971,7 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 		if ( fNodeExists )
 		{
 			// load the number specifing how many items there are in the list
-			if ( !LoadDataBuffered(&uiCount, *ppBuffer, sizeof(UINT32), "Leave List Item Count") )
+			if ( !LoadDataFromBuffer(&uiCount, *ppBuffer, sizeof(UINT32), "Leave List Item Count") )
 			{
 				return(FALSE);
 			}
@@ -7026,7 +7026,7 @@ BOOLEAN LoadLeaveItemListBuffer(CHAR8** ppBuffer)
 	//Load the leave list profile id's
 	for ( iCounter = 0; iCounter < NUM_LEAVE_LIST_SLOTS; iCounter++ )
 	{
-		if ( !LoadDataBuffered(&guiLeaveListOwnerProfileId[iCounter], *ppBuffer, sizeof(UINT32), "Leave List Owner Profile Id") )
+		if ( !LoadDataFromBuffer(&guiLeaveListOwnerProfileId[iCounter], *ppBuffer, sizeof(UINT32), "Leave List Owner Profile Id") )
 		{
 			return(FALSE);
 		}

@@ -115,13 +115,13 @@ BOOLEAN SaveContractRenewalDataToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadContractRenewalDataFromSaveGameFileBuffer(CHAR8** ppBuffer)
 {
 	for ( int idx = 0; idx < giMAXIMUM_NUMBER_OF_PLAYER_SLOTS; idx++ ) {
-		if ( !LoadDataBuffered(&ContractRenewalList[idx], *ppBuffer, sizeof(CONTRACT_NEWAL_LIST_NODE), "Contract Renewal Node") )
+		if ( !LoadDataFromBuffer(&ContractRenewalList[idx], *ppBuffer, sizeof(CONTRACT_NEWAL_LIST_NODE), "Contract Renewal Node") )
 		{
 			return(FALSE);
 		}
 	}
 
-	if ( !LoadDataBuffered(&ubNumContractRenewals, *ppBuffer, sizeof(ubNumContractRenewals), "Num Contract Renewals") )
+	if ( !LoadDataFromBuffer(&ubNumContractRenewals, *ppBuffer, sizeof(ubNumContractRenewals), "Num Contract Renewals") )
 	{
 		return(FALSE);
 	}

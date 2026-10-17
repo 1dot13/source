@@ -753,7 +753,7 @@ BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
 
 
 	//Read the number of strategic events
-	if (!LoadDataBuffered(&uiNumGameEvents, *ppBuffer, sizeof(UINT32), "uiNumGameEvents"))
+	if (!LoadDataFromBuffer(&uiNumGameEvents, *ppBuffer, sizeof(UINT32), "uiNumGameEvents"))
 	{
 		return false;
 	}
@@ -770,7 +770,7 @@ BOOLEAN LoadStrategicEventsFromSavedGameBuffer(CHAR8** ppBuffer)
 		sGameEvent = (STRATEGICEVENT*)MemAlloc(sizeof(STRATEGICEVENT));
 
 		//Read the current strategic event
-		if ( sGameEvent == NULL || !LoadDataBuffered(sGameEvent, *ppBuffer, sizeof(STRATEGICEVENT), "sGameEvent") )
+		if ( sGameEvent == NULL || !LoadDataFromBuffer(sGameEvent, *ppBuffer, sizeof(STRATEGICEVENT), "sGameEvent") )
 		{
 			gfBufferLoadFailed = true;
 			break;

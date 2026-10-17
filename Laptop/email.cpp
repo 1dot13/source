@@ -6283,7 +6283,7 @@ BOOLEAN LoadNewEmailDataFromLoadGameFileBuffer(CHAR8** ppBuffer)
 	UINT32	uiNumOfEmails = 0;
 	EmailPtr	pEmail = pEmailList;
 
-	if ( !LoadDataBuffered(&gEmailT, *ppBuffer, sizeof(gEmailT), "gEmailT") )
+	if ( !LoadDataFromBuffer(&gEmailT, *ppBuffer, sizeof(gEmailT), "gEmailT") )
 	{
 		return(FALSE);
 	}

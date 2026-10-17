@@ -1157,7 +1157,7 @@ BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer)
 	BOOLEAN briefingroomreadingdone = FALSE;
 
 	//Briefing room
-	if ( !LoadDataBuffered(&saveBriefingRoomData, *ppBuffer, sizeof(saveBriefingRoomData), "saveBriefingRoomData") )
+	if ( !LoadDataFromBuffer(&saveBriefingRoomData, *ppBuffer, sizeof(saveBriefingRoomData), "saveBriefingRoomData") )
 	{
 		return(FALSE);
 	}
@@ -1184,7 +1184,7 @@ BOOLEAN LoadBriefingRoomFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		}
 
 		//Briefing room , special mission
-		if ( !LoadDataBuffered(&saveBriefingRoomSpecialMissionData, *ppBuffer, sizeof(saveBriefingRoomSpecialMissionData), "saveBriefingRoomSpecialMissionData") )
+		if ( !LoadDataFromBuffer(&saveBriefingRoomSpecialMissionData, *ppBuffer, sizeof(saveBriefingRoomSpecialMissionData), "saveBriefingRoomSpecialMissionData") )
 		{
 			return(FALSE);
 		}

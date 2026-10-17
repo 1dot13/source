@@ -3246,7 +3246,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 	for ( cnt = 0; cnt < uiNumberToLoad; cnt++ )
 	{
 		//Load a byte specify that there is an npc quote Loadd
-		LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPC quote flag");
+		LoadDataFromBuffer(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPC quote flag");
 
 		//if there is an existing quote
 		if ( gpNPCQuoteInfoArray[cnt] )
@@ -3352,7 +3352,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 	{
 		for ( cnt = 0; cnt < NUM_CIVQUOTE_SECTORS; cnt++ )
 		{
-			if ( !LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPCInfo old quote") )
+			if ( !LoadDataFromBuffer(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "NPCInfo old quote") )
 			{
 				break;
 			}
@@ -3382,7 +3382,7 @@ BOOLEAN LoadNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameVe
 				}
 
 				//Load the civ quote entry
-				if (!LoadDataBuffered(gpCivQuoteInfoArray[cnt], *ppBuffer, sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS, "NPCInfo old quote entry"))
+				if (!LoadDataFromBuffer(gpCivQuoteInfoArray[cnt], *ppBuffer, sizeof(NPCQuoteInfo) * NUM_NPC_QUOTE_RECORDS, "NPCInfo old quote entry"))
 				{
 					break;
 				}
@@ -3544,7 +3544,7 @@ BOOLEAN LoadBackupNPCInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSave
 	for ( cnt = 0; cnt < uiNumberOfProfilesToLoad; cnt++ )
 	{
 		//Load a byte specify that there is an npc quote Loadd
-		if ( !LoadDataBuffered(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "ubLoadQuote") )
+		if ( !LoadDataFromBuffer(&ubLoadQuote, *ppBuffer, sizeof(UINT8), "ubLoadQuote") )
 		{
 			return(FALSE);
 		}

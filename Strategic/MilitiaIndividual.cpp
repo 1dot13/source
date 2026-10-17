@@ -160,7 +160,7 @@ BOOLEAN MILITIA::LoadBuffer(CHAR8** ppBuffer)
 		for ( UINT32 i = 0; i < size; ++i )
 		{
 			MILITIA_BATTLEREPORT data;
-			if ( !LoadDataBuffered(&data, *ppBuffer, sizeof(MILITIA_BATTLEREPORT), "Militia Battle Report") )
+			if ( !LoadDataFromBuffer(&data, *ppBuffer, sizeof(MILITIA_BATTLEREPORT), "Militia Battle Report") )
 			{
 				return(FALSE);
 			}

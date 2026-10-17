@@ -11086,7 +11086,7 @@ BOOLEAN SaveLuaGlobalToSaveGameFile(HWFILE hFile)
 
 BOOLEAN LoadLuaGlobalFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
-	if ( !LoadDataBuffered(&gLuaGlobal, *ppBuffer, sizeof(gLuaGlobal), "gLuaGlobal") )
+	if ( !LoadDataFromBuffer(&gLuaGlobal, *ppBuffer, sizeof(gLuaGlobal), "gLuaGlobal") )
 	{
 		return(FALSE);
 	}

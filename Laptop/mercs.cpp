@@ -349,7 +349,7 @@ BOOLEAN LoadNewMercsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
 	CONTITION_FOR_MERC_AVAILABLE ConditionsForMercAvailabilityLoad[NUM_PROFILES];
 
-	if ( !LoadDataBuffered(&ConditionsForMercAvailabilityLoad, *ppBuffer, sizeof(ConditionsForMercAvailabilityLoad), "ConditionsForMercAvailabilityLoad") )
+	if ( !LoadDataFromBuffer(&ConditionsForMercAvailabilityLoad, *ppBuffer, sizeof(ConditionsForMercAvailabilityLoad), "ConditionsForMercAvailabilityLoad") )
 	{
 		return(FALSE);
 	}

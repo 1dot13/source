@@ -7926,17 +7926,17 @@ BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile )
 
 BOOLEAN LoadHiddenTownFromLoadGameFileBuffer(CHAR8** ppBuffer)
 {
-	if ( !LoadDataBuffered(&gfHiddenTown, *ppBuffer, sizeof(gfHiddenTown), "gfHiddenTown") )
+	if ( !LoadDataFromBuffer(&gfHiddenTown, *ppBuffer, sizeof(gfHiddenTown), "gfHiddenTown") )
 	{
 		return(FALSE);
 	}
 
-	if ( !LoadDataBuffered(&gfDrawHiddenTown, *ppBuffer, sizeof(gfDrawHiddenTown), "gfDrawHiddenTown") )
+	if ( !LoadDataFromBuffer(&gfDrawHiddenTown, *ppBuffer, sizeof(gfDrawHiddenTown), "gfDrawHiddenTown") )
 	{
 		return(FALSE);
 	}
 
-	if ( !LoadDataBuffered(&gfIconTown, *ppBuffer, sizeof(gfIconTown), "gfIconTown") )
+	if ( !LoadDataFromBuffer(&gfIconTown, *ppBuffer, sizeof(gfIconTown), "gfIconTown") )
 	{
 		return(FALSE);
 	}

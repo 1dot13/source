@@ -371,7 +371,7 @@ BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
 
 
 	uiNumBytesToRead = sizeof(UINT8);
-	if ( !LoadDataBuffered(&ubNum, *ppBuffer, uiNumBytesToRead, "Schedule Count") )
+	if ( !LoadDataFromBuffer(&ubNum, *ppBuffer, uiNumBytesToRead, "Schedule Count") )
 	{
 		return(FALSE);
 	}
@@ -383,7 +383,7 @@ BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
 	while ( ubRealNum )
 	{
 		uiNumBytesToRead = sizeof(SCHEDULENODE);
-		if ( !LoadDataBuffered(&temp, *ppBuffer, uiNumBytesToRead, "Schedule Node") )
+		if ( !LoadDataFromBuffer(&temp, *ppBuffer, uiNumBytesToRead, "Schedule Node") )
 		{
 			return(FALSE);
 		}

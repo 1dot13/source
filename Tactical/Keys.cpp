@@ -2044,7 +2044,7 @@ BOOLEAN LoadKeyTableFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSaveGameV
 	}
 
 	// Load the KeyTable
-	if (!LoadDataBuffered(KeyTable, *ppBuffer, size, "KeyTable"))
+	if (!LoadDataFromBuffer(KeyTable, *ppBuffer, size, "KeyTable"))
 	{
 		return false;
 	}

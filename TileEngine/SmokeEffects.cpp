@@ -895,13 +895,13 @@ BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		memset(gSmokeEffectData, 0, sizeof(SMOKEEFFECT) * NUM_SMOKE_EFFECT_SLOTS);
 
 		//Load the Number of Smoke Effects
-		LoadDataBuffered(&guiNumSmokeEffects, *ppBuffer, sizeof(UINT32), "guiNumSmokeEffects");
+		LoadDataFromBuffer(&guiNumSmokeEffects, *ppBuffer, sizeof(UINT32), "guiNumSmokeEffects");
 
 		//This is a TEMP hack to allow us to use the saves
 		if ( guiCurrentSaveGameVersion < 37 && guiNumSmokeEffects == 0 )
 		{
 			//Load the Smoke effect Data
-			LoadDataBuffered(gSmokeEffectData, *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
+			LoadDataFromBuffer(gSmokeEffectData, *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
 		}
 
 
@@ -909,7 +909,7 @@ BOOLEAN LoadSmokeEffectsFromLoadGameFileBuffer(CHAR8** ppBuffer)
 		for ( uiCnt = 0; uiCnt < guiNumSmokeEffects; uiCnt++ )
 		{
 			//Load the Smoke effect Data
-			LoadDataBuffered(&gSmokeEffectData[uiCnt], *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
+			LoadDataFromBuffer(&gSmokeEffectData[uiCnt], *ppBuffer, sizeof(SMOKEEFFECT), "gSmokeEffectData");
 
 			//This is a TEMP hack to allow us to use the saves
 			if ( guiCurrentSaveGameVersion < 37 )

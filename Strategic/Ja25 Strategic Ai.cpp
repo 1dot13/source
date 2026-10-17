@@ -1131,17 +1131,17 @@ BOOLEAN SaveJa25SaveInfoToSaveGame( HWFILE hFile )
 
 BOOLEAN LoadJa25SaveInfoFromSavedGameBuffer(CHAR8** ppBuffer)
 {
-	LoadDataBuffered(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO), "JA25_SAVE_INFO");
+	LoadDataFromBuffer(&gJa25SaveStruct, *ppBuffer, sizeof(JA25_SAVE_INFO), "JA25_SAVE_INFO");
 
 	//
 	// Ai Manager
 	//
-	LoadDataBuffered(&gJa25StrategicAi, *ppBuffer, sizeof(JA25_SECTOR_AI_MANAGER), "JA25_SECTOR_AI_MANAGER");
+	LoadDataFromBuffer(&gJa25StrategicAi, *ppBuffer, sizeof(JA25_SECTOR_AI_MANAGER), "JA25_SECTOR_AI_MANAGER");
 
 	//
 	// Sector Info
 	//
-	LoadDataBuffered(&gJa25AiSectorStruct, *ppBuffer, sizeof(JA25_SECTOR_AI) * CUSTOMSECTOR, "JA25_SECTOR_AI");
+	LoadDataFromBuffer(&gJa25AiSectorStruct, *ppBuffer, sizeof(JA25_SECTOR_AI) * CUSTOMSECTOR, "JA25_SECTOR_AI");
 
 	return(TRUE);
 }

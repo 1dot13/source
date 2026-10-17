@@ -1505,7 +1505,7 @@ BOOLEAN SaveStrategicTownLoyaltyToSaveGameFile( HWFILE hFile )
 BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFileBuffer(CHAR8**	ppBuffer)
 {
 	//Restore the Town Loyalty
-	return LoadDataBuffered(gTownLoyalty, *ppBuffer, sizeof(TOWN_LOYALTY) * MAX_TOWNS, "TOWN_LOYALTY");
+	return LoadDataFromBuffer(gTownLoyalty, *ppBuffer, sizeof(TOWN_LOYALTY) * MAX_TOWNS, "TOWN_LOYALTY");
 }
 
 
