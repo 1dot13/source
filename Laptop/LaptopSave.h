@@ -201,7 +201,6 @@ extern BobbyRayPurchaseStruct BobbyRayPurchases[ 100 ];
 
 
 void LaptopSaveVariablesInit();
-BOOLEAN LoadLaptopInfoFromSavedGame( HWFILE hFile );
 BOOLEAN SaveLaptopInfoToSavedGame( HWFILE hFile );
 BOOLEAN LoadLaptopInfoFromSavedGameBuffer(CHAR8** ppBuffer);
 

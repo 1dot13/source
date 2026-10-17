@@ -283,60 +283,6 @@ BOOLEAN SaveDynamicDialogue( HWFILE hwFile )
 	return(TRUE);
 }
 
-BOOLEAN LoadDynamicDialogue( HWFILE hwFile )
-{
-	// clear any artefacts prior to loading
-	DestroyAllDynamicDialogueBoxes( );
-
-	gDynamicDialogueEventCounter = 0;
-
-	gCurrentDynamicDialogueEventData.usId = 0;
-	gCurrentDynamicDialogueEventData.usPriority = 0;
-
-	gDynamicOpinionSpeechEventVector.clear( );
-
-	gDynamicOpinionSpeechEventArchiveVector.clear( );
-
-	gOpionionEventsDuringDialogue.clear( );
-
-	gDynamicOpinionSpeechInCurrentDialogue.clear( );
-
-	SetfDynamicOpinionSpeechInProgress( FALSE );
-
-	if ( guiCurrentSaveGameVersion >= DYNAMIC_DIALOGUE )
-	{
-		UINT32 numBytesRead = 0;
-
-		numBytesRead = ReadFieldByField( hwFile, &gCurrentDynamicDialogueEventData, sizeof(gCurrentDynamicDialogueEventData), sizeof(DynamicOpinionSpeechEvent_EventData), numBytesRead );
-		numBytesRead = ReadFieldByField( hwFile, &gDynamicDialogueEventCounter, sizeof(gDynamicDialogueEventCounter), sizeof(UINT32), numBytesRead );
-
-		UINT32 size = 0;
-		numBytesRead = ReadFieldByField( hwFile, &size, sizeof(size), sizeof(UINT32), numBytesRead );
-
-		UINT32 safetycheck1 = 0;
-		numBytesRead = ReadFieldByField( hwFile, &safetycheck1, sizeof(safetycheck1), sizeof(UINT32), numBytesRead );
-
-		for ( UINT32 i = 0; i < size; ++i )
-		{
-			DynamicOpinionSpeechEvent event;
-			numBytesRead = ReadFieldByField( hwFile, &event, sizeof(event), sizeof(DynamicOpinionSpeechEvent), 0 );
-
-			gDynamicOpinionSpeechEventArchiveVector.push_back( event );
-		}
-
-		UINT32 safetycheck2 = 0;
-		numBytesRead = ReadFieldByField( hwFile, &safetycheck2, sizeof(safetycheck2), sizeof(UINT32), numBytesRead );
-
-		if ( safetycheck1 != gDynDiaSaveCheck || safetycheck2 != gDynDiaSaveCheck )
-		{
-			ScreenMsg( FONT_MCOLOR_LTGREEN, MSG_INTERFACE, L"Eyecatcher corruption detected while loading dynamic dialogue events!" );
-			return FALSE;
-		}
-	}
-
-	return TRUE;
-}
-
 BOOLEAN LoadDynamicDialogueBuffer(CHAR8** ppBuffer)
 {
 	// clear any artefacts prior to loading

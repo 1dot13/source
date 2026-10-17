@@ -1209,61 +1209,6 @@ BOOLEAN SaveSquadInfoToSavedGameFile( HWFILE hFile )
 
 
 
-BOOLEAN LoadSquadInfoFromSavedGameFile( HWFILE hFile )
-{
-	SAVE_SQUAD_INFO_STRUCT sSquadSaveStruct[ NUMBER_OF_SQUADS ][ NUMBER_OF_SOLDIERS_PER_SQUAD ];
-	UINT32	uiNumBytesRead=0;
-	UINT32	uiSaveSize=0;
-
-	//Reset the current squad info
-	INT32 iCounterB = 0;
-	INT32 iCounter =0;
-
-	// null each list of ptrs.
-	for( iCounter = 0; iCounter <	NUMBER_OF_SQUADS; iCounter++ )
-	{
-		for( iCounterB =0; iCounterB < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounterB++ )
-		{
-		// squad, soldier
-		Squad[ iCounter ][ iCounterB ]= NULL;
-		}
-	}
-
-
-	// Load in the squad info
-	uiSaveSize = sizeof( SAVE_SQUAD_INFO_STRUCT ) * NUMBER_OF_SQUADS * NUMBER_OF_SOLDIERS_PER_SQUAD;
-
-	FileRead( hFile, sSquadSaveStruct, uiSaveSize, &uiNumBytesRead );
-	if( uiNumBytesRead != uiSaveSize )
-	{
-		return(FALSE);
-	}
-
-
-
-	// Loop through the array loaded in
-	for( iCounter = 0; iCounter <	NUMBER_OF_SQUADS; iCounter++ )
-	{
-		for( iCounterB =0; iCounterB < NUMBER_OF_SOLDIERS_PER_SQUAD; iCounterB++ )
-		{
-			if( sSquadSaveStruct[ iCounter ][ iCounterB ].uiID != -1 )
-				Squad[ iCounter ][ iCounterB ]	= &Menptr[ sSquadSaveStruct[ iCounter ][ iCounterB ].uiID ];
-			else
-				Squad[ iCounter ][ iCounterB ] = NULL;
-		}
-	}
-
-
-	//Load in the Squad movement id's
-	FileRead( hFile, SquadMovementGroups, sizeof( INT8 ) * NUMBER_OF_SQUADS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( INT8 ) * NUMBER_OF_SQUADS )
-	{
-		return(FALSE);
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadSquadInfoFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	SAVE_SQUAD_INFO_STRUCT sSquadSaveStruct[NUMBER_OF_SQUADS][NUMBER_OF_SOLDIERS_PER_SQUAD];

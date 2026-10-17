@@ -108,7 +108,6 @@ INT32  	guiSoundButtonsImage = -1;
 MOUSE_REGION	gSelectedSoundButtonTextRegion[ MAX_MISSION_BUTTONS ];
 void SelectSoundButtonsRegionCallBack(GUI_BUTTON * btn, INT32 reason );
 
-BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile );
 BOOLEAN SaveBriefingRoomToSaveGameFile( HWFILE hFile );
 
 void BackupBRandEncyclopedia ( BRIEFINGROOM_M_DATA *EncyBackup, BRIEFINGROOM_M_DATA *Ency, UINT32 NUM);
@@ -1145,117 +1144,6 @@ BOOLEAN SaveBriefingRoomToSaveGameFile( HWFILE hFile )
 	}
 */
 	
-	return( TRUE );
-}
-
-BOOLEAN LoadBriefingRoomFromLoadGameFile( HWFILE hFile )
-{
-#ifdef ENABLE_BRIEFINGROOM
-	UINT32	uiNumBytesRead;
-	UINT32 i;
-
-	// Flugente: compatibility fix
-	BOOLEAN briefingroomreadingdone = FALSE;
-
-	//Briefing room
-	FileRead( hFile, &saveBriefingRoomData, sizeof( saveBriefingRoomData), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomData ) )
-	{
-		// Flugente: one can start a game without this feature and later switch to an exe where it is enabled. At that point, loading the savgame would not be possible - 
-		// the game expects saveBriefingRoomData but doesn't get any. Pretty odd, considering that the data has ALREADY BEEN READ into gBriefingRoomData at this point. Sigh.
-		// For this reason, we don't return with an error here an simply use what the xml gave us here.
-		// Of course, I'm not familiar with this feature. It would be good if someone who knows this fixes this.
-		if ( uiNumBytesRead == 0 )
-			briefingroomreadingdone = TRUE;
-		else
-			return( FALSE );
-	}
-
-	if ( !briefingroomreadingdone )
-	{
-		for(i=0; i<NUM_MISSION; ++i)
-		{
-			gBriefingRoomData[ i ].Hidden = saveBriefingRoomData[i].Hidden;
-			gBriefingRoomData[ i ].CheckMission = saveBriefingRoomData[i].CheckMission;
-		}
-		
-		//Briefing room , special mission
-		FileRead( hFile, &saveBriefingRoomSpecialMissionData, sizeof( saveBriefingRoomSpecialMissionData), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( saveBriefingRoomSpecialMissionData ) )
-		{
-			return( FALSE );
-		}
-
-		for(i=0; i<NUM_MISSION; ++i)
-		{
-			gBriefingRoomSpecialMissionData[ i ].Hidden = saveBriefingRoomSpecialMissionData[i].Hidden;
-			gBriefingRoomSpecialMissionData[ i ].CheckMission = saveBriefingRoomSpecialMissionData[i].CheckMission;
-		}
-	}
-#endif // ENABLE_BRIEFINGROOM
-
-/*
-	//ReservedData5
-	FileRead( hFile, &saveBriefingRoomReservedData5, sizeof( saveBriefingRoomReservedData5), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomReservedData5 ) )
-	{
-		return( FALSE );
-	}	
-	
-	for(i=0; i<MAX_QUESTS; i++)
-	{
-		gLoadBriefingRoomReservedData5[ i ].Hidden = FALSE;
-	}
-
-	//ReservedData1
-	FileRead( hFile, &saveBriefingRoomReservedData1, sizeof( saveBriefingRoomReservedData1), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomReservedData1 ) )
-	{
-		return( FALSE );
-	}
-	
-	for(i=0; i<NUM_SECTOR; i++)
-	{
-		gLoadBriefingRoomReservedData1[ i ].Hidden = saveBriefingRoomReservedData1[i];
-	}
-	
-	//ReservedData2
-	FileRead( hFile, &saveBriefingRoomReservedData2, sizeof( saveBriefingRoomReservedData2), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomReservedData2 ) )
-	{
-		return( FALSE );
-	}
-	
-	for(i=0; i<NUM_PROFILES; i++)
-	{
-		gLoadBriefingRoomReservedData2[ i ].Hidden = saveBriefingRoomReservedData2[i].Hidden;
-		gLoadBriefingRoomReservedData2[ i ].bvisible = saveBriefingRoomReservedData2[i].bvisible;
-	}	
-	
-	//ReservedData3
-	FileRead( hFile, &saveBriefingRoomReservedData3, sizeof( saveBriefingRoomReservedData3), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomReservedData3 ) )
-	{
-		return( FALSE );
-	}
-	
-	for(i=0; i<MAXITEMS; i++)
-	{
-		gLoadBriefingRoomReservedData3[ i ].Hidden = saveBriefingRoomReservedData3[i];
-	}
-	
-	//ReservedData4
-	FileRead( hFile, &saveBriefingRoomReservedData4, sizeof( saveBriefingRoomReservedData4), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( saveBriefingRoomReservedData4 ) )
-	{
-		return( FALSE );
-	}
-	
-	for(i=0; i<NUM_PROFILES; i++)
-	{
-		gLoadBriefingRoomReservedData4[ i ].Hidden = saveBriefingRoomReservedData4[i];
-	}
-	*/
 	return( TRUE );
 }
 

@@ -2607,39 +2607,6 @@ BOOLEAN	SaveTeamTurnsToTheSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN	LoadTeamTurnsFromTheSavedGameFile( HWFILE hFile )
-{
-	DebugMsg (TOPIC_JA2INTERRUPT,DBG_LEVEL_3,"LoadTeamTurnsFromTheSavedGameFile");
-	UINT32	uiNumBytesRead;
-	TEAM_TURN_SAVE_STRUCT TeamTurnStruct;
-
-	//Load the gubTurn Order Array
-	FileRead( hFile, gubOutOfTurnOrder, sizeof( UINT16 ) * MAXMERCS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT16 ) * MAXMERCS )
-	{
-		return( FALSE );
-	}
-
-
-	//Load the Team turn save structure
-	FileRead( hFile, &TeamTurnStruct, sizeof( TEAM_TURN_SAVE_STRUCT ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( TEAM_TURN_SAVE_STRUCT ) )
-	{
-		return( FALSE );
-	}
-
-	gubOutOfTurnPersons = TeamTurnStruct.ubOutOfTurnPersons;
-
-	InterruptOnlyGuynum = TeamTurnStruct.InterruptOnlyGuynum;
-	gsWhoThrewRock = TeamTurnStruct.sWhoThrewRock;
-	InterruptsAllowed = TeamTurnStruct.InterruptsAllowed;
-	gfHiddenInterrupt = TeamTurnStruct.fHiddenInterrupt;
-	gubLastInterruptedGuy = TeamTurnStruct.ubLastInterruptedGuy;
-
-
-	return( TRUE );
-}
-
 BOOLEAN	LoadTeamTurnsFromTheSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	DebugMsg(TOPIC_JA2INTERRUPT, DBG_LEVEL_3, "LoadTeamTurnsFromTheSavedGameFile");

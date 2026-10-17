@@ -105,7 +105,6 @@ typedef struct InqMapInfo
 
 extern InqMapInfo gMapIntelData[256];
 
-extern BOOLEAN LoadHiddenTownFromLoadGameFile( HWFILE hFile );
 BOOLEAN LoadHiddenTownFromLoadGameFileBuffer(CHAR8** ppBuffer);
 extern BOOLEAN SaveHiddenTownToSaveGameFile( HWFILE hFile );
 

@@ -109,39 +109,6 @@ Incident_Stats::Save( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN	
-Incident_Stats::Load( HWFILE hwFile )
-{
-	if(guiCurrentSaveGameVersion >= CAMPAIGNSTATS)
-	{
-		UINT32 numBytesRead = 0;
-		
-		numBytesRead = ReadFieldByField(hwFile, &usID,					sizeof(usID),				sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usTime,				sizeof(usTime),				sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usSector,				sizeof(usSector),			sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usLevel,				sizeof(usLevel),			sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usInterestRating,		sizeof(usInterestRating),	sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usNPCDied,				sizeof(usNPCDied),			sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usCivFactionFought,	sizeof(usCivFactionFought), sizeof(UINT8), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usIncidentFlags,		sizeof(usIncidentFlags),	sizeof(UINT64), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usOneTimeEventFlags,	sizeof(usOneTimeEventFlags),sizeof(UINT64), numBytesRead);
-		
-		numBytesRead = ReadFieldByField(hwFile, &usKills,				sizeof(usKills),			sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usWounds,				sizeof(usWounds),			sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usPrisoners,			sizeof(usPrisoners),		sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usShots,				sizeof(usShots),			sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usParticipants,		sizeof(usParticipants),		sizeof(UINT16), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usPromotions,			sizeof(usPromotions),		sizeof(UINT16), numBytesRead);
-
-		numBytesRead = ReadFieldByField(hwFile, &usFiller,				sizeof(usFiller),			sizeof(UINT8), numBytesRead);
-		
-		if( numBytesRead != SIZEOF_INCIDENT_STATS_POD )
-			return(FALSE);
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN Incident_Stats::LoadBuffer(CHAR8** ppBuffer)
 {
 	if ( guiCurrentSaveGameVersion >= CAMPAIGNSTATS )
@@ -634,49 +601,6 @@ Campaign_Stats::Save( HWFILE hFile )
 		}
 	}
 
-	return( TRUE );
-}
-
-BOOLEAN
-Campaign_Stats::Load( HWFILE hwFile )
-{
-	if(guiCurrentSaveGameVersion >= CAMPAIGNSTATS)
-	{
-		clear();
-
-		UINT32 numBytesRead = 0;
-
-		numBytesRead = ReadFieldByField(hwFile, &usKills,			sizeof(usKills),			sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usWounds,			sizeof(usWounds),			sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usPrisoners,		sizeof(usPrisoners),		sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usShots,			sizeof(usShots),			sizeof(UINT32), numBytesRead);
-		
-		numBytesRead = ReadFieldByField(hwFile, &sMoneyEarned,		sizeof(sMoneyEarned),		sizeof(INT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usConsumed,		sizeof(usConsumed),			sizeof(FLOAT), numBytesRead);
-				
-		numBytesRead = ReadFieldByField(hwFile, &usNumIncidents,	sizeof(usNumIncidents),		sizeof(UINT32), numBytesRead);
-		numBytesRead = ReadFieldByField(hwFile, &usHighestID,		sizeof(usHighestID),		sizeof(UINT32), numBytesRead);
-
-		numBytesRead = ReadFieldByField(hwFile, &usFiller,			sizeof(usFiller),			sizeof(UINT8), numBytesRead);
-
-		if( numBytesRead != SIZEOF_CAMPAIGN_STATS_POD )
-			return(FALSE);
-
-		for (UINT32 i = 0; i < usNumIncidents; ++i)
-		{
-			Incident_Stats incident;
-			if ( !incident.Load ( hwFile ) )
-				return(FALSE);
-			
-			// if option is active, only read the last reports and forget the rest
-			if ( gGameExternalOptions.usReportsToLoad < 0 || i >= usNumIncidents - gGameExternalOptions.usReportsToLoad )
-				mIncidentVector.push_back(incident);
-		}
-
-		// re-evaluate the vector size - we may have been ordered to forget some
-		usNumIncidents = mIncidentVector.size();
-	}
-	
 	return( TRUE );
 }
 

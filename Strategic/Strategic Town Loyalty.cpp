@@ -1502,20 +1502,6 @@ BOOLEAN SaveStrategicTownLoyaltyToSaveGameFile( HWFILE hFile )
 	return( TRUE );
 }
 
-BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	//Restore the Town Loyalty
-	FileRead( hFile, gTownLoyalty, sizeof( TOWN_LOYALTY ) * MAX_TOWNS, &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( TOWN_LOYALTY ) * MAX_TOWNS )
-	{
-		return( FALSE );
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadStrategicTownLoyaltyFromSavedGameFileBuffer(CHAR8**	ppBuffer)
 {
 	//Restore the Town Loyalty

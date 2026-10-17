@@ -156,7 +156,6 @@ BOOLEAN SoldierOKForSectorExit( SOLDIERTYPE * pSoldier, INT8 bExitDirection, INT
 BOOLEAN OKForSectorExit( INT8 bExitDirection, INT32 usAdditionalData, UINT32 *puiTraverseTimeInMinutes );//dnl ch56 151009
 void SetupNewStrategicGame( );
 
-BOOLEAN LoadStrategicInfoFromSavedFile( HWFILE hFile );
 BOOLEAN LoadStrategicInfoFromSavedFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveStrategicInfoToSavedFile( HWFILE hFile );
 

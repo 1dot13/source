@@ -2861,41 +2861,6 @@ BOOLEAN	SavePhysicsTableToSaveGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN	LoadPhysicsTableFromSavedGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead=0;
-	UINT16	usCnt=0;
-
-	//make sure the objects are not allocated
-	for (int x = 0; x < NUM_OBJECT_SLOTS; ++x)
-	{
-		ObjectSlots[x].initialize();
-	}
-
-	//Load the number of REAL_OBJECTs in the array
-	FileRead( hFile, &guiNumObjectSlots, sizeof( UINT32 ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT32 ) )
-	{
-		return( FALSE );
-	}
-
-	//loop through and add the objects
-	for( usCnt=0; usCnt<guiNumObjectSlots; usCnt++ )
-	{
-		//Load the the REAL_OBJECT structure
-		if ( !ObjectSlots[usCnt].Load(hFile) )
-		{
-			return( FALSE );
-		}
-
-		ObjectSlots[usCnt].pNode = NULL;
-		ObjectSlots[usCnt].pShadow = NULL;
-		ObjectSlots[usCnt].iID = usCnt;
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN	LoadPhysicsTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	UINT32	uiNumBytesRead = 0;

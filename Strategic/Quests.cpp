@@ -1648,29 +1648,6 @@ BOOLEAN SaveQuestInfoToSavedGameFile( HWFILE hFile )
 }
 
 
-BOOLEAN LoadQuestInfoFromSavedGameFile( HWFILE hFile, UINT8 MaxQuest )
-{
-	UINT32	uiNumBytesRead;
-
-	//Save all the states if the Quests
-	//FileRead( hFile, gubQuest, MAX_QUESTS, &uiNumBytesRead );
-	//if( uiNumBytesRead != MAX_QUESTS )
-	FileRead( hFile, gubQuest, MaxQuest, &uiNumBytesRead );
-	if( uiNumBytesRead != MaxQuest )
-	{
-		return(FALSE);
-	}
-
-	//Save all the states for the facts
-	FileRead( hFile, gubFact, NUM_FACTS, &uiNumBytesRead );
-	if( uiNumBytesRead != NUM_FACTS )
-	{
-		return(FALSE);
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadQuestInfoFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT8 MaxQuest)
 {
 	//Save all the states if the Quests
@@ -1692,20 +1669,6 @@ BOOLEAN SaveLUAModderDataToSavedGameFile( HWFILE hFile )
 	//Save all the states for the facts
 	FileWrite( hFile, gubModderLuaData, sizeof(INT32)* MODDER_LUA_DATA_MAX, &uiNumBytesWritten );
 	if ( uiNumBytesWritten != sizeof(INT32)* MODDER_LUA_DATA_MAX )
-	{
-		return(FALSE);
-	}
-
-	return(TRUE);
-}
-
-BOOLEAN LoadLUAModderDataFromSavedGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	//Save all the states for the facts
-	FileRead( hFile, gubModderLuaData, sizeof(INT32)* MODDER_LUA_DATA_MAX, &uiNumBytesRead );
-	if ( uiNumBytesRead != sizeof(INT32)* MODDER_LUA_DATA_MAX )
 	{
 		return(FALSE);
 	}

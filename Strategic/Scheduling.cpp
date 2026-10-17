@@ -360,68 +360,6 @@ void PrepareSchedulesForEditorExit()
 }
 
 extern BOOLEAN gfSchedulesHosed;
-BOOLEAN LoadSchedulesFromSave( HWFILE hFile )
-{
-	SCHEDULENODE *pSchedule = NULL;
-	SCHEDULENODE temp;
-	UINT8 ubNum;
-	UINT32 ubRealNum;
-
-	UINT32	uiNumBytesRead, uiNumBytesToRead;
-
-	//LOADDATA( &ubNum, *hBuffer, sizeof( UINT8 ) );
-	uiNumBytesToRead = sizeof( UINT8 );
-	FileRead( hFile, &ubNum, uiNumBytesToRead, &uiNumBytesRead );
-	if( uiNumBytesRead != uiNumBytesToRead )
-	{
-		FileClose( hFile );
-		return( FALSE);
-	}
-
-	//Hack problem with schedules getting misaligned.
-	ubRealNum = gfSchedulesHosed ? ubNum + 256 : ubNum;
-
-	gubScheduleID = 1;
-	while( ubRealNum )
-	{
-		uiNumBytesToRead = sizeof( SCHEDULENODE );
-		FileRead( hFile, &temp, uiNumBytesToRead, &uiNumBytesRead );
-		if( uiNumBytesRead != uiNumBytesToRead )
-		{
-			FileClose( hFile );
-			return( FALSE);
-		}
-		//LOADDATA( &temp, *hBuffer, sizeof( SCHEDULENODE ) );
-
-		if( gpScheduleList )
-		{
-			pSchedule->next = (SCHEDULENODE*)MemAlloc( sizeof( SCHEDULENODE ) );
-			Assert( pSchedule->next );
-			pSchedule = pSchedule->next;
-			memcpy( pSchedule, &temp, sizeof( SCHEDULENODE ) );
-		}
-		else
-		{
-			gpScheduleList = (SCHEDULENODE*)MemAlloc( sizeof( SCHEDULENODE ) );
-			Assert( gpScheduleList );
-			memcpy( gpScheduleList, &temp, sizeof( SCHEDULENODE ) );
-			pSchedule = gpScheduleList;
-		}
-
-		// should be unnecessary here, then we can toast reconnect schedule
-		/*
-		pSchedule->ubScheduleID = gubScheduleID;
-		pSchedule->ubSoldierID = NOBODY;
-		*/
-
-		pSchedule->next = NULL;
-		gubScheduleID++;
-		ubRealNum--;
-	}
-	//Schedules are posted when the soldier is added...
-	return( TRUE );
-}
-
 BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer)
 {
 	SCHEDULENODE* pSchedule = NULL;

@@ -88,7 +88,6 @@ void RemoveTacticalMessageFilter ( void );
 // clear ALL strings in the tactical Message Queue
 void ClearTacticalMessageQueue( void );
 
-BOOLEAN LoadMapScreenMessagesFromSaveGameFile( HWFILE hFile );
 BOOLEAN LoadMapScreenMessagesFromSaveGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveMapScreenMessagesToSaveGameFile( HWFILE hFile );
 

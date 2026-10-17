@@ -305,15 +305,6 @@ BOOLEAN SaveEncyclopediaItemVisibility( HWFILE hFile )
 *
 * @return TRUE if data is read.
 */
-BOOLEAN LoadEncyclopediaItemVisibility( HWFILE hFile )
-{
-	UINT32 bytesRead;
-
-	CHECKF( FileRead( hFile, gbEncyclopediaData_ItemVisible, MAXITEMS, &bytesRead) );
-
-	return (TRUE);
-}
-
 BOOLEAN LoadEncyclopediaItemVisibilityBuffer(CHAR8** ppBuffer)
 {
 	if ( !LoadDataBuffered(gbEncyclopediaData_ItemVisible, *ppBuffer, MAXITEMS, "Encyclopedia Item Visibility") )

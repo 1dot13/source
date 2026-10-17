@@ -99,7 +99,6 @@ void ProcessTacticalSchedule( UINT8 ubScheduleID );
 void DeleteSchedule( UINT8 ubScheduleID );
 
 void LoadSchedules( INT8 **hBuffer, FLOAT dMajorMapVersion );
-BOOLEAN LoadSchedulesFromSave( HWFILE hFile );
 BOOLEAN LoadSchedulesFromSaveBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveSchedules(HWFILE hFile, FLOAT dMajorMapVersion=MAJOR_MAP_VERSION, UINT8 ubMinorMapVersion=MINOR_MAP_VERSION);//dnl ch33 240909
 

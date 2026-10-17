@@ -223,7 +223,6 @@ void DailyUpdate();
 void HourlyUpdate();
 void Init();
 void ShowWebsiteAvailableMessage();
-BOOLEAN Load(HWFILE file);
 BOOLEAN LoadBuffer(CHAR8** ppBuffer);
 BOOLEAN Save(HWFILE file);
 

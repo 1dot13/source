@@ -436,65 +436,6 @@ LuaMines::~LuaMines()
 	lua_close(m_L);
 }
 
-BOOLEAN LuaMines::Load(HWFILE hFile)
-{
-	Reset();
-
-	UINT32 uiNumBytesRead;
-	INT32 numMines;
-	MINE_STATUS_TYPE mineStatus;
-
-	gMineStatus.clear();
-	FileRead(hFile, &numMines, sizeof(INT32), &uiNumBytesRead);
-	if (uiNumBytesRead != sizeof(INT32))
-		return FALSE;
-
-	for (int i = 0; i < numMines; i++)
-	{
-		FileRead(hFile, &mineStatus, sizeof(MINE_STATUS_TYPE), &uiNumBytesRead);
-		if (uiNumBytesRead != sizeof(MINE_STATUS_TYPE))
-			return FALSE;
-		gMineStatus.push_back(mineStatus);
-	}
-
-	MAX_NUMBER_OF_MINES = gMineStatus.size();
-
-
-	INT32 numSectors;
-	AssociatedMineSector sector;
-	associatedMineSectors.clear();
-	FileRead(hFile, &numSectors, sizeof(INT32), &uiNumBytesRead);
-	if (uiNumBytesRead != sizeof(INT32))
-		return FALSE;
-	for (int i = 0; i < numSectors; i++)
-	{
-		FileRead(hFile, &sector, sizeof(AssociatedMineSector), &uiNumBytesRead);
-		if (uiNumBytesRead != sizeof(AssociatedMineSector))
-			return FALSE;
-		associatedMineSectors.push_back(sector);
-	}
-
-
-	INT32 numHeadMiners;
-	HEAD_MINER_TYPE miner;
-	gHeadMinerData.clear();
-	FileRead(hFile, &numHeadMiners, sizeof(INT32), &uiNumBytesRead);
-	if (uiNumBytesRead != sizeof(INT32))
-		return FALSE;
-	for (int i = 0; i < numHeadMiners; i++)
-	{
-		FileRead(hFile, &miner, sizeof(HEAD_MINER_TYPE), &uiNumBytesRead);
-		if (uiNumBytesRead != sizeof(HEAD_MINER_TYPE))
-			return FALSE;
-		gHeadMinerData.push_back(miner);
-	}
-	NUM_HEAD_MINERS = gHeadMinerData.size();
-
-	InitMinerFaces();
-
-	return TRUE;
-}
-
 BOOLEAN LuaMines::LoadBuffer(CHAR8** ppBuffer)
 {
 	Reset();

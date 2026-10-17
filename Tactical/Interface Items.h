@@ -313,7 +313,6 @@ void GetHelpTextForItem( STR16 pzStr, OBJECTTYPE *pObject, SOLDIERTYPE *pSoldier
 
 void CancelItemPointer( );
 
-BOOLEAN LoadItemCursorFromSavedGame( HWFILE hFile );
 BOOLEAN LoadItemCursorFromSavedGameBuffer(CHAR8** ppBuffer);
 BOOLEAN SaveItemCursorToSavedGame( HWFILE hFile );
 

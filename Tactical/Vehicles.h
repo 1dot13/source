@@ -55,7 +55,6 @@ typedef struct
 
 extern NEW_CAR gNewVehicle[NUM_PROFILES];
 
-extern BOOLEAN LoadNewVehiclesToSaveGameFile( HWFILE hFile );
 BOOLEAN LoadNewVehiclesToSaveGameFileBuffer(CHAR8** ppBuffer);
 
 // type of vehicles
@@ -432,7 +431,6 @@ INT8 RepairVehicle( INT32 iVehicleId, UINT8 ubTotalPts, BOOLEAN *pfNothingToRepa
 BOOLEAN SaveVehicleInformationToSaveGameFile( HWFILE hFile );
 
 //Load all the vehicle information From the saved game file
-BOOLEAN LoadVehicleInformationFromSavedGameFile( HWFILE hFile, UINT32 uiSavedGameVersion );
 BOOLEAN LoadVehicleInformationFromSavedGameFileBuffer(CHAR8** ppBuffer, UINT32 uiSavedGameVersion);
 
 // take soldier out of vehicle
@@ -446,10 +444,8 @@ void SetVehicleSectorValues( INT32 iVehId, UINT8 ubSectorX, UINT8 ubSectorY );
 void UpdateAllVehiclePassengersGridNo( SOLDIERTYPE *pSoldier );
 
 BOOLEAN SaveVehicleMovementInfoToSavedGameFile( HWFILE hFile );
-BOOLEAN LoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile );
 BOOLEAN LoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer);
 BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile );
-BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFile( HWFILE hFile );
 BOOLEAN NewLoadVehicleMovementInfoFromSavedGameFileBuffer(CHAR8** ppBuffer);
 
 BOOLEAN OKUseVehicle( UINT8 ubProfile );

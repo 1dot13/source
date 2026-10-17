@@ -5110,68 +5110,6 @@ BOOLEAN SaveExplosionTableToSaveGameFile( HWFILE hFile )
 
 
 
-BOOLEAN LoadExplosionTableFromSavedGameFile( HWFILE hFile )
-{
-	UINT32 uiNumBytesRead;
-	UINT32 uiCnt;
-
-
-	//
-	// Explosion Queue
-	//
-
-	//Clear the Explosion queue
-	memset( gExplosionQueue, 0, sizeof( ExplosionQueueElement ) * MAX_BOMB_QUEUE );
-
-	//Read the number of explosions queue's
-	FileRead( hFile, &gubElementsOnExplosionQueue, sizeof( UINT32 ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT32 ) )
-	{
-		return( FALSE );
-	}
-
-
-	//loop through read all the active explosions fro the file
-	for( uiCnt=0; uiCnt<MAX_BOMB_QUEUE; uiCnt++)
-	{
-		FileRead( hFile, &gExplosionQueue[ uiCnt ], sizeof( ExplosionQueueElement ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( ExplosionQueueElement ) )
-		{
-			return( FALSE );
-		}
-	}
-
-
-
-	//
-	// Explosion Data
-	//
-
-	//Load the number of explosions
-	FileRead( hFile, &guiNumExplosions, sizeof( UINT32 ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( UINT32 ) )
-	{
-		return( FALSE );
-	}
-
-
-	//loop through and load all the active explosions
-	for( uiCnt=0; uiCnt< guiNumExplosions; uiCnt++)
-	{
-		FileRead( hFile, &gExplosionData[ uiCnt ], sizeof( EXPLOSIONTYPE ), &uiNumBytesRead );
-		if( uiNumBytesRead != sizeof( EXPLOSIONTYPE ) )
-		{
-			return( FALSE );
-		}
-		gExplosionData[ uiCnt ].iID = uiCnt;
-		gExplosionData[ uiCnt ].iLightID = -1;
-
-		GenerateExplosionFromExplosionPointer( &gExplosionData[ uiCnt ] );
-	}
-
-	return( TRUE );
-}
-
 BOOLEAN LoadExplosionTableFromSavedGameFileBuffer(CHAR8** ppBuffer)
 {
 	UINT32 uiCnt;

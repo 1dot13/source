@@ -1056,8 +1056,6 @@ void InitCivQuoteSystem( )
 	gCivQuoteData.iDialogueBox	= -1;
 }
 
-//--------------------------------------------------------------
-//is allowed remove. Not used  and remove from SaveLoadGame.cpp.
 BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 {
 	UINT32	uiNumBytesWritten;
@@ -1067,26 +1065,6 @@ BOOLEAN SaveCivQuotesToSaveGameFile( HWFILE hFile )
 	{
 		return( FALSE );
 	}
-
-	return( TRUE );
-}
-
-// anv: used now
-//is allowed remove. Not used and remove from SaveLoadGame.cpp.
-BOOLEAN LoadCivQuotesFromLoadGameFile( HWFILE hFile )
-{
-	UINT32	uiNumBytesRead;
-
-	// anv: reset uiTauntFinishTimes after game is loaded (so enemies can taunt after guiBaseJA2Clock is decreased)
-	memset( &uiTauntFinishTimes, 0, sizeof( uiTauntFinishTimes ) );
-
-	FileRead( hFile, &gCivQuotes, sizeof( gCivQuotes ), &uiNumBytesRead );
-	if( uiNumBytesRead != sizeof( gCivQuotes ) )
-	{
-		return( FALSE );
-	}
-
-	CopyNumEntriesIntoQuoteStruct( ); //Not used 
 
 	return( TRUE );
 }

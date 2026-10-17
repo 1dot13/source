@@ -272,35 +272,6 @@ void InitIndividualMilitiaData()
 	gIndividualMilitiaVector.clear();
 }
 
-BOOLEAN LoadIndividualMilitiaData( HWFILE hwFile )
-{
-	InitIndividualMilitiaData();
-
-	UINT32 numBytesRead = 0;
-	
-	UINT32 size = 0;
-	numBytesRead = ReadFieldByField( hwFile, &size, sizeof(size), sizeof(UINT32), numBytesRead );
-
-	for ( UINT32 i = 0; i < size; ++i )
-	{
-		MILITIA data;
-		if ( !data.Load( hwFile ) )
-			return(FALSE);
-
-		// we changed variable storing the militia quality from soldierclass to militia rank, so we have to change this here
-		if ( guiCurrentSaveGameVersion < INDIVIDUAL_MILITIA_RANKFIX )
-			data.militiarank = SoldierClassToMilitiaRank( data.militiarank );
-
-		gIndividualMilitiaVector.push_back(data);
-	}
-
-
-	// reset time tracker
-	gMIWarningTime = 0;
-
-	return TRUE;
-}
-
 BOOLEAN LoadIndividualMilitiaDataBuffer(CHAR8** ppBuffer)
 {
 	InitIndividualMilitiaData();
