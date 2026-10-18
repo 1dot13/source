@@ -976,6 +976,22 @@ INT16 PythSpacesAway(INT32 sOrigin, INT32 sDest)
 	return(sResult);
 }
 
+// Omits square root for faster comparisons. Compare against a squared result.
+INT16 PythSpacesAwaySquared(INT32 sOrigin, INT32 sDest)
+{
+	INT16 sRows, sCols, sResult;
+
+	sRows = (sOrigin / MAXCOL) - (sDest / MAXCOL);
+	sCols = (sOrigin % MAXROW) - (sDest % MAXROW);
+
+
+	// apply Pythagoras's theorem for right-handed triangle:
+	// dist^2 = rows^2 + cols^2, so use the square root to get the distance
+	sResult = (INT16)((sRows * sRows) + (sCols * sCols));
+
+	return(sResult);
+}
+
 
 INT16 SpacesAway(INT32 sOrigin, INT32 sDest)
 {
