@@ -4148,10 +4148,12 @@ void UpdateTreeVisibility()
 					fHideTree = FALSE;
 
 					// check trees near cursor position
+					const auto mouseSpacesAwaySquared = PythSpacesAwaySquared(sSpot, usMouseSpot);
+
 					if (!TileIsOutOfBounds(usMouseSpot) &&
-						(PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 0 ||
-						PythSpacesAway(sSpot, usMouseSpot) <= 6 && AIDirection(sSpot, usMouseSpot) == 7 ||
-						PythSpacesAway(sSpot, usMouseSpot) <= 2 && AIDirection(sSpot, usMouseSpot) == 6))
+						(mouseSpacesAwaySquared <= 2*2 && AIDirection(sSpot, usMouseSpot) == 0 ||
+						mouseSpacesAwaySquared <= 6*6 && AIDirection(sSpot, usMouseSpot) == 7 ||
+						mouseSpacesAwaySquared <= 2*2 && AIDirection(sSpot, usMouseSpot) == 6))
 					{
 						fHideTree = TRUE;
 					}
@@ -4162,20 +4164,21 @@ void UpdateTreeVisibility()
 						for (UINT16 uiLoop = 0; uiLoop < guiNumMercSlots; uiLoop++)
 						{
 							pOpponent = MercSlots[uiLoop];
-
-							if (pOpponent &&
-								pOpponent->bVisible != -1 &&
-								!TileIsOutOfBounds(pOpponent->sGridNo) &&
-								(PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
-								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 6 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
-								PythSpacesAway(sSpot, pOpponent->sGridNo) <= 2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
+							if ( pOpponent )
 							{
-								fHideTree = TRUE;
-								break;
+								const auto spacesAwaySquared = PythSpacesAwaySquared(sSpot, pOpponent->sGridNo);
+								if (pOpponent->bVisible != -1 &&
+									!TileIsOutOfBounds(pOpponent->sGridNo) &&
+									(spacesAwaySquared <= 2*2 && AIDirection(sSpot, pOpponent->sGridNo) == 0 ||
+									spacesAwaySquared <= 6*6 && AIDirection(sSpot, pOpponent->sGridNo) == 7 ||
+									spacesAwaySquared <= 2*2 && AIDirection(sSpot, pOpponent->sGridNo) == 6))
+								{
+									fHideTree = TRUE;
+									break;
+								}
 							}
 						}
 					}
-
 					if (fHideTree)
 					{
 						if (!(pNode->uiFlags & LEVELNODE_REVEALTREES))
