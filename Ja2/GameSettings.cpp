@@ -2578,6 +2578,9 @@ void LoadGameExternalOptions()
 
 	// Rebel Command
 	gGameExternalOptions.fRebelCommandEnabled = iniReader.ReadBoolean("Rebel Command Settings", "REBEL_COMMAND_ENABLED", FALSE);
+
+	// Cache LUA scripts
+	gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce = iniReader.ReadBoolean("Data File Settings", "READ_LUA_SCRIPTS_ONLY_AT_GAME_START", TRUE);
 }
 
 

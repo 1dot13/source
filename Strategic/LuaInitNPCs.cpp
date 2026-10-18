@@ -2611,32 +2611,53 @@ BOOLEAN LuaHandleQuestCodeOnSectorEntry( INT16 sSectorX, INT16 sSectorY, INT8 bS
 }
 */
 
+static void EvalStrategicMapScript(LuaState& L)
+{
+	IniFunction(L(), TRUE);
+	IniGlobalGameSetting(L());
+
+	const char* filename = "scripts\\strategicmap.lua";
+	SGP_THROW_IFFALSE(L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+}
+
+static void EvalOverheadScript(LuaState& L)
+{
+	IniFunction(L(), TRUE);
+	IniGlobalGameSetting(L());
+
+	const char* filename = "scripts\\Overhead.lua";
+	SGP_THROW_IFFALSE(L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+}
+
 BOOLEAN LuaHandleQuestCodeOnSector(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 Init)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
+	lua_register(_LS(), "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData);
+	lua_register(_LS(), "CreateArmedCivilain", l_CreateArmedCivilain);
+	lua_register(_LS(), "BuildFortification", l_BuildFortification);
+	lua_register(_LS(), "RemoveFortification", l_RemoveFortification);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	lua_register(_LS.L(), "SetProfileStrategicInsertionData", l_ProfilesStrategicInsertionData);
-	lua_register(_LS.L(), "CreateArmedCivilain", l_CreateArmedCivilain);
-	lua_register(_LS.L(), "BuildFortification", l_BuildFortification);
-	lua_register(_LS.L(), "RemoveFortification", l_RemoveFortification);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
 
 	if (Init == 0)
 	{
-		LuaFunction(_LS.L, "HandleQuestCodeOnSectorExit").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
+		LuaFunction(_LS, "HandleQuestCodeOnSectorExit").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
+		lua_settop(_LS(), 0);
 	}
 
 	if (Init == 1)
 	{
-		LuaFunction(_LS.L, "HandleQuestCodeOnSectorEntry").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
+		LuaFunction(_LS, "HandleQuestCodeOnSectorEntry").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Call(3);
+		lua_settop(_LS(), 0);
 	}
 
 	return true;
@@ -2644,18 +2665,20 @@ BOOLEAN LuaHandleQuestCodeOnSector(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ
 
 void LuaHandleSectorLiberation(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fFirstTime)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "AddVolunteers", l_AddVolunteers);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "AddVolunteers", l_AddVolunteers);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleSectorLiberation").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<bool>(fFirstTime).Call(4);
+	LuaFunction(_LS, "HandleSectorLiberation").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<bool>(fFirstTime).Call(4);
+	lua_settop(_LS(), 0);
 }
 
 void LuaHandleInteractiveActionResult(INT16 sSectorX, INT16 sSectorY,
@@ -2663,55 +2686,61 @@ void LuaHandleInteractiveActionResult(INT16 sSectorX, INT16 sSectorY,
 	INT32 sGridNo, UINT8 bLevel, SoldierID ubId,
 	UINT16 usActionType, INT32 sLuaactionid, INT32 difficulty, UINT16 skill)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "AddVolunteers", l_AddVolunteers);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "AddVolunteers", l_AddVolunteers);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleInteractiveActionResult").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(sGridNo).Param<int>(bLevel).Param<int>(ubId.i).Param<int>(usActionType).Param<int>(sLuaactionid).Param<int>(difficulty).Param<int>(skill).Call(10);
+	LuaFunction(_LS, "HandleInteractiveActionResult").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(sGridNo).Param<int>(bLevel).Param<int>(ubId.i).Param<int>(usActionType).Param<int>(sLuaactionid).Param<int>(difficulty).Param<int>(skill).Call(10);
+	lua_settop(_LS(), 0);
 }
 
 void LuaRecruitRPCAdditionalHandling(UINT8 usProfile)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "AddVolunteers", l_AddVolunteers);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "AddVolunteers", l_AddVolunteers);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "RecruitRPCAdditionalHandling").Param<int>(usProfile).Call(1);
+	LuaFunction(_LS, "RecruitRPCAdditionalHandling").Param<int>(usProfile).Call(1);
+	lua_settop(_LS(), 0);
 }
 
 void LuaHandleSectorTacticalEntry(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, BOOLEAN fHasEverBeenPlayerControlled)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "SECTORX", l_SECTORX);
+	lua_register(_LS(), "SECTORY", l_SECTORY);
+	lua_register(_LS(), "SECTOR", l_SECTOR);
+	lua_register(_LS(), "GetFact", l_GetFact);
+	lua_register(_LS(), "SetFact", l_SetFact);
+	lua_register(_LS(), "CreateCivilian", l_CreateCivilian);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "SECTORX", l_SECTORX);
-	lua_register(_LS.L(), "SECTORY", l_SECTORY);
-	lua_register(_LS.L(), "SECTOR", l_SECTOR);
-	lua_register(_LS.L(), "GetFact", l_GetFact);
-	lua_register(_LS.L(), "SetFact", l_SetFact);
-	lua_register(_LS.L(), "CreateCivilian", l_CreateCivilian);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleSectorTacticalEntry").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<bool>(fHasEverBeenPlayerControlled).Call(4);
+	LuaFunction(_LS, "HandleSectorTacticalEntry").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<bool>(fHasEverBeenPlayerControlled).Call(4);
+	lua_settop(_LS(), 0);
 }
 
 BOOLEAN LetLuaGameInit(UINT8 Init)
@@ -2748,21 +2777,23 @@ BOOLEAN LetLuaGameInit(UINT8 Init)
 
 BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
 	if (Init == 0)
 	{
-		LuaFunction(_LS.L, "HandleNPCTeamMemberDeath").Param<int>(ProfileId).Call(1);
+		LuaFunction(_LS, "HandleNPCTeamMemberDeath").Param<int>(ProfileId).Call(1);
+		lua_settop(_LS(), 0);
 	}
 
 	return true;
@@ -2770,21 +2801,23 @@ BOOLEAN LuaHandleNPCTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 
 BOOLEAN LuaHandlePlayerTeamMemberDeath(UINT8 ProfileId, UINT8 Init)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
+	lua_register(_LS(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	lua_register(_LS(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
 	if (Init == 0)
 	{
-		LuaFunction(_LS.L, "HandlePlayerTeamMemberDeath").Param<int>(ProfileId).Call(1);
+		LuaFunction(_LS, "HandlePlayerTeamMemberDeath").Param<int>(ProfileId).Call(1);
+		lua_settop(_LS(), 0);
 	}
 
 	return true;
@@ -2835,21 +2868,23 @@ BOOLEAN LuaInternalQuest(UINT8 ubQuest, INT16 sSectorX, INT16 sSectorY, BOOLEAN 
 
 BOOLEAN LetLuaMyCustomHandleAtNewGridNo(UINT8 bNewSide, UINT8 ProfileId, UINT8 Init)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	//	lua_register(_LS(), "CheckFact", l_CheckFact);	
+	lua_register(_LS(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
+	//	lua_register(_LS(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
 
-	//	lua_register(_LS.L(), "CheckFact", l_CheckFact);	
-	lua_register(_LS.L(), "CheckForMissingHospitalSupplies", l_CheckForMissingHospitalSupplies);
-	//	lua_register(_LS.L(), "CheckForKingpinsMoneyMissing", l_FunctionCheckForKingpinsMoneyMissing);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
 	if (Init == 0)
 	{
-		LuaFunction(_LS.L, "HandleAtNewGridNo").Param<int>(ProfileId).Call(0);
+		LuaFunction(_LS, "HandleAtNewGridNo").Param<int>(ProfileId).Call(0);
+		lua_settop(_LS(), 0);
 	}
 
 	return true;
@@ -11642,60 +11677,66 @@ static int l_PlaySound(lua_State* L)
 
 void LuaHandleAdditionalDialogue(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT8 ubProfile, INT32 iFaceIndex, UINT16 usEventNr, UINT32 aData1, UINT32 aData2, UINT32 aData3)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleAdditionalDialogue").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(ubProfile).Param<int>(iFaceIndex).Param<int>(usEventNr).Param<int>(aData1).Param<int>(aData2).Param<int>(aData3).Call(9);
+	LuaFunction(_LS, "HandleAdditionalDialogue").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(ubProfile).Param<int>(iFaceIndex).Param<int>(usEventNr).Param<int>(aData1).Param<int>(aData2).Param<int>(aData3).Call(9);
+	lua_settop(_LS(), 0);
 }
 
 void LuaHandleReplaceQuote(UINT8 ubProfile, UINT16 usQuoteNum)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	lua_register(_LS(), "CheckFact", l_CheckFact);
 
-	lua_register(_LS.L(), "CheckFact", l_CheckFact);
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleReplaceQuote").Param<int>(ubProfile).Param<int>(usQuoteNum).Call(2);
+	LuaFunction(_LS, "HandleReplaceQuote").Param<int>(ubProfile).Param<int>(usQuoteNum).Call(2);
+	lua_settop(_LS(), 0);
 }
 
 void LuaHandleNPCMerchantQuote(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 ubMerchantID, UINT8 ubBodyType, UINT16 usQuoteNum)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "HandleNPCMerchantQuote").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(ubMerchantID).Param<int>(ubBodyType).Param<int>(usQuoteNum).Call(6);
+	LuaFunction(_LS, "HandleNPCMerchantQuote").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(ubMerchantID).Param<int>(ubBodyType).Param<int>(usQuoteNum).Call(6);
+	lua_settop(_LS(), 0);
 }
 
 void LuaAddArmsDealerAdditionalIntelData()
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "AddArmsDealerAdditionalIntelData").Call(0);
+	LuaFunction(_LS, "AddArmsDealerAdditionalIntelData").Call(0);
+	lua_settop(_LS(), 0);
 }
 
 extern  void AddArmsDealerAdditionalIntelData(UINT16 ausDealer, UINT16 usItem, INT16 sIntelPrice, INT16 sOptimalNumber);
@@ -11717,58 +11758,62 @@ static int l_AddArmsDealerAdditionalIntelDataItem(lua_State* L)
 
 void LuaAddPhotoData(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, INT32 sGridNo, INT8 bLevel, UINT8 ubPhotographerProfile, UINT16 room, UINT8 usTargetProfile)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "AddPhotoData").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(sGridNo).Param<int>(bLevel).Param<int>(ubPhotographerProfile).Param<int>(room).Param<int>(usTargetProfile).Call(6);
+	LuaFunction(_LS, "AddPhotoData").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(sGridNo).Param<int>(bLevel).Param<int>(ubPhotographerProfile).Param<int>(room).Param<int>(usTargetProfile).Call(6);
+	lua_settop(_LS(), 0);
 }
 
 void LuaGetPhotoData(UINT8 aType)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "GetPhotoData").Param<int>(aType).Call(1);
+	LuaFunction(_LS, "GetPhotoData").Param<int>(aType).Call(1);
+	lua_settop(_LS(), 0);
 }
 
 void LuaSetPhotoState(INT16 asIndex, UINT8 aState)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "SetPhotoState").Param<int>(asIndex).Param<int>(aState).Call(2);
+	LuaFunction(_LS, "SetPhotoState").Param<int>(asIndex).Param<int>(aState).Call(2);
+	lua_settop(_LS(), 0);
 }
 
 void LuaVerifyPhotoState(INT16 asIndex)
 {
-	const char* filename = "scripts\\Overhead.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_OVERHEAD));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalOverheadScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "VerifyPhotoState").Param<int>(asIndex).Call(1);
+	LuaFunction(_LS, "VerifyPhotoState").Param<int>(asIndex).Call(1);
+	lua_settop(_LS(), 0);
 }
 
 extern void AddPhotoFactTaken(UINT8 aType, INT16 asIndex, STR16 aText);
@@ -11813,51 +11858,59 @@ static int l_GetNumHostilesInSector(lua_State* L)
 
 void LuaGetIntelAndQuestMapData(INT32 aLevel)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
 
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "GetIntelAndQuestMapData").Param<int>(aLevel).Call(1);
+	LuaFunction(_LS, "GetIntelAndQuestMapData").Param<int>(aLevel).Call(1);
+	lua_settop(_LS(), 0);
 }
+
 
 void SetFactoryLeftoverProgress(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber, INT32 sProgressLeft)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
-
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "SetFactoryLeftoverProgress").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(usFacilityType).Param<int>(usProductionNumber).Param<int>(sProgressLeft).Call(6);
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
+	{
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
+	}
+	LuaFunction(_LS, "SetFactoryLeftoverProgress").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(usFacilityType).Param<int>(usProductionNumber).Param<int>(sProgressLeft).Call(6);
+	lua_settop(_LS(), 0);
 }
 
 INT32 GetFactoryLeftoverProgress(INT16 sSectorX, INT16 sSectorY, INT8 bSectorZ, UINT16 usFacilityType, UINT16 usProductionNumber)
 {
-	const char* filename = "scripts\\strategicmap.lua";
+	LuaState _LS(LuaState::GET(lua::LUA_STATE_STRATEGIC_MAP));
 
-	LuaScopeState _LS(true);
-
-	IniFunction(_LS.L(), TRUE);
-	IniGlobalGameSetting(_LS.L());
-
-	SGP_THROW_IFFALSE(_LS.L.EvalFile(filename), _BS("Cannot open file: ") << filename << _BS::cget);
-
-	LuaFunction(_LS.L, "GetFactoryLeftoverProgress").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(usFacilityType).Param<int>(usProductionNumber).Call(5);
-
-	if (lua_gettop(_LS.L()) >= 0)
+	static bool firstCall { true };
+	if ( firstCall || !gGameExternalOptions.fEvaluateLuaScriptsOnlyOnce )
 	{
-		return lua_tointeger(_LS.L(), 1);
+		firstCall = false;
+		EvalStrategicMapScript(_LS);
 	}
 
-	return 0;
+	const int top = lua_gettop(_LS());
+
+	LuaFunction(_LS, "GetFactoryLeftoverProgress").Param<int>(sSectorX).Param<int>(sSectorY).Param<int>(bSectorZ).Param<int>(usFacilityType).Param<int>(usProductionNumber).Call(5);
+
+	INT32 result = 0;
+
+	if (lua_gettop(_LS()) >= top + 1)
+	{
+		result = (INT32)lua_tointeger(_LS(), top + 1);
+	}
+
+	lua_settop(_LS(), top);
+
+	return result;
 }
 
 extern void AddIntelAndQuestMapDataForSector(INT16 sSectorX, INT16 sSectorY, UINT8 ausMapColour, int asSymbol, STR16 aText, STR16 aText_Short);

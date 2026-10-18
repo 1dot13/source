@@ -1673,6 +1673,10 @@ typedef struct
 	// Rebel Command
 	BOOLEAN fRebelCommandEnabled;
 
+	// Set this to false when working on lua scripts, so changes take effect during gameplay.
+	// Regular behavior when playing the game is that the scripts are read from disk only once at game start.
+	BOOLEAN fEvaluateLuaScriptsOnlyOnce;
+
 } GAME_EXTERNAL_OPTIONS;
 
 typedef struct
