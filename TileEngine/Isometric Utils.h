@@ -97,6 +97,7 @@ BOOLEAN IsPointInScreenRectWithRelative( INT16 sXPos, INT16 sYPos, SGPRect *pRec
 
 
 INT16 PythSpacesAway(INT32 sOrigin, INT32 sDest);
+INT16 PythSpacesAwaySquared(INT32 sOrigin, INT32 sDest);
 INT16 SpacesAway(INT32 sOrigin, INT32 sDest);
 INT16 CardinalSpacesAway(INT32 sOrigin, INT32 sDest);
 INT8 FindNumTurnsBetweenDirs( INT8 sDir1, INT8 sDir2 );
