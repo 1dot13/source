@@ -369,6 +369,42 @@ BOOLEAN BltVideoObjectFromIndex(UINT32 uiDestVSurface, UINT32 uiSrcVObject, UINT
 	return( TRUE );
 }
 
+BOOLEAN BltVideoObjectFromIndexWithOverride(UINT32 uiDestVSurface, UINT32 uiSrcVObject, UINT16 usRegionIndex, INT32 iDestX, INT32 iDestY, UINT32 fBltFlags, blt_fx* pBltFx, UINT16 widthOverride, UINT16 heightOverride)
+{
+	UINT16* pBuffer;
+	UINT32								uiPitch;
+	HVOBJECT							hSrcVObject;
+
+	// Lock video surface
+	pBuffer = (UINT16*)LockVideoSurface(uiDestVSurface, &uiPitch);
+
+	if ( pBuffer == NULL )
+	{
+		return(FALSE);
+	}
+
+	// Get video object
+#ifdef _DEBUG
+	gubVODebugCode = DEBUGSTR_BLTVIDEOOBJECTFROMINDEX;
+#endif
+	if ( !GetVideoObject(&hSrcVObject, uiSrcVObject) )
+	{
+		UnLockVideoSurface(uiDestVSurface);
+		return FALSE;
+	}
+
+	// Now we have the video object and surface, call the VO blitter function
+	if ( !BltVideoObjectToBufferWithOverride(pBuffer, uiPitch, hSrcVObject, usRegionIndex, iDestX, iDestY, fBltFlags, pBltFx, widthOverride, heightOverride) )
+	{
+		UnLockVideoSurface(uiDestVSurface);
+		// VO Blitter will set debug messages for error conditions
+		return FALSE;
+	}
+
+	UnLockVideoSurface(uiDestVSurface);
+	return(TRUE);
+}
+
 
 BOOLEAN DeleteVideoObjectFromIndex( UINT32 uiVObject	)
 {
@@ -1002,6 +1038,143 @@ BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJE
 	//{
 	//	return ( TRUE );
 	//}
+}
+
+// High level blit function encapsulates ALL effects and BPP
+BOOLEAN BltVideoObjectToBufferWithOverride(UINT16* pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY, INT32 fBltFlags, blt_fx* pBltFx, UINT16 widthOverride, UINT16 heightOverride)
+{
+	UINT16 blitWidth;
+	UINT16 blitHeight;
+
+	// Assertions
+	SGP_THROW_IFFALSE(pBuffer != NULL, L"No Destination Buffer");
+	SGP_THROW_IFFALSE(hSrcVObject != NULL, L"No Source Object");
+
+	CHAR8 errorText[512];
+	sprintf(errorText, "Video object index is larger than the number of sub images. Filename: %s", hSrcVObject->ImageFile);
+
+	SixteenBPPObjectInfo* image = NULL;
+
+	// Check For Flags and bit depths
+	switch ( hSrcVObject->ubBitDepth )
+	{
+		case 32:
+			SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
+			image = &hSrcVObject->p16BPPObject[usIndex];
+
+			// Guard against invalid width and height overrides
+			blitWidth = image->usWidth;
+			if ( widthOverride != 0 )
+			{
+				blitWidth = min(blitWidth, widthOverride);
+			}
+
+			blitHeight = image->usHeight;
+			if ( heightOverride != 0 )
+			{
+				blitHeight = min(blitHeight, heightOverride);
+			}
+
+			Blt32BPPTo16BPPTrans(pBuffer, uiDestPitchBYTES,
+				(UINT32*)image->p16BPPData, image->usWidth * sizeof(UINT32),
+				iDestX, iDestY,
+				0, 0, blitWidth, blitHeight);
+			break;
+
+		case 16:
+			SGP_THROW_IFFALSE(usIndex < hSrcVObject->usNumberOf16BPPObjects, errorText);
+			image = &hSrcVObject->p16BPPObject[usIndex];
+
+			// Guard against invalid width and height overrides
+			blitWidth = image->usWidth;
+			if ( widthOverride != 0 )
+			{
+				blitWidth = min(blitWidth, widthOverride);
+			}
+
+			blitHeight = image->usHeight;
+			if ( heightOverride != 0 )
+			{
+				blitHeight = min(blitHeight, heightOverride);
+			}
+
+			if ( fBltFlags & VO_BLT_SRCTRANSPARENCY )
+			{
+				Blt16BPPTo16BPPTrans(pBuffer, uiDestPitchBYTES,
+					image->p16BPPData, image->usWidth * sizeof(UINT16),
+					iDestX, iDestY,
+					0, 0, blitWidth, blitHeight, 0x1F); // 0x1f = 5 bits of blue
+			}
+			else
+			{
+				Blt16BPPTo16BPP(pBuffer, uiDestPitchBYTES,
+					image->p16BPPData, image->usWidth * sizeof(UINT16),
+					iDestX, iDestY,
+					0, 0, blitWidth, blitHeight);
+			}
+
+			break;
+
+		case 8:
+			SGP_THROW_IFFALSE(hSrcVObject->usNumberOfObjects > usIndex, errorText);
+
+			// Image original width & height
+			ETRLEObject* pTrav = &(hSrcVObject->pETRLEObject[usIndex]);
+			UINT16 usHeight = pTrav->usHeight;
+			UINT16 usWidth = pTrav->usWidth;
+
+			// Guard against invalid width and height overrides
+			blitWidth = usWidth;
+			if ( widthOverride != 0 )
+			{
+				blitWidth = min(blitWidth, widthOverride);
+				pTrav->usWidth = blitWidth;
+			}
+
+			blitHeight = usHeight;
+			if ( heightOverride != 0 )
+			{
+				blitHeight = min(blitHeight, heightOverride);
+				pTrav->usHeight = blitHeight;
+			}
+
+			SGPRect subArea;
+			subArea.iLeft = iDestX;
+			subArea.iTop = iDestY;
+			subArea.iBottom = iDestY + blitHeight;
+			subArea.iRight = iDestX + blitWidth;
+
+			// Test clipping against the smaller slice of the image
+			bool isClipped = BltIsClipped(hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
+			// Restore image original size
+			pTrav->usHeight = usHeight;
+			pTrav->usWidth = usWidth;
+
+			// Switch based on flags given
+			if ( fBltFlags & VO_BLT_SRCTRANSPARENCY )
+			{
+				if ( isClipped )
+					Blt8BPPDataTo16BPPBufferTransparentClip(pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
+				else
+					Blt8BPPDataTo16BPPBufferTransparentClip(pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &subArea);
+				break;
+			}
+			else if ( fBltFlags & VO_BLT_SHADOW )
+			{
+				if ( isClipped )
+					Blt8BPPDataTo16BPPBufferShadowClip(pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &ClippingRect);
+				else
+					Blt8BPPDataTo16BPPBufferShadowClip(pBuffer, uiDestPitchBYTES, hSrcVObject, iDestX, iDestY, usIndex, &subArea);
+				break;
+			}
+
+			// Use default blitter here
+			//Blt8BPPDataTo16BPPBuffer( hDestVObject, hSrcVObject, (UINT16)iDestX, (UINT16)iDestY, (SGPRect*)&SrcRect );
+
+			break;
+	}
+
+	return(TRUE);
 }
 
 BOOLEAN PixelateVideoObjectRect(	UINT32	uiDestVSurface, INT32 X1, INT32 Y1, INT32 X2, INT32 Y2)

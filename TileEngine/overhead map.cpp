@@ -70,6 +70,25 @@ INT16							gsStartRestrictedX, gsStartRestrictedY;
 BOOLEAN						gfOverItemPool = FALSE;
 INT32							gsOveritemPoolGridNo;
 
+#define DYNAMIC_OVERHEADMAP_SIZE
+// Frame piecewise graphics
+UINT32 gFrameGraphics;
+// indexes
+#define TLCORNER 0
+#define BLCORNER 1
+#define TRCORNER 2
+#define BRCORNER 3
+#define TOPFRAME 4
+#define LEFTFRAME 5
+#define BOTTOMFRAME 6
+#define RIGHTFRAME 7
+
+// X - Horizontal start postion of the overview map
+// Y - Vertical start position of the overview map
+// Width & Height - Extents of the rendered area
+SGPRectangle gOverheadMapRenderArea;
+bool gWholeMapFits;
+
 UINT16 iOffsetHorizontal;	// Horizontal start postion of the overview map
 UINT16 iOffsetVertical;	// Vertical start position of the overview map	
 //DBrot: keep track if we should use a bigger version of the overview map for big maps
@@ -84,9 +103,9 @@ UINT16		gusGridFrameY;
 #define		HATCHED 2
 //dnl ch45 021009 Current position of map displayed in overhead map, (A=TopLeft, B=BottomLeft, C=TopRight)
 #define MAXSCROLL 4
-INT32 giXA = 0, giYA = WORLD_ROWS/2;
-INT32 giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
-INT32 giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
+INT32 giXTL = 0, giYTL = WORLD_ROWS/2;
+INT32 giXBL = (0 + OLD_WORLD_COLS/2), giYBL = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
+INT32 giXTR = (0 + OLD_WORLD_COLS/2), giYTR = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
 
 extern BOOLEAN gfValidLocationsChanged;//dnl ch45 051009
 
@@ -381,8 +400,8 @@ void DisplayMercNameInOverhead(SOLDIERTYPE* pSoldier)
 	sX = pSoldier->sX;
 	sY = pSoldier->sY;
 
-	sX -= ((giXA - 0) * CELL_X_SIZE);
-	sY -= ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+	sX -= ((giXTL - 0) * CELL_X_SIZE);
+	sY -= ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
 	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
 		return;
@@ -455,11 +474,19 @@ void HandleOverheadMap( )
 	RestoreBackgroundRects( );
 
 	// Render the overhead map
-	//DBrot: use a bigger overhead map if we have the space
+	//DBrot: use a bigger overhead map if we have the
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	const auto xEnd = gOverheadMapRenderArea.width + gOverheadMapRenderArea.x;
+	const auto yEnd = gOverheadMapRenderArea.height + gOverheadMapRenderArea.y;
+	RenderOverheadMap(giXTL, giYTL, gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, xEnd, yEnd, FRAME_BUFFER);
+#else
 	if(gfUseBiggerOverview)//dnl ch82 090114
-		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FRAME_BUFFER);
+		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FRAME_BUFFER);
+	else if (iResolution == _1280x720 )
+		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, min(SCREEN_WIDTH-40, WORLD_COLS*4) + iOffsetHorizontal, min(SCREEN_HEIGHT-120-40, WORLD_ROWS*2) + iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
 	else
-		RenderOverheadMap(giXA, giYA, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
+		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
+#endif // DYNAMIC_OVERHEADMAP_SIZE
 
 	HandleTalkingAutoFaces( );
 
@@ -592,8 +619,42 @@ BOOLEAN InOverheadMap( )
 	return( gfInOverheadMap );
 }
 
-void GoIntoOverheadMap( )
+static void ResizeMapRenderArea()
+{
+	const auto mapSizeInPixels_X = WORLD_COLS * 4; // One tile is 4 pixels wide
+	const auto mapSizeInPixels_Y = WORLD_ROWS * 2; // One tile is 2 pixels high
+
+	// Initial settings are proper for original 640x480 resolution
+	auto borderSize = 0;
+	auto teamPanelHeight = 160;
+	if ( SCREEN_HEIGHT > 480 )
 	{
+		// Map border is 40 pixels wide & high
+		borderSize = 80;
+		teamPanelHeight = 120; // from tactical teampanel height. Minimizes empty black space when map size grows
+	}
+
+	const auto maxRenderArea_X = SCREEN_WIDTH - borderSize; 
+	const auto maxRenderArea_Y = SCREEN_HEIGHT - borderSize - teamPanelHeight; 
+	gOverheadMapRenderArea.width = min(maxRenderArea_X, mapSizeInPixels_X);
+	gOverheadMapRenderArea.height = min(maxRenderArea_Y, mapSizeInPixels_Y);
+
+	// Overview map should be centered in the middle of the tactical screen.
+	gOverheadMapRenderArea.x = SCREEN_WIDTH / 2 - gOverheadMapRenderArea.width/2;
+	gOverheadMapRenderArea.y = (SCREEN_HEIGHT - teamPanelHeight)/ 2 - gOverheadMapRenderArea.height / 2;
+
+	// Restrict scroll if the whole map can be shown
+	gWholeMapFits = false;
+	if ( maxRenderArea_Y > mapSizeInPixels_Y )
+		gWholeMapFits = true;
+
+	// Temporarily here before everything gets converted properly
+	iOffsetHorizontal = gOverheadMapRenderArea.x; // Horizontal start postion of the overview map
+	iOffsetVertical = gOverheadMapRenderArea.y; // Vertical start position of the overview map
+}
+
+void GoIntoOverheadMap( )
+{
 	VOBJECT_DESC	VObjectDesc;
 	HVOBJECT				hVObject;
 
@@ -603,61 +664,120 @@ void GoIntoOverheadMap( )
 
 	// Overview map should be centered in the middle of the tactical screen.
 	//DBrot: Allow bigger overview if possible
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	ResizeMapRenderArea();
+
+	if ( gWholeMapFits == false )
+	{
+		// Calculate overhead map coords from your current position on big map
+		INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
+		FLOAT ddw = PointToPointDist(0, WORLD_ROWS / 2, (0 + OLD_WORLD_COLS / 2), (WORLD_ROWS / 2 + OLD_WORLD_ROWS / 2)) / 2;
+		FLOAT ddh = PointToPointDist(0, WORLD_ROWS / 2, (0 + OLD_WORLD_COLS / 2), (WORLD_ROWS / 2 - OLD_WORLD_ROWS / 2)) / 2;
+		Xt = gsRenderCenterX / CELL_X_SIZE;
+		Yt = gsRenderCenterY / CELL_Y_SIZE;
+		k = 1, l = (3 * WORLD_ROWS - WORLD_COLS) / 4;// p3
+		FLOAT dd = PointToLineDist(Xt, Yt, k, l);
+		if ( dd < ddh )
+		{
+			PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
+			Xt = Xtnew, Yt = Ytnew;
+		}
+		else
+		{
+			k = 1, l = (WORLD_ROWS - 3 * WORLD_COLS) / 4;// p1
+			dd = PointToLineDist(Xt, Yt, k, l);
+			if ( dd < ddh )
+			{
+				PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
+				Xt = Xtnew, Yt = Ytnew;
+			}
+		}
+		k = -1, l = (WORLD_ROWS + WORLD_COLS) / 4;// p4
+		dd = PointToLineDist(Xt, Yt, k, l);
+		if ( dd < ddw )
+		{
+			PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
+			Xt = Xtnew, Yt = Ytnew;
+		}
+		else
+		{
+			k = -1, l = 3 * (WORLD_ROWS + WORLD_COLS) / 4;// p1
+			dd = PointToLineDist(Xt, Yt, k, l);
+			if ( dd < ddw )
+			{
+				PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
+				Xt = Xtnew, Yt = Ytnew;
+			}
+		}
+		Xs = (giXBL + giXTR) / 2;
+		Ys = (giYBL + giYTR) / 2;
+		dX = Xt - Xs;
+		dY = Yt - Ys;
+		giXTL += dX, giYTL += dY;
+		giXBL += dX, giYBL += dY;
+		giXTR += dX, giYTR += dY;
+	}
+#else
+
 	if((iResolution >= _1680x1050) && WORLD_MAX == 129600){
 		iOffsetHorizontal = (SCREEN_WIDTH / 2) - (1440 / 2);		// Horizontal start postion of the overview map
 		iOffsetVertical = 98;//(SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
 		gfUseBiggerOverview = TRUE;
-	}else{
-	iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
-	iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
-	//dnl ch85 060214 Calculate overhead map cords from your current position on big map
-	INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
-	FLOAT ddw = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 + OLD_WORLD_ROWS/2)) / 2;
-	FLOAT ddh = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 - OLD_WORLD_ROWS/2)) / 2;
-	Xt = gsRenderCenterX / CELL_X_SIZE;
-	Yt = gsRenderCenterY / CELL_Y_SIZE;
-	k = 1, l = (3*WORLD_ROWS-WORLD_COLS)/4;// p3
-	FLOAT dd = PointToLineDist(Xt, Yt, k, l);
-	if(dd < ddh)
-	{
-		PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
-		Xt = Xtnew, Yt = Ytnew;
 	}
 	else
 	{
-		k = 1, l = (WORLD_ROWS-3*WORLD_COLS)/4;// p1
-		dd = PointToLineDist(Xt, Yt, k, l);
+		iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
+		iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
+		//dnl ch85 060214 Calculate overhead map cords from your current position on big map
+		INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
+		FLOAT ddw = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 + OLD_WORLD_ROWS/2)) / 2;
+		FLOAT ddh = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 - OLD_WORLD_ROWS/2)) / 2;
+		Xt = gsRenderCenterX / CELL_X_SIZE;
+		Yt = gsRenderCenterY / CELL_Y_SIZE;
+		k = 1, l = (3*WORLD_ROWS-WORLD_COLS)/4;// p3
+		FLOAT dd = PointToLineDist(Xt, Yt, k, l);
 		if(dd < ddh)
 		{
 			PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
 			Xt = Xtnew, Yt = Ytnew;
 		}
-	}
-	k = -1, l = (WORLD_ROWS+WORLD_COLS)/4;// p4
-	dd = PointToLineDist(Xt, Yt, k, l);
-	if(dd < ddw)
-	{
-		PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
-		Xt = Xtnew, Yt = Ytnew;
-	}
-	else
-	{
-		k = -1, l = 3*(WORLD_ROWS+WORLD_COLS)/4;// p1
+		else
+		{
+			k = 1, l = (WORLD_ROWS-3*WORLD_COLS)/4;// p1
+			dd = PointToLineDist(Xt, Yt, k, l);
+			if(dd < ddh)
+			{
+				PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
+				Xt = Xtnew, Yt = Ytnew;
+			}
+		}
+		k = -1, l = (WORLD_ROWS+WORLD_COLS)/4;// p4
 		dd = PointToLineDist(Xt, Yt, k, l);
 		if(dd < ddw)
 		{
 			PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
 			Xt = Xtnew, Yt = Ytnew;
 		}
+		else
+		{
+			k = -1, l = 3*(WORLD_ROWS+WORLD_COLS)/4;// p1
+			dd = PointToLineDist(Xt, Yt, k, l);
+			if(dd < ddw)
+			{
+				PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
+				Xt = Xtnew, Yt = Ytnew;
+			}
+		}
+		Xs = (giXBL + giXTR) / 2;
+		Ys = (giYBL + giYTR) / 2;
+		dX = Xt - Xs;
+		dY = Yt - Ys;
+		giXTL += dX, giYTL += dY;
+		giXBL += dX, giYBL += dY;
+		giXTR += dX, giYTR += dY;
 	}
-	Xs = (giXB + giXC) / 2;
-	Ys = (giYB + giYC) / 2;
-	dX = Xt - Xs;
-	dY = Yt - Ys;
-	giXA += dX, giYA += dY;
-	giXB += dX, giYB += dY;
-	giXC += dX, giYC += dY;
-	}
+#endif // DYNAMIC_OVERHEADMAP_SIZE
+
 	if(WORLD_MAX == 129600){
 		if (RebelCommand::ShowApproximateEnemyLocations())
 		{
@@ -701,13 +821,20 @@ void GoIntoOverheadMap( )
 	MSYS_AddRegion( &OverheadRegion );
 
 
-	// LOAD CLOSE ANIM
+	// Laod Map border graphics
 	if (iResolution >= _640x480 && iResolution < _800x600)
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD.sti" );
+	}
+	else if ( iResolution == _1280x720 )
+	{
+		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+		FilenameForBPP("INTERFACE\\Map_Bord_1280x720.sti", VObjectDesc.ImageFile);
+		if ( !AddVideoObject(&VObjectDesc, &uiOVERMAP) )
+			AssertMsg(0, "Missing INTERFACE\\Map_Bord_1280x720.sti");
 	}
 	else if (iResolution < _1024x768)
 	{
@@ -727,6 +854,13 @@ void GoIntoOverheadMap( )
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_1024x768.sti" );
 	}
+
+	// Load overhead map frame pieces
+	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
+	FilenameForBPP("INTERFACE\\Map_Frame.sti", VObjectDesc.ImageFile);
+	if ( !AddVideoObject(&VObjectDesc, &gFrameGraphics) )
+		AssertMsg(0, "Missing INTERFACE\\Map_Frame.sti");
+
 
 	// LOAD PERSONS
 	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
@@ -809,7 +943,7 @@ void HandleOverheadUI(void)
 
 void ScrollOverheadMap(void)
 {
-	if(WORLD_MAX == OLD_WORLD_MAX || gfUseBiggerOverview)
+	if(WORLD_MAX == OLD_WORLD_MAX || gfUseBiggerOverview ||gWholeMapFits)
 		return;
 	UINT32 uiFlags = 0;
 	INT32 i;
@@ -834,11 +968,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYA >= (giXA + (3*WORLD_ROWS-WORLD_COLS)/4))//dnl ch85 080214
+			if(giYTL >= (giXTL + (3*WORLD_ROWS-WORLD_COLS)/4))//dnl ch85 080214
 				break;
-			--giXA, ++giYA;
-			--giXB, ++giYB;
-			--giXC, ++giYC;
+			--giXTL, ++giYTL;
+			--giXBL, ++giYBL;
+			--giXTR, ++giYTR;
 		}
 	}
 	if(uiFlags & SCROLL_RIGHT)// Scroll Right  { Y = X + (WORLD_ROWS-3*WORLD_COLS)/4; --> p3 }
@@ -848,11 +982,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYC <= (giXC + (WORLD_ROWS-3*WORLD_COLS)/4))//dnl ch85 080214
+			if(giYTR <= (giXTR + (WORLD_ROWS-3*WORLD_COLS)/4))//dnl ch85 080214
 				break;
-			++giXA, --giYA;
-			++giXB, --giYB;
-			++giXC, --giYC;
+			++giXTL, --giYTL;
+			++giXBL, --giYBL;
+			++giXTR, --giYTR;
 		}
 	}
 	if(uiFlags & SCROLL_UP)// Scroll Up  { Y = -X + (WORLD_ROWS+WORLD_COLS)/4; --> p4 }
@@ -862,11 +996,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYA <= (-giXA + (WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
+			if(giYTL <= (-giXTL + (WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
 				break;
-			--giXA, --giYA;
-			--giXB, --giYB;
-			--giXC, --giYC;
+			--giXTL, --giYTL;
+			--giXBL, --giYBL;
+			--giXTR, --giYTR;
 		}
 	}
 	if(uiFlags & SCROLL_DOWN)// Scroll Down  { Y = -X + 3*(WORLD_ROWS+WORLD_COLS)/4; --> p2 }
@@ -876,20 +1010,20 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-			if(giYB >= (-giXB + 3*(WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
+			if(giYBL >= (-giXBL + 3*(WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
 				break;
-			++giXA, ++giYA;
-			++giXB, ++giYB;
-			++giXC, ++giYC;
+			++giXTL, ++giYTL;
+			++giXBL, ++giYBL;
+			++giXTR, ++giYTR;
 		}
 	}
 }
 
 void ResetScrollOverheadMap(void)
 {
-	giXA = 0, giYA = WORLD_ROWS/2;
-	giXB = (0 + OLD_WORLD_COLS/2), giYB = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
-	giXC = (0 + OLD_WORLD_COLS/2), giYC = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
+	giXTL = 0, giYTL = WORLD_ROWS/2;
+	giXBL = (0 + OLD_WORLD_COLS/2), giYBL = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
+	giXTR = (0 + OLD_WORLD_COLS/2), giYTR = (WORLD_ROWS/2 - OLD_WORLD_ROWS/2);
 }
 
 void KillOverheadMap()
@@ -903,10 +1037,10 @@ void KillOverheadMap()
 
 	DeleteVideoObjectFromIndex( uiOVERMAP );
 	DeleteVideoObjectFromIndex( uiPERSONS );
+	DeleteVideoObjectFromIndex(gFrameGraphics);
 
 	HandleTacticalPanelSwitch( );
 	DisableTacticalTeamPanelButtons( FALSE );
-
 }
 
 
@@ -1015,6 +1149,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		pDestBuf = LockVideoSurface(uiBigMap, &uiDestPitchBYTES);//dnl ch77 211113
 
 		// Nur Karte und position der gebäude
+		// Land tiles
 		do
 		{
 			fEndRenderRow = FALSE;
@@ -1355,11 +1490,66 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 		}
 		//DBrot: bigger overview code
 		if(uiVSurface == FRAME_BUFFER)
-		{// Render border!
+		{// Render borders!
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			if ( SCREEN_HEIGHT > 480 )
+			{
+                // Top left corner
+                auto x = gOverheadMapRenderArea.x - 40;
+                auto y = gOverheadMapRenderArea.y - 40;
+                BltVideoObjectFromIndex(FRAME_BUFFER, gFrameGraphics, TLCORNER, x, y, VO_BLT_SRCTRANSPARENCY, NULL);
+
+                // Bottom left corner
+                y = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - 40;
+                BltVideoObjectFromIndex(FRAME_BUFFER, gFrameGraphics, BLCORNER, x, y, VO_BLT_SRCTRANSPARENCY, NULL);
+
+                // Top right corner
+                x = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 40;
+                y = gOverheadMapRenderArea.y - 40;
+                BltVideoObjectFromIndex(FRAME_BUFFER, gFrameGraphics, TRCORNER, x, y, VO_BLT_SRCTRANSPARENCY, NULL);
+
+                // Bottom right corner
+                x = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 40;
+                y = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - 40;
+                BltVideoObjectFromIndex(FRAME_BUFFER, gFrameGraphics, BRCORNER, x, y, VO_BLT_SRCTRANSPARENCY, NULL);
+
+                const auto borderWidth = gOverheadMapRenderArea.width - 40;
+                const auto borderHeight = gOverheadMapRenderArea.height - 80;
+                // Top
+                x = gOverheadMapRenderArea.x + 40;
+                y = gOverheadMapRenderArea.y - 40;
+                BltVideoObjectFromIndexWithOverride(FRAME_BUFFER, gFrameGraphics, TOPFRAME, x, y, VO_BLT_SRCTRANSPARENCY, NULL, borderWidth);
+
+                // Left
+                x = gOverheadMapRenderArea.x - 40;
+                y = gOverheadMapRenderArea.y + 40;
+                BltVideoObjectFromIndexWithOverride(FRAME_BUFFER, gFrameGraphics, LEFTFRAME, x, y, VO_BLT_SRCTRANSPARENCY, NULL, 0, borderHeight);
+
+                // Bottom
+                x = gOverheadMapRenderArea.x + 40;
+                y = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+                BltVideoObjectFromIndexWithOverride(FRAME_BUFFER, gFrameGraphics, BOTTOMFRAME, x, y, VO_BLT_SRCTRANSPARENCY, NULL, borderWidth);
+
+                // Right
+                x = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width;
+                y = gOverheadMapRenderArea.y + 40;
+                BltVideoObjectFromIndexWithOverride(FRAME_BUFFER, gFrameGraphics, RIGHTFRAME, x, y, VO_BLT_SRCTRANSPARENCY, NULL, 0, borderHeight);
+			}
+			else
+			{
+				// Use nondynamic border graphic in original resolution
+				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+			}
+
+
+#else
 			if(gfUseBiggerOverview && iResolution >= _1680x1050)
 				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);
+			else if (iResolution == _1280x720 )
+				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);
 			else
 				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
+#endif // DYNAMIC_OVERHEADMAP_SIZE
 		}
 		else
 			return;
@@ -2066,8 +2256,8 @@ void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		//dnl ch45 021009
-		uiCellX += ((giXA - 0) * CELL_X_SIZE);
-		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+		uiCellX += ((giXTL - 0) * CELL_X_SIZE);
+		uiCellY += ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 
 		SetRenderCenter( (INT16)uiCellX, (INT16)uiCellY );
 
@@ -2097,8 +2287,8 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 	sX *= CELL_X_SIZE;
 	sY *= CELL_Y_SIZE;
 
-	sX -= ((giXA - 0) * CELL_X_SIZE);
-	sY -= ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+	sX -= ((giXTL - 0) * CELL_X_SIZE);
+	sY -= ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
 	//DBrot: big maps
 	if(gfUseBiggerOverview){
@@ -2172,8 +2362,8 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		//dnl ch45 021009
-		uiCellX += ((giXA - 0) * CELL_X_SIZE);
-		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+		uiCellX += ((giXTL - 0) * CELL_X_SIZE);
+		uiCellY += ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 
 		// Get gridNo
 		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
@@ -2230,8 +2420,8 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
 		//dnl ch45 021009
-		uiCellX += ((giXA - 0) * CELL_X_SIZE);
-		uiCellY += ((giYA - WORLD_ROWS/2) * CELL_Y_SIZE);
+		uiCellX += ((giXTL - 0) * CELL_X_SIZE);
+		uiCellY += ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 
 		// Get gridNo
 		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
