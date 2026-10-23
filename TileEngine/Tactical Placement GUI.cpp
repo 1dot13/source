@@ -65,7 +65,7 @@ UINT32 iTPButtons[ NUM_TP_BUTTONS ];
 
 //dnl ch45 051009
 #define PLACEMENT_OFFSET 150
-extern INT32 giXA, giYA;
+extern INT32 giXTL, giYTL;
 
 extern BOOLEAN gfOverheadMapDirty;
 extern BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo );
@@ -1208,8 +1208,8 @@ void RenderTacticalPlacementGUI()
 			//dnl ch45 051009
 			INT16 sWorldScreenX, sX;
 			INT16 sWorldScreenY, sY;
-			sX = giXA;
-			sY = giYA;
+			sX = giXTL;
+			sY = giYTL;
 			GetWorldXYAbsoluteScreenXY(sX, sY, &sWorldScreenX, &sWorldScreenY);
 			sWorldScreenX += 20;// Correction from invisible area X
 			sWorldScreenY += 35;// Correction from invisible area Y
@@ -1606,8 +1606,8 @@ void TacticalPlacementHandle()
 		INT16 sWorldScreenY = (gusMouseYPos - iOffsetVertical) * 5;
 		INT32 iCellX, iCellY;
 		GetFromAbsoluteScreenXYWorldXY(&iCellX, &iCellY, sWorldScreenX, sWorldScreenY);
-		iCellX = (iCellX / CELL_X_SIZE) + (giXA - 0);
-		iCellY = (iCellY / CELL_Y_SIZE) + (giYA - WORLD_ROWS/2);
+		iCellX = (iCellX / CELL_X_SIZE) + (giXTL - 0);
+		iCellY = (iCellY / CELL_Y_SIZE) + (giYTL - WORLD_ROWS/2);
 		GetWorldXYAbsoluteScreenXY(iCellX, iCellY, &sWorldScreenX, &sWorldScreenY);
 		switch(gMercPlacement[gbCursorMercID].ubStrategicInsertionCode)
 		{

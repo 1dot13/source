@@ -180,6 +180,8 @@ BOOLEAN BltVideoObjectFromIndex(  UINT32	uiDestVSurface,
 												 UINT32 fBltFlags, 
 												 blt_fx *pBltFx );
 
+BOOLEAN BltVideoObjectFromIndexWithOverride(UINT32 uiDestVSurface, UINT32 uiSrcVObject, UINT16 usRegionIndex, INT32 iDestX, INT32 iDestY, UINT32 fBltFlags, blt_fx* pBltFx, UINT16 widthOverride = 0, UINT16 heightOverride = 0);
+
 // Sets transparency
 BOOLEAN SetVideoObjectTransparency( UINT32 uiIndex, COLORVAL TransColor );
 
@@ -243,7 +245,8 @@ extern BOOLEAN gfVideoObjectsInit;
 // These blitting functions more-or less encapsolate all of the functionality of DirectDraw
 // Blitting, giving an API layer for portability. 
 
-BOOLEAN BltVideoObjectToBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY, INT32 fBltFlags, blt_fx *pBltFx );
+BOOLEAN BltVideoObjectToBuffer(UINT16* pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY, INT32 fBltFlags, blt_fx* pBltFx);
+BOOLEAN BltVideoObjectToBufferWithOverride(UINT16* pBuffer, UINT32 uiDestPitchBYTES, HVOBJECT hSrcVObject, UINT16 usIndex, INT32 iDestX, INT32 iDestY, INT32 fBltFlags, blt_fx* pBltFx, UINT16 widthOverride = 0, UINT16 heightOverride = 0);
 
 HVOBJECT GetPrimaryVideoObject( );
 HVOBJECT GetBackBufferVideoObject( );
