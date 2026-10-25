@@ -653,6 +653,97 @@ static void ResizeMapRenderArea()
 	iOffsetVertical = gOverheadMapRenderArea.y; // Vertical start position of the overview map
 }
 
+//dnl ch82 090114
+#define StartX_M_Offset 12
+#define EndXS_Offset 128
+#define EndYS_Offset 64
+
+// The sampled window is wider than the visible area: the blit at the end of RenderOverheadMap
+// crops StartX_M_Offset*4 px off the left, EndXS_Offset px off the right, StartX_M_Offset*2 px
+// off the top and EndYS_Offset px off the bottom. In world units one inner step is 8 px and 2
+// tiles of u (col - row), one outer step is 2 px and 1 tile of v (col + row), so the crops are:
+constexpr INT32 OverheadVisUInsetLeft  = StartX_M_Offset;                  // 48 px of u
+constexpr INT32 OverheadVisUInsetRight = 2 * (EndXS_Offset / 8);           // 128 px of u
+constexpr INT32 OverheadVisVInsetTop   = StartX_M_Offset;                  // 24 px of v
+constexpr INT32 OverheadVisVInsetBot   = EndYS_Offset / 2;                 // 64 px of v
+
+// Headroom beyond the playable area's edges at full scroll, so props planted in the playable
+// area's corners (trees and their blits stick up past their anchor tile) are not sliced off.
+constexpr INT32 OverheadScrollHeadroom = 0;
+
+constexpr INT32 OverheadULoSlack = OverheadVisUInsetLeft  + OverheadScrollHeadroom;
+constexpr INT32 OverheadUHiSlack = OverheadVisUInsetRight + OverheadScrollHeadroom;
+constexpr INT32 OverheadVLoSlack = OverheadVisVInsetTop   + OverheadScrollHeadroom;
+constexpr INT32 OverheadVHiSlack = OverheadVisVInsetBot   + OverheadScrollHeadroom;
+
+// The old scroll clamps below assume the view window is OLD_WORLD_* (160) tiles wide/high.
+// With DYNAMIC_OVERHEADMAP_SIZE the window is gOverheadMapRenderArea, so clamp against the
+// sampled tile window instead. Extents follow the loop in RenderOverheadMap: the inner loop
+// steps (col + 1, row - 1) until sTempPosX_S >= sEndXS (sEndXS = area.width + EndXS_Offset,
+// sTempPosX_S starts at the area's left edge, +4 on odd anchor rows), and each outer step
+// moves sAnchorPosY_S down by 2 until sEndYS = area.height + EndYS_Offset, alternating
+// (col + 1) / (row + 1) on the anchor. The first sampled column is giXTL - StartX_M_Offset.
+// The window is a parallelogram, so its limits are diagonal, not the corners of its bounding
+// rectangle: with u = col - row and v = col + row the sampled window spans u in [uA, uA + 2*jmax
+// + 1] and v in [vA, vA + imax], and the visible window is that range shrunk by the blit crops
+// above.
+// The playable area is the rotated rectangle inscribed in the stored map square: its corners are
+// the midpoints of the map's edges -- (0, WORLD_ROWS/2), (WORLD_COLS/2, 0), (WORLD_COLS, WORLD_ROWS/2),
+// (WORLD_COLS/2, WORLD_ROWS). RenderOverheadMap maps u = col - row onto screen x and v = col + row
+// onto screen y, so that rotated rectangle is axis-aligned in u/v and its bounds are
+// u in [-WORLD_ROWS/2, WORLD_COLS/2] and v in [WORLD_ROWS/2, WORLD_COLS/2 + WORLD_ROWS]. Those, not
+// the stored square's extremes, are what the scroll may reach: the four playable corners are the
+// diamond tips the player sees on screen. Shared with ScrollOverheadMap so the clamp and the
+// per-direction stops agree.
+static void OverheadWindowStartBounds(INT32 *puLo, INT32 *puHi, INT32 *pvLo, INT32 *pvHi)
+{
+	const INT32 uPlayableLo = -(WORLD_ROWS / 2);
+	const INT32 uPlayableHi = (WORLD_COLS / 2);
+	const INT32 vPlayableLo = (WORLD_ROWS / 2);
+	const INT32 vPlayableHi = (WORLD_COLS / 2) + WORLD_ROWS;
+
+	// A tile start may slide until the playable tip that is being scrolled to lands on the
+	// visible frame edge. The visible window is the render area itself: u = col - row runs
+	// 4 px per tile along x and v = col + row 2 px along y, so the visible spans are
+	// area.width/4 and area.height/2, and each limit is inset from the sampled start by the
+	// blit crop on that side (left/top) or by crop + visible span (right/bottom).
+	const INT32 uVisible = (INT32)gOverheadMapRenderArea.width / 4;
+	const INT32 vVisible = (INT32)gOverheadMapRenderArea.height / 2;
+
+	*puLo = uPlayableLo - OverheadULoSlack;
+	*puHi = uPlayableHi - (OverheadVisUInsetLeft + uVisible) + OverheadScrollHeadroom;
+	*pvLo = vPlayableLo - OverheadVLoSlack;
+	*pvHi = vPlayableHi - (OverheadVisVInsetTop + vVisible) + OverheadScrollHeadroom;
+}
+
+static void ClampOverheadWindowToWorld(void)
+{
+	INT32 uLo, uHi, vLo, vHi;
+	OverheadWindowStartBounds(&uLo, &uHi, &vLo, &vHi);
+
+	const INT32 uA = giXTL - StartX_M_Offset - giYTL;
+	const INT32 vA = giXTL - StartX_M_Offset + giYTL;
+
+	INT32 a = uA, b = vA;
+	if ( a < uLo )
+		a = uLo;
+	else if ( a > uHi )
+		a = uHi;
+	if ( b < vLo )
+		b = vLo;
+	else if ( b > vHi )
+		b = vHi;
+	if ( ((b - a) % 2) != 0 )
+		++b;// u and v must stay on the same parity to land on whole cells
+
+	const INT32 dX = ( (a + b) / 2 + StartX_M_Offset ) - giXTL;
+	const INT32 dY = ( (b - a) / 2 ) - giYTL;
+
+	giXTL += dX, giYTL += dY;
+	giXBL += dX, giYBL += dY;
+	giXTR += dX, giYTR += dY;
+}
+
 void GoIntoOverheadMap( )
 {
 	VOBJECT_DESC	VObjectDesc;
@@ -716,6 +807,9 @@ void GoIntoOverheadMap( )
 		giXTL += dX, giYTL += dY;
 		giXBL += dX, giYBL += dY;
 		giXTR += dX, giYTR += dY;
+		// The centering above sizes its search from OLD_WORLD_*, so the result can sit
+		// outside the legal window. Pull it back in.
+		ClampOverheadWindowToWorld();
 	}
 #else
 
@@ -945,6 +1039,12 @@ void ScrollOverheadMap(void)
 {
 	if(WORLD_MAX == OLD_WORLD_MAX || gfUseBiggerOverview ||gWholeMapFits)
 		return;
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	ClampOverheadWindowToWorld();
+	// Limits shared with ClampOverheadWindowToWorld so the stops match the clamp exactly
+	INT32 uLo, uHi, vLo, vHi;
+	OverheadWindowStartBounds(&uLo, &uHi, &vLo, &vHi);
+#endif
 	UINT32 uiFlags = 0;
 	INT32 i;
 	if(_KeyDown(UPARROW))
@@ -968,7 +1068,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			if(giXTL - StartX_M_Offset - giYTL <= uLo)// window at the playable area's west tip
+#else
 			if(giYTL >= (giXTL + (3*WORLD_ROWS-WORLD_COLS)/4))//dnl ch85 080214
+#endif
 				break;
 			--giXTL, ++giYTL;
 			--giXBL, ++giYBL;
@@ -982,7 +1086,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			if(giXTL - StartX_M_Offset - giYTL >= uHi)// window at the playable area's east tip
+#else
 			if(giYTR <= (giXTR + (WORLD_ROWS-3*WORLD_COLS)/4))//dnl ch85 080214
+#endif
 				break;
 			++giXTL, --giYTL;
 			++giXBL, --giYBL;
@@ -996,7 +1104,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			if(giXTL - StartX_M_Offset + giYTL <= vLo)// window at the playable area's north tip
+#else
 			if(giYTL <= (-giXTL + (WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
+#endif
 				break;
 			--giXTL, --giYTL;
 			--giXBL, --giYBL;
@@ -1010,7 +1122,11 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			if(giXTL - StartX_M_Offset + giYTL >= vHi)// window at the playable area's south tip
+#else
 			if(giYBL >= (-giXBL + 3*(WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
+#endif
 				break;
 			++giXTL, ++giYTL;
 			++giXBL, ++giYBL;
@@ -1070,10 +1186,6 @@ INT16 GetModifiedOffsetLandHeight( INT32 sGridNo )
 	return( sModifiedTileHeight );
 }
 
-//dnl ch82 090114
-#define StartX_M_Offset 12
-#define EndXS_Offset 128
-#define EndYS_Offset 64
 void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStartPointX_S, INT16 sStartPointY_S, INT16 sEndXS, INT16 sEndYS, UINT32 uiVSurface )
 {
 	INT8				bXOddFlag = 0;
@@ -1167,7 +1279,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 				// / 5->/ 3
 				usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
+				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE && (UINT16)sTempPosX_M < (UINT16)WORLD_COLS && (UINT16)sTempPosY_M < (UINT16)WORLD_ROWS)
 				{
 					sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 
@@ -1252,7 +1364,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			{
 				usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
+				if(usTileIndex >= 0 && usTileIndex < GRIDSIZE && (UINT16)sTempPosX_M < (UINT16)WORLD_COLS && (UINT16)sTempPosY_M < (UINT16)WORLD_ROWS)
 				{
 					sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 					sModifiedHeight = ( GetModifiedOffsetLandHeight( usTileIndex ) / 5 );
@@ -1293,7 +1405,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 					pNode = gpWorldLevelData[ usTileIndex ].pShadowHead;
 					while( pNode != NULL )
 					{
-						if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
+						if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)
 						{
 							pTile = &( gSmTileDB[ pNode->usIndex ] );
 
@@ -1408,7 +1520,7 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 				{
 					usTileIndex=FASTMAPROWCOLTOPOS( sTempPosY_M, sTempPosX_M );
 
-					if(usTileIndex >= 0 && usTileIndex < GRIDSIZE)//dnl ch82 081213
+					if(usTileIndex >= 0 && usTileIndex < GRIDSIZE && (UINT16)sTempPosX_M < (UINT16)WORLD_COLS && (UINT16)sTempPosY_M < (UINT16)WORLD_ROWS)
 					{
 						sHeight=( GetOffsetLandHeight(usTileIndex) /5);
 
