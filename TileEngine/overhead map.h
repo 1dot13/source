@@ -36,4 +36,6 @@ void ResetScrollOverheadMap(void);
 #define FASTMAPROWCOLTOPOS( r, c )		( (r) * WORLD_COLS + (c) )
 
 extern BOOLEAN gfUseBiggerOverview;
+extern SGPRectangle gOverheadMapRenderArea;
+#define DYNAMIC_OVERHEADMAP_SIZE
 #endif

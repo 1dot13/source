@@ -1599,7 +1599,11 @@ void TacticalPlacementHandle()
 	}
 	gfValidCursor = FALSE;
 
-	if(gbSelectedMercID != -1 && ((gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))||(gfUseBiggerOverview && (gusMouseYPos < (iOffsetVertical + 716) && gusMouseYPos > iOffsetVertical && gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 1432) ))))
+	const bool mouseInsideX = gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width);
+	const bool mouseInsideY = gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y;
+	const bool mouseInsideMapArea = ( mouseInsideX && mouseInsideY );
+
+	if(gbSelectedMercID != -1 && mouseInsideMapArea )
 	{
 		//dnl ch45 051009
 		INT16 sWorldScreenX = (gusMouseXPos - iOffsetHorizontal) * 5;
