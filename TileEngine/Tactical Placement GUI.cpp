@@ -148,9 +148,9 @@ static void FindValidInsertionCode( UINT8 *pubStrategicInsertionCode )
 	{
 		InvalidateScreen();
 		DrawTextToScreen( L"Map doesn't has entrypoints without corresponding edgepoints. LC:1",
-			iOffsetHorizontal + 30, iOffsetVertical + 150, 600, FONT10ARIALBOLD, FONT_RED, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+			gOverheadMapRenderArea.x + 30, gOverheadMapRenderArea.y + 150, 600, FONT10ARIALBOLD, FONT_RED, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 		DrawTextToScreen( L"GENERATING MAP EDGEPOINTS!	Please wait...",
-			iOffsetHorizontal + 30, iOffsetVertical + 160, 600, FONT10ARIALBOLD, FONT_YELLOW, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
+			gOverheadMapRenderArea.x + 30, gOverheadMapRenderArea.y + 160, 600, FONT10ARIALBOLD, FONT_YELLOW, FONT_MCOLOR_BLACK, TRUE, LEFT_JUSTIFIED	);
 
 		RefreshScreen( NULL );
 		GenerateMapEdgepoints(TRUE);//dnl ch43 290909
@@ -1130,82 +1130,82 @@ void RenderTacticalPlacementGUI()
 				GetOverheadScreenXYFromGridNo( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
 
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// WANNE - MP: Center
 			else if (is_networked && gfCenter)
 			{
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + CENTERENTRYPTS_LEFT_X;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + CENTERENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + CENTERENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + CENTERENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// Flugente airdrop
 			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 )
 			{
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + AIRDROPENTRYPTS_LEFT_X;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + AIRDROPENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + AIRDROPENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + AIRDROPENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 		}
 		else
@@ -1349,82 +1349,82 @@ void RenderTacticalPlacementGUI()
 				GetOverheadScreenXYFromGridNo( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
 				
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// WANNE - MP: Center
 			else if (is_networked && gfCenter)
 			{
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + CENTERENTRYPTS_LEFT_X;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + CENTERENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + CENTERENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + CENTERENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// Flugente airdrop
 			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
 				// Left black border
-				gTPClipRectCenterLeft.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterLeft.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterLeft.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterLeft.iRight = iOffsetHorizontal + AIRDROPENTRYPTS_LEFT_X;
+				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X;
 
 				// Top black border
-				gTPClipRectCenterTop.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterTop.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterTop.iBottom = iOffsetVertical + AIRDROPENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y;
+				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Right black border
-				gTPClipRectCenterRight.iLeft = iOffsetHorizontal + AIRDROPENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = iOffsetVertical + 3;
-				gTPClipRectCenterRight.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterRight.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X;
+				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = iOffsetHorizontal;
-				gTPClipRectCenterBottom.iTop = iOffsetVertical + AIRDROPENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = iOffsetVertical + 320;
-				gTPClipRectCenterBottom.iRight = iOffsetHorizontal + 634;
+				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y;
+				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 		}
 
@@ -1659,8 +1659,8 @@ void TacticalPlacementHandle()
 	if(gbSelectedMercID != -1 && mouseInsideMapArea )
 	{
 		//dnl ch45 051009
-		INT16 sWorldScreenX = (gusMouseXPos - iOffsetHorizontal) * 5;
-		INT16 sWorldScreenY = (gusMouseYPos - iOffsetVertical) * 5;
+		INT16 sWorldScreenX = (gusMouseXPos - gOverheadMapRenderArea.x) * 5;
+		INT16 sWorldScreenY = (gusMouseYPos - gOverheadMapRenderArea.y) * 5;
 		INT32 iCellX, iCellY;
 		GetFromAbsoluteScreenXYWorldXY(&iCellX, &iCellY, sWorldScreenX, sWorldScreenY);
 		iCellX = (iCellX / CELL_X_SIZE) + (giXTL - 0);
@@ -1702,20 +1702,20 @@ void TacticalPlacementHandle()
 			}
 			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER || (gGameExternalOptions.ubSkyriderHotLZ == 1 && gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER))
 			{
-				if (gusMouseYPos >= (iOffsetVertical + CENTERENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (iOffsetVertical + CENTERENTRYPTS_BOTTOM_Y) &&	// S
-					gusMouseXPos >= (iOffsetHorizontal + CENTERENTRYPTS_LEFT_X) &&	// W
-					gusMouseXPos <= (iOffsetHorizontal + CENTERENTRYPTS_RIGHT_X))	// E
+				if (gusMouseYPos >= (gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y) &&		// N
+					gusMouseYPos <= (gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y) &&	// S
+					gusMouseXPos >= (gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X) &&	// W
+					gusMouseXPos <= (gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X))	// E
 				{
 					gfValidCursor = TRUE;
 				}
 			}
 			else if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER )
 			{
-				if (gusMouseYPos >= (iOffsetVertical + AIRDROPENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (iOffsetVertical + AIRDROPENTRYPTS_BOTTOM_Y) &&		// S
-					gusMouseXPos >= (iOffsetHorizontal + AIRDROPENTRYPTS_LEFT_X) &&		// W
-					gusMouseXPos <= (iOffsetHorizontal + AIRDROPENTRYPTS_RIGHT_X))		// E
+				if (gusMouseYPos >= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y) &&		// N
+					gusMouseYPos <= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y) &&		// S
+					gusMouseXPos >= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X) &&		// W
+					gusMouseXPos <= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X))		// E
 				{
 					gfValidCursor = TRUE;
 				}
@@ -2157,8 +2157,8 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 					if( fInvalidArea )
 					{
 						// Only display the error message, when the cursor is on the overview map
-						if (gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical
-							&& gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
+						if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
+							&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + 640))
 						{
 							//Report error due to invalid placement.
 							SGPRect CenterRect = { 100 + xResOffset, 100 + 0, SCREEN_WIDTH - 100 - xResOffset, 300 };
@@ -2177,8 +2177,8 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 			if( gbCursorMercID != - 1 )
 			{
 				// Only display the error message, when the cursor is on the overview map
-				if (gusMouseYPos < (iOffsetVertical + 320) && gusMouseYPos > iOffsetVertical
-					&& gusMouseXPos > iOffsetHorizontal && gusMouseXPos < (iOffsetHorizontal + 640))
+				if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
+					&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + 640))
 				{
 					SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 					DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INVALID_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
