@@ -89,8 +89,6 @@ UINT32 gFrameGraphics;
 SGPRectangle gOverheadMapRenderArea;
 bool gWholeMapFits;
 
-UINT16 iOffsetHorizontal;	// Horizontal start postion of the overview map
-UINT16 iOffsetVertical;	// Vertical start position of the overview map	
 //DBrot: keep track if we should use a bigger version of the overview map for big maps
 //for now, this is a custom solution applicable in 1920x1080
 BOOLEAN		gfUseBiggerOverview = FALSE;
@@ -271,8 +269,8 @@ void InitNewOverheadDB( UINT8 ubTilesetID )
 	{
 		INT16 sX1, sY1, sX2, sY2;
 
-		CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &gsStartRestrictedY, iOffsetHorizontal + 640, iOffsetVertical + 320 );
-		CalculateRestrictedMapCoords( WEST,	&sX1, &sY1, &gsStartRestrictedX, &sY2, iOffsetHorizontal + 640, iOffsetVertical + 320 );//dnl ch49 061009
+		CalculateRestrictedMapCoords( NORTH, &sX1, &sY1, &sX2, &gsStartRestrictedY, gOverheadMapRenderArea.x + gOverheadMapRenderArea.width, gOverheadMapRenderArea.y + gOverheadMapRenderArea.height);
+		CalculateRestrictedMapCoords( WEST,	&sX1, &sY1, &gsStartRestrictedX, &sY2, gOverheadMapRenderArea.x + gOverheadMapRenderArea.width, gOverheadMapRenderArea.y + gOverheadMapRenderArea.height);
 	}
 
 	// Copy over shade tables from main tileset
@@ -424,11 +422,11 @@ void DisplayMercNameInOverhead(SOLDIERTYPE* pSoldier)
 
 	// Full size maps
 	if(gsStartRestrictedX == 0)
-		sX += iOffsetHorizontal;
+		sX += gOverheadMapRenderArea.x;
 
 	// Full size maps
 	if(gsStartRestrictedY == 0)
-		sY += iOffsetVertical;
+		sY += gOverheadMapRenderArea.y;
 
 	// OK, selected guy is here...
 	gprintfdirty(sX, sY, pSoldier->name);
@@ -652,10 +650,6 @@ static void ResizeMapRenderArea()
 	gWholeMapFits = false;
 	if ( maxRenderArea_Y > mapSizeInPixels_Y && maxRenderArea_X > mapSizeInPixels_X )
 		gWholeMapFits = true;
-
-	// Temporarily here before everything gets converted properly
-	iOffsetHorizontal = gOverheadMapRenderArea.x; // Horizontal start postion of the overview map
-	iOffsetVertical = gOverheadMapRenderArea.y; // Vertical start position of the overview map
 }
 
 //dnl ch82 090114
@@ -1720,10 +1714,10 @@ void RenderOverheadOverlays()
 				ubGridSquareX = sX / (gusGridFrameX / gubGridDivisor); 	//( pSoldier->sGridNo / WORLD_COLS ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
 				ubGridSquareY = sY / (gusGridFrameY / gubGridDivisor);	//( pSoldier->sGridNo - ( ( pSoldier->sGridNo / WORLD_COLS ) * WORLD_COLS ) ) / ( WORLD_COLS / ubResolutionTable[gGameExternalOptions.ubGridResolution]);
 								
-				HostileArea.iLeft = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * ubGridSquareX));
-				HostileArea.iTop = iOffsetVertical + (((gusGridFrameY / gubGridDivisor) * ubGridSquareY));
-				HostileArea.iRight = iOffsetHorizontal + (((gusGridFrameX / gubGridDivisor) * (ubGridSquareX + 1)));
-				HostileArea.iBottom = iOffsetVertical + (((gusGridFrameY / gubGridDivisor) * (ubGridSquareY + 1)));
+				HostileArea.iLeft = gOverheadMapRenderArea.x + (((gusGridFrameX / gubGridDivisor) * ubGridSquareX));
+				HostileArea.iTop = gOverheadMapRenderArea.y + (((gusGridFrameY / gubGridDivisor) * ubGridSquareY));
+				HostileArea.iRight = gOverheadMapRenderArea.x + (((gusGridFrameX / gubGridDivisor) * (ubGridSquareX + 1)));
+				HostileArea.iBottom = gOverheadMapRenderArea.y + (((gusGridFrameY / gubGridDivisor) * (ubGridSquareY + 1)));
 				if(gGameExternalOptions.ubMarkerMode == SHARPBORDER)
 					RectangleDraw(TRUE, HostileArea.iLeft, HostileArea.iTop, HostileArea.iRight, HostileArea.iBottom, 255, pDestBuf);
 					
@@ -1799,7 +1793,7 @@ void RenderOverheadOverlays()
 		// Full size maps
 		else
 		{
-			sX += iOffsetHorizontal;
+			sX += gOverheadMapRenderArea.x;
 		}
 
 		// Smaller maps
@@ -1810,7 +1804,7 @@ void RenderOverheadOverlays()
 		// Full size maps
 		else
 		{
-			sY += iOffsetVertical;
+			sY += gOverheadMapRenderArea.y;
 		}
 
 #ifdef JA2EDITOR
@@ -2000,7 +1994,7 @@ void RenderOverheadOverlays()
 				// Full size maps
 				else
 				{
-					sX += iOffsetHorizontal;
+					sX += gOverheadMapRenderArea.x;
 				}
 
 				INT16 offsetlandheight = GetOffsetLandHeight( pWorldItem->sGridNo ) / 5;
@@ -2015,11 +2009,11 @@ void RenderOverheadOverlays()
 				// Full size maps
 				else
 				{
-					sY += iOffsetVertical;
+					sY += gOverheadMapRenderArea.y;
 				}
 
-				/*sX += iOffsetHorizontal + gsStartRestrictedX;
-				sY += iOffsetVertical + gsStartRestrictedY;*/
+				/*sX += gOverheadMapRenderArea.x + gsStartRestrictedX;
+				sY += gOverheadMapRenderArea.y + gsStartRestrictedY;*/
 
 				if ( gfOverItemPool && gsOveritemPoolGridNo == pWorldItem->sGridNo )
 				{
@@ -2068,7 +2062,7 @@ void RenderOverheadOverlays()
 						sX_Center += gsStartRestrictedX;
 					// Full size maps
 					else
-						sX_Center += iOffsetHorizontal;
+						sX_Center += gOverheadMapRenderArea.x;
 
 					sY_Center += 6 - GetOffsetLandHeight( pWorldItem->sGridNo ) / 5;
 					sY_Center += ( gsRenderHeight / 5 );
@@ -2078,7 +2072,7 @@ void RenderOverheadOverlays()
 						sY_Center += gsStartRestrictedY;
 					// Full size maps
 					else
-						sY_Center += iOffsetVertical;
+						sY_Center += gOverheadMapRenderArea.y;
 					
 					// determine area of where the circle will be drawn in, take into account what part of the sector we actually see
 					INT32 xr = sX_Center + radius;
@@ -2332,7 +2326,7 @@ void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 		// Full size maps
 		else
 		{
-			sWorldScreenX = (gusMouseXPos - iOffsetHorizontal) * 5;
+			sWorldScreenX = (gusMouseXPos - gOverheadMapRenderArea.x) * 5;
 		}
 
 		// Smaller maps
@@ -2343,7 +2337,7 @@ void ClickOverheadRegionCallback(MOUSE_REGION *reg,INT32 reason)
 		// Full size maps
 		else
 		{
-			sWorldScreenY = (gusMouseYPos - iOffsetVertical) * 5;
+			sWorldScreenY = (gusMouseYPos - gOverheadMapRenderArea.y) * 5;
 		}
 
 		// Get new proposed center location.
@@ -2438,7 +2432,7 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		// Full size maps
 		else
 		{
-			sWorldScreenX = (gusMouseXPos - 5) * 5 - iOffsetHorizontal * 5;
+			sWorldScreenX = (gusMouseXPos - 5) * 5 - gOverheadMapRenderArea.x * 5;
 		}
 
 		// Smaller maps
@@ -2449,7 +2443,7 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		// Full size maps
 		else
 		{
-			sWorldScreenY = (gusMouseYPos - 8) * 5 - iOffsetVertical * 5;
+			sWorldScreenY = (gusMouseYPos - 8) * 5 - gOverheadMapRenderArea.y * 5;
 		}
 
 		// Get new proposed center location.
@@ -2511,7 +2505,7 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 		// Full size maps
 		else
 		{
-			sWorldScreenX = ( gusMouseXPos - 5 ) * 5 - iOffsetHorizontal * 5;
+			sWorldScreenX = ( gusMouseXPos - 5 ) * 5 - gOverheadMapRenderArea.x * 5;
 		}
 
 		// Smaller maps
@@ -2522,7 +2516,7 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 		// Full size maps
 		else
 		{
-			sWorldScreenY = ( gusMouseYPos ) * 5 - iOffsetVertical * 5;
+			sWorldScreenY = ( gusMouseYPos ) * 5 - gOverheadMapRenderArea.y * 5;
 		}
 
 		// Get new proposed center location.
@@ -2569,27 +2563,27 @@ void CalculateRestrictedMapCoords(INT8 bDirection, INT16 *psX1, INT16 *psY1, INT
 	switch(bDirection)
 	{
 	case NORTH:
-		*psX1 = iOffsetHorizontal;
+		*psX1 = gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
-		*psY1 = iOffsetVertical;
-		*psY2 = (abs(NORMAL_MAP_SCREEN_TY - gsTLY) / 5) + iOffsetVertical;
+		*psY1 = gOverheadMapRenderArea.y;
+		*psY2 = (abs(NORMAL_MAP_SCREEN_TY - gsTLY) / 5) + gOverheadMapRenderArea.y;
 		break;
 	case WEST:
-		*psX1 = iOffsetHorizontal;
-		*psX2 = (abs(-NORMAL_MAP_SCREEN_X - gsTLX) / 5) + iOffsetHorizontal;
-		*psY1 = iOffsetVertical;
+		*psX1 = gOverheadMapRenderArea.x;
+		*psX2 = (abs(-NORMAL_MAP_SCREEN_X - gsTLX) / 5) + gOverheadMapRenderArea.x;
+		*psY1 = gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
 		break;
 	case SOUTH:
-		*psX1 = iOffsetHorizontal;
+		*psX1 = gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
-		*psY1 = ((NORMAL_MAP_SCREEN_HEIGHT - abs(NORMAL_MAP_SCREEN_BY - gsBLY)) / 5) + iOffsetVertical;
+		*psY1 = ((NORMAL_MAP_SCREEN_HEIGHT - abs(NORMAL_MAP_SCREEN_BY - gsBLY)) / 5) + gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
 		break;
 	case EAST:
-		*psX1 = ((NORMAL_MAP_SCREEN_WIDTH - abs(NORMAL_MAP_SCREEN_X - gsTRX)) / 5) + iOffsetHorizontal;
+		*psX1 = ((NORMAL_MAP_SCREEN_WIDTH - abs(NORMAL_MAP_SCREEN_X - gsTRX)) / 5) + gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
-		*psY1 = iOffsetVertical;
+		*psY1 = gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
 		break;
 	}
