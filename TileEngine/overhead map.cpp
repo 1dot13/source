@@ -631,7 +631,10 @@ static void ResizeMapRenderArea()
 	{
 		// Map border is 40 pixels wide & high
 		borderSize = 80;
-		teamPanelHeight = 120; // from tactical teampanel height. Minimizes empty black space when map size grows
+		if ( !gfTacticalPlacementGUIActive )
+		{
+			teamPanelHeight = 120; // from tactical teampanel height. Minimizes empty space
+		}
 	}
 
 	const auto maxRenderArea_X = SCREEN_WIDTH - borderSize; 
