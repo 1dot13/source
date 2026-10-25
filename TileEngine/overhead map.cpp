@@ -598,8 +598,7 @@ void HandleOverheadMap( )
 	if( !gfEditMode && !gfTacticalPlacementGUIActive && gusSelectedSoldier != NOBODY )
 	{
 		pSoldier = gusSelectedSoldier;
-
-	DisplayMercNameInOverhead( pSoldier );
+		DisplayMercNameInOverhead( pSoldier );
 	}
 
 	RenderButtons( );
