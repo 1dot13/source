@@ -651,7 +651,7 @@ static void ResizeMapRenderArea()
 
 	// Restrict scroll if the whole map can be shown
 	gWholeMapFits = false;
-	if ( maxRenderArea_Y > mapSizeInPixels_Y )
+	if ( maxRenderArea_Y > mapSizeInPixels_Y && maxRenderArea_X > mapSizeInPixels_X )
 		gWholeMapFits = true;
 
 	// Temporarily here before everything gets converted properly
