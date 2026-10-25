@@ -2382,6 +2382,17 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 	sX -= ((giXTL - 0) * CELL_X_SIZE);
 	sY -= ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
+
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	// sWorldScreen* are render-area-local world-screen units (5 per blit px). Cull against
+	// the live visible window: NORMAL_MAP_SCREEN_* are the 160x160 map extents and cull away
+	// the far half of larger maps. When the whole map fits, the render area equals the map,
+	// so this matches the legacy behaviour.
+	const INT32 sMaxScreenX = (INT32)gOverheadMapRenderArea.width * 5;
+	const INT32 sMaxScreenY = (INT32)gOverheadMapRenderArea.height * 5;
+	if ( sWorldScreenX < 0 || sWorldScreenX > sMaxScreenX || sWorldScreenY < 0 || sWorldScreenY > sMaxScreenY )
+		return(FALSE);
+#else
 	//DBrot: big maps
 	if(gfUseBiggerOverview){
 		//there must be proper values to check for a 360² map, but I have no idea what they are
@@ -2389,9 +2400,10 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 		if(sWorldScreenX < 0 || /*sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH ||*/ sWorldScreenY < 0 /*|| sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT*/)
 		return(FALSE);
 	}else{
-	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
+		if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
 		return(FALSE);
 	}
+#endif
 
 	*psScreenX = sWorldScreenX;
 	*psScreenY = sWorldScreenY;
