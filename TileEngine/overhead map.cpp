@@ -403,7 +403,10 @@ void DisplayMercNameInOverhead(SOLDIERTYPE* pSoldier)
 	sX -= ((giXTL - 0) * CELL_X_SIZE);
 	sY -= ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
-	if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
+
+	const INT32 sMaxScreenX = gOverheadMapRenderArea.width * 5;
+	const INT32 sMaxScreenY = gOverheadMapRenderArea.height * 5;
+	if ( sWorldScreenX < 0 || sWorldScreenX > sMaxScreenX || sWorldScreenY < 0 || sWorldScreenY > sMaxScreenY )
 		return;
 
 	sWorldScreenX = gsStartRestrictedX + (sWorldScreenX/5) + 5;
