@@ -2461,7 +2461,18 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		}
 
 		// Adjust for height.....
-		sWorldScreenY = sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
+		// dnl: the height must come from the tile the cursor actually points at, i.e. after the same
+		// giXTL/giYTL rebaseline the final gridNo uses. Picking it before that baseline reads a
+		// different tile on a scrolled map and shifts the hover by that tile's height.
+		{
+			INT32 iHoverRow = ( uiCellY + ( (giYTL - WORLD_ROWS/2) * CELL_Y_SIZE ) ) / CELL_Y_SIZE;
+			INT32 iHoverCol = ( uiCellX + ( (giXTL - 0)            * CELL_X_SIZE ) ) / CELL_X_SIZE;
+
+			if ( iHoverRow >= 0 && iHoverRow < WORLD_ROWS && iHoverCol >= 0 && iHoverCol < WORLD_COLS )
+			{
+				sWorldScreenY = sWorldScreenY + gpWorldLevelData[ MAPROWCOLTOPOS( iHoverRow, iHoverCol ) ].sHeight;
+			}
+		}
 
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
@@ -2519,7 +2530,17 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 		(*psGridNo ) = MAPROWCOLTOPOS( ( uiCellY / CELL_Y_SIZE ), ( uiCellX / CELL_X_SIZE ) );
 
 		// Adjust for height.....
-		sWorldScreenY = sWorldScreenY + gpWorldLevelData[ (*psGridNo) ].sHeight;
+		// Same baseline as the final gridNo (see GetOverheadMouseGridNo).
+		// Out-of-range hover just skips the height adjust.
+		{
+			INT32 iHoverRow = ( uiCellY + ( (giYTL - WORLD_ROWS/2) * CELL_Y_SIZE ) ) / CELL_Y_SIZE;
+			INT32 iHoverCol = ( uiCellX + ( (giXTL - 0)            * CELL_X_SIZE ) ) / CELL_X_SIZE;
+
+			if ( iHoverRow >= 0 && iHoverRow < WORLD_ROWS && iHoverCol >= 0 && iHoverCol < WORLD_COLS )
+			{
+				sWorldScreenY = sWorldScreenY + gpWorldLevelData[ MAPROWCOLTOPOS( iHoverRow, iHoverCol ) ].sHeight;
+			}
+		}
 
 		GetFromAbsoluteScreenXYWorldXY( (INT32 *)&uiCellX, (INT32 *)&uiCellY, sWorldScreenX, sWorldScreenY );
 
