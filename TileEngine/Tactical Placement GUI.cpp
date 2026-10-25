@@ -70,8 +70,6 @@ extern INT32 giXTL, giYTL;
 extern BOOLEAN gfOverheadMapDirty;
 extern BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo );
 
-extern UINT16 iOffsetHorizontal;
-extern UINT16 iOffsetVertical;
 int islocked;
 
 UINT8	gubDefaultButton = CLEAR_BUTTON;
