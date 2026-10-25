@@ -1089,6 +1089,15 @@ void RenderTacticalPlacementGUI()
 
 		--gfValidLocationsChanged;
 
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+		BlitBufferToBuffer(guiSAVEBUFFER, FRAME_BUFFER, gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, gOverheadMapRenderArea.width, gOverheadMapRenderArea.height);
+		InvalidateRegion(gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, gOverheadMapRenderArea.width + gOverheadMapRenderArea.x, gOverheadMapRenderArea.height + gOverheadMapRenderArea.y);
+		// Hatched rectangle area
+		gTPClipRect.iLeft = gOverheadMapRenderArea.x + 1;
+		gTPClipRect.iTop = gOverheadMapRenderArea.y + 1;
+		gTPClipRect.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - 2;
+		gTPClipRect.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+#else
 		//DBrot bigger map code
 		if(gfUseBiggerOverview)
 		{
@@ -1109,7 +1118,8 @@ void RenderTacticalPlacementGUI()
 			gTPClipRect.iBottom = iOffsetVertical + 318;
 			gTPClipRect.iRight = iOffsetHorizontal + 634;
 		}
-	
+#endif // DYNAMIC_OVERHEADMAP_SIZE
+
 		if( gbCursorMercID == -1 )
 		{
 			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || (gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1))
@@ -1214,6 +1224,49 @@ void RenderTacticalPlacementGUI()
 			sWorldScreenX += 20;// Correction from invisible area X
 			sWorldScreenY += 35;// Correction from invisible area Y
 
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+			// Reduce the hatched inaccessible area, to give room for deployment, if it should be visible.
+            // The away-facing insertion edges need the live window extent, not NORMAL_MAP_SCREEN_WIDTH/HEIGHT,
+            // which is only the screen extent of a 160x160 map. 1 overhead blit pixel = 5 world-screen units.
+            const INT32 sOverheadWindowW_U = (INT32)gOverheadMapRenderArea.width * 5;
+            const INT32 sOverheadWindowH_U = (INT32)gOverheadMapRenderArea.height * 5;
+
+            switch ( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode )
+            {
+                case INSERTION_CODE_NORTH:
+                    if ( sWorldScreenY <= PLACEMENT_OFFSET )
+                    {
+                        sY = (PLACEMENT_OFFSET - sWorldScreenY) / 5;
+                        sY += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_NORTH) / 5;
+                        gTPClipRect.iTop += sY;
+                    }
+                    break;
+                case INSERTION_CODE_EAST:
+                    if ( (sWorldScreenX + sOverheadWindowW_U) >= (MAPWIDTH - PLACEMENT_OFFSET) )
+                    {
+                        sX = ((sWorldScreenX + sOverheadWindowW_U) - (MAPWIDTH - PLACEMENT_OFFSET)) / 5;
+                        sX += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_EAST) / 5;
+                        gTPClipRect.iRight -= sX;
+                    }
+                    break;
+                case INSERTION_CODE_SOUTH:
+                    if ( (sWorldScreenY + sOverheadWindowH_U) >= (MAPHEIGHT - PLACEMENT_OFFSET) )
+                    {
+                        sY = ((sWorldScreenY + sOverheadWindowH_U) - (MAPHEIGHT - PLACEMENT_OFFSET)) / 5;
+                        sY += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_SOUTH) / 5;
+                        gTPClipRect.iBottom -= sY;
+                    }
+                    break;
+                case INSERTION_CODE_WEST:
+                    if ( sWorldScreenX <= PLACEMENT_OFFSET )
+                    {
+                        sX = (PLACEMENT_OFFSET - sWorldScreenX) / 5;
+                        sX += RebelCommand::GetAdditionalDeployRange(INSERTION_CODE_WEST) / 5;
+                        gTPClipRect.iLeft += sX;
+                    }
+                    break;
+            }
+#else
 			//DBrot: adjust offsets for big maps
 			if(gfUseBiggerOverview)
 			{
@@ -1287,7 +1340,7 @@ void RenderTacticalPlacementGUI()
 					break;
 				}
 			}
-
+#endif
 			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || (gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1 && gbSelectedMercID >= 0 && gMercPlacement[gbSelectedMercID].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP))
 			{
 				INT16 sCellX = 0;
