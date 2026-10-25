@@ -915,45 +915,22 @@ void GoIntoOverheadMap( )
 	MSYS_AddRegion( &OverheadRegion );
 
 
-	// Laod Map border graphics
-	if (iResolution >= _640x480 && iResolution < _800x600)
+	// Load Map border graphics
+	if ( SCREEN_HEIGHT <= 480 )
 	{
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
 		FilenameForBPP("INTERFACE\\MAP_BORD.sti", VObjectDesc.ImageFile);
 		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
 			AssertMsg(0, "Missing INTERFACE\\MAP_BORD.sti" );
 	}
-	else if ( iResolution == _1280x720 )
+	else
 	{
+		// Load overhead map frame pieces. Used for resolutions above 640x480
 		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\Map_Bord_1280x720.sti", VObjectDesc.ImageFile);
-		if ( !AddVideoObject(&VObjectDesc, &uiOVERMAP) )
-			AssertMsg(0, "Missing INTERFACE\\Map_Bord_1280x720.sti");
+		FilenameForBPP("INTERFACE\\Map_Frame.sti", VObjectDesc.ImageFile);
+		if ( !AddVideoObject(&VObjectDesc, &gFrameGraphics) )
+			AssertMsg(0, "Missing INTERFACE\\Map_Frame.sti");
 	}
-	else if (iResolution < _1024x768)
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\MAP_BORD_800x600.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
-			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_800x600.sti" );
-	}else if(iResolution >= _1680x1050 && gfUseBiggerOverview){
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\MAP_BORD_1920x1080.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
-			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_1920x1080.sti" );
-	}else
-	{
-		VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-		FilenameForBPP("INTERFACE\\MAP_BORD_1024x768.sti", VObjectDesc.ImageFile);
-		if( !AddVideoObject( &VObjectDesc, &uiOVERMAP ) )
-			AssertMsg(0, "Missing INTERFACE\\MAP_BORD_1024x768.sti" );
-	}
-
-	// Load overhead map frame pieces
-	VObjectDesc.fCreateFlags = VOBJECT_CREATE_FROMFILE;
-	FilenameForBPP("INTERFACE\\Map_Frame.sti", VObjectDesc.ImageFile);
-	if ( !AddVideoObject(&VObjectDesc, &gFrameGraphics) )
-		AssertMsg(0, "Missing INTERFACE\\Map_Frame.sti");
 
 
 	// LOAD PERSONS
