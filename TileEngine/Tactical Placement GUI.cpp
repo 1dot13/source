@@ -1129,7 +1129,7 @@ void RenderTacticalPlacementGUI()
 
 		if( gbCursorMercID == -1 )
 		{
-			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || (gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1))
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				INT16 sCellX = 0;
 				INT16 sCellY = 0;
@@ -1161,7 +1161,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// WANNE - MP: Center
-			else if (is_networked && gfCenter)
+			else if ( is_networked && gfCenter )
 			{
 				// Left black border
 				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
@@ -1188,7 +1188,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// Flugente airdrop
-			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 )
+			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1 )
 			{
 				// Left black border
 				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
@@ -1348,7 +1348,7 @@ void RenderTacticalPlacementGUI()
 				}
 			}
 #endif
-			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE || (gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1 && gbSelectedMercID >= 0 && gMercPlacement[gbSelectedMercID].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP))
+			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
 				INT16 sCellX = 0;
 				INT16 sCellY = 0;
@@ -1380,7 +1380,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// WANNE - MP: Center
-			else if (is_networked && gfCenter)
+			else if ( is_networked && gfCenter )
 			{
 				// Left black border
 				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
@@ -1407,7 +1407,7 @@ void RenderTacticalPlacementGUI()
 				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 			}
 			// Flugente airdrop
-			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
+			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 1 && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
 				// Left black border
 				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
@@ -1452,6 +1452,10 @@ void RenderTacticalPlacementGUI()
 
 		if (!gfCenter || ((gGameExternalOptions.ubSkyriderHotLZ == 1 || gGameExternalOptions.ubSkyriderHotLZ == 3) && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)) )
 			RectangleDraw( TRUE, gTPClipRect.iLeft, gTPClipRect.iTop, gTPClipRect.iRight, gTPClipRect.iBottom, usHatchColor, pDestBuf );
+		else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == 3 && gbSelectedMercID >= 0 && gMercPlacement[gbSelectedMercID].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
+		{
+			// Do not draw rectangles when we can drop the heli group anywhere on the map
+		}
 		else
 		{
 			RectangleDraw( TRUE, gTPClipRectCenterLeft.iLeft, gTPClipRectCenterLeft.iTop, gTPClipRectCenterLeft.iRight, gTPClipRectCenterLeft.iBottom, usHatchColor, pDestBuf );
@@ -1704,25 +1708,29 @@ void TacticalPlacementHandle()
 					gfValidCursor = TRUE;
 				}
 			}
-			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER || (gGameExternalOptions.ubSkyriderHotLZ == 1 && gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER))
+			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
 			{
 				if (gusMouseYPos >= (gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y) &&	// S
+					gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - CENTERENTRYPTS_TOP_Y) &&	// S
 					gusMouseXPos >= (gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X) &&	// W
-					gusMouseXPos <= (gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X))	// E
+					gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - CENTERENTRYPTS_LEFT_X))	// E
 				{
 					gfValidCursor = TRUE;
 				}
 			}
-			else if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER )
+			else if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER && gGameExternalOptions.ubSkyriderHotLZ == 1 )
 			{
 				if (gusMouseYPos >= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y) &&		// S
+					gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - AIRDROPENTRYPTS_TOP_Y) &&		// S
 					gusMouseXPos >= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X) &&		// W
-					gusMouseXPos <= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X))		// E
+					gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - AIRDROPENTRYPTS_LEFT_X))		// E
 				{
 					gfValidCursor = TRUE;
 				}
+			}
+			else if ( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER && gGameExternalOptions.ubSkyriderHotLZ == 3 )
+			{
+				gfValidCursor = MouseInsideOverheadMap();
 			}
 		}
 
