@@ -471,19 +471,9 @@ void HandleOverheadMap( )
 	RestoreBackgroundRects( );
 
 	// Render the overhead map
-	//DBrot: use a bigger overhead map if we have the
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
 	const auto xEnd = gOverheadMapRenderArea.width + gOverheadMapRenderArea.x;
 	const auto yEnd = gOverheadMapRenderArea.height + gOverheadMapRenderArea.y;
 	RenderOverheadMap(giXTL, giYTL, gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, xEnd, yEnd, FRAME_BUFFER);
-#else
-	if(gfUseBiggerOverview)//dnl ch82 090114
-		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, 1438+iOffsetHorizontal, 718+iOffsetVertical, FRAME_BUFFER);
-	else if (iResolution == _1280x720 )
-		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, min(SCREEN_WIDTH-40, WORLD_COLS*4) + iOffsetHorizontal, min(SCREEN_HEIGHT-120-40, WORLD_ROWS*2) + iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
-	else
-		RenderOverheadMap(giXTL, giYTL, iOffsetHorizontal, iOffsetVertical, 640+iOffsetHorizontal, 320+iOffsetVertical, FRAME_BUFFER);//dnl ch45 011009
-#endif // DYNAMIC_OVERHEADMAP_SIZE
 
 	HandleTalkingAutoFaces( );
 
@@ -1011,12 +1001,12 @@ void ScrollOverheadMap(void)
 {
 	if(gWholeMapFits)
 		return;
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
+
 	ClampOverheadWindowToWorld();
 	// Limits shared with ClampOverheadWindowToWorld so the stops match the clamp exactly
 	INT32 uLo, uHi, vLo, vHi;
 	OverheadWindowStartBounds(&uLo, &uHi, &vLo, &vHi);
-#endif
+
 	UINT32 uiFlags = 0;
 	INT32 i;
 	if(_KeyDown(UPARROW))
@@ -1040,11 +1030,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
-			if(giXTL - StartX_M_Offset - giYTL <= uLo)// window at the playable area's west tip
-#else
-			if(giYTL >= (giXTL + (3*WORLD_ROWS-WORLD_COLS)/4))//dnl ch85 080214
-#endif
+			if(giXTL - StartX_M_Offset - giYTL <= uLo)// window at the playable area's west edge
 				break;
 			--giXTL, ++giYTL;
 			--giXBL, ++giYBL;
@@ -1058,11 +1044,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
-			if(giXTL - StartX_M_Offset - giYTL >= uHi)// window at the playable area's east tip
-#else
-			if(giYTR <= (giXTR + (WORLD_ROWS-3*WORLD_COLS)/4))//dnl ch85 080214
-#endif
+			if(giXTL - StartX_M_Offset - giYTL >= uHi)// window at the playable area's east edge
 				break;
 			++giXTL, --giYTL;
 			++giXBL, --giYBL;
@@ -1076,11 +1058,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
-			if(giXTL - StartX_M_Offset + giYTL <= vLo)// window at the playable area's north tip
-#else
-			if(giYTL <= (-giXTL + (WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
-#endif
+			if(giXTL - StartX_M_Offset + giYTL <= vLo)// window at the playable area's north edge
 				break;
 			--giXTL, --giYTL;
 			--giXBL, --giYBL;
@@ -1094,11 +1072,7 @@ void ScrollOverheadMap(void)
 			i = MAXSCROLL;
 		while(i--)
 		{
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
-			if(giXTL - StartX_M_Offset + giYTL >= vHi)// window at the playable area's south tip
-#else
-			if(giYBL >= (-giXBL + 3*(WORLD_ROWS+WORLD_COLS)/4))//dnl ch85 080214
-#endif
+			if(giXTL - StartX_M_Offset + giYTL >= vHi)// window at the playable area's south edge
 				break;
 			++giXTL, ++giYTL;
 			++giXBL, ++giYBL;
@@ -1572,10 +1546,11 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 			CalculateRestrictedMapCoords(WEST, &sX1, &sY1, &sX2, &sY2, sEndXS-EndXS_Offset, sEndYS-EndYS_Offset);
 			ColorFillVideoSurfaceArea(uiVSurface, sX1, sY1, sX2, sY2, 0);
 		}
-		//DBrot: bigger overview code
+
+		// Render borders!
 		if(uiVSurface == FRAME_BUFFER)
-		{// Render borders!
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
+		{
+			// Dynamic borders. Blit from pieces
 			if ( SCREEN_HEIGHT > 480 )
 			{
                 // Top left corner
@@ -1624,16 +1599,6 @@ void RenderOverheadMap( INT16 sStartPointX_M, INT16 sStartPointY_M, INT16 sStart
 				// Use nondynamic border graphic in original resolution
 				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
 			}
-
-
-#else
-			if(gfUseBiggerOverview && iResolution >= _1680x1050)
-				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, ((SCREEN_WIDTH / 2) - (1432 / 2) - 40), 60, VO_BLT_SRCTRANSPARENCY, NULL);
-			else if (iResolution == _1280x720 )
-				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, 0, 0, VO_BLT_SRCTRANSPARENCY, NULL);
-			else
-				BltVideoObjectFromIndex(FRAME_BUFFER, uiOVERMAP, 0, xResOffset, yResOffset, VO_BLT_SRCTRANSPARENCY, NULL);
-#endif // DYNAMIC_OVERHEADMAP_SIZE
 		}
 		else
 			return;
@@ -2375,27 +2340,12 @@ BOOLEAN GetOverheadScreenXYFromGridNo(INT32 sGridNo, INT16* psScreenX, INT16* ps
 	sY -= ((giYTL - WORLD_ROWS/2) * CELL_Y_SIZE);
 	GetWorldXYAbsoluteScreenXY((sX/CELL_X_SIZE), (sY/CELL_Y_SIZE), &sWorldScreenX, &sWorldScreenY);
 
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
 	// sWorldScreen* are render-area-local world-screen units (5 per blit px). Cull against
-	// the live visible window: NORMAL_MAP_SCREEN_* are the 160x160 map extents and cull away
-	// the far half of larger maps. When the whole map fits, the render area equals the map,
-	// so this matches the legacy behaviour.
+	// the live visible area. When the whole map fits, the render area equals the map.
 	const INT32 sMaxScreenX = (INT32)gOverheadMapRenderArea.width * 5;
 	const INT32 sMaxScreenY = (INT32)gOverheadMapRenderArea.height * 5;
 	if ( sWorldScreenX < 0 || sWorldScreenX > sMaxScreenX || sWorldScreenY < 0 || sWorldScreenY > sMaxScreenY )
 		return(FALSE);
-#else
-	//DBrot: big maps
-	if(gfUseBiggerOverview){
-		//there must be proper values to check for a 360² map, but I have no idea what they are
-		//for now, we just pray that it works and only catch negatives 
-		if(sWorldScreenX < 0 || /*sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH ||*/ sWorldScreenY < 0 /*|| sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT*/)
-		return(FALSE);
-	}else{
-		if(sWorldScreenX < 0 || sWorldScreenX > NORMAL_MAP_SCREEN_WIDTH || sWorldScreenY < 0 || sWorldScreenY > NORMAL_MAP_SCREEN_HEIGHT)
-		return(FALSE);
-	}
-#endif
 
 	*psScreenX = sWorldScreenX;
 	*psScreenY = sWorldScreenY;
@@ -2560,18 +2510,10 @@ void CalculateRestrictedMapCoords(INT8 bDirection, INT16 *psX1, INT16 *psY1, INT
 	const INT32 sMaxScreenY = gOverheadMapRenderArea.height * 5;
 
 	// The bands below measure, per side, how far the map's edge sits inboard of the visible
-	// window's edge, in world-screen units. DBrot's constants NORMAL_MAP_SCREEN_TY / X / BY are
-	// exactly what InitRenderParams( ) leaves in gsTRY / gsTRX / gsBLY for a 160x160 world
-	// (860 / 1580 / 2400 -- see overhead map.h), so the size-general form is the live variables.
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	// window's edge, in world-screen units. 
 	const INT32 sMapTopY    = gsTRY;
 	const INT32 sMapRightX  = gsTRX;
 	const INT32 sMapBottomY = gsBLY;
-#else
-	const INT32 sMapTopY    = NORMAL_MAP_SCREEN_TY;
-	const INT32 sMapRightX  = NORMAL_MAP_SCREEN_X;
-	const INT32 sMapBottomY = NORMAL_MAP_SCREEN_BY;
-#endif
 
 	switch(bDirection)
 	{
