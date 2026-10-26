@@ -29,8 +29,8 @@
 
 extern BOOLEAN fEditModeFirstTime;
 extern BOOLEAN gfOverheadMapDirty;
-extern UINT16 iOffsetHorizontal;
-extern UINT16 iOffsetVertical;
+UINT16 iOffsetHorizontal;
+UINT16 iOffsetVertical;
 extern FDLG_LIST* FileList;
 
 typedef struct
