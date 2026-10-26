@@ -2560,28 +2560,45 @@ BOOLEAN GetOverheadMouseGridNoForFullSoldiersGridNo( INT32 *psGridNo )
 // It is also used to get the starting (x and y coordinate)
 void CalculateRestrictedMapCoords(INT8 bDirection, INT16 *psX1, INT16 *psY1, INT16 *psX2, INT16 *psY2, INT16 sEndXS, INT16 sEndYS)//dnl ch49 061009
 {
+	const INT32 sMaxScreenX = gOverheadMapRenderArea.width * 5;
+	const INT32 sMaxScreenY = gOverheadMapRenderArea.height * 5;
+
+	// The bands below measure, per side, how far the map's edge sits inboard of the visible
+	// window's edge, in world-screen units. DBrot's constants NORMAL_MAP_SCREEN_TY / X / BY are
+	// exactly what InitRenderParams( ) leaves in gsTRY / gsTRX / gsBLY for a 160x160 world
+	// (860 / 1580 / 2400 -- see overhead map.h), so the size-general form is the live variables.
+#ifdef DYNAMIC_OVERHEADMAP_SIZE
+	const INT32 sMapTopY    = gsTRY;
+	const INT32 sMapRightX  = gsTRX;
+	const INT32 sMapBottomY = gsBLY;
+#else
+	const INT32 sMapTopY    = NORMAL_MAP_SCREEN_TY;
+	const INT32 sMapRightX  = NORMAL_MAP_SCREEN_X;
+	const INT32 sMapBottomY = NORMAL_MAP_SCREEN_BY;
+#endif
+
 	switch(bDirection)
 	{
 	case NORTH:
 		*psX1 = gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
 		*psY1 = gOverheadMapRenderArea.y;
-		*psY2 = (abs(NORMAL_MAP_SCREEN_TY - gsTLY) / 5) + gOverheadMapRenderArea.y;
+		*psY2 = (abs(sMapTopY - gsTLY) / 5) + gOverheadMapRenderArea.y;
 		break;
 	case WEST:
 		*psX1 = gOverheadMapRenderArea.x;
-		*psX2 = (abs(-NORMAL_MAP_SCREEN_X - gsTLX) / 5) + gOverheadMapRenderArea.x;
+		*psX2 = (abs(-sMapRightX - gsTLX) / 5) + gOverheadMapRenderArea.x;
 		*psY1 = gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
 		break;
 	case SOUTH:
 		*psX1 = gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
-		*psY1 = ((NORMAL_MAP_SCREEN_HEIGHT - abs(NORMAL_MAP_SCREEN_BY - gsBLY)) / 5) + gOverheadMapRenderArea.y;
+		*psY1 = ((sMaxScreenY - abs(sMapBottomY - gsBLY)) / 5) + gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
 		break;
 	case EAST:
-		*psX1 = ((NORMAL_MAP_SCREEN_WIDTH - abs(NORMAL_MAP_SCREEN_X - gsTRX)) / 5) + gOverheadMapRenderArea.x;
+		*psX1 = ((sMaxScreenX - abs(sMapRightX - gsTRX)) / 5) + gOverheadMapRenderArea.x;
 		*psX2 = sEndXS;
 		*psY1 = gOverheadMapRenderArea.y;
 		*psY2 = sEndYS;
