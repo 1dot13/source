@@ -124,6 +124,15 @@ void PickUpMercPiece( INT32 iPlacement );
 void SetCursorMerc( INT8 bPlacementID );
 void SelectNextUnplacedUnit();
 
+
+static bool MouseInsideOverheadMap()
+{
+	const bool mouseInsideX = gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width);
+	const bool mouseInsideY = gusMouseYPos > gOverheadMapRenderArea.y && gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height);
+	const bool mouseInsideMapArea = (mouseInsideX && mouseInsideY);
+	return mouseInsideMapArea;
+}
+
 // WANNE: Made methods available for Release build, because we need them in multiplayer
 //#ifdef JA2BETAVERSION
 
@@ -1650,11 +1659,8 @@ void TacticalPlacementHandle()
 	}
 	gfValidCursor = FALSE;
 
-	const bool mouseInsideX = gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width);
-	const bool mouseInsideY = gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y;
-	const bool mouseInsideMapArea = ( mouseInsideX && mouseInsideY );
 
-	if(gbSelectedMercID != -1 && mouseInsideMapArea )
+	if(gbSelectedMercID != -1 && MouseInsideOverheadMap() )
 	{
 		//dnl ch45 051009
 		INT16 sWorldScreenX = (gusMouseXPos - gOverheadMapRenderArea.x) * 5;
@@ -2155,8 +2161,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 					if( fInvalidArea )
 					{
 						// Only display the error message, when the cursor is on the overview map
-						if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
-							&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width))
+						if ( MouseInsideOverheadMap() )
 						{
 							//Report error due to invalid placement.
 							SGPRect CenterRect = { 100 + xResOffset, 100 + 0, SCREEN_WIDTH - 100 - xResOffset, 300 };
@@ -2175,8 +2180,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 			if( gbCursorMercID != - 1 )
 			{
 				// Only display the error message, when the cursor is on the overview map
-				if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
-					&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width))
+				if ( MouseInsideOverheadMap() )
 				{
 					SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 					DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INVALID_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
