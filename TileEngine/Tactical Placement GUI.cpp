@@ -2156,7 +2156,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 					{
 						// Only display the error message, when the cursor is on the overview map
 						if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
-							&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + 640))
+							&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width))
 						{
 							//Report error due to invalid placement.
 							SGPRect CenterRect = { 100 + xResOffset, 100 + 0, SCREEN_WIDTH - 100 - xResOffset, 300 };
@@ -2176,7 +2176,7 @@ void HandleTacticalPlacementClicksInOverheadMap( MOUSE_REGION *reg, INT32 reason
 			{
 				// Only display the error message, when the cursor is on the overview map
 				if (gusMouseYPos < (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height) && gusMouseYPos > gOverheadMapRenderArea.y
-					&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + 640))
+					&& gusMouseXPos > gOverheadMapRenderArea.x && gusMouseXPos < (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width))
 				{
 					SGPRect CenterRect = { 100 + xResOffset, 100, SCREEN_WIDTH - 100 - xResOffset, 300 };
 					DoMessageBox( MSG_BOX_BASIC_STYLE, gpStrategicString[ STR_TP_INVALID_MESSAGE ],	guiCurrentScreen, MSG_BOX_FLAG_OK | MSG_BOX_FLAG_USE_CENTERING_RECT, DialogRemoved,	&CenterRect );
