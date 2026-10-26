@@ -16265,7 +16265,7 @@ void HandleNewDestConfirmation( INT16 sMapX, INT16 sMapY )
 			}
 		}
 		//CHRISL: If we're allowing Skyrider to drop mercs into a hot LZ, we don't need Skyrider telling us he isn't going to drop the mercs off.
-		else if(gGameExternalOptions.ubSkyriderHotLZ == 0)
+		else if(gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_NOT_ALLOWED)
 		{
 			// ok, but... you know there are enemies there...
 			SkyRiderTalk( BELIEVED_ENEMY_SECTOR );

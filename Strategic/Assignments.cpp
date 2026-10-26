@@ -2313,7 +2313,7 @@ BOOLEAN CanCharacterOnDuty( SOLDIERTYPE *pSoldier )
 			// enemies in sector
 			if ( NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 			{
-				if( gGameExternalOptions.ubSkyriderHotLZ == 0 )
+				if( gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_NOT_ALLOWED )
 					return( FALSE );
 				else
 					return( TRUE );
@@ -13063,7 +13063,7 @@ void SquadMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason )
 				if ( pSoldier->bOldAssignment == VEHICLE && pSoldier->iVehicleId == iHelicopterVehicleId && NumNonPlayerTeamMembersInSector( pSoldier->sSectorX, pSoldier->sSectorY, ENEMY_TEAM ) > 0 )
 				{
 					UINT8 ubGroupID = MoveAllInHelicopterToFootMovementGroup( iValue );
-					if(gGameExternalOptions.ubSkyriderHotLZ == 1) gfCantRetreatInPBI = TRUE;//shadooow: disable retreat if hotdrops can only be done in center of the map
+					if(gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER ) gfCantRetreatInPBI = TRUE;//shadooow: disable retreat if hotdrops can only be done in center of the map
 					CheckConditionsForBattle( GetGroup( ubGroupID ) );
 				}
 				// old normal handling
