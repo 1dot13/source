@@ -298,6 +298,14 @@ enum
 	GUN_TYPES_MAX
 };
 
+enum
+{
+	HOT_LZ_NOT_ALLOWED,
+	HOT_LZ_MAP_CENTER,
+	HOT_LZ_MAP_EDGE,
+	HOT_LZ_ANYWHERE
+};
+
 typedef struct
 {
 	BOOLEAN fGunNut;

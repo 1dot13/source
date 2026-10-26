@@ -735,7 +735,7 @@ BOOLEAN HandleHeliEnteringSector( INT16 sX, INT16 sY )
 			// Say quote: "Gonna have to abort.	Enemies below"
 			//CHRISL: Whether skyrider is set to silent or not, we should still say this if we aren't allowing landing in a hot lz.
 			//if(gGameSettings.fOptions[ TOPTION_SILENT_SKYRIDER ] == FALSE) 
-			if(gGameExternalOptions.ubSkyriderHotLZ == 0)
+			if(gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_NOT_ALLOWED)
 				HeliCharacterDialogue( pSkyRider, ARRIVED_IN_HOSTILE_SECTOR );
 			else
 				HeliCharacterDialogue( pSkyRider, HELI_HOT_DROP );

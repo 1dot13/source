@@ -705,7 +705,7 @@ void SetSoldierExitVehicleInsertionData( SOLDIERTYPE *pSoldier, INT32 iId, UINT8
 	{
 	if( pSoldier->sSectorX	!= AIRPORT_X || pSoldier->sSectorY != AIRPORT_Y || pSoldier->bSectorZ != 0 )
 	{
-		if( NumHostilesInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) > 0 && iOldGroupID != 0 && gGameExternalOptions.ubSkyriderHotLZ == 2 )
+		if( NumHostilesInSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) > 0 && iOldGroupID != 0 && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_EDGE )
 		{
 			pGroup = GetGroup( iOldGroupID );
 			if( pGroup->ubSectorX < pGroup->ubPrevX )
