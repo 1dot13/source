@@ -626,7 +626,7 @@ static void ResizeMapRenderArea()
 
 	// Initial settings are proper for original 640x480 resolution
 	auto borderSize = 0;
-	auto teamPanelHeight = 160;
+	auto teamPanelHeight = 160; // Number comes from tactical placement GUI panel height. It's also the same height as teampanel + original map border bottom
 	if ( SCREEN_HEIGHT > 480 )
 	{
 		// Map border is 40 pixels wide & high
