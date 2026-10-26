@@ -70,7 +70,6 @@ INT16							gsStartRestrictedX, gsStartRestrictedY;
 BOOLEAN						gfOverItemPool = FALSE;
 INT32							gsOveritemPoolGridNo;
 
-#define DYNAMIC_OVERHEADMAP_SIZE
 // Frame piecewise graphics
 UINT32 gFrameGraphics;
 // indexes
