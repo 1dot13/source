@@ -88,9 +88,6 @@ UINT32 gFrameGraphics;
 SGPRectangle gOverheadMapRenderArea;
 bool gWholeMapFits;
 
-//DBrot: keep track if we should use a bigger version of the overview map for big maps
-//for now, this is a custom solution applicable in 1920x1080
-BOOLEAN		gfUseBiggerOverview = FALSE;
 UINT8		ubResolutionTable360[6] = {2, 3, 4, 6, 8, 12};
 UINT8		ubResolutionTable160[6] = {1, 1, 2, 4, 4, 5};
 UINT8		gubGridDivisor;
@@ -1012,7 +1009,7 @@ void HandleOverheadUI(void)
 
 void ScrollOverheadMap(void)
 {
-	if(WORLD_MAX == OLD_WORLD_MAX || gfUseBiggerOverview ||gWholeMapFits)
+	if(gWholeMapFits)
 		return;
 #ifdef DYNAMIC_OVERHEADMAP_SIZE
 	ClampOverheadWindowToWorld();
