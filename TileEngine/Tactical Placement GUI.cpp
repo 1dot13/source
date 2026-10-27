@@ -949,32 +949,60 @@ static void DisableFaceMouseRegions()
 
 static void AdjustAllowablePlacementArea_Ambush()
 {
-	INT16 sCellX = 0;
-	INT16 sCellY = 0;
+	// GetOverheadScreenXYFromGridNo( ) culled to the visible window and left sCellX/Y at 0
+	// when the center was scrolled offscreen, so the band rects stuck to the window's top-left
+	// corner on big maps. Compute the center's window-local blit position directly (same
+	// conversion minus the cull) and clamp the allowed box to the window instead. The
+	// spread radius stays absolute: 5 px per merc horizontally, 3 px vertically, does not scale according to map size.
+	INT16 sCellX;
+	INT16 sCellY;
+	ConvertGridNoToXY( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
+	sCellX *= CELL_X_SIZE;
+	sCellY *= CELL_Y_SIZE;
+	sCellX -= ( ( giXTL ) * CELL_X_SIZE );
+	sCellY -= ( ( giYTL - WORLD_ROWS / 2 ) * CELL_Y_SIZE );
+	GetWorldXYAbsoluteScreenXY( ( sCellX / CELL_X_SIZE ), ( sCellY / CELL_Y_SIZE ), &sCellX, &sCellY );
+	sCellX = sCellX / 5 + 5;
+	sCellY = sCellY / 5 + 5;
 
-	GetOverheadScreenXYFromGridNo(gMapInformation.sCenterGridNo, &sCellX, &sCellY);
+	// Allowed box edges in window-local blit pixels, clamped so a rect can never invert
+	INT32 boxL = (INT32)sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	INT32 boxT = (INT32)sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	INT32 boxR = (INT32)sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	INT32 boxB = (INT32)sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+
+	const INT32 iMaxX = (INT32)gOverheadMapRenderArea.width - 2;
+	const INT32 iMaxY = (INT32)gOverheadMapRenderArea.height;
+	if ( boxL < 0 ) boxL = 0;
+	if ( boxT < 0 ) boxT = 0;
+	if ( boxR < 0 ) boxR = 0;
+	if ( boxB < 0 ) boxB = 0;
+	if ( boxL > iMaxX ) boxL = iMaxX;
+	if ( boxR > iMaxX ) boxR = iMaxX;
+	if ( boxT > iMaxY ) boxT = iMaxY;
+	if ( boxB > iMaxY ) boxB = iMaxY;
 
 	// Left black border
 	gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
 	gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
 	gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-	gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + boxL;
 
 	// Top black border
 	gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
 	gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-	gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + boxT;
 	gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 	// Right black border
-	gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + boxR;
 	gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
 	gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
 	gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
 	// Bottom black border
 	gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-	gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + boxB;
 	gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
 	gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 }
