@@ -1615,22 +1615,8 @@ void TacticalPlacementHandle()
 					gfValidCursor = TRUE;
 				}
 			}
-			else if( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER )
+			else if ( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode == INSERTION_CODE_CENTER || (gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER) )
 			{
-				if (gusMouseYPos >= (gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - CENTERENTRYPTS_TOP_Y) &&	// S
-					gusMouseXPos >= (gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X) &&	// W
-					gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - CENTERENTRYPTS_LEFT_X))	// E
-				{
-					gfValidCursor = TRUE;
-				}
-			}
-			else if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER )
-			{
-				//if (gusMouseYPos >= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y) &&		// N
-				//	gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - AIRDROPENTRYPTS_TOP_Y) &&		// S
-				//	gusMouseXPos >= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X) &&		// W
-				//	gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - AIRDROPENTRYPTS_LEFT_X))		// E
 				if ( gusMouseYPos >= gTPClipRectCenterTop.iBottom &&		// N
 					gusMouseYPos <= gTPClipRectCenterBottom.iTop &&		// S
 					gusMouseXPos >= gTPClipRectCenterLeft.iRight &&		// W
