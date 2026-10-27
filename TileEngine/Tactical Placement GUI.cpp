@@ -1385,7 +1385,7 @@ void RenderTacticalPlacementGUI()
 		SetClippingRegionAndImageWidth( uiDestPitchBYTES, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT );
 
 		if (!gfCenter || ((gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER || gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_ANYWHERE) && gbSelectedMercID >= 0 && !(gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP)) )
-			RectangleDraw( TRUE, gTPClipRect.iLeft, gTPClipRect.iTop, gTPClipRect.iRight, gTPClipRect.iBottom, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRect, usHatchColor, pDestBuf );
 		else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_ANYWHERE && gbSelectedMercID >= 0 && gMercPlacement[gbSelectedMercID].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 		{
 			// Do not draw rectangles when we can drop the heli group anywhere on the map
@@ -1393,10 +1393,10 @@ void RenderTacticalPlacementGUI()
 		else
 		{
 			// Draw rectangles for ambush, center and restricted heli drop
-			RectangleDraw( TRUE, gTPClipRectCenterLeft.iLeft, gTPClipRectCenterLeft.iTop, gTPClipRectCenterLeft.iRight, gTPClipRectCenterLeft.iBottom, usHatchColor, pDestBuf );
-			RectangleDraw( TRUE, gTPClipRectCenterTop.iLeft, gTPClipRectCenterTop.iTop, gTPClipRectCenterTop.iRight, gTPClipRectCenterTop.iBottom, usHatchColor, pDestBuf );
-			RectangleDraw( TRUE, gTPClipRectCenterRight.iLeft, gTPClipRectCenterRight.iTop, gTPClipRectCenterRight.iRight, gTPClipRectCenterRight.iBottom, usHatchColor, pDestBuf );
-			RectangleDraw( TRUE, gTPClipRectCenterBottom.iLeft, gTPClipRectCenterBottom.iTop, gTPClipRectCenterBottom.iRight, gTPClipRectCenterBottom.iBottom, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterLeft, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterTop, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterRight, usHatchColor, pDestBuf );
+			RectangleDraw( TRUE, gTPClipRectCenterBottom, usHatchColor, pDestBuf );
 		}
 		
 		UnLockVideoSurface( FRAME_BUFFER );
