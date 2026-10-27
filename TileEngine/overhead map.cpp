@@ -95,7 +95,8 @@ UINT16		gusGridFrameX;
 UINT16		gusGridFrameY;
 #define		SHARPBORDER 1
 #define		HATCHED 2
-//dnl ch45 021009 Current position of map displayed in overhead map, (A=TopLeft, B=BottomLeft, C=TopRight)
+
+//dnl ch45 021009 Current position of map displayed in overhead map, (TL=TopLeft, BL=BottomLeft, TR=TopRight)
 #define MAXSCROLL 4
 INT32 giXTL = 0, giYTL = WORLD_ROWS/2;
 INT32 giXBL = (0 + OLD_WORLD_COLS/2), giYBL = (WORLD_ROWS/2 + OLD_WORLD_ROWS/2);
