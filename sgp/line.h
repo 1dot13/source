@@ -64,6 +64,7 @@ void PixelAlterColour( BOOLEAN fClip, INT32 xp, INT32 yp, INT16 sColor, UINT8 *p
 void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr);
 void LineDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr);
 void RectangleDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, short Color, UINT8 *ScreenPtr);
+void RectangleDraw(BOOL fClip, SGPRect Rectangle, short Color, UINT8* ScreenPtr);
 
 // *****************************************************************************
 

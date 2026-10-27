@@ -421,3 +421,8 @@ void RectangleDraw( BOOL fClip, int XStart, int YStart, int XEnd, int YEnd, shor
 	LineDraw( fClip, XStart, YStart, XStart, YEnd,	Color, ScreenPtr);
 	LineDraw( fClip, XEnd,	YStart, XEnd,	YEnd,	Color, ScreenPtr);
 }
+
+void RectangleDraw(BOOL fClip, SGPRect Rectangle, short Color, UINT8* ScreenPtr)
+{
+	RectangleDraw(fClip, Rectangle.iLeft, Rectangle.iTop, Rectangle.iRight, Rectangle.iBottom, Color, ScreenPtr);
+}
