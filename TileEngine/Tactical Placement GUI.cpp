@@ -1,4 +1,4 @@
-
+#pragma optimize("", off)
 // WANNE 2 <changed some lines>
 
 	//sgp
@@ -105,6 +105,7 @@ SOLDIERTYPE *gpTacticalPlacementHilightedSoldier = NULL;
 
 // WANNE - MP: Center
 BOOLEAN gfCenter;
+
 
 extern BOOLEAN GetOverheadScreenXYFromGridNo( INT32 sGridNo, INT16* psScreenX, INT16* psScreenY );
 
@@ -946,6 +947,149 @@ static void DisableFaceMouseRegions()
 	}
 }
 
+static void AdjustAllowablePlacementArea_Ambush()
+{
+	INT16 sCellX = 0;
+	INT16 sCellY = 0;
+
+	GetOverheadScreenXYFromGridNo(gMapInformation.sCenterGridNo, &sCellX, &sCellY);
+
+	// Left black border
+	gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+
+	// Top black border
+	gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Right black border
+	gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Bottom black border
+	gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
+	gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+}
+
+static void AdjustAllowablePlacementArea_Center(INT16 sWorldScreenY, INT16 sWorldScreenX)
+{
+	// These values come from the CENTERENTRYPTS_ #defines in MapEdgePoints.h
+	// They assume map size of 160x160. We will use the ratios to scale the allowable area for center insertion on bigger maps
+	constexpr float CenterInsertionWidthRatio = 140.0 / 640.0;
+	constexpr float CenterInsertionHeightRatio = 60.0 / 320.0;
+
+	const INT32 Width = MAPWIDTH * CenterInsertionWidthRatio;
+	const INT32 Height = MAPHEIGHT * CenterInsertionHeightRatio;
+
+	// Allowed box edges in window-local blit pixels: the box is centered on the map
+	// center (MAPWIDTH/2, MAPHEIGHT/2) in the same world-screen space as sWorldScreenX/Y.
+	INT32 boxL = ((MAPWIDTH - Width) / 2 - sWorldScreenX) / 5;
+	INT32 boxT = ((MAPHEIGHT - Height) / 2 - sWorldScreenY) / 5;
+	INT32 boxR = ((MAPWIDTH + Width) / 2 - sWorldScreenX) / 5;
+	INT32 boxB = ((MAPHEIGHT + Height) / 2 - sWorldScreenY) / 5;
+
+	// Clamp to the visible window so no band rectangle can invert when the center is offscreen
+	const INT32 iMaxX = gOverheadMapRenderArea.width - 2;
+	const INT32 iMaxY = gOverheadMapRenderArea.height;
+	if ( boxL < 0 ) boxL = 0;
+	if ( boxT < 0 ) boxT = 0;
+	if ( boxR < 0 ) boxR = 0;
+	if ( boxB < 0 ) boxB = 0;
+	if ( boxL > iMaxX ) boxL = iMaxX;
+	if ( boxR > iMaxX ) boxR = iMaxX;
+	if ( boxT > iMaxY ) boxT = iMaxY;
+	if ( boxB > iMaxY ) boxB = iMaxY;
+
+	// Left black border
+	gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + boxL;
+
+	// Top black border
+	gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + boxT;
+	gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Right black border
+	gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + boxR;
+	gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Bottom black border
+	gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + boxB;
+	gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+}
+
+static void AdjustAllowablePlacementArea_HeliDrop(INT16 sWorldScreenY, INT16 sWorldScreenX)
+{
+	// These values come from the AIRDROPENTRYPTS_ #defines in MapEdgePoints.h
+	// They assume map size of 160x160. We will use the ratios to scale the allowable insertion area for heli drops on bigger maps
+	constexpr float HeliInsertionWidthRatio = 140.0 / 640.0;
+	constexpr float HeliInsertionHeightRatio = 60.0 / 320.0;
+
+	// The airdrop LZ sits at the map center. World-screen units (5 per blit pixel) keep the box the same
+	// relative size at any resolution and any map size.
+	const INT32 AirdropWidth = MAPWIDTH * HeliInsertionWidthRatio;
+	const INT32 AirdropHeight = MAPHEIGHT * HeliInsertionHeightRatio;
+
+	// Allowed box edges in window-local blit pixels: the box is centered on the map
+	// center (MAPWIDTH/2, MAPHEIGHT/2) in the same world-screen space as sWorldScreenX/Y.
+	INT32 boxL = ( ( MAPWIDTH - AirdropWidth ) / 2 - sWorldScreenX ) / 5;
+	INT32 boxT = ( ( MAPHEIGHT - AirdropHeight ) / 2 - sWorldScreenY ) / 5;
+	INT32 boxR = ( ( MAPWIDTH + AirdropWidth ) / 2 - sWorldScreenX ) / 5;
+	INT32 boxB = ( ( MAPHEIGHT + AirdropHeight ) / 2 - sWorldScreenY ) / 5;
+
+	// Clamp to the visible window so no band rectangle can invert when the center is offscreen
+	const INT32 iMaxX = gOverheadMapRenderArea.width - 2;
+	const INT32 iMaxY = gOverheadMapRenderArea.height;
+	if ( boxL < 0 ) boxL = 0;
+	if ( boxT < 0 ) boxT = 0;
+	if ( boxR < 0 ) boxR = 0;
+	if ( boxB < 0 ) boxB = 0;
+	if ( boxL > iMaxX ) boxL = iMaxX;
+	if ( boxR > iMaxX ) boxR = iMaxX;
+	if ( boxT > iMaxY ) boxT = iMaxY;
+	if ( boxB > iMaxY ) boxB = iMaxY;
+
+	// The allowed insertion area is surrounded by four hatched rectangles
+	// Left black border
+	gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + boxL;
+
+	// Top black border
+	gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + boxT;
+	gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Right black border
+	gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + boxR;
+	gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
+	gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+
+	// Bottom black border
+	gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
+	gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + boxB;
+	gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
+	gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+}
+
 void RenderTacticalPlacementGUI()
 {
 	INT32 i, xp, yp, width, height;
@@ -1098,98 +1242,38 @@ void RenderTacticalPlacementGUI()
 
 		BlitBufferToBuffer(guiSAVEBUFFER, FRAME_BUFFER, gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, gOverheadMapRenderArea.width, gOverheadMapRenderArea.height);
 		InvalidateRegion(gOverheadMapRenderArea.x, gOverheadMapRenderArea.y, gOverheadMapRenderArea.width + gOverheadMapRenderArea.x, gOverheadMapRenderArea.height + gOverheadMapRenderArea.y);
-		// Hatched rectangle area
+
+		// Hatched rectangle showing disallowed insertion area. Encompasses whole map at first.
 		gTPClipRect.iLeft = gOverheadMapRenderArea.x + 1;
 		gTPClipRect.iTop = gOverheadMapRenderArea.y + 1;
 		gTPClipRect.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - 2;
 		gTPClipRect.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
 
+
+		INT16 sWorldScreenX, sX;
+		INT16 sWorldScreenY, sY;
+		sX = giXTL;
+		sY = giYTL;
+		GetWorldXYAbsoluteScreenXY(sX, sY, &sWorldScreenX, &sWorldScreenY);
+		sWorldScreenX += 20;// Correction from invisible area X
+		sWorldScreenY += 35;// Correction from invisible area Y
+
+
 		if( gbCursorMercID == -1 )
 		{
 			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
-				INT16 sCellX = 0;
-				INT16 sCellY = 0;
-
-				GetOverheadScreenXYFromGridNo( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
-
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_Ambush();
 			}
 			// WANNE - MP: Center
 			else if ( is_networked && gfCenter )
 			{
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_Center(sWorldScreenY, sWorldScreenX);
 			}
 			// Flugente airdrop
 			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER )
 			{
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_HeliDrop(sWorldScreenY, sWorldScreenX);
 			}
 		}
 		else
@@ -1199,19 +1283,10 @@ void RenderTacticalPlacementGUI()
 				gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode = GetValidInsertionDirectionForMP(gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode);
 			}
 
-			//dnl ch45 051009
-			INT16 sWorldScreenX, sX;
-			INT16 sWorldScreenY, sY;
-			sX = giXTL;
-			sY = giYTL;
-			GetWorldXYAbsoluteScreenXY(sX, sY, &sWorldScreenX, &sWorldScreenY);
-			sWorldScreenX += 20;// Correction from invisible area X
-			sWorldScreenY += 35;// Correction from invisible area Y
-
 			// Reduce the hatched inaccessible area, to give room for deployment, if it should be visible.
-            // The away-facing insertion edges need the overhead map extents. 1 overhead blit pixel = 5 world-screen units.
-            const INT32 sOverheadWindowW_U = (INT32)gOverheadMapRenderArea.width * 5;
-            const INT32 sOverheadWindowH_U = (INT32)gOverheadMapRenderArea.height * 5;
+			// The away-facing insertion edges need the overhead map extents. 1 overhead blit pixel = 5 world-screen units.
+			const INT32 sOverheadWindowW_U = (INT32)gOverheadMapRenderArea.width * 5;
+			const INT32 sOverheadWindowH_U = (INT32)gOverheadMapRenderArea.height * 5;
 
             switch ( gMercPlacement[gbCursorMercID].ubStrategicInsertionCode )
             {
@@ -1252,88 +1327,17 @@ void RenderTacticalPlacementGUI()
 
 			if ( GetEnemyEncounterCode() == ENEMY_AMBUSH_DEPLOYMENT_CODE )
 			{
-				INT16 sCellX = 0;
-				INT16 sCellY = 0;
-				
-				GetOverheadScreenXYFromGridNo( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
-				
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + sCellY + 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_Ambush();
 			}
 			// WANNE - MP: Center
 			else if ( is_networked && gfCenter )
 			{
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + CENTERENTRYPTS_LEFT_X;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + CENTERENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + CENTERENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + CENTERENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_Center(sWorldScreenY, sWorldScreenX);
 			}
 			// Flugente airdrop
 			else if ( gfCenter && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER && gbSelectedMercID >= 0 && gMercPlacement[ gbSelectedMercID ].pSoldier->usSoldierFlagMask & SOLDIER_AIRDROP )
 			{
-				// Left black border
-				gTPClipRectCenterLeft.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterLeft.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterLeft.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterLeft.iRight = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X;
-
-				// Top black border
-				gTPClipRectCenterTop.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterTop.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterTop.iBottom = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y;
-				gTPClipRectCenterTop.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Right black border
-				gTPClipRectCenterRight.iLeft = gOverheadMapRenderArea.x + AIRDROPENTRYPTS_RIGHT_X;
-				gTPClipRectCenterRight.iTop = gOverheadMapRenderArea.y + 3;
-				gTPClipRectCenterRight.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterRight.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
-
-				// Bottom black border
-				gTPClipRectCenterBottom.iLeft = gOverheadMapRenderArea.x;
-				gTPClipRectCenterBottom.iTop = gOverheadMapRenderArea.y + AIRDROPENTRYPTS_BOTTOM_Y;
-				gTPClipRectCenterBottom.iBottom = gOverheadMapRenderArea.y + gOverheadMapRenderArea.height;
-				gTPClipRectCenterBottom.iRight = gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - 2;
+				AdjustAllowablePlacementArea_HeliDrop(sWorldScreenY, sWorldScreenX);
 			}
 		}
 
@@ -1360,6 +1364,7 @@ void RenderTacticalPlacementGUI()
 		}
 		else
 		{
+			// Draw rectangles for ambush, center and restricted heli drop
 			RectangleDraw( TRUE, gTPClipRectCenterLeft.iLeft, gTPClipRectCenterLeft.iTop, gTPClipRectCenterLeft.iRight, gTPClipRectCenterLeft.iBottom, usHatchColor, pDestBuf );
 			RectangleDraw( TRUE, gTPClipRectCenterTop.iLeft, gTPClipRectCenterTop.iTop, gTPClipRectCenterTop.iRight, gTPClipRectCenterTop.iBottom, usHatchColor, pDestBuf );
 			RectangleDraw( TRUE, gTPClipRectCenterRight.iLeft, gTPClipRectCenterRight.iTop, gTPClipRectCenterRight.iRight, gTPClipRectCenterRight.iBottom, usHatchColor, pDestBuf );
@@ -1622,10 +1627,14 @@ void TacticalPlacementHandle()
 			}
 			else if ( gMercPlacement[ gbCursorMercID ].ubStrategicInsertionCode == INSERTION_CODE_CHOPPER && gGameExternalOptions.ubSkyriderHotLZ == HOT_LZ_MAP_CENTER )
 			{
-				if (gusMouseYPos >= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y) &&		// N
-					gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - AIRDROPENTRYPTS_TOP_Y) &&		// S
-					gusMouseXPos >= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X) &&		// W
-					gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - AIRDROPENTRYPTS_LEFT_X))		// E
+				//if (gusMouseYPos >= (gOverheadMapRenderArea.y + AIRDROPENTRYPTS_TOP_Y) &&		// N
+				//	gusMouseYPos <= (gOverheadMapRenderArea.y + gOverheadMapRenderArea.height - AIRDROPENTRYPTS_TOP_Y) &&		// S
+				//	gusMouseXPos >= (gOverheadMapRenderArea.x + AIRDROPENTRYPTS_LEFT_X) &&		// W
+				//	gusMouseXPos <= (gOverheadMapRenderArea.x + gOverheadMapRenderArea.width - AIRDROPENTRYPTS_LEFT_X))		// E
+				if ( gusMouseYPos >= gTPClipRectCenterTop.iBottom &&		// N
+					gusMouseYPos <= gTPClipRectCenterBottom.iTop &&		// S
+					gusMouseXPos >= gTPClipRectCenterLeft.iRight &&		// W
+					gusMouseXPos <= gTPClipRectCenterRight.iLeft )		// E
 				{
 					gfValidCursor = TRUE;
 				}
