@@ -2312,7 +2312,7 @@ BOOLEAN GetOverheadMouseGridNo( INT32 *psGridNo )
 		}
 
 		// Adjust for height.....
-		// dnl: the height must come from the tile the cursor actually points at, i.e. after the same
+		// the height must come from the tile the cursor actually points at, i.e. after the same
 		// giXTL/giYTL rebaseline the final gridNo uses. Picking it before that baseline reads a
 		// different tile on a scrolled map and shifts the hover by that tile's height.
 		{
