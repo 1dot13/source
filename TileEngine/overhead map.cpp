@@ -644,19 +644,6 @@ static void ResizeMapRenderArea()
 #define EndXS_Offset 128
 #define EndYS_Offset 64
 
-// RenderOverheadMap samples more tiles than it shows: the closing blit crops StartX_M_Offset*4 px
-// off the left, EndXS_Offset px off the right, StartX_M_Offset*2 px off the top and EndYS_Offset
-// px off the bottom. One inner render step is 8 px and one tile of u = col - row, one outer step
-// is 2 px and one tile of v = col + row, so in tile units those crops are:
-constexpr INT32 OverheadVisUInsetLeft  = StartX_M_Offset;                  // 48 px of u
-constexpr INT32 OverheadVisUInsetRight = 2 * (EndXS_Offset / 8);           // 128 px of u
-constexpr INT32 OverheadVisVInsetTop   = StartX_M_Offset;                  // 24 px of v
-constexpr INT32 OverheadVisVInsetBot   = EndYS_Offset / 2;                 // 64 px of v
-
-// Extra tiles past the playable edge at full scroll, so props whose blits stick up past their
-// anchor tile are not sliced off when a playable corner is at the screen edge. Raise to widen the
-// scroll range; 0 keeps the limits exactly on the playable diamond.
-constexpr INT32 OverheadScrollHeadroom = 0;
 
 // Legal range for the window's tile start, measured in u/v diagonals. The window is a parallelogram
 // (u = col - row runs along screen x, v = col + row along screen y), so its limits are diagonal,
@@ -666,6 +653,21 @@ constexpr INT32 OverheadScrollHeadroom = 0;
 // stops, so clamp and stops cannot disagree.
 static void OverheadWindowStartBounds(INT32 *puLo, INT32 *puHi, INT32 *pvLo, INT32 *pvHi)
 {
+	// RenderOverheadMap samples more tiles than it shows: the closing blit crops StartX_M_Offset*4 px
+	// off the left, EndXS_Offset px off the right, StartX_M_Offset*2 px off the top and EndYS_Offset
+	// px off the bottom. One inner render step is 8 px and one tile of u = col - row, one outer step
+	// is 2 px and one tile of v = col + row, so in tile units those crops are:
+	constexpr INT32 OverheadVisUInsetLeft = StartX_M_Offset;                  // 48 px of u
+	constexpr INT32 OverheadVisUInsetRight = 2 * (EndXS_Offset / 8);           // 128 px of u
+	constexpr INT32 OverheadVisVInsetTop = StartX_M_Offset;                  // 24 px of v
+	constexpr INT32 OverheadVisVInsetBot = EndYS_Offset / 2;                 // 64 px of v
+
+	// Extra tiles past the playable edge at full scroll, so props whose blits stick up past their
+	// anchor tile are not sliced off when a playable corner is at the screen edge. Raise to widen the
+	// scroll range; 0 keeps the limits exactly on the playable diamond.
+	constexpr INT32 OverheadScrollHeadroom = 0;
+
+
 	const INT32 uPlayableLo = -(WORLD_ROWS / 2);
 	const INT32 uPlayableHi = (WORLD_COLS / 2);
 	const INT32 vPlayableLo = (WORLD_ROWS / 2);
@@ -720,7 +722,6 @@ void GoIntoOverheadMap( )
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
 	// Overview map should be centered in the middle of the tactical screen.
-#ifdef DYNAMIC_OVERHEADMAP_SIZE
 	ResizeMapRenderArea();
 
 	if ( gWholeMapFits == false )
@@ -744,66 +745,6 @@ void GoIntoOverheadMap( )
 
 		ClampOverheadWindowToWorld();
 	}
-#else
-
-	if((iResolution >= _1680x1050) && WORLD_MAX == 129600){
-		iOffsetHorizontal = (SCREEN_WIDTH / 2) - (1440 / 2);		// Horizontal start postion of the overview map
-		iOffsetVertical = 98;//(SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
-		gfUseBiggerOverview = TRUE;
-	}
-	else
-	{
-		iOffsetHorizontal = (SCREEN_WIDTH / 2) - (640 / 2);		// Horizontal start postion of the overview map
-		iOffsetVertical = (SCREEN_HEIGHT - 160) / 2 - 160;		// Vertical start position of the overview map
-		//dnl ch85 060214 Calculate overhead map cords from your current position on big map
-		INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
-		FLOAT ddw = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 + OLD_WORLD_ROWS/2)) / 2;
-		FLOAT ddh = PointToPointDist(0, WORLD_ROWS/2, (0 + OLD_WORLD_COLS/2), (WORLD_ROWS/2 - OLD_WORLD_ROWS/2)) / 2;
-		Xt = gsRenderCenterX / CELL_X_SIZE;
-		Yt = gsRenderCenterY / CELL_Y_SIZE;
-		k = 1, l = (3*WORLD_ROWS-WORLD_COLS)/4;// p3
-		FLOAT dd = PointToLineDist(Xt, Yt, k, l);
-		if(dd < ddh)
-		{
-			PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
-			Xt = Xtnew, Yt = Ytnew;
-		}
-		else
-		{
-			k = 1, l = (WORLD_ROWS-3*WORLD_COLS)/4;// p1
-			dd = PointToLineDist(Xt, Yt, k, l);
-			if(dd < ddh)
-			{
-				PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
-				Xt = Xtnew, Yt = Ytnew;
-			}
-		}
-		k = -1, l = (WORLD_ROWS+WORLD_COLS)/4;// p4
-		dd = PointToLineDist(Xt, Yt, k, l);
-		if(dd < ddw)
-		{
-			PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
-			Xt = Xtnew, Yt = Ytnew;
-		}
-		else
-		{
-			k = -1, l = 3*(WORLD_ROWS+WORLD_COLS)/4;// p1
-			dd = PointToLineDist(Xt, Yt, k, l);
-			if(dd < ddw)
-			{
-				PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
-				Xt = Xtnew, Yt = Ytnew;
-			}
-		}
-		Xs = (giXBL + giXTR) / 2;
-		Ys = (giYBL + giYTR) / 2;
-		dX = Xt - Xs;
-		dY = Yt - Ys;
-		giXTL += dX, giYTL += dY;
-		giXBL += dX, giYBL += dY;
-		giXTR += dX, giYTR += dY;
-	}
-#endif // DYNAMIC_OVERHEADMAP_SIZE
 
 	if(WORLD_MAX == 129600){
 		if (RebelCommand::ShowApproximateEnemyLocations())
