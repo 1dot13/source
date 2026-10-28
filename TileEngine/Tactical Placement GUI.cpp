@@ -1,4 +1,3 @@
-#pragma optimize("", off)
 // WANNE 2 <changed some lines>
 
 	//sgp
