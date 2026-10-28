@@ -82,8 +82,7 @@ UINT32 gFrameGraphics;
 #define BOTTOMFRAME 6
 #define RIGHTFRAME 7
 
-// X - Horizontal start postion of the overview map
-// Y - Vertical start position of the overview map
+// X  & Y - Horizontal and vertical start positions of the overview map render area on the screen
 // Width & Height - Extents of the rendered area
 SGPRectangle gOverheadMapRenderArea;
 bool gWholeMapFits;
