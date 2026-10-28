@@ -87,6 +87,12 @@ UINT32 gFrameGraphics;
 SGPRectangle gOverheadMapRenderArea;
 bool gWholeMapFits;
 
+// Divisor tables, indexed by precision level (0-5). Each entry is the number of marker
+// cells across the map, so one cell spans WORLD_COLS / gubGridDivisor tiles. The two arrays are
+// the endpoints for square maps at OLD_WORLD_COLS and BIG_WORLD_COLS; maps in between are
+// interpolated by WORLD_COLS.
+#define		BIG_WORLD_COLS		360
+#define		MAX_RESOLUTION_LEVEL 5
 UINT8		ubResolutionTable360[6] = {2, 3, 4, 6, 8, 12};
 UINT8		ubResolutionTable160[6] = {1, 1, 2, 4, 4, 5};
 UINT8		gubGridDivisor;
@@ -605,6 +611,33 @@ BOOLEAN InOverheadMap( )
 	return( gfInOverheadMap );
 }
 
+static UINT8 GetOverheadGridDivisor(UINT8 ubResolutionLevel)
+{
+	const UINT8 ubLevel = (ubResolutionLevel > MAX_RESOLUTION_LEVEL) ? MAX_RESOLUTION_LEVEL : ubResolutionLevel;
+	const INT32 iCols = WORLD_COLS;
+
+	INT32 iDivisor;
+	if ( iCols <= OLD_WORLD_COLS )
+		iDivisor = ubResolutionTable160[ubLevel];
+	else if ( iCols >= BIG_WORLD_COLS )
+		iDivisor = ubResolutionTable360[ubLevel];
+	else
+	{
+		const INT32 iSpan = BIG_WORLD_COLS - OLD_WORLD_COLS;
+		const INT32 iFrom = ubResolutionTable160[ubLevel];
+		const INT32 iTo = ubResolutionTable360[ubLevel];
+		iDivisor = iFrom + ((iTo - iFrom) * (iCols - OLD_WORLD_COLS)) / iSpan;
+	}
+
+	// Cell size is WORLD_COLS / divisor: never 0, never narrower than one cell across.
+	if ( iDivisor < 1 )
+		iDivisor = 1;
+	if ( iDivisor > iCols )
+		iDivisor = iCols;
+
+	return((UINT8)iDivisor);
+}
+
 static void ResizeMapRenderArea()
 {
 	const auto mapSizeInPixels_X = WORLD_COLS * 4; // One tile is 4 pixels wide
@@ -745,33 +778,21 @@ void GoIntoOverheadMap( )
 		ClampOverheadWindowToWorld();
 	}
 
-	if(WORLD_MAX == 129600){
-		if (RebelCommand::ShowApproximateEnemyLocations())
-		{
-			gubGridDivisor = ubResolutionTable360[RebelCommand::GetApproximateEnemyLocationResolutionIndex()];
-		}
-		else
-		{
-			if(NightTime()){
-				gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionNight];
-			}else{
-				gubGridDivisor = ubResolutionTable360[gGameExternalOptions.ubGridResolutionDay];
-			}
-		}
-	}else{
-		if (RebelCommand::ShowApproximateEnemyLocations())
-		{
-			gubGridDivisor = ubResolutionTable160[RebelCommand::GetApproximateEnemyLocationResolutionIndex()];
-		}
-		else
-		{
-			if(NightTime()){
-				gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionNight];
-			}else{
-				gubGridDivisor = ubResolutionTable160[gGameExternalOptions.ubGridResolutionDay];
-			}
-		}
+	// One path for every square map size: the divisor interpolates between the two endpoint
+	// tables inside GetOverheadGridDivisor. The day/night INI options are clamped to 0-5 when
+	// read (GameSettings.cpp), the rebel directive is not, so clamp here.
+	UINT8 ubResolutionLevel;
+	if (RebelCommand::ShowApproximateEnemyLocations())
+	{
+		const UINT8 ubDirectiveLevel = RebelCommand::GetApproximateEnemyLocationResolutionIndex();
+		ubResolutionLevel = ( ubDirectiveLevel > MAX_RESOLUTION_LEVEL ) ? MAX_RESOLUTION_LEVEL : ubDirectiveLevel;
 	}
+	else if (NightTime())
+		ubResolutionLevel = gGameExternalOptions.ubGridResolutionNight;
+	else
+		ubResolutionLevel = gGameExternalOptions.ubGridResolutionDay;
+
+	gubGridDivisor = GetOverheadGridDivisor(ubResolutionLevel);
 	gusGridFrameX = WORLD_COLS * 4;
 	gusGridFrameY = WORLD_ROWS * 2;
 	
