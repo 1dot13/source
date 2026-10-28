@@ -951,9 +951,8 @@ static void AdjustAllowablePlacementArea_Ambush()
 {
 	// GetOverheadScreenXYFromGridNo( ) culled to the visible window and left sCellX/Y at 0
 	// when the center was scrolled offscreen, so the band rects stuck to the window's top-left
-	// corner on big maps. Compute the center's window-local blit position directly (same
-	// conversion minus the cull) and clamp the allowed box to the window instead. The
-	// spread radius stays absolute: 5 px per merc horizontally, 3 px vertically, does not scale according to map size.
+	// corner on big maps. Compute the center's coordinate transformation to window-local blit position directly (same
+	// conversion minus the cull).
 	INT16 sCellX;
 	INT16 sCellY;
 	ConvertGridNoToXY( gMapInformation.sCenterGridNo, &sCellX, &sCellY );
@@ -966,6 +965,7 @@ static void AdjustAllowablePlacementArea_Ambush()
 	sCellY = sCellY / 5 + 5;
 
 	// Allowed box edges in window-local blit pixels, clamped so a rect can never invert
+	// The spread radius stays absolute: 5 px per merc horizontally, 3 px vertically, does not scale according to map size.
 	INT32 boxL = (INT32)sCellX - 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
 	INT32 boxT = (INT32)sCellY - 3 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
 	INT32 boxR = (INT32)sCellX + 5 * gGameExternalOptions.usAmbushSpreadRadiusMercs;
