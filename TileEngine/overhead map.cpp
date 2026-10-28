@@ -644,43 +644,26 @@ static void ResizeMapRenderArea()
 #define EndXS_Offset 128
 #define EndYS_Offset 64
 
-// The sampled window is wider than the visible area: the blit at the end of RenderOverheadMap
-// crops StartX_M_Offset*4 px off the left, EndXS_Offset px off the right, StartX_M_Offset*2 px
-// off the top and EndYS_Offset px off the bottom. In world units one inner step is 8 px and 2
-// tiles of u (col - row), one outer step is 2 px and 1 tile of v (col + row), so the crops are:
+// RenderOverheadMap samples more tiles than it shows: the closing blit crops StartX_M_Offset*4 px
+// off the left, EndXS_Offset px off the right, StartX_M_Offset*2 px off the top and EndYS_Offset
+// px off the bottom. One inner render step is 8 px and one tile of u = col - row, one outer step
+// is 2 px and one tile of v = col + row, so in tile units those crops are:
 constexpr INT32 OverheadVisUInsetLeft  = StartX_M_Offset;                  // 48 px of u
 constexpr INT32 OverheadVisUInsetRight = 2 * (EndXS_Offset / 8);           // 128 px of u
 constexpr INT32 OverheadVisVInsetTop   = StartX_M_Offset;                  // 24 px of v
 constexpr INT32 OverheadVisVInsetBot   = EndYS_Offset / 2;                 // 64 px of v
 
-// Headroom beyond the playable area's edges at full scroll, so props planted in the playable
-// area's corners (trees and their blits stick up past their anchor tile) are not sliced off.
+// Extra tiles past the playable edge at full scroll, so props whose blits stick up past their
+// anchor tile are not sliced off when a playable corner is at the screen edge. Raise to widen the
+// scroll range; 0 keeps the limits exactly on the playable diamond.
 constexpr INT32 OverheadScrollHeadroom = 0;
 
-constexpr INT32 OverheadULoSlack = OverheadVisUInsetLeft  + OverheadScrollHeadroom;
-constexpr INT32 OverheadUHiSlack = OverheadVisUInsetRight + OverheadScrollHeadroom;
-constexpr INT32 OverheadVLoSlack = OverheadVisVInsetTop   + OverheadScrollHeadroom;
-constexpr INT32 OverheadVHiSlack = OverheadVisVInsetBot   + OverheadScrollHeadroom;
-
-// The old scroll clamps below assume the view window is OLD_WORLD_* (160) tiles wide/high.
-// With DYNAMIC_OVERHEADMAP_SIZE the window is gOverheadMapRenderArea, so clamp against the
-// sampled tile window instead. Extents follow the loop in RenderOverheadMap: the inner loop
-// steps (col + 1, row - 1) until sTempPosX_S >= sEndXS (sEndXS = area.width + EndXS_Offset,
-// sTempPosX_S starts at the area's left edge, +4 on odd anchor rows), and each outer step
-// moves sAnchorPosY_S down by 2 until sEndYS = area.height + EndYS_Offset, alternating
-// (col + 1) / (row + 1) on the anchor. The first sampled column is giXTL - StartX_M_Offset.
-// The window is a parallelogram, so its limits are diagonal, not the corners of its bounding
-// rectangle: with u = col - row and v = col + row the sampled window spans u in [uA, uA + 2*jmax
-// + 1] and v in [vA, vA + imax], and the visible window is that range shrunk by the blit crops
-// above.
-// The playable area is the rotated rectangle inscribed in the stored map square: its corners are
-// the midpoints of the map's edges -- (0, WORLD_ROWS/2), (WORLD_COLS/2, 0), (WORLD_COLS, WORLD_ROWS/2),
-// (WORLD_COLS/2, WORLD_ROWS). RenderOverheadMap maps u = col - row onto screen x and v = col + row
-// onto screen y, so that rotated rectangle is axis-aligned in u/v and its bounds are
-// u in [-WORLD_ROWS/2, WORLD_COLS/2] and v in [WORLD_ROWS/2, WORLD_COLS/2 + WORLD_ROWS]. Those, not
-// the stored square's extremes, are what the scroll may reach: the four playable corners are the
-// diamond tips the player sees on screen. Shared with ScrollOverheadMap so the clamp and the
-// per-direction stops agree.
+// Legal range for the window's tile start, measured in u/v diagonals. The window is a parallelogram
+// (u = col - row runs along screen x, v = col + row along screen y), so its limits are diagonal,
+// and the range the scroll may reach is the playable diamond, not the stored map square: the
+// playable area is the rotated rectangle whose corners are the edge midpoints of that square, and
+// in u/v it is axis-aligned. ScrollOverheadMap reads these same four limits for its arrow-key
+// stops, so clamp and stops cannot disagree.
 static void OverheadWindowStartBounds(INT32 *puLo, INT32 *puHi, INT32 *pvLo, INT32 *pvHi)
 {
 	const INT32 uPlayableLo = -(WORLD_ROWS / 2);
@@ -688,17 +671,16 @@ static void OverheadWindowStartBounds(INT32 *puLo, INT32 *puHi, INT32 *pvLo, INT
 	const INT32 vPlayableLo = (WORLD_ROWS / 2);
 	const INT32 vPlayableHi = (WORLD_COLS / 2) + WORLD_ROWS;
 
-	// A tile start may slide until the playable tip that is being scrolled to lands on the
-	// visible frame edge. The visible window is the render area itself: u = col - row runs
-	// 4 px per tile along x and v = col + row 2 px along y, so the visible spans are
-	// area.width/4 and area.height/2, and each limit is inset from the sampled start by the
-	// blit crop on that side (left/top) or by crop + visible span (right/bottom).
+	// u/v run 4 px and 2 px per tile on screen, so the render area is this many tiles wide/high.
 	const INT32 uVisible = (INT32)gOverheadMapRenderArea.width / 4;
 	const INT32 vVisible = (INT32)gOverheadMapRenderArea.height / 2;
 
-	*puLo = uPlayableLo - OverheadULoSlack;
+	// A tip may scroll until it reaches the visible frame edge. The low limits only pay the left/top
+	// crop; the high limits also pay the visible span, because the visible window starts one crop
+	// in from the sampled start.
+	*puLo = uPlayableLo - OverheadVisUInsetLeft - OverheadScrollHeadroom;
 	*puHi = uPlayableHi - (OverheadVisUInsetLeft + uVisible) + OverheadScrollHeadroom;
-	*pvLo = vPlayableLo - OverheadVLoSlack;
+	*pvLo = vPlayableLo - OverheadVisVInsetTop - OverheadScrollHeadroom;
 	*pvHi = vPlayableHi - (OverheadVisVInsetTop + vVisible) + OverheadScrollHeadroom;
 }
 
@@ -707,21 +689,19 @@ static void ClampOverheadWindowToWorld(void)
 	INT32 uLo, uHi, vLo, vHi;
 	OverheadWindowStartBounds(&uLo, &uHi, &vLo, &vHi);
 
+	// giXTL/giYTL name the anchor; the sampled start sits StartX_M_Offset columns to its left.
 	const INT32 uA = giXTL - StartX_M_Offset - giYTL;
 	const INT32 vA = giXTL - StartX_M_Offset + giYTL;
 
 	INT32 a = uA, b = vA;
-	if ( a < uLo )
-		a = uLo;
-	else if ( a > uHi )
-		a = uHi;
-	if ( b < vLo )
-		b = vLo;
-	else if ( b > vHi )
-		b = vHi;
+	if ( a < uLo ) a = uLo;
+	if ( a > uHi ) a = uHi;
+	if ( b < vLo ) b = vLo;
+	if ( b > vHi ) b = vHi;
 	if ( ((b - a) % 2) != 0 )
 		++b;// u and v must stay on the same parity to land on whole cells
 
+	// Invert the u/v mapping to get the shift that puts the clamped start back on the corners.
 	const INT32 dX = ( (a + b) / 2 + StartX_M_Offset ) - giXTL;
 	const INT32 dY = ( (b - a) / 2 ) - giYTL;
 
@@ -740,61 +720,28 @@ void GoIntoOverheadMap( )
 	//RestoreExternBackgroundRect( INTERFACE_START_X, INTERFACE_START_Y, SCREEN_WIDTH, INTERFACE_HEIGHT );
 
 	// Overview map should be centered in the middle of the tactical screen.
-	//DBrot: Allow bigger overview if possible
 #ifdef DYNAMIC_OVERHEADMAP_SIZE
 	ResizeMapRenderArea();
 
 	if ( gWholeMapFits == false )
 	{
-		// Calculate overhead map coords from your current position on big map
-		INT32 Xs, Ys, dX, dY, Xt, Yt, k, l, Xtnew, Ytnew;
-		FLOAT ddw = PointToPointDist(0, WORLD_ROWS / 2, (0 + OLD_WORLD_COLS / 2), (WORLD_ROWS / 2 + OLD_WORLD_ROWS / 2)) / 2;
-		FLOAT ddh = PointToPointDist(0, WORLD_ROWS / 2, (0 + OLD_WORLD_COLS / 2), (WORLD_ROWS / 2 - OLD_WORLD_ROWS / 2)) / 2;
-		Xt = gsRenderCenterX / CELL_X_SIZE;
-		Yt = gsRenderCenterY / CELL_Y_SIZE;
-		k = 1, l = (3 * WORLD_ROWS - WORLD_COLS) / 4;// p3
-		FLOAT dd = PointToLineDist(Xt, Yt, k, l);
-		if ( dd < ddh )
-		{
-			PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
-			Xt = Xtnew, Yt = Ytnew;
-		}
-		else
-		{
-			k = 1, l = (WORLD_ROWS - 3 * WORLD_COLS) / 4;// p1
-			dd = PointToLineDist(Xt, Yt, k, l);
-			if ( dd < ddh )
-			{
-				PointFromDist(Xt, Yt, k, l, ddh, &Xtnew, &Ytnew);
-				Xt = Xtnew, Yt = Ytnew;
-			}
-		}
-		k = -1, l = (WORLD_ROWS + WORLD_COLS) / 4;// p4
-		dd = PointToLineDist(Xt, Yt, k, l);
-		if ( dd < ddw )
-		{
-			PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
-			Xt = Xtnew, Yt = Ytnew;
-		}
-		else
-		{
-			k = -1, l = 3 * (WORLD_ROWS + WORLD_COLS) / 4;// p1
-			dd = PointToLineDist(Xt, Yt, k, l);
-			if ( dd < ddw )
-			{
-				PointFromDist(Xt, Yt, k, l, ddw, &Xtnew, &Ytnew);
-				Xt = Xtnew, Yt = Ytnew;
-			}
-		}
-		Xs = (giXBL + giXTR) / 2;
-		Ys = (giYBL + giYTR) / 2;
-		dX = Xt - Xs;
-		dY = Yt - Ys;
+		// Center the overhead window on the tactical view. The window is a parallelogram whose
+		// legal scroll range is expressed in u/v (u = col - row, v = col + row), so the target is
+		// only translated here: ClampOverheadWindowToWorld below does the single clamp that keeps
+		// the window inside the playable diamond, sized from gOverheadMapRenderArea.
+		const INT32 xTarget = gsRenderCenterX / CELL_X_SIZE;
+		const INT32 yTarget = gsRenderCenterY / CELL_Y_SIZE;
+
+		const INT32 xCur = ( giXBL + giXTR ) / 2;
+		const INT32 yCur = ( giYBL + giYTR ) / 2;
+
+		const INT32 dX = xTarget - xCur;
+		const INT32 dY = yTarget - yCur;
+
 		giXTL += dX, giYTL += dY;
 		giXBL += dX, giYBL += dY;
 		giXTR += dX, giYTR += dY;
-		// The centering above sizes its search from OLD_WORLD_*, so the result can sit
-		// outside the legal window. Pull it back in.
+
 		ClampOverheadWindowToWorld();
 	}
 #else
