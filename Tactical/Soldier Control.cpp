@@ -16209,15 +16209,15 @@ void	SOLDIERTYPE::LooseDisguise( void )
 	// loose any covert flags
 	this->usSoldierFlagMask &= ~(SOLDIER_COVERT_CIV | SOLDIER_COVERT_SOLDIER | SOLDIER_COVERT_NPC_SPECIAL);
 
-	// rehandle sight for everybody
+	// Rebuild each soldier's own count, including multiplayer teams. Updating
+	// other soldiers would add duplicates after their own counts were rebuilt.
 	SOLDIERTYPE*		pSoldier;
-	SoldierID  iLoop = gTacticalStatus.Team[OUR_TEAM].bFirstID;
-	for ( ; iLoop <= gTacticalStatus.Team[CIV_TEAM].bLastID; ++iLoop )
+	for ( UINT32 iLoop = 0; iLoop < guiNumMercSlots; ++iLoop )
 	{
-		pSoldier = iLoop;
-		if ( pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
+		pSoldier = MercSlots[iLoop];
+		if ( pSoldier && pSoldier->bActive && pSoldier->bInSector && pSoldier->stats.bLife > 0 )
 		{
-			RecalculateOppCntsDueToNoLongerNeutral( pSoldier );
+			RecalculateOppCntsDueToNoLongerNeutral( pSoldier, FALSE );
 		}
 	}
 }
