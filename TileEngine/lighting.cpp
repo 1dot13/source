@@ -627,9 +627,9 @@ INT32 LinearDistance(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
 {
 INT32 iDx, iDy;
 
-	iDx=abs(iX1-iX2);
+	iDx=iX1-iX2;
 	iDx*=iDx;
-	iDy=abs(iY1-iY2);
+	iDy=iY1-iY2;
 	iDy*=iDy;
 
 	return((INT32)sqrt((DOUBLE)(iDx+iDy)));
@@ -646,9 +646,9 @@ DOUBLE LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
 {
 INT32 iDx, iDy;
 
-	iDx=abs(iX1-iX2);
+	iDx=iX1-iX2;
 	iDx*=iDx;
-	iDy=abs(iY1-iY2);
+	iDy=iY1-iY2;
 	iDy*=iDy;
 
 	return(sqrt((DOUBLE)(iDx+iDy)));
