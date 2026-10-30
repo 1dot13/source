@@ -932,7 +932,7 @@ BOOLEAN ExecuteOverhead( )
         if(pSoldier->bActive)
         {
             if(pSoldier->flags.uiStatusFlags&SOLDIER_GREEN_RAY)
-                LightShowRays((INT16)(pSoldier->dXPos/CELL_X_SIZE), (INT16)(pSoldier->dYPos/CELL_Y_SIZE), FALSE);
+                LightShowRays((INT16)(pSoldier->dXPos/CELL_X_SIZE), (INT16)(pSoldier->dYPos/CELL_Y_SIZE));
         }
     }
     // Diagnostic Stuff

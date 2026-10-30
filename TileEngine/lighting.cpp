@@ -27,6 +27,7 @@
 	#include "Shade Table Util.h"
 	#include "Rotting Corpses.h"
 	#include "PATHAI.H"
+#include "message.h"
 
 #define LVL1_L1_PER			(50)
 #define LVL1_L2_PER			(50)
@@ -209,7 +210,8 @@ void LoadShadeTablesFromTextFile()
 
 // Debug variable
 UINT32	gNodesAdded=0;
-
+UINT8 gLightDebugSelection = 0;
+bool gLightDebugReset = false;
 /****************************************************************************************
  InitLightingSystem
 
@@ -2422,7 +2424,7 @@ BOOLEAN CalcTranslucentWalls(INT16 iX, INT16 iY)
 	return(TRUE);
 }
 
-BOOLEAN LightGreenTile(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightWhiteTile(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 LEVELNODE *pStruct, *pLand;
 UINT32 uiTile;
@@ -2487,42 +2489,52 @@ TILE_ELEMENT *TileElem;
 /****************************************************************************************
 	LightShowRays
 
-		Draws a template by making the ground tiles green. Must be polled once for
+		Draws a template by shading the ground tiles white. Must be polled once for
 each tile drawn to facilitate animating the drawing process for debugging.
 
 ***************************************************************************************/
-BOOLEAN LightShowRays(INT16 iX, INT16 iY, BOOLEAN fReset)
+BOOLEAN LightShowRays(INT16 iX, INT16 iY)
 {
-LIGHT_NODE *pLight;
-static UINT16 uiCount=0;
-UINT16 usNodeIndex;
+    LIGHT_NODE* pLight;
+    static UINT16 uiCount = 0;
+    UINT16 usNodeIndex;
 
-	if(fReset)
-		uiCount=0;
 
-	if(pLightList[0]==NULL)
-		return(FALSE);
-
-	if(uiCount < usRaySize[0])
+	if ( pLightList[gLightDebugSelection] == NULL )
 	{
-		usNodeIndex=*(pLightRayList[0]+uiCount);
-
-		if(!(usNodeIndex&LIGHT_NEW_RAY))
-		{
-			pLight=pLightList[0]+(usNodeIndex&(~LIGHT_BACKLIGHT));
-
-			if(LightGreenTile((INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), iX, iY))
-			{
-				uiCount=LightFindNextRay(0, uiCount);
-				SetRenderFlags(RENDER_FLAG_MARKED);
-			}
-		}
-
-		uiCount++;
-		return(TRUE);
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"pLightList[%d] has no light template", gLightDebugSelection);
+        return(FALSE);
 	}
-	else
-		return(FALSE);
+
+    if ( uiCount < usRaySize[gLightDebugSelection] )
+    {
+        usNodeIndex = *(pLightRayList[gLightDebugSelection] + uiCount);
+
+        if ( !(usNodeIndex & LIGHT_NEW_RAY) )
+        {
+            pLight = pLightList[gLightDebugSelection] + (usNodeIndex & (~LIGHT_BACKLIGHT));
+
+            // Same boundary clamp LightRevealWall's caller got from Kris (line 2411); unclamped
+            // coords wrap through MAPROWCOLTOPOS and write gpWorldLevelData out of bounds
+            if ( LightWhiteTile(
+                (INT16)min(max((iX + pLight->iDX),0),WORLD_COLS-1),
+                (INT16)min(max((iY + pLight->iDY),0),WORLD_ROWS-1),
+                (INT16)min(max(iX,0),WORLD_COLS-1),
+                (INT16)min(max(iY,0),WORLD_ROWS-1) ) )
+            {
+                uiCount = LightFindNextRay(gLightDebugSelection, uiCount);
+                SetRenderFlags(RENDER_FLAG_MARKED);
+            }
+        }
+
+        uiCount++;
+        return(TRUE);
+    }
+    else
+    {
+        uiCount = 0; // finished; rewind so the next activation redraws without needing fReset
+        return(FALSE);
+    }
 }
 
 /****************************************************************************************

@@ -1679,6 +1679,16 @@ void ItemCreationCallBack( UINT8 ubResult )
 	memset(gszMsgBoxInputString,0,sizeof(gszMsgBoxInputString));
 }
 
+void LightRaycastCallBack(UINT8 ubResult)
+{
+	if ( ubResult == MSG_BOX_RETURN_OK && wcscmp(gszMsgBoxInputString, L"") > 0 )
+	{
+		gLightDebugSelection = _wtoi(gszMsgBoxInputString);
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LightShowRays Activated for light %d", gLightDebugSelection);
+	}
+	memset(gszMsgBoxInputString, 0, sizeof(gszMsgBoxInputString));
+}
+
 extern	BOOLEAN		gfDisableRegionActive;
 extern	BOOLEAN		gfUserTurnRegionActive;
 
@@ -4032,7 +4042,28 @@ void GetKeyboardInput( UINT32 *puiNewEvent )
 				break;
 
 			case 'L':
-				HandleTacticalTransformFlashlight();
+				if ( fAlt )
+				{
+					if ( DEBUG_CHEAT_LEVEL() && gusSelectedSoldier )
+					{
+						if ( gusSelectedSoldier->flags.uiStatusFlags & SOLDIER_GREEN_RAY )
+						{
+							gusSelectedSoldier->flags.uiStatusFlags &= ~SOLDIER_GREEN_RAY;
+							ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"LightShowRays Deactivated");
+						}
+						else
+						{
+							DoMessageBox(MSG_BOX_BASIC_SMALL_BUTTONS, L"Enter LightID", GAME_SCREEN, MSG_BOX_FLAG_INPUTBOX, LightRaycastCallBack, NULL);
+
+							gusSelectedSoldier->flags.uiStatusFlags |= SOLDIER_GREEN_RAY;
+
+						}
+					}
+				}
+				else
+				{
+					HandleTacticalTransformFlashlight();
+				}
 				break;
 
 			case 'm':
