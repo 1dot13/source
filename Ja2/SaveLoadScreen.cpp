@@ -1013,6 +1013,60 @@ void HandleSaveLoadScreen()
 	}
 }
 
+static void SaveScreenPreviousPage()
+{
+	if ( PAGE_SLOT > 0 )
+	{
+		PAGE_SLOT = PAGE_SLOT - 1;
+
+		if ( PAGE_SLOT == 0 || PAGE_SLOT < 0 )
+			VAL_SLOT_START = 0;
+		else if ( PAGE_SLOT >= 1 )
+			VAL_SLOT_START = (PAGE_SLOT * 19);
+
+		if ( PAGE_SLOT == 0 || PAGE_SLOT < 0 )
+		{
+			DisableButton(guiPrevButton);
+			EnableButton(guiNextButton);
+			PAGE_SLOT = 0;
+		}
+		else if ( PAGE_SLOT < MAX_PAGE_SLOT )
+		{
+			EnableButton(guiNextButton);
+		}
+
+		DestroySaveLoadTextInputBoxes();
+
+		NewEnterSaveLoadScreen();
+	}
+}
+
+static void SaveScreenNextPage()
+{
+	if ( PAGE_SLOT < MAX_PAGE_SLOT )
+	{
+		PAGE_SLOT = PAGE_SLOT + 1;
+
+		if ( PAGE_SLOT >= 1 )
+			VAL_SLOT_START = (PAGE_SLOT * 19);
+		else if ( PAGE_SLOT >= MAX_PAGE_SLOT )
+		{
+			VAL_SLOT_START = (MAX_PAGE_SLOT * 19);
+			PAGE_SLOT = MAX_PAGE_SLOT;
+		}
+
+		if ( PAGE_SLOT > 0 )
+			EnableButton(guiPrevButton);
+
+		if ( PAGE_SLOT > MAX_PAGE_SLOT || PAGE_SLOT == MAX_PAGE_SLOT )
+			DisableButton(guiNextButton);
+
+		DestroySaveLoadTextInputBoxes();
+
+		NewEnterSaveLoadScreen();
+	}
+}
+
 void GetSaveLoadScreenUserInput()
 {
 	InputAtom Event;
@@ -1102,6 +1156,21 @@ void GetSaveLoadScreenUserInput()
 			}
 		}
 
+		// Only when loading a game so it doesn't interfere with textbox navigation.
+		if ( !gfSaveGame && Event.usEvent == KEY_UP )
+		{
+			switch ( Event.usParam )
+			{
+				case LEFTARROW:
+					SaveScreenPreviousPage();
+					break;
+
+				case RIGHTARROW:
+					SaveScreenNextPage();
+					break;
+			}
+		}
+
 		if( Event.usEvent == KEY_UP )
 		{
 			switch( Event.usParam )
@@ -1116,56 +1185,12 @@ void GetSaveLoadScreenUserInput()
 				
 				case PGUP:
 					// previous page, LEFTARROW not used due to interference with textbox navigation
-					if ( PAGE_SLOT > 0 )
-					{
-						PAGE_SLOT = PAGE_SLOT - 1;
-					
-						if ( PAGE_SLOT == 0 || PAGE_SLOT < 0 )
-							VAL_SLOT_START = 0; 
-						else if ( PAGE_SLOT >= 1 )
-							VAL_SLOT_START = (PAGE_SLOT * 19);
-						
-						if (PAGE_SLOT == 0 || PAGE_SLOT < 0 )
-						{
-							DisableButton( guiPrevButton );
-							EnableButton( guiNextButton );
-							PAGE_SLOT = 0;
-						}
-						else if (PAGE_SLOT < MAX_PAGE_SLOT)
-						{
-							EnableButton( guiNextButton );
-						}
-
-						DestroySaveLoadTextInputBoxes();
-
-						NewEnterSaveLoadScreen();
-					}
+					SaveScreenPreviousPage();
 					break;
 				
 				case PGDN:
 					// next page, RIGHTARROW not used due to interference with textbox navigation
-					if ( PAGE_SLOT < MAX_PAGE_SLOT )
-					{
-						PAGE_SLOT = PAGE_SLOT + 1;
-
-						if ( PAGE_SLOT >= 1 )
-							VAL_SLOT_START = (PAGE_SLOT * 19);
-						else if ( PAGE_SLOT >= MAX_PAGE_SLOT )
-						{
-							VAL_SLOT_START = (MAX_PAGE_SLOT * 19);
-							PAGE_SLOT = MAX_PAGE_SLOT;
-						}
-
-						if (PAGE_SLOT > 0 )
-							EnableButton( guiPrevButton );
-
-						if (PAGE_SLOT > MAX_PAGE_SLOT || PAGE_SLOT == MAX_PAGE_SLOT )
-							DisableButton( guiNextButton );
-
-						DestroySaveLoadTextInputBoxes();
-
-						NewEnterSaveLoadScreen();
-					}
+					SaveScreenNextPage();
 					break;
 				
 				case ESC:
