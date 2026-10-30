@@ -2509,6 +2509,11 @@ void HandleOtherGroupsArrivingSimultaneously( UINT8 ubSectorX, UINT8 ubSectorY, 
 					if ( bNewSquad == -1 )
 						continue;
 
+					// remember the spy assignment ( CONCEALED / GATHERINTEL ): PrepareGroupsForSimultaneousArrival()
+					// reverts the squad assignment if the battle is postponed, and AddCharacterToSquad() below
+					// would otherwise clobber bOldAssignment with the new squad value
+					pSoldier->bOldAssignment = pSoldier->bAssignment;
+
 					pSoldier->usSoldierFlagMask2 |= SOLDIER_CONCEALINSERTION;
 
 					AddCharacterToSquad( pSoldier, bNewSquad );
@@ -2606,6 +2611,36 @@ void PrepareGroupsForSimultaneousArrival()
 		}
 	}
 	DelayEnemyGroupsIfPathsCross( pGroup );
+
+	// The first group has already arrived - its arrival ( HandleOtherGroupsArrivingSimultaneously )
+	// has already pulled any spies in this sector into a new squad and set SOLDIER_CONCEALINSERTION flag.
+	// But the battle is postponed until all groups have arrived, and while we wait for that, in-game time advances
+	// and SOLDIERTYPE::SoldierPropertyUpkeep() clears the flag long before InitTacticalPlacementGUI() sees it.
+	// So undo the premature squad assignment here: the spies stay in their spy assignment while the other groups travel
+	// and HandleOtherGroupsArrivingSimultaneously() re-adds them (flag included) at the actual arrival, immediately before the battle is entered.
+	for ( SoldierID cnt = gTacticalStatus.Team[gbPlayerNum].bFirstID; cnt <= gTacticalStatus.Team[gbPlayerNum].bLastID; ++cnt )
+	{
+		SOLDIERTYPE *pSpy = cnt;
+		if ( pSpy && pSpy->bActive && pSpy->stats.bLife >= OKLIFE &&
+			 !pSpy->flags.fBetweenSectors &&
+			 ( pSpy->usSoldierFlagMask2 & SOLDIER_CONCEALINSERTION ) &&
+			 !SPY_LOCATION( pSpy->bAssignment ) &&
+			 SPY_LOCATION( pSpy->bOldAssignment ) &&
+			 pSpy->sSectorX == gpPendingSimultaneousGroup->ubNextX &&
+			 pSpy->sSectorY == gpPendingSimultaneousGroup->ubNextY &&
+			 pSpy->bSectorZ == gpPendingSimultaneousGroup->ubSectorZ )
+		{
+			// take them out of the squad and mvt group the flip put them into (also clears ubGroupID)
+			RemoveCharacterFromSquads( pSpy );
+
+			// restore the spy assignment
+			SetTimeOfAssignmentChangeForMerc( pSpy );
+			ChangeSoldiersAssignment( pSpy, pSpy->bOldAssignment );
+
+			//Unset the flag for now. It's set again by HandleOtherGroupsArrivingSimultaneously() when the last group to join the battle actually arrives
+			pSpy->usSoldierFlagMask2 &= ~SOLDIER_CONCEALINSERTION;
+		}
+	}
 }
 
 //See if there are other groups OTW. If so, and if we haven't asked the user yet to plan
