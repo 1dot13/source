@@ -1853,10 +1853,8 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 								sZLevel = LandZLevel(iTempPosX_M, iTempPosY_M);
 
 								// Per-pixel land shade gradient (lightingsystem.md Tier A)
-								{
-                                    if ( GetLandGradShades( pNode, uiTileIndex, iGradPatch, &usGradTint ) )
-                                        fGradientBlitter = TRUE;
-                                }
+                                if ( GetLandGradShades( pNode, uiTileIndex, iGradPatch, &usGradTint ) )
+                                    fGradientBlitter = TRUE;
 								break;
 
 							case TILES_STATIC_OBJECTS:
@@ -1924,10 +1922,8 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 								uiDirtyFlags = BGND_FLAG_SINGLE | BGND_FLAG_ANIMATED;
 
 								// Per-pixel land shade gradient (lightingsystem.md Tier A)
-								{
-                                    if ( GetLandGradShades( pNode, uiTileIndex, iGradPatch, &usGradTint ) )
-                                        fGradientBlitter = TRUE;
-                                }
+                                if ( GetLandGradShades( pNode, uiTileIndex, iGradPatch, &usGradTint ) )
+                                    fGradientBlitter = TRUE;
 								break;
 							case TILES_DYNAMIC_SHADOWS:
 
@@ -2732,19 +2728,22 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 													else
 													{
 														if (fGradientBlitter)
-{
-// Per-pixel land shade gradient (Tier A): own/E/S/SE corner lattice, Z write on
-Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, TRUE);
-}
-else
-{
-Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-}
+														{
+															// Per-pixel land shade gradient (Tier A): own/E/S/SE corner lattice, Z write on
+															Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, TRUE);
+														}
+														else
+														{
+															Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														}
 													}
 												}
 												else
 												{
-													{ if (fGradientBlitter) Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, FALSE); else Blt8BPPDataTo16BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect); }
+													if (fGradientBlitter)
+														Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, FALSE);
+													else
+														Blt8BPPDataTo16BPPBufferTransZNBClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 												}
 
 												if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
@@ -2753,20 +2752,20 @@ Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffe
 
 													// BLIT HERE
 													if (fGradientBlitter)
-Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, TRUE);
-else
-Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+														Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, TRUE);
+													else
+														Blt8BPPDataTo16BPPBufferTransZClip((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
 
 													UnLockVideoSurface(guiSAVEBUFFER);
 												}
-
 											}
 											else
-if (fGradientBlitter)
-Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, NULL, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, FALSE);
-else
-Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
-
+											{
+												if ( fGradientBlitter )
+													Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, NULL, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, &gClippingRect, FALSE);
+												else
+													Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex, &gClippingRect);
+											}
 										}
 										else if (bBlitClipVal == FALSE)
 										{
@@ -2979,14 +2978,18 @@ Blt8BPPDataTo16BPPBufferTransparentClip((UINT16*)pDestBuf, uiDestPitchBYTES, hVO
 													else
 													{
 														if (fGradientBlitter)
-Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, TRUE);
-else
-Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+															Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, TRUE);
+														else
+															Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 													}
 												}
 												else
-													{ if (fGradientBlitter) Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, FALSE); else Blt8BPPDataTo16BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex); }
-
+												{
+													if (fGradientBlitter)
+														Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, FALSE);
+													else
+														Blt8BPPDataTo16BPPBufferTransZNB((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+												}
 
 												if ((uiLevelNodeFlags & LEVELNODE_UPDATESAVEBUFFERONCE))
 												{
@@ -2994,9 +2997,9 @@ Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pDestBuf, uiDestPitchBYTES, gpZBuffer, s
 
 													// BLIT HERE
 													if (fGradientBlitter)
-Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, TRUE);
-else
-Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
+														Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, TRUE);
+													else
+														Blt8BPPDataTo16BPPBufferTransZ((UINT16*)pSaveBuf, uiSaveBufferPitchBYTES, gpZBuffer, sZLevel, hVObject, sXPos, sYPos, usImageIndex);
 
 													UnLockVideoSurface(guiSAVEBUFFER);
 												}
