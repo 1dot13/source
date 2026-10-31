@@ -8655,6 +8655,40 @@ BlitDone:
 
 }
 
+// One pixel of the land gradient: bilinear blend of the four patch cells (iDX,iDY), (iDX+1,iDY),
+// (iDX,iDY+1), (iDX+1,iDY+1) that surround the destination pixel. iDx/iDy are its screen offset
+// from the blit anchor; the cell lattice is diagonal on screen, so cell-space coords are
+// A = dx + 2*dy (east/+X cell axis) and B = 2*dy - dx (south/+Y cell axis), in 1/40-cell units.
+static INT32 GradShadeLevel(const INT16* pGradPatch, INT32 iDx, INT32 iDy)
+{
+    const INT32 iLatticeA = iDx + 2 * iDy;
+    const INT32 iLatticeB = 2 * iDy - iDx;
+
+    // whole cell the pixel falls in (floor division by 40), clamped to the 4x4 patch
+    INT32 iDX = (iLatticeA >= 0) ? (iLatticeA / 40) : ((iLatticeA - 39) / 40);
+    INT32 iDY = (iLatticeB >= 0) ? (iLatticeB / 40) : ((iLatticeB - 39) / 40);
+    if ( iDX < -1 ) iDX = -1;
+    if ( iDX > 2 ) iDX = 2;
+    if ( iDY < -1 ) iDY = -1;
+    if ( iDY > 2 ) iDY = 2;
+
+    // where inside that cell, 0..40, drives the corner weights (which sum to 1600)
+    const INT32 iU = __min(__max(iLatticeA - 40 * iDX, 0), 40);
+    const INT32 iV = __min(__max(iLatticeB - 40 * iDY, 0), 40);
+
+    // patch layout is pGradPatch[(iDX+1)*4 + (iDY+1)], own cell at index 5
+    const INT32 iCorner = (iDX + 1) * 4 + (iDY + 1);
+    const INT32 iBlend = (40 - iU) * (40 - iV) * pGradPatch[iCorner] +
+                         iU * (40 - iV) * pGradPatch[iCorner + 4] +
+                         (40 - iU) * iV * pGradPatch[iCorner + 1] +
+                         iU * iV * pGradPatch[iCorner + 5];
+
+    INT32 iShade = (iBlend + 800) / 1600;
+    if ( iShade < 0 ) iShade = 0;
+    if ( iShade > 15 ) iShade = 15;
+    return iShade;
+}
+
 /**********************************************************************************************
  Blt8BPPDataTo16BPPBufferTransZClipLandGrad
 
@@ -8665,51 +8699,17 @@ BlitDone:
 **********************************************************************************************/
 BOOLEAN Blt8BPPDataTo16BPPBufferTransZClipLandGrad(UINT16* pBuffer, UINT32 uiDestPitchBYTES, UINT16* pZBuffer, UINT16 usZValue, HVOBJECT hSrcVObject, const INT16* pGradPatch, UINT16 usGradTint, INT32 iX, INT32 iY, UINT16 usIndex, SGPRect* clipregion, BOOLEAN fWriteZ)
 {
-    UINT16* p16BPPPalette;
-    UINT16* pZPixel;
-    UINT8* SrcPtr;
-    UINT8		ubColor;
-    ETRLEObject* pTrav;
-    UINT32 uiOffset;
-    UINT32 usHeight;
-    UINT32 usWidth;
-    INT32 iTempX;
-    INT32 iTempY;
-    INT32 LeftSkip, RightSkip, TopSkip, BottomSkip, BlitLength, BlitHeight;
-    INT32 ClipX1, ClipY1, ClipX2, ClipY2;
-    INT32 row;
-    INT32 col;
-    INT32 run;
-    INT32 len;
-    INT32 dx;
-    INT32 dy;
-    INT32 iCellA;
-    INT32 iCellB;
-    INT32 ia;
-    INT32 ib;
-    INT32 u4;
-    INT32 v4;
-    INT32 w0;
-    INT32 w1;
-    INT32 w2;
-    INT32 w3;
-    INT32 q;
-    INT32 iCell;
-    INT32 iCount;
-    BOOLEAN fFlat;
-    BOOLEAN fPlot;
-
     // Get Offsets from Index into structure
-    pTrav = &(hSrcVObject->pETRLEObject[usIndex]);
-    usHeight = (UINT32)pTrav->usHeight;
-    usWidth = (UINT32)pTrav->usWidth;
-    uiOffset = pTrav->uiDataOffset;
+    ETRLEObject* pTrav = &(hSrcVObject->pETRLEObject[usIndex]);
+    const INT32 iWidth = pTrav->usWidth;
+    const INT32 iHeight = pTrav->usHeight;
 
-    // Add to start position of dest buffer
-    iTempX = iX + pTrav->sOffsetX;
-    iTempY = iY + pTrav->sOffsetY;
+    // Top-left corner of the unclipped blit; also the anchor the gradient is measured from
+    const INT32 iDestX = iX + pTrav->sOffsetX;
+    const INT32 iDestY = iY + pTrav->sOffsetY;
 
     // Determine Clipping Points
+    INT32 ClipX1, ClipY1, ClipX2, ClipY2;
     if ( clipregion == NULL )
     {
         ClipX1 = ClippingRect.iLeft;
@@ -8725,92 +8725,89 @@ BOOLEAN Blt8BPPDataTo16BPPBufferTransZClipLandGrad(UINT16* pBuffer, UINT32 uiDes
         ClipY2 = clipregion->iBottom;
     }
 
-    // Calculate rows hanging off each side of the screen
-    LeftSkip = __min(ClipX1 - min(ClipX1, iTempX), (INT32)usWidth);
-    RightSkip = __min(max(ClipX2, (iTempX + (INT32)usWidth)) - ClipX2, (INT32)usWidth);
-    TopSkip = __min(ClipY1 - __min(ClipY1, iTempY), (INT32)usHeight);
-    BottomSkip = __min(__max(ClipY2, (iTempY + (INT32)usHeight)) - ClipY2, (INT32)usHeight);
+    // columns / rows of the image that hang outside the clip window on each side
+    const INT32 LeftSkip = __min(ClipX1 - min(ClipX1, iDestX), iWidth);
+    const INT32 RightSkip = __min(max(ClipX2, (iDestX + iWidth)) - ClipX2, iWidth);
+    const INT32 TopSkip = __min(ClipY1 - __min(ClipY1, iDestY), iHeight);
+    const INT32 BottomSkip = __min(__max(ClipY2, (iDestY + iHeight)) - ClipY2, iHeight);
 
-    // calculate the remaining rows and columns to blit
-    BlitLength = ((INT32)usWidth - LeftSkip - RightSkip);
-    BlitHeight = ((INT32)usHeight - TopSkip - BottomSkip);
+    // sub-rectangle of the image that survives clipping
+    const INT32 BlitLength = iWidth - LeftSkip - RightSkip;
+    const INT32 BlitHeight = iHeight - TopSkip - BottomSkip;
 
     // check if whole thing is clipped
-    if ( (LeftSkip >= (INT32)usWidth) || (RightSkip >= (INT32)usWidth) )
+    if ( (LeftSkip >= iWidth) || (RightSkip >= iWidth) )
         return(TRUE);
 
     // check if whole thing is clipped
-    if ( (TopSkip >= (INT32)usHeight) || (BottomSkip >= (INT32)usHeight) )
+    if ( (TopSkip >= iHeight) || (BottomSkip >= iHeight) )
         return(TRUE);
 
-    // all 16 cells of the patch equal: identical shade everywhere; use the corner bank directly
-    // (pShadeCurrent may be stale on dirty/marked redraw passes). pGradPatch[5] is the OWN cell.
-    fFlat = TRUE;
-    for ( iCount = 1; iCount < 16; iCount++ )
+    // a uniform 4x4 shade patch means one flat shade for the whole image: take the own cell's
+    // bank (index 5) up front instead of resolving the gradient per pixel
+    BOOLEAN fFlat = TRUE;
+    for ( INT32 iPatch = 1; iPatch < 16; iPatch++ )
     {
-        if ( pGradPatch[iCount] != pGradPatch[0] )
+        if ( pGradPatch[iPatch] != pGradPatch[0] )
         {
-            fFlat = FALSE; break;
+            fFlat = FALSE;
+            break;
         }
     }
-    p16BPPPalette = hSrcVObject->pShades[pGradPatch[5] | (INT32)usGradTint];
+    UINT16* p16BPPPalette = hSrcVObject->pShades[pGradPatch[5] | (INT32)usGradTint];
 
-    SrcPtr = (UINT8*)hSrcVObject->pPixData + uiOffset;
+    UINT8* SrcPtr = (UINT8*)hSrcVObject->pPixData + pTrav->uiDataOffset;
 
-    // Decode every run; only pixels inside the clip window are plotted. An opaque run byte is
-    // followed by one color byte per run pixel (ETRLE), so the color read must happen even for
-    // clipped pixels.
-    for ( row = 0; row < (INT32)usHeight; row++ )
+    // Decode the whole ETRLE stream: a transparent run (high bit set) has no color bytes, an
+    // opaque run is followed by one color byte per pixel, and a 0 byte ends the source row. Every
+    // byte has to be consumed even outside the clip window, or the stream falls out of sync.
+    for ( INT32 row = 0; row < iHeight; row++ )
     {
-        col = 0;
+        const BOOLEAN fRowInClip = (row >= TopSkip) && (row < (TopSkip + BlitHeight));
+        INT32 col = 0;
+
         for ( ;;)
         {
-            run = *SrcPtr++;
+            const INT32 run = *SrcPtr++;
             if ( run == 0 )
-                break;
+                break; // end of this source row
+
             if ( run & 0x80 )
             {
-                col += (run & 0x7f);
+                col += (run & 0x7f); // transparent run: nothing to plot
                 continue;
             }
-            for ( len = 0; len < run; len++ )
+
+            for ( INT32 len = 0; len < run; len++ )
             {
-                ubColor = *SrcPtr++;
-                fPlot = ((row >= TopSkip) && (row < (TopSkip + BlitHeight)) && (col >= LeftSkip) && (col < (LeftSkip + BlitLength)));
+                const UINT8 ubColor = *SrcPtr++;
+                BOOLEAN fPlot = fRowInClip && (col >= LeftSkip) && (col < (LeftSkip + BlitLength));
+
+                // destination pixel, shared by the buffer and the Z-buffer (same pitch/size)
+                const UINT32 uiPixelOffset = uiDestPitchBYTES * (iDestY + row) + ((iDestX + col) * 2);
+
                 if ( fPlot && pZBuffer != NULL )
                 {
-                    pZPixel = (UINT16*)((UINT8*)pZBuffer + (uiDestPitchBYTES * (iTempY + row)) + ((iTempX + col) * 2));
+                    UINT16* pZPixel = (UINT16*)((UINT8*)pZBuffer + uiPixelOffset);
                     if ( *pZPixel > usZValue )
-                        fPlot = FALSE;
+                        fPlot = FALSE;                        // a nearer pixel owns this one
                     else if ( fWriteZ )
-                        *pZPixel = usZValue;
+                        *pZPixel = usZValue;                  // claim this depth
                 }
+
                 if ( fPlot )
                 {
                     if ( !fFlat )
                     {
-                        // dest pixel offset from the blit anchor; cell-space lattice coords are derived below
-                        // cell-space coords: A = dx + 2dy, B = 2dy - dx in 1/40-cell units (iso lattice step on
-                 // screen is (+20,+10) per +X cell, (-20,+10) per +Y cell), u4/v4 = fraction of the cell square
-                        dx = (col + (INT32)pTrav->sOffsetX);
-                        dy = (row + (INT32)pTrav->sOffsetY);
-                        iCellA = dx + 2 * dy; iCellB = 2 * dy - dx;
-                        ia = (iCellA >= 0) ? (iCellA / 40) : ((iCellA - 39) / 40); ib = (iCellB >= 0) ? (iCellB / 40) : ((iCellB - 39) / 40); if ( ia < -1 ) ia = -1; if ( ia > 2 ) ia = 2; if ( ib < -1 ) ib = -1; if ( ib > 2 ) ib = 2;
-                        u4 = iCellA - 40 * ia; if ( u4 < 0 ) u4 = 0;
-                        if ( u4 > 40 ) u4 = 40;
-                        v4 = iCellB - 40 * ib; if ( v4 < 0 ) v4 = 0;
-                        if ( v4 > 40 ) v4 = 40;
-                        w0 = (40 - u4) * (40 - v4);
-                        w1 = u4 * (40 - v4);
-                        w2 = (40 - u4) * v4;
-                        w3 = u4 * v4;
-                        iCell = (ia + 1) * 4 + (ib + 1); q = (pGradPatch[iCell] * w0 + pGradPatch[iCell + 4] * w1 + pGradPatch[iCell + 1] * w2 + pGradPatch[iCell + 5] * w3 + 800) / 1600;
-                        if ( q < 0 ) q = 0;
-                        if ( q > 15 ) q = 15;
-                        p16BPPPalette = hSrcVObject->pShades[q | (INT32)usGradTint];
+                        // shade bank follows where the pixel falls in the tile's cell lattice;
+                        // its offset from the blit anchor (iX,iY) is what the gradient needs
+                        const INT32 iGradCell = GradShadeLevel(pGradPatch, col + pTrav->sOffsetX, row + pTrav->sOffsetY);
+                        p16BPPPalette = hSrcVObject->pShades[iGradCell | (INT32)usGradTint];
                     }
-                    *(UINT16*)((UINT8*)pBuffer + (uiDestPitchBYTES * (iTempY + row)) + ((iTempX + col) * 2)) = p16BPPPalette[ubColor];
+
+                    *(UINT16*)((UINT8*)pBuffer + uiPixelOffset) = p16BPPPalette[ubColor];
                 }
+
                 col++;
             }
         }
