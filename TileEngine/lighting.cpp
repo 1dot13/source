@@ -729,25 +729,29 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 	}
 }
 
-/****************************************************************************************
-	LightAddNodeTile
-
-		Does the addition of light values to individual LEVELNODEs in the world tile list.
-
-***************************************************************************************/
 // Land gradient (Tier A): a tile's blitted pixels sample the ubShadeLevel of its E/S/SE
 // corner grids, so when a grid's land shade changes that grid AND the three grids that
 // sample it as a corner must be flagged for the marked-redraw pass (renderworld.cpp
 // only re-blits grids carrying MAPELEMENT_REDRAW on RENDER_FLAG_MARKED frames).
+// If improved lighting is off, we still use this loop to mark the original tile so it gets redrawn,
+// but skip the others
 static void LightMarkGradDirty(INT16 iX, INT16 iY)
 {
-	 INT16	 iDX, iDY;
+	INT16 iDX, iDY;
+	INT16 iLo = 0;
+	INT16 iHi = 0;
+
+	if ( gGameSettings.fOptions[TOPTION_IMPROVED_LIGHTING] )
+	{
+		iLo = -2;
+		iHi = 1;
+	}
 
 	if ( gpWorldLevelData != NULL )
 	{
-		for ( iDX = -2; iDX <= 1; iDX++ )
+		for ( iDX = iLo; iDX <= iHi; iDX++ )
 		{
-			for ( iDY = -2; iDY <= 1; iDY++ )
+			for ( iDY = iLo; iDY <= iHi; iDY++ )
 			{
 				if ( (iX + iDX >= 0) && (iX + iDX < WORLD_COLS) && (iY + iDY >= 0) && (iY + iDY < WORLD_ROWS) )
 					gpWorldLevelData[MAPROWCOLTOPOS(iY+iDY, iX+iDX)].uiFlags |= MAPELEMENT_REDRAW;
@@ -755,10 +759,18 @@ static void LightMarkGradDirty(INT16 iX, INT16 iY)
 		}
 
 		if (!gfEditMode)
-			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+		{
+			SetRenderFlags(RENDER_FLAG_MARKED);
+		}
 	}
 }
 
+/****************************************************************************************
+	LightAddNodeTile
+
+		Does the addition of light values to individual LEVELNODEs in the world tile list.
+
+***************************************************************************************/
 void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
 {
 INT16 sSum;

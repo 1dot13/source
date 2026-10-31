@@ -1197,6 +1197,11 @@ static BOOLEAN GetLandGradShades( LEVELNODE *pNode, INT32 iGridNo, INT16 *pPatch
 	INT16		 iOwnShade;
 	INT32		 iX, iY, iNeigh, iDX, iDY;
 
+	if ( gGameSettings.fOptions[TOPTION_IMPROVED_LIGHTING] == false )
+	{
+		return false;
+	}
+
 	// Own shade: use the very node being blitted so the flat-shade fast path and the
 	// corner lattice agree with the caller's pShadeCurrent assignment
 	iOwnShade = (INT16)( pNode->ubShadeLevel & 0x0f );
@@ -3006,7 +3011,12 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 
 											}
 											else
-												{ if (fGradientBlitter) Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, NULL, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, FALSE); else Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex); }
+											{
+												if ( fGradientBlitter )
+													Blt8BPPDataTo16BPPBufferTransZClipLandGrad((UINT16*)pDestBuf, uiDestPitchBYTES, NULL, sZLevel, hVObject, iGradPatch, usGradTint, sXPos, sYPos, usImageIndex, NULL, FALSE);
+												else
+													Blt8BPPDataTo16BPPBufferTransparent((UINT16*)pDestBuf, uiDestPitchBYTES, hVObject, sXPos, sYPos, usImageIndex);
+											}
 										}
 									}
 
