@@ -6632,6 +6632,7 @@ STR16		zOptionsToggleText[] =
 	L"Показывать расположение",				// show locator on last known enemy location
 	L"Start at maximum aim",
 	L"Alternative pathfinding",
+	L"Improved lighting",
 	L"--Читерские настройки--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Ускорить доставку Бобби Рэя",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6753,6 +6754,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"Если включено, показывает известное расположение противника\n(нажмите |S|h|i|f|t, чтобы показать источник шума).",
 	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"When ON, Use A* pathfinding algorithm, instead of original",
+	L"When ON, the ingame lighting will be more detailed. Does not affect gameplay visibility",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Выберите этот пункт,\nчтобы груз Бобби Рэя прибыл немедленно.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

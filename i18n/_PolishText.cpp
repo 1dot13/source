@@ -6639,6 +6639,7 @@ STR16		zOptionsToggleText[] =
 	L"Show enemy location",					// show locator on last known enemy location
 	L"Start at maximum aim",
 	L"Alternative pathfinding",
+	L"Improved lighting",
 	L"--Cheat Mode Options--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"Force Bobby Ray shipments",			// force all pending Bobby Ray shipments
 	L"-----------------",					// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6760,6 +6761,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"When ON, shows last known enemy location.",	//TODO.Translate
 	L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"When ON, Use A* pathfinding algorithm, instead of original",
+	L"When ON, the ingame lighting will be more detailed. Does not affect gameplay visibility",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"Wymuś wszystkie oczekiwane dostawy od Bobby Ray's.",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",
