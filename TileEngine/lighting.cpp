@@ -2181,60 +2181,60 @@ BOOLEAN fOnlyWalls;
 	iOldX = iX;
 	iOldY = iY;
 
-	for(uiCount=0; uiCount < usRaySize[iLight]; uiCount++)
-	{
-		usNodeIndex=*(pLightRayList[iLight]+uiCount);
+    for ( uiCount = 0; uiCount < usRaySize[iLight]; uiCount++ )
+    {
+        usNodeIndex = *(pLightRayList[iLight] + uiCount);
 
-		if(!(usNodeIndex&LIGHT_NEW_RAY))
-		{
-			fBlocked = FALSE;
-		fOnlyWalls = FALSE;
+        if ( !(usNodeIndex & LIGHT_NEW_RAY) )
+        {
+            fBlocked = FALSE;
+            fOnlyWalls = FALSE;
 
-			pLight=pLightList[iLight]+(usNodeIndex&(~LIGHT_BACKLIGHT));
+            pLight = pLightList[iLight] + (usNodeIndex & (~LIGHT_BACKLIGHT));
 
-			if(!(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF))
-			{
-				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY)))
-				{
-					uiCount=LightFindNextRay(iLight, uiCount);
+            if ( !(LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF) )
+            {
+                if ( LightTileBlocked((INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY)) )
+                {
+                    uiCount = LightFindNextRay(iLight, uiCount);
 
-			fOnlyWalls = TRUE;
-					fBlocked = TRUE;
-				}
-			}
+                    fOnlyWalls = TRUE;
+                    fBlocked = TRUE;
+                }
+            }
 
-			if(!(pLight->uiFlags&LIGHT_NODE_DRAWN) && (pLight->ubLight) )
-			{
-				uiFlags=(UINT32)(usNodeIndex&LIGHT_BACKLIGHT);
-				if (LightSprites[uiSprite].uiFlags & MERC_LIGHT)
-					uiFlags |= LIGHT_FAKE;
-				if(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF)
-					uiFlags|=LIGHT_ROOF_ONLY;
+            if ( !(pLight->uiFlags & LIGHT_NODE_DRAWN) && (pLight->ubLight) )
+            {
+                uiFlags = (UINT32)(usNodeIndex & LIGHT_BACKLIGHT);
+                if ( LightSprites[uiSprite].uiFlags & MERC_LIGHT )
+                    uiFlags |= LIGHT_FAKE;
+                if ( LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF )
+                    uiFlags |= LIGHT_ROOF_ONLY;
 
-				LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls );
+                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls);
 
-				pLight->uiFlags|=LIGHT_NODE_DRAWN;
+                pLight->uiFlags |= LIGHT_NODE_DRAWN;
 
-			}
+            }
 
-			if ( fBlocked )
-			{
-				iOldX = iX;
-				iOldY = iY;
-			}
-			else
-			{
-				iOldX = iX+pLight->iDX;
-				iOldY = iY+pLight->iDY;
-			}
+            if ( fBlocked )
+            {
+                iOldX = iX;
+                iOldY = iY;
+            }
+            else
+            {
+                iOldX = iX + pLight->iDX;
+                iOldY = iY + pLight->iDY;
+            }
 
-		}
-		else
-		{
-			iOldX = iX;
-			iOldY = iY;
-		}
-	}
+        }
+        else
+        {
+            iOldX = iX;
+            iOldY = iY;
+        }
+    }
 
 	return(TRUE);
 }
