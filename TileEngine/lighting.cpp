@@ -735,6 +735,30 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 		Does the addition of light values to individual LEVELNODEs in the world tile list.
 
 ***************************************************************************************/
+// Land gradient (Tier A): a tile's blitted pixels sample the ubShadeLevel of its E/S/SE
+// corner grids, so when a grid's land shade changes that grid AND the three grids that
+// sample it as a corner must be flagged for the marked-redraw pass (renderworld.cpp
+// only re-blits grids carrying MAPELEMENT_REDRAW on RENDER_FLAG_MARKED frames).
+static void LightMarkGradDirty(INT16 iX, INT16 iY)
+{
+	 INT16	 iDX, iDY;
+
+	if ( gpWorldLevelData != NULL )
+	{
+		for ( iDX = -2; iDX <= 1; iDX++ )
+		{
+			for ( iDY = -2; iDY <= 1; iDY++ )
+			{
+				if ( (iX + iDX >= 0) && (iX + iDX < WORLD_COLS) && (iY + iDY >= 0) && (iY + iDY < WORLD_ROWS) )
+					gpWorldLevelData[MAPROWCOLTOPOS(iY+iDY, iX+iDX)].uiFlags |= MAPELEMENT_REDRAW;
+			}
+		}
+
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
+}
+
 void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
 {
 INT16 sSum;
@@ -753,7 +777,15 @@ INT16 sSum;
 	sSum=__min(SHADE_MIN, sSum);
 	sSum=__max(SHADE_MAX, sSum);
 
-	pNode->ubShadeLevel=(UINT8)sSum;
+	// Land shade gradient (lightingsystem.md Tier A): the gradient blitter samples the
+	// 4 corner tiles' ubShadeLevel, so a changed shade must force the background to be
+	// redrawn or neighbouring tiles keep pixels shaded from the stale corner value.
+	if (pNode->ubShadeLevel != (UINT8)sSum)
+	{
+		pNode->ubShadeLevel=(UINT8)sSum;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 }
 
 
@@ -796,7 +828,13 @@ INT16 sSum;
 	sSum=__min(SHADE_MIN, sSum);
 	sSum=__max(SHADE_MAX, sSum);
 
-	pNode->ubShadeLevel=(UINT8)sSum;
+	// force background redraw on change so corner-sampled land gradients stay continuous
+	if (pNode->ubShadeLevel != (UINT8)sSum)
+	{
+		pNode->ubShadeLevel=(UINT8)sSum;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 }
 
 
@@ -823,7 +861,8 @@ BOOLEAN fFake;
 		return( FALSE );
 	}
 
-	gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
+	// land gradient: flag this grid + the 3 that corner-sample it
+	LightMarkGradDirty(iX, iY);
 
 	//if((uiFlags&LIGHT_BACKLIGHT) && !(uiFlags&LIGHT_ROOF_ONLY))
 	//	ubShadeAdd=ubShade*7/10;
@@ -966,7 +1005,8 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 	}
 
 
-	gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
+	// land gradient: flag this grid + the 3 that corner-sample it
+	LightMarkGradDirty(iX, iY);
 
 //	if((uiFlags&LIGHT_BACKLIGHT) && !(uiFlags&LIGHT_ROOF_ONLY))
 //		ubShadeSubtract=ubShade*7/10;
@@ -1101,7 +1141,13 @@ void LightSetNaturalTileNode(LEVELNODE *pNode, UINT8 ubShade)
 		pNode->ubSumLights=0;
 		pNode->ubMaxLights=0;
 		pNode->ubNaturalShadeLevel = ubShade;
-		pNode->ubShadeLevel = ubShade;
+		// force background redraw on change so corner-sampled land gradients stay continuous
+		if (pNode->ubShadeLevel != ubShade)
+		{
+			pNode->ubShadeLevel = ubShade;
+			if (!gfEditMode)
+				{ SetRenderFlags(RENDER_FLAG_MARKED); }
+		}
 		//LightAddTileNode(pNode, 0, (INT16)(SHADE_MIN-ubShade));
 }
 
@@ -1125,6 +1171,9 @@ UINT32 uiIndex;
 
 	ubShade=__max(SHADE_MAX, ubShade);
 	ubShade=__min(SHADE_MIN, ubShade);
+
+	// land gradient: neighbouring grids corner-sample this one, so flag all four
+	LightMarkGradDirty(iX, iY);
 
 	pLand = gpWorldLevelData[ uiIndex ].pLandHead;
 
@@ -1190,7 +1239,13 @@ void LightResetTileNode(LEVELNODE *pNode)
 {
 	pNode->ubSumLights=0;
 	pNode->ubMaxLights=0;
-	pNode->ubShadeLevel = pNode->ubNaturalShadeLevel;
+	// force background redraw on change so corner-sampled land gradients stay continuous
+	if (pNode->ubShadeLevel != pNode->ubNaturalShadeLevel)
+	{
+		pNode->ubShadeLevel = pNode->ubNaturalShadeLevel;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 	pNode->ubFakeShadeLevel = 0;
 }
 
@@ -1211,6 +1266,9 @@ UINT32 uiTile;
 	uiTile = MAPROWCOLTOPOS( iY, iX );
 
 	CHECKF(uiTile!=0xffffffff);
+
+	// land gradient: neighbouring grids corner-sample this one, so flag all four
+	LightMarkGradDirty(iX, iY);
 
 	pLand = gpWorldLevelData[uiTile].pLandHead;
 
@@ -1305,7 +1363,12 @@ UINT32 uiIndex;
 	while(pLand!=NULL)
 	{
 		pLand->sSumLights[uiLightType]= ubShade-SHADE_MAX;
-		pLand->ubShadeLevel = ubShade;
+		// force background redraw on change so corner-sampled land gradients stay continuous
+		if (pLand->ubShadeLevel != ubShade)
+		{
+			pLand->ubShadeLevel = ubShade;
+			LightMarkGradDirty(iX, iY);
+		}
 		pLand=pLand->pNext;
 	}
 
@@ -2498,8 +2561,8 @@ TILE_ELEMENT *TileElem;
 			pLand=pLand->pNext;
 		}
 
-		gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
-		SetRenderFlags(RENDER_FLAG_MARKED);
+		// land gradient: also flag the 3 grids that corner-sample this one
+		LightMarkGradDirty(sX, sY);
 	//}
 
 	return(fHitWall);
@@ -2614,8 +2677,8 @@ TILE_ELEMENT *TileElem;
 			pLand=pLand->pNext;
 		}
 
-		gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
-		SetRenderFlags(RENDER_FLAG_MARKED);
+		// land gradient: also flag the 3 grids that corner-sample this one
+		LightMarkGradDirty(sX, sY);
 	//}
 
 	return(fHitWall);
