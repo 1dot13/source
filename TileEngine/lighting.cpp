@@ -461,43 +461,62 @@ UINT16 usNumNodes;
 ***************************************************************************************/
 BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
-UINT32 uiTileNo, uiSrcTileNo;
+    Assert(gpWorldLevelData != NULL);
 
-	Assert(gpWorldLevelData!=NULL);
+	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
 
-	uiTileNo=MAPROWCOLTOPOS(iY, iX);
-	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+    if ( TileIsOutOfBounds(uiTileNo) )
+    {
+        return(FALSE);
+    }
 
-	if (TileIsOutOfBounds(uiTileNo))
-	{
-		return( FALSE );
-	}
+    if ( TileIsOutOfBounds(uiSrcTileNo) )
+    {
+        return(FALSE);
+    }
 
-	if (TileIsOutOfBounds(uiSrcTileNo))
-	{
-		return( FALSE );
-	}
+    if ( gpWorldLevelData[uiTileNo].sHeight > gpWorldLevelData[uiSrcTileNo].sHeight )
+        return(TRUE);
 
-	if(gpWorldLevelData[ uiTileNo ].sHeight > gpWorldLevelData[ uiSrcTileNo ].sHeight)
-		return(TRUE);
-	{
-		UINT32 uiTileNo;
-		LEVELNODE *pStruct;
+    {
+        UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+        if ( !TileIsOutOfBounds(uiTileNo) )
+        {
+            // finds a structure that matches any of the given flags
+            STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+            while ( pStruct != NULL )
+            {
+                // Found a wall
+                if ( (pStruct->fFlags & STRUCTURE_WALLSTUFF) != 0 )
+                {
+                    // Has a window, doesn't block
+                    if ( (pStruct->fFlags & STRUCTURE_WALLNWINDOW) != 0 )
+                    {
+                        return(false);
+                    }
 
-		uiTileNo=MAPROWCOLTOPOS(iY, iX);
+                    // Has a door that's open
+                    if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
+                    {
+                        return(false);
+                    }
 
-		pStruct = gpWorldLevelData[ uiTileNo ].pStructHead;
-		if ( pStruct != NULL )
-		{
-			// IF WE ARE A WINDOW, DO NOT BLOCK!
-			if ( FindStructure( uiTileNo, STRUCTURE_WALLNWINDOW ) != NULL )
-			{
-				return( FALSE );
-			}
-		}
-	}
+                    return true;
+                }
 
-	return(LightTileHasWall( iSrcX, iSrcY, iX, iY));
+
+                if ( (pStruct->fFlags & STRUCTURE_TREE) != 0 )
+                {
+                    return(true);
+                }
+
+                pStruct = pStruct->pNext;
+            }
+        }
+    }
+
+    return false;
 }
 
 /****************************************************************************************
