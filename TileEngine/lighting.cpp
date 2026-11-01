@@ -1,4 +1,4 @@
-
+#pragma optimize("", off)
 /****************************************************************************************
 * JA2 Lighting Module
 *
@@ -28,6 +28,7 @@
 	#include "Rotting Corpses.h"
 	#include "PATHAI.H"
 #include "message.h"
+#include "LOS.h"
 
 #define LVL1_L1_PER			(50)
 #define LVL1_L2_PER			(50)
@@ -42,14 +43,13 @@
 // Local-use only prototypes
 
 
-BOOLEAN				LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY);
 BOOLEAN				LightDraw(UINT32 uiLightType, INT32 iLight, INT16 iX, INT16 iY, UINT32 uiSprite);
 BOOLEAN				LightDelete(INT32 iLight);
 INT32					LightGetFree(void);
 INT32					LinearDistance(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2);
 DOUBLE				LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2);
-BOOLEAN				LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls );
-BOOLEAN				LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls );
+BOOLEAN				LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY );
+BOOLEAN				LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY );
 BOOLEAN				LightResetTile(INT16 iX, INT16 iY);
 BOOLEAN				LightSetTile(INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiLightType);
 BOOLEAN				LightSetNaturalTile(INT16 iX, INT16 iY, UINT8 ubShade);
@@ -62,7 +62,6 @@ BOOLEAN				LightGenerateElliptical(INT32 iLight, UINT8 iIntensity, INT16 iA, INT
 BOOLEAN				LightGenerateBeam(INT32 iLight, UINT8 iIntensity, INT16 iLength, INT16 iRadius, INT16 iDirection);
 BOOLEAN				LightCalcRect(INT32 iLight);
 BOOLEAN				LightIlluminateWall(INT16 iSourceX, INT16 iSourceY, INT16 iTileX, INT16 iTileY, LEVELNODE *pStruct);
-BOOLEAN				LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY );
 
 INT32					LightSpriteGetFree(void);
 BOOLEAN				LightSpriteDirty(INT32 iLight);
@@ -459,61 +458,56 @@ UINT16 usNumNodes;
 	Returns TRUE/FALSE if the tile at the specified tile number can block light.
 
 ***************************************************************************************/
-BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
+static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 {
     Assert(gpWorldLevelData != NULL);
 
 	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
 	UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+	UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
     if ( TileIsOutOfBounds(uiTileNo) )
-    {
         return(FALSE);
-    }
 
     if ( TileIsOutOfBounds(uiSrcTileNo) )
-    {
         return(FALSE);
-    }
+
+	if ( TileIsOutOfBounds(uiStartTileNo) )
+		return(FALSE);
 
     if ( gpWorldLevelData[uiTileNo].sHeight > gpWorldLevelData[uiSrcTileNo].sHeight )
         return(TRUE);
 
+
+    // finds a structure that matches any of the given flags
+    STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+    while ( pStruct != NULL )
     {
-        UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
-        if ( !TileIsOutOfBounds(uiTileNo) )
+        // Found a wall
+        if ( pStruct->fFlags & STRUCTURE_WALLSTUFF )
         {
-            // finds a structure that matches any of the given flags
-            STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
-            while ( pStruct != NULL )
+            // Has a window, doesn't block unless marked as special
+            if ( (pStruct->fFlags & STRUCTURE_WALLNWINDOW) && !(pStruct->fFlags & STRUCTURE_SPECIAL) )
             {
-                // Found a wall
-                if ( (pStruct->fFlags & STRUCTURE_WALLSTUFF) != 0 )
-                {
-                    // Has a window, doesn't block
-                    if ( (pStruct->fFlags & STRUCTURE_WALLNWINDOW) != 0 )
-                    {
-                        return(false);
-                    }
-
-                    // Has a door that's open
-                    if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
-                    {
-                        return(false);
-                    }
-
-                    return true;
-                }
-
-
-                if ( (pStruct->fFlags & STRUCTURE_TREE) != 0 )
-                {
-                    return(true);
-                }
-
-                pStruct = pStruct->pNext;
+                return(false);
             }
+
+            // Has a door that's open
+            if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
+            {
+                return(false);
+            }
+
+            return true;
         }
+
+
+        if ( (pStruct->fFlags & STRUCTURE_TREE) )
+        {
+            return(true);
+        }
+
+        pStruct = pStruct->pNext;
     }
 
     return false;
@@ -525,21 +519,12 @@ BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 	Returns TRUE/FALSE if the tile at the specified coordinates contains a wall.
 
 ***************************************************************************************/
-BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
+static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
-//LEVELNODE *pStruct;
-//UINT32 uiType;
-UINT32 uiTileNo;
-UINT32 uiSrcTileNo;
-INT8		bDirection;
-UINT8		ubTravelCost;
-//INT8		bWallCount = 0;
-//UINT16	usWallOrientation;
-
 	Assert(gpWorldLevelData!=NULL);
 
-	uiTileNo=MAPROWCOLTOPOS(iY, iX);
-	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+	UINT32 uiTileNo=MAPROWCOLTOPOS(iY, iX);
+	UINT32 uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
 
 	if ( uiTileNo == uiSrcTileNo )
 	{
@@ -556,30 +541,97 @@ UINT8		ubTravelCost;
 		return( FALSE );
 	}
 
-	// Get direction
-	//bDirection = atan8( iX, iY, iSrcX, iSrcY );
-	bDirection = atan8( iSrcX, iSrcY, iX, iY );
 
-
-	ubTravelCost = gubWorldMovementCosts[ uiTileNo ][ bDirection ][ 0 ];
-
-	if ( ubTravelCost == TRAVELCOST_WALL	)
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
 	{
-		return( TRUE );
-	}
-
-	if ( IS_TRAVELCOST_DOOR( ubTravelCost ) )
-	{
-		ubTravelCost = DoorTravelCost( NULL, uiTileNo, ubTravelCost, TRUE, NULL );
-
-		if ( ubTravelCost == TRAVELCOST_OBSTACLE || ubTravelCost == TRAVELCOST_DOOR )
+		// Found a wall
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF )
 		{
-			return( TRUE );
-		}
-	}
+			// Has a door that's open
+			if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
+			{
+				return(false);
+			}
 
+			return true;
+		}
+
+		pStruct = pStruct->pNext;
+	}
 
 	return(FALSE);
+}
+
+
+// Decides whether the given wall levelnode on tile (iX,iY) catches the light coming from
+// (iSrcX,iSrcY).  Only the face the camera sees may be lit; the engine already encodes that
+// face in the wall piece's orientation, and the same test is the exact complement of the
+// cut-away reveal in LightRevealWall (sY >= sSrcY for TOP_LEFT, sX >= sSrcX for TOP_RIGHT).
+static bool DetermineIfWallShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY, LEVELNODE* pNode)
+{
+	Assert(gpWorldLevelData != NULL);
+
+	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+
+	if ( uiTileNo == uiSrcTileNo )
+		return(FALSE);
+
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	if ( TileIsOutOfBounds(uiSrcTileNo) )
+		return(FALSE);
+
+
+	if ( pNode == NULL || pNode->usIndex >= giNumberOfTiles )
+	{
+		return(true);   // not a DB tile: no face to test, keep legacy always-lit
+	}
+
+	// Only the camera-facing side of a wall piece may be lit.  The test uses the LIGHT ORIGIN
+	// (iStartX/iStartY), not the ray's previous tile: per-step src quantizes onto the piece's
+	// plane for rays running along a wall row (window pass-through then horizontal step), which
+	// both caused window-adjacent walls to stay unlit and lit walls on the wrong side.
+	// TOP_LEFT piece spans the edge shared with (iX, iY+1) (worlddef.cpp CompileTileMovementCosts:
+	// blocks NORTH triple from the tile and SOUTH triple from +Y neighbour) -> camera face is +Y.
+	// TOP_RIGHT piece spans the edge shared with (iX+1, iY) -> camera face is +X.  BOTTOM_CORNER
+	// carries both, so either side lights it.  Same planes LightRevealWall cuts with.
+	bool bLit;
+
+	STRUCTURE* pStructDoor = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStructDoor != NULL )
+	{
+		if ( (pStructDoor->fFlags & STRUCTURE_ANYDOOR) && (pStructDoor->fFlags & STRUCTURE_OPEN) )
+			return(false);
+		pStructDoor = pStructDoor->pNext;
+	}
+
+	switch ( gTileDatabase[pNode->usIndex].usWallOrientation )
+	{
+		case INSIDE_TOP_LEFT:
+		case OUTSIDE_TOP_LEFT:
+			bLit = ( iStartY > iY );
+			break;
+
+		case INSIDE_TOP_RIGHT:
+		case OUTSIDE_TOP_RIGHT:
+			bLit = ( iStartX > iX );
+			// TOP_RIGHT piece spans the edge shared with (iX+1, iY): plane X = iX + 0.5, camera face +X.
+			break;
+
+		case INSIDE_BOTTOM_CORNER:
+		case OUTSIDE_BOTTOM_CORNER:
+			bLit = ( iStartY > iY || iStartX > iX );
+			break;
+
+		default:
+			bLit = true;   // NO_ORIENTATION: fences, vegetation, rubble stay lit as before
+			break;
+	}
+
+	return( bLit );
 }
 
 /****************************************************************************************
@@ -771,7 +823,7 @@ static void LightMarkGradDirty(INT16 iX, INT16 iY)
 		Does the addition of light values to individual LEVELNODEs in the world tile list.
 
 ***************************************************************************************/
-void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
+static void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
 {
 INT16 sSum;
 
@@ -807,7 +859,7 @@ INT16 sSum;
 		Does the subtraction of light values to individual LEVELNODEs in the world tile list.
 
 ***************************************************************************************/
-void LightSubtractTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeSubtract, BOOLEAN fFake)
+static void LightSubtractTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeSubtract, BOOLEAN fFake)
 {
 INT16 sSum;
 
@@ -856,13 +908,11 @@ INT16 sSum;
 		Adds a specified amount of light to all objects on a given tile.
 
 ***************************************************************************************/
-BOOLEAN	LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls )
+BOOLEAN	LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY )
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeAdd;
 INT32 uiTile;
-BOOLEAN fLitWall=FALSE;
-BOOLEAN fFake;
 
 	Assert(gpWorldLevelData!=NULL);
 
@@ -885,14 +935,14 @@ BOOLEAN fFake;
 		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
 		//	ubShadeAdd += -6;
 
-	if (uiFlags&LIGHT_FAKE)
-	{
+	BOOLEAN fFake = FALSE;
+	if (uiFlags & LIGHT_FAKE)
 		fFake = TRUE;
-	}
-	else
-	{
-		fFake = FALSE;
-	}
+
+	BOOLEAN fLitWall = FALSE;
+	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
+		fLitWall = TRUE;
+
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -905,11 +955,8 @@ BOOLEAN fFake;
 				{
 					if( (uiFlags&LIGHT_IGNORE_WALLS ) || gfCaves )
 						LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
-					else if(LightIlluminateWall(iSrcX, iSrcY, iX, iY, pStruct))
+					else
 					{
-						if(LightTileHasWall(iSrcX, iSrcY, iX, iY))
-							fLitWall=TRUE;
-
 						// ATE: Limit shade for walls if in caves
 						if ( fLitWall && gfCaves )
 						{
@@ -917,11 +964,22 @@ BOOLEAN fFake;
 						}
 						else if ( fLitWall )
 						{
-							LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							// Found wall, but let's check if it should be lit or not
+							if ( DetermineIfWallShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							}
 						}
 						else if ( !fOnlyWalls )
 						{
-							LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							// Center node of a light (src == tile): must not auto-light oriented
+							// wall art, or a light standing on/beside a window lights the window
+							// art regardless of side.  Non-DB and NO_ORIENTATION pieces keep it.
+							if ( !( iSrcX == iX && iSrcY == iY ) || pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION )
+							{
+								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							}
 						}
 					}
 				}
@@ -935,39 +993,39 @@ BOOLEAN fFake;
 
 		ubShadeAdd=ubShade;
 
-	if ( !fOnlyWalls )
-	{
-		pLand = gpWorldLevelData[uiTile].pLandHead;
-
-		while( pLand )
+		if ( !fOnlyWalls )
 		{
-			if( gfCaves || !fLitWall )
+			pLand = gpWorldLevelData[uiTile].pLandHead;
+
+			while( pLand )
 			{
-				LightAddTileNode(pLand, uiLightType, ubShadeAdd, fFake);
+				if( gfCaves || !fLitWall )
+				{
+					LightAddTileNode(pLand, uiLightType, ubShadeAdd, fFake);
+				}
+				pLand=pLand->pNext;
 			}
-			pLand=pLand->pNext;
-		}
 
-		pObject = gpWorldLevelData[uiTile].pObjectHead;
-		while(pObject!=NULL)
-		{
-			if ( pObject->usIndex < giNumberOfTiles )
+			pObject = gpWorldLevelData[uiTile].pObjectHead;
+			while(pObject!=NULL)
 			{
-				LightAddTileNode(pObject, uiLightType, ubShadeAdd, FALSE);
+				if ( pObject->usIndex < giNumberOfTiles )
+				{
+					LightAddTileNode(pObject, uiLightType, ubShadeAdd, FALSE);
+				}
+				pObject=pObject->pNext;
 			}
-			pObject=pObject->pNext;
-		}
 
-		if(uiFlags&LIGHT_BACKLIGHT)
-			ubShadeAdd=(UINT8)((UINT16)ubShade*7/10);
+			if(uiFlags&LIGHT_BACKLIGHT)
+				ubShadeAdd=(UINT8)((UINT16)ubShade*7/10);
 
-		pMerc = gpWorldLevelData[uiTile].pMercHead;
-		while(pMerc!=NULL)
-		{
-			LightAddTileNode(pMerc, uiLightType, ubShadeAdd, FALSE);
-			pMerc=pMerc->pNext;
+			pMerc = gpWorldLevelData[uiTile].pMercHead;
+			while(pMerc!=NULL)
+			{
+				LightAddTileNode(pMerc, uiLightType, ubShadeAdd, FALSE);
+				pMerc=pMerc->pNext;
+			}
 		}
-	}
 	}
 
 	if((uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
@@ -999,13 +1057,11 @@ BOOLEAN fFake;
 		Subtracts a specified amount of light to a given tile.
 
 ***************************************************************************************/
-BOOLEAN	LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls )
+BOOLEAN	LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY )
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeSubtract;
 INT32 uiTile;
-BOOLEAN fLitWall=FALSE;
-BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 
 	Assert(gpWorldLevelData!=NULL);
 
@@ -1029,14 +1085,13 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
 		//	ubShadeSubtract += -6;
 
+	BOOLEAN fFake = FALSE; // only passed in to land and roof layers; others get fed FALSE
 	if (uiFlags&LIGHT_FAKE)
-	{
 		fFake = TRUE;
-	}
-	else
-	{
-		fFake = FALSE;
-	}
+
+	BOOLEAN fLitWall = FALSE;
+	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
+		fLitWall = TRUE;
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -1049,11 +1104,8 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 				{
 					if( (uiFlags&LIGHT_IGNORE_WALLS ) || gfCaves )
 						LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
-					else if(LightIlluminateWall(iSrcX, iSrcY, iX, iY, pStruct))
+					else
 					{
-						if(LightTileHasWall( iSrcX, iSrcY, iX, iY))
-							fLitWall=TRUE;
-
 						// ATE: Limit shade for walls if in caves
 						if ( fLitWall && gfCaves )
 						{
@@ -1061,57 +1113,65 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 						}
 						else if ( fLitWall )
 						{
-							LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							if ( DetermineIfWallShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							}
 						}
-			else if ( !fOnlyWalls )
-			{
-						LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
-			}
+						else if ( !fOnlyWalls )
+						{
+							// Must mirror LightAddTile exactly, or erase leaves dark residue.
+							if ( !( iSrcX == iX && iSrcY == iY ) || pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION )
+							{
+								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							}
+						}
 					}
 				}
 			}
 		else
 		{
-				LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+			LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
 		}
 			pStruct=pStruct->pNext;
 		}
 
 		ubShadeSubtract=ubShade;
 
-	if ( !fOnlyWalls )
-	{
-		pLand = gpWorldLevelData[uiTile].pLandHead;
-
-		while( pLand )
+		if ( !fOnlyWalls )
 		{
-			if( gfCaves || !fLitWall )
+			pLand = gpWorldLevelData[uiTile].pLandHead;
+
+			while( pLand )
 			{
-				LightSubtractTileNode(pLand, uiLightType, ubShadeSubtract, fFake);
+				if( gfCaves || !fLitWall )
+				{
+					LightSubtractTileNode(pLand, uiLightType, ubShadeSubtract, fFake);
+				}
+				pLand=pLand->pNext;
 			}
-			pLand=pLand->pNext;
-		}
 
-		pObject = gpWorldLevelData[uiTile].pObjectHead;
-		while(pObject!=NULL)
-		{
-			if ( pObject->usIndex < giNumberOfTiles )
+			pObject = gpWorldLevelData[uiTile].pObjectHead;
+			while(pObject!=NULL)
 			{
-				LightSubtractTileNode(pObject, uiLightType, ubShadeSubtract, FALSE);
+				if ( pObject->usIndex < giNumberOfTiles )
+				{
+					LightSubtractTileNode(pObject, uiLightType, ubShadeSubtract, FALSE);
+				}
+				pObject=pObject->pNext;
 			}
-			pObject=pObject->pNext;
-		}
 
-		if(uiFlags&LIGHT_BACKLIGHT)
-			ubShadeSubtract=(UINT8) ((UINT16)ubShade*7/10);
+			if(uiFlags&LIGHT_BACKLIGHT)
+				ubShadeSubtract=(UINT8) ((UINT16)ubShade*7/10);
 
-		pMerc = gpWorldLevelData[uiTile].pMercHead;
-		while(pMerc!=NULL)
-		{
-			LightSubtractTileNode(pMerc, uiLightType, ubShadeSubtract, FALSE);
-			pMerc=pMerc->pNext;
+			pMerc = gpWorldLevelData[uiTile].pMercHead;
+			while(pMerc!=NULL)
+			{
+				LightSubtractTileNode(pMerc, uiLightType, ubShadeSubtract, FALSE);
+				pMerc=pMerc->pNext;
+			}
 		}
-	}
 	}
 
 	if((uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
@@ -2080,7 +2140,7 @@ INT16 iCountY, iCountX;
 
 	for(iCountY=0; iCountY < WORLD_ROWS; iCountY++)
 		for(iCountX=0; iCountX < WORLD_COLS; iCountX++)
-			LightAddTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE );
+			LightAddTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE, iCountX, iCountY );
 
 	if(ubAmbientLightLevel >= LIGHT_DUSK_CUTOFF)
 		RenderSetShadows(FALSE);
@@ -2104,7 +2164,7 @@ INT16 iCountY, iCountX;
 
 	for(iCountY=0; iCountY < WORLD_ROWS; iCountY++)
 		for(iCountX=0; iCountX < WORLD_COLS; iCountX++)
-			LightSubtractTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE );
+			LightSubtractTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE, iCountX, iCountY );
 
 	if(ubAmbientLightLevel >= LIGHT_DUSK_CUTOFF)
 		RenderSetShadows(FALSE);
@@ -2252,7 +2312,8 @@ BOOLEAN fOnlyWalls;
 
 	}
 */
-
+	const auto iStartX = iX;
+	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
 
@@ -2269,7 +2330,7 @@ BOOLEAN fOnlyWalls;
 
             if ( !(LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF) )
             {
-                if ( LightTileBlocked((INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY)) )
+                if ( LightTileBlocked((INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
                 {
                     uiCount = LightFindNextRay(iLight, uiCount);
 
@@ -2286,7 +2347,7 @@ BOOLEAN fOnlyWalls;
                 if ( LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF )
                     uiFlags |= LIGHT_ROOF_ONLY;
 
-                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls);
+                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls, iStartX, iStartY );
 
                 pLight->uiFlags |= LIGHT_NODE_DRAWN;
 
@@ -2314,7 +2375,7 @@ BOOLEAN fOnlyWalls;
 	return(TRUE);
 }
 
-BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTile;
@@ -2400,7 +2461,7 @@ BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 	return(fHitWall);
 }
 
-BOOLEAN LightHideWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightHideWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 LEVELNODE *pStruct;
 UINT32 uiTile;
@@ -2895,6 +2956,8 @@ BOOLEAN fOnlyWalls;
 		pLight->uiFlags&=(~LIGHT_NODE_DRAWN);
 	}
 
+	const auto iStartX = iX;
+	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
 
@@ -2904,17 +2967,17 @@ BOOLEAN fOnlyWalls;
 		if(!(usNodeIndex&LIGHT_NEW_RAY))
 		{
 			fBlocked = FALSE;
-		fOnlyWalls = FALSE;
+			fOnlyWalls = FALSE;
 
 			pLight=pLightList[iLight]+(usNodeIndex&(~LIGHT_BACKLIGHT));
 
 			if(!(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF))
 			{
-				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY)))
+				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), iStartX, iStartY))
 				{
 					uiCount=LightFindNextRay(iLight, uiCount);
 
-			fOnlyWalls = TRUE;
+					fOnlyWalls = TRUE;
 					fBlocked = TRUE;
 				}
 			}
@@ -2927,7 +2990,7 @@ BOOLEAN fOnlyWalls;
 				if(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF)
 					uiFlags|=LIGHT_ROOF_ONLY;
 
-				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls );
+				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls, iStartX, iStartY );
 				pLight->uiFlags|=LIGHT_NODE_DRAWN;
 			}
 
