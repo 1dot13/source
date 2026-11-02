@@ -337,6 +337,7 @@ CHAR8 gzActionStr[][ 30 ] =
 	"STOP MEDIC",
 };
 
+// Shows direction as the player would think. With top of the screen being north
 CHAR8 gzDirectionStr[][ 30 ] =
 {
     "NORTHEAST",
@@ -347,6 +348,19 @@ CHAR8 gzDirectionStr[][ 30 ] =
     "WEST",
     "NORTHWEST",
     "NORTH"
+};
+
+// Shows direction as the world is defined. With top of the screen being northwest due to isometric projection
+CHAR8 gzWorldDirectionStr[][30] =
+{
+    "NORTH",
+    "NORTHEAST",
+    "EAST",
+    "SOUTHEAST",
+    "SOUTH",
+    "SOUTHWEST",
+    "WEST",
+    "NORTHWEST"
 };
 
 // TEMP VALUES FOR TEAM DEFAULT POSITIONS

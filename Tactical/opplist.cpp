@@ -4172,9 +4172,15 @@ void DebugSoldierPage2( )
 		ubLine++;
 
 		SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
-		gprintf( 0, LINE_HEIGHT * ubLine, L"Direction:");
+		gprintf(0, LINE_HEIGHT * ubLine, L"World Dir:");
 		SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
-		gprintf( 150, LINE_HEIGHT * ubLine, L"%S", gzDirectionStr[ pSoldier->ubDirection] );
+		gprintf(150, LINE_HEIGHT * ubLine, L"%S", gzWorldDirectionStr[pSoldier->ubDirection]);
+		ubLine++;
+
+		SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
+		gprintf(0, LINE_HEIGHT * ubLine, L"Screen Dir:");
+		SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
+		gprintf(150, LINE_HEIGHT * ubLine, L"%S", gzDirectionStr[pSoldier->ubDirection]);
 		ubLine++;
 
 		SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
@@ -4252,7 +4258,9 @@ void DebugSoldierPage2( )
 			SetFontShade(LARGEFONT1, FONT_SHADE_GREEN);
 			gprintf( 0, LINE_HEIGHT * ubLine, L"CurrGridNo:");
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
-			gprintf( 150, LINE_HEIGHT * ubLine, L"%d", usMapPos );
+			INT16 sX, sY;
+			ConvertGridNoToXY(usMapPos, &sX, &sY);
+			mprintf(150, LINE_HEIGHT* ubLine, L"%d (%d,%d)", usMapPos, sX, sY);
 			ubLine++;
 		}
 
