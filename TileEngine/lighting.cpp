@@ -29,6 +29,7 @@
 	#include "PATHAI.H"
 #include "message.h"
 #include "LOS.h"
+#include "Debug Control.h"
 
 #define LVL1_L1_PER			(50)
 #define LVL1_L2_PER			(50)
@@ -2276,6 +2277,7 @@ UINT32 uiFlags;
 INT32		iOldX, iOldY;
 BOOLEAN	fBlocked = FALSE;
 BOOLEAN fOnlyWalls;
+CHAR8 zLightLogBuf[96];
 
 //MAP_ELEMENT * pMapElement;
 
@@ -2316,6 +2318,11 @@ BOOLEAN fOnlyWalls;
 	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
+	const bool logRays { false };
+	if ( logRays )
+	{
+		LiveMessage("START_OF_NEW_LOOP");
+	}
 
     for ( uiCount = 0; uiCount < usRaySize[iLight]; uiCount++ )
     {
@@ -2328,11 +2335,25 @@ BOOLEAN fOnlyWalls;
 
             pLight = pLightList[iLight] + (usNodeIndex & (~LIGHT_BACKLIGHT));
 
+			if ( logRays )
+			{
+				sprintf(zLightLogBuf, "LIGHT_NODE: iDX %d, iDY %d", pLight->iDX, pLight->iDY);
+				LiveMessage(zLightLogBuf);
+			}
+
             if ( !(LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF) )
             {
                 if ( LightTileBlocked((INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
                 {
                     uiCount = LightFindNextRay(iLight, uiCount);
+
+                    // the for-loop's uiCount++ swallows the marker node, so note the new ray here
+					if ( logRays )
+					{
+						LiveMessage("BLOCKED_RAY");
+						if ( uiCount < usRaySize[iLight] )
+							LiveMessage("LIGHT_NEW_RAY");
+					}
 
                     fOnlyWalls = TRUE;
                     fBlocked = TRUE;
@@ -2360,13 +2381,18 @@ BOOLEAN fOnlyWalls;
             }
             else
             {
-                iOldX = iX + pLight->iDX;
+				iOldX = iX + pLight->iDX;
                 iOldY = iY + pLight->iDY;
             }
 
         }
         else
         {
+			if ( logRays )
+			{
+				LiveMessage("LIGHT_NEW_RAY");
+			}
+
             iOldX = iX;
             iOldY = iY;
         }
