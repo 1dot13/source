@@ -1992,6 +1992,7 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 #define LINE_HEIGHT 20
 void DebugStructurePage1( void )
 {
+	extern UINT8 gCurrentStructure;
 	STRUCTURE *		pStructure;
 	STRUCTURE *		pBase;
 	//LEVELNODE *		pLand;
@@ -2033,13 +2034,27 @@ void DebugStructurePage1( void )
 	*/
 
 	pStructure = gpWorldLevelData[sGridNo].pStructureHead;
+	for ( bStructures = 0; pStructure != NULL; pStructure = pStructure->pNext )
+	{
+		if ( pStructure->sCubeOffset == sDesiredLevel )
+		{
+			bStructures++;
+		}
+	}
+
+	if ( gCurrentStructure >= bStructures )
+		gCurrentStructure = 0;
+
+	UINT8 counter = 0;
+	pStructure = gpWorldLevelData[sGridNo].pStructureHead;
 	while (pStructure != NULL)
 	{
-		if (pStructure->sCubeOffset == sDesiredLevel)
+		if (pStructure->sCubeOffset == sDesiredLevel && counter == gCurrentStructure)
 		{
 			break;
 		}
 		pStructure = pStructure->pNext;
+		counter++;
 	}
 
 	if (pStructure != NULL)
@@ -2113,11 +2128,13 @@ void DebugStructurePage1( void )
 		#endif
 
 		pStructure = gpWorldLevelData[sGridNo].pStructureHead;
-		for ( bStructures = 0; pStructure != NULL; pStructure = pStructure->pNext)
+		UINT8 totalStructures = 0;
+		for ( totalStructures; pStructure != NULL; pStructure = pStructure->pNext)
 		{
-			bStructures++;
+			totalStructures++;
 		}
-		gprintf( 0, LINE_HEIGHT * 12, L"Number of structures = %d", bStructures );
+		gprintf(0, LINE_HEIGHT * 11, L"Number of structures on current level = %d", bStructures);
+		gprintf( 0, LINE_HEIGHT * 12, L"Number of structures on tile = %d", totalStructures);
 	}
 	#ifdef LOS_DEBUG
 		if (gLOSTestResults.fLOSTestPerformed)
