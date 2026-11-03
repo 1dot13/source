@@ -3347,8 +3347,12 @@ UINT32 cnt = 0;
 	}
 	else if(gRenderFlags&RENDER_FLAG_MARKED)
 	{
+		// FIXME: RenderMarkedWorld() causes plenty of difficult to debug visual glitches with lighting on dark maps
+		// such as rocks, rubble and sandbags not updating their light level when a merc with a fake light active walks towards them
+		// Easier to just rerender the whole screen for now, which fixes it. Fortunately we're not in 1999 anymore
 		ResetLayerOptimizing();
-		RenderMarkedWorld();
+		RenderStaticWorld(); 
+		//RenderMarkedWorld();
 		if(!(gRenderFlags&RENDER_FLAG_SAVEOFF))
 			UpdateSaveBuffer();
 
