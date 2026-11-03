@@ -502,8 +502,8 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
             return true;
         }
 
-
-        if ( (pStruct->fFlags & STRUCTURE_TREE) )
+		
+        if ( (pStruct->fFlags & STRUCTURE_TREE) && !(pStruct->fFlags & STRUCTURE_PASSABLE) )
         {
             return(true);
         }
