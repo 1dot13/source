@@ -4260,7 +4260,7 @@ void DebugSoldierPage2( )
 			SetFontShade(LARGEFONT1, FONT_SHADE_NEUTRAL);
 			INT16 sX, sY;
 			ConvertGridNoToXY(usMapPos, &sX, &sY);
-			mprintf(150, LINE_HEIGHT* ubLine, L"%d (%d,%d)", usMapPos, sX, sY);
+			gprintf(150, LINE_HEIGHT* ubLine, L"%d (%d,%d)", usMapPos, sX, sY);
 			ubLine++;
 		}
 
