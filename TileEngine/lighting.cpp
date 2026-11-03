@@ -3737,40 +3737,40 @@ BOOLEAN LightSpritePower(INT32 iSprite, BOOLEAN fOn)
 }
 
 
-static BOOLEAN CreateObjectPalette(HVOBJECT pObj, UINT32 uiBase, SGPPaletteEntry *pShadePal)
+static BOOLEAN CreateObjectPalette(HVOBJECT pObj, UINT32 uiBase, SGPPaletteEntry* pShadePal)
 {
-UINT32 uiCount;
+    UINT32 uiCount;
 
-	pObj->pShades[uiBase]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0],
-																															gusShadeLevels[0][1],
-																															gusShadeLevels[0][2], TRUE);
+    pObj->pShades[uiBase] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[0][0],
+        gusShadeLevels[0][1],
+        gusShadeLevels[0][2], TRUE);
 
-	for(uiCount=1; uiCount < 16; uiCount++)
-	{
-		pObj->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0],
-																																				gusShadeLevels[uiCount][1],
-																																				gusShadeLevels[uiCount][2], FALSE);
-	}
+    for ( uiCount = 1; uiCount < 16; uiCount++ )
+    {
+        pObj->pShades[uiBase + uiCount] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[uiCount][0],
+            gusShadeLevels[uiCount][1],
+            gusShadeLevels[uiCount][2], FALSE);
+    }
 
-	return(TRUE);
+    return(TRUE);
 }
 
-BOOLEAN CreateSoldierShadedPalette( SOLDIERTYPE *pSoldier, UINT32 uiBase, SGPPaletteEntry *pShadePal)
+BOOLEAN CreateSoldierShadedPalette(SOLDIERTYPE* pSoldier, UINT32 uiBase, SGPPaletteEntry* pShadePal)
 {
-	UINT32 uiCount;
+    UINT32 uiCount;
 
-	pSoldier->pShades[uiBase]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0],
-																															gusShadeLevels[0][1],
-																															gusShadeLevels[0][2], TRUE);
+    pSoldier->pShades[uiBase] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[0][0],
+        gusShadeLevels[0][1],
+        gusShadeLevels[0][2], TRUE);
 
-	for(uiCount=1; uiCount < 16; uiCount++)
-	{
-		pSoldier->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0],
-																																				gusShadeLevels[uiCount][1],
-																																				gusShadeLevels[uiCount][2], FALSE);
-	}
+    for ( uiCount = 1; uiCount < 16; uiCount++ )
+    {
+        pSoldier->pShades[uiBase + uiCount] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[uiCount][0],
+            gusShadeLevels[uiCount][1],
+            gusShadeLevels[uiCount][2], FALSE);
+    }
 
-	return(TRUE);
+    return(TRUE);
 }
 
 
