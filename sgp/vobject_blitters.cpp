@@ -8658,10 +8658,12 @@ BlitDone:
 // One pixel of the land gradient: bilinear blend of the four patch cells (iDX,iDY), (iDX+1,iDY),
 // (iDX,iDY+1), (iDX+1,iDY+1) that surround the destination pixel. iDx/iDy are its screen offset
 // from the blit anchor; the cell lattice is diagonal on screen, so cell-space coords are
-// A = dx + 2*dy (east/+X cell axis) and B = 2*dy - dx (south/+Y cell axis), in 1/40-cell units.
+// A = dx + 2*dy - 40 (east/+X cell axis) and B = 2*dy - dx (south/+Y cell axis), in 1/40-cell units.
+// The -40 puts the lattice origin at the own tile's diamond center (anchor + 20,10) instead of at
+// the blit anchor, so each tile's shade samples where its land image is actually drawn.
 static INT32 GradShadeLevel(const INT16* pGradPatch, INT32 iDx, INT32 iDy)
 {
-    const INT32 iLatticeA = iDx + 2 * iDy;
+    const INT32 iLatticeA = iDx + 2 * iDy - 40;
     const INT32 iLatticeB = 2 * iDy - iDx;
 
     // whole cell the pixel falls in (floor division by 40), clamped to the 4x4 patch
