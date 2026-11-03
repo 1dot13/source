@@ -1866,6 +1866,10 @@ static void RenderTiles(UINT32 uiFlags, INT32 iStartPointX_M, INT32 iStartPointY
 
 								// ATE: Modified to use constant z level, as these are same level as land items
 								sZLevel = ObjectZLevel(TileElem, pNode, uiTileElemFlags, iTempPosX_M, iTempPosY_M, sWorldY);
+
+								// Per-pixel land shade gradient (Tier A): ground sprites (roads, foliage) share the land lattice
+								if ( GetLandGradShades( pNode, uiTileIndex, iGradPatch, &usGradTint ) )
+									fGradientBlitter = TRUE;
 								break;
 
 							case TILES_STATIC_STRUCTURES:
