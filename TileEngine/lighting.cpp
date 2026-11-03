@@ -39,7 +39,7 @@
 
 
 #define LIGHT_TREE_REVEAL		5						// width of rect
-
+#define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
 
 // Local-use only prototypes
 
@@ -453,6 +453,51 @@ UINT16 usNumNodes;
 	}
 }
 
+
+/****************************************************************************************
+ Helper functions for structures
+***************************************************************************************/
+static bool TallStructure(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( StructureHeight(pStruct) > LIGHT_STRUCT_HEIGHT_CUTOFF && !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Tree(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_TREE) && !(flags & STRUCTURE_PASSABLE) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Opendoor(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_ANYDOOR) && (flags & STRUCTURE_OPEN) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Window(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	// Has a window, doesn't block unless marked as special
+	if ( (flags & STRUCTURE_WALLNWINDOW) && !(flags & STRUCTURE_SPECIAL) )
+	{
+		return(true);
+	}
+	return false;
+}
+
 /****************************************************************************************
  LightTileBlocked
 
@@ -484,17 +529,17 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
     while ( pStruct != NULL )
     {
+		const auto flags = pStruct->fFlags;
         // Found a wall
-        if ( pStruct->fFlags & STRUCTURE_WALLSTUFF )
+        if ( flags & STRUCTURE_WALLSTUFF )
         {
-            // Has a window, doesn't block unless marked as special
-            if ( (pStruct->fFlags & STRUCTURE_WALLNWINDOW) && !(pStruct->fFlags & STRUCTURE_SPECIAL) )
+            if ( Window(pStruct) )
             {
                 return(false);
             }
 
             // Has a door that's open
-            if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
+            if ( Opendoor(pStruct) )
             {
                 return(false);
             }
@@ -503,10 +548,17 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
         }
 
 		
-        if ( (pStruct->fFlags & STRUCTURE_TREE) && !(pStruct->fFlags & STRUCTURE_PASSABLE) )
+        if ( Tree(pStruct) )
         {
             return(true);
         }
+
+
+		// Tall structures block light even without wall/tree flags
+		if ( TallStructure(pStruct) )
+		{
+			return(true);
+		}
 
         pStruct = pStruct->pNext;
     }
@@ -546,11 +598,12 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
+		const auto flags = pStruct->fFlags;
 		// Found a wall
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF )
+		if ( flags & STRUCTURE_WALLSTUFF )
 		{
 			// Has a door that's open
-			if ( (pStruct->fFlags & STRUCTURE_ANYDOOR) && (pStruct->fFlags & STRUCTURE_OPEN) )
+			if ( Opendoor(pStruct) )
 			{
 				return(false);
 			}
@@ -558,18 +611,29 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 			return true;
 		}
 
+		// Trees stop rays in LightTileBlocked; their art must still shade like a wall face,
+		// so flag this tile as light-blocking (mirror LightTileBlocked)
+		if ( Tree(pStruct) )
+		{
+			return(true);
+		}
+
+
+		if ( TallStructure(pStruct) )
+		{
+			return(true);
+		}
+
 		pStruct = pStruct->pNext;
-	}
+    }
 
 	return(FALSE);
 }
 
 
-// Decides whether the given wall levelnode on tile (iX,iY) catches the light coming from
-// (iSrcX,iSrcY).  Only the face the camera sees may be lit; the engine already encodes that
-// face in the wall piece's orientation, and the same test is the exact complement of the
-// cut-away reveal in LightRevealWall (sY >= sSrcY for TOP_LEFT, sX >= sSrcX for TOP_RIGHT).
-static bool DetermineIfWallShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY, LEVELNODE* pNode)
+// Decides whether the given wall or structure levelnode on tile (iX,iY) catches the light coming from
+// (iSrcX,iSrcY).  Only the face the camera sees may be lit
+static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY, LEVELNODE* pNode)
 {
 	Assert(gpWorldLevelData != NULL);
 
@@ -588,7 +652,7 @@ static bool DetermineIfWallShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16
 
 	if ( pNode == NULL || pNode->usIndex >= giNumberOfTiles )
 	{
-		return(true);   // not a DB tile: no face to test, keep legacy always-lit
+		return(true);   // not a DB tile: no face to test
 	}
 
 	// Only the camera-facing side of a wall piece may be lit.  The test uses the LIGHT ORIGIN
@@ -601,13 +665,26 @@ static bool DetermineIfWallShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16
 	// carries both, so either side lights it.  Same planes LightRevealWall cuts with.
 	bool bLit;
 
-	STRUCTURE* pStructDoor = gpWorldLevelData[uiTileNo].pStructureHead;
-	while ( pStructDoor != NULL )
+
+	// Non-wall ray stoppers without an oriented art piece (trees, tall objects): billboarded,
+	// but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
+	bool fBillboardBlocker = false;
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
 	{
-		if ( (pStructDoor->fFlags & STRUCTURE_ANYDOOR) && (pStructDoor->fFlags & STRUCTURE_OPEN) )
+		if ( Opendoor(pStruct) )
 			return(false);
-		pStructDoor = pStructDoor->pNext;
+
+		if ( !(pStruct->fFlags & STRUCTURE_WALLSTUFF) && (Tree(pStruct) || TallStructure(pStruct)) )
+		{
+			fBillboardBlocker = true;
+		}
+
+		pStruct = pStruct->pNext;
 	}
+
+
 
 	switch ( gTileDatabase[pNode->usIndex].usWallOrientation )
 	{
@@ -628,7 +705,8 @@ static bool DetermineIfWallShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16
 			break;
 
 		default:
-			bLit = true;   // NO_ORIENTATION: fences, vegetation, rubble stay lit as before
+			// NO_ORIENTATION: fences/vegetation/rubble stay lit as before; ray-stopping billboards (trees, tall objects) only light from the camera half
+			bLit = fBillboardBlocker ? ( iStartY > iY || iStartX > iX ) : true;
 			break;
 	}
 
@@ -966,7 +1044,7 @@ INT32 uiTile;
 						else if ( fLitWall )
 						{
 							// Found wall, but let's check if it should be lit or not
-							if ( DetermineIfWallShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							if ( DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
 								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
 							}
@@ -1114,7 +1192,7 @@ INT32 uiTile;
 						}
 						else if ( fLitWall )
 						{
-							if ( DetermineIfWallShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							if ( DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
 								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
 							}
