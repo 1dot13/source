@@ -40,6 +40,7 @@
 
 #define LIGHT_TREE_REVEAL		5						// width of rect
 #define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
+#define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
 
 
 // Top node of linked lists, NULL = FREE
@@ -576,6 +577,46 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     }
 
     return false;
+}
+
+// Prototype: soft (translucent) light blocker. HIGH_GRASS land dims the ray instead of blocking it.
+static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
+{
+	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
+
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+	if ( TileIsOutOfBounds(uiStartTileNo) )
+		return(FALSE);
+	if ( uiTileNo == uiStartTileNo )
+		return(FALSE);
+
+#if 0
+	LEVELNODE* pLand = gpWorldLevelData[uiTileNo].pLandHead;
+	while ( pLand != NULL )
+	{
+		UINT32 uiType;
+		if ( GetTileType(pLand->usIndex, &uiType) && uiType == HIGH_GRASS )
+			return(TRUE);
+		pLand = pLand->pNext;
+	}
+#endif
+
+	// finds a structure that matches any of the given flags
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		const auto flags = pStruct->fFlags;
+		if ( flags & STRUCTURE_TREE && (flags & STRUCTURE_PASSABLE || StructureHeight(pStruct) < 2) )
+		{
+			return true;
+		}
+
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
 }
 
 /****************************************************************************************
@@ -2331,6 +2372,7 @@ UINT32 uiFlags;
 INT32		iOldX, iOldY;
 BOOLEAN	fBlocked = FALSE;
 BOOLEAN fOnlyWalls;
+UINT8 ubRayDim = 100;
 CHAR8 zLightLogBuf[96];
 
 //MAP_ELEMENT * pMapElement;
@@ -2382,6 +2424,12 @@ CHAR8 zLightLogBuf[96];
     {
         usNodeIndex = *(pLightRayList[iLight] + uiCount);
 
+        // Ray-skip jumps land on the next ray's LIGHT_NEW_RAY marker, which the for-loop's
+        // uiCount++ then swallows, so the marker else-branch below never runs: restore the
+        // per-ray dim here instead
+        if ( uiCount > 0 && ( *(pLightRayList[iLight] + (uiCount - 1)) & LIGHT_NEW_RAY ) )
+            ubRayDim = 100;
+
         if ( !(usNodeIndex & LIGHT_NEW_RAY) )
         {
             fBlocked = FALSE;
@@ -2408,10 +2456,28 @@ CHAR8 zLightLogBuf[96];
 						if ( uiCount < usRaySize[iLight] )
 							LiveMessage("LIGHT_NEW_RAY");
 					}
-
+					ubRayDim = 100;
                     fOnlyWalls = TRUE;
                     fBlocked = TRUE;
                 }
+				else if ( LightSoftBlock((INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
+				{
+					if ( ubRayDim > LIGHT_SOFTBLOCK_DIM )
+						ubRayDim -= LIGHT_SOFTBLOCK_DIM;
+					else
+					{
+						ubRayDim = 0;
+						uiCount = LightFindNextRay(iLight, uiCount);
+						fBlocked = TRUE; // no fOnlyWalls here: grass tile keeps normal layer lighting
+
+						if ( logRays )
+						{
+							LiveMessage("SOFTBLOCKED_RAY");
+							if ( uiCount < usRaySize[iLight] )
+								LiveMessage("LIGHT_NEW_RAY");
+						}
+					}
+				}
             }
 
             if ( !(pLight->uiFlags & LIGHT_NODE_DRAWN) && (pLight->ubLight) )
@@ -2422,7 +2488,8 @@ CHAR8 zLightLogBuf[96];
                 if ( LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF )
                     uiFlags |= LIGHT_ROOF_ONLY;
 
-                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls, iStartX, iStartY );
+				const UINT8 lightLevel = (pLight->ubLight * ubRayDim) / 100;
+                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), lightLevel, uiFlags, fOnlyWalls, iStartX, iStartY );
 
                 pLight->uiFlags |= LIGHT_NODE_DRAWN;
 
@@ -2449,6 +2516,7 @@ CHAR8 zLightLogBuf[96];
 
             iOldX = iX;
             iOldY = iY;
+			ubRayDim = 100;
         }
     }
 
@@ -3021,9 +3089,10 @@ LIGHT_NODE *pLight;
 UINT16 uiCount;
 UINT16 usNodeIndex;
 UINT32 uiFlags;
-INT32		iOldX, iOldY;
+INT32 iOldX, iOldY;
 BOOLEAN	fBlocked = FALSE;
 BOOLEAN fOnlyWalls;
+UINT8 ubRayDim = 100;
 
 
 	if(pLightList[iLight]==NULL)
@@ -3044,6 +3113,13 @@ BOOLEAN fOnlyWalls;
 	for(uiCount=0; uiCount < usRaySize[iLight]; uiCount++)
 	{
 		usNodeIndex=*(pLightRayList[iLight]+uiCount);
+
+		// Ray-skip jumps land on the next ray's LIGHT_NEW_RAY marker, which the for-loop's
+		// uiCount++ then swallows, so the marker else-branch below never runs: restore the
+		// per-ray dim here instead (must mirror LightDraw exactly)
+		if ( uiCount > 0 && ( *(pLightRayList[iLight] + (uiCount - 1)) & LIGHT_NEW_RAY ) )
+			ubRayDim = 100;
+
 		if(!(usNodeIndex&LIGHT_NEW_RAY))
 		{
 			fBlocked = FALSE;
@@ -3059,6 +3135,18 @@ BOOLEAN fOnlyWalls;
 
 					fOnlyWalls = TRUE;
 					fBlocked = TRUE;
+					ubRayDim = 100;
+				}
+				else if ( LightSoftBlock((INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
+				{
+					if ( ubRayDim > LIGHT_SOFTBLOCK_DIM )
+						ubRayDim -= LIGHT_SOFTBLOCK_DIM;
+					else
+					{
+						ubRayDim = 0;
+						uiCount = LightFindNextRay(iLight, uiCount);
+						fBlocked = TRUE;
+					}
 				}
 			}
 
@@ -3070,7 +3158,8 @@ BOOLEAN fOnlyWalls;
 				if(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF)
 					uiFlags|=LIGHT_ROOF_ONLY;
 
-				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls, iStartX, iStartY );
+				const UINT8 lightLevel = (pLight->ubLight * ubRayDim) / 100;
+				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), lightLevel, uiFlags, fOnlyWalls, iStartX, iStartY);
 				pLight->uiFlags|=LIGHT_NODE_DRAWN;
 			}
 
@@ -3089,6 +3178,7 @@ BOOLEAN fOnlyWalls;
 		{
 			iOldX = iX;
 			iOldY = iY;
+			ubRayDim = 100;
 		}
 	}
 
