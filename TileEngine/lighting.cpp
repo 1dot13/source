@@ -907,6 +907,22 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 }
 
 
+// TRUE if the tile's structure list currently holds an open door: its art is no longer a wall
+// face, so it must keep unconditional lighting instead of the camera-facing rule.
+static BOOLEAN LightTileHasOpenDoor(UINT32 uiTileNo)
+{
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( Opendoor(pStruct) )
+			return(TRUE);
+
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
 /****************************************************************************************
  LightGetFree
 
@@ -1179,6 +1195,9 @@ INT32 uiTile;
 	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
 		fLitWall = TRUE;
 
+	// Art on a tile whose door stands open keeps unconditional lighting (it has no face of its own)
+	const BOOLEAN fOpenDoor = LightTileHasOpenDoor( uiTile );
+
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -1212,6 +1231,7 @@ INT32 uiTile;
 							// points at, even when this tile's light-blocking face was another edge.
 							// Non-DB and NO_ORIENTATION pieces keep the legacy unconditional lighting.
 							if ( pStruct->usIndex >= giNumberOfTiles ||
+								fOpenDoor ||
 								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
 								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
@@ -1330,6 +1350,9 @@ INT32 uiTile;
 	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
 		fLitWall = TRUE;
 
+	// Art on a tile whose door stands open keeps unconditional lighting (it has no face of its own)
+	const BOOLEAN fOpenDoor = LightTileHasOpenDoor( uiTile );
+
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
 		pStruct = gpWorldLevelData[uiTile].pStructHead;
@@ -1359,6 +1382,7 @@ INT32 uiTile;
 						{
 							// Must mirror LightAddTile exactly, or erase leaves dark residue.
 							if ( pStruct->usIndex >= giNumberOfTiles ||
+								fOpenDoor ||
 								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
 								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
