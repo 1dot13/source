@@ -513,20 +513,12 @@ static bool Window(STRUCTURE* pStruct)
 	return false;
 }
 
-// An open door does not block the doorway edge its structure guards: the leaf swings out
-// perpendicular to the wall plane, onto a neighbouring edge (mirrors the flag masks of
-// OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists / OpenRightOrientedDoorWithDoorOnRightOfEdgeExists
-// in LOS.cpp, which also keeps sliding doors - they stay in the wall plane - out of the leaf tests).
-// Door on (x,y):  INSIDE_TOP_LEFT  -> west  edge of (x,y);   OUTSIDE_TOP_LEFT  -> west  edge of (x,y)
-//                INSIDE_TOP_RIGHT -> north edge of (x,y);   OUTSIDE_TOP_RIGHT -> north edge of (x,y)
-// An open OUTSIDE door's structure has already moved one tile off the wall (south for TOP_LEFT,
-// east for TOP_RIGHT), so its leaf hangs on its own tile's west / north edge just like INSIDE;
-// bOutside only picks which orientation variant of the door is found on that tile.
-// The frame at the wall tile itself carries the very same door flags, STRUCTURE_OPEN and
-// orientation once the door is open, so it would false-positive the OUTSIDE test; it is
-// told apart by STRUCTURE_BASE_TILE, which the displaced OUTSIDE leaf instance lacks
-// (multi-tile DB structures only set it on their base tile, see structure.cpp line 594).
-// INSIDE doors keep their leaf on the base tile, so BASE_TILE must stay accepted there.
+// An open door does not block the doorway edge its structure guards: the door swings out
+// perpendicular to the wall plane, onto a neighbouring edge
+// Door on (x,y):  INSIDE_TOP_LEFT  -> west edge of (x,y);   OUTSIDE_TOP_LEFT  -> west  edge of (x,y+1)
+//                INSIDE_TOP_RIGHT -> north edge of (x,y);   OUTSIDE_TOP_RIGHT -> north edge of (x+1,y)
+// On OUTSIDE oriented doors, the frame at the wall tile has flag STRUCTURE_BASE_TILE, which the open door structure lacks
+// INSIDE doors are on the base tile, so BASE_TILE must stay accepted there.
 static BOOLEAN LightOpenDoorLeafNorth(INT16 iX, INT16 iY, BOOLEAN bOutside)
 {
 	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
@@ -537,7 +529,7 @@ static BOOLEAN LightOpenDoorLeafNorth(INT16 iX, INT16 iY, BOOLEAN bOutside)
 	while ( pStruct != NULL )
 	{
 		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_RIGHT)) &&
-			// an OUTSIDE leaf never sits on the door's base tile; the open frame there must not match
+			// an OUTSIDE door never sits on the door's base tile; the open frame there must not match
 			( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_RIGHT ) )
 		{
 			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_RIGHT) ||
@@ -562,7 +554,7 @@ static BOOLEAN LightOpenDoorLeafWest(INT16 iX, INT16 iY, BOOLEAN bOutside)
 	while ( pStruct != NULL )
 	{
 		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_LEFT)) &&
-		// an OUTSIDE leaf never sits on the door's base tile; the open frame there must not match
+		// an OUTSIDE door never sits on the door's base tile; the open frame there must not match
 		( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_LEFT ) )
 		{
 			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_LEFT) ||
@@ -577,11 +569,12 @@ static BOOLEAN LightOpenDoorLeafWest(INT16 iX, INT16 iY, BOOLEAN bOutside)
 	return(FALSE);
 }
 
-// Shared-boundary edge tests: a _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile
-// (the boundary it shares with (iX, iY+1)), a _TOP_RIGHT piece closes its EAST edge
-// (boundary with (iX+1, iY)); _BOTTOM_CORNER carries both. Closed doors use the same edges; an
-// open door instead closes the edge its leaf swings onto, which belongs to a neighbouring tile,
-// so it is tested separately (see LightOpenDoorLeafNorth / LightOpenDoorLeafWest).
+// Shared-boundary edge tests:
+// _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile (the boundary it shares with (iX, iY+1))
+// _TOP_RIGHT piece closes its EAST edge (boundary with (iX+1, iY));
+// _BOTTOM_CORNER carries both. Closed doors use the same edges;
+// Open door instead closes the edge it swings onto, which can belong to a neighbouring tile,
+// so it is tested separately.
 // Windows only count when bCountWindows asks for a face rather than a ray blocker.
 static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 {
