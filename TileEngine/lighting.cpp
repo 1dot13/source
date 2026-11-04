@@ -40,6 +40,7 @@
 
 #define LIGHT_TREE_REVEAL		5						// width of rect
 #define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
+#define LIGHT_TREE_HEIGHT_CUTOFF 2
 #define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
 
 
@@ -483,7 +484,7 @@ static bool TallStructure(STRUCTURE* pStruct)
 static bool Tree(STRUCTURE* pStruct)
 {
 	const auto flags = pStruct->fFlags;
-	if ( (flags & STRUCTURE_TREE) && !(flags & STRUCTURE_PASSABLE) && StructureHeight(pStruct) > 1 )
+	if ( (flags & STRUCTURE_TREE) && !(flags & STRUCTURE_PASSABLE) && StructureHeight(pStruct) > LIGHT_TREE_HEIGHT_CUTOFF )
 	{
 		return(true);
 	}
@@ -608,9 +609,14 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 	while ( pStruct != NULL )
 	{
 		const auto flags = pStruct->fFlags;
-		if ( flags & STRUCTURE_TREE && (flags & STRUCTURE_PASSABLE || StructureHeight(pStruct) < 2) )
+		if ( flags & STRUCTURE_TREE && (flags & STRUCTURE_PASSABLE || StructureHeight(pStruct) <= LIGHT_TREE_HEIGHT_CUTOFF) )
 		{
 			return true;
+		}
+
+		if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF && !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+		{
+			return(true);
 		}
 
 		pStruct = pStruct->pNext;
@@ -811,7 +817,7 @@ INT32 iDx, iDy;
 	for greater accuracy.
 
 ***************************************************************************************/
-DOUBLE LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
+static DOUBLE LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
 {
 INT32 iDx, iDy;
 
@@ -2387,29 +2393,6 @@ CHAR8 zLightLogBuf[96];
 		pLight->uiFlags&=(~LIGHT_NODE_DRAWN);
 	}
 
-/*
-	if (!(LightSprites[uiSprite].uiFlags & MERC_LIGHT))
-	{
-		uiFlags |= LIGHT_FAKE
-
-		pMapElement = &(gpWorldLevelData[]);
-		if (pMapElement->pLand != NULL)
-		{
-			// only do this for visible locations
-			// adjust tile's recorded light level
-			pMapElement->sSumRealLight1+=sShadeAdd;
-
-			sSum=pMapElement->pLand->ubNaturalShadeLevel - __max( pMapElement->sSumRealLights[0], pMapElement->pLand->sSumLights[1]);
-
-			sSum=__min(SHADE_MIN, sSum);
-			sSum=__max(SHADE_MAX, sSum);
-
-			gpWorldLevelData[ ].ubRealShadeLevel = (UINT8) sSum;
-
-		}
-
-	}
-*/
 	const auto iStartX = iX;
 	const auto iStartY = iY;
 	iOldX = iX;
