@@ -513,6 +513,112 @@ static bool Window(STRUCTURE* pStruct)
 	return false;
 }
 
+// Shared-boundary edge tests: a _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile
+// (the boundary it shares with (iX, iY+1)), a _TOP_RIGHT piece closes its EAST edge
+// (boundary with (iX+1, iY)); _BOTTOM_CORNER carries both. Open doors never close an edge, and
+// windows only count when bCountWindows asks for a face rather than a ray blocker.
+static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+{
+	STRUCTURE* pStruct;
+
+	if ( iX < 0 || iY < 0 || TileIsOutOfBounds( MAPROWCOLTOPOS(iY, iX) ) )
+		return(FALSE);
+
+	pStruct = gpWorldLevelData[MAPROWCOLTOPOS(iY, iX)].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !Opendoor(pStruct) && (bCountWindows || !Window(pStruct)) )
+		{
+			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
+			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
+				return(TRUE);
+
+			switch ( pStruct->ubWallOrientation )
+			{
+				case INSIDE_TOP_LEFT:
+				case OUTSIDE_TOP_LEFT:
+				case INSIDE_BOTTOM_CORNER:
+				case OUTSIDE_BOTTOM_CORNER:
+					return(TRUE);
+				default:
+					break;
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+{
+	STRUCTURE* pStruct;
+
+	if ( iX < 0 || iY < 0 || TileIsOutOfBounds( MAPROWCOLTOPOS(iY, iX) ) )
+		return(FALSE);
+
+	pStruct = gpWorldLevelData[MAPROWCOLTOPOS(iY, iX)].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !Opendoor(pStruct) && (bCountWindows || !Window(pStruct)) )
+		{
+			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
+			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
+				return(TRUE);
+
+			switch ( pStruct->ubWallOrientation )
+			{
+				case INSIDE_TOP_RIGHT:
+				case OUTSIDE_TOP_RIGHT:
+				case INSIDE_BOTTOM_CORNER:
+				case OUTSIDE_BOTTOM_CORNER:
+					return(TRUE);
+				default:
+				 break;
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+// TRUE if a wall closes the boundary the ray crosses stepping from iPrevX/iPrevY into
+// iX/iY. Cardinal steps cross one edge; diagonal steps pass through the vertex shared by the
+// four tiles and are closed by any wall edge meeting it, mirroring how movement costs treat
+// diagonal wall corners.
+static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+{
+	 const INT16 iDx = (INT16)(iX - iPrevX);
+	const INT16 iDy = (INT16)(iY - iPrevY);
+
+	 if ( iDx == 0 && iDy == 0 )
+	 return(FALSE);
+
+	 // Cardinal steps: the crossed edge belongs to whichever tile owns it
+	 if ( iDx == 0 )
+	 {
+	 // North / south: always a south edge
+	 return( iDy > 0 ? LightEdgeSouthHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeSouthHasWall(iX, iY, bCountWindows) );
+	 }
+
+	 if ( iDy == 0 )
+	 {
+	 // East / west: always an east edge
+	 return( iDx > 0 ? LightEdgeEastHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeEastHasWall(iX, iY, bCountWindows) );
+	 }
+
+	 // Diagonal: vertex corner between the two tiles
+	 const INT16 iCornerX = (INT16)(iPrevX + (iDx > 0 ? 1 : 0));
+	 const INT16 iCornerY = (INT16)(iPrevY + (iDy > 0 ? 1 : 0));
+
+	 if ( LightEdgeSouthHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeSouthHasWall(iCornerX, iCornerY - 1, bCountWindows) )
+	 return(TRUE);
+
+	 return( LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) ||
+		 LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows) );
+}
+
 /****************************************************************************************
  LightTileBlocked
 
@@ -539,6 +645,22 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     if ( gpWorldLevelData[uiTileNo].sHeight > gpWorldLevelData[uiSrcTileNo].sHeight )
         return(TRUE);
 
+    // Every ray starts on the light's own tile: blocking that tile kills the whole template, so
+    // the centre node must never count as a blocker (walls there are tested against the step
+    // out of it, see LightStepWallBlocked).
+    if ( uiTileNo == uiSrcTileNo )
+        return(FALSE);
+
+    // Walls live on tile boundaries: only a piece that closes the boundary between the ray's
+    // previous tile and this one stops the ray. Rays running away from or parallel to a wall
+    // keep their light, which is what made the template vanish when the soldier stood with
+    // wall art on his own tile.
+    const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
+    if ( bStepAdjacent )
+    {
+        if ( LightStepWallBlocked(iSrcX, iSrcY, iX, iY, FALSE) )
+            return(TRUE);
+    }
 
     // finds a structure that matches any of the given flags
     STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
@@ -548,18 +670,27 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
         // Found a wall
         if ( flags & STRUCTURE_WALLSTUFF )
         {
-            if ( Window(pStruct) )
+            // For a single step the boundary test above already decided this piece: glass, open
+            // doors and walls on any other edge let the ray through, and this piece must not be
+            // caught by the Tree / TallStructure height tests below either.
+            if ( !bStepAdjacent )
             {
-                return(false);
+                if ( Window(pStruct) )
+                {
+                    return(false);
+                }
+
+                // Has a door that's open
+                if ( Opendoor(pStruct) )
+                {
+                    return(false);
+                }
+
+                return true;
             }
 
-            // Has a door that's open
-            if ( Opendoor(pStruct) )
-            {
-                return(false);
-            }
-
-            return true;
+            pStruct = pStruct->pNext;
+            continue;
         }
 
         if ( Tree(pStruct) )
@@ -602,9 +733,15 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 			return true;
 		}
 
-		if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF && !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+		if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF &&
+			!(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
 		{
-			return(true);
+			// A solid wall that does not close the boundary is not a soft blocker either:
+			// otherwise rays running parallel to a wall dim one notch per wall tile they pass.
+			if ( !(flags & STRUCTURE_WALLSTUFF) || Window(pStruct) || Opendoor(pStruct) )
+			{
+				return(true);
+			}
 		}
 
 		if ( flags & STRUCTURE_WIREFENCE )
@@ -647,21 +784,25 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 	}
 
 
+	// Only the step the ray takes into this tile is known here; farther out keep legacy shading.
+	const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
+
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
 		const auto flags = pStruct->fFlags;
-		// Found a wall
+		// Found a wall: only a piece closing the boundary the ray steps across shades this tile.
+		// Windows count as a face (they shade but never stop a ray). Farther out, the ray's last
+		// step is unknown here, so keep the legacy whole-tile shading test.
 		if ( flags & STRUCTURE_WALLSTUFF )
 		{
-			// Has a door that's open
-			if ( Opendoor(pStruct) )
-			{
-				return(false);
-			}
+			if ( !bStepAdjacent || LightStepWallBlocked(iSrcX, iSrcY, iX, iY, TRUE) )
+				return(true);
 
-			return true;
-		}
+			// Decided: this art guards another edge, and must not be caught by the tests below
+			pStruct = pStruct->pNext;
+			continue;
+	 }
 
 		// Trees stop rays in LightTileBlocked; their art must still shade like a wall face,
 		// so flag this tile as light-blocking (mirror LightTileBlocked)
@@ -1067,11 +1208,12 @@ INT32 uiTile;
 						}
 						else if ( !fOnlyWalls )
 						{
-							// Center node of a light (src == tile): must not auto-light oriented
-							// wall art, or a light standing on/beside a window lights the window
-							// art regardless of side.  Non-DB and NO_ORIENTATION pieces keep it.
-							if ( !( iSrcX == iX && iSrcY == iY ) || pStruct->usIndex >= giNumberOfTiles ||
-								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION )
+							// Oriented DB art is a wall face: it may only catch light from the side it
+							// points at, even when this tile's light-blocking face was another edge.
+							// Non-DB and NO_ORIENTATION pieces keep the legacy unconditional lighting.
+							if ( pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
+								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
 								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
 							}
@@ -1216,8 +1358,9 @@ INT32 uiTile;
 						else if ( !fOnlyWalls )
 						{
 							// Must mirror LightAddTile exactly, or erase leaves dark residue.
-							if ( !( iSrcX == iX && iSrcY == iY ) || pStruct->usIndex >= giNumberOfTiles ||
-								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION )
+							if ( pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
+								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
 								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
 							}
