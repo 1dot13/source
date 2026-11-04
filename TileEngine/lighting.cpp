@@ -513,21 +513,88 @@ static bool Window(STRUCTURE* pStruct)
 	return false;
 }
 
-// Shared-boundary edge tests: a _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile
-// (the boundary it shares with (iX, iY+1)), a _TOP_RIGHT piece closes its EAST edge
-// (boundary with (iX+1, iY)); _BOTTOM_CORNER carries both. Open doors never close an edge, and
-// windows only count when bCountWindows asks for a face rather than a ray blocker.
-static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+// An open door does not block the doorway edge its structure guards: the leaf swings out
+// perpendicular to the wall plane, onto a neighbouring edge (mirrors the flag masks of
+// OpenLeftOrientedDoorWithDoorOnLeftOfEdgeExists / OpenRightOrientedDoorWithDoorOnRightOfEdgeExists
+// in LOS.cpp, which also keeps sliding doors - they stay in the wall plane - out of the leaf tests).
+// Door on (x,y):  INSIDE_TOP_LEFT  -> west  edge of (x,y);   OUTSIDE_TOP_LEFT  -> west  edge of (x,y)
+//                INSIDE_TOP_RIGHT -> north edge of (x,y);   OUTSIDE_TOP_RIGHT -> north edge of (x,y)
+// An open OUTSIDE door's structure has already moved one tile off the wall (south for TOP_LEFT,
+// east for TOP_RIGHT), so its leaf hangs on its own tile's west / north edge just like INSIDE;
+// bOutside only picks which orientation variant of the door is found on that tile.
+// The frame at the wall tile itself carries the very same door flags, STRUCTURE_OPEN and
+// orientation once the door is open, so it would false-positive the OUTSIDE test; it is
+// told apart by STRUCTURE_BASE_TILE, which the displaced OUTSIDE leaf instance lacks
+// (multi-tile DB structures only set it on their base tile, see structure.cpp line 594).
+// INSIDE doors keep their leaf on the base tile, so BASE_TILE must stay accepted there.
+static BOOLEAN LightOpenDoorLeafNorth(INT16 iX, INT16 iY, BOOLEAN bOutside)
 {
-	STRUCTURE* pStruct;
-
-	if ( iX < 0 || iY < 0 || TileIsOutOfBounds( MAPROWCOLTOPOS(iY, iX) ) )
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
 		return(FALSE);
 
-	pStruct = gpWorldLevelData[MAPROWCOLTOPOS(iY, iX)].pStructureHead;
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !Opendoor(pStruct) && (bCountWindows || !Window(pStruct)) )
+		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_RIGHT)) &&
+			// an OUTSIDE leaf never sits on the door's base tile; the open frame there must not match
+			( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_RIGHT ) )
+		{
+			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_RIGHT) ||
+			 (!bOutside && pStruct->ubWallOrientation == INSIDE_TOP_RIGHT) )
+			{
+				return(TRUE);
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+static BOOLEAN LightOpenDoorLeafWest(INT16 iX, INT16 iY, BOOLEAN bOutside)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_LEFT)) &&
+		// an OUTSIDE leaf never sits on the door's base tile; the open frame there must not match
+		( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_LEFT ) )
+		{
+			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_LEFT) ||
+			 (!bOutside && pStruct->ubWallOrientation == INSIDE_TOP_LEFT) )
+			{
+				return(TRUE);
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+// Shared-boundary edge tests: a _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile
+// (the boundary it shares with (iX, iY+1)), a _TOP_RIGHT piece closes its EAST edge
+// (boundary with (iX+1, iY)); _BOTTOM_CORNER carries both. Closed doors use the same edges; an
+// open door instead closes the edge its leaf swings onto, which belongs to a neighbouring tile,
+// so it is tested separately (see LightOpenDoorLeafNorth / LightOpenDoorLeafWest).
+// Windows only count when bCountWindows asks for a face rather than a ray blocker.
+static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE*  pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && (bCountWindows || !Window(pStruct)) &&
+			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
+				pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
 			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
 			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
@@ -547,20 +614,25 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 		pStruct = pStruct->pNext;
 	}
 
+	// an open TOP_RIGHT door on (iX, iY+1) swings its leaf onto its own tile's north edge = this edge
+	if ( LightOpenDoorLeafNorth( iX, iY + 1, FALSE ) || LightOpenDoorLeafNorth( iX, iY + 1, TRUE ) )
+		return(TRUE);
+
 	return(FALSE);
 }
 
 static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 {
-	STRUCTURE* pStruct;
-
-	if ( iX < 0 || iY < 0 || TileIsOutOfBounds( MAPROWCOLTOPOS(iY, iX) ) )
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
 		return(FALSE);
 
-	pStruct = gpWorldLevelData[MAPROWCOLTOPOS(iY, iX)].pStructureHead;
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !Opendoor(pStruct) && (bCountWindows || !Window(pStruct)) )
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && (bCountWindows || !Window(pStruct)) &&
+			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
+			 pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
 			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
 			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
@@ -580,6 +652,10 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 		pStruct = pStruct->pNext;
 	}
 
+	// an open TOP_LEFT door on (iX+1, iY) swings its leaf onto its own tile's west edge = this edge
+	if ( LightOpenDoorLeafWest( iX + 1, iY, FALSE ) || LightOpenDoorLeafWest( iX + 1, iY, TRUE ) )
+		return(TRUE);
+
 	return(FALSE);
 }
 
@@ -589,34 +665,33 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 // diagonal wall corners.
 static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 {
-	 const INT16 iDx = (INT16)(iX - iPrevX);
-	const INT16 iDy = (INT16)(iY - iPrevY);
+    const INT16 iDx = (INT16)(iX - iPrevX);
+    const INT16 iDy = (INT16)(iY - iPrevY);
 
-	 if ( iDx == 0 && iDy == 0 )
-	 return(FALSE);
+    if ( iDx == 0 && iDy == 0 )
+        return(FALSE);
 
-	 // Cardinal steps: the crossed edge belongs to whichever tile owns it
-	 if ( iDx == 0 )
-	 {
-	 // North / south: always a south edge
-	 return( iDy > 0 ? LightEdgeSouthHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeSouthHasWall(iX, iY, bCountWindows) );
-	 }
+    // Cardinal steps: the crossed edge belongs to whichever tile owns it
+    if ( iDx == 0 )
+    {
+        // North / south: always a south edge
+        return(iDy > 0 ? LightEdgeSouthHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeSouthHasWall(iX, iY, bCountWindows));
+    }
 
-	 if ( iDy == 0 )
-	 {
-	 // East / west: always an east edge
-	 return( iDx > 0 ? LightEdgeEastHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeEastHasWall(iX, iY, bCountWindows) );
-	 }
+    if ( iDy == 0 )
+    {
+        // East / west: always an east edge
+        return(iDx > 0 ? LightEdgeEastHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeEastHasWall(iX, iY, bCountWindows));
+    }
 
-	 // Diagonal: vertex corner between the two tiles
-	 const INT16 iCornerX = (INT16)(iPrevX + (iDx > 0 ? 1 : 0));
-	 const INT16 iCornerY = (INT16)(iPrevY + (iDy > 0 ? 1 : 0));
+    // Diagonal: vertex corner between the two tiles
+    const INT16 iCornerX = (INT16)(iPrevX + (iDx > 0 ? 1 : 0));
+    const INT16 iCornerY = (INT16)(iPrevY + (iDy > 0 ? 1 : 0));
 
-	 if ( LightEdgeSouthHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeSouthHasWall(iCornerX, iCornerY - 1, bCountWindows) )
-	 return(TRUE);
+    if ( LightEdgeSouthHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeSouthHasWall(iCornerX, iCornerY - 1, bCountWindows) )
+        return(TRUE);
 
-	 return( LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) ||
-		 LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows) );
+    return(LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows));
 }
 
 /****************************************************************************************
@@ -629,9 +704,9 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
 {
     Assert(gpWorldLevelData != NULL);
 
-	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
-	UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
-	UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
+	const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+	const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
     if ( TileIsOutOfBounds(uiTileNo) )
         return(FALSE);
@@ -655,7 +730,7 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     // previous tile and this one stops the ray. Rays running away from or parallel to a wall
     // keep their light, which is what made the template vanish when the soldier stood with
     // wall art on his own tile.
-    const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
+	const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
     if ( bStepAdjacent )
     {
         if ( LightStepWallBlocked(iSrcX, iSrcY, iX, iY, FALSE) )
@@ -680,10 +755,10 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
                     return(false);
                 }
 
-                // Has a door that's open
                 if ( Opendoor(pStruct) )
                 {
-                    return(false);
+                    pStruct = pStruct->pNext;
+                    continue;
                 }
 
                 return true;
@@ -709,11 +784,11 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     return false;
 }
 
-// Prototype: soft (translucent) light blocker. HIGH_GRASS land dims the ray instead of blocking it.
+// Prototype: soft (translucent) light blocker. Dims the ray instead of blocking it.
 static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 {
-	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
-	UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
+	const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
 	if ( TileIsOutOfBounds(uiTileNo) )
 		return(FALSE);
@@ -728,21 +803,23 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 	while ( pStruct != NULL )
 	{
 		const auto flags = pStruct->fFlags;
+		// Tall grass, which is a passable tree & shorter trees
 		if ( flags & STRUCTURE_TREE && (flags & STRUCTURE_PASSABLE || StructureHeight(pStruct) <= LIGHT_TREE_HEIGHT_CUTOFF) )
 		{
 			return true;
 		}
 
-		if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF &&
-			!(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
-		{
-			// A solid wall that does not close the boundary is not a soft blocker either:
-			// otherwise rays running parallel to a wall dim one notch per wall tile they pass.
-			if ( !(flags & STRUCTURE_WALLSTUFF) || Window(pStruct) || Opendoor(pStruct) )
-			{
-				return(true);
-			}
-		}
+        if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF &&
+            !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+        {
+            // A solid wall is not a soft block:
+            // otherwise rays running parallel to a wall dim one notch per wall tile they pass. An open door is
+			// left out for the same reason: it's handled in LightEdge* tests
+            if ( !(flags & STRUCTURE_WALLSTUFF) || Window(pStruct) )
+            {
+                return(true);
+            }
+        }
 
 		if ( flags & STRUCTURE_WIREFENCE )
 		{
@@ -765,8 +842,8 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
 	Assert(gpWorldLevelData!=NULL);
 
-	UINT32 uiTileNo=MAPROWCOLTOPOS(iY, iX);
-	UINT32 uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+    const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+    const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
 
 	if ( uiTileNo == uiSrcTileNo )
 	{
@@ -799,7 +876,7 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 			if ( !bStepAdjacent || LightStepWallBlocked(iSrcX, iSrcY, iX, iY, TRUE) )
 				return(true);
 
-			// Decided: this art guards another edge, and must not be caught by the tests below
+			// This art guards another edge, and must not be caught by the tests below
 			pStruct = pStruct->pNext;
 			continue;
 	 }
@@ -828,100 +905,98 @@ static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 // (iSrcX,iSrcY).  Only the face the camera sees may be lit
 static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY, LEVELNODE* pNode)
 {
-	Assert(gpWorldLevelData != NULL);
+    Assert(gpWorldLevelData != NULL);
 
-	UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
-	UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+    const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+    const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
 
-	if ( uiTileNo == uiSrcTileNo )
-		return(FALSE);
+    if ( uiTileNo == uiSrcTileNo )
+        return(FALSE);
 
-	if ( TileIsOutOfBounds(uiTileNo) )
-		return(FALSE);
+    if ( TileIsOutOfBounds(uiTileNo) )
+        return(FALSE);
 
-	if ( TileIsOutOfBounds(uiSrcTileNo) )
-		return(FALSE);
-
-
-	if ( pNode == NULL || pNode->usIndex >= giNumberOfTiles )
-	{
-		return(true);   // not a DB tile: no face to test
-	}
-
-	// Only the camera-facing side of a wall piece may be lit.  The test uses the LIGHT ORIGIN
-	// (iStartX/iStartY), not the ray's previous tile: per-step src quantizes onto the piece's
-	// plane for rays running along a wall row (window pass-through then horizontal step), which
-	// both caused window-adjacent walls to stay unlit and lit walls on the wrong side.
-	// TOP_LEFT piece spans the edge shared with (iX, iY+1) (worlddef.cpp CompileTileMovementCosts:
-	// blocks NORTH triple from the tile and SOUTH triple from +Y neighbour) -> camera face is +Y.
-	// TOP_RIGHT piece spans the edge shared with (iX+1, iY) -> camera face is +X.  BOTTOM_CORNER
-	// carries both, so either side lights it.  Same planes LightRevealWall cuts with.
-	bool bLit;
+    if ( TileIsOutOfBounds(uiSrcTileNo) )
+        return(FALSE);
 
 
-	// Non-wall ray stoppers without an oriented art piece (trees, tall objects): billboarded,
-	// but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
-	bool fBillboardBlocker = false;
+    if ( pNode == NULL || pNode->usIndex >= giNumberOfTiles )
+    {
+        return(true);   // not a DB tile: no face to test
+    }
 
-	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
-	while ( pStruct != NULL )
-	{
-		if ( Opendoor(pStruct) )
-			return(false);
-
-		if ( !(pStruct->fFlags & STRUCTURE_WALLSTUFF) && (Tree(pStruct) || TallStructure(pStruct)) )
-		{
-			fBillboardBlocker = true;
-		}
-
-		pStruct = pStruct->pNext;
-	}
+    // Only the camera-facing side of a wall piece may be lit.  The test uses the LIGHT ORIGIN
+    // (iStartX/iStartY), not the ray's previous tile: per-step src quantizes onto the piece's
+    // plane for rays running along a wall row (window pass-through then horizontal step), which
+    // both caused window-adjacent walls to stay unlit and lit walls on the wrong side.
+    // TOP_LEFT piece spans the edge shared with (iX, iY+1) -> camera face is +Y.
+    // TOP_RIGHT piece spans the edge shared with (iX+1, iY) -> camera face is +X.
+	// BOTTOM_CORNER carries both, so either side lights it. Same planes LightRevealWall cuts with.
+    bool bLit;
 
 
+    // Non-wall ray stoppers without an oriented art piece (trees, tall objects): billboarded,
+    // but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
+    bool fBillboardBlocker = false;
 
-	switch ( gTileDatabase[pNode->usIndex].usWallOrientation )
-	{
-		case INSIDE_TOP_LEFT:
-		case OUTSIDE_TOP_LEFT:
-			bLit = ( iStartY > iY );
-			break;
+    const UINT16 usNodeOrient = gTileDatabase[pNode->usIndex].usWallOrientation;
 
-		case INSIDE_TOP_RIGHT:
-		case OUTSIDE_TOP_RIGHT:
-			bLit = ( iStartX > iX );
-			// TOP_RIGHT piece spans the edge shared with (iX+1, iY): plane X = iX + 0.5, camera face +X.
-			break;
+    // An open door's leaf art hangs perpendicular to its wall plane: the door on (iX,iY) guards
+    // the west edge (TOP_LEFT) or north edge (TOP_RIGHT) of its own tile (see LightOpenDoorLeaf*),
+    // and an open OUTSIDE door's structure has already moved to the far side of the doorway. The
+    // open animation frames in the DB still carry the wall-plane orientation, so match this level
+     // node's DB orientation against an open door structure on this tile to find that leaf art.
+    STRUCTURE* pOpenDoorLeaf = NULL;
 
-		case INSIDE_BOTTOM_CORNER:
-		case OUTSIDE_BOTTOM_CORNER:
-			bLit = ( iStartY > iY || iStartX > iX );
-			break;
+    STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+    while ( pStruct != NULL )
+    {
+        if ( !(pStruct->fFlags & STRUCTURE_WALLSTUFF) && (Tree(pStruct) || TallStructure(pStruct)) )
+        {
+            fBillboardBlocker = true;
+        }
+        else if ( Opendoor(pStruct) && pStruct->ubWallOrientation == usNodeOrient &&
+            // an open OUTSIDE frame on the base tile is not leaf art; only the displaced leaf lacks BASE_TILE
+            (!(pStruct->fFlags & STRUCTURE_BASE_TILE) ||
+                (pStruct->ubWallOrientation != OUTSIDE_TOP_LEFT && pStruct->ubWallOrientation != OUTSIDE_TOP_RIGHT)) )
+        {
+            pOpenDoorLeaf = pStruct;
+        }
 
-		default:
-			// NO_ORIENTATION: fences/vegetation/rubble stay lit as before; ray-stopping billboards (trees, tall objects) only light from the camera half
-			bLit = fBillboardBlocker ? ( iStartY > iY || iStartX > iX ) : true;
-			break;
-	}
+        pStruct = pStruct->pNext;
+    }
 
-	return( bLit );
+
+
+    switch ( gTileDatabase[pNode->usIndex].usWallOrientation )
+    {
+        case INSIDE_TOP_LEFT:
+        case OUTSIDE_TOP_LEFT:
+            if ( pOpenDoorLeaf ) bLit = (iStartX > iX - 1); // leaf: +X face of own tile's west edge
+            else bLit = (iStartY > iY);
+            break;
+
+        case INSIDE_TOP_RIGHT:
+        case OUTSIDE_TOP_RIGHT:
+            if ( pOpenDoorLeaf ) bLit = (iStartY > iY - 1); // leaf: +Y face of own tile's north edge
+            else bLit = (iStartX > iX);
+            // TOP_RIGHT piece spans the edge shared with (iX+1, iY): plane X = iX + 0.5, camera face +X.
+            break;
+
+        case INSIDE_BOTTOM_CORNER:
+        case OUTSIDE_BOTTOM_CORNER:
+            bLit = (iStartY > iY || iStartX > iX);
+            break;
+
+        default:
+            // NO_ORIENTATION: fences/vegetation/rubble stay lit as before; ray-stopping billboards (trees, tall objects) only light from the camera half
+            bLit = fBillboardBlocker ? (iStartY > iY || iStartX > iX) : true;
+            break;
+    }
+
+    return(bLit);
 }
 
-
-// TRUE if the tile's structure list currently holds an open door: its art is no longer a wall
-// face, so it must keep unconditional lighting instead of the camera-facing rule.
-static BOOLEAN LightTileHasOpenDoor(UINT32 uiTileNo)
-{
-	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
-	while ( pStruct != NULL )
-	{
-		if ( Opendoor(pStruct) )
-			return(TRUE);
-
-		pStruct = pStruct->pNext;
-	}
-
-	return(FALSE);
-}
 
 /****************************************************************************************
  LightGetFree
@@ -1195,9 +1270,6 @@ INT32 uiTile;
 	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
 		fLitWall = TRUE;
 
-	// Art on a tile whose door stands open keeps unconditional lighting (it has no face of its own)
-	const BOOLEAN fOpenDoor = LightTileHasOpenDoor( uiTile );
-
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -1231,7 +1303,6 @@ INT32 uiTile;
 							// points at, even when this tile's light-blocking face was another edge.
 							// Non-DB and NO_ORIENTATION pieces keep the legacy unconditional lighting.
 							if ( pStruct->usIndex >= giNumberOfTiles ||
-								fOpenDoor ||
 								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
 								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
@@ -1350,9 +1421,6 @@ INT32 uiTile;
 	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
 		fLitWall = TRUE;
 
-	// Art on a tile whose door stands open keeps unconditional lighting (it has no face of its own)
-	const BOOLEAN fOpenDoor = LightTileHasOpenDoor( uiTile );
-
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
 		pStruct = gpWorldLevelData[uiTile].pStructHead;
@@ -1382,7 +1450,6 @@ INT32 uiTile;
 						{
 							// Must mirror LightAddTile exactly, or erase leaves dark residue.
 							if ( pStruct->usIndex >= giNumberOfTiles ||
-								fOpenDoor ||
 								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
 								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
 							{
@@ -3967,6 +4034,89 @@ BOOLEAN LightSpritePower(INT32 iSprite, BOOLEAN fOn)
 
 	return(TRUE);
 
+}
+
+
+//****************************************************************************************
+//  LightSpriteStateChangePre / LightSpriteStateChangePost
+//
+//  Open/closed doors change which rays pass (see the Opendoor tests in LightEdge*), and a
+//  light is always erased using the *current* world state: light that was added while a door
+//  stood open can never be subtracted once the door closed, so it lingers behind the leaf.
+//  Bracket the flip (SwapStructureForPartner / InternalSwapStructureForPartner in structure.cpp)
+//  with these two calls: Pre subtracts every light whose template rect covers the door tile
+//  while the old door state is still in effect, Post adds it back after the flip. They use the
+//  same erase/draw pair and LIGHT_SPR_ERASE bookkeeping as LightSpriteRoofStatus.
+//****************************************************************************************
+BOOLEAN LightSpriteStateChangePre(INT16 iX, INT16 iY)
+{
+    INT32 iCount;
+    BOOLEAN fDone = FALSE;
+
+    for ( iCount = 0; iCount < MAX_LIGHT_SPRITES; iCount++ )
+    {
+        if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE )
+        {
+            const INT32 iTemplate = LightSprites[iCount].iTemplate;
+            if ( iTemplate < 0 || iTemplate >= MAX_LIGHT_TEMPLATES )
+                continue;
+
+            const INT16 iMapLeft = (INT16)(LightSprites[iCount].iX + LightMapLeft[iTemplate]);
+            const INT16 iMapTop = (INT16)(LightSprites[iCount].iY + LightMapTop[iTemplate]);
+            const INT16 iMapRight = (INT16)(LightSprites[iCount].iX + LightMapRight[iTemplate]);
+            const INT16 iMapBottom = (INT16)(LightSprites[iCount].iY + LightMapBottom[iTemplate]);
+
+            if ( iX >= iMapLeft && iX <= iMapRight && iY >= iMapTop && iY <= iMapBottom )
+            {
+                if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ERASE )
+                {
+                    if ( (LightSprites[iCount].iX < WORLD_COLS) && (LightSprites[iCount].iY < WORLD_ROWS) )
+                    {
+                        LightErase(LightSprites[iCount].uiLightType, iTemplate, LightSprites[iCount].iX, LightSprites[iCount].iY, iCount);
+                        LightSpriteDirty(iCount);
+                    }
+                    // pending redraw: Post is expected right after the state flip, no other light update may
+                    // run in between (a position change in between would skip its erase: LIGHT_SPR_ERASE is off)
+                    LightSprites[iCount].uiFlags &= (~LIGHT_SPR_ERASE);
+                    LightSprites[iCount].uiFlags |= LIGHT_SPR_REDRAW;
+                    fDone = TRUE;
+                }
+            }
+        }
+    }
+
+    return(fDone);
+}
+
+BOOLEAN LightSpriteStateChangePost(INT16 iX, INT16 iY)
+{
+    INT32 iCount;
+    BOOLEAN fDone = FALSE;
+
+    for ( iCount = 0; iCount < MAX_LIGHT_SPRITES; iCount++ )
+    {
+        if ( LightSprites[iCount].uiFlags & LIGHT_SPR_REDRAW && LightSprites[iCount].iTemplate >= 0 && LightSprites[iCount].iTemplate < MAX_LIGHT_TEMPLATES &&
+            iX >= (INT16)(LightSprites[iCount].iX + LightMapLeft[LightSprites[iCount].iTemplate]) && iX <= (INT16)(LightSprites[iCount].iX + LightMapRight[LightSprites[iCount].iTemplate]) &&
+            iY >= (INT16)(LightSprites[iCount].iY + LightMapTop[LightSprites[iCount].iTemplate]) && iY <= (INT16)(LightSprites[iCount].iY + LightMapBottom[LightSprites[iCount].iTemplate]) )
+        {
+            LightSprites[iCount].uiFlags &= (~LIGHT_SPR_REDRAW);
+
+            if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE && LightSprites[iCount].uiFlags & LIGHT_SPR_ON )
+            {
+                if ( (LightSprites[iCount].iX < WORLD_COLS) && (LightSprites[iCount].iY < WORLD_ROWS) )
+                {
+                    LightDraw(LightSprites[iCount].uiLightType, LightSprites[iCount].iTemplate, LightSprites[iCount].iX, LightSprites[iCount].iY, iCount);
+                    LightSprites[iCount].uiFlags |= LIGHT_SPR_ERASE;
+                    LightSpriteDirty(iCount);
+                    fDone = TRUE;
+                }
+            }
+            (void)iX;
+            (void)iY;
+        }
+    }
+
+    return(fDone);
 }
 
 

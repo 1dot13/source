@@ -26,6 +26,7 @@
 #include "Buildings.h"
 #include "random.h"
 #include "Tile Animation.h"
+#include "lighting.h"		// for LightSpriteStateChangePre/Post around door open-close swaps
 // anv: for ramming people with vehicles
 #include "Soldier macros.h"
 #include "Overhead.h"
@@ -1351,6 +1352,20 @@ static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * p
 	}
 	pShadowNode = FindShadow( pBaseStructure->sGridNo, pLevelNode->usIndex );
 
+	// an open/closed door changes which light rays pass, so the nearby lights must be erased
+	// while the old state is still in effect and redrawn after the flip (see lighting.cpp)
+	BOOLEAN fLightRefresh = FALSE;
+	{
+	 if ( fDoor )
+	 {
+	 INT16 sDoorX = 0;
+	 INT16 sDoorY = 0;
+	 ConvertGridNoToXY( pBaseStructure->sGridNo, &sDoorX, &sDoorY );
+	 if ( LightSpriteStateChangePre( sDoorX, sDoorY ) )
+	 fLightRefresh = TRUE;
+	 }
+	}
+
 	// record values
 	bDelta = pBaseStructure->pDBStructureRef->pDBStructure->bPartnerDelta;
 	pPartnerDBStructure = pBaseStructure->pDBStructureRef + bDelta;
@@ -1367,6 +1382,15 @@ static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * p
 	{
 		return( NULL );
 	}
+	// and redraw them with the new door state in place
+	 if ( fLightRefresh )
+	 {
+	 INT16 sDoorX = 0;
+	 INT16 sDoorY = 0;
+	 ConvertGridNoToXY( pBaseStructure->sGridNo, &sDoorX, &sDoorY );
+	 LightSpriteStateChangePost( sDoorX, sDoorY );
+	 }
+
 	// set values in the new structure
 	pNewBaseStructure->ubHitPoints = ubHitPoints;
 	if (!fDoor)
