@@ -40,7 +40,7 @@
 
 #define LIGHT_TREE_REVEAL		5						// width of rect
 #define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
-#define LIGHT_TREE_HEIGHT_CUTOFF 2
+#define LIGHT_TREE_HEIGHT_CUTOFF 3
 #define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
 
 
