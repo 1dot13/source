@@ -562,14 +562,11 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
             return true;
         }
 
-		
         if ( Tree(pStruct) )
         {
             return(true);
         }
 
-
-		// Tall structures block light even without wall/tree flags
 		if ( TallStructure(pStruct) )
 		{
 			return(true);
@@ -594,16 +591,6 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 	if ( uiTileNo == uiStartTileNo )
 		return(FALSE);
 
-#if 0
-	LEVELNODE* pLand = gpWorldLevelData[uiTileNo].pLandHead;
-	while ( pLand != NULL )
-	{
-		UINT32 uiType;
-		if ( GetTileType(pLand->usIndex, &uiType) && uiType == HIGH_GRASS )
-			return(TRUE);
-		pLand = pLand->pNext;
-	}
-#endif
 
 	// finds a structure that matches any of the given flags
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
