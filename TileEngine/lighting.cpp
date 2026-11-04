@@ -474,7 +474,8 @@ UINT16 usNumNodes;
 static bool TallStructure(STRUCTURE* pStruct)
 {
 	const auto flags = pStruct->fFlags;
-	if ( StructureHeight(pStruct) > LIGHT_STRUCT_HEIGHT_CUTOFF && !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+	if ( StructureHeight(pStruct) > LIGHT_STRUCT_HEIGHT_CUTOFF &&
+		!(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE || flags & STRUCTURE_WIREFENCE) )
 	{
 		return(true);
 	}
@@ -615,6 +616,11 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 		}
 
 		if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF && !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+		{
+			return(true);
+		}
+
+		if ( flags & STRUCTURE_WIREFENCE )
 		{
 			return(true);
 		}
