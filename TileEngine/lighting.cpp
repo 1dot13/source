@@ -934,6 +934,11 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 			return(true);
 		}
 
+		if ( flags & STRUCTURE_FENCE )
+		{
+			return(true);
+		}
+
 		pStruct = pStruct->pNext;
 	}
 
