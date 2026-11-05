@@ -42,7 +42,7 @@
 #define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
 #define LIGHT_TREE_HEIGHT_CUTOFF 3
 #define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
-constexpr bool LogRays {false}; // Enables logging of ray traversal
+constexpr bool LogRays {false}; // Log ray traversal for debug
 
 // Top node of linked lists, NULL = FREE
 LIGHT_NODE	*pLightList[MAX_LIGHT_TEMPLATES];
@@ -532,7 +532,7 @@ static bool FullTileWall(STRUCTURE* pStruct)
 //                INSIDE_TOP_RIGHT -> north edge of (x,y);   OUTSIDE_TOP_RIGHT -> north edge of (x+1,y)
 // On OUTSIDE oriented doors, the frame at the wall tile has flag STRUCTURE_BASE_TILE, which the open door structure lacks
 // INSIDE doors are on the base tile, so BASE_TILE must stay accepted there.
-static BOOLEAN LightOpenDoorLeafNorth(INT16 iX, INT16 iY, BOOLEAN bOutside)
+static BOOLEAN OpenDoorBlocksLight(const INT16 iX, const INT16 iY, const bool northToSouth)
 {
 	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
 	if ( TileIsOutOfBounds(uiTileNo) )
@@ -541,41 +541,36 @@ static BOOLEAN LightOpenDoorLeafNorth(INT16 iX, INT16 iY, BOOLEAN bOutside)
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_RIGHT)) &&
-			// an OUTSIDE door never sits on the door's base tile; the open frame there must not match
-			( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_RIGHT ) )
-		{
-			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_RIGHT) ||
-			 (!bOutside && pStruct->ubWallOrientation == INSIDE_TOP_RIGHT) )
-			{
-				return(TRUE);
-			}
+		const bool openDoor = Opendoor(pStruct);
+		const bool baseTile = pStruct->fFlags & STRUCTURE_BASE_TILE;
+		const auto orientation = pStruct->ubWallOrientation;
+
+        if ( openDoor )
+        {
+            if ( northToSouth )
+            {
+                if ( baseTile && orientation == INSIDE_TOP_RIGHT )
+                {
+                    return true;
+                }
+                else if ( !baseTile && orientation == OUTSIDE_TOP_RIGHT )
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if ( baseTile && orientation == INSIDE_TOP_LEFT )
+                {
+                    return true;
+                }
+                else if ( !baseTile && orientation == OUTSIDE_TOP_LEFT )
+                {
+                    return true;
+                }
+            }
 		}
-		pStruct = pStruct->pNext;
-	}
 
-	return(FALSE);
-}
-
-static BOOLEAN LightOpenDoorLeafWest(INT16 iX, INT16 iY, BOOLEAN bOutside)
-{
-	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
-	if ( TileIsOutOfBounds(uiTileNo) )
-		return(FALSE);
-
-	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
-	while ( pStruct != NULL )
-	{
-		if ( Opendoor(pStruct) && (pStruct->fFlags & (STRUCTURE_DOOR | STRUCTURE_DDOOR_LEFT)) &&
-		// an OUTSIDE door never sits on the door's base tile; the open frame there must not match
-		( !(pStruct->fFlags & STRUCTURE_BASE_TILE) || pStruct->ubWallOrientation == INSIDE_TOP_LEFT ) )
-		{
-			if ( (bOutside && pStruct->ubWallOrientation == OUTSIDE_TOP_LEFT) ||
-			 (!bOutside && pStruct->ubWallOrientation == INSIDE_TOP_LEFT) )
-			{
-				return(TRUE);
-			}
-		}
 		pStruct = pStruct->pNext;
 	}
 
@@ -639,7 +634,7 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 	}
 
 	// an open TOP_RIGHT door on (iX, iY+1) swings its leaf onto its own tile's north edge = this edge
-	if ( LightOpenDoorLeafNorth( iX, iY + 1, FALSE ) || LightOpenDoorLeafNorth( iX, iY + 1, TRUE ) )
+	if ( OpenDoorBlocksLight( iX, iY + 1, true) )
 		return(TRUE);
 
 	return(FALSE);
@@ -677,7 +672,7 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 	}
 
 	// an open TOP_LEFT door on (iX+1, iY) swings its leaf onto its own tile's west edge = this edge
-	if ( LightOpenDoorLeafWest( iX + 1, iY, FALSE ) || LightOpenDoorLeafWest( iX + 1, iY, TRUE ) )
+	if ( OpenDoorBlocksLight(iX + 1, iY, false) )
 		return(TRUE);
 
 	return(FALSE);
