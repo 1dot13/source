@@ -681,6 +681,58 @@ static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 
     return(LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows));
 }
 
+// TRUE if a straight march from the light origin into (iX,iY) crosses no wall edge. Deliberately
+// origin-based, never the ray's previous tile, so the add pass (LightAddTile) and the erase pass
+// (LightSubtractTile) make identical decisions and shades cannot leak.
+static BOOLEAN LightMarchClear(INT16 iStartX, INT16 iStartY, INT16 iX, INT16 iY)
+{
+    INT16 iCurX = iStartX;
+    INT16 iCurY = iStartY;
+    const INT16 iDx = (INT16)(iX - iCurX);
+    const INT16 iDy = (INT16)(iY - iCurY);
+    const INT16 iAbsX = (INT16)(iDx < 0 ? -iDx : iDx);
+    const INT16 iAbsY = (INT16)(iDy < 0 ? -iDy : iDy);
+    const INT16 iSteps = (iAbsX > iAbsY ? iAbsX : iAbsY);
+    if ( iSteps == 0 )
+        return(TRUE);
+
+    const INT16 iSX = (iDx > 0 ? 1 : (iDx < 0 ? -1 : 0));
+    const INT16 iSY = (iDy > 0 ? 1 : (iDy < 0 ? -1 : 0));
+    INT32 iErr = 0;
+    for (INT32 k = 0; k < iSteps; ++k)
+    {
+        INT16 iNextX, iNextY;
+        if ( iAbsX >= iAbsY )
+        {
+            iNextX = (INT16)(iCurX + iSX);
+            iNextY = iCurY;
+            iErr += (INT32)iAbsY * 2;
+            if ( iErr > (INT32)iAbsX )
+            {
+                iNextY = (INT16)(iCurY + iSY);
+                iErr -= (INT32)iAbsX * 2;
+            }
+        }
+        else
+        {
+            iNextY = (INT16)(iCurY + iSY);
+            iNextX = iCurX;
+            iErr += (INT32)iAbsX * 2;
+            if ( iErr > (INT32)iAbsY )
+            {
+                iNextX = (INT16)(iCurX + iSX);
+                iErr -= (INT32)iAbsY * 2;
+            }
+        }
+
+        if ( LightStepWallBlocked(iCurX, iCurY, iNextX, iNextY, FALSE) )
+            return(FALSE);
+        iCurX = iNextX;
+        iCurY = iNextY;
+    }
+    return(TRUE);
+}
+
 /****************************************************************************************
  LightTileBlocked
 
@@ -932,6 +984,9 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 	// BOTTOM_CORNER carries both, so either side lights it. Same planes LightRevealWall cuts with.
     bool bLit;
 
+    // The front tile of the face this levelnode guards; the light must be able to reach it.
+    INT16 iFrontX = 0, iFrontY = 0;
+    bool bHasFront = false;
 
     // Non-wall ray stoppers without an oriented art piece (trees, tall objects): billboarded,
     // but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
@@ -970,20 +1025,44 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
     {
         case INSIDE_TOP_LEFT:
         case OUTSIDE_TOP_LEFT:
-            if ( pOpenDoorLeaf ) bLit = (iStartX > iX - 1); // leaf: +X face of own tile's west edge
-            else bLit = (iStartY > iY);
+            if ( pOpenDoorLeaf )
+            {
+                bLit = (iStartX > iX - 1); // leaf: +X face of own tile's west edge
+                iFrontX = iX;
+                iFrontY = iY;
+            }
+            else
+            {
+                bLit = (iStartY > iY);
+                iFrontX = iX;
+                iFrontY = (INT16)(iY + 1);
+            }
+            bHasFront = true;
             break;
 
         case INSIDE_TOP_RIGHT:
         case OUTSIDE_TOP_RIGHT:
-            if ( pOpenDoorLeaf ) bLit = (iStartY > iY - 1); // leaf: +Y face of own tile's north edge
-            else bLit = (iStartX > iX);
+            if ( pOpenDoorLeaf )
+            {
+                bLit = (iStartY > iY - 1); // leaf: +Y face of own tile's north edge
+                iFrontX = iX;
+                iFrontY = iY;
+            }
+            else
+            {
+                bLit = (iStartX > iX);
+                iFrontX = (INT16)(iX + 1);
+                iFrontY = iY;
+            }
+            bHasFront = true;
             // TOP_RIGHT piece spans the edge shared with (iX+1, iY): plane X = iX + 0.5, camera face +X.
             break;
 
         case INSIDE_BOTTOM_CORNER:
         case OUTSIDE_BOTTOM_CORNER:
-            bLit = (iStartY > iY || iStartX > iX);
+            // carries both planes: the light needs to see only one of the two front tiles
+            bLit = ( (iStartY > iY && LightMarchClear(iStartX, iStartY, iX, (INT16)(iY + 1))) ||
+                     (iStartX > iX && LightMarchClear(iStartX, iStartY, (INT16)(iX + 1), iY)) );
             break;
 
         default:
@@ -991,6 +1070,12 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
             bLit = fBillboardBlocker ? (iStartY > iY || iStartX > iX) : true;
             break;
     }
+
+    // Half-plane test alone cannot tell a face that is edge-on to the light (light around a corner
+    // of walls) from one that faces it: both are on the camera side of the wall's plane, but the
+    // ray to the edge-on face is stopped by the perpendicular wall before it gets there.
+    if ( bLit && bHasFront )
+        bLit = LightMarchClear(iStartX, iStartY, iFrontX, iFrontY);
 
     return(bLit);
 }
