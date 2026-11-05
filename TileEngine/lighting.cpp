@@ -589,9 +589,6 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
 				pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
-			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
-			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
-				return(TRUE);
 
 			switch ( pStruct->ubWallOrientation )
 			{
@@ -627,9 +624,6 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
 			 pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
-			// Non-DB wall piece: no orientation to test, keeps legacy behaviour for it
-			if ( pStruct->ubWallOrientation == NO_ORIENTATION )
-				return(TRUE);
 
 			switch ( pStruct->ubWallOrientation )
 			{
