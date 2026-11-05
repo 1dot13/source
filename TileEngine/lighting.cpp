@@ -681,6 +681,22 @@ static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 
     return(LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows));
 }
 
+// TRUE if both orientation values describe the same wall edge: the inside/outside bit only says
+// which side of the boundary the piece sits on, so an open door structure and the art tile it moved
+// onto can disagree in that bit while guarding the same edge.
+static BOOLEAN LightSameWallEdge(UINT16 usA, UINT16 usB)
+{
+    if ( usA == usB )
+        return(TRUE);
+
+    const bool bAL = ( usA == INSIDE_TOP_LEFT || usA == OUTSIDE_TOP_LEFT );
+    const bool bAR = ( usA == INSIDE_TOP_RIGHT || usA == OUTSIDE_TOP_RIGHT );
+    const bool bBL = ( usB == INSIDE_TOP_LEFT || usB == OUTSIDE_TOP_LEFT );
+    const bool bBR = ( usB == INSIDE_TOP_RIGHT || usB == OUTSIDE_TOP_RIGHT );
+
+    return( (bAL && bBL) || (bAR && bBR) );
+}
+
 // TRUE if a straight march from the light origin into (iX,iY) crosses no wall edge. Deliberately
 // origin-based, never the ray's previous tile, so the add pass (LightAddTile) and the erase pass
 // (LightSubtractTile) make identical decisions and shades cannot leak.
@@ -959,8 +975,12 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 
     const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
     const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+    const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
-    if ( uiTileNo == uiSrcTileNo )
+    // The centre node hands its own tile in as both src and target. That is not a blocker for the
+    // tile the light stands on: a door leaf whose art sits on the light's own tile must still be
+    // face-tested (its face points into that tile), so only the ray's previous tile is rejected.
+    if ( uiTileNo == uiSrcTileNo && uiTileNo != uiStartTileNo )
         return(FALSE);
 
     if ( TileIsOutOfBounds(uiTileNo) )
@@ -984,6 +1004,9 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 	// BOTTOM_CORNER carries both, so either side lights it. Same planes LightRevealWall cuts with.
     bool bLit;
 
+    // LiveLog scope for the door-leaf tests: the tiles touching the light only
+    const bool bNearLight = ( iX >= iStartX - 1 && iX <= iStartX + 1 && iY >= iStartY - 1 && iY <= iStartY + 1 );
+
     // The front tile of the face this levelnode guards; the light must be able to reach it.
     INT16 iFrontX = 0, iFrontY = 0;
     bool bHasFront = false;
@@ -996,9 +1019,10 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 
     // An open door's leaf art hangs perpendicular to its wall plane: the door on (iX,iY) guards
     // the west edge (TOP_LEFT) or north edge (TOP_RIGHT) of its own tile (see LightOpenDoorLeaf*),
-    // and an open OUTSIDE door's structure has already moved to the far side of the doorway. The
-    // open animation frames in the DB still carry the wall-plane orientation, so match this level
-     // node's DB orientation against an open door structure on this tile to find that leaf art.
+    // and an open OUTSIDE door's leaf hangs on the same plane line but one tile over: west edge of
+    // (iX, iY+1) / north edge of (iX+1, iY). The open animation frames in the DB still carry the
+    // wall-plane orientation, so match this level node's DB orientation against an open door
+    // structure on this tile to find that leaf art.
     STRUCTURE* pOpenDoorLeaf = NULL;
 
     STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
@@ -1008,11 +1032,11 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
         {
             fBillboardBlocker = true;
         }
-        else if ( Opendoor(pStruct) && pStruct->ubWallOrientation == usNodeOrient &&
-            // an open OUTSIDE frame on the base tile is not leaf art; only the displaced leaf lacks BASE_TILE
-            (!(pStruct->fFlags & STRUCTURE_BASE_TILE) ||
-                (pStruct->ubWallOrientation != OUTSIDE_TOP_LEFT && pStruct->ubWallOrientation != OUTSIDE_TOP_RIGHT)) )
+        else if ( Opendoor(pStruct) && LightSameWallEdge(pStruct->ubWallOrientation, usNodeOrient) )
         {
+            // An open door's structure stays on the base tile for OUTSIDE orientations (only its
+            // art image hangs into the far tile) and moves onto the base tile for INSIDE ones, so
+            // the base flag says nothing here: either way it is the leaf art.
             pOpenDoorLeaf = pStruct;
         }
 
@@ -1027,9 +1051,10 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
         case OUTSIDE_TOP_LEFT:
             if ( pOpenDoorLeaf )
             {
-                bLit = (iStartX > iX - 1); // leaf: +X face of own tile's west edge
+                bLit = (iStartX > iX - 1); // leaf: +X face of the west-edge line
                 iFrontX = iX;
-                iFrontY = iY;
+                // INSIDE leaf lies in own tile, OUTSIDE leaf in (iX, iY+1): same plane, other front
+                iFrontY = (pOpenDoorLeaf->ubWallOrientation == OUTSIDE_TOP_LEFT) ? (INT16)(iY + 1) : iY;
             }
             else
             {
@@ -1044,8 +1069,9 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
         case OUTSIDE_TOP_RIGHT:
             if ( pOpenDoorLeaf )
             {
-                bLit = (iStartY > iY - 1); // leaf: +Y face of own tile's north edge
-                iFrontX = iX;
+                bLit = (iStartY > iY - 1); // leaf: +Y face of the north-edge line
+                // INSIDE leaf lies in own tile, OUTSIDE leaf in (iX+1, iY): same plane, other front
+                iFrontX = (pOpenDoorLeaf->ubWallOrientation == OUTSIDE_TOP_RIGHT) ? (INT16)(iX + 1) : iX;
                 iFrontY = iY;
             }
             else
@@ -1074,10 +1100,12 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
     // Half-plane test alone cannot tell a face that is edge-on to the light (light around a corner
     // of walls) from one that faces it: both are on the camera side of the wall's plane, but the
     // ray to the edge-on face is stopped by the perpendicular wall before it gets there.
+    const bool bPlane = bLit;
+    bool bMarch = true;
     if ( bLit && bHasFront )
-        bLit = LightMarchClear(iStartX, iStartY, iFrontX, iFrontY);
+        bMarch = LightMarchClear(iStartX, iStartY, iFrontX, iFrontY);
 
-    return(bLit);
+    return( bPlane && bMarch );
 }
 
 
