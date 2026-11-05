@@ -513,8 +513,8 @@ static bool Window(STRUCTURE* pStruct)
 	return false;
 }
 
-// A wall piece with no orientation occupies its whole tile instead of one edge: it closes every
-// edge of its tile (see LightEdge*HasWall), so it has no camera-facing plane of its own.
+// A wall with no orientation occupies its whole tile instead of one edge and closes every
+// edge of its tile, so it has no camera-facing plane of its own.
 static bool FullTileWall(STRUCTURE* pStruct)
 {
 	const auto flags = pStruct->fFlags;
@@ -577,8 +577,14 @@ static BOOLEAN OpenDoorBlocksLight(const INT16 iX, const INT16 iY, const bool no
 	return(FALSE);
 }
 
-// TRUE if the tile is taken over by a whole-tile wall piece (FullTileWall).
-static BOOLEAN LightSolidTileAt(INT16 iX, INT16 iY)
+// Shared-boundary edge tests:
+// _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile (the boundary it shares with (iX, iY+1))
+// _TOP_RIGHT piece closes its EAST edge (boundary with (iX+1, iY));
+// _BOTTOM_CORNER carries both. Closed doors use the same edges;
+// Open door instead closes the edge it swings onto, which can belong to a neighbouring tile,
+// so it is tested separately.
+// Windows only count when bCountWindows asks for a face rather than a ray blocker.
+static BOOLEAN LightEdgeHasWallSouth(const INT16 iX, const INT16 iY, const BOOLEAN bCountWindows)
 {
 	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
 	if ( TileIsOutOfBounds(uiTileNo) )
@@ -587,36 +593,14 @@ static BOOLEAN LightSolidTileAt(INT16 iX, INT16 iY)
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( FullTileWall(pStruct) )
-			return(TRUE);
-		pStruct = pStruct->pNext;
-	}
+		const bool nonTransparentWall = pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT);
+		const bool countWindows = bCountWindows || !Window(pStruct);
+		const auto closedDoorOrCorner = (!Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER || pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER);
+		const auto orientation = pStruct->ubWallOrientation;
 
-	return(FALSE);
-}
-
-// Shared-boundary edge tests:
-// _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile (the boundary it shares with (iX, iY+1))
-// _TOP_RIGHT piece closes its EAST edge (boundary with (iX+1, iY));
-// _BOTTOM_CORNER carries both. Closed doors use the same edges;
-// Open door instead closes the edge it swings onto, which can belong to a neighbouring tile,
-// so it is tested separately.
-// Windows only count when bCountWindows asks for a face rather than a ray blocker.
-static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
-{
-	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
-	if ( TileIsOutOfBounds(uiTileNo) )
-		return(FALSE);
-
-	STRUCTURE*  pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
-	while ( pStruct != NULL )
-	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT) && (bCountWindows || !Window(pStruct)) &&
-			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
-				pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
+		if ( nonTransparentWall && countWindows &&  closedDoorOrCorner)
 		{
-
-			switch ( pStruct->ubWallOrientation )
+			switch ( orientation )
 			{
 				case INSIDE_TOP_LEFT:
 				case OUTSIDE_TOP_LEFT:
@@ -633,14 +617,11 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 		pStruct = pStruct->pNext;
 	}
 
-	// an open TOP_RIGHT door on (iX, iY+1) swings its leaf onto its own tile's north edge = this edge
-	if ( OpenDoorBlocksLight( iX, iY + 1, true) )
-		return(TRUE);
-
-	return(FALSE);
+	// an open TOP_RIGHT door on (iX, iY+1) swings its door onto its own tile's north edge = this edge
+	return OpenDoorBlocksLight(iX, iY + 1, true);
 }
 
-static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+static BOOLEAN LightEdgeHasWallEast(const INT16 iX, const INT16 iY, const BOOLEAN bCountWindows)
 {
 	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
 	if ( TileIsOutOfBounds(uiTileNo) )
@@ -649,12 +630,15 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT) && (bCountWindows || !Window(pStruct)) &&
-			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
-			 pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
+		const bool nonTransparentWall = pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT);
+		const bool countWindows = bCountWindows || !Window(pStruct);
+		const auto closedDoorOrCorner = (!Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER || pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER);
+		const auto orientation = pStruct->ubWallOrientation;
+
+		if ( nonTransparentWall && countWindows && closedDoorOrCorner )
 		{
 
-			switch ( pStruct->ubWallOrientation )
+			switch ( orientation )
 			{
 				case INSIDE_TOP_RIGHT:
 				case OUTSIDE_TOP_RIGHT:
@@ -671,9 +655,29 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 		pStruct = pStruct->pNext;
 	}
 
-	// an open TOP_LEFT door on (iX+1, iY) swings its leaf onto its own tile's west edge = this edge
+	// an open TOP_LEFT door on (iX+1, iY) swings its door onto its own tile's west edge = this edge
 	if ( OpenDoorBlocksLight(iX + 1, iY, false) )
 		return(TRUE);
+
+	return(FALSE);
+}
+
+
+
+// TRUE if the tile is taken over by a whole-tile wall piece (FullTileWall).
+static BOOLEAN LightSolidTileAt(INT16 iX, INT16 iY)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( FullTileWall(pStruct) )
+			return(TRUE);
+		pStruct = pStruct->pNext;
+	}
 
 	return(FALSE);
 }
@@ -701,23 +705,23 @@ static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 
     if ( iDx == 0 )
     {
         // North / south: always a south edge
-        return(iDy > 0 ? LightEdgeSouthHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeSouthHasWall(iX, iY, bCountWindows));
+        return(iDy > 0 ? LightEdgeHasWallSouth(iPrevX, iPrevY, bCountWindows) : LightEdgeHasWallSouth(iX, iY, bCountWindows));
     }
 
     if ( iDy == 0 )
     {
         // East / west: always an east edge
-        return(iDx > 0 ? LightEdgeEastHasWall(iPrevX, iPrevY, bCountWindows) : LightEdgeEastHasWall(iX, iY, bCountWindows));
+		return(iDx > 0 ? LightEdgeHasWallEast(iPrevX, iPrevY, bCountWindows) : LightEdgeHasWallEast(iX, iY, bCountWindows));
     }
 
     // Diagonal: vertex corner between the two tiles
     const INT16 iCornerX = (INT16)(iPrevX + (iDx > 0 ? 1 : 0));
     const INT16 iCornerY = (INT16)(iPrevY + (iDy > 0 ? 1 : 0));
 
-    if ( LightEdgeSouthHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeSouthHasWall(iCornerX, iCornerY - 1, bCountWindows) )
+    if ( LightEdgeHasWallSouth(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeHasWallSouth(iCornerX, iCornerY - 1, bCountWindows) )
         return(TRUE);
 
-    return(LightEdgeEastHasWall(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeEastHasWall(iCornerX - 1, iCornerY, bCountWindows));
+	return(LightEdgeHasWallEast(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeHasWallEast(iCornerX - 1, iCornerY, bCountWindows));
 }
 
 // TRUE if both orientation values describe the same wall edge: the inside/outside bit only says
