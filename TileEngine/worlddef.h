@@ -261,7 +261,7 @@ typedef struct
 	UINT16										ubExtFlags[2];
 	UINT16										sSumRealLights[1];
 	UINT8										sHeight;
-	UINT8										ubAdjacentSoldierCnt;
+	UINT8										ubAdjacentSoldierCnt; // UNUSED
 	UINT8										ubTerrainID;
 
  	UINT16										ubReservedSoldierID;

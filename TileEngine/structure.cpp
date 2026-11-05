@@ -2283,9 +2283,6 @@ void DebugStructurePage1( void )
 			100 * guiUnsuccessfulPathChecks / guiTotalPathChecks );
 
 	}
-	#else
-	gprintf( 0, LINE_HEIGHT * 16,
-		L"Adj soldiers %d", gpWorldLevelData[sGridNo].ubAdjacentSoldierCnt );
 	#endif
 }
 
