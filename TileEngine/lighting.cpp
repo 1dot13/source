@@ -42,7 +42,7 @@
 #define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
 #define LIGHT_TREE_HEIGHT_CUTOFF 3
 #define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
-
+constexpr bool LogRays {false}; // Enables logging of ray traversal
 
 // Top node of linked lists, NULL = FREE
 LIGHT_NODE	*pLightList[MAX_LIGHT_TEMPLATES];
@@ -723,14 +723,25 @@ static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, IN
     // previous tile and this one stops the ray. Rays running away from or parallel to a wall
     // keep their light, which is what made the template vanish when the soldier stood with
     // wall art on his own tile.
-	const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
-    if ( bStepAdjacent )
-    {
-        if ( LightStepWallBlocked(iSrcX, iSrcY, iX, iY, FALSE) )
-            return(TRUE);
-    }
+	const bool bStepAdjacent = (iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1);
+	if ( bStepAdjacent )
+	{
+		if ( LightStepWallBlocked(iSrcX, iSrcY, iX, iY, FALSE) )
+		{
+			if ( LogRays )
+			{
+				CHAR8 zLightLogBuf[96];
+				sprintf(zLightLogBuf, "BLOCK_SRC %d,%d->%d,%d edge N=%d E=%d",
+					iSrcX, iSrcY, iX, iY,
+					(iX == iSrcX) ? (iY < iSrcY ? 1 : 0) : 0,
+					(iY == iSrcY) ? (iX > iSrcX ? 1 : 0) : 0);
+				LiveMessage(zLightLogBuf);
+			}
+			return(TRUE);
+		}
+	}
 
-    // finds a structure that matches any of the given flags
+	// finds a structure that matches any of the given flags
     STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
     while ( pStruct != NULL )
     {
@@ -2617,8 +2628,7 @@ CHAR8 zLightLogBuf[96];
 	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
-	const bool logRays { false };
-	if ( logRays )
+	if ( LogRays )
 	{
 		LiveMessage("START_OF_NEW_LOOP");
 	}
@@ -2640,7 +2650,7 @@ CHAR8 zLightLogBuf[96];
 
             pLight = pLightList[iLight] + (usNodeIndex & (~LIGHT_BACKLIGHT));
 
-			if ( logRays )
+			if ( LogRays )
 			{
 				sprintf(zLightLogBuf, "LIGHT_NODE: iDX %d, iDY %d", pLight->iDX, pLight->iDY);
 				LiveMessage(zLightLogBuf);
@@ -2653,7 +2663,7 @@ CHAR8 zLightLogBuf[96];
                     uiCount = LightFindNextRay(iLight, uiCount);
 
                     // the for-loop's uiCount++ swallows the marker node, so note the new ray here
-					if ( logRays )
+					if ( LogRays )
 					{
 						LiveMessage("BLOCKED_RAY");
 						if ( uiCount < usRaySize[iLight] )
@@ -2673,7 +2683,7 @@ CHAR8 zLightLogBuf[96];
 						uiCount = LightFindNextRay(iLight, uiCount);
 						fBlocked = TRUE; // no fOnlyWalls here: grass tile keeps normal layer lighting
 
-						if ( logRays )
+						if ( LogRays )
 						{
 							LiveMessage("SOFTBLOCKED_RAY");
 							if ( uiCount < usRaySize[iLight] )
@@ -2712,7 +2722,7 @@ CHAR8 zLightLogBuf[96];
         }
         else
         {
-			if ( logRays )
+			if ( LogRays )
 			{
 				LiveMessage("LIGHT_NEW_RAY");
 			}
