@@ -585,7 +585,7 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 	STRUCTURE*  pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && (bCountWindows || !Window(pStruct)) &&
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT) && (bCountWindows || !Window(pStruct)) &&
 			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
 				pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
@@ -620,7 +620,7 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
 	while ( pStruct != NULL )
 	{
-		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && (bCountWindows || !Window(pStruct)) &&
+		if ( pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT) && (bCountWindows || !Window(pStruct)) &&
 			( !Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER ||
 			 pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER ) )
 		{
@@ -881,7 +881,7 @@ static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
             // A solid wall is not a soft block:
             // otherwise rays running parallel to a wall dim one notch per wall tile they pass. An open door is
 			// left out for the same reason: it's handled in LightEdge* tests
-            if ( !(flags & STRUCTURE_WALLSTUFF) || Window(pStruct) )
+            if ( !(flags & STRUCTURE_WALLSTUFF && !(flags & STRUCTURE_TRANSPARENT)) || Window(pStruct) )
             {
                 return(true);
             }
