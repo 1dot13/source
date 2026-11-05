@@ -1020,7 +1020,7 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
     const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
     // The centre node hands its own tile in as both src and target. That is not a blocker for the
-    // tile the light stands on: a door leaf whose art sits on the light's own tile must still be
+    // tile the light stands on: an open door whose art sits on the light's own tile must still be
     // face-tested (its face points into that tile), so only the ray's previous tile is rejected.
     if ( uiTileNo == uiSrcTileNo && uiTileNo != uiStartTileNo )
         return(FALSE);
@@ -1046,7 +1046,7 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 	// BOTTOM_CORNER carries both, so either side lights it. Same planes LightRevealWall cuts with.
     bool bLit;
 
-    // LiveLog scope for the door-leaf tests: the tiles touching the light only
+    // The tiles touching the light only
     const bool bNearLight = ( iX >= iStartX - 1 && iX <= iStartX + 1 && iY >= iStartY - 1 && iY <= iStartY + 1 );
 
     // The front tile of the face this levelnode guards; the light must be able to reach it.
@@ -1062,13 +1062,11 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 
     const UINT16 usNodeOrient = gTileDatabase[pNode->usIndex].usWallOrientation;
 
-    // An open door's leaf art hangs perpendicular to its wall plane: the door on (iX,iY) guards
-    // the west edge (TOP_LEFT) or north edge (TOP_RIGHT) of its own tile (see LightOpenDoorLeaf*),
-    // and an open OUTSIDE door's leaf hangs on the same plane line but one tile over: west edge of
-    // (iX, iY+1) / north edge of (iX+1, iY). The open animation frames in the DB still carry the
-    // wall-plane orientation, so match this level node's DB orientation against an open door
-    // structure on this tile to find that leaf art.
-    STRUCTURE* pOpenDoorLeaf = NULL;
+    // An open door's art hangs perpendicular to its wall plane: the door on (iX,iY) guards
+    // the west edge (TOP_LEFT) or north edge (TOP_RIGHT) of its own tile,
+    // and an open OUTSIDE door hangs on the same plane line but one tile over: west edge of
+    // (iX, iY+1) / north edge of (iX+1, iY).
+    STRUCTURE* pOpenDoor = NULL;
 
     STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
     while ( pStruct != NULL )
@@ -1086,7 +1084,7 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
             // An open door's structure stays on the base tile for OUTSIDE orientations (only its
             // art image hangs into the far tile) and moves onto the base tile for INSIDE ones, so
             // the base flag says nothing here: either way it is the leaf art.
-            pOpenDoorLeaf = pStruct;
+            pOpenDoor = pStruct;
         }
 
         pStruct = pStruct->pNext;
@@ -1098,12 +1096,12 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
     {
         case INSIDE_TOP_LEFT:
         case OUTSIDE_TOP_LEFT:
-            if ( pOpenDoorLeaf )
+            if ( pOpenDoor )
             {
-                bLit = (iStartX > iX - 1); // leaf: +X face of the west-edge line
+                bLit = (iStartX > iX - 1); // +X face of the west-edge line
                 iFrontX = iX;
-                // INSIDE leaf lies in own tile, OUTSIDE leaf in (iX, iY+1): same plane, other front
-                iFrontY = (pOpenDoorLeaf->ubWallOrientation == OUTSIDE_TOP_LEFT) ? (INT16)(iY + 1) : iY;
+                // INSIDE door is on the base tile, OUTSIDE door in (iX, iY+1): same plane, other front
+                iFrontY = (pOpenDoor->ubWallOrientation == OUTSIDE_TOP_LEFT) ? (INT16)(iY + 1) : iY;
             }
             else
             {
@@ -1116,11 +1114,11 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 
         case INSIDE_TOP_RIGHT:
         case OUTSIDE_TOP_RIGHT:
-            if ( pOpenDoorLeaf )
+            if ( pOpenDoor )
             {
-                bLit = (iStartY > iY - 1); // leaf: +Y face of the north-edge line
-                // INSIDE leaf lies in own tile, OUTSIDE leaf in (iX+1, iY): same plane, other front
-                iFrontX = (pOpenDoorLeaf->ubWallOrientation == OUTSIDE_TOP_RIGHT) ? (INT16)(iX + 1) : iX;
+                bLit = (iStartY > iY - 1); // +Y face of the north-edge line
+                // INSIDE door is on the base tile, OUTSIDE door in (iX+1, iY): same plane, other front
+                iFrontX = (pOpenDoor->ubWallOrientation == OUTSIDE_TOP_RIGHT) ? (INT16)(iX + 1) : iX;
                 iFrontY = iY;
             }
             else
@@ -1278,7 +1276,7 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 	}
 }
 
-// Land gradient (Tier A): a tile's blitted pixels sample the ubShadeLevel of its E/S/SE
+// Land gradient: a tile's blitted pixels sample the ubShadeLevel of its E/S/SE
 // corner grids, so when a grid's land shade changes that grid AND the three grids that
 // sample it as a corner must be flagged for the marked-redraw pass (renderworld.cpp
 // only re-blits grids carrying MAPELEMENT_REDRAW on RENDER_FLAG_MARKED frames).
@@ -1338,7 +1336,7 @@ INT16 sSum;
 	sSum=__min(SHADE_MIN, sSum);
 	sSum=__max(SHADE_MAX, sSum);
 
-	// Land shade gradient (lightingsystem.md Tier A): the gradient blitter samples the
+	// Land gradient: the blitter samples the
 	// 4 corner tiles' ubShadeLevel, so a changed shade must force the background to be
 	// redrawn or neighbouring tiles keep pixels shaded from the stale corner value.
 	if (pNode->ubShadeLevel != (UINT8)sSum)
