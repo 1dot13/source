@@ -267,6 +267,11 @@ void MakeRemainingTerroristsTougher( void );
 void MakeRemainingAssassinsTougher( void );
 SOLDIERTYPE* SwapToProfile( SOLDIERTYPE * pSoldier, UINT8 ubDestProfile );
 
+// profiles that represent the SAME person under two MERCPROFILESTRUCTs, swapped
+// via SwapToProfile (Larry's sober/drunk halves, Buns' stable/PTSD halves).
+// Returns the other half of the pair, or NO_PROFILE for every other profile.
+UINT8 GetMercSwapPartner( UINT8 ubProfile );
+
 BOOLEAN DoesNPCOwnBuilding( SOLDIERTYPE *pSoldier, INT32 sGridNo );
 
 typedef struct

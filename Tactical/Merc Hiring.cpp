@@ -18,6 +18,7 @@
 	#include "strategicmap.h"
 	#include "strategic.h"
 	#include "Items.h"
+	#include "Soldier Add.h"
 	#include "history.h"
 	#include "Squads.h"
 	#include "Strategic Merc Handler.h"
@@ -622,6 +623,12 @@ void MercArrivesCallback( SoldierID ubSoldierID )
 
 BOOLEAN IsMercHireable( UINT8 ubMercID )
 {
+	// swap twins share one soldier: when the pair's SOLDIERTYPE rides on the
+	// partner profile, this profile represents the same (already hired) person
+	UINT8 ubPartner = GetMercSwapPartner( ubMercID );
+	if ( ubPartner != NO_PROFILE && IsMercOnTeam( ubPartner, FALSE, FALSE ) )
+		return(FALSE);
+
 	//If the merc has an .EDT file, is not away on assignment, and isnt already hired (but not arrived yet), he is not DEAD and he isnt returning home
 	if( ( gMercProfiles[ ubMercID ].bMercStatus == MERC_HAS_NO_TEXT_FILE ) ||
 			( gMercProfiles[ ubMercID ].bMercStatus > 0 ) ||

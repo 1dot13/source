@@ -2215,6 +2215,23 @@ BOOLEAN MercIsInTropicalSector( SOLDIERTYPE * pSoldier )
 		return( FALSE );
 }
 
+// See Soldier Profile.h.
+UINT8 GetMercSwapPartner( UINT8 ubProfile )
+{
+	switch ( ubProfile )
+	{
+		case LARRY_NORMAL:
+			return LARRY_DRUNK;
+		case LARRY_DRUNK:
+			return LARRY_NORMAL;
+		case BUNS:
+			return BUNS_CHAOTIC;
+		case BUNS_CHAOTIC:
+			return BUNS;
+	}
+	return NO_PROFILE;
+}
+
 SOLDIERTYPE* SwapToProfile( SOLDIERTYPE * pSoldier, UINT8 ubDestProfile )
 {
 	MERCPROFILESTRUCT* pNewProfile;
@@ -2407,6 +2424,13 @@ SOLDIERTYPE* SwapToProfile( SOLDIERTYPE * pSoldier, UINT8 ubDestProfile )
 	{
 		SetFactFalse( FACT_LARRY_CHANGED );
 	}
+
+	// the soldier's hire gate now lives on the destination profile -- neutralize the
+	// inactive one, otherwise a later dismissal/death (which writes the gate through
+	// the soldier's CURRENT profile only) strands a stale "hired" status on this
+	// profile: never hireable, never counting down, shown "on assignment" forever
+	gMercProfiles[ ubSrcProfile ].bMercStatus			= MERC_OK;
+	gMercProfiles[ ubSrcProfile ].uiDayBecomesAvailable	= 0;
 
 	DirtyMercPanelInterface( pSoldier, DIRTYLEVEL2 );
 
