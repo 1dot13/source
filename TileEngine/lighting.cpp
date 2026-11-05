@@ -513,6 +513,19 @@ static bool Window(STRUCTURE* pStruct)
 	return false;
 }
 
+// A wall piece with no orientation occupies its whole tile instead of one edge: it closes every
+// edge of its tile (see LightEdge*HasWall), so it has no camera-facing plane of its own.
+static bool FullTileWall(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_WALLSTUFF) && (flags & STRUCTURE_BLOCKSMOVES) &&
+		(pStruct->ubWallOrientation == NO_ORIENTATION) )
+	{
+		return(true);
+	}
+	return false;
+}
+
 // An open door does not block the doorway edge its structure guards: the door swings out
 // perpendicular to the wall plane, onto a neighbouring edge
 // Door on (x,y):  INSIDE_TOP_LEFT  -> west edge of (x,y);   OUTSIDE_TOP_LEFT  -> west  edge of (x,y+1)
@@ -569,6 +582,24 @@ static BOOLEAN LightOpenDoorLeafWest(INT16 iX, INT16 iY, BOOLEAN bOutside)
 	return(FALSE);
 }
 
+// TRUE if the tile is taken over by a whole-tile wall piece (FullTileWall).
+static BOOLEAN LightSolidTileAt(INT16 iX, INT16 iY)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( FullTileWall(pStruct) )
+			return(TRUE);
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
 // Shared-boundary edge tests:
 // _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile (the boundary it shares with (iX, iY+1))
 // _TOP_RIGHT piece closes its EAST edge (boundary with (iX+1, iY));
@@ -597,6 +628,9 @@ static BOOLEAN LightEdgeSouthHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 				case INSIDE_BOTTOM_CORNER:
 				case OUTSIDE_BOTTOM_CORNER:
 					return(TRUE);
+				case NO_ORIENTATION:
+					if ( pStruct->fFlags & STRUCTURE_BLOCKSMOVES )
+						return(TRUE);
 				default:
 					break;
 			}
@@ -632,6 +666,9 @@ static BOOLEAN LightEdgeEastHasWall(INT16 iX, INT16 iY, BOOLEAN bCountWindows)
 				case INSIDE_BOTTOM_CORNER:
 				case OUTSIDE_BOTTOM_CORNER:
 					return(TRUE);
+				case NO_ORIENTATION:
+					if ( pStruct->fFlags & STRUCTURE_BLOCKSMOVES )
+						return(TRUE);
 				default:
 				 break;
 			}
@@ -659,6 +696,13 @@ static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 
         return(FALSE);
 
     // Cardinal steps: the crossed edge belongs to whichever tile owns it
+
+    // A whole-tile wall piece occupies the tile instead of one of its edges, so its art sits on
+    // whichever side of the boundary the ray comes from: the edge probes below only see the tile
+    // that owns the edge, hence the tile being stepped into has to be probed as well.
+    if ( LightSolidTileAt(iX, iY) )
+        return(TRUE);
+
     if ( iDx == 0 )
     {
         // North / south: always a south edge
@@ -1015,6 +1059,9 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
     // but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
     bool fBillboardBlocker = false;
 
+    // Whole-tile wall pieces: no orientation, they take the tile over instead of one of its edges.
+    bool fFullTileWallPiece = false;
+
     const UINT16 usNodeOrient = gTileDatabase[pNode->usIndex].usWallOrientation;
 
     // An open door's leaf art hangs perpendicular to its wall plane: the door on (iX,iY) guards
@@ -1031,6 +1078,10 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
         if ( !(pStruct->fFlags & STRUCTURE_WALLSTUFF) && (Tree(pStruct) || TallStructure(pStruct)) )
         {
             fBillboardBlocker = true;
+        }
+        else if ( FullTileWall(pStruct) )
+        {
+            fFullTileWallPiece = true;
         }
         else if ( Opendoor(pStruct) && LightSameWallEdge(pStruct->ubWallOrientation, usNodeOrient) )
         {
@@ -1093,7 +1144,17 @@ static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, 
 
         default:
             // NO_ORIENTATION: fences/vegetation/rubble stay lit as before; ray-stopping billboards (trees, tall objects) only light from the camera half
-            bLit = fBillboardBlocker ? (iStartY > iY || iStartX > iX) : true;
+            if ( fFullTileWallPiece )
+            {
+                // Whole-tile block: its art fills the tile, so it shows the two camera-facing sides
+                // a BOTTOM_CORNER piece shows and needs the light to reach one of their front tiles.
+                bLit = ( (iStartY > iY && LightMarchClear(iStartX, iStartY, iX, (INT16)(iY + 1))) ||
+                         (iStartX > iX && LightMarchClear(iStartX, iStartY, (INT16)(iX + 1), iY)) );
+            }
+            else
+            {
+                bLit = fBillboardBlocker ? (iStartY > iY || iStartX > iX) : true;
+            }
             break;
     }
 
