@@ -59,7 +59,7 @@ BOOLEAN PalEditKeyboardHook( InputAtom *pInputEvent );
 void DebugRenderHook(	);
 BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent );
 INT8 gCurDebugPage = 0;
-
+UINT8 gCurrentStructure = 0;
 
 HVSURFACE			hVAnims[ 7 ];
 INT8					bTitleAnimFrame = 0;
@@ -746,6 +746,15 @@ BOOLEAN DebugKeyboardHook( InputAtom *pInputEvent )
 		}
 
 		FreeBackgroundRect( guiBackgroundRect );
+		gfInitRect = TRUE;
+
+	}
+
+	if ( (pInputEvent->usEvent == KEY_UP) && (pInputEvent->usParam == END) )
+	{
+		gCurrentStructure++;
+
+		FreeBackgroundRect(guiBackgroundRect);
 		gfInitRect = TRUE;
 
 	}

@@ -2564,19 +2564,6 @@ BOOLEAN SOLDIERTYPE::DeleteSoldier( void )
 		//if(this->pZBackground!=NULL)
 		//MemFree(this->pZBackground);
 
-		if ( !TileIsOutOfBounds( this->sGridNo ) )
-		{
-			// Remove adjacency records
-			for ( bDir = 0; bDir < NUM_WORLD_DIRECTIONS; bDir++ )
-			{
-				iGridNo = this->sGridNo + DirIncrementer[bDir];
-				if ( iGridNo >= 0 && iGridNo < WORLD_MAX )
-				{
-					gpWorldLevelData[iGridNo].ubAdjacentSoldierCnt--;
-				}
-			}
-		}
-
 		// Delete key ring
 		if ( this->pKeyRing )
 		{
@@ -4405,16 +4392,6 @@ void SOLDIERTYPE::InternalRemoveSoldierFromGridNo( BOOLEAN fForce )
 			RemoveMerc( this->sGridNo, this, FALSE );
 			this->HandleAnimationProfile( this->usAnimState, TRUE );
 
-			// Remove records of this guy being adjacent
-			for ( bDir = 0; bDir < NUM_WORLD_DIRECTIONS; bDir++ )
-			{
-				iGridNo = this->sGridNo + DirIncrementer[bDir];
-				if ( iGridNo >= 0 && iGridNo < WORLD_MAX )
-				{
-					gpWorldLevelData[iGridNo].ubAdjacentSoldierCnt--;
-				}
-			}
-
 			HandlePlacingRoofMarker( this, this->sGridNo, FALSE, FALSE );
 
 			// Remove reseved movement value
@@ -4661,12 +4638,6 @@ void SOLDIERTYPE::SetSoldierGridNo( INT32 sNewGridNo, BOOLEAN fForceRemove )
 		{
 			this->sInitialGridNo = sNewGridNo;
 			this->aiData.sPatrolGrid[0] = sNewGridNo;
-		}
-
-		// Add records of this guy being adjacent
-		for ( bDir = 0; bDir < NUM_WORLD_DIRECTIONS; bDir++ )
-		{
-			gpWorldLevelData[this->sGridNo + DirIncrementer[bDir]].ubAdjacentSoldierCnt++;
 		}
 
 		if ( !(this->flags.uiStatusFlags & (SOLDIER_DRIVER | SOLDIER_PASSENGER)) )

@@ -26,6 +26,7 @@
 #include "Buildings.h"
 #include "random.h"
 #include "Tile Animation.h"
+#include "lighting.h"		// for LightSpriteStateChangePre/Post around door open-close swaps
 // anv: for ramming people with vehicles
 #include "Soldier macros.h"
 #include "Overhead.h"
@@ -1351,6 +1352,20 @@ static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * p
 	}
 	pShadowNode = FindShadow( pBaseStructure->sGridNo, pLevelNode->usIndex );
 
+	// an open/closed door changes which light rays pass, so the nearby lights must be erased
+	// while the old state is still in effect and redrawn after the flip (see lighting.cpp)
+	BOOLEAN fLightRefresh = FALSE;
+	{
+	 if ( fDoor )
+	 {
+	 INT16 sDoorX = 0;
+	 INT16 sDoorY = 0;
+	 ConvertGridNoToXY( pBaseStructure->sGridNo, &sDoorX, &sDoorY );
+	 if ( LightSpriteStateChangePre( sDoorX, sDoorY ) )
+	 fLightRefresh = TRUE;
+	 }
+	}
+
 	// record values
 	bDelta = pBaseStructure->pDBStructureRef->pDBStructure->bPartnerDelta;
 	pPartnerDBStructure = pBaseStructure->pDBStructureRef + bDelta;
@@ -1367,6 +1382,15 @@ static STRUCTURE * InternalSwapStructureForPartner( INT32 sGridNo, STRUCTURE * p
 	{
 		return( NULL );
 	}
+	// and redraw them with the new door state in place
+	 if ( fLightRefresh )
+	 {
+	 INT16 sDoorX = 0;
+	 INT16 sDoorY = 0;
+	 ConvertGridNoToXY( pBaseStructure->sGridNo, &sDoorX, &sDoorY );
+	 LightSpriteStateChangePost( sDoorX, sDoorY );
+	 }
+
 	// set values in the new structure
 	pNewBaseStructure->ubHitPoints = ubHitPoints;
 	if (!fDoor)
@@ -1992,6 +2016,7 @@ INT8 DamageStructure( STRUCTURE * pStructure, UINT8 ubDamage, UINT8 ubReason, IN
 #define LINE_HEIGHT 20
 void DebugStructurePage1( void )
 {
+	extern UINT8 gCurrentStructure;
 	STRUCTURE *		pStructure;
 	STRUCTURE *		pBase;
 	//LEVELNODE *		pLand;
@@ -2033,71 +2058,87 @@ void DebugStructurePage1( void )
 	*/
 
 	pStructure = gpWorldLevelData[sGridNo].pStructureHead;
+	for ( bStructures = 0; pStructure != NULL; pStructure = pStructure->pNext )
+	{
+		if ( pStructure->sCubeOffset == sDesiredLevel )
+		{
+			bStructures++;
+		}
+	}
+
+	if ( gCurrentStructure >= bStructures )
+		gCurrentStructure = 0;
+
+	UINT8 counter = 0;
+	pStructure = gpWorldLevelData[sGridNo].pStructureHead;
 	while (pStructure != NULL)
 	{
-		if (pStructure->sCubeOffset == sDesiredLevel)
+		if (pStructure->sCubeOffset == sDesiredLevel && counter == gCurrentStructure)
 		{
 			break;
 		}
 		pStructure = pStructure->pNext;
+		counter++;
 	}
 
 	if (pStructure != NULL)
 	{
-		if (pStructure->fFlags & STRUCTURE_GENERIC)
+		const auto flags = pStructure->fFlags;
+
+		if (flags & STRUCTURE_GENERIC)
 		{
-			gprintf( 0, LINE_HEIGHT * 1, L"Generic structure %x #%d", pStructure->fFlags, pStructure->pDBStructureRef->pDBStructure->usStructureNumber );
+			gprintf( 0, LINE_HEIGHT * 1, L"Generic structure %x #%d", flags, pStructure->pDBStructureRef->pDBStructure->usStructureNumber );
 		}
-		else if (pStructure->fFlags & STRUCTURE_TREE)
+		else if (flags & STRUCTURE_TREE)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Tree");
 		}
-		else if (pStructure->fFlags & STRUCTURE_WALL)
+		else if (flags & STRUCTURE_WALL)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Wall with orientation %s", WallOrientationString[pStructure->ubWallOrientation] );
 		}
-		else if (pStructure->fFlags & STRUCTURE_WALLNWINDOW)
+		else if (flags & STRUCTURE_WALLNWINDOW)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Wall with window" );
 		}
-		else if (pStructure->fFlags & STRUCTURE_VEHICLE)
+		else if (flags & STRUCTURE_VEHICLE)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Vehicle %d", pStructure->pDBStructureRef->pDBStructure->usStructureNumber );
 		}
-		else if (pStructure->fFlags & STRUCTURE_NORMAL_ROOF)
+		else if (flags & STRUCTURE_NORMAL_ROOF)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Roof" );
 		}
-		else if (pStructure->fFlags & STRUCTURE_SLANTED_ROOF)
+		else if (flags & STRUCTURE_SLANTED_ROOF)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Slanted roof" );
 		}
-		else if (pStructure->fFlags & STRUCTURE_DOOR)
+		else if (flags & STRUCTURE_DOOR)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"Door with orientation %s", WallOrientationString[pStructure->ubWallOrientation] );
 		}
-		else if (pStructure->fFlags & STRUCTURE_SLIDINGDOOR)
+		else if (flags & STRUCTURE_SLIDINGDOOR)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"%s sliding door with orientation %s",
-				(pStructure->fFlags & STRUCTURE_OPEN) ? L"Open" : L"Closed",
+				(flags & STRUCTURE_OPEN) ? L"Open" : L"Closed",
 				WallOrientationString[pStructure->ubWallOrientation] );
 		}
-		else if (pStructure->fFlags & STRUCTURE_DDOOR_LEFT)
+		else if (flags & STRUCTURE_DDOOR_LEFT)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"DDoorLft with orientation %s", WallOrientationString[pStructure->ubWallOrientation] );
 		}
-		else if (pStructure->fFlags & STRUCTURE_DDOOR_RIGHT)
+		else if (flags & STRUCTURE_DDOOR_RIGHT)
 		{
 			gprintf( 0, LINE_HEIGHT * 1, L"DDoorRt with orientation %s", WallOrientationString[pStructure->ubWallOrientation] );
 		}
-		else if (pStructure->fFlags & STRUCTURE_PERSON)
+		else if (flags & STRUCTURE_PERSON)
 		{
 			if (pStructure->pDBStructureRef != NULL && pStructure->pDBStructureRef->pDBStructure != NULL)
 				gprintf( 0, LINE_HEIGHT * 1, L"PersonStructure with StructureNumber %d", pStructure->pDBStructureRef->pDBStructure->usStructureNumber );
 		}
 		else
 		{
-			gprintf( 0, LINE_HEIGHT * 1, L"UNKNOWN STRUCTURE! (%x)", pStructure->fFlags );
+			gprintf( 0, LINE_HEIGHT * 1, L"UNKNOWN STRUCTURE! (%x)", flags );
 		}
 		bHeight = StructureHeight( pStructure );
 		pBase = FindBaseStructure( pStructure );
@@ -2113,11 +2154,82 @@ void DebugStructurePage1( void )
 		#endif
 
 		pStructure = gpWorldLevelData[sGridNo].pStructureHead;
-		for ( bStructures = 0; pStructure != NULL; pStructure = pStructure->pNext)
+		UINT8 totalStructures = 0;
+		for ( totalStructures; pStructure != NULL; pStructure = pStructure->pNext)
 		{
-			bStructures++;
+			totalStructures++;
 		}
-		gprintf( 0, LINE_HEIGHT * 12, L"Number of structures = %d", bStructures );
+		gprintf(0, LINE_HEIGHT * 5, L"Number of structures on current level = %d", bStructures);
+		gprintf( 0, LINE_HEIGHT * 6, L"Number of structures on tile = %d", totalStructures);
+
+		{
+			gprintf(0, LINE_HEIGHT * 7, L"Structure flags");
+
+			auto lineNo = 8;
+			if ( flags & STRUCTURE_BASE_TILE )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_BASE_TILE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_OPEN )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_OPEN");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_OPENABLE )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_OPENABLE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_PASSABLE )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_PASSABLE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_EXPLOSIVE )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_EXPLOSIVE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_TRANSPARENT )
+			{
+				gprintf(0, LINE_HEIGHT * lineNo, L"STRUCTURE_TRANSPARENT");
+				lineNo++;
+			}
+
+			lineNo = 8;
+			const auto x = 220;
+			if ( flags & STRUCTURE_FENCE )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_FENCE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_WIREFENCE )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_WIREFENCE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_SPECIAL )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_SPECIAL");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_LIGHTSOURCE )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_LIGHTSOURCE");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_SWITCH )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_SWITCH");
+				lineNo++;
+			}
+			if ( flags & STRUCTURE_HASITEMONTOP )
+			{
+				gprintf(x, LINE_HEIGHT * lineNo, L"STRUCTURE_HASITEMONTOP");
+				lineNo++;
+			}
+		}
 	}
 	#ifdef LOS_DEBUG
 		if (gLOSTestResults.fLOSTestPerformed)
@@ -2171,9 +2283,6 @@ void DebugStructurePage1( void )
 			100 * guiUnsuccessfulPathChecks / guiTotalPathChecks );
 
 	}
-	#else
-	gprintf( 0, LINE_HEIGHT * 16,
-		L"Adj soldiers %d", gpWorldLevelData[sGridNo].ubAdjacentSoldierCnt );
 	#endif
 }
 

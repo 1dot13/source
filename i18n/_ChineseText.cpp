@@ -6636,6 +6636,7 @@ STR16		zOptionsToggleText[] =
 	L"显示已知敌人位置",			//L"Show enemy location", show locator on last known enemy location
 	L"准心开始时为最大",	// L"Start at maximum aim",
 	L"替换新的寻路方式",	// L"Alternative pathfinding",
+	L"Improved lighting",
 	L"--作弊模式选项--",				// TOPTION_CHEAT_MODE_OPTIONS_HEADER,
 	L"强制 Bobby Ray 送货",				// force all pending Bobby Ray shipments
 	L"-----------------",				// TOPTION_CHEAT_MODE_OPTIONS_END
@@ -6757,6 +6758,7 @@ STR16	zOptionsScreenHelpText[] =
 	L"打开时，会显示已知敌人最后移动的位置。",	//L"When ON, shows last known enemy location.",    
 	L"打开时，默认瞄准值为最大，而不是无。",	//L"When ON, aiming at enemy will start at maximum aiming instead of default no aim",
 	L"打开时，使用A*寻路算法，而不是原始算法。",	//L"When ON, Use A* pathfinding algorithm, instead of original",
+	L"When ON, the ingame lighting will be more detailed. Does not affect gameplay visibility",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_HEADER",
 	L"强制 Bobby Ray 出货",
 	L"(text not rendered)TOPTION_CHEAT_MODE_OPTIONS_END",

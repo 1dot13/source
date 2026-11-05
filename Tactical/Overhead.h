@@ -175,6 +175,7 @@ extern SoldierID    gusSelectedSoldier;
 extern CHAR8    gzAlertStr[][ 30 ];
 extern CHAR8    gzActionStr[][ 30 ];
 extern CHAR8    gzDirectionStr[][ 30 ];
+extern CHAR8    gzWorldDirectionStr[][30];
 
 // TEMP FOR E3
 extern UINT8    gubCurrentScene;

@@ -155,6 +155,10 @@ BOOLEAN		LightSpriteRenderAll(void);
 BOOLEAN		LightSpritePower(INT32 iSprite, BOOLEAN fOn);
 // Moves light to/from roof position
 BOOLEAN		LightSpriteRoofStatus(INT32 iSprite, BOOLEAN fOnRoof);
+// Erase/redraw every light whose template covers this tile: bracket a door open/close flip with
+// Pre (before the flip, old state) and Post (after the flip, new state)
+BOOLEAN		LightSpriteStateChangePre(INT16 iX, INT16 iY);
+BOOLEAN		LightSpriteStateChangePost(INT16 iX, INT16 iY);
 
 // Reveals translucent walls
 BOOLEAN		CalcTranslucentWalls(INT16 iX, INT16 iY);
@@ -162,7 +166,7 @@ BOOLEAN		ApplyTranslucencyToWalls(INT16 iX, INT16 iY);
 // Makes trees translucent
 BOOLEAN		LightTranslucentTrees(INT16 iX, INT16 iY);
 BOOLEAN		LightHideTrees(INT16 iX, INT16 iY);
-BOOLEAN		LightShowRays(INT16 iX, INT16 iY, BOOLEAN fReset);
+BOOLEAN		LightShowRays(INT16 iX, INT16 iY);
 BOOLEAN		LightHideRays(INT16 iX, INT16 iY);
 
 
@@ -188,6 +192,8 @@ extern INT16						LightMapTop[MAX_LIGHT_TEMPLATES];
 extern INT16						LightMapRight[MAX_LIGHT_TEMPLATES];
 extern INT16						LightMapBottom[MAX_LIGHT_TEMPLATES];
 extern STR							pLightNames[MAX_LIGHT_TEMPLATES];
+extern UINT8	 gLightDebugSelection;
+extern bool gLightDebugReset;
 
 // Sprite data
 extern LIGHT_SPRITE			LightSprites[MAX_LIGHT_SPRITES];

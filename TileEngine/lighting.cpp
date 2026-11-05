@@ -1,4 +1,3 @@
-
 /****************************************************************************************
 * JA2 Lighting Module
 *
@@ -27,6 +26,9 @@
 	#include "Shade Table Util.h"
 	#include "Rotting Corpses.h"
 	#include "PATHAI.H"
+#include "message.h"
+#include "LOS.h"
+#include "Debug Control.h"
 
 #define LVL1_L1_PER			(50)
 #define LVL1_L2_PER			(50)
@@ -36,35 +38,10 @@
 
 
 #define LIGHT_TREE_REVEAL		5						// width of rect
-
-
-// Local-use only prototypes
-
-
-BOOLEAN				LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY);
-BOOLEAN				LightDraw(UINT32 uiLightType, INT32 iLight, INT16 iX, INT16 iY, UINT32 uiSprite);
-BOOLEAN				LightDelete(INT32 iLight);
-INT32					LightGetFree(void);
-INT32					LinearDistance(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2);
-DOUBLE				LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2);
-BOOLEAN				LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls );
-BOOLEAN				LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls );
-BOOLEAN				LightResetTile(INT16 iX, INT16 iY);
-BOOLEAN				LightSetTile(INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiLightType);
-BOOLEAN				LightSetNaturalTile(INT16 iX, INT16 iY, UINT8 ubShade);
-UINT16				LightGetLastNode(INT32 iLight);
-BOOLEAN				LightAddNode(INT32 iLight, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags);
-BOOLEAN				LightInsertNode(INT32 iLight, UINT16 usLightIns, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags);
-UINT16				LightFindNextRay(INT32 iLight, UINT16 usIndex);
-BOOLEAN				LightCastRay(INT32 iLight, INT16 iStartX, INT16 iStartY, INT16 iEndPointX, INT16 iEndPointY, UINT8 ubStartIntens, UINT8 ubEndIntens);
-BOOLEAN				LightGenerateElliptical(INT32 iLight, UINT8 iIntensity, INT16 iA, INT16 iB);
-BOOLEAN				LightGenerateBeam(INT32 iLight, UINT8 iIntensity, INT16 iLength, INT16 iRadius, INT16 iDirection);
-BOOLEAN				LightCalcRect(INT32 iLight);
-BOOLEAN				LightIlluminateWall(INT16 iSourceX, INT16 iSourceY, INT16 iTileX, INT16 iTileY, LEVELNODE *pStruct);
-BOOLEAN				LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY );
-
-INT32					LightSpriteGetFree(void);
-BOOLEAN				LightSpriteDirty(INT32 iLight);
+#define	LIGHT_STRUCT_HEIGHT_CUTOFF	2 // structures taller than this block light, in height cubes, 1-4
+#define LIGHT_TREE_HEIGHT_CUTOFF 3
+#define	LIGHT_SOFTBLOCK_DIM 6 // % of ray intensity consumed by one soft blocker (tall grass)
+constexpr bool LogRays {false}; // Log ray traversal for debug
 
 // Top node of linked lists, NULL = FREE
 LIGHT_NODE	*pLightList[MAX_LIGHT_TEMPLATES];
@@ -209,7 +186,8 @@ void LoadShadeTablesFromTextFile()
 
 // Debug variable
 UINT32	gNodesAdded=0;
-
+UINT8 gLightDebugSelection = 0;
+bool gLightDebugReset = false;
 /****************************************************************************************
  InitLightingSystem
 
@@ -260,6 +238,43 @@ BOOLEAN SetDefaultWorldLightingColors(void)
 	LightSetColors(&pPal[0], 1);
 
 	return(TRUE);
+}
+
+/****************************************************************************************
+ LightDelete
+
+	Removes a light template from the list, and frees up the associated node memory.
+
+***************************************************************************************/
+static BOOLEAN LightDelete(INT32 iLight)
+{
+	if ( pLightList[iLight] != NULL )
+	{
+		if ( pLightList[iLight] != NULL )
+		{
+			MemFree(pLightList[iLight]);
+			pLightList[iLight] = NULL;
+		}
+
+		if ( pLightRayList[iLight] != NULL )
+		{
+			MemFree(pLightRayList[iLight]);
+			pLightRayList[iLight] = NULL;
+		}
+
+		if ( pLightNames[iLight] != NULL )
+		{
+			MemFree(pLightNames[iLight]);
+			pLightNames[iLight] = NULL;
+		}
+
+		usTemplateSize[iLight] = 0;
+		usRaySize[iLight] = 0;
+
+		return(TRUE);
+	}
+	else
+		return(FALSE);
 }
 
 /****************************************************************************************
@@ -323,7 +338,7 @@ UINT32 uiCount;
 	returned.
 
 ***************************************************************************************/
-UINT16 LightCreateTemplateNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight)
+static UINT16 LightCreateTemplateNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight)
 {
 UINT16 usNumNodes;
 
@@ -363,7 +378,7 @@ UINT16 usNumNodes;
 	Returns the index into the list.
 
 ***************************************************************************************/
-UINT16 LightAddTemplateNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight)
+static UINT16 LightAddTemplateNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight)
 {
 UINT16 usCount;
 
@@ -386,7 +401,7 @@ UINT16 usCount;
 	Adds a node to the ray casting list.
 
 ***************************************************************************************/
-UINT16 LightAddRayNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight, UINT16 usFlags)
+static UINT16 LightAddRayNode(INT32 iLight, INT16 iX, INT16 iY, UINT8 ubLight, UINT16 usFlags)
 {
 UINT16 usNumNodes;
 
@@ -418,7 +433,7 @@ UINT16 usNumNodes;
 	Adds a node to the ray casting list.
 
 ***************************************************************************************/
-UINT16 LightInsertRayNode(INT32 iLight, UINT16 usIndex, INT16 iX, INT16 iY, UINT8 ubLight, UINT16 usFlags)
+static UINT16 LightInsertRayNode(INT32 iLight, UINT16 usIndex, INT16 iX, INT16 iY, UINT8 ubLight, UINT16 usFlags)
 {
 UINT16 usNumNodes;
 
@@ -451,51 +466,483 @@ UINT16 usNumNodes;
 	}
 }
 
+
+/****************************************************************************************
+ Helper functions for structures
+***************************************************************************************/
+static bool TallStructure(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( StructureHeight(pStruct) > LIGHT_STRUCT_HEIGHT_CUTOFF &&
+		!(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE || flags & STRUCTURE_WIREFENCE) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Tree(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_TREE) && !(flags & STRUCTURE_PASSABLE) && StructureHeight(pStruct) > LIGHT_TREE_HEIGHT_CUTOFF )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Opendoor(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_ANYDOOR) && (flags & STRUCTURE_OPEN) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+static bool Window(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	// Has a window, doesn't block unless marked as special
+	if ( (flags & STRUCTURE_WALLNWINDOW) && !(flags & STRUCTURE_SPECIAL) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+// A wall with no orientation occupies its whole tile instead of one edge and closes every
+// edge of its tile, so it has no camera-facing plane of its own.
+static bool FullTileWall(STRUCTURE* pStruct)
+{
+	const auto flags = pStruct->fFlags;
+	if ( (flags & STRUCTURE_WALLSTUFF) && (flags & STRUCTURE_BLOCKSMOVES) &&
+		(pStruct->ubWallOrientation == NO_ORIENTATION) )
+	{
+		return(true);
+	}
+	return false;
+}
+
+// An open door does not block the doorway edge its structure guards: the door swings out
+// perpendicular to the wall plane, onto a neighbouring edge
+// Door on (x,y):  INSIDE_TOP_LEFT  -> west edge of (x,y);   OUTSIDE_TOP_LEFT  -> west  edge of (x,y+1)
+//                INSIDE_TOP_RIGHT -> north edge of (x,y);   OUTSIDE_TOP_RIGHT -> north edge of (x+1,y)
+// On OUTSIDE oriented doors, the frame at the wall tile has flag STRUCTURE_BASE_TILE, which the open door structure lacks
+// INSIDE doors are on the base tile, so BASE_TILE must stay accepted there.
+static BOOLEAN OpenDoorBlocksLight(const INT16 iX, const INT16 iY, const bool northToSouth)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		const bool openDoor = Opendoor(pStruct);
+		const bool baseTile = pStruct->fFlags & STRUCTURE_BASE_TILE;
+		const auto orientation = pStruct->ubWallOrientation;
+
+        if ( openDoor )
+        {
+            if ( northToSouth )
+            {
+                if ( baseTile && orientation == INSIDE_TOP_RIGHT )
+                {
+                    return true;
+                }
+                else if ( !baseTile && orientation == OUTSIDE_TOP_RIGHT )
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                if ( baseTile && orientation == INSIDE_TOP_LEFT )
+                {
+                    return true;
+                }
+                else if ( !baseTile && orientation == OUTSIDE_TOP_LEFT )
+                {
+                    return true;
+                }
+            }
+		}
+
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+// Shared-boundary edge tests:
+// _TOP_LEFT piece on (iX,iY) closes the SOUTH edge of that tile (the boundary it shares with (iX, iY+1))
+// _TOP_RIGHT piece closes its EAST edge (boundary with (iX+1, iY));
+// _BOTTOM_CORNER carries both. Closed doors use the same edges;
+// Open door instead closes the edge it swings onto, which can belong to a neighbouring tile,
+// so it is tested separately.
+// Windows only count when bCountWindows asks for a face rather than a ray blocker.
+static BOOLEAN LightEdgeHasWallSouth(const INT16 iX, const INT16 iY, const BOOLEAN bCountWindows)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		const bool nonTransparentWall = pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT);
+		const bool countWindows = bCountWindows || !Window(pStruct);
+		const auto closedDoorOrCorner = (!Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER || pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER);
+		const auto orientation = pStruct->ubWallOrientation;
+
+		if ( nonTransparentWall && countWindows &&  closedDoorOrCorner)
+		{
+			switch ( orientation )
+			{
+				case INSIDE_TOP_LEFT:
+				case OUTSIDE_TOP_LEFT:
+				case INSIDE_BOTTOM_CORNER:
+				case OUTSIDE_BOTTOM_CORNER:
+					return(TRUE);
+				case NO_ORIENTATION:
+					if ( pStruct->fFlags & STRUCTURE_BLOCKSMOVES )
+						return(TRUE);
+				default:
+					break;
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	// an open TOP_RIGHT door on (iX, iY+1) swings its door onto its own tile's north edge = this edge
+	return OpenDoorBlocksLight(iX, iY + 1, true);
+}
+
+static BOOLEAN LightEdgeHasWallEast(const INT16 iX, const INT16 iY, const BOOLEAN bCountWindows)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		const bool nonTransparentWall = pStruct->fFlags & STRUCTURE_WALLSTUFF && !(pStruct->fFlags & STRUCTURE_TRANSPARENT);
+		const bool countWindows = bCountWindows || !Window(pStruct);
+		const auto closedDoorOrCorner = (!Opendoor(pStruct) || pStruct->ubWallOrientation == INSIDE_BOTTOM_CORNER || pStruct->ubWallOrientation == OUTSIDE_BOTTOM_CORNER);
+		const auto orientation = pStruct->ubWallOrientation;
+
+		if ( nonTransparentWall && countWindows && closedDoorOrCorner )
+		{
+
+			switch ( orientation )
+			{
+				case INSIDE_TOP_RIGHT:
+				case OUTSIDE_TOP_RIGHT:
+				case INSIDE_BOTTOM_CORNER:
+				case OUTSIDE_BOTTOM_CORNER:
+					return(TRUE);
+				case NO_ORIENTATION:
+					if ( pStruct->fFlags & STRUCTURE_BLOCKSMOVES )
+						return(TRUE);
+				default:
+				 break;
+			}
+		}
+		pStruct = pStruct->pNext;
+	}
+
+	// an open TOP_LEFT door on (iX+1, iY) swings its door onto its own tile's west edge = this edge
+	if ( OpenDoorBlocksLight(iX + 1, iY, false) )
+		return(TRUE);
+
+	return(FALSE);
+}
+
+
+
+// TRUE if the tile is taken over by a whole-tile wall piece (FullTileWall).
+static BOOLEAN LightSolidTileAt(INT16 iX, INT16 iY)
+{
+	const auto uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		if ( FullTileWall(pStruct) )
+			return(TRUE);
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
+}
+
+// TRUE if a wall closes the boundary the ray crosses stepping from iPrevX/iPrevY into
+// iX/iY. Cardinal steps cross one edge; diagonal steps pass through the vertex shared by the
+// four tiles and are closed by any wall edge meeting it, mirroring how movement costs treat
+// diagonal wall corners.
+static BOOLEAN LightStepWallBlocked(INT16 iPrevX, INT16 iPrevY, INT16 iX, INT16 iY, BOOLEAN bCountWindows)
+{
+    const INT16 iDx = (INT16)(iX - iPrevX);
+    const INT16 iDy = (INT16)(iY - iPrevY);
+
+    if ( iDx == 0 && iDy == 0 )
+        return(FALSE);
+
+    // Cardinal steps: the crossed edge belongs to whichever tile owns it
+
+    // A whole-tile wall piece occupies the tile instead of one of its edges, so its art sits on
+    // whichever side of the boundary the ray comes from: the edge probes below only see the tile
+    // that owns the edge, hence the tile being stepped into has to be probed as well.
+    if ( LightSolidTileAt(iX, iY) )
+        return(TRUE);
+
+    if ( iDx == 0 )
+    {
+        // North / south: always a south edge
+        return(iDy > 0 ? LightEdgeHasWallSouth(iPrevX, iPrevY, bCountWindows) : LightEdgeHasWallSouth(iX, iY, bCountWindows));
+    }
+
+    if ( iDy == 0 )
+    {
+        // East / west: always an east edge
+		return(iDx > 0 ? LightEdgeHasWallEast(iPrevX, iPrevY, bCountWindows) : LightEdgeHasWallEast(iX, iY, bCountWindows));
+    }
+
+    // Diagonal: vertex corner between the two tiles
+    const INT16 iCornerX = (INT16)(iPrevX + (iDx > 0 ? 1 : 0));
+    const INT16 iCornerY = (INT16)(iPrevY + (iDy > 0 ? 1 : 0));
+
+    if ( LightEdgeHasWallSouth(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeHasWallSouth(iCornerX, iCornerY - 1, bCountWindows) )
+        return(TRUE);
+
+	return(LightEdgeHasWallEast(iCornerX - 1, iCornerY - 1, bCountWindows) || LightEdgeHasWallEast(iCornerX - 1, iCornerY, bCountWindows));
+}
+
+// TRUE if both orientation values describe the same wall edge: the inside/outside bit only says
+// which side of the boundary the piece sits on, so an open door structure and the art tile it moved
+// onto can disagree in that bit while guarding the same edge.
+static BOOLEAN LightSameWallEdge(UINT16 usA, UINT16 usB)
+{
+    if ( usA == usB )
+        return(TRUE);
+
+    const bool bAL = ( usA == INSIDE_TOP_LEFT || usA == OUTSIDE_TOP_LEFT );
+    const bool bAR = ( usA == INSIDE_TOP_RIGHT || usA == OUTSIDE_TOP_RIGHT );
+    const bool bBL = ( usB == INSIDE_TOP_LEFT || usB == OUTSIDE_TOP_LEFT );
+    const bool bBR = ( usB == INSIDE_TOP_RIGHT || usB == OUTSIDE_TOP_RIGHT );
+
+    return( (bAL && bBL) || (bAR && bBR) );
+}
+
+// TRUE if a straight march from the light origin into (iX,iY) crosses no wall edge. Deliberately
+// origin-based, never the ray's previous tile, so the add pass (LightAddTile) and the erase pass
+// (LightSubtractTile) make identical decisions and shades cannot leak.
+static BOOLEAN LightMarchClear(INT16 iStartX, INT16 iStartY, INT16 iX, INT16 iY)
+{
+    INT16 iCurX = iStartX;
+    INT16 iCurY = iStartY;
+    const INT16 iDx = (INT16)(iX - iCurX);
+    const INT16 iDy = (INT16)(iY - iCurY);
+    const INT16 iAbsX = (INT16)(iDx < 0 ? -iDx : iDx);
+    const INT16 iAbsY = (INT16)(iDy < 0 ? -iDy : iDy);
+    const INT16 iSteps = (iAbsX > iAbsY ? iAbsX : iAbsY);
+    if ( iSteps == 0 )
+        return(TRUE);
+
+    const INT16 iSX = (iDx > 0 ? 1 : (iDx < 0 ? -1 : 0));
+    const INT16 iSY = (iDy > 0 ? 1 : (iDy < 0 ? -1 : 0));
+    INT32 iErr = 0;
+    for (INT32 k = 0; k < iSteps; ++k)
+    {
+        INT16 iNextX, iNextY;
+        if ( iAbsX >= iAbsY )
+        {
+            iNextX = (INT16)(iCurX + iSX);
+            iNextY = iCurY;
+            iErr += (INT32)iAbsY * 2;
+            if ( iErr > (INT32)iAbsX )
+            {
+                iNextY = (INT16)(iCurY + iSY);
+                iErr -= (INT32)iAbsX * 2;
+            }
+        }
+        else
+        {
+            iNextY = (INT16)(iCurY + iSY);
+            iNextX = iCurX;
+            iErr += (INT32)iAbsX * 2;
+            if ( iErr > (INT32)iAbsY )
+            {
+                iNextX = (INT16)(iCurX + iSX);
+                iErr -= (INT32)iAbsY * 2;
+            }
+        }
+
+        if ( LightStepWallBlocked(iCurX, iCurY, iNextX, iNextY, FALSE) )
+            return(FALSE);
+        iCurX = iNextX;
+        iCurY = iNextY;
+    }
+    return(TRUE);
+}
+
 /****************************************************************************************
  LightTileBlocked
 
 	Returns TRUE/FALSE if the tile at the specified tile number can block light.
 
 ***************************************************************************************/
-BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
+static BOOLEAN LightTileBlocked(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
 {
-UINT32 uiTileNo, uiSrcTileNo;
+    Assert(gpWorldLevelData != NULL);
 
-	Assert(gpWorldLevelData!=NULL);
+	const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+	const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
-	uiTileNo=MAPROWCOLTOPOS(iY, iX);
-	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+    if ( TileIsOutOfBounds(uiTileNo) )
+        return(FALSE);
 
-	if (TileIsOutOfBounds(uiTileNo))
+    if ( TileIsOutOfBounds(uiSrcTileNo) )
+        return(FALSE);
+
+	if ( TileIsOutOfBounds(uiStartTileNo) )
+		return(FALSE);
+
+    if ( gpWorldLevelData[uiTileNo].sHeight > gpWorldLevelData[uiSrcTileNo].sHeight )
+        return(TRUE);
+
+    // Every ray starts on the light's own tile: blocking that tile kills the whole template, so
+    // the centre node must never count as a blocker (walls there are tested against the step
+    // out of it, see LightStepWallBlocked).
+    if ( uiTileNo == uiSrcTileNo )
+        return(FALSE);
+
+    // Walls live on tile boundaries: only a piece that closes the boundary between the ray's
+    // previous tile and this one stops the ray. Rays running away from or parallel to a wall
+    // keep their light, which is what made the template vanish when the soldier stood with
+    // wall art on his own tile.
+	const bool bStepAdjacent = (iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1);
+	if ( bStepAdjacent )
 	{
-		return( FALSE );
-	}
-
-	if (TileIsOutOfBounds(uiSrcTileNo))
-	{
-		return( FALSE );
-	}
-
-	if(gpWorldLevelData[ uiTileNo ].sHeight > gpWorldLevelData[ uiSrcTileNo ].sHeight)
-		return(TRUE);
-	{
-		UINT32 uiTileNo;
-		LEVELNODE *pStruct;
-
-		uiTileNo=MAPROWCOLTOPOS(iY, iX);
-
-		pStruct = gpWorldLevelData[ uiTileNo ].pStructHead;
-		if ( pStruct != NULL )
+		if ( LightStepWallBlocked(iSrcX, iSrcY, iX, iY, FALSE) )
 		{
-			// IF WE ARE A WINDOW, DO NOT BLOCK!
-			if ( FindStructure( uiTileNo, STRUCTURE_WALLNWINDOW ) != NULL )
+			if ( LogRays )
 			{
-				return( FALSE );
+				CHAR8 zLightLogBuf[96];
+				sprintf(zLightLogBuf, "BLOCK_SRC %d,%d->%d,%d edge N=%d E=%d",
+					iSrcX, iSrcY, iX, iY,
+					(iX == iSrcX) ? (iY < iSrcY ? 1 : 0) : 0,
+					(iY == iSrcY) ? (iX > iSrcX ? 1 : 0) : 0);
+				LiveMessage(zLightLogBuf);
 			}
+			return(TRUE);
 		}
 	}
 
-	return(LightTileHasWall( iSrcX, iSrcY, iX, iY));
+	// finds a structure that matches any of the given flags
+    STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+    while ( pStruct != NULL )
+    {
+		const auto flags = pStruct->fFlags;
+        // Found a wall
+        if ( flags & STRUCTURE_WALLSTUFF )
+        {
+            // For a single step the boundary test above already decided this piece: glass, open
+            // doors and walls on any other edge let the ray through, and this piece must not be
+            // caught by the Tree / TallStructure height tests below either.
+            if ( !bStepAdjacent )
+            {
+                if ( Window(pStruct) )
+                {
+                    return(false);
+                }
+
+                if ( Opendoor(pStruct) )
+                {
+                    pStruct = pStruct->pNext;
+                    continue;
+                }
+
+                return true;
+            }
+
+            pStruct = pStruct->pNext;
+            continue;
+        }
+
+        if ( Tree(pStruct) )
+        {
+            return(true);
+        }
+
+		if ( TallStructure(pStruct) )
+		{
+			return(true);
+		}
+
+        pStruct = pStruct->pNext;
+    }
+
+    return false;
+}
+
+// Prototype: soft (translucent) light blocker. Dims the ray instead of blocking it.
+static BOOLEAN LightSoftBlock(INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY)
+{
+	const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+	const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
+
+	if ( TileIsOutOfBounds(uiTileNo) )
+		return(FALSE);
+	if ( TileIsOutOfBounds(uiStartTileNo) )
+		return(FALSE);
+	if ( uiTileNo == uiStartTileNo )
+		return(FALSE);
+
+
+	// finds a structure that matches any of the given flags
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
+	{
+		const auto flags = pStruct->fFlags;
+		// Tall grass, which is a passable tree & shorter trees
+		if ( flags & STRUCTURE_TREE && (flags & STRUCTURE_PASSABLE || StructureHeight(pStruct) <= LIGHT_TREE_HEIGHT_CUTOFF) )
+		{
+			return true;
+		}
+
+        if ( StructureHeight(pStruct) <= LIGHT_STRUCT_HEIGHT_CUTOFF &&
+            !(flags & STRUCTURE_PERSON || flags & STRUCTURE_ROOF || flags & STRUCTURE_PASSABLE) )
+        {
+            // A solid wall is not a soft block:
+            // otherwise rays running parallel to a wall dim one notch per wall tile they pass. An open door is
+			// left out for the same reason: it's handled in LightEdge* tests
+            if ( !(flags & STRUCTURE_WALLSTUFF && !(flags & STRUCTURE_TRANSPARENT)) || Window(pStruct) )
+            {
+                return(true);
+            }
+        }
+
+		if ( flags & STRUCTURE_WIREFENCE )
+		{
+			return(true);
+		}
+
+		if ( flags & STRUCTURE_FENCE )
+		{
+			return(true);
+		}
+
+		pStruct = pStruct->pNext;
+	}
+
+	return(FALSE);
 }
 
 /****************************************************************************************
@@ -504,21 +951,12 @@ UINT32 uiTileNo, uiSrcTileNo;
 	Returns TRUE/FALSE if the tile at the specified coordinates contains a wall.
 
 ***************************************************************************************/
-BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
+static BOOLEAN LightTileHasWall( INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY)
 {
-//LEVELNODE *pStruct;
-//UINT32 uiType;
-UINT32 uiTileNo;
-UINT32 uiSrcTileNo;
-INT8		bDirection;
-UINT8		ubTravelCost;
-//INT8		bWallCount = 0;
-//UINT16	usWallOrientation;
-
 	Assert(gpWorldLevelData!=NULL);
 
-	uiTileNo=MAPROWCOLTOPOS(iY, iX);
-	uiSrcTileNo=MAPROWCOLTOPOS(iSrcY, iSrcX);
+    const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+    const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
 
 	if ( uiTileNo == uiSrcTileNo )
 	{
@@ -535,68 +973,203 @@ UINT8		ubTravelCost;
 		return( FALSE );
 	}
 
-	// Get direction
-	//bDirection = atan8( iX, iY, iSrcX, iSrcY );
-	bDirection = atan8( iSrcX, iSrcY, iX, iY );
 
+	// Only the step the ray takes into this tile is known here; farther out keep legacy shading.
+	const bool bStepAdjacent = ( iX >= iSrcX - 1 && iX <= iSrcX + 1 && iY >= iSrcY - 1 && iY <= iSrcY + 1 );
 
-	ubTravelCost = gubWorldMovementCosts[ uiTileNo ][ bDirection ][ 0 ];
-
-	if ( ubTravelCost == TRAVELCOST_WALL	)
+	STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+	while ( pStruct != NULL )
 	{
-		return( TRUE );
-	}
-
-	if ( IS_TRAVELCOST_DOOR( ubTravelCost ) )
-	{
-		ubTravelCost = DoorTravelCost( NULL, uiTileNo, ubTravelCost, TRUE, NULL );
-
-		if ( ubTravelCost == TRAVELCOST_OBSTACLE || ubTravelCost == TRAVELCOST_DOOR )
+		const auto flags = pStruct->fFlags;
+		// Found a wall: only a piece closing the boundary the ray steps across shades this tile.
+		// Windows count as a face (they shade but never stop a ray). Farther out, the ray's last
+		// step is unknown here, so keep the legacy whole-tile shading test.
+		if ( flags & STRUCTURE_WALLSTUFF )
 		{
-			return( TRUE );
-		}
-	}
+			if ( !bStepAdjacent || LightStepWallBlocked(iSrcX, iSrcY, iX, iY, TRUE) )
+				return(true);
 
+			// This art guards another edge, and must not be caught by the tests below
+			pStruct = pStruct->pNext;
+			continue;
+	 }
+
+		// Trees stop rays in LightTileBlocked; their art must still shade like a wall face,
+		// so flag this tile as light-blocking (mirror LightTileBlocked)
+		if ( Tree(pStruct) )
+		{
+			return(true);
+		}
+
+
+		if ( TallStructure(pStruct) )
+		{
+			return(true);
+		}
+
+		pStruct = pStruct->pNext;
+    }
 
 	return(FALSE);
 }
 
-/****************************************************************************************
- LightDelete
 
-	Removes a light template from the list, and frees up the associated node memory.
-
-***************************************************************************************/
-BOOLEAN LightDelete(INT32 iLight)
+// Decides whether the given wall or structure levelnode on tile (iX,iY) catches the light coming from
+// (iSrcX,iSrcY).  Only the face the camera sees may be lit
+static bool DetermineIfStructureShouldBeLit(INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, INT16 iStartX, INT16 iStartY, LEVELNODE* pNode)
 {
-		if(pLightList[iLight]!=NULL)
-		{
-			if(pLightList[iLight]!=NULL)
-			{
-				MemFree(pLightList[iLight]);
-				pLightList[iLight]=NULL;
-			}
+    Assert(gpWorldLevelData != NULL);
 
-			if(pLightRayList[iLight]!=NULL)
-			{
-				MemFree(pLightRayList[iLight]);
-				pLightRayList[iLight]=NULL;
-			}
+    const UINT32 uiTileNo = MAPROWCOLTOPOS(iY, iX);
+    const UINT32 uiSrcTileNo = MAPROWCOLTOPOS(iSrcY, iSrcX);
+    const UINT32 uiStartTileNo = MAPROWCOLTOPOS(iStartY, iStartX);
 
-			if(pLightNames[iLight]!=NULL)
-			{
-				MemFree(pLightNames[iLight]);
-				pLightNames[iLight]=NULL;
-			}
+    // The centre node hands its own tile in as both src and target. That is not a blocker for the
+    // tile the light stands on: an open door whose art sits on the light's own tile must still be
+    // face-tested (its face points into that tile), so only the ray's previous tile is rejected.
+    if ( uiTileNo == uiSrcTileNo && uiTileNo != uiStartTileNo )
+        return(FALSE);
 
-			usTemplateSize[iLight]=0;
-			usRaySize[iLight]=0;
+    if ( TileIsOutOfBounds(uiTileNo) )
+        return(FALSE);
 
-			return(TRUE);
-		}
-		else
-			return(FALSE);
+    if ( TileIsOutOfBounds(uiSrcTileNo) )
+        return(FALSE);
+
+
+    if ( pNode == NULL || pNode->usIndex >= giNumberOfTiles )
+    {
+        return(true);   // not a DB tile: no face to test
+    }
+
+    // Only the camera-facing side of a wall piece may be lit.  The test uses the LIGHT ORIGIN
+    // (iStartX/iStartY), not the ray's previous tile: per-step src quantizes onto the piece's
+    // plane for rays running along a wall row (window pass-through then horizontal step), which
+    // both caused window-adjacent walls to stay unlit and lit walls on the wrong side.
+    // TOP_LEFT piece spans the edge shared with (iX, iY+1) -> camera face is +Y.
+    // TOP_RIGHT piece spans the edge shared with (iX+1, iY) -> camera face is +X.
+	// BOTTOM_CORNER carries both, so either side lights it. Same planes LightRevealWall cuts with.
+    bool bLit;
+
+    // The tiles touching the light only
+    const bool bNearLight = ( iX >= iStartX - 1 && iX <= iStartX + 1 && iY >= iStartY - 1 && iY <= iStartY + 1 );
+
+    // The front tile of the face this levelnode guards; the light must be able to reach it.
+    INT16 iFrontX = 0, iFrontY = 0;
+    bool bHasFront = false;
+
+    // Non-wall ray stoppers without an oriented art piece (trees, tall objects): billboarded,
+    // but still only the camera-facing half may catch the light (same plane as BOTTOM_CORNER).
+    bool fBillboardBlocker = false;
+
+    // Whole-tile wall pieces: no orientation, they take the tile over instead of one of its edges.
+    bool fFullTileWallPiece = false;
+
+    const UINT16 usNodeOrient = gTileDatabase[pNode->usIndex].usWallOrientation;
+
+    // An open door's art hangs perpendicular to its wall plane: the door on (iX,iY) guards
+    // the west edge (TOP_LEFT) or north edge (TOP_RIGHT) of its own tile,
+    // and an open OUTSIDE door hangs on the same plane line but one tile over: west edge of
+    // (iX, iY+1) / north edge of (iX+1, iY).
+    STRUCTURE* pOpenDoor = NULL;
+
+    STRUCTURE* pStruct = gpWorldLevelData[uiTileNo].pStructureHead;
+    while ( pStruct != NULL )
+    {
+        if ( !(pStruct->fFlags & STRUCTURE_WALLSTUFF) && (Tree(pStruct) || TallStructure(pStruct)) )
+        {
+            fBillboardBlocker = true;
+        }
+        else if ( FullTileWall(pStruct) )
+        {
+            fFullTileWallPiece = true;
+        }
+        else if ( Opendoor(pStruct) && LightSameWallEdge(pStruct->ubWallOrientation, usNodeOrient) )
+        {
+            // An open door's structure stays on the base tile for OUTSIDE orientations (only its
+            // art image hangs into the far tile) and moves onto the base tile for INSIDE ones, so
+            // the base flag says nothing here: either way it is the leaf art.
+            pOpenDoor = pStruct;
+        }
+
+        pStruct = pStruct->pNext;
+    }
+
+
+
+    switch ( gTileDatabase[pNode->usIndex].usWallOrientation )
+    {
+        case INSIDE_TOP_LEFT:
+        case OUTSIDE_TOP_LEFT:
+            if ( pOpenDoor )
+            {
+                bLit = (iStartX > iX - 1); // +X face of the west-edge line
+                iFrontX = iX;
+                // INSIDE door is on the base tile, OUTSIDE door in (iX, iY+1): same plane, other front
+                iFrontY = (pOpenDoor->ubWallOrientation == OUTSIDE_TOP_LEFT) ? (INT16)(iY + 1) : iY;
+            }
+            else
+            {
+                bLit = (iStartY > iY);
+                iFrontX = iX;
+                iFrontY = (INT16)(iY + 1);
+            }
+            bHasFront = true;
+            break;
+
+        case INSIDE_TOP_RIGHT:
+        case OUTSIDE_TOP_RIGHT:
+            if ( pOpenDoor )
+            {
+                bLit = (iStartY > iY - 1); // +Y face of the north-edge line
+                // INSIDE door is on the base tile, OUTSIDE door in (iX+1, iY): same plane, other front
+                iFrontX = (pOpenDoor->ubWallOrientation == OUTSIDE_TOP_RIGHT) ? (INT16)(iX + 1) : iX;
+                iFrontY = iY;
+            }
+            else
+            {
+                bLit = (iStartX > iX);
+                iFrontX = (INT16)(iX + 1);
+                iFrontY = iY;
+            }
+            bHasFront = true;
+            // TOP_RIGHT piece spans the edge shared with (iX+1, iY): plane X = iX + 0.5, camera face +X.
+            break;
+
+        case INSIDE_BOTTOM_CORNER:
+        case OUTSIDE_BOTTOM_CORNER:
+            // carries both planes: the light needs to see only one of the two front tiles
+            bLit = ( (iStartY > iY && LightMarchClear(iStartX, iStartY, iX, (INT16)(iY + 1))) ||
+                     (iStartX > iX && LightMarchClear(iStartX, iStartY, (INT16)(iX + 1), iY)) );
+            break;
+
+        default:
+            // NO_ORIENTATION: fences/vegetation/rubble stay lit as before; ray-stopping billboards (trees, tall objects) only light from the camera half
+            if ( fFullTileWallPiece )
+            {
+                // Whole-tile block: its art fills the tile, so it shows the two camera-facing sides
+                // a BOTTOM_CORNER piece shows and needs the light to reach one of their front tiles.
+                bLit = ( (iStartY > iY && LightMarchClear(iStartX, iStartY, iX, (INT16)(iY + 1))) ||
+                         (iStartX > iX && LightMarchClear(iStartX, iStartY, (INT16)(iX + 1), iY)) );
+            }
+            else
+            {
+                bLit = fBillboardBlocker ? (iStartY > iY || iStartX > iX) : true;
+            }
+            break;
+    }
+
+    // Half-plane test alone cannot tell a face that is edge-on to the light (light around a corner
+    // of walls) from one that faces it: both are on the camera side of the wall's plane, but the
+    // ray to the edge-on face is stopped by the perpendicular wall before it gets there.
+    const bool bPlane = bLit;
+    bool bMarch = true;
+    if ( bLit && bHasFront )
+        bMarch = LightMarchClear(iStartX, iStartY, iFrontX, iFrontY);
+
+    return( bPlane && bMarch );
 }
+
 
 /****************************************************************************************
  LightGetFree
@@ -605,7 +1178,7 @@ BOOLEAN LightDelete(INT32 iLight)
 	returned.
 
 ***************************************************************************************/
-INT32 LightGetFree(void)
+static INT32 LightGetFree(void)
 {
 UINT32 uiCount;
 
@@ -623,13 +1196,13 @@ UINT32 uiCount;
 	Calculates the 2D linear distance between two points.
 
 ***************************************************************************************/
-INT32 LinearDistance(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
+static INT32 LinearDistance(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
 {
 INT32 iDx, iDy;
 
-	iDx=abs(iX1-iX2);
+	iDx=iX1-iX2;
 	iDx*=iDx;
-	iDy=abs(iY1-iY2);
+	iDy=iY1-iY2;
 	iDy*=iDy;
 
 	return((INT32)sqrt((DOUBLE)(iDx+iDy)));
@@ -642,13 +1215,13 @@ INT32 iDx, iDy;
 	for greater accuracy.
 
 ***************************************************************************************/
-DOUBLE LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
+static DOUBLE LinearDistanceDouble(INT16 iX1, INT16 iY1, INT16 iX2, INT16 iY2)
 {
 INT32 iDx, iDy;
 
-	iDx=abs(iX1-iX2);
+	iDx=iX1-iX2;
 	iDx*=iDx;
-	iDy=abs(iY1-iY2);
+	iDy=iY1-iY2;
 	iDy*=iDy;
 
 	return(sqrt((DOUBLE)(iDx+iDy)));
@@ -708,13 +1281,49 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 	}
 }
 
+// Land gradient: a tile's blitted pixels sample the ubShadeLevel of its E/S/SE
+// corner grids, so when a grid's land shade changes that grid AND the three grids that
+// sample it as a corner must be flagged for the marked-redraw pass (renderworld.cpp
+// only re-blits grids carrying MAPELEMENT_REDRAW on RENDER_FLAG_MARKED frames).
+// If improved lighting is off, we still use this loop to mark the original tile so it gets redrawn,
+// but skip the others
+static void LightMarkGradDirty(INT16 iX, INT16 iY)
+{
+	INT16 iDX, iDY;
+	INT16 iLo = 0;
+	INT16 iHi = 0;
+
+	if ( gGameSettings.fOptions[TOPTION_IMPROVED_LIGHTING] )
+	{
+		iLo = -2;
+		iHi = 1;
+	}
+
+	if ( gpWorldLevelData != NULL )
+	{
+		for ( iDX = iLo; iDX <= iHi; iDX++ )
+		{
+			for ( iDY = iLo; iDY <= iHi; iDY++ )
+			{
+				if ( (iX + iDX >= 0) && (iX + iDX < WORLD_COLS) && (iY + iDY >= 0) && (iY + iDY < WORLD_ROWS) )
+					gpWorldLevelData[MAPROWCOLTOPOS(iY+iDY, iX+iDX)].uiFlags |= MAPELEMENT_REDRAW;
+			}
+		}
+
+		if (!gfEditMode)
+		{
+			SetRenderFlags(RENDER_FLAG_MARKED);
+		}
+	}
+}
+
 /****************************************************************************************
 	LightAddNodeTile
 
 		Does the addition of light values to individual LEVELNODEs in the world tile list.
 
 ***************************************************************************************/
-void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
+static void LightAddTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeAdd, BOOLEAN fFake)
 {
 INT16 sSum;
 
@@ -732,7 +1341,15 @@ INT16 sSum;
 	sSum=__min(SHADE_MIN, sSum);
 	sSum=__max(SHADE_MAX, sSum);
 
-	pNode->ubShadeLevel=(UINT8)sSum;
+	// Land gradient: the blitter samples the
+	// 4 corner tiles' ubShadeLevel, so a changed shade must force the background to be
+	// redrawn or neighbouring tiles keep pixels shaded from the stale corner value.
+	if (pNode->ubShadeLevel != (UINT8)sSum)
+	{
+		pNode->ubShadeLevel=(UINT8)sSum;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 }
 
 
@@ -742,7 +1359,7 @@ INT16 sSum;
 		Does the subtraction of light values to individual LEVELNODEs in the world tile list.
 
 ***************************************************************************************/
-void LightSubtractTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeSubtract, BOOLEAN fFake)
+static void LightSubtractTileNode(LEVELNODE *pNode, UINT32 uiLightType, UINT8 ubShadeSubtract, BOOLEAN fFake)
 {
 INT16 sSum;
 
@@ -775,7 +1392,13 @@ INT16 sSum;
 	sSum=__min(SHADE_MIN, sSum);
 	sSum=__max(SHADE_MAX, sSum);
 
-	pNode->ubShadeLevel=(UINT8)sSum;
+	// force background redraw on change so corner-sampled land gradients stay continuous
+	if (pNode->ubShadeLevel != (UINT8)sSum)
+	{
+		pNode->ubShadeLevel=(UINT8)sSum;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 }
 
 
@@ -785,13 +1408,11 @@ INT16 sSum;
 		Adds a specified amount of light to all objects on a given tile.
 
 ***************************************************************************************/
-BOOLEAN	LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls )
+static BOOLEAN	LightAddTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY )
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeAdd;
 INT32 uiTile;
-BOOLEAN fLitWall=FALSE;
-BOOLEAN fFake;
 
 	Assert(gpWorldLevelData!=NULL);
 
@@ -802,7 +1423,8 @@ BOOLEAN fFake;
 		return( FALSE );
 	}
 
-	gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
+	// land gradient: flag this grid + the 3 that corner-sample it
+	LightMarkGradDirty(iX, iY);
 
 	//if((uiFlags&LIGHT_BACKLIGHT) && !(uiFlags&LIGHT_ROOF_ONLY))
 	//	ubShadeAdd=ubShade*7/10;
@@ -813,14 +1435,14 @@ BOOLEAN fFake;
 		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
 		//	ubShadeAdd += -6;
 
-	if (uiFlags&LIGHT_FAKE)
-	{
+	BOOLEAN fFake = FALSE;
+	if (uiFlags & LIGHT_FAKE)
 		fFake = TRUE;
-	}
-	else
-	{
-		fFake = FALSE;
-	}
+
+	BOOLEAN fLitWall = FALSE;
+	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
+		fLitWall = TRUE;
+
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -833,11 +1455,8 @@ BOOLEAN fFake;
 				{
 					if( (uiFlags&LIGHT_IGNORE_WALLS ) || gfCaves )
 						LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
-					else if(LightIlluminateWall(iSrcX, iSrcY, iX, iY, pStruct))
+					else
 					{
-						if(LightTileHasWall(iSrcX, iSrcY, iX, iY))
-							fLitWall=TRUE;
-
 						// ATE: Limit shade for walls if in caves
 						if ( fLitWall && gfCaves )
 						{
@@ -845,11 +1464,23 @@ BOOLEAN fFake;
 						}
 						else if ( fLitWall )
 						{
-							LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							// Found wall, but let's check if it should be lit or not
+							if ( DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							}
 						}
 						else if ( !fOnlyWalls )
 						{
-							LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							// Oriented DB art is a wall face: it may only catch light from the side it
+							// points at, even when this tile's light-blocking face was another edge.
+							// Non-DB and NO_ORIENTATION pieces keep the legacy unconditional lighting.
+							if ( pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
+								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightAddTileNode(pStruct, uiLightType, ubShadeAdd, FALSE);
+							}
 						}
 					}
 				}
@@ -863,39 +1494,39 @@ BOOLEAN fFake;
 
 		ubShadeAdd=ubShade;
 
-	if ( !fOnlyWalls )
-	{
-		pLand = gpWorldLevelData[uiTile].pLandHead;
-
-		while( pLand )
+		if ( !fOnlyWalls )
 		{
-			if( gfCaves || !fLitWall )
+			pLand = gpWorldLevelData[uiTile].pLandHead;
+
+			while( pLand )
 			{
-				LightAddTileNode(pLand, uiLightType, ubShadeAdd, fFake);
+				if( gfCaves || !fLitWall )
+				{
+					LightAddTileNode(pLand, uiLightType, ubShadeAdd, fFake);
+				}
+				pLand=pLand->pNext;
 			}
-			pLand=pLand->pNext;
-		}
 
-		pObject = gpWorldLevelData[uiTile].pObjectHead;
-		while(pObject!=NULL)
-		{
-			if ( pObject->usIndex < giNumberOfTiles )
+			pObject = gpWorldLevelData[uiTile].pObjectHead;
+			while(pObject!=NULL)
 			{
-				LightAddTileNode(pObject, uiLightType, ubShadeAdd, FALSE);
+				if ( pObject->usIndex < giNumberOfTiles )
+				{
+					LightAddTileNode(pObject, uiLightType, ubShadeAdd, FALSE);
+				}
+				pObject=pObject->pNext;
 			}
-			pObject=pObject->pNext;
-		}
 
-		if(uiFlags&LIGHT_BACKLIGHT)
-			ubShadeAdd=(UINT8)((UINT16)ubShade*7/10);
+			if(uiFlags&LIGHT_BACKLIGHT)
+				ubShadeAdd=(UINT8)((UINT16)ubShade*7/10);
 
-		pMerc = gpWorldLevelData[uiTile].pMercHead;
-		while(pMerc!=NULL)
-		{
-			LightAddTileNode(pMerc, uiLightType, ubShadeAdd, FALSE);
-			pMerc=pMerc->pNext;
+			pMerc = gpWorldLevelData[uiTile].pMercHead;
+			while(pMerc!=NULL)
+			{
+				LightAddTileNode(pMerc, uiLightType, ubShadeAdd, FALSE);
+				pMerc=pMerc->pNext;
+			}
 		}
-	}
 	}
 
 	if((uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
@@ -927,13 +1558,11 @@ BOOLEAN fFake;
 		Subtracts a specified amount of light to a given tile.
 
 ***************************************************************************************/
-BOOLEAN	LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls )
+static BOOLEAN	LightSubtractTile(UINT32 uiLightType, INT16 iSrcX, INT16 iSrcY, INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiFlags, BOOLEAN fOnlyWalls, INT16 iStartX, INT16 iStartY )
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pMerc, *pRoof, *pOnRoof;
 UINT8 ubShadeSubtract;
 INT32 uiTile;
-BOOLEAN fLitWall=FALSE;
-BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 
 	Assert(gpWorldLevelData!=NULL);
 
@@ -945,7 +1574,8 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 	}
 
 
-	gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
+	// land gradient: flag this grid + the 3 that corner-sample it
+	LightMarkGradDirty(iX, iY);
 
 //	if((uiFlags&LIGHT_BACKLIGHT) && !(uiFlags&LIGHT_ROOF_ONLY))
 //		ubShadeSubtract=ubShade*7/10;
@@ -956,14 +1586,13 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 		//if ( uiLightType == LIGHT_TYPE_BRIGHT )
 		//	ubShadeSubtract += -6;
 
+	BOOLEAN fFake = FALSE; // only passed in to land and roof layers; others get fed FALSE
 	if (uiFlags&LIGHT_FAKE)
-	{
 		fFake = TRUE;
-	}
-	else
-	{
-		fFake = FALSE;
-	}
+
+	BOOLEAN fLitWall = FALSE;
+	if ( LightTileHasWall(iSrcX, iSrcY, iX, iY) )
+		fLitWall = TRUE;
 
 	if(!(uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
 	{
@@ -976,11 +1605,8 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 				{
 					if( (uiFlags&LIGHT_IGNORE_WALLS ) || gfCaves )
 						LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
-					else if(LightIlluminateWall(iSrcX, iSrcY, iX, iY, pStruct))
+					else
 					{
-						if(LightTileHasWall( iSrcX, iSrcY, iX, iY))
-							fLitWall=TRUE;
-
 						// ATE: Limit shade for walls if in caves
 						if ( fLitWall && gfCaves )
 						{
@@ -988,57 +1614,66 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 						}
 						else if ( fLitWall )
 						{
-							LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							if ( DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							}
 						}
-			else if ( !fOnlyWalls )
-			{
-						LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
-			}
+						else if ( !fOnlyWalls )
+						{
+							// Must mirror LightAddTile exactly, or erase leaves dark residue.
+							if ( pStruct->usIndex >= giNumberOfTiles ||
+								gTileDatabase[pStruct->usIndex].usWallOrientation == NO_ORIENTATION ||
+								DetermineIfStructureShouldBeLit(iSrcX, iSrcY, iX, iY, iStartX, iStartY, pStruct) )
+							{
+								LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+							}
+						}
 					}
 				}
 			}
 		else
 		{
-				LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
+			LightSubtractTileNode(pStruct, uiLightType, ubShadeSubtract, FALSE);
 		}
 			pStruct=pStruct->pNext;
 		}
 
 		ubShadeSubtract=ubShade;
 
-	if ( !fOnlyWalls )
-	{
-		pLand = gpWorldLevelData[uiTile].pLandHead;
-
-		while( pLand )
+		if ( !fOnlyWalls )
 		{
-			if( gfCaves || !fLitWall )
+			pLand = gpWorldLevelData[uiTile].pLandHead;
+
+			while( pLand )
 			{
-				LightSubtractTileNode(pLand, uiLightType, ubShadeSubtract, fFake);
+				if( gfCaves || !fLitWall )
+				{
+					LightSubtractTileNode(pLand, uiLightType, ubShadeSubtract, fFake);
+				}
+				pLand=pLand->pNext;
 			}
-			pLand=pLand->pNext;
-		}
 
-		pObject = gpWorldLevelData[uiTile].pObjectHead;
-		while(pObject!=NULL)
-		{
-			if ( pObject->usIndex < giNumberOfTiles )
+			pObject = gpWorldLevelData[uiTile].pObjectHead;
+			while(pObject!=NULL)
 			{
-				LightSubtractTileNode(pObject, uiLightType, ubShadeSubtract, FALSE);
+				if ( pObject->usIndex < giNumberOfTiles )
+				{
+					LightSubtractTileNode(pObject, uiLightType, ubShadeSubtract, FALSE);
+				}
+				pObject=pObject->pNext;
 			}
-			pObject=pObject->pNext;
-		}
 
-		if(uiFlags&LIGHT_BACKLIGHT)
-			ubShadeSubtract=(UINT8) ((UINT16)ubShade*7/10);
+			if(uiFlags&LIGHT_BACKLIGHT)
+				ubShadeSubtract=(UINT8) ((UINT16)ubShade*7/10);
 
-		pMerc = gpWorldLevelData[uiTile].pMercHead;
-		while(pMerc!=NULL)
-		{
-			LightSubtractTileNode(pMerc, uiLightType, ubShadeSubtract, FALSE);
-			pMerc=pMerc->pNext;
+			pMerc = gpWorldLevelData[uiTile].pMercHead;
+			while(pMerc!=NULL)
+			{
+				LightSubtractTileNode(pMerc, uiLightType, ubShadeSubtract, FALSE);
+				pMerc=pMerc->pNext;
+			}
 		}
-	}
 	}
 
 	if((uiFlags&LIGHT_ROOF_ONLY) || (uiFlags&LIGHT_EVERYTHING))
@@ -1073,14 +1708,20 @@ BOOLEAN fFake; // only passed in to land and roof layers; others get fed FALSE
 		Sets the natural light level (as well as the current) on individual LEVELNODEs.
 
 ***************************************************************************************/
-void LightSetNaturalTileNode(LEVELNODE *pNode, UINT8 ubShade)
+static void LightSetNaturalTileNode(LEVELNODE *pNode, UINT8 ubShade)
 {
 		Assert(pNode!=NULL);
 
 		pNode->ubSumLights=0;
 		pNode->ubMaxLights=0;
 		pNode->ubNaturalShadeLevel = ubShade;
-		pNode->ubShadeLevel = ubShade;
+		// force background redraw on change so corner-sampled land gradients stay continuous
+		if (pNode->ubShadeLevel != ubShade)
+		{
+			pNode->ubShadeLevel = ubShade;
+			if (!gfEditMode)
+				{ SetRenderFlags(RENDER_FLAG_MARKED); }
+		}
 		//LightAddTileNode(pNode, 0, (INT16)(SHADE_MIN-ubShade));
 }
 
@@ -1091,7 +1732,7 @@ void LightSetNaturalTileNode(LEVELNODE *pNode, UINT8 ubShade)
 	This is the light value a tile has with no artificial lighting affecting it.
 
 ***************************************************************************************/
-BOOLEAN LightSetNaturalTile(INT16 iX, INT16 iY, UINT8 ubShade)
+static BOOLEAN LightSetNaturalTile(INT16 iX, INT16 iY, UINT8 ubShade)
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pRoof, *pOnRoof, *pTopmost, *pMerc;
 UINT32 uiIndex;
@@ -1104,6 +1745,9 @@ UINT32 uiIndex;
 
 	ubShade=__max(SHADE_MAX, ubShade);
 	ubShade=__min(SHADE_MIN, ubShade);
+
+	// land gradient: neighbouring grids corner-sample this one, so flag all four
+	LightMarkGradDirty(iX, iY);
 
 	pLand = gpWorldLevelData[ uiIndex ].pLandHead;
 
@@ -1165,11 +1809,17 @@ UINT32 uiIndex;
 	natural light level.
 
 ***************************************************************************************/
-void LightResetTileNode(LEVELNODE *pNode)
+static void LightResetTileNode(LEVELNODE *pNode)
 {
 	pNode->ubSumLights=0;
 	pNode->ubMaxLights=0;
-	pNode->ubShadeLevel = pNode->ubNaturalShadeLevel;
+	// force background redraw on change so corner-sampled land gradients stay continuous
+	if (pNode->ubShadeLevel != pNode->ubNaturalShadeLevel)
+	{
+		pNode->ubShadeLevel = pNode->ubNaturalShadeLevel;
+		if (!gfEditMode)
+			{ SetRenderFlags(RENDER_FLAG_MARKED); }
+	}
 	pNode->ubFakeShadeLevel = 0;
 }
 
@@ -1180,7 +1830,7 @@ void LightResetTileNode(LEVELNODE *pNode)
 	for that tile.
 
 ***************************************************************************************/
-BOOLEAN LightResetTile(INT16 iX, INT16 iY)
+static BOOLEAN LightResetTile(INT16 iX, INT16 iY)
 {
 LEVELNODE *pLand, *pStruct, *pObject, *pRoof, *pOnRoof, *pTopmost, *pMerc;
 UINT32 uiTile;
@@ -1190,6 +1840,9 @@ UINT32 uiTile;
 	uiTile = MAPROWCOLTOPOS( iY, iX );
 
 	CHECKF(uiTile!=0xffffffff);
+
+	// land gradient: neighbouring grids corner-sample this one, so flag all four
+	LightMarkGradDirty(iX, iY);
 
 	pLand = gpWorldLevelData[uiTile].pLandHead;
 
@@ -1251,7 +1904,7 @@ UINT32 uiTile;
 		Resets all tiles on the map to their baseline values.
 
 ***************************************************************************************/
-BOOLEAN LightResetAllTiles(void)
+static BOOLEAN LightResetAllTiles(void)
 {
 INT16 iCountY, iCountX;
 
@@ -1270,7 +1923,7 @@ INT16 iCountY, iCountX;
 		Sets the current light value of all objects on a given tile to the specified value.
 
 ***************************************************************************************/
-BOOLEAN LightSetTile(INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiLightType)
+static BOOLEAN LightSetTile(INT16 iX, INT16 iY, UINT8 ubShade, UINT32 uiLightType)
 {
 /*LEVELNODE *pLand, *pStruct, *pObject, *pRoof, *pOnRoof, *pTopmost, *pFog;
 UINT32 uiIndex;
@@ -1284,7 +1937,12 @@ UINT32 uiIndex;
 	while(pLand!=NULL)
 	{
 		pLand->sSumLights[uiLightType]= ubShade-SHADE_MAX;
-		pLand->ubShadeLevel = ubShade;
+		// force background redraw on change so corner-sampled land gradients stay continuous
+		if (pLand->ubShadeLevel != ubShade)
+		{
+			pLand->ubShadeLevel = ubShade;
+			LightMarkGradDirty(iX, iY);
+		}
 		pLand=pLand->pNext;
 	}
 
@@ -1346,7 +2004,7 @@ UINT32 uiIndex;
 	returned.
 
 ***************************************************************************************/
-UINT16 LightGetLastNode(INT32 iLight)
+static UINT16 LightGetLastNode(INT32 iLight)
 {
 		return(usRaySize[iLight]);
 }
@@ -1358,7 +2016,7 @@ UINT16 LightGetLastNode(INT32 iLight)
 		Creates a new node, and adds it to the end of a light list.
 
 ***************************************************************************************/
-BOOLEAN LightAddNode(INT32 iLight, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags)
+static BOOLEAN LightAddNode(INT32 iLight, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags)
 {
 	DOUBLE dDistance;
 	UINT8 ubShade;
@@ -1388,7 +2046,7 @@ BOOLEAN LightAddNode(INT32 iLight, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, I
 		Creates a new node, and inserts it after the specified node.
 
 ***************************************************************************************/
-BOOLEAN LightInsertNode(INT32 iLight, UINT16 usLightIns, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags)
+static BOOLEAN LightInsertNode(INT32 iLight, UINT16 usLightIns, INT16 iHotSpotX, INT16 iHotSpotY, INT16 iX, INT16 iY, UINT8 ubIntensity, UINT16 uiFlags)
 {
 DOUBLE dDistance;
 UINT8 ubShade;
@@ -1419,7 +2077,7 @@ INT32 iLightDecay;
 	the pointer. If the end of list is reached, NULL is returned.
 
 ***************************************************************************************/
-UINT16 LightFindNextRay(INT32 iLight, UINT16 usIndex)
+static UINT16 LightFindNextRay(INT32 iLight, UINT16 usIndex)
 {
 UINT16 usNodeIndex;
 
@@ -1437,7 +2095,7 @@ UINT16 usNodeIndex;
 	light list.
 
 ***************************************************************************************/
-BOOLEAN LightCastRay(INT32 iLight, INT16 iStartX, INT16 iStartY, INT16 iEndPointX, INT16 iEndPointY, UINT8 ubStartIntens, UINT8 ubEndIntens)
+static BOOLEAN LightCastRay(INT32 iLight, INT16 iStartX, INT16 iStartY, INT16 iEndPointX, INT16 iEndPointY, UINT8 ubStartIntens, UINT8 ubEndIntens)
 {
 INT16 AdjUp, AdjDown, ErrorTerm, XAdvance, XDelta, YDelta;
 INT32 WholeStep, InitialPixelCount, FinalPixelCount, i, j, RunLength;
@@ -1790,7 +2448,7 @@ BOOLEAN fInsertNodes=FALSE;
 		Creates an elliptical light, taking two radii.
 
 ***************************************************************************************/
-BOOLEAN LightGenerateElliptical(INT32 iLight, UINT8 iIntensity, INT16 iA, INT16 iB)
+static BOOLEAN LightGenerateElliptical(INT32 iLight, UINT8 iIntensity, INT16 iA, INT16 iB)
 {
 INT16 iX, iY;
 INT32 WorkingX, WorkingY;
@@ -1880,7 +2538,7 @@ DOUBLE Temp;
 		Creates an square light, taking two radii.
 
 ***************************************************************************************/
-BOOLEAN LightGenerateSquare(INT32 iLight, UINT8 iIntensity, INT16 iA, INT16 iB)
+static BOOLEAN LightGenerateSquare(INT32 iLight, UINT8 iIntensity, INT16 iA, INT16 iB)
 {
 INT16 iX, iY;
 
@@ -1918,7 +2576,7 @@ INT16 iX, iY;
 		Creates a directional light.
 
 ***************************************************************************************/
-BOOLEAN LightGenerateBeam(INT32 iLight, UINT8 iIntensity, INT16 iLength, INT16 iRadius, INT16 iDirection)
+static BOOLEAN LightGenerateBeam(INT32 iLight, UINT8 iIntensity, INT16 iLength, INT16 iRadius, INT16 iDirection)
 {
 	return(FALSE);
 }
@@ -1984,7 +2642,7 @@ INT16 iCountY, iCountX;
 
 	for(iCountY=0; iCountY < WORLD_ROWS; iCountY++)
 		for(iCountX=0; iCountX < WORLD_COLS; iCountX++)
-			LightAddTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE );
+			LightAddTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE, iCountX, iCountY );
 
 	if(ubAmbientLightLevel >= LIGHT_DUSK_CUTOFF)
 		RenderSetShadows(FALSE);
@@ -2008,7 +2666,7 @@ INT16 iCountY, iCountX;
 
 	for(iCountY=0; iCountY < WORLD_ROWS; iCountY++)
 		for(iCountX=0; iCountX < WORLD_COLS; iCountX++)
-			LightSubtractTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE );
+			LightSubtractTile(uiLightType, iCountX, iCountY, iCountX, iCountY, iIntensity, LIGHT_IGNORE_WALLS|LIGHT_EVERYTHING, FALSE, iCountX, iCountY );
 
 	if(ubAmbientLightLevel >= LIGHT_DUSK_CUTOFF)
 		RenderSetShadows(FALSE);
@@ -2096,7 +2754,7 @@ INT32 LightCreateElliptical(UINT8 ubIntensity, INT16 iRadius1, INT16 iRadius2)
 		Renders a light template at the specified X,Y coordinates.
 
 ***************************************************************************************/
-BOOLEAN LightIlluminateWall(INT16 iSourceX, INT16 iSourceY, INT16 iTileX, INT16 iTileY, LEVELNODE *pStruct)
+static BOOLEAN LightIlluminateWall(INT16 iSourceX, INT16 iSourceY, INT16 iTileX, INT16 iTileY, LEVELNODE *pStruct)
 {
 
 //	return( LightTileHasWall( iSourceX, iSourceY, iTileX, iTileY ) );
@@ -2120,6 +2778,8 @@ UINT32 uiFlags;
 INT32		iOldX, iOldY;
 BOOLEAN	fBlocked = FALSE;
 BOOLEAN fOnlyWalls;
+UINT8 ubRayDim = 100;
+CHAR8 zLightLogBuf[96];
 
 //MAP_ELEMENT * pMapElement;
 
@@ -2133,92 +2793,119 @@ BOOLEAN fOnlyWalls;
 		pLight->uiFlags&=(~LIGHT_NODE_DRAWN);
 	}
 
-/*
-	if (!(LightSprites[uiSprite].uiFlags & MERC_LIGHT))
-	{
-		uiFlags |= LIGHT_FAKE
-
-		pMapElement = &(gpWorldLevelData[]);
-		if (pMapElement->pLand != NULL)
-		{
-			// only do this for visible locations
-			// adjust tile's recorded light level
-			pMapElement->sSumRealLight1+=sShadeAdd;
-
-			sSum=pMapElement->pLand->ubNaturalShadeLevel - __max( pMapElement->sSumRealLights[0], pMapElement->pLand->sSumLights[1]);
-
-			sSum=__min(SHADE_MIN, sSum);
-			sSum=__max(SHADE_MAX, sSum);
-
-			gpWorldLevelData[ ].ubRealShadeLevel = (UINT8) sSum;
-
-		}
-
-	}
-*/
-
+	const auto iStartX = iX;
+	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
-
-	for(uiCount=0; uiCount < usRaySize[iLight]; uiCount++)
+	if ( LogRays )
 	{
-		usNodeIndex=*(pLightRayList[iLight]+uiCount);
-
-		if(!(usNodeIndex&LIGHT_NEW_RAY))
-		{
-			fBlocked = FALSE;
-		fOnlyWalls = FALSE;
-
-			pLight=pLightList[iLight]+(usNodeIndex&(~LIGHT_BACKLIGHT));
-
-			if(!(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF))
-			{
-				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY)))
-				{
-					uiCount=LightFindNextRay(iLight, uiCount);
-
-			fOnlyWalls = TRUE;
-					fBlocked = TRUE;
-				}
-			}
-
-			if(!(pLight->uiFlags&LIGHT_NODE_DRAWN) && (pLight->ubLight) )
-			{
-				uiFlags=(UINT32)(usNodeIndex&LIGHT_BACKLIGHT);
-				if (LightSprites[uiSprite].uiFlags & MERC_LIGHT)
-					uiFlags |= LIGHT_FAKE;
-				if(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF)
-					uiFlags|=LIGHT_ROOF_ONLY;
-
-				LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls );
-
-				pLight->uiFlags|=LIGHT_NODE_DRAWN;
-
-			}
-
-			if ( fBlocked )
-			{
-				iOldX = iX;
-				iOldY = iY;
-			}
-			else
-			{
-				iOldX = iX+pLight->iDX;
-				iOldY = iY+pLight->iDY;
-			}
-
-		}
-		else
-		{
-			iOldX = iX;
-			iOldY = iY;
-		}
+		LiveMessage("START_OF_NEW_LOOP");
 	}
+
+    for ( uiCount = 0; uiCount < usRaySize[iLight]; uiCount++ )
+    {
+        usNodeIndex = *(pLightRayList[iLight] + uiCount);
+
+        // Ray-skip jumps land on the next ray's LIGHT_NEW_RAY marker, which the for-loop's
+        // uiCount++ then swallows, so the marker else-branch below never runs: restore the
+        // per-ray dim here instead
+        if ( uiCount > 0 && ( *(pLightRayList[iLight] + (uiCount - 1)) & LIGHT_NEW_RAY ) )
+            ubRayDim = 100;
+
+        if ( !(usNodeIndex & LIGHT_NEW_RAY) )
+        {
+            fBlocked = FALSE;
+            fOnlyWalls = FALSE;
+
+            pLight = pLightList[iLight] + (usNodeIndex & (~LIGHT_BACKLIGHT));
+
+			if ( LogRays )
+			{
+				sprintf(zLightLogBuf, "LIGHT_NODE: iDX %d, iDY %d", pLight->iDX, pLight->iDY);
+				LiveMessage(zLightLogBuf);
+			}
+
+            if ( !(LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF) )
+            {
+                if ( LightTileBlocked((INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
+                {
+                    uiCount = LightFindNextRay(iLight, uiCount);
+
+                    // the for-loop's uiCount++ swallows the marker node, so note the new ray here
+					if ( LogRays )
+					{
+						LiveMessage("BLOCKED_RAY");
+						if ( uiCount < usRaySize[iLight] )
+							LiveMessage("LIGHT_NEW_RAY");
+					}
+					ubRayDim = 100;
+                    fOnlyWalls = TRUE;
+                    fBlocked = TRUE;
+                }
+				else if ( LightSoftBlock((INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
+				{
+					if ( ubRayDim > LIGHT_SOFTBLOCK_DIM )
+						ubRayDim -= LIGHT_SOFTBLOCK_DIM;
+					else
+					{
+						ubRayDim = 0;
+						uiCount = LightFindNextRay(iLight, uiCount);
+						fBlocked = TRUE; // no fOnlyWalls here: grass tile keeps normal layer lighting
+
+						if ( LogRays )
+						{
+							LiveMessage("SOFTBLOCKED_RAY");
+							if ( uiCount < usRaySize[iLight] )
+								LiveMessage("LIGHT_NEW_RAY");
+						}
+					}
+				}
+            }
+
+            if ( !(pLight->uiFlags & LIGHT_NODE_DRAWN) && (pLight->ubLight) )
+            {
+                uiFlags = (UINT32)(usNodeIndex & LIGHT_BACKLIGHT);
+                if ( LightSprites[uiSprite].uiFlags & MERC_LIGHT )
+                    uiFlags |= LIGHT_FAKE;
+                if ( LightSprites[uiSprite].uiFlags & LIGHT_SPR_ONROOF )
+                    uiFlags |= LIGHT_ROOF_ONLY;
+
+				const UINT8 lightLevel = (pLight->ubLight * ubRayDim) / 100;
+                LightAddTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), lightLevel, uiFlags, fOnlyWalls, iStartX, iStartY );
+
+                pLight->uiFlags |= LIGHT_NODE_DRAWN;
+
+            }
+
+            if ( fBlocked )
+            {
+                iOldX = iX;
+                iOldY = iY;
+            }
+            else
+            {
+				iOldX = iX + pLight->iDX;
+                iOldY = iY + pLight->iDY;
+            }
+
+        }
+        else
+        {
+			if ( LogRays )
+			{
+				LiveMessage("LIGHT_NEW_RAY");
+			}
+
+            iOldX = iX;
+            iOldY = iY;
+			ubRayDim = 100;
+        }
+    }
 
 	return(TRUE);
 }
 
-BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 	LEVELNODE *pStruct;
 	UINT32 uiTile;
@@ -2304,7 +2991,7 @@ BOOLEAN LightRevealWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 	return(fHitWall);
 }
 
-BOOLEAN LightHideWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightHideWall(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 LEVELNODE *pStruct;
 UINT32 uiTile;
@@ -2422,7 +3109,7 @@ BOOLEAN CalcTranslucentWalls(INT16 iX, INT16 iY)
 	return(TRUE);
 }
 
-BOOLEAN LightGreenTile(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightWhiteTile(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 LEVELNODE *pStruct, *pLand;
 UINT32 uiTile;
@@ -2477,8 +3164,8 @@ TILE_ELEMENT *TileElem;
 			pLand=pLand->pNext;
 		}
 
-		gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
-		SetRenderFlags(RENDER_FLAG_MARKED);
+		// land gradient: also flag the 3 grids that corner-sample this one
+		LightMarkGradDirty(sX, sY);
 	//}
 
 	return(fHitWall);
@@ -2487,42 +3174,52 @@ TILE_ELEMENT *TileElem;
 /****************************************************************************************
 	LightShowRays
 
-		Draws a template by making the ground tiles green. Must be polled once for
+		Draws a template by shading the ground tiles white. Must be polled once for
 each tile drawn to facilitate animating the drawing process for debugging.
 
 ***************************************************************************************/
-BOOLEAN LightShowRays(INT16 iX, INT16 iY, BOOLEAN fReset)
+BOOLEAN LightShowRays(INT16 iX, INT16 iY)
 {
-LIGHT_NODE *pLight;
-static UINT16 uiCount=0;
-UINT16 usNodeIndex;
+    LIGHT_NODE* pLight;
+    static UINT16 uiCount = 0;
+    UINT16 usNodeIndex;
 
-	if(fReset)
-		uiCount=0;
 
-	if(pLightList[0]==NULL)
-		return(FALSE);
-
-	if(uiCount < usRaySize[0])
+	if ( pLightList[gLightDebugSelection] == NULL )
 	{
-		usNodeIndex=*(pLightRayList[0]+uiCount);
-
-		if(!(usNodeIndex&LIGHT_NEW_RAY))
-		{
-			pLight=pLightList[0]+(usNodeIndex&(~LIGHT_BACKLIGHT));
-
-			if(LightGreenTile((INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), iX, iY))
-			{
-				uiCount=LightFindNextRay(0, uiCount);
-				SetRenderFlags(RENDER_FLAG_MARKED);
-			}
-		}
-
-		uiCount++;
-		return(TRUE);
+		ScreenMsg(FONT_MCOLOR_LTYELLOW, MSG_INTERFACE, L"pLightList[%d] has no light template", gLightDebugSelection);
+        return(FALSE);
 	}
-	else
-		return(FALSE);
+
+    if ( uiCount < usRaySize[gLightDebugSelection] )
+    {
+        usNodeIndex = *(pLightRayList[gLightDebugSelection] + uiCount);
+
+        if ( !(usNodeIndex & LIGHT_NEW_RAY) )
+        {
+            pLight = pLightList[gLightDebugSelection] + (usNodeIndex & (~LIGHT_BACKLIGHT));
+
+            // Same boundary clamp LightRevealWall's caller got from Kris (line 2411); unclamped
+            // coords wrap through MAPROWCOLTOPOS and write gpWorldLevelData out of bounds
+            if ( LightWhiteTile(
+                (INT16)min(max((iX + pLight->iDX),0),WORLD_COLS-1),
+                (INT16)min(max((iY + pLight->iDY),0),WORLD_ROWS-1),
+                (INT16)min(max(iX,0),WORLD_COLS-1),
+                (INT16)min(max(iY,0),WORLD_ROWS-1) ) )
+            {
+                uiCount = LightFindNextRay(gLightDebugSelection, uiCount);
+                SetRenderFlags(RENDER_FLAG_MARKED);
+            }
+        }
+
+        uiCount++;
+        return(TRUE);
+    }
+    else
+    {
+        uiCount = 0; // finished; rewind so the next activation redraws without needing fReset
+        return(FALSE);
+    }
 }
 
 /****************************************************************************************
@@ -2531,7 +3228,7 @@ UINT16 usNodeIndex;
 	Removes the green from the tiles that was drawn to show the path of the rays.
 
 ***************************************************************************************/
-BOOLEAN LightHideGreen(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
+static BOOLEAN LightHideGreen(INT16 sX, INT16 sY, INT16 sSrcX, INT16 sSrcY)
 {
 LEVELNODE *pStruct, *pLand;
 UINT32 uiTile;
@@ -2583,8 +3280,8 @@ TILE_ELEMENT *TileElem;
 			pLand=pLand->pNext;
 		}
 
-		gpWorldLevelData[uiTile].uiFlags|=MAPELEMENT_REDRAW;
-		SetRenderFlags(RENDER_FLAG_MARKED);
+		// land gradient: also flag the 3 grids that corner-sample this one
+		LightMarkGradDirty(sX, sY);
 	//}
 
 	return(fHitWall);
@@ -2774,9 +3471,10 @@ LIGHT_NODE *pLight;
 UINT16 uiCount;
 UINT16 usNodeIndex;
 UINT32 uiFlags;
-INT32		iOldX, iOldY;
+INT32 iOldX, iOldY;
 BOOLEAN	fBlocked = FALSE;
 BOOLEAN fOnlyWalls;
+UINT8 ubRayDim = 100;
 
 
 	if(pLightList[iLight]==NULL)
@@ -2789,27 +3487,48 @@ BOOLEAN fOnlyWalls;
 		pLight->uiFlags&=(~LIGHT_NODE_DRAWN);
 	}
 
+	const auto iStartX = iX;
+	const auto iStartY = iY;
 	iOldX = iX;
 	iOldY = iY;
 
 	for(uiCount=0; uiCount < usRaySize[iLight]; uiCount++)
 	{
 		usNodeIndex=*(pLightRayList[iLight]+uiCount);
+
+		// Ray-skip jumps land on the next ray's LIGHT_NEW_RAY marker, which the for-loop's
+		// uiCount++ then swallows, so the marker else-branch below never runs: restore the
+		// per-ray dim here instead (must mirror LightDraw exactly)
+		if ( uiCount > 0 && ( *(pLightRayList[iLight] + (uiCount - 1)) & LIGHT_NEW_RAY ) )
+			ubRayDim = 100;
+
 		if(!(usNodeIndex&LIGHT_NEW_RAY))
 		{
 			fBlocked = FALSE;
-		fOnlyWalls = FALSE;
+			fOnlyWalls = FALSE;
 
 			pLight=pLightList[iLight]+(usNodeIndex&(~LIGHT_BACKLIGHT));
 
 			if(!(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF))
 			{
-				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY)))
+				if(LightTileBlocked( (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), iStartX, iStartY))
 				{
 					uiCount=LightFindNextRay(iLight, uiCount);
 
-			fOnlyWalls = TRUE;
+					fOnlyWalls = TRUE;
 					fBlocked = TRUE;
+					ubRayDim = 100;
+				}
+				else if ( LightSoftBlock((INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), iStartX, iStartY) )
+				{
+					if ( ubRayDim > LIGHT_SOFTBLOCK_DIM )
+						ubRayDim -= LIGHT_SOFTBLOCK_DIM;
+					else
+					{
+						ubRayDim = 0;
+						uiCount = LightFindNextRay(iLight, uiCount);
+						fBlocked = TRUE;
+					}
 				}
 			}
 
@@ -2821,7 +3540,8 @@ BOOLEAN fOnlyWalls;
 				if(LightSprites[uiSprite].uiFlags&LIGHT_SPR_ONROOF)
 					uiFlags|=LIGHT_ROOF_ONLY;
 
-				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX+pLight->iDX), (INT16)(iY+pLight->iDY), pLight->ubLight, uiFlags, fOnlyWalls );
+				const UINT8 lightLevel = (pLight->ubLight * ubRayDim) / 100;
+				LightSubtractTile(uiLightType, (INT16)iOldX, (INT16)iOldY, (INT16)(iX + pLight->iDX), (INT16)(iY + pLight->iDY), lightLevel, uiFlags, fOnlyWalls, iStartX, iStartY);
 				pLight->uiFlags|=LIGHT_NODE_DRAWN;
 			}
 
@@ -2840,6 +3560,7 @@ BOOLEAN fOnlyWalls;
 		{
 			iOldX = iX;
 			iOldY = iY;
+			ubRayDim = 100;
 		}
 	}
 
@@ -2853,7 +3574,7 @@ BOOLEAN fOnlyWalls;
 	a light.
 
 ***************************************************************************************/
-BOOLEAN LightCalcRect(INT32 iLight)
+static BOOLEAN LightCalcRect(INT32 iLight)
 {
 SGPRect MaxRect;
 INT16 sXValue, sYValue, sDummy;
@@ -3013,7 +3734,7 @@ INT32 LightLoad(STR pFilename)
 	disk. Returns the index of the template, or (-1) if it couldn't be loaded.
 
 ***************************************************************************************/
-INT32 LightLoadCachedTemplate(STR pFilename)
+static INT32 LightLoadCachedTemplate(STR pFilename)
 {
 INT32 iCount;
 
@@ -3114,7 +3835,7 @@ BOOLEAN LightSetColors(SGPPaletteEntry *pPal, UINT8 ubNumColors)
 *		Returns the index of the next available sprite.
 *
 ********************************************************************************/
-INT32 LightSpriteGetFree(void)
+static INT32 LightSpriteGetFree(void)
 {
 INT32 iCount;
 
@@ -3182,6 +3903,40 @@ BOOLEAN LightSpriteFake(INT32 iSprite)
 	{
 		return( FALSE );
 	}
+}
+
+/********************************************************************************
+* LightSpriteDirty
+*
+*		Sets the flag for the renderer to draw all marked tiles.
+*
+********************************************************************************/
+static BOOLEAN LightSpriteDirty(INT32 iSprite)
+{
+	//INT16 iLeft_s, iTop_s;
+	//INT16 iMapLeft, iMapTop, iMapRight, iMapBottom;
+
+		//CellXYToScreenXY((INT16)(LightSprites[iSprite].iX*CELL_X_SIZE),
+		//								(INT16)(LightSprites[iSprite].iY*CELL_Y_SIZE),	&iLeft_s, &iTop_s);
+
+		//iLeft_s+=LightXOffset[LightSprites[iSprite].iTemplate];
+		//iTop_s+=LightYOffset[LightSprites[iSprite].iTemplate];
+
+		//iMapLeft=LightSprites[iSprite].iX+LightMapLeft[LightSprites[iSprite].iTemplate];
+		//iMapTop=LightSprites[iSprite].iY+LightMapTop[LightSprites[iSprite].iTemplate];
+		//iMapRight=LightSprites[iSprite].iX+LightMapRight[LightSprites[iSprite].iTemplate];
+		//iMapBottom=LightSprites[iSprite].iY+LightMapBottom[LightSprites[iSprite].iTemplate];
+
+		//ReRenderWorld(iMapLeft, iMapTop, iMapRight, iMapBottom);
+		//UpdateSaveBuffer();
+		//AddBaseDirtyRect(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_END_Y );
+		//AddBaseDirtyRect(iLeft_s, iTop_s,
+		//								(INT16)(iLeft_s+LightWidth[LightSprites[iSprite].iTemplate]),
+		//								(INT16)(iTop_s+LightHeight[LightSprites[iSprite].iTemplate]));
+
+	SetRenderFlags(RENDER_FLAG_MARKED);
+
+	return(TRUE);
 }
 
 /********************************************************************************
@@ -3453,75 +4208,124 @@ BOOLEAN LightSpritePower(INT32 iSprite, BOOLEAN fOn)
 
 }
 
-/********************************************************************************
-* LightSpriteDirty
-*
-*		Sets the flag for the renderer to draw all marked tiles.
-*
-********************************************************************************/
-BOOLEAN LightSpriteDirty(INT32 iSprite)
+
+//****************************************************************************************
+//  LightSpriteStateChangePre / LightSpriteStateChangePost
+//
+//  Open/closed doors change which rays pass (see the Opendoor tests in LightEdge*), and a
+//  light is always erased using the *current* world state: light that was added while a door
+//  stood open can never be subtracted once the door closed, so it lingers behind the leaf.
+//  Bracket the flip (SwapStructureForPartner / InternalSwapStructureForPartner in structure.cpp)
+//  with these two calls: Pre subtracts every light whose template rect covers the door tile
+//  while the old door state is still in effect, Post adds it back after the flip. They use the
+//  same erase/draw pair and LIGHT_SPR_ERASE bookkeeping as LightSpriteRoofStatus.
+//****************************************************************************************
+BOOLEAN LightSpriteStateChangePre(INT16 iX, INT16 iY)
 {
-//INT16 iLeft_s, iTop_s;
-//INT16 iMapLeft, iMapTop, iMapRight, iMapBottom;
+    INT32 iCount;
+    BOOLEAN fDone = FALSE;
 
-	//CellXYToScreenXY((INT16)(LightSprites[iSprite].iX*CELL_X_SIZE),
-	//								(INT16)(LightSprites[iSprite].iY*CELL_Y_SIZE),	&iLeft_s, &iTop_s);
+    for ( iCount = 0; iCount < MAX_LIGHT_SPRITES; iCount++ )
+    {
+        if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE )
+        {
+            const INT32 iTemplate = LightSprites[iCount].iTemplate;
+            if ( iTemplate < 0 || iTemplate >= MAX_LIGHT_TEMPLATES )
+                continue;
 
-	//iLeft_s+=LightXOffset[LightSprites[iSprite].iTemplate];
-	//iTop_s+=LightYOffset[LightSprites[iSprite].iTemplate];
+            const INT16 iMapLeft = (INT16)(LightSprites[iCount].iX + LightMapLeft[iTemplate]);
+            const INT16 iMapTop = (INT16)(LightSprites[iCount].iY + LightMapTop[iTemplate]);
+            const INT16 iMapRight = (INT16)(LightSprites[iCount].iX + LightMapRight[iTemplate]);
+            const INT16 iMapBottom = (INT16)(LightSprites[iCount].iY + LightMapBottom[iTemplate]);
 
-	//iMapLeft=LightSprites[iSprite].iX+LightMapLeft[LightSprites[iSprite].iTemplate];
-	//iMapTop=LightSprites[iSprite].iY+LightMapTop[LightSprites[iSprite].iTemplate];
-	//iMapRight=LightSprites[iSprite].iX+LightMapRight[LightSprites[iSprite].iTemplate];
-	//iMapBottom=LightSprites[iSprite].iY+LightMapBottom[LightSprites[iSprite].iTemplate];
+            if ( iX >= iMapLeft && iX <= iMapRight && iY >= iMapTop && iY <= iMapBottom )
+            {
+                if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ERASE )
+                {
+                    if ( (LightSprites[iCount].iX < WORLD_COLS) && (LightSprites[iCount].iY < WORLD_ROWS) )
+                    {
+                        LightErase(LightSprites[iCount].uiLightType, iTemplate, LightSprites[iCount].iX, LightSprites[iCount].iY, iCount);
+                        LightSpriteDirty(iCount);
+                    }
+                    // pending redraw: Post is expected right after the state flip, no other light update may
+                    // run in between (a position change in between would skip its erase: LIGHT_SPR_ERASE is off)
+                    LightSprites[iCount].uiFlags &= (~LIGHT_SPR_ERASE);
+                    LightSprites[iCount].uiFlags |= LIGHT_SPR_REDRAW;
+                    fDone = TRUE;
+                }
+            }
+        }
+    }
 
-	//ReRenderWorld(iMapLeft, iMapTop, iMapRight, iMapBottom);
-	//UpdateSaveBuffer();
-	//AddBaseDirtyRect(gsVIEWPORT_START_X, gsVIEWPORT_START_Y, gsVIEWPORT_END_X, gsVIEWPORT_END_Y );
-	//AddBaseDirtyRect(iLeft_s, iTop_s,
-	//								(INT16)(iLeft_s+LightWidth[LightSprites[iSprite].iTemplate]),
-	//								(INT16)(iTop_s+LightHeight[LightSprites[iSprite].iTemplate]));
+    return(fDone);
+}
 
-	SetRenderFlags(RENDER_FLAG_MARKED);
+BOOLEAN LightSpriteStateChangePost(INT16 iX, INT16 iY)
+{
+    INT32 iCount;
+    BOOLEAN fDone = FALSE;
 
-	return(TRUE);
+    for ( iCount = 0; iCount < MAX_LIGHT_SPRITES; iCount++ )
+    {
+        if ( LightSprites[iCount].uiFlags & LIGHT_SPR_REDRAW && LightSprites[iCount].iTemplate >= 0 && LightSprites[iCount].iTemplate < MAX_LIGHT_TEMPLATES &&
+            iX >= (INT16)(LightSprites[iCount].iX + LightMapLeft[LightSprites[iCount].iTemplate]) && iX <= (INT16)(LightSprites[iCount].iX + LightMapRight[LightSprites[iCount].iTemplate]) &&
+            iY >= (INT16)(LightSprites[iCount].iY + LightMapTop[LightSprites[iCount].iTemplate]) && iY <= (INT16)(LightSprites[iCount].iY + LightMapBottom[LightSprites[iCount].iTemplate]) )
+        {
+            LightSprites[iCount].uiFlags &= (~LIGHT_SPR_REDRAW);
+
+            if ( LightSprites[iCount].uiFlags & LIGHT_SPR_ACTIVE && LightSprites[iCount].uiFlags & LIGHT_SPR_ON )
+            {
+                if ( (LightSprites[iCount].iX < WORLD_COLS) && (LightSprites[iCount].iY < WORLD_ROWS) )
+                {
+                    LightDraw(LightSprites[iCount].uiLightType, LightSprites[iCount].iTemplate, LightSprites[iCount].iX, LightSprites[iCount].iY, iCount);
+                    LightSprites[iCount].uiFlags |= LIGHT_SPR_ERASE;
+                    LightSpriteDirty(iCount);
+                    fDone = TRUE;
+                }
+            }
+            (void)iX;
+            (void)iY;
+        }
+    }
+
+    return(fDone);
 }
 
 
-BOOLEAN CreateObjectPalette(HVOBJECT pObj, UINT32 uiBase, SGPPaletteEntry *pShadePal)
+static BOOLEAN CreateObjectPalette(HVOBJECT pObj, UINT32 uiBase, SGPPaletteEntry* pShadePal)
 {
-UINT32 uiCount;
+    UINT32 uiCount;
 
-	pObj->pShades[uiBase]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0],
-																															gusShadeLevels[0][1],
-																															gusShadeLevels[0][2], TRUE);
+    pObj->pShades[uiBase] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[0][0],
+        gusShadeLevels[0][1],
+        gusShadeLevels[0][2], TRUE);
 
-	for(uiCount=1; uiCount < 16; uiCount++)
-	{
-		pObj->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0],
-																																				gusShadeLevels[uiCount][1],
-																																				gusShadeLevels[uiCount][2], FALSE);
-	}
+    for ( uiCount = 1; uiCount < 16; uiCount++ )
+    {
+        pObj->pShades[uiBase + uiCount] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[uiCount][0],
+            gusShadeLevels[uiCount][1],
+            gusShadeLevels[uiCount][2], FALSE);
+    }
 
-	return(TRUE);
+    return(TRUE);
 }
 
-BOOLEAN CreateSoldierShadedPalette( SOLDIERTYPE *pSoldier, UINT32 uiBase, SGPPaletteEntry *pShadePal)
+BOOLEAN CreateSoldierShadedPalette(SOLDIERTYPE* pSoldier, UINT32 uiBase, SGPPaletteEntry* pShadePal)
 {
-	UINT32 uiCount;
+    UINT32 uiCount;
 
-	pSoldier->pShades[uiBase]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[0][0],
-																															gusShadeLevels[0][1],
-																															gusShadeLevels[0][2], TRUE);
+    pSoldier->pShades[uiBase] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[0][0],
+        gusShadeLevels[0][1],
+        gusShadeLevels[0][2], TRUE);
 
-	for(uiCount=1; uiCount < 16; uiCount++)
-	{
-		pSoldier->pShades[uiBase+uiCount]=Create16BPPPaletteShaded( pShadePal, gusShadeLevels[uiCount][0],
-																																				gusShadeLevels[uiCount][1],
-																																				gusShadeLevels[uiCount][2], FALSE);
-	}
+    for ( uiCount = 1; uiCount < 16; uiCount++ )
+    {
+        pSoldier->pShades[uiBase + uiCount] = Create16BPPPaletteShaded(pShadePal, gusShadeLevels[uiCount][0],
+            gusShadeLevels[uiCount][1],
+            gusShadeLevels[uiCount][2], FALSE);
+    }
 
-	return(TRUE);
+    return(TRUE);
 }
 
 
@@ -3658,6 +4462,3 @@ UINT16 CreateSoldierPaletteTables(SOLDIERTYPE *pSoldier, UINT32 uiType)
 	return(TRUE);
 
 }
-
-
-
