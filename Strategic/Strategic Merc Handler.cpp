@@ -407,6 +407,27 @@ void MercDailyUpdate()
 			continue;
 		}
 
+		// a positive status means "hired", yet no soldier carries this profile:
+		if( pProfile->bMercStatus > 0 )
+		{
+			UINT8 ubPartner = GetMercSwapPartner( (UINT8)cnt );
+
+			// either the soldier rides on the swap twin's profile -- the twin runs
+			// all bookkeeping for the pair (normal state mid-swap)
+			if ( ubPartner != NO_PROFILE && IsMercOnTeam( ubPartner, FALSE, FALSE ) )
+			{
+				continue;
+			}
+
+			// or it's an orphaned gate: the soldier left (dismissal/death) while the
+			// twin profile held the status (pre-fix SwapToProfile copied it here and
+			// the departure cleared only the other half). Send the profile home
+			// properly: counts down 1-2 days, then hireable again.
+			pProfile->bMercStatus			= MERC_RETURNING_HOME;
+			pProfile->uiDayBecomesAvailable	= 1 + Random(2);
+			continue;
+		}
+
 		// if he's an AIM/M.E.R.C. merc
 		if( IsProfileIdAnAimOrMERCMerc( (UINT8)cnt ) )
 		{
