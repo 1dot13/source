@@ -121,7 +121,7 @@ void UpdatePersonal(SOLDIERTYPE *pSoldier, SoldierID ubID, INT8 bNewOpplist, INT
 INT16 MaxNormalDistanceVisible( void );
 INT16 DistanceVisible( SOLDIERTYPE *pSoldier, INT8 bFacingDir, INT8 bSubjectDir, INT32 sSubjectGridNo, INT8 bLevel, const BOOLEAN& isCowering, const UINT8& tunnelVision);
 void ResetLastKnownLocs(SOLDIERTYPE *ptr);
-void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier );
+void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier, BOOLEAN fUpdateOpponents = TRUE );
 void ReevaluateBestSightingPosition( SOLDIERTYPE * pSoldier, INT8 bInterruptDuelPts );
 
 

@@ -170,7 +170,6 @@ BOOLEAN checkBonusMilitia;
 
 TacticalStatusType  gTacticalStatus;
 
-extern void RecalculateOppCntsDueToNoLongerNeutral( SOLDIERTYPE * pSoldier );
 extern void SetSoldierAniSpeed( SOLDIERTYPE *pSoldier );
 extern void HandleExplosionQueue( );
 extern void UpdateForContOverPortrait( SOLDIERTYPE *pSoldier, BOOLEAN fOn );
