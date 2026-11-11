@@ -2170,12 +2170,6 @@ void PutDownMercPiece( INT32 iPlacement )
 			break;
 	}
 
-	if( TileIsOutOfBounds( pSoldier->sInsertionGridNo ) )
-	{ // the map has no entry point for this insertion code - searching a sweet spot from
-	  // NOWHERE would place the merc at a garbage position, so leave him unplaced instead
-		return;
-	}
-
 	if( gMercPlacement[ iPlacement ].fPlaced )
 		PickUpMercPiece( iPlacement );
 
