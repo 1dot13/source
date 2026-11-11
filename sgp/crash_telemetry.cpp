@@ -1,5 +1,10 @@
 // Crash telemetry: upload the crash_report_*.txt files the crash handler left
-// behind, on the next launch.
+// behind, on the next launch, with their frames named against the PDB beside the
+// exe. Only faults go out, and only once they can be named; an assertion report
+// stays on disk for the player.
+//
+// A local build uploads nothing. It names its own reports in place instead, so a
+// developer reruns the exe that crashed to read one.
 //
 // Deliberately a separate translation unit from crash_report.cpp. Everything in
 // there runs inside a faulting thread and may not allocate; everything here runs at
@@ -12,10 +17,13 @@
 
 #include <windows.h>
 #include <winhttp.h>
+#include <dbghelp.h>
 #include <process.h> // _beginthreadex for the detached upload thread
 
+#include <cstdio>
 #include <cstring> // strstr
 #include <optional>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -58,6 +66,208 @@ std::optional<std::string> readReport(const char* path) {
 	if (!read || got > kMaxReportBytes) return std::nullopt;
 	text.resize(got);
 	return text;
+}
+
+struct CrashLocation {
+	std::string function;
+	std::string file;
+	DWORD line = 0;
+};
+
+struct SymbolBuffer {
+	SYMBOL_INFO* get() {
+		auto* symbol = reinterpret_cast<SYMBOL_INFO*>(storage);
+		symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+		symbol->MaxNameLen = MAX_SYM_NAME;
+		return symbol;
+	}
+	alignas(SYMBOL_INFO) char storage[sizeof(SYMBOL_INFO) + MAX_SYM_NAME] = {};
+};
+
+// Innermost first: every level the optimizer inlined at the instruction a
+// report's frame is executing, then the function that owns it. Empty when no
+// function does. Frame 0 is the faulting instruction itself; every later frame
+// is a return address, the byte after its call, so it is looked up one byte
+// back -- otherwise a call that ends its function resolves to the next one.
+std::vector<CrashLocation> resolveCrashFrame(HANDLE symbols, int frameIndex, DWORD64 frameAddress) {
+	const DWORD64 address = frameIndex == 0 ? frameAddress : frameAddress - 1;
+	SymbolBuffer buffer;
+	DWORD64 symbolDisplacement = 0;
+	DWORD lineDisplacement = 0;
+	IMAGEHLP_LINE64 line{ sizeof(IMAGEHLP_LINE64) };
+
+	if (!SymFromAddr(symbols, address, &symbolDisplacement, buffer.get()))
+		return {};
+	CrashLocation owner{ buffer.get()->Name };
+	if (SymGetLineFromAddr64(symbols, address, &lineDisplacement, &line)) {
+		owner.file = line.FileName;
+		owner.line = line.LineNumber;
+	}
+
+	std::vector<CrashLocation> locations;
+	const DWORD inlinedLevels = SymAddrIncludeInlineTrace(symbols, address);
+	DWORD innermostContext = 0, inlineFrameIndex = 0;
+	if (inlinedLevels > 0 && SymQueryInlineTrace(symbols, address, 0, address, address,
+			&innermostContext, &inlineFrameIndex)) {
+		for (DWORD level = 0; level < inlinedLevels; ++level) {
+			CrashLocation inlined;
+			if (SymFromInlineContext(symbols, address, innermostContext + level,
+					&symbolDisplacement, buffer.get()))
+				inlined.function = buffer.get()->Name;
+			line = { sizeof(IMAGEHLP_LINE64) };
+			if (SymGetLineFromInlineContext(symbols, address, innermostContext + level, 0,
+					&lineDisplacement, &line)) {
+				inlined.file = line.FileName;
+				inlined.line = line.LineNumber;
+			}
+			locations.push_back(std::move(inlined));
+		}
+	}
+	locations.push_back(std::move(owner));
+	return locations;
+}
+
+class PdbBesideExe {
+public:
+	PdbBesideExe() = default;
+	PdbBesideExe(const PdbBesideExe&) = delete;
+	PdbBesideExe& operator=(const PdbBesideExe&) = delete;
+	~PdbBesideExe() {
+		if (loaded_.value_or(false))
+			SymCleanup(dbghelpSessionKey());
+	}
+
+	bool loaded() {
+		if (!loaded_)
+			loaded_ = load();
+		return *loaded_;
+	}
+
+	std::vector<CrashLocation> resolve(int frameIndex, DWORD rva) {
+		return resolveCrashFrame(dbghelpSessionKey(), frameIndex, preferredBase_ + rva);
+	}
+
+private:
+	HANDLE dbghelpSessionKey() { return this; }
+
+	bool load() {
+		char exePath[MAX_PATH];
+		const DWORD length = GetModuleFileNameA(NULL, exePath, MAX_PATH);
+		if (length == 0 || length == MAX_PATH)
+			return false;
+		const std::string exe(exePath, length);
+		const std::string directory = exe.substr(0, exe.find_last_of('\\'));
+
+		SymSetOptions(SYMOPT_LOAD_LINES | SYMOPT_UNDNAME | SYMOPT_NO_PROMPTS |
+			SYMOPT_IGNORE_CVREC | SYMOPT_FAIL_CRITICAL_ERRORS);
+		if (!SymInitialize(dbghelpSessionKey(), directory.c_str(), FALSE))
+			return false;
+		// Which PDB this is was settled before either pass started (see
+		// matchingPdbBesideExe()). If DbgHelp still cannot read it, no frame
+		// resolves -- the exe exports nothing to fall back on -- and no report is
+		// named.
+		preferredBase_ = SymLoadModuleEx(dbghelpSessionKey(), NULL, exe.c_str(), NULL, 0, 0, NULL, 0);
+		if (preferredBase_ != 0)
+			return true;
+		SymCleanup(dbghelpSessionKey());
+		return false;
+	}
+
+	std::optional<bool> loaded_;
+	DWORD64 preferredBase_ = 0;
+};
+
+const size_t kMaxFunctionChars = 120;
+const size_t kMaxFileChars = 80;
+
+std::string describe(const CrashLocation& location) {
+	std::string text = location.function.empty() ? "?" : location.function.substr(0, kMaxFunctionChars);
+	if (!location.file.empty()) {
+		const size_t directoryEnd = location.file.find_last_of("\\/");
+		const std::string file =
+			location.file.substr(directoryEnd == std::string::npos ? 0 : directoryEnd + 1);
+		text += "  " + file.substr(0, kMaxFileChars) + ':' + std::to_string(location.line);
+	}
+	return text;
+}
+
+std::optional<std::string> nameFrames(const std::string& report, PdbBesideExe& pdb,
+		bool withInlinedLevels) {
+	std::string named;
+	unsigned long imageBase = 0, imageSize = 0;
+	int namedFrames = 0;
+	std::istringstream lines(report);
+	for (std::string line; std::getline(lines, line);) {
+		if (!line.empty() && line.back() == '\r')
+			line.pop_back();
+		unsigned long base = 0, size = 0, address = 0;
+		int frameIndex = 0, frameLineLength = 0;
+		if (imageSize == 0 && line.compare(0, 4, "    ") == 0 &&
+				sscanf_s(line.c_str(), "    %8lx %8lx", &base, &size) == 2) {
+			imageBase = base;
+			imageSize = size;
+		} else if (imageSize != 0 &&
+				sscanf_s(line.c_str(), "  [%d] %8lx%n", &frameIndex, &address, &frameLineLength) == 2 &&
+				frameLineLength == static_cast<int>(line.size()) &&
+				address >= imageBase && address - imageBase < imageSize) {
+			const std::vector<CrashLocation> locations =
+				pdb.resolve(frameIndex, address - imageBase);
+			if (!locations.empty()) {
+				line += ' ' + describe(locations.front());
+				for (size_t level = 1; withInlinedLevels && level < locations.size(); ++level)
+					line += "\r\n      inlined into " + describe(locations[level]);
+				++namedFrames;
+			}
+		}
+		named += line + "\r\n";
+	}
+	if (namedFrames == 0 || named.size() > kMaxReportBytes)
+		return std::nullopt;
+	return named;
+}
+
+bool writtenByThisExe(const std::string& report) {
+	const std::string buildId = sgp::crashBuildId();
+	char imageLine[32];
+	snprintf(imageLine, sizeof(imageLine), "\r\n  image %08lX\r\n", sgp::imageFingerprint());
+	return !buildId.empty() &&
+		report.find("\r\n  build " + buildId + "\r\n") != std::string::npos &&
+		report.find(imageLine) != std::string::npos;
+}
+
+std::optional<std::string> withFrameNames(const std::string& report, PdbBesideExe& pdb) {
+	if (!writtenByThisExe(report) || !pdb.loaded())
+		return std::nullopt;
+	if (std::optional<std::string> named = nameFrames(report, pdb, true))
+		return named;
+	return nameFrames(report, pdb, false);
+}
+
+bool isAssertion(const std::string& report) {
+	return report.find("\r\n  assertion failed at line ") != std::string::npos;
+}
+
+// Faults only, for now. Many assertions fire on a broken install or a mod that
+// is missing files rather than on a bug in the code, and none of them is a
+// crash: the game carries on. An assertion report stays on disk, for the player
+// to attach to a bug report, until the reaper takes it.
+std::optional<std::string> uploadableText(const std::string& report, PdbBesideExe& pdb) {
+	if (isAssertion(report))
+		return std::nullopt;
+	return withFrameNames(report, pdb);
+}
+
+void replaceReport(const char* path, const std::string& text) {
+	const std::string replacement = std::string(path) + ".tmp";
+	HANDLE file = CreateFileA(replacement.c_str(), GENERIC_WRITE, 0, NULL,
+		CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (file == INVALID_HANDLE_VALUE) return;
+	DWORD written = 0;
+	const BOOL wrote = WriteFile(file, text.data(), static_cast<DWORD>(text.size()), &written, NULL);
+	CloseHandle(file);
+	if (!wrote || written != text.size() ||
+			!MoveFileExA(replacement.c_str(), path, MOVEFILE_REPLACE_EXISTING))
+		DeleteFileA(replacement.c_str());
 }
 
 // POST one report to url. Returns the HTTP status, or 0 if the request never
@@ -288,6 +498,7 @@ unsigned __stdcall telemetryThread(void*) {
 	WIN32_FIND_DATAA fd;
 	HANDLE hFind = FindFirstFileA("crash_report_*.txt", &fd);
 	if (hFind == INVALID_HANDLE_VALUE) return 0;
+	PdbBesideExe pdb;
 	int sent = 0;
 	do {
 		if (isFromLocalBuild(fd.cFileName)) continue;
@@ -298,22 +509,52 @@ unsigned __stdcall telemetryThread(void*) {
 		}
 		const std::optional<std::string> report = readReport(fd.cFileName);
 		if (!report) continue;
+		const std::optional<std::string> upload = uploadableText(*report, pdb);
+		if (!upload) continue;
 		if (sent++ >= kMaxUploadsPerRun) break;
-		if (reportIsSettled(postReport(s_telemetryUrl, *report)))
+		if (reportIsSettled(postReport(s_telemetryUrl, *upload)))
 			DeleteFileA(fd.cFileName);
 	} while (FindNextFileA(hFind, &fd));
 	FindClose(hFind);
 	return 0;
 }
 
+unsigned __stdcall nameLocalReports(void*) {
+	WIN32_FIND_DATAA fd;
+	HANDLE hFind = FindFirstFileA("crash_report_*.txt", &fd);
+	if (hFind == INVALID_HANDLE_VALUE) return 0;
+	PdbBesideExe pdb;
+	do {
+		const std::optional<std::string> report = readReport(fd.cFileName);
+		if (!report) continue;
+		if (const std::optional<std::string> named = withFrameNames(*report, pdb))
+			replaceReport(fd.cFileName, *named);
+	} while (FindNextFileA(hFind, &fd));
+	FindClose(hFind);
+	return 0;
+}
+
+// _beginthreadex, not CreateThread: both passes use the CRT (std::string), which
+// wants its per-thread state set up and torn down.
+void runDetached(unsigned (__stdcall* pass)(void*)) {
+	uintptr_t thread = _beginthreadex(NULL, 0, pass, NULL, 0, NULL);
+	if (thread) CloseHandle((HANDLE)thread);
+}
+
 } // anonymous namespace
 
 namespace sgp {
 void processCrashTelemetry(const wchar_t* url) {
-	if (url == NULL || url[0] == L'\0') return; // no endpoint configured: feature off
-	// Ahead of the consent question too: without its PDB this exe has nothing
-	// readable to send, so there is nothing to ask about. See matchingPdbBesideExe().
+	// First, for both passes: without its own PDB this exe can name nothing, so
+	// there is nothing to rewrite in place and nothing to ask about.
 	if (!matchingPdbBesideExe()) return;
+	// Ahead of the endpoint and the consent question: naming a report sends it
+	// nowhere, and a developer who declines uploads still wants names.
+	if (lstrcmpA(crashBuildId(), "local") == 0) {
+		runDetached(nameLocalReports);
+		return;
+	}
+	if (url == NULL || url[0] == L'\0') return; // no endpoint configured: feature off
 
 	int consent = readConsent();
 	if (consent < 0) { // first run: ask once, remember the answer
@@ -337,10 +578,7 @@ void processCrashTelemetry(const wchar_t* url) {
 	// takes. The consent prompt above stays here, on purpose — that one is a
 	// question, and a question has to be asked before anything is sent.
 	lstrcpynW(s_telemetryUrl, url, ARRAYSIZE(s_telemetryUrl));
-	// _beginthreadex, not CreateThread: the upload path uses the CRT (std::string),
-	// which wants its per-thread state set up and torn down.
-	uintptr_t t = _beginthreadex(NULL, 0, telemetryThread, NULL, 0, NULL);
-	if (t) CloseHandle((HANDLE)t);
+	runDetached(telemetryThread);
 }
 } // namespace sgp
 

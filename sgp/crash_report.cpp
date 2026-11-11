@@ -7,6 +7,8 @@
 
 #include <winternl.h> // PEB loader list, so the module table costs no allocation
 
+extern "C" IMAGE_DOS_HEADER __ImageBase;
+
 
 
 
@@ -16,8 +18,8 @@
 // allocates — the game Logger, std::vector, DbgHelp's Sym* — would fault again
 // and take the report down with it. So this path is deliberately heap-free: only
 // stack buffers and raw Win32. It emits runtime addresses plus the module table
-// needed to make sense of them; symbolize offline against the build's PDB:
-//   symbolize_crash crash_report_001.txt JA2.exe
+// needed to make sense of them; the next launch names them against the PDB beside
+// the exe (crash_telemetry.cpp).
 namespace sgp {
 
 // Stamped into every crash report so a report maps to the exact build's PDB.
@@ -25,6 +27,13 @@ namespace sgp {
 static char s_buildId[64] = { 0 };
 void setCrashBuildId(const char* id) {
 	if (id) lstrcpynA(s_buildId, id, sizeof(s_buildId));
+}
+const char* crashBuildId() { return s_buildId; }
+
+unsigned long imageFingerprint() {
+	const auto* headers = reinterpret_cast<const IMAGE_NT_HEADERS*>(
+		reinterpret_cast<const char*>(&__ImageBase) + __ImageBase.e_lfanew);
+	return headers->FileHeader.TimeDateStamp;
 }
 
 // Filled in once a report has been written; see crashReportMessage(). Sized to
@@ -126,6 +135,7 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 		t.wYear, t.wMonth, t.wDay, t.wHour, t.wMinute, t.wSecond));
 	if (s_buildId[0])
 		emit(wsprintfA(line, "  build %s\r\n", s_buildId));
+	emit(wsprintfA(line, "  image %08lX\r\n", imageFingerprint()));
 	if (s_userHandle[0])
 		emit(wsprintfA(line, "  handle %s\r\n", s_userHandle));
 	// File name only, and copied into a bounded buffer first: __FILE__ carries the
@@ -257,8 +267,12 @@ void writeExceptionBacktrace(_EXCEPTION_POINTERS* ep) {
 	wsprintfW(s_crashMessage,
 		L"%s\r\n\r\n"
 		L"A crash report was written to\r\n\r\n    %s\\%S\r\n\r\n"
-		L"Please attach that file to your bug report.",
-		headline, dir, name);
+		L"%s",
+		headline, dir, name,
+		lstrcmpA(s_buildId, "local") == 0
+			? L"This is a local build. Run this same exe again, before rebuilding,\r\n"
+			  L"and it adds function names and source lines to that report."
+			: L"Please attach that file to your bug report.");
 
 	s_inDump = false;
 }

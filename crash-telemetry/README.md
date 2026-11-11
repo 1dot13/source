@@ -1,61 +1,98 @@
 # Crash telemetry sink
 
-Receives the crash reports `sgp::processCrashTelemetry` uploads and posts them to a
-Discord channel. Stores nothing — a report is only useful next to the matching PDB,
-which lives on a developer's machine.
+Receives the crash reports `sgp::processCrashTelemetry` uploads and stores each as a
+row in D1. `schema.sql` is the data model, `parse.js` the report grammar, and the
+Worker the little that is left.
+
+Reports arrive with their frames named. `sgp/crash_telemetry.cpp` resolves them
+against the PDB shipped beside the exe before uploading, and holds back a fault it
+cannot name — so a frame here carries where the code was and each function it was
+inlined into, not a bare address. Nothing in this directory needs a PDB, and
+nothing here can recover a name the client did not send.
 
 ## Deploy
 
 ```sh
-npm i -g wrangler                     # once
-wrangler login                        # once
-wrangler deploy                       # creates the Worker
-wrangler secret put DISCORD_WEBHOOK   # paste the channel's webhook URL
+npm i -g wrangler                                            # once
+wrangler login                                               # once
+wrangler d1 create ja2-crashes                               # once
+wrangler d1 execute ja2-crashes --remote --file=schema.sql
+wrangler deploy
 ```
 
-Deploy first: `secret put` needs the Worker to already exist. To point it at a
-different channel later, run `secret put` again — it overwrites in place and
-redeploys, no other step needed. Secrets are write-only; `wrangler secret list`
-shows names, never values.
+`wrangler.toml` names the database and holds no id, so nothing in it is tied to
+one Cloudflare account: wrangler finds `ja2-crashes` in whichever account it is
+logged into. That needs a wrangler that resolves D1 bindings by name — 4.124 does.
 
-Then put the printed `https://ja2-crash-telemetry.<subdomain>.workers.dev` into
+Then put the printed `https://ja2-crash-reports.<subdomain>.workers.dev` into
 `gamedir/Ja2.ini`:
 
 ```ini
 [Ja2 Settings]
-CRASH_TELEMETRY_URL = https://ja2-crash-telemetry.<subdomain>.workers.dev
+CRASH_TELEMETRY_URL = https://ja2-crash-reports.<subdomain>.workers.dev
 ```
 
 Empty or missing key = telemetry off, reports just accumulate locally.
 
+Re-running the schema is safe — every statement in it is `IF NOT EXISTS`. Changing
+a view means dropping it first (`DROP VIEW report_frames;`), then re-running the
+file; the view then re-derives every report ever received.
+
+## Mining it
+
+```sh
+d1() { wrangler d1 execute ja2-crashes --remote --command "$1"; }
+
+# where faults happen, by the code the client said the address was in
+d1 "SELECT f.source, count(*) n, count(DISTINCT r.build) builds
+      FROM reports r JOIN report_frames f ON f.id = r.id AND f.idx = 0
+     WHERE f.source IS NOT NULL GROUP BY 1 ORDER BY n DESC LIMIT 20"
+
+# reports per day
+d1 "SELECT date(received_at, 'unixepoch') d, count(*) n FROM reports GROUP BY d ORDER BY d DESC LIMIT 30"
+
+# what else was loaded — cnc-ddraw, an overlay, Wine
+d1 "SELECT name, count(*) n FROM report_modules GROUP BY name ORDER BY n DESC"
+
+# one report's backtrace
+d1 "SELECT idx, func, source, name FROM report_frames WHERE id = '<id>' ORDER BY idx"
+
+# reports the grammar did not fully understand — should be none
+d1 "SELECT id, received_at, build FROM reports WHERE raw IS NOT NULL"
+```
+
+To read a row as the report the player's machine sent:
+
+```sh
+wrangler d1 execute ja2-crashes --remote --json \
+  --command "SELECT text FROM report_text WHERE id = '<id>'" \
+  | jq -j '.[0].results[0].text' > /tmp/report.txt
+```
+
+The names in it are the only ones there will be: nothing here has the PDB to
+name a frame again.
+
 ## Test without the game
 
 ```sh
-node test.mjs             # status-code contract, Discord payload shape. No network.
+node test.mjs      # grammar, views, status-code contract. No network, no wrangler.
 ```
 
-Against a real local instance:
+`test.mjs` runs `schema.sql` in node's SQLite and hands the Worker a binding backed
+by it. Its fixtures are real uploads, captured from the client under Wine, not
+reports written to match the grammar.
+
+Against a local instance:
 
 ```sh
-cp .dev.vars.example .dev.vars   # put a webhook URL in it, see below
-wrangler dev                     # local, http://localhost:8787
-
-printf '*** CRASH  code=C0000005 ***\r\n  build test\r\n' \
-  | curl -X POST --data-binary @- localhost:8787
+wrangler d1 execute ja2-crashes --local --file=schema.sql   # once
+wrangler dev                                                # http://localhost:8787
+curl -X POST --data-binary @fixtures/fault.txt localhost:8787
+wrangler d1 execute ja2-crashes --local --command "SELECT id, code, build FROM reports"
 ```
 
-Expect `204` for that, `400` for junk (`curl -X POST -d hello localhost:8787`). Any
-real `crash_report_*.txt` out of a gamedir works as a body too.
-
-**`wrangler dev` does not see `wrangler secret put`.** Secrets set that way go to the
-deployed Worker; local dev reads `.dev.vars` and nothing else. Without it every
-request answers `503 not configured`. Each 503 names its own cause in the response
-body and in wrangler's console.
-
-There is no stub webhook value that returns 2xx — a Discord webhook URL you do not
-own answers 401 or 404, which the Worker correctly turns into a 503. So `.dev.vars`
-needs a real webhook; point it at a throwaway channel rather than the live one.
-`node test.mjs` is the path that needs no webhook at all.
+Expect `204` for a report and `400` for junk (`curl -X POST -d hello localhost:8787`).
+`--local` and `--remote` are different databases.
 
 ## Status codes are a contract
 
@@ -64,14 +101,17 @@ report on 2xx and on 400/413/415, and keeps it on everything else. So:
 
 | Status | Meaning | Client does |
 | --- | --- | --- |
-| 2xx | delivered | deletes its copy |
+| 2xx | stored | deletes its copy |
 | 400 | not a crash report, or too big | deletes its copy |
 | 429 | throttled | keeps it, retries next launch |
-| 5xx | our fault (Discord down, rate-limited, secret unset) | keeps it, retries next launch |
+| 5xx | our fault (D1 unreachable, binding missing) | keeps it, retries next launch |
 
 **Never answer a settling 4xx for a failure on our side** — that silently destroys
 the report. 429 is the one 4xx that is safe here, precisely because the client does
 not settle it.
+
+The same report sent twice is one row: the primary key is the hash of its text, and
+a request that times out after we committed is one the client sends again.
 
 ## Rate limiting
 
@@ -82,24 +122,33 @@ the client, or a player draining a backlog throttles themselves.
 This has to be a binding with a `.limit()` call in `worker.js`, not a dashboard
 rule: WAF rate limiting rules need a zone, and a `workers.dev` subdomain is not
 one. The counter is per-colo and best-effort, so treat the number as a rough
-ceiling — it is there to keep scanners out of the channel, not to be exact.
+ceiling.
 
 Adding the binding from the Cloudflare dashboard instead would leave `wrangler.toml`
 out of sync, and the next `wrangler deploy` would drop it. Edit the file.
 
 ## Free tier
 
-100k requests/day and 10 ms CPU per invocation. Forwarding a few KB costs well under
-a millisecond of CPU — the time spent waiting on Discord is not metered.
+100k Worker requests/day; for D1, 5 GB stored, 5M rows read/day and 100k rows
+written/day, index entries counted as rows written — which is why the schema has no
+secondary index. A report is one row of 2-8 KB.
+
+Nothing deletes anything. When that has to change:
+
+```sh
+wrangler d1 execute ja2-crashes --remote \
+  --command "DELETE FROM reports WHERE received_at < unixepoch('now', '-1 year')"
+```
 
 ## Not done
 
 No authentication. The endpoint is public and its URL ships in every player's
 `Ja2.ini`, so assume it will eventually be found; the size and `*** CRASH` checks
-only keep out drive-by scanners. Every field the summary line quotes is therefore
-attacker-chosen, not just the handle: all of them go through `clean()`, which keeps
-printable ASCII minus Discord's markup and link characters, and the post sends
-`allowed_mentions: {parse: []}`. Blast radius of abuse is a message we delete.
+only keep out drive-by scanners. Every field in a row is therefore attacker-chosen:
+bound, never interpolated, and never read back as anything but text. Blast radius
+of abuse is rows we delete.
 
-The per-IP limiter does nothing against a distributed flood — that would cost
-channel noise and the 100k/day request budget, not money.
+The per-IP limiter does nothing against a distributed flood — that would spend the
+D1 write budget and the 100k/day request budget, not money.
+
+Nothing pushes. A crash never seen before does not announce itself; you go and look.

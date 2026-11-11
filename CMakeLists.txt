@@ -123,9 +123,6 @@ add_compile_definitions(
 # ja2export utility
 add_subdirectory("export/src")
 
-# developer tools, built alongside the game
-add_subdirectory(tools)
-
 # static libraries whose translation units don't rely on Application preprocessor definitions.
 add_subdirectory(lua)
 add_subdirectory(Multiplayer)
@@ -171,6 +168,7 @@ set(Ja2_Libraries
 "winmm.lib"
 "ws2_32.lib"
 "winhttp.lib"
+"dbghelp.lib"
 bfVFS
 Lua
 Multiplayer

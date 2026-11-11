@@ -1,4 +1,4 @@
-name = "ja2-crash-telemetry"
+name = "ja2-crash-reports"
 main = "worker.js"
 compatibility_date = "2025-07-01"
 
@@ -6,14 +6,21 @@ compatibility_date = "2025-07-01"
 # domain. Stated explicitly so the default can't move; wrangler warns otherwise.
 workers_dev = true
 
-# No per-version preview URLs. Each one is another live, public endpoint that
-# forwards to the Discord webhook, and testing happens against `wrangler dev`
-# with the local sink, so they would be surface area for nothing.
+# No per-version preview URLs. Each one is another live, public endpoint writing
+# into the same database, and testing happens against `wrangler dev`, which uses
+# a local one — so they would be surface area for nothing.
 preview_urls = false
+
+# Where the reports go, named rather than identified: wrangler binds the database
+# the deployed Worker already has, else the one of this name in the account, else
+# creates it. No database_id, so the file holds nothing tied to one account.
+[[d1_databases]]
+binding = "DB"
+database_name = "ja2-crashes"
 
 # Per-IP upload cap. The ceiling has to clear kMaxUploadsPerRun (20) in the client,
 # or a player draining a backlog throttles themselves; 50/minute leaves headroom
-# without letting a scanner flood the channel. period accepts only 10 or 60.
+# without letting a scanner spend the D1 write budget. period accepts only 10 or 60.
 [[ratelimits]]
 name = "UPLOAD_LIMITER"
 namespace_id = "1001"
@@ -21,7 +28,3 @@ namespace_id = "1001"
   [ratelimits.simple]
   limit = 50
   period = 60
-
-# DISCORD_WEBHOOK is a secret, not a var — it never belongs in this file:
-#   wrangler secret put DISCORD_WEBHOOK        (deployed Worker)
-#   .dev.vars                                  (wrangler dev)

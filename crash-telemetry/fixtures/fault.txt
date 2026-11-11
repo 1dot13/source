@@ -1,0 +1,38 @@
+
+*** CRASH  code=C0000005  eip=004027E7  esp=0022FCC4  ebp=0022FCC8 ***
+  time 2026-09-22 19:56:18 UTC
+  build 6a941c068
+  image 6AB2DD5A
+  access violation: read from 00000000
+  modules (base size name):
+    00400000 0010C000 harness.exe
+    7BC70000 00371000 ntdll.dll
+    7BAB0000 0017F000 kernel32.dll
+    7B500000 0059E000 kernelbase.dll
+    7B1C0000 0032A000 dbghelp.dll
+    7AE40000 00363000 ucrtbase.dll
+    7ACF0000 0013F000 WINHTTP.dll
+    7ABD0000 00105000 advapi32.dll
+    7A8E0000 002DB000 msvcrt.dll
+    7A850000 00076000 sechost.dll
+    7A810000 00023000 cryptbase.dll
+    7A7B0000 0004E000 jsproxy.dll
+    7A450000 00350000 ole32.dll
+    7A2D0000 00169000 combase.dll
+    7A080000 0023A000 gdi32.dll
+    79B30000 0053B000 user32.dll
+    79AD0000 00047000 win32u.dll
+    79860000 00252000 rpcrt4.dll
+    797F0000 00051000 coml2.dll
+    794F0000 002E5000 oleaut32.dll
+    79440000 0009B000 ws2_32.dll
+    793C0000 0006E000 imm32.dll
+  [0] 004027E7 `anonymous namespace'::walk  harness.cpp:16
+  [1] 00401B66 `anonymous namespace'::crashOnce  harness.cpp:24
+  [2] 004016FD main  harness.cpp:34
+  [3] 00409941 invoke_main  exe_common.inl:78
+      inlined into __scrt_common_main_seh  exe_common.inl:288
+  [4] 7BABFC44
+  [5] 7BC7E477
+  [6] 7BCC01DD
+  [7] 00000000

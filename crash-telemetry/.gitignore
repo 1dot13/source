@@ -1,6 +1,3 @@
-# Holds a live Discord webhook URL. Never commit it.
-.dev.vars
-
 # Regenerable local state: build cache, miniflare storage, account cache.
 .wrangler/
 
