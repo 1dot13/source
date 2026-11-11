@@ -113,6 +113,13 @@ SELECT f.id, f.idx, f.func, f.source
   FROM report_frames f
  WHERE f.idx = (SELECT min(g.idx) FROM report_frames g WHERE g.id = f.id AND g.func IS NOT NULL);
 
+-- Reports from CRASH_TEST in Ja2.ini: crashTest is on the stack, as a frame of
+-- its own or inlined into its caller.
+CREATE VIEW IF NOT EXISTS test_reports AS
+SELECT id FROM report_frames WHERE func = 'crashTest'
+UNION
+SELECT id FROM report_inlines WHERE func = 'crashTest';
+
 CREATE VIEW IF NOT EXISTS top_faults AS
 SELECT s.func, s.source, r.code, r.av_kind,
        (SELECT name FROM report_frames z WHERE z.id = r.id AND z.idx = 0) AS fault_module,
@@ -123,4 +130,5 @@ SELECT s.func, s.source, r.code, r.av_kind,
        datetime(max(r.received_at), 'unixepoch')   AS last_seen,
        max(r.id)                                   AS example
   FROM reports r JOIN report_sites s ON s.id = r.id
+ WHERE r.id NOT IN (SELECT id FROM test_reports)
  GROUP BY s.func, s.source, r.code, r.av_kind, fault_module;
