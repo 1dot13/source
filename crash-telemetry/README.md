@@ -54,8 +54,9 @@ d1 "SELECT date(received_at, 'unixepoch') d, count(*) n FROM reports GROUP BY d 
 # what else was loaded — cnc-ddraw, an overlay, Wine
 d1 "SELECT name, count(*) n FROM report_modules GROUP BY name ORDER BY n DESC"
 
-# one report's backtrace
+# one report's backtrace, then what each of its frames was inlined into
 d1 "SELECT idx, func, source, name FROM report_frames WHERE id = '<id>' ORDER BY idx"
+d1 "SELECT idx, depth, func, source FROM report_inlines WHERE id = '<id>' ORDER BY idx, depth"
 
 # reports the grammar did not fully understand — should be none
 d1 "SELECT id, received_at, build FROM reports WHERE raw IS NOT NULL"

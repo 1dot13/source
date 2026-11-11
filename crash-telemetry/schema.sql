@@ -94,3 +94,13 @@ SELECT r.id,
                                '' ORDER BY f.key)
                         FROM json_each(r.frames) f), '')) AS text
   FROM reports r, crlf;
+
+-- Each frame's inlined levels, depth 1 being the function the frame's own code
+-- was inlined into, counting outward.
+CREATE VIEW IF NOT EXISTS report_inlines AS
+SELECT r.id,
+       f.key                                         AS idx,
+       i.key + 1                                     AS depth,
+       substr(i.value, 1, instr(i.value, '  ') - 1)  AS func,
+       substr(i.value, instr(i.value, '  ') + 2)     AS source
+  FROM reports r, json_each(r.frames) f, json_each(f.value, '$.i') i;
