@@ -1,4 +1,4 @@
-name = "ja2-crash-telemetry"
+name = "ja2-crash-reports"
 main = "worker.js"
 compatibility_date = "2025-07-01"
 

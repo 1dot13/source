@@ -1,5 +1,5 @@
 {
-  "name": "ja2-crash-telemetry",
+  "name": "ja2-crash-reports",
   "private": true,
   "type": "module",
   "scripts": {

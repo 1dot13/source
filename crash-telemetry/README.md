@@ -24,12 +24,12 @@ wrangler deploy
 one Cloudflare account: wrangler finds `ja2-crashes` in whichever account it is
 logged into. That needs a wrangler that resolves D1 bindings by name — 4.124 does.
 
-Then put the printed `https://ja2-crash-telemetry.<subdomain>.workers.dev` into
+Then put the printed `https://ja2-crash-reports.<subdomain>.workers.dev` into
 `gamedir/Ja2.ini`:
 
 ```ini
 [Ja2 Settings]
-CRASH_TELEMETRY_URL = https://ja2-crash-telemetry.<subdomain>.workers.dev
+CRASH_TELEMETRY_URL = https://ja2-crash-reports.<subdomain>.workers.dev
 ```
 
 Empty or missing key = telemetry off, reports just accumulate locally.
