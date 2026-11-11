@@ -56,6 +56,13 @@ Visit the [releases page](https://github.com/1dot13/source/releases) to download
    (those issues can occur due to the combination of old game and modern OS/hardware, cnc-ddraw helps to avoid those) 
 
 
+### Crash reports
+
+When the game crashes it writes a `crash_report_*.txt` file into the game folder. On the next launch it asks once whether it may send these reports to the developers, and remembers the answer in `telemetry.consent`; delete that file to be asked again.
+
+Every `.exe` comes with a `.pdb` file of the same name. The game itself does not need it: it is what lets the developers read a crash report, and it is large. Keep the `.pdb` files only if you agreed to send crash reports. If you declined, or would rather have the disk space, delete them — the game runs the same without them. An executable whose `.pdb` is missing never asks about crash reports and sends none.
+
+
 ### Visual Studio setup
 
 1. Run `Visual Studio 2019` or newer.
