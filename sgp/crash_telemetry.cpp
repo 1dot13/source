@@ -162,10 +162,12 @@ private:
 			SYMOPT_IGNORE_CVREC | SYMOPT_FAIL_CRITICAL_ERRORS);
 		if (!SymInitialize(dbghelpSessionKey(), directory.c_str(), FALSE))
 			return false;
+		// Which PDB this is was settled before either pass started (see
+		// matchingPdbBesideExe()). If DbgHelp still cannot read it, no frame
+		// resolves -- the exe exports nothing to fall back on -- and no report is
+		// named.
 		preferredBase_ = SymLoadModuleEx(dbghelpSessionKey(), NULL, exe.c_str(), NULL, 0, 0, NULL, 0);
-		IMAGEHLP_MODULE64 module{ sizeof(IMAGEHLP_MODULE64) };
-		if (preferredBase_ != 0 && SymGetModuleInfo64(dbghelpSessionKey(), preferredBase_, &module) &&
-				module.SymType == SymPdb)
+		if (preferredBase_ != 0)
 			return true;
 		SymCleanup(dbghelpSessionKey());
 		return false;
@@ -543,6 +545,9 @@ void runDetached(unsigned (__stdcall* pass)(void*)) {
 
 namespace sgp {
 void processCrashTelemetry(const wchar_t* url) {
+	// First, for both passes: without its own PDB this exe can name nothing, so
+	// there is nothing to rewrite in place and nothing to ask about.
+	if (!matchingPdbBesideExe()) return;
 	// Ahead of the endpoint and the consent question: naming a report sends it
 	// nowhere, and a developer who declines uploads still wants names.
 	if (lstrcmpA(crashBuildId(), "local") == 0) {
@@ -550,9 +555,6 @@ void processCrashTelemetry(const wchar_t* url) {
 		return;
 	}
 	if (url == NULL || url[0] == L'\0') return; // no endpoint configured: feature off
-	// Ahead of the consent question too: without its PDB this exe has nothing
-	// readable to send, so there is nothing to ask about. See matchingPdbBesideExe().
-	if (!matchingPdbBesideExe()) return;
 
 	int consent = readConsent();
 	if (consent < 0) { // first run: ask once, remember the answer
