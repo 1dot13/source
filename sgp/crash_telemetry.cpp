@@ -17,6 +17,8 @@
 #include <cstring> // strstr
 #include <vector>
 
+extern "C" IMAGE_DOS_HEADER __ImageBase;
+
 namespace {
 
 // Persisted consent: 1 = yes, 0 = no, -1 = not asked yet.
@@ -129,6 +131,145 @@ bool olderThan(const FILETIME& ft, DWORD days) {
 	return (n.QuadPart - t.QuadPart) > days * 24ULL * 60 * 60 * 10000000ULL;
 }
 
+// The PDB this exe was linked with, beside it, is what makes a report readable:
+// without it a report is a row of addresses into a build nobody may still have.
+// So telemetry runs only when that PDB is there, and a player who deletes the
+// PDBs for the disk space (README.md) has switched it off. "That PDB" means the
+// GUID and age the linker wrote into both files -- the key a symbol server
+// matches on -- so a PDB left over from another release does not count.
+
+// The exe's own CodeView record: the linker writes the PDB's GUID, age and path
+// into the debug directory, and the loader has mapped it, so this reads memory.
+struct CodeViewRecord {
+	char signature[4]; // "RSDS"
+	GUID guid;
+	DWORD age;
+	char pdbPath[1];   // NUL-terminated, whatever path the linker wrote to
+};
+
+const CodeViewRecord* exeCodeView() {
+	const BYTE* base = reinterpret_cast<const BYTE*>(&__ImageBase);
+	const auto* nt = reinterpret_cast<const IMAGE_NT_HEADERS*>(base + __ImageBase.e_lfanew);
+	const IMAGE_DATA_DIRECTORY& debug = nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_DEBUG];
+	const auto* entries = reinterpret_cast<const IMAGE_DEBUG_DIRECTORY*>(base + debug.VirtualAddress);
+	for (DWORD i = 0; debug.VirtualAddress && i < debug.Size / sizeof(IMAGE_DEBUG_DIRECTORY); ++i) {
+		const IMAGE_DEBUG_DIRECTORY& entry = entries[i];
+		if (entry.Type != IMAGE_DEBUG_TYPE_CODEVIEW || entry.AddressOfRawData == 0 ||
+				entry.SizeOfData < sizeof(CodeViewRecord))
+			continue;
+		const auto* record = reinterpret_cast<const CodeViewRecord*>(base + entry.AddressOfRawData);
+		if (memcmp(record->signature, "RSDS", 4) == 0)
+			return record;
+	}
+	return NULL;
+}
+
+bool readAt(HANDLE file, ULONGLONG offset, void* out, DWORD size) {
+	LARGE_INTEGER at;
+	at.QuadPart = static_cast<LONGLONG>(offset);
+	DWORD got = 0;
+	return SetFilePointerEx(file, at, NULL, FILE_BEGIN) &&
+		ReadFile(file, out, size, &got, NULL) && got == size;
+}
+
+// A PDB's GUID and age, from its info stream (stream 1) inside the MSF 7.0
+// container: superblock, then the block listing the stream directory's blocks,
+// then the directory, then the first block of stream 1. A few KB of reads, not a
+// symbol load. The file is whatever sits beside the exe, so every count and index
+// taken from it is checked before it is used.
+bool readPdbIdentity(HANDLE file, GUID& guid, DWORD& age) {
+	struct {
+		char magic[32];
+		DWORD blockSize, freeBlockMapBlock, numBlocks, numDirectoryBytes, unknown, blockMapAddr;
+	} super;
+	static const char kMagic[] = "Microsoft C/C++ MSF 7.00\r\n\x1a" "DS\0\0";
+	static_assert(sizeof(kMagic) == sizeof(super.magic), "MSF magic is 32 bytes");
+	if (!readAt(file, 0, &super, sizeof(super)) || memcmp(super.magic, kMagic, sizeof(kMagic)) != 0)
+		return false;
+	const DWORD blockSize = super.blockSize;
+	if (blockSize != 512 && blockSize != 1024 && blockSize != 2048 && blockSize != 4096)
+		return false;
+	auto blockOffset = [&](DWORD block) { return static_cast<ULONGLONG>(block) * blockSize; };
+
+	// The directory is: stream count, each stream's size, then each stream's block
+	// list in stream order. Its own block list fills at most one block.
+	const DWORD directoryBlocks = (super.numDirectoryBytes + blockSize - 1) / blockSize;
+	if (super.numDirectoryBytes < 8 || directoryBlocks > blockSize / sizeof(DWORD) ||
+			super.blockMapAddr >= super.numBlocks)
+		return false;
+	std::vector<DWORD> directoryBlockList(directoryBlocks);
+	if (!readAt(file, blockOffset(super.blockMapAddr), directoryBlockList.data(),
+			static_cast<DWORD>(directoryBlocks * sizeof(DWORD))))
+		return false;
+	std::vector<DWORD> directory(directoryBlocks * blockSize / sizeof(DWORD));
+	for (DWORD i = 0; i < directoryBlocks; ++i)
+		if (directoryBlockList[i] >= super.numBlocks ||
+				!readAt(file, blockOffset(directoryBlockList[i]),
+					directory.data() + i * (blockSize / sizeof(DWORD)), blockSize))
+			return false;
+	const size_t directoryWords = super.numDirectoryBytes / sizeof(DWORD);
+
+	const DWORD numStreams = directory[0];
+	if (numStreams < 2 || numStreams >= directoryWords)
+		return false;
+	const auto blocksOf = [&](DWORD streamSize) {
+		return streamSize == 0xFFFFFFFF ? 0u : (streamSize + blockSize - 1) / blockSize; // -1: nil stream
+	};
+	const DWORD infoStreamSize = directory[2];
+	// Stream 1's block list starts after stream 0's.
+	const size_t infoFirstBlock = 1 + static_cast<size_t>(numStreams) + blocksOf(directory[1]);
+	if (infoStreamSize == 0xFFFFFFFF || infoStreamSize < 28 || infoFirstBlock >= directoryWords ||
+			directory[infoFirstBlock] >= super.numBlocks)
+		return false;
+
+	struct { DWORD version, signature, age; GUID guid; } info;
+	static_assert(sizeof(info) == 28, "PDB info stream header is 28 bytes");
+	if (!readAt(file, blockOffset(directory[infoFirstBlock]), &info, sizeof(info)))
+		return false;
+	guid = info.guid;
+	age = info.age;
+	return true;
+}
+
+bool matchingPdbBesideExe() {
+	const CodeViewRecord* record = exeCodeView();
+	if (record == NULL)
+		return false; // linked without /DEBUG: there never was a PDB
+
+	// Beside the exe, under the file name the linker recorded -- the directory it
+	// recorded is the build machine's. Either separator: a cross-linked exe
+	// records a POSIX path. Wide, so a game folder outside the ANSI code page
+	// still resolves; the name itself is the linker's, and ASCII.
+	wchar_t path[MAX_PATH];
+	const DWORD length = GetModuleFileNameW(NULL, path, MAX_PATH);
+	if (length == 0 || length == MAX_PATH)
+		return false;
+	wchar_t* directoryEnd = wcsrchr(path, L'\\');
+	if (directoryEnd == NULL)
+		return false;
+	const char* name = record->pdbPath;
+	for (const char* c = record->pdbPath; *c; ++c)
+		if (*c == '\\' || *c == '/')
+			name = c + 1;
+	wchar_t* out = directoryEnd + 1;
+	for (; *name; ++name, ++out) {
+		if (out == path + MAX_PATH - 1 || static_cast<unsigned char>(*name) > 0x7F)
+			return false;
+		*out = static_cast<wchar_t>(*name);
+	}
+	*out = L'\0';
+
+	HANDLE file = CreateFileW(path, GENERIC_READ, FILE_SHARE_READ, NULL,
+		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+	if (file == INVALID_HANDLE_VALUE)
+		return false;
+	GUID guid;
+	DWORD age = 0;
+	const bool read = readPdbIdentity(file, guid, age);
+	CloseHandle(file);
+	return read && IsEqualGUID(guid, record->guid) && age == record->age;
+}
+
 // One launch drains at most this many, so a crash-looping build cannot turn startup
 // into a long upload session. The rest wait for the next launch.
 const int kMaxUploadsPerRun = 20;
@@ -162,6 +303,9 @@ unsigned __stdcall telemetryThread(void*) {
 namespace sgp {
 void processCrashTelemetry(const wchar_t* url) {
 	if (url == NULL || url[0] == L'\0') return; // no endpoint configured: feature off
+	// Ahead of the consent question too: without its PDB this exe has nothing
+	// readable to send, so there is nothing to ask about. See matchingPdbBesideExe().
+	if (!matchingPdbBesideExe()) return;
 
 	int consent = readConsent();
 	if (consent < 0) { // first run: ask once, remember the answer
