@@ -104,3 +104,23 @@ SELECT r.id,
        substr(i.value, 1, instr(i.value, '  ') - 1)  AS func,
        substr(i.value, instr(i.value, '  ') + 2)     AS source
   FROM reports r, json_each(r.frames) f, json_each(f.value, '$.i') i;
+
+-- Where each report crashed, as far as the client could name it: its first named
+-- frame. A fault inside another image (ddraw, fmod) lands on the code that
+-- called into it.
+CREATE VIEW IF NOT EXISTS report_sites AS
+SELECT f.id, f.idx, f.func, f.source
+  FROM report_frames f
+ WHERE f.idx = (SELECT min(g.idx) FROM report_frames g WHERE g.id = f.id AND g.func IS NOT NULL);
+
+CREATE VIEW IF NOT EXISTS top_faults AS
+SELECT s.func, s.source, r.code, r.av_kind,
+       (SELECT name FROM report_frames z WHERE z.id = r.id AND z.idx = 0) AS fault_module,
+       count(*)                                    AS reports,
+       count(DISTINCT r.build)                     AS builds,
+       count(DISTINCT r.handle)                    AS handles,
+       datetime(min(r.received_at), 'unixepoch')   AS first_seen,
+       datetime(max(r.received_at), 'unixepoch')   AS last_seen,
+       max(r.id)                                   AS example
+  FROM reports r JOIN report_sites s ON s.id = r.id
+ GROUP BY s.func, s.source, r.code, r.av_kind, fault_module;

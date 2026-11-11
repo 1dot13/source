@@ -43,10 +43,9 @@ file; the view then re-derives every report ever received.
 ```sh
 d1() { wrangler d1 execute ja2-crashes --remote --command "$1"; }
 
-# where faults happen, by the code the client said the address was in
-d1 "SELECT f.source, count(*) n, count(DISTINCT r.build) builds
-      FROM reports r JOIN report_frames f ON f.id = r.id AND f.idx = 0
-     WHERE f.source IS NOT NULL GROUP BY 1 ORDER BY n DESC LIMIT 20"
+# the faults players hit most, by where they crashed; example is a report id
+d1 "SELECT func, source, fault_module, reports, builds, last_seen, example
+      FROM top_faults ORDER BY reports DESC LIMIT 20"
 
 # reports per day
 d1 "SELECT date(received_at, 'unixepoch') d, count(*) n FROM reports GROUP BY d ORDER BY d DESC LIMIT 30"
@@ -72,6 +71,21 @@ wrangler d1 execute ja2-crashes --remote --json \
 
 The names in it are the only ones there will be: nothing here has the PDB to
 name a frame again.
+
+### Read access
+
+Developers who only query need an account-owned API token with the **D1 Read**
+permission and nothing else; wrangler acts with exactly the token's
+permissions:
+
+```sh
+export CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ACCOUNT_ID=<account id>
+wrangler d1 execute ja2-crashes --remote --command "SELECT * FROM top_faults ORDER BY reports DESC LIMIT 20"
+```
+
+The token reads every D1 database in the account, and the reports carry the
+HANDLEs players chose to send, so it goes only to people who need it. Check a
+new token once: a `SELECT` works, a `CREATE TABLE` is refused.
 
 ## Test without the game
 
