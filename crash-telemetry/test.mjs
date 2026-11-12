@@ -70,6 +70,29 @@ assert.deepEqual(frames[3], { idx: 3, func: "invoke_main", source: "exe_common.i
 assert.deepEqual(frames[4], { idx: 4, func: null, source: null, name: "kernel32.dll", rva: 0xFC44 });
 assert.equal(frames[7].name, null);                          // 00000000: in no image at all
 
+// A report's site is the first function of ours on its stack, and its fault is
+// said in words; none of the fixtures is a CRASH_TEST.
+const id = await reportId(FAULT);
+assert.equal(one("SELECT site FROM report_site WHERE id = ?", id).site,
+  "`anonymous namespace'::walk (harness.cpp:16)");
+assert.match(one("SELECT fault FROM report_fault WHERE id = ?", id).fault,
+  /^access violation, reading 0x[0-9A-F]{8}.* in `anonymous namespace'::walk \(harness\.cpp:16\)$/);
+assert.deepEqual(db.prepare("SELECT func FROM report_calls WHERE id = ? ORDER BY pos").all(id)
+  .slice(3, 5).map((c) => c.func), ["invoke_main", "__scrt_common_main_seh"]);
+assert.equal(one("SELECT count(*) n FROM test_reports").n, 0);
+
+// The views for people: the stack one call per line with the inlined level on a
+// line of its own, and a release found by SHA prefix.
+db.exec("INSERT INTO releases VALUES ('v0', 'abcdef1230000000000000000000000000000000', '2026-01-01')");
+db.exec(`UPDATE reports SET build = 'abcdef123' WHERE id = '${id}'`);
+const human = one("SELECT stack, release, latest_release FROM crash_reports WHERE id = ?", id);
+assert.deepEqual(human.stack.split("\n").slice(3, 5),
+  ["invoke_main  exe_common.inl:78", "__scrt_common_main_seh  exe_common.inl:288"]);
+assert.equal(human.release, "v0");
+assert.equal(human.latest_release, 1);
+assert.equal(one("SELECT count(*) n FROM crashes").n, 1);   // three reports, one crash
+db.exec("DELETE FROM releases");
+
 // ---- the Worker and the status-code contract ------------------------------
 
 // The Worker's view of D1 -- prepare, bind, run -- over the same in-memory
