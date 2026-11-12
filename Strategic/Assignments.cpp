@@ -11475,10 +11475,8 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 			return;
 		}
 
-		if( fShowContractMenu )
-		{
-			SetBoxPosition( ghContractBox , ContractPosition );
-		}
+		const SGPRect screen = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+		PlaceBox( ghContractBox, ContractPosition, screen );
 
 		SetCurrentBox( ghContractBox );
 
@@ -11678,27 +11676,8 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 	if( ( ( fShowAssignmentMenu == TRUE ) || ( fShowContractMenu == TRUE ) ) && ( fCreated == FALSE ) )
 	{
 
-		if( fShowContractMenu )
-		{
-		SetBoxPosition( ghContractBox , ContractPosition );
-		}
-		else
-		{
-			SetBoxPosition( ghAssignmentBox , AssignmentPosition );
-		}
-
-		if( fShowContractMenu )
-		{
-			// set box position to contract box position
-			SetBoxPosition( ghRemoveMercAssignBox , ContractPosition );
-		}
-		else
-		{
-			// set box position to contract box position
-			SetBoxPosition( ghRemoveMercAssignBox , AssignmentPosition );
-		}
-
-		DetermineBoxPositions( );
+		const SGPRect screen = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+		PlaceBox( ghRemoveMercAssignBox, fShowContractMenu ? ContractPosition : AssignmentPosition, screen );
 
 		SetCurrentBox( ghRemoveMercAssignBox );
 
@@ -14731,7 +14710,7 @@ void CreateContractBox( SOLDIERTYPE *pCharacter )
 
  if( giBoxY != 0 )
  {
-	ContractPosition.iX = giBoxY;
+	ContractPosition.iY = giBoxY;
  }
 
  CreatePopUpBox(&ghContractBox, ContractDimensions, ContractPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_RESIZE ));
@@ -14851,7 +14830,7 @@ void CreateContractBoxMultiSelect(INT32 DailySalaries, INT32 WeeklySalaries, INT
 
 	if (giBoxY != 0)
 	{
-		ContractPosition.iX = giBoxY;
+		ContractPosition.iY = giBoxY;
 	}
 
 	CreatePopUpBox(&ghContractBox, ContractDimensions, ContractPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_RESIZE));
