@@ -171,6 +171,7 @@ bool				g_bUseXML_Structures	= false;
 //bool				g_bUseXML_Tilesets		= false;
 
 static vfs::Path	sp_force_load_jsd_xml_file;
+static vfs::String	s_crashTest;
 
 INT32 FAR PASCAL WindowProcedure(HWND hWindow, UINT16 Message, WPARAM wParam, LPARAM lParam)
 {
@@ -846,6 +847,8 @@ int PASCAL WinMain(HINSTANCE hInstance,	HINSTANCE hPrevInstance, LPSTR pCommandL
 	gfApplicationActive = TRUE;
 	gfProgramIsRunning = TRUE;
 
+	crashTest(s_crashTest.c_str());
+
 	FastDebugMsg("Running Game");
 
 	// At this point the SGP is set up, which means all I/O, Memory, tools, etc... are available. All we need to do is 
@@ -961,9 +964,7 @@ void GetRuntimeSettings( )
 	sgp::setCrashUserHandle(
 		oProps.getStringProperty("Ja2 Settings", L"HANDLE").c_str());
 
-	// After the handler is installed and after processCrashTelemetry has picked up
-	// the previous run's reports. See crashTest().
-	crashTest(oProps.getStringProperty("Ja2 Settings", L"CRASH_TEST").c_str());
+	s_crashTest = oProps.getStringProperty("Ja2 Settings", L"CRASH_TEST");
 	
 	vfs::String loc = oProps.getStringProperty("Ja2 Settings", L"LOCALE");
 	if(!loc.empty())
