@@ -38,15 +38,38 @@ Re-running the schema is safe — every statement in it is `IF NOT EXISTS`. Chan
 a view means dropping it first (`DROP VIEW report_frames;`), then re-running the
 file; the view then re-derives every report ever received.
 
-## Mining it
+## Reading it
+
+Get a local copy and open it in any SQLite tool (DB Browser for SQLite,
+DBeaver, DataGrip, `sqlite3`); re-run to refresh it:
+
+```sh
+export CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ACCOUNT_ID=<account id>
+node pull.mjs crashes.sqlite        # or: deno run -A pull.mjs crashes.sqlite
+```
+
+Open `crashes` first: one row per distinct crash, those still happening on the
+latest release on top. `site` is the first function of ours on the stack,
+`fault` what went wrong and where, `example` a report id. Then `crash_reports`
+for one row per report with its stack written out, one call per line.
+
+The schema has three layers: the `reports` and `releases` tables hold what was
+received; the `report_*` views are building blocks over them; `crashes` and
+`crash_reports` are the ones written for people.
+
+Shipping a release tags every report from its commit, past ones included, once
+its row is added by hand in the D1 console:
+
+```sql
+INSERT INTO releases VALUES ('v6', '3394695a387a14c78e92b158cfdcf50e4068c96b', '2026-11-11');
+```
+
+The same queries run against D1 directly:
 
 ```sh
 d1() { wrangler d1 execute ja2-crashes --remote --command "$1"; }
 
-# where faults happen, by the code the client said the address was in
-d1 "SELECT f.source, count(*) n, count(DISTINCT r.build) builds
-      FROM reports r JOIN report_frames f ON f.id = r.id AND f.idx = 0
-     WHERE f.source IS NOT NULL GROUP BY 1 ORDER BY n DESC LIMIT 20"
+d1 "SELECT site, fault, reports, releases, last_seen, example FROM crashes LIMIT 20"
 
 # reports per day
 d1 "SELECT date(received_at, 'unixepoch') d, count(*) n FROM reports GROUP BY d ORDER BY d DESC LIMIT 30"
@@ -71,6 +94,21 @@ wrangler d1 execute ja2-crashes --remote --json \
 
 The names in it are the only ones there will be: nothing here has the PDB to
 name a frame again.
+
+### Read access
+
+Developers who only read need an account-owned API token with the **D1 Read**
+permission and nothing else; `pull.mjs` and wrangler act with exactly the
+token's permissions:
+
+```sh
+export CLOUDFLARE_API_TOKEN=<token> CLOUDFLARE_ACCOUNT_ID=<account id>
+node pull.mjs crashes.sqlite
+```
+
+The token reads every D1 database in the account, and the reports carry the
+HANDLEs players chose to send, so it goes only to people who need it. Check a
+new token once: `pull.mjs` works, a `CREATE TABLE` through wrangler is refused.
 
 ## Test without the game
 

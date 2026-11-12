@@ -2,3 +2,7 @@
 .wrangler/
 
 node_modules/
+
+# pull.mjs copies: they hold player HANDLEs
+*.sqlite
+*.sqlite.partial
