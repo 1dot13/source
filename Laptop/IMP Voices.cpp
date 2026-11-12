@@ -144,7 +144,7 @@ void DecrementVoice( void )
 {
 	--iCurrentVoice;
 
-	for ( int i = iCurrentVoice; i > 0; --i )
+	for ( int i = iCurrentVoice; i >= 0; --i )
 	{
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
@@ -154,7 +154,7 @@ void DecrementVoice( void )
 	}
 
 	// still here? Start from the beginning then
-	for ( int i = gIMPVoice.size( ) - 1; i > 0; --i )
+	for ( int i = gIMPVoice.size( ) - 1; i >= 0; --i )
 	{
 		if ( gIMPVoice[i].exists && !fCharacterIsMale == gIMPVoice[i].bSex )
 		{
