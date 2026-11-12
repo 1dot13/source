@@ -6,6 +6,7 @@
 #include "vobject_blitters.h"
 #include "WCheck.h"
 #include "Render Dirty.h"
+#include "mousesystem.h"
 
 #define MAX_POPUP_BOX_COUNT 32
 #define MAX_POPUP_BOX_STRING_COUNT 128		// worst case = 45: move menu with 20 soldiers, each on different squad + overhead
@@ -112,6 +113,8 @@ void GetCurrentBox(INT32 *hBoxHandle);
 
 // resize this box to the text it contains
 void ResizeBoxToText(INT32 hBoxHandle);
+
+void DefineBoxLineRegion( MOUSE_REGION *pRegion, INT32 hBoxHandle, UINT32 uiLine, INT8 bPriority, MOUSE_CALLBACK MovementCallback, MOUSE_CALLBACK ButtonCallback );
 
 // force update/redraw of this boxes background
 void ForceUpDateOfBox( UINT32 uiIndex );
