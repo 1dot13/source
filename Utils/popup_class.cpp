@@ -1223,12 +1223,6 @@ void POPUP::CreateMouseRegions( void )
 {
 	UINT32 iCounter = 0;
 	UINT32 iTotal = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition={0,0};
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions={0,0,0,0};
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
 	gfIgnoreScrolling = FALSE;
@@ -1238,22 +1232,6 @@ void POPUP::CreateMouseRegions( void )
 	  SetBoxPosition( this->boxId, this->Position );
 	}
 
-	// grab height of font
-	iFontHeight = GetLineSpace( this->boxId ) + GetFontHeight( GetBoxFont( this->boxId ) ); 
-
-	// get x.y position of box
-	GetBoxPosition( this->boxId, &pPosition);
-
-	// grab box x and y position
-	iBoxXPosition = pPosition.iX;
-	iBoxYPosition = pPosition.iY;
-
-	// get dimensions..mostly for width
-	GetBoxSize( this->boxId, &pDimensions );
-
-	// get width
-	iBoxWidth = pDimensions.iRight;
-
 	SetCurrentBox( this->boxId );
 	
 	// define regions for sub popups 
@@ -1261,17 +1239,7 @@ void POPUP::CreateMouseRegions( void )
 	{
 		// add mouse region for each line of text..and set user data
 		
-		MSYS_DefineRegion(	&this->MenuRegion[ iTotal ], 	
-							( INT16 )( iBoxXPosition ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + 
-							( iFontHeight ) * iTotal ), 
-							( INT16 )( iBoxXPosition + iBoxWidth ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + 
-							( iFontHeight ) * ( iTotal + 1 ) ), 
-							POPUP_OPTION_PRIORITY ,
-							MSYS_NO_CURSOR, 
-							popupMouseMoveCallback, 
-							popupMouseClickCallback );
+		DefineBoxLineRegion( &this->MenuRegion[ iTotal ], this->boxId, iTotal, POPUP_OPTION_PRIORITY, popupMouseMoveCallback, popupMouseClickCallback );
 	
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 0, iCounter );
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 1, REGION_SUB_POPUP );
@@ -1287,15 +1255,7 @@ void POPUP::CreateMouseRegions( void )
 	{
 		// add mouse region for each line of text..and set user data
 		
-		MSYS_DefineRegion(	&this->MenuRegion[ iTotal ], 	
-							( INT16 )( iBoxXPosition ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + ( iFontHeight ) * iTotal ), 
-							( INT16 )( iBoxXPosition + iBoxWidth ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + ( iFontHeight ) * ( iTotal + 1 ) ), 
-							POPUP_OPTION_PRIORITY ,
-							MSYS_NO_CURSOR, 
-							popupMouseMoveCallback, 
-							popupMouseClickCallback );
+		DefineBoxLineRegion( &this->MenuRegion[ iTotal ], this->boxId, iTotal, POPUP_OPTION_PRIORITY, popupMouseMoveCallback, popupMouseClickCallback );
 	
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 0, iCounter );
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 1, REGION_OPTION );
@@ -1328,62 +1288,7 @@ void POPUP::DestroyMouseRegions( void )
 
 void POPUP::AdjustMouseRegions( void )
 {
-	UINT32 iCounter = 0;
-	UINT32 iTotal = 0;
-
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	INT32 iBoxWidth = 0;
-
-	SGPPoint pPosition={0,0};
-	SGPRect pDimensions={0,0,0,0};
-
-	// grab height of font
-	iFontHeight = GetLineSpace( this->boxId ) + GetFontHeight( GetBoxFont( this->boxId ) ); 
-
-	// get x.y position of box
-	GetBoxPosition( this->boxId, &pPosition);
-
-	// grab box x and y position
-	iBoxXPosition = pPosition.iX;
-	iBoxYPosition = pPosition.iY;
-
-	// get dimensions..mostly for width
-	GetBoxSize( this->boxId, &pDimensions );
-
-	// get width
-	iBoxWidth = pDimensions.iRight;
-
-	// adjust regions for sub popups 
-	for( iCounter = 0; iCounter < this->subPopupOptionCount ; iCounter++ )
-	{
-		this->MenuRegion[ iTotal ].RegionTopLeftX = ( INT16 )( iBoxXPosition );
-		this->MenuRegion[ iTotal ].RegionTopLeftY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * iTotal );
-
-		this->MenuRegion[ iTotal ].RegionBottomRightX = ( INT16 )( iBoxXPosition + iBoxWidth );
-		this->MenuRegion[ iTotal ].RegionBottomRightY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * ( iTotal + 1 ) );
-		iTotal++;
-	}
-
-	// adjust regions for options 
-	for( iCounter = 0; iCounter < this->optionCount ; iCounter++ )
-	{
-		this->MenuRegion[ iTotal ].RegionTopLeftX = ( INT16 )( iBoxXPosition );
-		this->MenuRegion[ iTotal ].RegionTopLeftY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * iTotal );
-
-		this->MenuRegion[ iTotal ].RegionBottomRightX = ( INT16 )( iBoxXPosition + iBoxWidth );
-		this->MenuRegion[ iTotal ].RegionBottomRightY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * ( iTotal + 1 ) );
-		iTotal++;
-	}
+	MoveBoxLineRegions( this->MenuRegion, min( this->subPopupOptionCount + this->optionCount, POPUP_MAX_OPTIONS ), this->boxId );
 }
 
 void POPUP::ScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
