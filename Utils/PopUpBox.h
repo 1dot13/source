@@ -115,6 +115,11 @@ void GetCurrentBox(INT32 *hBoxHandle);
 void ResizeBoxToText(INT32 hBoxHandle);
 
 void DefineBoxLineRegion( MOUSE_REGION *pRegion, INT32 hBoxHandle, UINT32 uiLine, INT8 bPriority, MOUSE_CALLBACK MovementCallback, MOUSE_CALLBACK ButtonCallback );
+void MoveBoxLineRegions( MOUSE_REGION *pRegions, UINT32 uiCount, INT32 hBoxHandle );
+
+void PlaceBox( INT32 hBoxHandle, SGPPoint Position, SGPRect Bounds );
+// hang the box off line uiParentLine of its parent, on side bSide (1 right, -1 left) unless only the other side has room; returns the side used
+INT8 PlaceBoxBeside( INT32 hBoxHandle, INT32 hParentHandle, UINT32 uiParentLine, INT8 bSide, SGPRect Bounds );
 
 // force update/redraw of this boxes background
 void ForceUpDateOfBox( UINT32 uiIndex );
