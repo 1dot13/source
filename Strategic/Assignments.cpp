@@ -9595,13 +9595,7 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
 	SOLDIERTYPE *pSoldier = NULL;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
 	// will create/destroy mouse regions for the map screen assignment main menu
@@ -9640,53 +9634,14 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
-		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
-		{
-			// grab height of font
-			iFontHeight = GetLineSpace( ghEpcBox ) + GetFontHeight( GetBoxFont( ghEpcBox ) );
-
-			// get x.y position of box
-			GetBoxPosition( ghEpcBox, &pPosition);
-
-			// grab box x and y position
-			iBoxXPosition = pPosition.iX;
-			iBoxYPosition = pPosition.iY;
-
-			// get dimensions..mostly for width
-			GetBoxSize( ghEpcBox, &pDimensions );
-
-			// get width
-			iBoxWidth = pDimensions.iRight;
-
-			SetCurrentBox( ghEpcBox );
-		}
-		else
-		{
-			// grab height of font
-			iFontHeight = GetLineSpace( ghAssignmentBox ) + GetFontHeight( GetBoxFont( ghAssignmentBox ) );
-
-			// get x.y position of box
-			GetBoxPosition( ghAssignmentBox, &pPosition);
-
-			// grab box x and y position
-			iBoxXPosition = pPosition.iX;
-			iBoxYPosition = pPosition.iY;
-
-			// get dimensions..mostly for width
-			GetBoxSize( ghAssignmentBox, &pDimensions );
-
-			// get width
-			iBoxWidth = pDimensions.iRight;
-
-			SetCurrentBox( ghAssignmentBox );
-		}
+		const INT32 hBox = ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ? ghEpcBox : ghAssignmentBox;
+		SetCurrentBox( hBox );
 
 		// define regions
 		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghAssignmentBox ); iCounter++ )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gAssignmentMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, AssignmentMenuMvtCallBack, AssignmentMenuBtnCallback );
+			DefineBoxLineRegion( &gAssignmentMenuRegion[ iCounter ], hBox, iCounter, MSYS_PRIORITY_HIGHEST - 4, AssignmentMenuMvtCallBack, AssignmentMenuBtnCallback );
 
 			MSYS_SetRegionUserData( &gAssignmentMenuRegion[ iCounter ], 0, iCounter );
 		}
@@ -9722,11 +9677,7 @@ void CreateDestroyMouseRegionForVehicleMenu( void )
 
 	UINT32 uiMenuLine = 0;
 	INT32 iVehicleId = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition, pPoint;
-	INT32 iBoxWidth = 0;
+	SGPPoint pPoint;
 	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 
@@ -9745,22 +9696,9 @@ void CreateDestroyMouseRegionForVehicleMenu( void )
 
 	if ( gAssignMenuState == ASMENU_VEHICLE && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghVehicleBox ) + GetFontHeight( GetBoxFont( ghVehicleBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghVehicleBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
 		// get dimensions..mostly for width
 		GetBoxSize( ghVehicleBox, &pDimensions );
 		SetBoxSecondaryShade( ghVehicleBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghVehicleBox );
 
@@ -9774,8 +9712,7 @@ void CreateDestroyMouseRegionForVehicleMenu( void )
 				if ( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleId ) )
 				{
 					// add mouse region for each accessible vehicle
-					MSYS_DefineRegion( &gVehicleMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-									MSYS_NO_CURSOR, VehicleMenuMvtCallback, VehicleMenuBtnCallback );
+					DefineBoxLineRegion( &gVehicleMenuRegion[ uiMenuLine ], ghVehicleBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 4, VehicleMenuMvtCallback, VehicleMenuBtnCallback );
 
 					MSYS_SetRegionUserData( &gVehicleMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 					// store vehicle ID in the SECOND user data
@@ -9787,8 +9724,7 @@ void CreateDestroyMouseRegionForVehicleMenu( void )
 		}
 
 		// cancel line
-		MSYS_DefineRegion( &gVehicleMenuRegion[ uiMenuLine ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, VehicleMenuMvtCallback, VehicleMenuBtnCallback );
+		DefineBoxLineRegion( &gVehicleMenuRegion[ uiMenuLine ], ghVehicleBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 4, VehicleMenuMvtCallback, VehicleMenuBtnCallback );
 		MSYS_SetRegionUserData( &gVehicleMenuRegion[ uiMenuLine ], 0, VEHICLE_MENU_CANCEL );
 
 		// created
@@ -10116,12 +10052,6 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 
 	UINT32 uiCounter = 0;
 	INT32 iCount = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iVehicleIndex = 0;
 
@@ -10133,22 +10063,6 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 		//{
 		// //SetBoxPosition( ghRepairBox ,RepairPosition);
 		//}
-
-		// grab height of font
-		iFontHeight = GetLineSpace( ghRepairBox ) + GetFontHeight( GetBoxFont( ghRepairBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghRepairBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghRepairBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghRepairBox );
 
@@ -10171,8 +10085,7 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 						if ( IsThisVehicleAccessibleToSoldier( pSoldier, iVehicleIndex ) )
 						{
 							// add mouse region for each line of text..and set user data
-							MSYS_DefineRegion( &gRepairMenuRegion[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-										MSYS_NO_CURSOR, RepairMenuMvtCallback, RepairMenuBtnCallback );
+							DefineBoxLineRegion( &gRepairMenuRegion[ iCount ], ghRepairBox, iCount, MSYS_PRIORITY_HIGHEST - 4, RepairMenuMvtCallback, RepairMenuBtnCallback );
 
 							MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 0, iCount );
 							// 2nd user data is the vehicle index, which can easily be different from the region index!
@@ -10189,8 +10102,7 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 		// SAM site
 		if ( IsThisSectorASAMSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) && IsTheSAMSiteInSectorRepairable( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 		{
-			MSYS_DefineRegion( &gRepairMenuRegion[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-								MSYS_NO_CURSOR, RepairMenuMvtCallback, RepairMenuBtnCallback );
+			DefineBoxLineRegion( &gRepairMenuRegion[ iCount ], ghRepairBox, iCount, MSYS_PRIORITY_HIGHEST - 4, RepairMenuMvtCallback, RepairMenuBtnCallback );
 
 			MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 0, iCount );
 			MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 1, REPAIR_MENU_SAM_SITE );
@@ -10200,8 +10112,7 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 		// robot
 		if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 		{
-			MSYS_DefineRegion( &gRepairMenuRegion[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-								MSYS_NO_CURSOR, RepairMenuMvtCallback, RepairMenuBtnCallback );
+			DefineBoxLineRegion( &gRepairMenuRegion[ iCount ], ghRepairBox, iCount, MSYS_PRIORITY_HIGHEST - 4, RepairMenuMvtCallback, RepairMenuBtnCallback );
 
 			MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 0, iCount );
 			MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 1, REPAIR_MENU_ROBOT );
@@ -10209,16 +10120,14 @@ void CreateDestroyMouseRegionForRepairMenu( void )
 		}
 
 		// items
-		MSYS_DefineRegion( &gRepairMenuRegion[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-								MSYS_NO_CURSOR, RepairMenuMvtCallback, RepairMenuBtnCallback );
+		DefineBoxLineRegion( &gRepairMenuRegion[ iCount ], ghRepairBox, iCount, MSYS_PRIORITY_HIGHEST - 4, RepairMenuMvtCallback, RepairMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 0, iCount );
 		MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 1, REPAIR_MENU_ITEMS );
 		++iCount;
 
 		// cancel
-		MSYS_DefineRegion( &gRepairMenuRegion[ iCount ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, RepairMenuMvtCallback, RepairMenuBtnCallback );
+		DefineBoxLineRegion( &gRepairMenuRegion[ iCount ], ghRepairBox, iCount, MSYS_PRIORITY_HIGHEST - 4, RepairMenuMvtCallback, RepairMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 0, iCount );
 		MSYS_SetRegionUserData( &gRepairMenuRegion[ iCount ], 1, REPAIR_MENU_CANCEL );
@@ -11546,12 +11455,6 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
 	// will create/destroy mouse regions for the map screen Contract main menu
@@ -11599,21 +11502,6 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 		{
 			SetBoxPosition( ghContractBox , ContractPosition );
 		}
-		// grab height of font
-		iFontHeight = GetLineSpace( ghContractBox ) + GetFontHeight( GetBoxFont( ghContractBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghContractBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghContractBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghContractBox );
 
@@ -11621,8 +11509,7 @@ void CreateDestroyMouseRegionsForContractMenu( void )
 		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghContractBox ); ++iCounter )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gContractMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghContractBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghContractBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, ContractMenuMvtCallback, ContractMenuBtnCallback );
+			DefineBoxLineRegion( &gContractMenuRegion[ iCounter ], ghContractBox, iCounter, MSYS_PRIORITY_HIGHEST - 4, ContractMenuMvtCallback, ContractMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gContractMenuRegion[ iCounter ], 0, iCounter );
@@ -11674,31 +11561,10 @@ void CreateDestroyMouseRegionsForTrainingMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 		
 	if ( gAssignMenuState == ASMENU_TRAIN && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghTrainingBox ) + GetFontHeight( GetBoxFont( ghTrainingBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghTrainingBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghTrainingBox, &pDimensions );
 		SetBoxSecondaryShade( ghTrainingBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghTrainingBox );
 
@@ -11706,8 +11572,7 @@ void CreateDestroyMouseRegionsForTrainingMenu( void )
 		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghTrainingBox ); ++iCounter )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gTrainingMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghTrainingBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghTrainingBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 3 ,
-							MSYS_NO_CURSOR, TrainingMenuMvtCallBack, TrainingMenuBtnCallback );
+			DefineBoxLineRegion( &gTrainingMenuRegion[ iCounter ], ghTrainingBox, iCounter, MSYS_PRIORITY_HIGHEST - 3, TrainingMenuMvtCallBack, TrainingMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gTrainingMenuRegion[ iCounter ], 0, iCounter );
@@ -11759,12 +11624,6 @@ void CreateDestroyMouseRegionsForAttributeMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 		
 	if( ( fShowAttributeMenu == TRUE ) && ( fCreated == FALSE ) )
 	{
@@ -11777,22 +11636,6 @@ void CreateDestroyMouseRegionsForAttributeMenu( void )
 		//HandleShadingOfLinesForAttributeMenus( );
 		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghAttributeBox ) + GetFontHeight( GetBoxFont( ghAttributeBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghAttributeBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghAttributeBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
-
 		SetCurrentBox( ghAttributeBox );
 
 		// define regions
@@ -11801,8 +11644,7 @@ void CreateDestroyMouseRegionsForAttributeMenu( void )
 			// add mouse region for each line of text..and set user data
 
 
-			MSYS_DefineRegion( &gAttributeMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAttributeBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAttributeBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-							MSYS_NO_CURSOR, AttributeMenuMvtCallBack, AttributesMenuBtnCallback );
+			DefineBoxLineRegion( &gAttributeMenuRegion[ iCounter ], ghAttributeBox, iCounter, MSYS_PRIORITY_HIGHEST - 2, AttributeMenuMvtCallBack, AttributesMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gAttributeMenuRegion[ iCounter ], 0, iCounter );
@@ -11854,12 +11696,6 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen attribute	menu
 	if( ( ( fShowAssignmentMenu == TRUE ) || ( fShowContractMenu == TRUE ) ) && ( fCreated == FALSE ) )
@@ -11887,22 +11723,6 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 
 		CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghRemoveMercAssignBox ) + GetFontHeight( GetBoxFont( ghRemoveMercAssignBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghRemoveMercAssignBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghRemoveMercAssignBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
-
 		SetCurrentBox( ghRemoveMercAssignBox );
 
 		// define regions
@@ -11911,8 +11731,7 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 			// add mouse region for each line of text..and set user data
 
 
-			MSYS_DefineRegion( &gRemoveMercAssignRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAttributeBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAttributeBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-							MSYS_NO_CURSOR, RemoveMercMenuMvtCallBack,	RemoveMercMenuBtnCallback );
+			DefineBoxLineRegion( &gRemoveMercAssignRegion[ iCounter ], ghRemoveMercAssignBox, iCounter, MSYS_PRIORITY_HIGHEST - 2, RemoveMercMenuMvtCallBack, RemoveMercMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gRemoveMercAssignRegion[ iCounter ], 0, iCounter );
@@ -11967,12 +11786,6 @@ void CreateDestroyMouseRegionsForSquadMenu( BOOLEAN fPositionBox )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen attribute	menu
 
@@ -11980,25 +11793,8 @@ void CreateDestroyMouseRegionsForSquadMenu( BOOLEAN fPositionBox )
 	{
 		// create squad box
 		CreateSquadBox( );
-		GetBoxSize( ghAssignmentBox, &pDimensions );
 
 		CheckAndUpdateTacticalAssignmentPopUpPositions( );
-
-		// grab height of font
-		iFontHeight = GetLineSpace( ghSquadBox ) + GetFontHeight( GetBoxFont( ghSquadBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghSquadBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghSquadBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSquadBox );
 
@@ -12006,15 +11802,13 @@ void CreateDestroyMouseRegionsForSquadMenu( BOOLEAN fPositionBox )
 		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghSquadBox ) - 1; ++iCounter )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gSquadMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSquadBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSquadBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-							MSYS_NO_CURSOR, SquadMenuMvtCallBack, SquadMenuBtnCallback );
+			DefineBoxLineRegion( &gSquadMenuRegion[ iCounter ], ghSquadBox, iCounter, MSYS_PRIORITY_HIGHEST - 2, SquadMenuMvtCallBack, SquadMenuBtnCallback );
 
 			MSYS_SetRegionUserData( &gSquadMenuRegion[ iCounter ], 0, iCounter );
 		}
 
 		// now create cancel region
-		MSYS_DefineRegion( &gSquadMenuRegion[ iCounter ], ( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSquadBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSquadBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-							MSYS_NO_CURSOR, SquadMenuMvtCallBack, SquadMenuBtnCallback );
+		DefineBoxLineRegion( &gSquadMenuRegion[ iCounter ], ghSquadBox, iCounter, MSYS_PRIORITY_HIGHEST - 2, SquadMenuMvtCallBack, SquadMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gSquadMenuRegion[ iCounter ], 0, SQUAD_MENU_CANCEL );
 
@@ -12068,12 +11862,6 @@ void CreateDestroyMouseRegionsForSnitchMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen assignment main menu
 
@@ -12089,22 +11877,7 @@ void CreateDestroyMouseRegionsForSnitchMenu( void )
 		//
 		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghSnitchBox ) + GetFontHeight( GetBoxFont( ghSnitchBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghSnitchBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghSnitchBox, &pDimensions );
 		SetBoxSecondaryShade( ghSnitchBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSnitchBox );
 
@@ -12114,8 +11887,7 @@ void CreateDestroyMouseRegionsForSnitchMenu( void )
 			// add mouse region for each line of text..and set user data
 
 
-			MSYS_DefineRegion( &gSnitchMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 3 ,
-				MSYS_NO_CURSOR, SnitchMenuMvtCallBack, SnitchMenuBtnCallback );
+			DefineBoxLineRegion( &gSnitchMenuRegion[ iCounter ], ghSnitchBox, iCounter, MSYS_PRIORITY_HIGHEST - 3, SnitchMenuMvtCallBack, SnitchMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gSnitchMenuRegion[ iCounter ], 0, iCounter );
@@ -12171,12 +11943,6 @@ void CreateDestroyMouseRegionsForSnitchToggleMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen assignment main menu
 
@@ -12192,22 +11958,7 @@ void CreateDestroyMouseRegionsForSnitchToggleMenu( void )
 		//
 		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghSnitchToggleBox ) + GetFontHeight( GetBoxFont( ghSnitchToggleBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghSnitchToggleBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghSnitchToggleBox, &pDimensions );
 		SetBoxSecondaryShade( ghSnitchToggleBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSnitchToggleBox );
 
@@ -12217,8 +11968,7 @@ void CreateDestroyMouseRegionsForSnitchToggleMenu( void )
 			// add mouse region for each line of text..and set user data
 
 
-			MSYS_DefineRegion( &gSnitchToggleMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchToggleBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchToggleBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 3 ,
-				MSYS_NO_CURSOR, SnitchToggleMenuMvtCallBack, SnitchToggleMenuBtnCallback );
+			DefineBoxLineRegion( &gSnitchToggleMenuRegion[ iCounter ], ghSnitchToggleBox, iCounter, MSYS_PRIORITY_HIGHEST - 3, SnitchToggleMenuMvtCallBack, SnitchToggleMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gSnitchToggleMenuRegion[ iCounter ], 0, iCounter );
@@ -12279,12 +12029,6 @@ void CreateDestroyMouseRegionsForSnitchSectorMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen assignment main menu
 
@@ -12300,22 +12044,7 @@ void CreateDestroyMouseRegionsForSnitchSectorMenu( void )
 		//
 		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghSnitchSectorBox ) + GetFontHeight( GetBoxFont( ghSnitchSectorBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghSnitchSectorBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghSnitchSectorBox, &pDimensions );
 		SetBoxSecondaryShade( ghSnitchSectorBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSnitchSectorBox );
 
@@ -12325,8 +12054,7 @@ void CreateDestroyMouseRegionsForSnitchSectorMenu( void )
 			// add mouse region for each line of text..and set user data
 
 
-			MSYS_DefineRegion( &gSnitchSectorMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchSectorBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghSnitchSectorBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 3 ,
-				MSYS_NO_CURSOR, SnitchSectorMenuMvtCallBack, SnitchSectorMenuBtnCallback );
+			DefineBoxLineRegion( &gSnitchSectorMenuRegion[ iCounter ], ghSnitchSectorBox, iCounter, MSYS_PRIORITY_HIGHEST - 3, SnitchSectorMenuMvtCallBack, SnitchSectorMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gSnitchSectorMenuRegion[ iCounter ], 0, iCounter );
@@ -12387,33 +12115,12 @@ void CreateDestroyMouseRegionsForPrisonerMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 
 	// will create/destroy mouse regions for the map screen assignment main menu
 
 	if ( (fShowPrisonerMenu == TRUE) && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghPrisonerBox ) + GetFontHeight( GetBoxFont( ghPrisonerBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghPrisonerBox, &pPosition );
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghPrisonerBox, &pDimensions );
 		SetBoxSecondaryShade( ghPrisonerBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghPrisonerBox );
 
@@ -12421,8 +12128,7 @@ void CreateDestroyMouseRegionsForPrisonerMenu( void )
 		for ( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghPrisonerBox ); ++iCounter )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gPrisonerMenuRegion[iCounter], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghPrisonerBox ) + (iFontHeight)* iCounter), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghPrisonerBox ) + (iFontHeight)* (iCounter + 1)), MSYS_PRIORITY_HIGHEST - 3,
-							   MSYS_NO_CURSOR, PrisonerMenuMvtCallBack, PrisonerMenuBtnCallback );
+			DefineBoxLineRegion( &gPrisonerMenuRegion[ iCounter ], ghPrisonerBox, iCounter, MSYS_PRIORITY_HIGHEST - 3, PrisonerMenuMvtCallBack, PrisonerMenuBtnCallback );
 
 			// set user defines
 			MSYS_SetRegionUserData( &gPrisonerMenuRegion[iCounter], 0, iCounter );
@@ -20496,34 +20202,13 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 
 	UINT32 uiMenuLine = 0;
 	INT32 iFacilityType = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 			
 	if ( gAssignMenuState == ASMENU_FACILITY && !fCreated )
 	{
 		CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghFacilityBox ) + GetFontHeight( GetBoxFont( ghFacilityBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghFacilityBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghFacilityBox, &pDimensions );
 		SetBoxSecondaryShade( ghFacilityBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghFacilityBox );
 
@@ -20539,8 +20224,7 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 				if ( gFacilityTypes[ iCounter ].ubTotalStaffLimit )
 				{
 					// add mouse region for each facility
-					MSYS_DefineRegion( &gFacilityMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-								MSYS_NO_CURSOR, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
+					DefineBoxLineRegion( &gFacilityMenuRegion[ uiMenuLine ], ghFacilityBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 4, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
 		
 					MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 					// store facility ID in the SECOND user data
@@ -20553,8 +20237,7 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 		}
 
 		// cancel line
-		MSYS_DefineRegion( &gFacilityMenuRegion[ uiMenuLine ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							MSYS_NO_CURSOR, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
+		DefineBoxLineRegion( &gFacilityMenuRegion[ uiMenuLine ], ghFacilityBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 4, FacilityMenuMvtCallback, FacilityMenuBtnCallback );
 		MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 		MSYS_SetRegionUserData( &gFacilityMenuRegion[ uiMenuLine ], 1, MAX_NUM_FACILITY_TYPES );
 
@@ -21511,12 +21194,6 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 
 	UINT32 uiMenuLine = 0;
 	UINT8 ubFacilityType = gubFacilityInSubmenu;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT8 bCurrentVehicleID = -1;
 
@@ -21535,22 +21212,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 		//HandleShadingOfLinesForFacilityAssignmentMenus( );
 		//CheckAndUpdateTacticalAssignmentPopUpPositions( );
 
-		// grab height of font
-		iFontHeight = GetLineSpace( ghFacilityAssignmentBox ) + GetFontHeight( GetBoxFont( ghFacilityAssignmentBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghFacilityAssignmentBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghFacilityAssignmentBox, &pDimensions );
 		SetBoxSecondaryShade( ghFacilityAssignmentBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghFacilityAssignmentBox );
 
@@ -21571,8 +21233,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 						{
 							if ( IsThisVehicleAccessibleToSoldier( pSoldier, iCounterB ) )
 							{
-								MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-									MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+								DefineBoxLineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], ghFacilityAssignmentBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 2, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
 								MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 								MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, iCounter );
 								// Store Vehicle ID in THIRD location
@@ -21594,8 +21255,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 					if( IsRobotInThisSector( pSoldier->sSectorX, pSoldier->sSectorY, pSoldier->bSectorZ ) )
 					{
 						// robot line only appears when it is around.
-						MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-									MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+						DefineBoxLineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], ghFacilityAssignmentBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 2, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
 						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, iCounter );
 						MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, -1 );
@@ -21610,8 +21270,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 				else
 				{
 					// add mouse region for each remaining assignment type
-					MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ],	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-								MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+					DefineBoxLineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], ghFacilityAssignmentBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 2, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
 
 					// Add tooltip for region
 					if (wcscmp(gFacilityTypes[ ubFacilityType ].AssignmentData[iCounter].szTooltipText, L"") != 0)
@@ -21646,8 +21305,7 @@ void CreateDestroyMouseRegionsForFacilityAssignmentMenu( void )
 		}
 
 		// cancel line
-		MSYS_DefineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * uiMenuLine ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( uiMenuLine + 1 ) ), MSYS_PRIORITY_HIGHEST - 2 ,
-							MSYS_NO_CURSOR, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
+		DefineBoxLineRegion( &gFacilityAssignmentMenuRegion[ uiMenuLine ], ghFacilityAssignmentBox, uiMenuLine, MSYS_PRIORITY_HIGHEST - 2, FacilityAssignmentMenuMvtCallBack, FacilityAssignmentMenuBtnCallback );
 		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 0, uiMenuLine );
 		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 1, NUM_FACILITY_ASSIGNMENTS );
 		MSYS_SetRegionUserData( &gFacilityAssignmentMenuRegion[ uiMenuLine ], 2, -1 );
@@ -22563,12 +22221,6 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 
 	UINT32 uiCounter = 0;
 	INT32 iCount = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iVehicleIndex = 0;
 	
@@ -22580,22 +22232,6 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		//{
 		// //SetBoxPosition( ghMoveItemBox ,RepairPosition);
 		//}
-
-		// grab height of font
-		iFontHeight = GetLineSpace( ghMoveItemBox ) + GetFontHeight( GetBoxFont( ghMoveItemBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghMoveItemBox, &pPosition);
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghMoveItemBox, &pDimensions );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghMoveItemBox );
 
@@ -22618,9 +22254,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 				if ( val > 0 )
 				{
 					// add mouse region for each line of text..and set user data
-					MSYS_DefineRegion( &gMoveItem[ iCount ], 
-									   ( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMoveBox ) + ( iFontHeight ) * iCount ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight ) * ( iCount + 1 ) ), 
-									   MSYS_PRIORITY_HIGHEST - 4 ,	MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
+					DefineBoxLineRegion( &gMoveItem[ iCount ], ghMoveItemBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
 					// first data is for entry in usMoveItemSectors, second is for regiondate number
 					MSYS_SetRegionUserData( &gMoveItem[iCount], 0, i );
@@ -22634,8 +22268,7 @@ void CreateDestroyMouseRegionForMoveItemMenu( void )
 		}
 		
 		// cancel
-		MSYS_DefineRegion( &gMoveItem[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghMoveBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
-							MSYS_NO_CURSOR, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
+		DefineBoxLineRegion( &gMoveItem[ iCount ], ghMoveItemBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MoveItemMenuMvtCallback, MoveItemMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gMoveItem[iCount], 0, MOVEITEM_MENU_CANCEL );
 		MSYS_SetRegionUserData( &gMoveItem[iCount], 1, iCount );
@@ -22849,65 +22482,40 @@ void CreateDestroyMouseRegionForDiseaseMenu( void )
 
 	UINT32 uiCounter = 0;
 	INT32 iCount = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 	INT32 iVehicleIndex = 0;
 
 	if ( gAssignMenuState == ASMENU_DISEASE && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghDiseaseBox ) + GetFontHeight( GetBoxFont( ghDiseaseBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghDiseaseBox, &pPosition );
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghDiseaseBox, &pDimensions );
 		SetBoxSecondaryShade( ghDiseaseBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghDiseaseBox );
 
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
 		// diagnose assignment
-		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
-						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+		DefineBoxLineRegion( &gDisease[ iCount ], ghDiseaseBox, iCount, MSYS_PRIORITY_HIGHEST - 4, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
 		++iCount;
 
 		// treatment assignment
-		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
-						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+		DefineBoxLineRegion( &gDisease[ iCount ], ghDiseaseBox, iCount, MSYS_PRIORITY_HIGHEST - 4, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
 		++iCount;
 
 		// burial assignment
-		MSYS_DefineRegion( &gDisease[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+		DefineBoxLineRegion( &gDisease[ iCount ], ghDiseaseBox, iCount, MSYS_PRIORITY_HIGHEST - 4, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gDisease[iCount], 1, iCount );
 		++iCount;
 		
 		// cancel
-		MSYS_DefineRegion( &gDisease[iCount], (INT16)(iBoxXPosition), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount), (INT16)(iBoxXPosition + iBoxWidth), (INT16)(iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* (iCount + 1)), MSYS_PRIORITY_HIGHEST - 4,
-						   MSYS_NO_CURSOR, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
+		DefineBoxLineRegion( &gDisease[ iCount ], ghDiseaseBox, iCount, MSYS_PRIORITY_HIGHEST - 4, DiseaseMenuMvtCallback, DiseaseMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gDisease[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gDisease[iCount], 1, DISEASE_MENU_CANCEL );
@@ -23093,56 +22701,32 @@ void CreateDestroyMouseRegionForSpyMenu( void )
 
 	UINT32 uiCounter = 0;
 	INT32 iCount = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 
 	if ( gAssignMenuState == ASMENU_SPY && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghSpyBox ) + GetFontHeight( GetBoxFont( ghSpyBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghSpyBox, &pPosition );
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghSpyBox, &pDimensions );
 		SetBoxSecondaryShade( ghSpyBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghSpyBox );
 		
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
 		// conceal assignment
-		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+		DefineBoxLineRegion( &gSpy[ iCount ], ghSpyBox, iCount, MSYS_PRIORITY_HIGHEST - 4, SpyMenuMvtCallback, SpyMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_CONCEAL );
 		++iCount;
 
 		// get intel assignment
-		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+		DefineBoxLineRegion( &gSpy[ iCount ], ghSpyBox, iCount, MSYS_PRIORITY_HIGHEST - 4, SpyMenuMvtCallback, SpyMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_GETINTEL );
 		++iCount;
 
 		// cancel
-		MSYS_DefineRegion( &gSpy[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, SpyMenuMvtCallback, SpyMenuBtnCallback );
+		DefineBoxLineRegion( &gSpy[ iCount ], ghSpyBox, iCount, MSYS_PRIORITY_HIGHEST - 4, SpyMenuMvtCallback, SpyMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gSpy[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gSpy[iCount], 1, INTEL_MENU_CANCEL );
@@ -23366,41 +22950,18 @@ void CreateDestroyMouseRegionForMilitiaMenu( void )
 
 	UINT32 uiCounter = 0;
 	INT32 iCount = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
 
 	if ( gAssignMenuState == ASMENU_MILITIA && !fCreated )
 	{
-		// grab height of font
-		iFontHeight = GetLineSpace( ghMilitiaBox ) + GetFontHeight( GetBoxFont( ghMilitiaBox ) );
-
-		// get x.y position of box
-		GetBoxPosition( ghMilitiaBox, &pPosition );
-
-		// grab box x and y position
-		iBoxXPosition = pPosition.iX;
-		iBoxYPosition = pPosition.iY;
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghMilitiaBox, &pDimensions );
-
 		SetBoxSecondaryShade( ghMilitiaBox, FONT_YELLOW );
-
-		// get width
-		iBoxWidth = pDimensions.iRight;
 
 		SetCurrentBox( ghMilitiaBox );
 				
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
 		// train assignment
-		MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+		DefineBoxLineRegion( &gMilitia[ iCount ], ghMilitiaBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_TRAIN );
@@ -23409,8 +22970,7 @@ void CreateDestroyMouseRegionForMilitiaMenu( void )
 		if ( gGameExternalOptions.fIndividualMilitia )
 		{
 			// drill assignment
-			MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-				MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+			DefineBoxLineRegion( &gMilitia[ iCount ], ghMilitiaBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
 
 			MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
 			MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_DRILL );
@@ -23419,8 +22979,7 @@ void CreateDestroyMouseRegionForMilitiaMenu( void )
 			if ( gGameExternalOptions.fIndividualMilitia_ManageHealth )
 			{
 				// doctor militia assignment
-				MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-					MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+				DefineBoxLineRegion( &gMilitia[ iCount ], ghMilitiaBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
 
 				MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
 				MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_DOCTOR );
@@ -23429,8 +22988,7 @@ void CreateDestroyMouseRegionForMilitiaMenu( void )
 		}
 
 		// cancel
-		MSYS_DefineRegion( &gMilitia[iCount], (INT16)( iBoxXPosition ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + (iFontHeight)* iCount ), (INT16)( iBoxXPosition + iBoxWidth ), (INT16)( iBoxYPosition + GetTopMarginSize( ghAssignmentBox ) + ( iFontHeight )* ( iCount + 1 ) ), MSYS_PRIORITY_HIGHEST - 4,
-			MSYS_NO_CURSOR, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
+		DefineBoxLineRegion( &gMilitia[ iCount ], ghMilitiaBox, iCount, MSYS_PRIORITY_HIGHEST - 4, MilitiaMenuMvtCallback, MilitiaMenuBtnCallback );
 
 		MSYS_SetRegionUserData( &gMilitia[iCount], 0, iCount );
 		MSYS_SetRegionUserData( &gMilitia[iCount], 1, MILITIA_MENU_CANCEL );

@@ -1563,6 +1563,28 @@ BOOLEAN DrawBoxText( UINT32 uiCounter )
 }
 
 
+static void GetBoxLineRect( INT32 hBoxHandle, UINT32 uiLine, SGPRect *pRect )
+{
+	SGPPoint position;
+	SGPRect dimensions;
+	GetBoxPosition( hBoxHandle, &position );
+	GetBoxSize( hBoxHandle, &dimensions );
+
+	const INT32 iLineHeight = GetLineSpace( hBoxHandle ) + GetFontHeight( GetBoxFont( hBoxHandle ) );
+
+	pRect->iLeft = position.iX;
+	pRect->iTop = position.iY + GetTopMarginSize( hBoxHandle ) + iLineHeight * uiLine;
+	pRect->iRight = position.iX + dimensions.iRight;
+	pRect->iBottom = pRect->iTop + iLineHeight;
+}
+
+void DefineBoxLineRegion( MOUSE_REGION *pRegion, INT32 hBoxHandle, UINT32 uiLine, INT8 bPriority, MOUSE_CALLBACK MovementCallback, MOUSE_CALLBACK ButtonCallback )
+{
+	SGPRect rect;
+	GetBoxLineRect( hBoxHandle, uiLine, &rect );
+	MSYS_DefineRegion( pRegion, (INT16)rect.iLeft, (INT16)rect.iTop, (INT16)rect.iRight, (INT16)rect.iBottom, bPriority, MSYS_NO_CURSOR, MovementCallback, ButtonCallback );
+}
+
 void ResizeBoxToText( INT32 hBoxHandle )
 {
 	// run through lines of text in box and size box width to longest line plus margins
