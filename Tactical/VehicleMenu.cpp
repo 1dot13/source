@@ -128,21 +128,8 @@ VehicleSelection::Setup( UINT32 aVal )
 	pOption = new POPUP_OPTION(std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_VehicleSelection, 0 ) );
 	GetPopup()->addOption( *pOption );
 		
-	// grab soldier's x,y screen position
-	INT16 sX, sY;
-	GetGridNoScreenPos( sVehicleMenuTargetGridNo, (UINT8)gsInterfaceLevel, &sX, &sY );
-		
-	if( sX < 0 ) sX = 0;
-	if( sY < 0 ) sY = 0;
-
-	usVehicleMenuPosX = sX + 30;		
-	usVehicleMenuPosY = sY;
-
-	if ( ( usVehicleMenuPosX + 200 ) > SCREEN_WIDTH )
-		usVehicleMenuPosX = SCREEN_WIDTH - 200;
-
-	if ( ( usVehicleMenuPosY + 130 ) > SCREEN_HEIGHT )
-		usVehicleMenuPosY = SCREEN_HEIGHT - 190;
+	usVehicleMenuPosX = gusMouseXPos;
+	usVehicleMenuPosY = gusMouseYPos;
 
 	SetPos(usVehicleMenuPosX, usVehicleMenuPosY);
 }

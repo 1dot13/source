@@ -2342,7 +2342,6 @@ POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 		return NULL;
 	}
 
-	INT16 sX, sY;
 	// get pocket type under cursor
 	//INT16 lbePocket = pocketTypeInSlot(pSoldier, sPocket);
 	/*				
@@ -2358,25 +2357,7 @@ POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 			sPocketPopup->setCallback(POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,SOLDIERTYPE*>( createMagPopupAfter,pSoldier ) );
 		}
 
-		sX = gSMInvData[ sPocket ].sX;
-		sY = gSMInvData[ sPocket ].sY;
-
-		UINT8 thisPopupsPositionType;
-		if ( sX < 170 && sY < 180 ){
-			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-		} else if ( sX > 170 && sY < 180 ){
-			thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
-		} else if ( sX > 170 && sY > 180 ){
-			thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
-		} else if ( sX < 170 && sY > 180 ){
-			thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
-		} else {
-			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-		}
-
-		sPocketPopup->setPosition(			sX + 12,
-		/* Put it near the current slot	 */	sY + 32,
-											thisPopupsPositionType);
+		sPocketPopup->setPosition( gusMouseXPos, gusMouseYPos );
 		return sPocketPopup;
 /*
 	} // identified pocket
@@ -5829,22 +5810,9 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				{
 					gItemDescAttachmentPopups[slotCount] = new POPUP("Attachment list");	// init attachment popup for this slot
 				
-					UINT8 thisPopupsPositionType;
-					if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-						thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-						thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-						thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
-					} else {
-						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-					}
-
 					gItemDescAttachmentPopups[slotCount]->setPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX) + 12 ,
 					/* Put it near the current slot	 */					(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
-																		 thisPopupsPositionType );
+																		 POPUP_POSITION_TOP_LEFT );
 
 					// the show callback should redraw the description box (in case we had any helptext and close other attachment popups)
 					gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_SHOW, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );

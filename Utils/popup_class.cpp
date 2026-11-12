@@ -265,7 +265,7 @@ void POPUP_SUB_POPUP_OPTION::showPopup()
 	// check if it's available at this time, if there is an avail function set
 	if ( !this->AvailabilityFunctionSet() || this->checkAvailability() )
 	{
-		this->subPopup->anchorTo( this->parent );
+		this->subPopup->anchorTo( this->parent, this->parent->lineOf( this ) );
 		this->subPopup->show();
 	}
 }
@@ -503,6 +503,7 @@ void POPUP::setInitialValues(void)
 
 	this->positioningRule = POPUP_POSITION_TOP_LEFT;
 	this->anchorParent = NULL;
+	this->anchorLine = 0;
 	this->side = 1;
 
 	//int i = 0;
@@ -687,9 +688,20 @@ BOOLEAN POPUP::setPosition(UINT16 x, UINT16 y, UINT8 positioningRule )
 	return TRUE;
 }
 
-void POPUP::anchorTo( const POPUP *parent )
+void POPUP::anchorTo( const POPUP *parent, UINT32 uiParentLine )
 {
 	this->anchorParent = parent;
+	this->anchorLine = uiParentLine;
+}
+
+UINT32 POPUP::lineOf( const POPUP_SUB_POPUP_OPTION *option ) const
+{
+	UINT32 uiLine = 0;
+	while ( uiLine < this->subPopupOptions.size() && this->subPopupOptions[uiLine] != option )
+	{
+		++uiLine;
+	}
+	return uiLine;
 }
 
 //////////////////////////////////
@@ -1453,33 +1465,29 @@ void POPUP::DetermineBoxPositions( void )
 
 	if ( this->anchorParent && this->anchorParent->boxId != -1 )
 	{
-		UINT32 uiLine = 0;
-		while ( uiLine < this->anchorParent->subPopupOptions.size() && this->anchorParent->subPopupOptions[uiLine]->subPopup != this )
-		{
-			++uiLine;
-		}
-
-		this->side = PlaceBoxBeside( this->boxId, this->anchorParent->boxId, uiLine, this->anchorParent->side, screen );
+		this->side = PlaceBoxBeside( this->boxId, this->anchorParent->boxId, this->anchorLine, this->anchorParent->side, screen );
 	}
 	else
 	{
 		SGPRect size;
 		GetBoxSize( this->boxId, &size );
 
+		const BOOLEAN fOpensLeft = ( this->positioningRule == POPUP_POSITION_TOP_RIGHT || this->positioningRule == POPUP_POSITION_BOTTOM_RIGHT );
+		const BOOLEAN fOpensUp = ( this->positioningRule == POPUP_POSITION_BOTTOM_LEFT || this->positioningRule == POPUP_POSITION_BOTTOM_RIGHT );
+
+		const BOOLEAN fFitsRight = this->OrigPosition.iX + size.iRight <= screen.iRight;
+		const BOOLEAN fFitsLeft = this->OrigPosition.iX - size.iRight >= screen.iLeft;
+		const BOOLEAN fFitsDown = this->OrigPosition.iY + size.iBottom <= screen.iBottom;
+		const BOOLEAN fFitsUp = this->OrigPosition.iY - size.iBottom >= screen.iTop;
+
+		this->side = ( fOpensLeft ? ( fFitsLeft || !fFitsRight ) : ( !fFitsRight && fFitsLeft ) ) ? -1 : 1;
+		const BOOLEAN fUp = fOpensUp ? ( fFitsUp || !fFitsDown ) : ( !fFitsDown && fFitsUp );
+
 		SGPPoint anchor = this->OrigPosition;
-		switch ( this->positioningRule )
-		{
-			case POPUP_POSITION_TOP_RIGHT:
-				anchor.iX -= size.iRight;
-				break;
-			case POPUP_POSITION_BOTTOM_RIGHT:
-				anchor.iX -= size.iRight;
-				anchor.iY -= size.iBottom;
-				break;
-			case POPUP_POSITION_BOTTOM_LEFT:
-				anchor.iY -= size.iBottom;
-				break;
-		}
+		if ( this->side < 0 )
+			anchor.iX -= size.iRight;
+		if ( fUp )
+			anchor.iY -= size.iBottom;
 
 		PlaceBox( this->boxId, anchor, screen );
 	}
