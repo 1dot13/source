@@ -1639,8 +1639,8 @@ void ResizeBoxToText( INT32 hBoxHandle )
 	}
 
 	// Flugente we shouldn't have added more popup options than we can display anyway, but I have no idea where to stop that, so at least we can fix this
-	box->Dimensions.iBottom = min( iHeight, SCREEN_HEIGHT - box->Position.iY );
-	box->Dimensions.iRight = min( iWidth, SCREEN_WIDTH - box->Position.iX );
+	box->Dimensions.iBottom = min( iHeight, SCREEN_HEIGHT );
+	box->Dimensions.iRight = min( iWidth, SCREEN_WIDTH );
 
 	// Constrain popup box height to background graphics max height. Otherwise we get blue graphics glitches
 	const auto popupBoxHeight = box->Dimensions.iBottom - box->Dimensions.iTop;
