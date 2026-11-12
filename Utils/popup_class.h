@@ -116,15 +116,6 @@
 
 	void initSubPopup();
 	void destroySubPopup();
-	void positionSubPopup();
-
-	BOOLEAN setPopupPosition(UINT16 x,	UINT16 y, INT8 positioningRule = POPUP_POSITION_RELATIVE  );
-
-	BOOLEAN customPositionSet;
-	UINT32 customX;
-	UINT32 customY;
-	INT8 customRule;
-
 	POPUP	*	subPopup;
 	const POPUP	*	parent;
 	};
@@ -153,6 +144,7 @@
 		POPUP_SUB_POPUP_OPTION * getSubPopupOption(UINT8 n);
 
 		BOOLEAN setPosition(UINT16 x,	UINT16 y, UINT8 positioningRule = POPUP_POSITION_TOP_LEFT  );
+		void anchorTo( const POPUP *parent );
 		BOOLEAN setSize(UINT16 x,	UINT16 y );
 		// usage
 		BOOLEAN show(void);
@@ -220,7 +212,6 @@
 		void DestroyMouseRegions( void );
 		void AdjustMouseRegions( void );
 
-		void RepositionMouseRegions( void );
 
 	public:
 		// MSYS Callbacks
@@ -235,7 +226,6 @@
 		// Misc utility functions
 		void HandleShadingOfLines( void );
 		void PositionCursorForBox( void );
-		void CheckAndUpdateTacticalPopUpPositions( void );
 		void DetermineBoxPositions( void );
 		void UpdateTextProperties( void );
 
@@ -292,6 +282,8 @@
 	private:
 			// Box position and size
 		SGPPoint	OrigPosition;
+		const POPUP	*anchorParent;
+		INT8	side;
 
 		// Options
 		std::vector<POPUP_OPTION *> options;
