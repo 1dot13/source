@@ -211,7 +211,8 @@ ValidateOptions("${ValidApplications}" "Applications" "${Applications}" "Applica
 # preprocessor definitions for Debug build, per the legacy MSBuild
 # WINDOWED_MODE was keyed off _DEBUG in Ja2/local.h, which an asan Debug build
 # does not get: it links the release CRT (see CMAKE_MSVC_RUNTIME_LIBRARY above).
-set(debugFlags $<IF:$<CONFIG:Debug>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY;WINDOWED_MODE,>)
+option(DEBUG_TEST_VERSION "Debug builds are also beta/test builds: JA2BETAVERSION, JA2TESTVERSION, DEBUG_ATTACKBUSY, WINDOWED_MODE" ON)
+set(debugFlags $<IF:$<AND:$<CONFIG:Debug>,$<BOOL:${DEBUG_TEST_VERSION}>>,JA2BETAVERSION;JA2TESTVERSION;DEBUG_ATTACKBUSY;WINDOWED_MODE,>)
 
 foreach(app IN LISTS ApplicationTargets)
   set(isEditor $<STREQUAL:${app},JA2MAPEDITOR>)
