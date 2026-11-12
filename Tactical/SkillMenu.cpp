@@ -13,6 +13,7 @@
 #include "Queen Command.h"
 #include "strategicmap.h"
 #include "Map Screen Interface.h"
+#include "input.h"
 #include "Rotting Corpses.h"
 #include "Dialogue Control.h"
 #include "Handle Items.h"
@@ -186,23 +187,8 @@ TraitSelection::Setup( UINT32 aVal )
 	pOption = new POPUP_OPTION(std::wstring( pStr ), new popupCallbackFunction<void,UINT32>( &Wrapper_Cancel_TraitSelection, 0 ) );
 	GetPopup()->addOption( *pOption );
 		
-	// grab soldier's x,y screen position
-	INT16 sX, sY;
-	// sevenfm: changed TraitsMenu position from soldier to mouse
-	//GetSoldierScreenPos( pSoldier, &sX, &sY );
-	GetGridNoScreenPos( sTraitsMenuTargetGridNo, (UINT8)gsInterfaceLevel, &sX, &sY );
-		
-	if( sX < 0 ) sX = 0;
-	if( sY < 0 ) sY = 0;
-
-	usTraitMenuPosX = sX + 30;		
-	usTraitMenuPosY = sY;
-
-	if ( ( usTraitMenuPosX + 400 ) > SCREEN_WIDTH )
-		usTraitMenuPosX = SCREEN_WIDTH - 400;
-
-	if ( ( usTraitMenuPosY + 130 ) > SCREEN_HEIGHT )
-		usTraitMenuPosY = SCREEN_HEIGHT - 190;
+	usTraitMenuPosX = gusMouseXPos;
+	usTraitMenuPosY = gusMouseYPos;
 
 	SetPos(usTraitMenuPosX, usTraitMenuPosY);
 }
@@ -339,7 +325,7 @@ SkillSelection::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gTraitSelection.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gTraitSelection );
 
 	if ( HAS_SKILL_TRAIT(pSoldier, aVal) )
 	{
@@ -469,7 +455,7 @@ ArtillerySector::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gSkillSelection.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gSkillSelection );
 }
 /////////////////////////////// Artillery Sector Selection ////////////////////////////////////////////
 
@@ -538,7 +524,7 @@ ArtilleryTeam::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gArtillerySector.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gArtillerySector );
 }
 
 void
@@ -622,7 +608,7 @@ ReinforcementSector::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gSkillSelection.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gSkillSelection );
 }
 /////////////////////////////// Reinforcement Sector Selection ////////////////////////////////////////////
 
@@ -732,7 +718,7 @@ ReinforcementNumber::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gReinforcementSector.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gReinforcementSector );
 }
 
 void
@@ -814,7 +800,7 @@ SoldierSelection::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos(gSkillSelection.GetMaxPosX(), usTraitMenuPosY);
+	OpenBeside( gSkillSelection );
 }
 
 void
@@ -928,7 +914,7 @@ DragSelection::Setup( UINT32 aVal )
 	}
 
 	// same y, different x
-	SetPos( gSkillSelection.GetMaxPosX( ), usTraitMenuPosY );
+	OpenBeside( gSkillSelection );
 }
 
 void
@@ -1006,17 +992,8 @@ EquipmentSelection::Setup(UINT32 aVal)
 	INT16 sX = 261 + 406 + xResOffset + 30;
 	INT16 sY = 0 + 10 + yResOffset + 30;
 
-	if ( sX < 0 ) sX = 0;
-	if ( sY < 0 ) sY = 0;
-
 	usTraitMenuPosX = sX + 30;
 	usTraitMenuPosY = sY;
-
-	if ( (usTraitMenuPosX + 400) > SCREEN_WIDTH )
-		usTraitMenuPosX = SCREEN_WIDTH - 400;
-
-	if ( (usTraitMenuPosY + 130) > SCREEN_HEIGHT )
-		usTraitMenuPosY = SCREEN_HEIGHT - 190;
 
 	POPUP_OPTION *pOption;
 

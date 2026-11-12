@@ -144,7 +144,8 @@
 		POPUP_SUB_POPUP_OPTION * getSubPopupOption(UINT8 n);
 
 		BOOLEAN setPosition(UINT16 x,	UINT16 y, UINT8 positioningRule = POPUP_POSITION_TOP_LEFT  );
-		void anchorTo( const POPUP *parent );
+		void anchorTo( const POPUP *parent, UINT32 uiParentLine );
+		UINT32 lineOf( const POPUP_SUB_POPUP_OPTION *option ) const;
 		BOOLEAN setSize(UINT16 x,	UINT16 y );
 		// usage
 		BOOLEAN show(void);
@@ -283,6 +284,7 @@
 			// Box position and size
 		SGPPoint	OrigPosition;
 		const POPUP	*anchorParent;
+		UINT32	anchorLine;
 		INT8	side;
 
 		// Options
