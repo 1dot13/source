@@ -139,19 +139,19 @@ jobs:
         path: source
         fetch-depth: 1
         sparse-checkout: 'README.md'
-    - name: Create latest pre-release
+    - name: Create development pre-release
       if: github.ref == 'refs/heads/master'
       working-directory: source
       run: |
-        gh release delete latest --cleanup-tag || true
-        git tag -d latest || true
-        git push --delete origin refs/tags/latest || true
-        git tag latest
-        git push --force origin refs/tags/latest
+        gh release delete development --cleanup-tag || true
+        git tag -d development || true
+        git push --delete origin refs/tags/development || true
+        git tag development
+        git push --force origin refs/tags/development
         sleep 15 # make sure github can find the tag for gh release
-        gh release create latest ../dist/* \
+        gh release create development ../dist/* \
           --generate-notes \
-          --title "Latest (unstable)" \
+          --title "development" \
           --verify-tag \
           --prerelease
       env:
