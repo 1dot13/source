@@ -217,6 +217,7 @@ INT32 ghPrisonerBox = -1;
 
 // the x,y position of assignment pop up in tactical
 INT16 gsAssignmentBoxesX, gsAssignmentBoxesY;
+static const INT16 ASSIGNMENT_BOX_MERC_OFFSET_X = 30;
 
 // assignment menu mouse regions
 MOUSE_REGION	gAssignmentMenuRegion[ MAX_ASSIGN_STRING_COUNT ];
@@ -593,8 +594,6 @@ void CheckForAndHandleHospitalPatients( void );
 
 BOOLEAN MakeSureToolKitIsInHand( SOLDIERTYPE *pSoldier );
 
-void RepositionMouseRegions( void );
-void CheckAndUpdateTacticalAssignmentPopUpPositions( void );
 void HandleRestFatigueAndSleepStatus( void );
 BOOLEAN CharacterIsTakingItEasy( SOLDIERTYPE *pSoldier );
 void RepairMenuBtnCallback( MOUSE_REGION * pRegion, INT32 iReason );
@@ -9627,11 +9626,6 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 	{
 		gfIgnoreScrolling = FALSE;
 
-		if( ( fShowAssignmentMenu ) && ( guiCurrentScreen == MAP_SCREEN ) )
-		{
-		SetBoxPosition( ghAssignmentBox, AssignmentPosition );
-		}
-
 		pSoldier = GetSelectedAssignSoldier( FALSE );
 
 		const INT32 hBox = ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ? ghEpcBox : ghAssignmentBox;
@@ -9651,7 +9645,7 @@ void CreateDestroyMouseRegionsForAssignmentMenu( void )
 
 		// unhighlight all strings in box
 		UnHighLightBox( ghAssignmentBox );
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		DetermineBoxPositions( );
 
 		PositionCursorForTacticalAssignmentBox( );
 	}
@@ -9677,27 +9671,10 @@ void CreateDestroyMouseRegionForVehicleMenu( void )
 
 	UINT32 uiMenuLine = 0;
 	INT32 iVehicleId = 0;
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 	SOLDIERTYPE *pSoldier = NULL;
-
-	if ( gAssignMenuState == ASMENU_VEHICLE )
-	{
-		GetBoxPosition( ghAssignmentBox, &pPoint);
-
-		// get dimensions..mostly for width
-		GetBoxSize( ghAssignmentBox, &pDimensions );
-
-		// vehicle position
-		VehiclePosition.iX = pPoint.iX + pDimensions.iRight;
-
-		SetBoxPosition( ghVehicleBox , VehiclePosition );
-	}
 
 	if ( gAssignMenuState == ASMENU_VEHICLE && !fCreated )
 	{
-		// get dimensions..mostly for width
-		GetBoxSize( ghVehicleBox, &pDimensions );
 		SetBoxSecondaryShade( ghVehicleBox, FONT_YELLOW );
 
 		SetCurrentBox( ghVehicleBox );
@@ -9947,7 +9924,7 @@ BOOLEAN DisplayRepairMenu( SOLDIERTYPE *pSoldier )
 	// resize box to text
 	ResizeBoxToText( ghRepairBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+	DetermineBoxPositions( );
 
 	return TRUE;
 }
@@ -11721,7 +11698,7 @@ void CreateDestroyMouseRegionsForRemoveMenu( void )
 			SetBoxPosition( ghRemoveMercAssignBox , AssignmentPosition );
 		}
 
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		DetermineBoxPositions( );
 
 		SetCurrentBox( ghRemoveMercAssignBox );
 
@@ -11794,7 +11771,7 @@ void CreateDestroyMouseRegionsForSquadMenu( BOOLEAN fPositionBox )
 		// create squad box
 		CreateSquadBox( );
 
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		DetermineBoxPositions( );
 
 		SetCurrentBox( ghSquadBox );
 
@@ -14172,8 +14149,6 @@ void RestorePopUpBoxes( void )
 void CreateSquadBox( void )
 {
 	// will create a pop up box for squad selection
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 	UINT32 hStringHandle;
 	UINT32 uiCounter;
 	CHAR16 sString[ 64 ];
@@ -14244,25 +14219,11 @@ void CreateSquadBox( void )
  ResizeBoxToText( ghSquadBox );
 
  DetermineBoxPositions( );
-
- GetBoxPosition( ghSquadBox, &pPoint);
- GetBoxSize( ghSquadBox, &pDimensions );
-
-	// silversurfer: This doesn't make sense. Even at 800x600 the squad box can be displayed without this adjustment.
-	// The adjustment causes issues when USE_XML_SQUADNAMES is TRUE, because it will move the squad box up over the column header, which looks bad and causes clipping issues. Disabled.
- /*if( giBoxY + pDimensions.iBottom > 479 )
- {
-		pPoint.iY = SquadPosition.iY = 479 - pDimensions.iBottom;
-	}*/
-
-	SetBoxPosition( ghSquadBox, pPoint );
 }
 
 void CreateEPCBox( void )
 {
 	// will create a pop up box for squad selection
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 	UINT32 hStringHandle;
 	INT32 iCount;
 
@@ -14309,17 +14270,6 @@ void CreateEPCBox( void )
 
 	// resize box to text
 	ResizeBoxToText( ghEpcBox );
-
-	GetBoxPosition( ghEpcBox, &pPoint);
-
-	GetBoxSize( ghEpcBox, &pDimensions );
-
-	if( giBoxY + pDimensions.iBottom > 479 )
-	{
-			pPoint.iY = AssignmentPosition.iY = 479 - pDimensions.iBottom;
-	}
-
-		SetBoxPosition( ghEpcBox, pPoint );
 }
 
 
@@ -14433,8 +14383,6 @@ void CreateRepairBox()
 
 void CreateMoveItemBox()
 {
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 
 	CreatePopUpBox(&ghMoveItemBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, (POPUP_BOX_FLAG_CLIP_TEXT|POPUP_BOX_FLAG_CENTER_TEXT|POPUP_BOX_FLAG_RESIZE ));
 	SetBoxBuffer(ghMoveItemBox, FRAME_BUFFER);
@@ -14450,22 +14398,10 @@ void CreateMoveItemBox()
 	ResizeBoxToText( ghMoveItemBox );
 
 	DetermineBoxPositions( );
-
-	GetBoxPosition( ghMoveItemBox, &pPoint);
-	GetBoxSize( ghMoveItemBox, &pDimensions );
-
-	if( giBoxY + pDimensions.iBottom > 479 )
-	{
-		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
-	}
-	
-	SetBoxPosition( ghMoveItemBox, pPoint );
 }
 
 void CreateDiseaseBox()
 {
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 
 	CreatePopUpBox( &ghDiseaseBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, (POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE) );
 	SetBoxBuffer( ghDiseaseBox, FRAME_BUFFER );
@@ -14481,22 +14417,10 @@ void CreateDiseaseBox()
 	ResizeBoxToText( ghDiseaseBox );
 
 	DetermineBoxPositions( );
-
-	GetBoxPosition( ghDiseaseBox, &pPoint );
-	GetBoxSize( ghDiseaseBox, &pDimensions );
-
-	if ( giBoxY + pDimensions.iBottom > 479 )
-	{
-		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
-	}
-
-	SetBoxPosition( ghDiseaseBox, pPoint );
 }
 
 void CreateSpyBox()
 {
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 
 	CreatePopUpBox( &ghSpyBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, ( POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE ) );
 	SetBoxBuffer( ghSpyBox, FRAME_BUFFER );
@@ -14511,24 +14435,12 @@ void CreateSpyBox()
 	// resize box to text
 	ResizeBoxToText( ghSpyBox );
 
-	DetermineBoxPositions();
-
-	GetBoxPosition( ghSpyBox, &pPoint );
-	GetBoxSize( ghSpyBox, &pDimensions );
-
-	if ( giBoxY + pDimensions.iBottom > 479 )
-	{
-		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
-	}
-
-	SetBoxPosition( ghSpyBox, pPoint );
+	DetermineBoxPositions( );
 }
 
 
 void CreateMilitiaBox()
 {
-	SGPPoint pPoint;
-	SGPRect pDimensions;
 
 	CreatePopUpBox( &ghMilitiaBox, FacilityAssignmentDimensions, FacilityAssignmentPosition, ( POPUP_BOX_FLAG_CLIP_TEXT | POPUP_BOX_FLAG_CENTER_TEXT | POPUP_BOX_FLAG_RESIZE ) );
 	SetBoxBuffer( ghMilitiaBox, FRAME_BUFFER );
@@ -14543,17 +14455,7 @@ void CreateMilitiaBox()
 	// resize box to text
 	ResizeBoxToText( ghMilitiaBox );
 
-	DetermineBoxPositions();
-
-	GetBoxPosition( ghMilitiaBox, &pPoint );
-	GetBoxSize( ghMilitiaBox, &pDimensions );
-
-	if ( giBoxY + pDimensions.iBottom > 479 )
-	{
-		pPoint.iY = FacilityAssignmentPosition.iY = 479 - pDimensions.iBottom;
-	}
-
-	SetBoxPosition( ghMilitiaBox, pPoint );
+	DetermineBoxPositions( );
 }
 
 void CreateSnitchBox()
@@ -15445,192 +15347,147 @@ BOOLEAN CreateDestroyAssignmentPopUpBoxes( void )
 
 
 
+template <size_t N>
+static void PlaceAssignmentSubBox( INT32 hBox, MOUSE_REGION (&Regions)[N], INT32 &hParent, UINT32 uiParentLine, INT8 &bSide, const SGPRect &Bounds, BOOLEAN &fMoved )
+{
+	SGPPoint before, after;
+	GetBoxPosition( hBox, &before );
+
+	ResizeBoxToText( hBox );
+	bSide = PlaceBoxBeside( hBox, hParent, uiParentLine, bSide, Bounds );
+	MoveBoxLineRegions( Regions, min( GetNumberOfLinesOfTextInBox( hBox ), (UINT32)N ), hBox );
+
+	GetBoxPosition( hBox, &after );
+	fMoved |= ( before.iX != after.iX || before.iY != after.iY );
+	hParent = hBox;
+}
+
 void DetermineBoxPositions( void )
 {
-	// depending on how many boxes there are, reposition as needed
-	SGPPoint pPoint;
-	SGPPoint pNewPoint;
-	SGPRect pDimensions;
-	SOLDIERTYPE *pSoldier = NULL;
-	
 	if( ( fShowAssignmentMenu == FALSE ) || ( ghAssignmentBox == -1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( TRUE );
+	SOLDIERTYPE *pSoldier = GetSelectedAssignSoldier( TRUE );
 	// pSoldier NULL is legal here!	Gets called during every mapscreen initialization even when nobody is assign char
 	if ( pSoldier == NULL )
 	{
 		return;
 	}
 
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
-	{
-		GetBoxPosition( ghAssignmentBox, &pPoint );
-		gsAssignmentBoxesX = ( INT16 )pPoint.iX;
-		gsAssignmentBoxesY = ( INT16 )pPoint.iY;
-	}
+	INT32 hParent = ( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC ) ? ghEpcBox : ghAssignmentBox;
 
-	pPoint.iX = gsAssignmentBoxesX;
-	pPoint.iY = gsAssignmentBoxesY;
+	SGPPoint before, after;
+	GetBoxPosition( hParent, &before );
 
-	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
+	SGPRect bounds = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	SGPPoint anchor;
+	INT8 bSide = 1;
+
+	if ( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN )
 	{
-		SetBoxPosition( ghEpcBox, pPoint );
-		GetBoxSize( ghEpcBox, &pDimensions );
+		anchor.iX = before.iX;
+		anchor.iY = AssignmentPosition.iY;
 	}
 	else
 	{
-		SetBoxPosition( ghAssignmentBox, pPoint );
-		GetBoxSize( ghAssignmentBox, &pDimensions );
-	}
+		bounds.iBottom = gsVIEWPORT_WINDOW_END_Y;
+		anchor.iX = gsAssignmentBoxesX;
+		anchor.iY = gsAssignmentBoxesY;
 
-	// hang it right beside the assignment/EPC box menu
-	pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-	pNewPoint.iY = pPoint.iY;
-
-	if ( gAssignMenuState == ASMENU_SQUAD && ( ghSquadBox != -1 ) )
-	{
-		SetBoxPosition( ghSquadBox, pNewPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_REPAIR && ( ghRepairBox != -1 ) )
-	{
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
-
-		SetBoxPosition( ghRepairBox, pNewPoint );
-		CreateDestroyMouseRegionForRepairMenu( );
-	}
-	else if ( gAssignMenuState == ASMENU_MOVEITEM && ( ghMoveItemBox != -1 ) )
-	{
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
-
-		SetBoxPosition( ghMoveItemBox, pNewPoint );
-		CreateDestroyMouseRegionForMoveItemMenu( );
-	}
-	else if ( gAssignMenuState == ASMENU_DISEASE && (ghDiseaseBox != -1) )
-	{
-		pNewPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS);
-
-		SetBoxPosition( ghDiseaseBox, pNewPoint );
-		CreateDestroyMouseRegionForDiseaseMenu( );
-	}
-	else if ( gAssignMenuState == ASMENU_SPY && ( ghSpyBox != -1) )
-	{
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY );
-
-		SetBoxPosition( ghSpyBox, pNewPoint );
-		CreateDestroyMouseRegionForSpyMenu();
-	}
-	else if ( gAssignMenuState == ASMENU_TRAIN && ( ghTrainingBox != -1 ) )
-	{
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
-		SetBoxPosition( ghTrainingBox, pNewPoint );
-		TrainPosition.iX = pNewPoint.iX;
-		TrainPosition.iY = pNewPoint.iY;
-		OrigTrainPosition.iY = pNewPoint.iY;
-		OrigTrainPosition.iX = pNewPoint.iX;
-
-		GetBoxSize( ghTrainingBox, &pDimensions );
-		GetBoxPosition( ghTrainingBox, &pPoint );
-
-		if( ( fShowAttributeMenu == TRUE ) && ( ghAttributeBox != -1 ) )
+		SGPRect size;
+		GetBoxSize( hParent, &size );
+		if ( anchor.iX + size.iRight > bounds.iRight )
 		{
-			// hang it right beside the training box menu
-			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-			pNewPoint.iY = pPoint.iY;
-			SetBoxPosition( ghAttributeBox, pNewPoint );
+			anchor.iX -= ASSIGNMENT_BOX_MERC_OFFSET_X + size.iRight;
+			bSide = -1;
 		}
 	}
-	// HEADROCK HAM 3.6: Facility Sub-menu
-	else if ( gAssignMenuState == ASMENU_FACILITY && ( ghFacilityBox != -1 ) )
+
+	PlaceBox( hParent, anchor, bounds );
+	MoveBoxLineRegions( gAssignmentMenuRegion, min( GetNumberOfLinesOfTextInBox( ghAssignmentBox ), (UINT32)MAX_ASSIGN_STRING_COUNT ), hParent );
+	GetBoxPosition( hParent, &after );
+	BOOLEAN fMoved = ( before.iX != after.iX || before.iY != after.iY );
+
+	switch ( gAssignMenuState )
 	{
-		//CreateDestroyMouseRegionForFacilityMenu( );
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-		SetBoxPosition( ghFacilityBox, pNewPoint );
-		FacilityPosition.iX = pNewPoint.iX;
-		FacilityPosition.iY = pNewPoint.iY;
-		OrigFacilityPosition.iY = pNewPoint.iY;
-		OrigFacilityPosition.iX = pNewPoint.iX;
+		case ASMENU_SQUAD:
+			if ( ghSquadBox != -1 )
+				PlaceAssignmentSubBox( ghSquadBox, gSquadMenuRegion, hParent, ASSIGN_MENU_ON_DUTY, bSide, bounds, fMoved );
+			break;
 
-		ResizeBoxToText( ghFacilityBox );
+		case ASMENU_VEHICLE:
+			if ( ghVehicleBox != -1 )
+				PlaceAssignmentSubBox( ghVehicleBox, gVehicleMenuRegion, hParent, ASSIGN_MENU_VEHICLE, bSide, bounds, fMoved );
+			break;
 
-		GetBoxSize( ghFacilityBox, &pDimensions );
-		GetBoxPosition( ghFacilityBox, &pPoint );
+		case ASMENU_REPAIR:
+			if ( ghRepairBox != -1 )
+				PlaceAssignmentSubBox( ghRepairBox, gRepairMenuRegion, hParent, ASSIGN_MENU_REPAIR, bSide, bounds, fMoved );
+			break;
 
-		if( ( fShowFacilityAssignmentMenu == TRUE ) && ( ghFacilityAssignmentBox != -1 ) )
-		{
-			// hang it right beside the training box menu
-			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-			pNewPoint.iY = pPoint.iY;
-			SetBoxPosition( ghFacilityAssignmentBox, pNewPoint );
-		}
+		case ASMENU_MOVEITEM:
+			if ( ghMoveItemBox != -1 )
+				PlaceAssignmentSubBox( ghMoveItemBox, gMoveItem, hParent, ASSIGN_MENU_MOVE_ITEMS, bSide, bounds, fMoved );
+			break;
+
+		case ASMENU_DISEASE:
+			if ( ghDiseaseBox != -1 )
+				PlaceAssignmentSubBox( ghDiseaseBox, gDisease, hParent, ASSIGN_MENU_DOCTOR_DIAGNOSIS, bSide, bounds, fMoved );
+			break;
+
+		case ASMENU_SPY:
+			if ( ghSpyBox != -1 )
+				PlaceAssignmentSubBox( ghSpyBox, gSpy, hParent, ASSIGN_MENU_SPY, bSide, bounds, fMoved );
+			break;
+
+		case ASMENU_MILITIA:
+			if ( ghMilitiaBox != -1 )
+				PlaceAssignmentSubBox( ghMilitiaBox, gMilitia, hParent, ASSIGN_MENU_MILITIA, bSide, bounds, fMoved );
+			break;
+
+		case ASMENU_TRAIN:
+			if ( ghTrainingBox != -1 )
+			{
+				PlaceAssignmentSubBox( ghTrainingBox, gTrainingMenuRegion, hParent, ASSIGN_MENU_TRAIN, bSide, bounds, fMoved );
+
+				if ( fShowAttributeMenu && ( ghAttributeBox != -1 ) )
+					PlaceAssignmentSubBox( ghAttributeBox, gAttributeMenuRegion, hParent, 0, bSide, bounds, fMoved );
+			}
+			break;
+
+		case ASMENU_FACILITY:
+			if ( ghFacilityBox != -1 )
+			{
+				PlaceAssignmentSubBox( ghFacilityBox, gFacilityMenuRegion, hParent, ASSIGN_MENU_FACILITY, bSide, bounds, fMoved );
+
+				if ( fShowFacilityAssignmentMenu && ( ghFacilityAssignmentBox != -1 ) )
+					PlaceAssignmentSubBox( ghFacilityAssignmentBox, gFacilityAssignmentMenuRegion, hParent, 0, bSide, bounds, fMoved );
+			}
+			break;
+
+		case ASMENU_SNITCH:
+			if ( ghSnitchBox != -1 )
+			{
+				PlaceAssignmentSubBox( ghSnitchBox, gSnitchMenuRegion, hParent, ASSIGN_MENU_SNITCH, bSide, bounds, fMoved );
+
+				if ( fShowSnitchToggleMenu && ( ghSnitchToggleBox != -1 ) )
+					PlaceAssignmentSubBox( ghSnitchToggleBox, gSnitchToggleMenuRegion, hParent, 0, bSide, bounds, fMoved );
+				else if ( fShowSnitchSectorMenu && ( ghSnitchSectorBox != -1 ) )
+					PlaceAssignmentSubBox( ghSnitchSectorBox, gSnitchSectorMenuRegion, hParent, 0, bSide, bounds, fMoved );
+			}
+			break;
 	}
-	else if ( gAssignMenuState == ASMENU_SNITCH && ( ghSnitchBox != -1 ) )
+
+	if ( fShowPrisonerMenu && ( ghPrisonerBox != -1 ) )
+		PlaceAssignmentSubBox( ghPrisonerBox, gPrisonerMenuRegion, hParent, 0, bSide, bounds, fMoved );
+
+	if ( fMoved && !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
-		//CreateDestroyMouseRegionForSnitchMenu( );
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SNITCH );
-
-		SetBoxPosition( ghSnitchBox, pNewPoint );
-		SnitchPosition.iX = pNewPoint.iX;
-		SnitchPosition.iY = pNewPoint.iY;
-		OrigSnitchPosition.iY = pNewPoint.iY;
-		OrigSnitchPosition.iX = pNewPoint.iX;
-
-		ResizeBoxToText( ghSnitchBox );
-
-		GetBoxSize( ghSnitchBox, &pDimensions );
-		GetBoxPosition( ghSnitchBox, &pPoint );
-
-		if( ( fShowSnitchToggleMenu == TRUE ) && ( ghSnitchToggleBox != -1 ) )
-		{
-			// hang it right beside the training box menu
-			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-			pNewPoint.iY = pPoint.iY;
-			SetBoxPosition( ghSnitchToggleBox, pNewPoint );
-		}
-		else if( ( fShowSnitchSectorMenu == TRUE ) && ( ghSnitchSectorBox != -1 ) )
-		{
-			// hang it right beside the training box menu
-			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-			pNewPoint.iY = pPoint.iY;
-			SetBoxPosition( ghSnitchSectorBox, pNewPoint );
-		}
-	}
-	else if ( gAssignMenuState == ASMENU_MILITIA && ( ghMilitiaBox != -1 ) )
-	{
-		pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA );
-
-		SetBoxPosition( ghMilitiaBox, pNewPoint );
-		CreateDestroyMouseRegionForMilitiaMenu();
-	}
-
-	if ( fShowPrisonerMenu && (ghPrisonerBox != -1) )
-	{
-		// this should be next to the facility assignemtn menu, so get the coordinates for that
-		if ( (fShowFacilityAssignmentMenu == TRUE) && (ghFacilityAssignmentBox != -1) )
-		{
-			GetBoxPosition( ghFacilityAssignmentBox, &pPoint );
-			GetBoxSize( ghFacilityAssignmentBox, &pDimensions );
-
-			pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-		}
-
-		pNewPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_FACILITY);
-
-		SetBoxPosition( ghPrisonerBox, pNewPoint );
-		PrisonerPosition.iX = pNewPoint.iX;
-		PrisonerPosition.iY = pNewPoint.iY;
-		OrigPrisonerPosition.iY = pNewPoint.iY;
-		OrigPrisonerPosition.iX = pNewPoint.iX;
-
-		ResizeBoxToText( ghPrisonerBox );
-
-		GetBoxSize( ghPrisonerBox, &pDimensions );
-		GetBoxPosition( ghPrisonerBox, &pPoint );
+		SetRenderFlags( RENDER_FLAG_FULL );
 	}
 }
-
 
 void SetTacticalPopUpAssignmentBoxXY( void )
 {
@@ -15649,7 +15506,7 @@ void SetTacticalPopUpAssignmentBoxXY( void )
 		sX = 0;
 	}
 
-	gsAssignmentBoxesX = sX + 30;
+	gsAssignmentBoxesX = sX + ASSIGNMENT_BOX_MERC_OFFSET_X;
 
 	if( sY < 0 )
 	{
@@ -15658,379 +15515,7 @@ void SetTacticalPopUpAssignmentBoxXY( void )
 
 	gsAssignmentBoxesY = sY;
 
-	// ATE: Check if we are past tactical viewport....
-	// Use estimate width's/heights
-	if ( ( gsAssignmentBoxesX + 100 ) > SCREEN_WIDTH )
-	{
-		//gsAssignmentBoxesX = 540;
-		gsAssignmentBoxesX = SCREEN_WIDTH - 100;
-	}
-
-	if ( ( gsAssignmentBoxesY + 130 ) > (SCREEN_HEIGHT - 160) )
-	{
-		gsAssignmentBoxesY = SCREEN_HEIGHT - 290;
-	}
-
 	return;
-}
-
-
-
-void RepositionMouseRegions( void )
-{
-	INT16 sDeltaX, sDeltaY;
-	INT32 iCounter = 0;
-
-	if( fShowAssignmentMenu == TRUE )
-	{
-		sDeltaX = gsAssignmentBoxesX - gAssignmentMenuRegion[ 0 ].RegionTopLeftX;
-		sDeltaY = ( INT16 ) ( gsAssignmentBoxesY - gAssignmentMenuRegion[ 0 ].RegionTopLeftY + GetTopMarginSize( ghAssignmentBox ) );
-
-		// find the delta from the old to the new, and alter values accordingly
-		for( iCounter = 0; iCounter < ( INT32 )GetNumberOfLinesOfTextInBox( ghAssignmentBox ); iCounter++ )
-		{
-			gAssignmentMenuRegion[ iCounter ].RegionTopLeftX += sDeltaX;
-			gAssignmentMenuRegion[ iCounter ].RegionTopLeftY += sDeltaY;
-
-			gAssignmentMenuRegion[ iCounter ].RegionBottomRightX += sDeltaX;
-			gAssignmentMenuRegion[ iCounter ].RegionBottomRightY += sDeltaY;
-		}
-
-		gfPausedTacticalRenderFlags = RENDER_FLAG_FULL;
-	}
-}
-
-
-
-void CheckAndUpdateTacticalAssignmentPopUpPositions( void )
-{
-	SGPRect pDimensions, pDimensions2, pDimensions3;
-	SGPPoint pPoint;
-	INT16 sLongest;
-	SOLDIERTYPE *pSoldier = NULL;
-	
-	if( fShowAssignmentMenu == FALSE )
-	{
-		return;
-	}
-
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
-	{
-		return;
-	}
-	
-	//get the soldier
-	pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC )
-	{
-		GetBoxSize( ghEpcBox, &pDimensions2 );
-	}
-	else
-	{
-		GetBoxSize( ghAssignmentBox, &pDimensions2 );
-	}
-
-	if ( gAssignMenuState == ASMENU_REPAIR )
-	{
-		GetBoxSize( ghRepairBox, &pDimensions );
-
-		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( pDimensions2.iBottom >	pDimensions.iBottom )
-		{
-			sLongest = ( INT16 )pDimensions2.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
-		}
-		else
-		{
-			sLongest	= ( INT16 )pDimensions.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
-		}
-
-		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR );
-
-		SetBoxPosition( ghRepairBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_MOVEITEM )
-	{
-		GetBoxSize( ghMoveItemBox, &pDimensions );
-
-		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( pDimensions2.iBottom >	pDimensions.iBottom )
-		{
-			sLongest = ( INT16 )pDimensions2.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
-		}
-		else
-		{
-			sLongest	= ( INT16 )pDimensions.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
-		}
-
-		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS );
-
-		SetBoxPosition( ghMoveItemBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_SQUAD )
-	{
-		GetBoxSize( ghSquadBox, &pDimensions );
-		
-		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( pDimensions2.iBottom >	pDimensions.iBottom )
-		{
-			sLongest = ( INT16 )pDimensions2.iBottom;
-		}
-		else
-		{
-			sLongest	= ( INT16 )pDimensions.iBottom;
-		}
-
-		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		SetBoxPosition( ghSquadBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_TRAIN )
-	{
-		GetBoxSize( ghTrainingBox, &pDimensions );
-
-		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight	>= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight	) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( gsAssignmentBoxesY + pDimensions2.iBottom +	( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN ) >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( pDimensions2.iBottom ) - (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
-
-		SetBoxPosition( ghTrainingBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_DISEASE )
-	{
-		GetBoxSize( ghDiseaseBox, &pDimensions );
-
-		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = (INT16)((SCREEN_WIDTH - 1) - (pDimensions2.iRight + pDimensions.iRight));
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS) >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = (INT16)((SCREEN_HEIGHT - 121) - (pDimensions2.iBottom) - ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS));
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-		pPoint.iY += ((GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_DOCTOR_DIAGNOSIS);
-
-		SetBoxPosition( ghDiseaseBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_SPY )
-	{
-		GetBoxSize( ghSpyBox, &pDimensions );
-
-		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY ) >= ( SCREEN_HEIGHT - 120 ) )
-		{
-			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions2.iBottom ) - ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY );
-
-		SetBoxPosition( ghSpyBox, pPoint );
-	}
-	// HEADROCK HAM 3.6: Facility Menu
-	else if( gAssignMenuState == ASMENU_FACILITY )
-	{
-		GetBoxSize( ghFacilityBox, &pDimensions );
-
-		if( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( pDimensions2.iBottom >	pDimensions.iBottom )
-		{
-			sLongest = ( INT16 )pDimensions2.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-		}
-		else
-		{
-			sLongest	= ( INT16 )pDimensions.iBottom + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-		}
-
-		if( gsAssignmentBoxesY + sLongest >= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( sLongest ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY + (	( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-
-		SetBoxPosition( ghFacilityBox, pPoint );
-	}
-	else if ( gAssignMenuState == ASMENU_MILITIA )
-	{
-		GetBoxSize( ghMilitiaBox, &pDimensions );
-
-		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if ( gsAssignmentBoxesY + pDimensions2.iBottom + ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA ) >= ( SCREEN_HEIGHT - 120 ) )
-		{
-			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions2.iBottom ) - ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA );
-
-		SetBoxPosition( ghMilitiaBox, pPoint );
-	}
-
-	// HEADROCK HAM 3.6: Facility Sub-menu
-	if ( fShowFacilityAssignmentMenu == TRUE )
-	{
-		GetBoxSize( ghFacilityBox, &pDimensions );
-		GetBoxSize( ghFacilityAssignmentBox, &pDimensions3 );
-
-		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if ( gsAssignmentBoxesY + pDimensions3.iBottom + ( GetFontHeight( MAP_SCREEN_FONT ) * ASSIGN_MENU_FACILITY ) >= ( SCREEN_HEIGHT - 120 ) )
-		{
-			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions3.iBottom ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-		SetBoxPosition( ghFacilityAssignmentBox, pPoint );
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY );
-
-		SetBoxPosition( ghFacilityBox, pPoint );
-	}
-	else if ( fShowAttributeMenu == TRUE )
-	{
-		GetBoxSize( ghTrainingBox, &pDimensions );
-		GetBoxSize( ghAttributeBox, &pDimensions3 );
-
-		if ( gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight >= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = (INT16)( ( SCREEN_WIDTH - 1 ) - ( pDimensions2.iRight + pDimensions.iRight + pDimensions3.iRight ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if ( gsAssignmentBoxesY + pDimensions3.iBottom + ( GetFontHeight( MAP_SCREEN_FONT ) * ASSIGN_MENU_TRAIN ) >= ( SCREEN_HEIGHT - 120 ) )
-		{
-			gsAssignmentBoxesY = (INT16)( ( SCREEN_HEIGHT - 121 ) - ( pDimensions3.iBottom ) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight + pDimensions.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
-		SetBoxPosition( ghAttributeBox, pPoint );
-
-		pPoint.iX = gsAssignmentBoxesX + pDimensions2.iRight;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		pPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN );
-
-		SetBoxPosition( ghTrainingBox, pPoint );
-	}
-	else
-	{
-		// just the assignment box
-		if( gsAssignmentBoxesX + pDimensions2.iRight	>= SCREEN_WIDTH )
-		{
-			gsAssignmentBoxesX = ( INT16 ) ( (SCREEN_WIDTH - 1) - ( pDimensions2.iRight	) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		if( gsAssignmentBoxesY + pDimensions2.iBottom	>= (SCREEN_HEIGHT - 120) )
-		{
-			gsAssignmentBoxesY = ( INT16 )( (SCREEN_HEIGHT - 121) - ( pDimensions2.iBottom	) );
-			SetRenderFlags( RENDER_FLAG_FULL );
-		}
-
-		pPoint.iX = gsAssignmentBoxesX;
-		pPoint.iY = gsAssignmentBoxesY;
-
-		if( pSoldier->ubWhatKindOfMercAmI == MERC_TYPE__EPC)
-		{
-			SetBoxPosition( ghEpcBox, pPoint );
-		}
-		else
-		{
-			SetBoxPosition( ghAssignmentBox, pPoint );
-		}
-	}
-
-	RepositionMouseRegions( );
 }
 
 
@@ -20065,7 +19550,7 @@ BOOLEAN DisplayFacilityMenu( SOLDIERTYPE *pSoldier )
 
 	ResizeBoxToText( ghFacilityBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+	DetermineBoxPositions( );
 
 	return TRUE;
 }
@@ -20165,7 +19650,7 @@ BOOLEAN DisplayFacilityAssignmentMenu( SOLDIERTYPE *pSoldier, UINT8 ubFacilityTy
 
 	ResizeBoxToText( ghFacilityAssignmentBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+	DetermineBoxPositions( );
 
 	// Set the current facility whose assignments are being shown
 	gubFacilityInSubmenu = ubFacilityType;
@@ -20206,7 +19691,7 @@ void CreateDestroyMouseRegionForFacilityMenu( void )
 			
 	if ( gAssignMenuState == ASMENU_FACILITY && !fCreated )
 	{
-		CheckAndUpdateTacticalAssignmentPopUpPositions( );
+		DetermineBoxPositions( );
 
 		SetBoxSecondaryShade( ghFacilityBox, FONT_YELLOW );
 
@@ -22210,7 +21695,7 @@ BOOLEAN DisplayMoveItemsMenu( SOLDIERTYPE *pSoldier )
 	// resize box to text
 	ResizeBoxToText( ghMoveItemBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+	DetermineBoxPositions( );
 
 	return TRUE;
 }
@@ -22446,7 +21931,7 @@ BOOLEAN DisplayDiseaseMenu( SOLDIERTYPE *pSoldier )
 	// resize box to text
 	ResizeBoxToText( ghDiseaseBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions( );
+	DetermineBoxPositions( );
 
 	return TRUE;
 }
@@ -22669,7 +22154,7 @@ BOOLEAN DisplaySpyMenu( SOLDIERTYPE *pSoldier )
 	// resize box to text
 	ResizeBoxToText( ghSpyBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions();
+	DetermineBoxPositions();
 
 	return TRUE;
 }
@@ -22880,7 +22365,7 @@ BOOLEAN DisplayMilitiaMenu( SOLDIERTYPE *pSoldier )
 	// resize box to text
 	ResizeBoxToText( ghMilitiaBox );
 
-	CheckAndUpdateTacticalAssignmentPopUpPositions();
+	DetermineBoxPositions();
 
 	return TRUE;
 }
