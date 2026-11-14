@@ -1636,7 +1636,6 @@ STR16 pPasteMercPlacementText[] =
 STR16 pEditModeShutdownText[] = 
 {
 	L"Czy chcesz wyjŚć z trybu edytora do trybu gry ?",
-	L"Czy chcesz zakończyć pracę edytora ?",
 };
 
 STR16 pHandleKeyboardShortcutsText[] = 
