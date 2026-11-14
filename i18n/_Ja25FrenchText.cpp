@@ -131,7 +131,7 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s de chance de toucher avec un fusil à pompe\n",
 	L"-%d%s du nombre de PA nécessaire pour recharger le fusil à pompe\n",
 	L"-%d%s PA pour tirer avec les fusils à pompe\n",
-	L"Ajoute un niveau de visée pour les fusils à pompe\n",
+	L"Ajoute %d niveau de visée pour les fusils à pompe\n",
 	L"Ajoute %d niveaux de visée pour les fusils à pompe\n",
 	L"+%d%s effective range with Shotguns\n",  // TODO.Translate
 	L"-%d%s APs to reload single Shotgun shells\n",  // TODO.Translate
@@ -149,7 +149,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"+%d%s de bonus par niveau de visée avec un pistolet, pistolet automatique ou un revolver\n",
 	L"-%d%s du nombre de PA nécessaire pour dégainer un pistolet, pistolet automatique ou un revolver\n",
 	L"-%d%s du nombre de PA nécessaire pour recharger un pistolet, pistolet automatique ou un revolver\n",
-	L"Ajoute un niveau de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
+	L"Ajoute %d niveau de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
 	L"Ajoute %d niveaux de visée pour les pistolets, les pistolets automatiques ou les revolvers\n",
 	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 

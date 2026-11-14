@@ -4793,7 +4793,7 @@ STR16 pMapErrorString[] =
 	L"Zaatakowały cię dzikie koty, w sektorze %s!",
 	L"W sektorze %s znajduje się coś, co wygląda na legowisko dzikich kotów!", 
 	L"", 
-	L"Baza rakiet Ziemia-Powietrze została przejęta.",
+	L"Baza rakiet Ziemia-Powietrze w %s została przejęta.",
 //16-20
 	L"%s - kopalnia została przejęta. Twój dzienny przychód został zredukowany do %s.",
 	L"Nieprzyjaciel bezkonfliktowo przejął sektor %s.",
@@ -9135,7 +9135,7 @@ STR16	zNewTacticalMessages[]=
 	L"Nie można odnaleźć kampanii.",																	// @@@ new text
 	L"Kampania: Standardowa ( %S )",																							// @@@ new text
 	L"Kampania: %S",																													// @@@ new text
-	L"Wybrałeś kampanię %S. Ta kampania została stworzona przez fanów gry. Czy jesteś pewien, że chcesz w nią zagrać?",			// @@@ new text
+	L"Wybrałeś kampanię %S. Ta kampania została stworzona przez fanów gry. Czy jesteś pewien, że chcesz zagrać w kampanię %S?",			// @@@ new text
 	L"Żeby użyć edytora powinieneś wcześniej wybrać kampanię inną niż standardowa.",		///@@new
 	// anv: extra iron man modes
 	L"Grasz w trybie CZŁOWIEKA Z ŻELIWA i nie możesz zapisywać gry w trakcie walki turowej.",
