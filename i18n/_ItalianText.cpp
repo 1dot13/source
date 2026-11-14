@@ -11643,6 +11643,7 @@ STR16 szIndividualMilitiaBattleReportText[] =
 	L"Hired from Kerberus on Day %d, %d:%02d in %s",
 	L"Defected to us on  Day %d, %d:%02d in %s",
 	L"Contract terminated on Day %d, %d:%02d",
+	L"Defected to us on Day %d, %d:%02d in %s",
 };
 
 STR16 szIndividualMilitiaTraitRequirements[] =
