@@ -157,7 +157,14 @@ jobs:
           # the clock. Crash reports carry that field as the binary's fingerprint
           # (sgp::imageFingerprint), and a one-second clock can give two different
           # binaries the same one.
-          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded -DCMAKE_EXE_LINKER_FLAGS_RELEASE="/DEBUG /INCREMENTAL:NO /OPT:REF /OPT:NOICF /Brepro" -DApplications="$Env:JA2Application" -DGAME_BUILD_INFORMATION="$Env:GAME_BUILD_INFORMATION" -DGIT_SHA="$Env:GIT_SHA"
+          cmake -S . -B build -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_MSVC_DEBUG_INFORMATION_FORMAT=Embedded -DCMAKE_EXE_LINKER_FLAGS_RELEASE="/DEBUG /INCREMENTAL:NO /OPT:REF /OPT:NOICF /Brepro" -DApplications="$Env:JA2Application" -DJA2_TESTS=${{ matrix.application == 'ja2' && 'ON' || 'OFF' }} -DGAME_BUILD_INFORMATION="$Env:GAME_BUILD_INFORMATION" -DGIT_SHA="$Env:GIT_SHA"
+      # the tests depend on no application, so one job runs them, and before
+      # the game build so a failure shows early
+      - name: Test
+        if: matrix.application == 'ja2'
+        run: |
+          cmake --build build/ --target ja2_tests
+          ctest --test-dir build --output-on-failure
       - name: Build
         run: |
           cmake --build build/ -- -v
