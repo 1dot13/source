@@ -3570,7 +3570,7 @@ STR16 gpStrategicString[] =
 	L"异形向你的民兵发起了攻击，在分区%c%d。",
 	//1st %d refers to the number of civilians eaten by monsters,  %c%d is the sector -- ex:  A9
 	//Note:  the minimum number of civilians eaten will be two.
-	L"生物（血猫，异形，僵尸）袭击了%s分区，杀死%d平民。",   //注：这里原本的%d和%s在中文中要反过来放，不然会出错。（%d和%s在中文中要反过来） L"Creatures attack and kill %d civilians in sector %s.",
+	L"生物（血猫，异形，僵尸）袭击并杀死了%d名平民，地点：%s分区。",   //注：这里原本的%d和%s在中文中要反过来放，不然会出错。（%d和%s在中文中要反过来） L"Creatures attack and kill %d civilians in sector %s.",
 	//%s is the sector location -- ex:  A9: Omerta
 	L"敌军向你的%s分区发起了攻击，你的佣兵中没人能进行战斗。",
 	//%s is the sector location -- ex:  A9: Omerta
@@ -8992,7 +8992,7 @@ STR16 gzMapInventorySortingMessage[] =
 	L"已完成 所有物品的合并和堆叠 在区域%c%d。",
 	// Bob: new strings for emptying LBE items
 	L"已清空分区%c%d携行具里面的物品。", //L"Finished emptying LBE items in sector %c%d.",
-	L"从携行具%s清空了%i个物品。", //L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
+	L"清空了%i个物品（来自携行具%s）。", //L"Dropped %i item(s) from %s",	// Bunch of stuff removed from LBE item %s
 	L"%s内没有可清空的物品！", //L"No droppable items in %s!",	// LBE item %s had a LBENode assigned but it contained no items (error!)
 	L"%s现在已经清空了。", //L"%s is now empty.",			// LBE item %s contained stuff and was emptied
 	L"无法清空%s！", //L"Cannot empty %s!",			// Removed everything we could from LBE item %s but it's still not marked as empty (error!)
@@ -9781,7 +9781,7 @@ STR16	szCampaignHistoryDetail[]=
 	L"目击者报道交战双方都使用了化学武器。",
 	L"%s使用了化学武器。",
 	L"在交战大规模升级过程中，双方都部署了坦克。",
-	L"%s部署了%d辆坦克，%d辆坦克在激烈的交火中被摧毁。",
+	L"%d辆坦克被%s投入使用，其中%d辆在激烈的交火中被摧毁。",
 	L"据称双方都部署了狙击手。",
 	L"未经证实的消息称有%s名狙击手参与了交火。",
 	L"这一分区战略意义十分重大，它拥有%s军队的大量地对空导弹设备。空中侦察摄影给指挥中心带来严重的伤害。这将导致从此途径%s的航班无法受到保护。",
