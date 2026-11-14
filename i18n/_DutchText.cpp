@@ -3154,6 +3154,7 @@ STR16 pPersonnelScreenStrings[] =
 	L"Hulp: ", // number of assists on kills by merc
 	L"Dag. Kosten:", // daily cost of merc
 	L"Huidige Tot. Kosten:", // total cost of merc
+	L"Contract:", // cost of current contract
 	L"Huidige Tot. Service:", // total service rendered by merc
 	L"Salaris Tegoed:", // amount left on MERC merc to be paid
 	L"Trefzekerheid:", // percentage of shots that hit target
