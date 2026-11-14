@@ -3899,7 +3899,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	// In the next 2 strings, %s is a name
 
 	L"%s è stato pagato completamente.",
-	L"Bisogna ancora dare %d a %s.",
+	L"Bisogna ancora dare a %s la somma di %d.",
 	L"Scegliete la frequenza di detonazione:",  	//in this case, frequency refers to a radio signal
 	L"Quante volte finché la bomba non esploderà:",	//how much time, in turns, until the bomb blows
 	L"Stabilite la frequenza remota di detonazione:", 	//in this case, frequency refers to a radio signal
@@ -3928,7 +3928,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 
 	// Here %s is a name and %d is a number
 
-	L"Bisogna dare %d a $%s.",
+	L"Bisogna dare a %s la somma di $%d.",
 
 	// In the next string, %s is a name
 
