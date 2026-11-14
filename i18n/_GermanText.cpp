@@ -6388,7 +6388,7 @@ STR16 pMilitiaConfirmStrings[] =
 
 	L"Preis $", // the cost in dollars to train militia
 	L"( J/N )", // abbreviated yes/no
-	L"Miliz auf dem Raketenstützpunkt im Sektor %s (%s %d) weitertrainieren?", // continue trainign militia in SAM site sector
+	L"", // continue trainign militia in SAM site sector
 	L"Milizen in %d Sektoren zu trainieren kostet $ %d. %s", // cost to train sveral sectors at once
 
 	L"Sie können sich keine $%d für die Miliz hier leisten.",

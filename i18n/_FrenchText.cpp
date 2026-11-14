@@ -6430,7 +6430,7 @@ STR16			zSaveLoadText[] =
 #endif
 
 	L"Êtes-vous sûr de vouloir écraser la sauvegarde #%d ?",
-	L"Voulez-vous charger la sauvegarde #%d ?",
+	L"Voulez-vous charger la sauvegarde #",
 
 
 	//The first %d is a number that contains the amount of free space on the users hard drive,
@@ -9170,7 +9170,7 @@ STR16	szCovertTextStr[]=
 	L"%s est maintenant déguisé(e) en soldat.",
 	L"%s porte un uniforme dépareillé !",
 	L"En y repensant, demander une reddition avec un déguisement n'était pas la meilleure des idées...",
-	L"%%s a été découvert(e) !",
+	L"%s a été découvert(e) !",
 	L"Le déguisement de %s a l'air d'aller...",
 	L"Le déguisement de %s ne marchera pas...",
 	L"%s a été pris en train de voler !",

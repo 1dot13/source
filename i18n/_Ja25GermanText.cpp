@@ -347,7 +347,7 @@ STR16 gzIMPMinorTraitsHelpTextsTeaching[]=
 	L"Bei der Ausbildung von Milizen +%d%s schneller\n",
 	L"Bei der Ausbildung von Milizen +%d%s Bonus zur effektiven Führungsfähigkeit\n",
 	L"Beim Ausbilden von Söldnern +%d%s schneller\n",
-	L"Beim Ausbilden von Söldnern +d% zum effektiven Fähigkeitslevel des Ausbilders\n",
+	L"Beim Ausbilden von Söldnern +%d zum effektiven Fähigkeitslevel des Ausbilders\n",
 	L"Beim eigenständigen Lernen +%d%s schneller\n",
 };
 
