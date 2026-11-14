@@ -4047,6 +4047,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"ESERCITO",
 	L"CIVILE",
 	L"ZOMBIE",		// TODO.Translate
+	L"PRISONER",
 	L"Settore di uscita",
 	L"OK",
 	L"Annulla",
@@ -4176,6 +4177,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"%s picked up %s",	// TODO.Translate
 
 	L"%s has stopped chatting with %s", // TODO.Translate
+	L"Attempt to turn",
 };
 
 //Varying helptext explains (for the "Go to Sector/Map" checkbox) what will happen given different circumstances in the "exiting sector" interface.
