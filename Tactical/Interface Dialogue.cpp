@@ -4671,7 +4671,6 @@ void StartDialogueMessageBox( UINT8 ubProfileID, UINT16 usMessageBoxType )
 			break;
 		// anv: Waldo The Mechanic
 		case NPC_ACTION_WALDO_REPAIR_REQUESTOR:
-			swprintf( zTemp, TacticalStr[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ubProfileID].zNickname );
 			if( CheckFact(FACT_HELI_DAMAGED_CAN_START_REPAIR, 0) == TRUE )
 			{	
 				swprintf( zTemp, pHelicopterRepairRefuelStrings[ STR_HELI_RR_REPAIR_PROMPT ], gMercProfiles[ WALDO ].zNickname, CalculateHelicopterRepairCost( FALSE ), gHelicopterSettings.ubHelicopterBasicRepairTime);
