@@ -10141,6 +10141,7 @@ STR16	szMercCompareWebSite[] =
 	L"About us",
 	L"Analyse a team",
 	L"Pairwise comparison",
+	L"Personalities",
 	L"Customer voices",
 
 	L"If your business provides innovative solutions for critical applications with realtime demands, perhaps some of these observations sound familiar to you:",
