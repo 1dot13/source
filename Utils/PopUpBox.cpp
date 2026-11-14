@@ -1563,6 +1563,86 @@ BOOLEAN DrawBoxText( UINT32 uiCounter )
 }
 
 
+static void GetBoxLineRect( INT32 hBoxHandle, UINT32 uiLine, SGPRect *pRect )
+{
+	SGPPoint position;
+	SGPRect dimensions;
+	GetBoxPosition( hBoxHandle, &position );
+	GetBoxSize( hBoxHandle, &dimensions );
+
+	const INT32 iLineHeight = GetLineSpace( hBoxHandle ) + GetFontHeight( GetBoxFont( hBoxHandle ) );
+
+	pRect->iLeft = position.iX;
+	pRect->iTop = position.iY + GetTopMarginSize( hBoxHandle ) + iLineHeight * uiLine;
+	pRect->iRight = position.iX + dimensions.iRight;
+	pRect->iBottom = pRect->iTop + iLineHeight;
+}
+
+void DefineBoxLineRegion( MOUSE_REGION *pRegion, INT32 hBoxHandle, UINT32 uiLine, INT8 bPriority, MOUSE_CALLBACK MovementCallback, MOUSE_CALLBACK ButtonCallback )
+{
+	SGPRect rect;
+	GetBoxLineRect( hBoxHandle, uiLine, &rect );
+	MSYS_DefineRegion( pRegion, (INT16)rect.iLeft, (INT16)rect.iTop, (INT16)rect.iRight, (INT16)rect.iBottom, bPriority, MSYS_NO_CURSOR, MovementCallback, ButtonCallback );
+}
+
+void MoveBoxLineRegions( MOUSE_REGION *pRegions, UINT32 uiCount, INT32 hBoxHandle )
+{
+	for ( UINT32 uiLine = 0; uiLine < uiCount; ++uiLine )
+	{
+		if ( !(pRegions[uiLine].uiFlags & MSYS_REGION_EXISTS) )
+			continue;
+
+		SGPRect rect;
+		GetBoxLineRect( hBoxHandle, uiLine, &rect );
+		pRegions[uiLine].RegionTopLeftX = (INT16)rect.iLeft;
+		pRegions[uiLine].RegionTopLeftY = (INT16)rect.iTop;
+		pRegions[uiLine].RegionBottomRightX = (INT16)rect.iRight;
+		pRegions[uiLine].RegionBottomRightY = (INT16)rect.iBottom;
+	}
+}
+
+static SGPPoint KeepBoxInside( SGPPoint Position, const SGPRect &Size, const SGPRect &Bounds )
+{
+	Position.iX = min( Position.iX, Bounds.iRight - Size.iRight );
+	Position.iX = max( Position.iX, Bounds.iLeft );
+	Position.iY = min( Position.iY, Bounds.iBottom - Size.iBottom );
+	Position.iY = max( Position.iY, Bounds.iTop );
+	return Position;
+}
+
+void PlaceBox( INT32 hBoxHandle, SGPPoint Position, SGPRect Bounds )
+{
+	SGPRect size;
+	GetBoxSize( hBoxHandle, &size );
+	SetBoxPosition( hBoxHandle, KeepBoxInside( Position, size, Bounds ) );
+}
+
+INT8 PlaceBoxBeside( INT32 hBoxHandle, INT32 hParentHandle, UINT32 uiParentLine, INT8 bSide, SGPRect Bounds )
+{
+	SGPPoint parent;
+	SGPRect parentSize, size;
+	GetBoxPosition( hParentHandle, &parent );
+	GetBoxSize( hParentHandle, &parentSize );
+	GetBoxSize( hBoxHandle, &size );
+
+	const INT32 iRightX = parent.iX + parentSize.iRight;
+	const INT32 iLeftX = parent.iX - size.iRight;
+	const BOOLEAN fFitsRight = iRightX + size.iRight <= Bounds.iRight;
+	const BOOLEAN fFitsLeft = iLeftX >= Bounds.iLeft;
+
+	if ( bSide > 0 && !fFitsRight && fFitsLeft )
+		bSide = -1;
+	else if ( bSide < 0 && !fFitsLeft && fFitsRight )
+		bSide = 1;
+
+	SGPPoint position;
+	position.iX = ( bSide > 0 ) ? iRightX : iLeftX;
+	position.iY = parent.iY + ( GetLineSpace( hParentHandle ) + GetFontHeight( GetBoxFont( hParentHandle ) ) ) * uiParentLine;
+	SetBoxPosition( hBoxHandle, KeepBoxInside( position, size, Bounds ) );
+
+	return bSide;
+}
+
 void ResizeBoxToText( INT32 hBoxHandle )
 {
 	// run through lines of text in box and size box width to longest line plus margins
@@ -1639,8 +1719,8 @@ void ResizeBoxToText( INT32 hBoxHandle )
 	}
 
 	// Flugente we shouldn't have added more popup options than we can display anyway, but I have no idea where to stop that, so at least we can fix this
-	box->Dimensions.iBottom = min( iHeight, SCREEN_HEIGHT - box->Position.iY );
-	box->Dimensions.iRight = min( iWidth, SCREEN_WIDTH - box->Position.iX );
+	box->Dimensions.iBottom = min( iHeight, SCREEN_HEIGHT );
+	box->Dimensions.iRight = min( iWidth, SCREEN_WIDTH );
 
 	// Constrain popup box height to background graphics max height. Otherwise we get blue graphics glitches
 	const auto popupBoxHeight = box->Dimensions.iBottom - box->Dimensions.iTop;

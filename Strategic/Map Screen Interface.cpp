@@ -2154,9 +2154,6 @@ void HandleMAPUILoseCursorFromOtherScreen( void )
 void UpdateMapScreenAssignmentPositions( void )
 {
 	// set the position of the pop up boxes
-	SGPPoint pPoint;
-	SGPPoint pNewPoint;
-	SGPRect pDimensions;
 	
 	if( guiCurrentScreen != MAP_SCREEN )
 	{
@@ -2193,123 +2190,7 @@ void UpdateMapScreenAssignmentPositions( void )
 
 	AssignmentPosition.iY = giBoxY;
 
-	AttributePosition.iY = TrainPosition.iY = AssignmentPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 )* ASSIGN_MENU_TRAIN;
-
-	VehiclePosition.iY = AssignmentPosition.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_VEHICLE;
-	SquadPosition.iY = AssignmentPosition.iY;
-
-	pNewPoint.iX = AssignmentPosition.iX;
-	pNewPoint.iY = AssignmentPosition.iY;
-
-	if( fShowAssignmentMenu )
-	{
-		GetBoxPosition( ghAssignmentBox, &pPoint);
-		GetBoxSize( ghAssignmentBox, &pDimensions );
-		pPoint.iY = giBoxY;
-
-		SetBoxPosition( ghAssignmentBox, pPoint );
-
-		// hang it right beside the assignment/EPC box menu
-		pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-		pNewPoint.iY = pPoint.iY;
-
-		GetBoxPosition( ghEpcBox, &pPoint);
-		pPoint.iY = giBoxY;
-
-		SetBoxPosition( ghEpcBox, pPoint );
-	}
-		
-	switch ( gAssignMenuState )
-	{
-		case ASMENU_REPAIR:
-		{
-			GetBoxPosition( ghRepairBox, &pPoint );
-			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_REPAIR;
-
-			SetBoxPosition( ghRepairBox, pPoint );
-		}
-		break;
-
-		case ASMENU_VEHICLE:
-		{
-
-		}
-		break;
-
-		case ASMENU_DISEASE:
-		{
-			GetBoxPosition( ghDiseaseBox, &pPoint );
-			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_DOCTOR_DIAGNOSIS;
-
-			SetBoxPosition( ghDiseaseBox, pPoint );
-		}
-		break;
-
-		case ASMENU_SPY:
-		{
-			GetBoxPosition( ghSpyBox, &pPoint );
-			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_SPY;
-
-			SetBoxPosition( ghSpyBox, pPoint );
-		}
-		break;
-
-		case ASMENU_MOVEITEM:
-		{
-			GetBoxPosition( ghMoveItemBox, &pPoint );
-			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MOVE_ITEMS;
-
-			SetBoxPosition( ghMoveItemBox, pPoint );
-		}
-		break;
-
-		case ASMENU_FACILITY:
-		{
-			//GetBoxPosition( ghFacilityBox, &pPoint );
-
-			pPoint.iX = pNewPoint.iX;
-			pPoint.iY = pNewPoint.iY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
-						
-			SetBoxPosition( ghFacilityBox, pPoint );
-		}
-		break;
-
-		case ASMENU_MILITIA:
-		{
-			GetBoxPosition( ghMilitiaBox, &pPoint );
-			pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_MILITIA;
-
-			SetBoxPosition( ghMilitiaBox, pPoint );
-		}
-		break;
-	}
-
-	if( fShowAttributeMenu )
-	{
-		GetBoxPosition( ghAttributeBox, &pPoint);
-
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_TRAIN;
-
-		SetBoxPosition( ghAttributeBox, pPoint );
-	}
-		
-	// HEADROCK HAM 3.6: Facility Sub-menu
-	if( fShowFacilityAssignmentMenu )
-	{
-		GetBoxPosition( ghFacilityAssignmentBox, &pPoint);
-
-		pPoint.iY = giBoxY + ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * ASSIGN_MENU_FACILITY;
-
-		SetBoxPosition( ghFacilityAssignmentBox, pPoint );
-	}
-
-	if ( fShowPrisonerMenu )
-	{
-		GetBoxPosition( ghPrisonerBox, &pPoint );
-		pPoint.iY = giBoxY + (GetFontHeight( MAP_SCREEN_FONT ) + 2) * ASSIGN_MENU_FACILITY;
-
-		SetBoxPosition( ghPrisonerBox, pPoint );
-	}
+	DetermineBoxPositions( );
 }
 
 

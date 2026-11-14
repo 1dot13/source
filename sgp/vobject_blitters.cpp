@@ -9359,6 +9359,10 @@ BOOLEAN Blt8BPPDataSubTo16BPPBuffer( UINT16 *pBuffer, UINT32 uiDestPitchBYTES, H
 	TopSkip=pRect->iTop*uiSrcPitch;
 	BlitLength=pRect->iRight-pRect->iLeft;
 	BlitHeight=pRect->iBottom-pRect->iTop;
+
+	if ( pRect->iRight <= pRect->iLeft || pRect->iBottom <= pRect->iTop )
+		return( TRUE );
+
 	SrcSkip=uiSrcPitch-BlitLength;
 
 	SrcPtr= (UINT8 *)(pSrcBuffer+TopSkip+LeftSkip);

@@ -2103,26 +2103,6 @@ void addItemsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* popup, 
 		if( optsTotal > 0 && optsTotal%15 == 0 ){ // divide to subBoxes every 10 items
 
 			POPUP * currPopupTmp = currPopup->addSubMenuOption( std::wstring( gszPocketPopupText[POCKET_POPUP_MOAR] ) );	// the new popup
-			POPUP_SUB_POPUP_OPTION * currSubPopupTmp = currPopup->getSubPopupOption( currPopup->subPopupOptionCount-1 );	// the sub-popup option in prev popup
-
-			
-			// where to put the new box?
-			if( currPopup->Position.iX + 200 > SCREEN_WIDTH){
-
-				// near screen edge, put it below the original box					
-				currSubPopupTmp->setPopupPosition(	popup->Position.iX,
-													popup->Position.iY + popup->getCurrentHeight(),
-													POPUP_POSITION_TOP_LEFT);
-			
-			} else {
-				// we still got room, position the next box to the right of the previous one
-				currSubPopupTmp->setPopupPosition(	10,
-													0,
-													POPUP_POSITION_RELATIVE);
-
-			}
-
-
 			currPopup = currPopupTmp;	// swap popups, now adding options to the new sub-popup
 		}
 
@@ -2178,9 +2158,6 @@ void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* 
 	POPUP * subPopup = NULL;
 
 	subPopup = popup->addSubMenuOption( std::wstring(BobbyRFilter[17]/*Guns*/) );
-	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
-																				10,
-																				POPUP_POSITION_RELATIVE );
 
 
 	std::map<UINT32,OBJECTTYPE*> bestItems = findLeastDamagedStackForPopup( pSoldier, sPocket, IC_GUN, 
@@ -2206,22 +2183,13 @@ void addWeaponGroupsToPocketPopup( SOLDIERTYPE *pSoldier, INT16 sPocket, POPUP* 
 	}
 	
 	subPopup = popup->addSubMenuOption( std::wstring( gszPocketPopupText[POCKET_POPUP_GRENADE_LAUNCHERS] ) );
-	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
-																				10,
-																				POPUP_POSITION_RELATIVE );
 	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_LAUNCHER, -1, -1, 0 );
 
 	subPopup = popup->addSubMenuOption( std::wstring( gszPocketPopupText[POCKET_POPUP_ROCKET_LAUNCHERS] ) );
-	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
-																				10,
-																				POPUP_POSITION_RELATIVE );
 	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_GUN, -1, 0, 0);
 
 
 	subPopup = popup->addSubMenuOption( std::wstring( gszPocketPopupText[POCKET_POPUP_MEELE_AND_THROWN] ) );
-	popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,
-																				10,
-																				POPUP_POSITION_RELATIVE );
 	addItemsToPocketPopup( pSoldier, sPocket, subPopup, IC_BLADE+IC_THROWING_KNIFE, pow2[KNIFECLASS] );
 
 }
@@ -2374,7 +2342,6 @@ POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 		return NULL;
 	}
 
-	INT16 sX, sY;
 	// get pocket type under cursor
 	//INT16 lbePocket = pocketTypeInSlot(pSoldier, sPocket);
 	/*				
@@ -2390,25 +2357,7 @@ POPUP * createPopupForPocket( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 			sPocketPopup->setCallback(POPUP_CALLBACK_HIDE, new popupCallbackFunction<void,SOLDIERTYPE*>( createMagPopupAfter,pSoldier ) );
 		}
 
-		sX = gSMInvData[ sPocket ].sX;
-		sY = gSMInvData[ sPocket ].sY;
-
-		UINT8 thisPopupsPositionType;
-		if ( sX < 170 && sY < 180 ){
-			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-		} else if ( sX > 170 && sY < 180 ){
-			thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
-		} else if ( sX > 170 && sY > 180 ){
-			thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
-		} else if ( sX < 170 && sY > 180 ){
-			thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
-		} else {
-			thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-		}
-
-		sPocketPopup->setPosition(			sX + 12,
-		/* Put it near the current slot	 */	sY + 32,
-											thisPopupsPositionType);
+		sPocketPopup->setPosition( gusMouseXPos, gusMouseYPos );
 		return sPocketPopup;
 /*
 	} // identified pocket
@@ -2427,31 +2376,24 @@ void PocketPopupFull( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 		POPUP * subPopup = NULL;
 
 		subPopup = popup->addSubMenuOption( std::wstring( iEditorItemsToolbarText[0]/*Weapons*/ ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addWeaponGroupsToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRText[BOBBYR_GUNS_AMMO]/*Ammo*/ ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addAmmoToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRText[BOBBYR_GUNS_ARMOR]/*Amour*/ ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addArmorToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRFilter[BOBBYR_FILTER_USED_LBEGEAR] /*"LBE"*/) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addLBEToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_GRENADE]/*Grenades*/ ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_BOMB] ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addBombsToPocketPopup( pSoldier, sPocket, subPopup );
 
 		subPopup = popup->addSubMenuOption( std::wstring( BobbyRFilter[BOBBYR_FILTER_MISC_FACE] ) );
-		popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 		addFaceGearToPocketPopup( pSoldier, sPocket, subPopup );
 
 		popup->show();
@@ -2529,7 +2471,6 @@ void PocketPopupDefault( SOLDIERTYPE *pSoldier, INT16 sPocket ){
 					addAmmoToPocketPopup( pSoldier, sPocket, popup );
 
 					POPUP * subPopup = popup->addSubMenuOption( std::wstring( BobbyRFilter[28]/*Grenades*/ ) );
-					popup->getSubPopupOption( popup->subPopupOptionCount-1 )->setPopupPosition(	10,10,POPUP_POSITION_RELATIVE );
 					addGrenadesToPocketPopup( pSoldier, sPocket, subPopup );
 				} else {
 					// popup definition for this slot exists - apply it to the popup
@@ -5869,22 +5810,9 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 				{
 					gItemDescAttachmentPopups[slotCount] = new POPUP("Attachment list");	// init attachment popup for this slot
 				
-					UINT8 thisPopupsPositionType;
-					if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY < 180 ){
-						thisPopupsPositionType = POPUP_POSITION_TOP_RIGHT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX > 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-						thisPopupsPositionType = POPUP_POSITION_BOTTOM_RIGHT;
-					} else if ( gsInvDescX + gItemDescAttachmentsXY[slotCount].sX < 170 && gsInvDescY + gItemDescAttachmentsXY[slotCount].sY > 180 ){
-						thisPopupsPositionType = POPUP_POSITION_BOTTOM_LEFT;
-					} else {
-						thisPopupsPositionType = POPUP_POSITION_TOP_LEFT;
-					}
-
 					gItemDescAttachmentPopups[slotCount]->setPosition(	(gsInvDescX + gItemDescAttachmentsXY[slotCount].sX) + 12 ,
 					/* Put it near the current slot	 */					(gsInvDescY + gItemDescAttachmentsXY[slotCount].sY) + 32 ,
-																		 thisPopupsPositionType );
+																		 POPUP_POSITION_TOP_LEFT );
 
 					// the show callback should redraw the description box (in case we had any helptext and close other attachment popups)
 					gItemDescAttachmentPopups[slotCount]->setCallback( POPUP_CALLBACK_SHOW, new popupCallbackFunction<void,UINT32>( &hideOtherAttachmentPopups, usAttachmentSlotIndexVector.size() ) );
@@ -5922,19 +5850,6 @@ void UpdateAttachmentTooltips(OBJECTTYPE *pObject, UINT8 ubStatusIndex)
 							if (loop == 11 && attachList.size() > 11){ // if there's too much stuff to list, we create a subpopup for the rest
 								gItemDescAttachmentPopups[slotCount]->addSubMenuOption( std::wstring(L"More...") );
 								POPUP_SUB_POPUP_OPTION * tmp = gItemDescAttachmentPopups[slotCount]->getSubPopupOption(0);
-
-								// positioning sub popups is handled through the option that holds them
-								if (gItemDescAttachmentPopups[slotCount]->Position.iX + 200 > SCREEN_WIDTH) {
-									// near screen edge, put it below the original box					
-									tmp->setPopupPosition(
-										gItemDescAttachmentPopups[slotCount]->Position.iX,
-										gItemDescAttachmentPopups[slotCount]->Position.iY + gItemDescAttachmentPopups[slotCount]->getCurrentHeight(),
-										POPUP_POSITION_TOP_LEFT
-									);
-								}
-								else { // we still got room, position the next box to the right of the previous one									
-									tmp->setPopupPosition(10,0,POPUP_POSITION_RELATIVE);
-								}
 
 								// hide the other box too
 								// note that we're working with the sub popup options's sub-popup here, not the option itself
