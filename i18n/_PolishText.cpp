@@ -2168,7 +2168,7 @@ CHAR16 TeamTurnString[][STRING_LENGTH] =
 	L"Tura przeciwnika",
 	L"Tura stworzeń",
 	L"Tura samoobrony",
-	L"Tura cywili"
+	L"Tura cywili",
 	L"Player_Plan",// planning turn
 	L"Client #1",//hayden
 	L"Client #2",//hayden
@@ -8276,7 +8276,7 @@ STR16 gzFacilityAssignmentStrings[]=
 	L"AMBIENT",
 	L"Staff",
 	L"Eat",// TODO.Translate
-	L"Odpoczywa"
+	L"Odpoczywa",
 	L"Naprawa ekwipunku",
 	L"Naprawa %s",
 	L"Naprawa Robota",
@@ -8353,8 +8353,8 @@ STR16 sEnemyTauntsFireGun[]=
 	L"Chodź do tatusia!",
 	L"Zaraz pójdziesz do piachu!",
 	L"Wracasz do domu w dębowej jesionce frajerze!",
-	L"Chcesz się zabawić?"
-	L"Trzeba było zostać w domu kurwo."
+	L"Chcesz się zabawić?",
+	L"Trzeba było zostać w domu kurwo.",
 	L"Ciota!",
 };
 
@@ -8411,7 +8411,7 @@ STR16 sEnemyTauntsSeekNoise[]=
 STR16 sEnemyTauntsAlert[]=
 {
 	L"Są tutaj!",
-	L"Czas zacząć zabawę."
+	L"Czas zacząć zabawę.",
 	L"Liczyłem na to, że to się nie stanie.",
 
 };
