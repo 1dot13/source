@@ -2184,7 +2184,7 @@ CHAR16 BobbyRayAmmoCaliber[MAXITEMS][20] ;//=
 //};
 
 
-CHAR16 WeaponType[MAXITEMS][30] =
+CHAR16 WeaponType[][30] =
 {
 	L"其它",
 	L"手枪",
