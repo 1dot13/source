@@ -1063,7 +1063,7 @@ STR16 iEditorItemStatsButtonsText[] =
 	L"删除物品(|D|e|l)", //L"Delete item (|D|e|l)",
 };
 
-STR16 FaceDirs[8] = 
+STR16 FaceDirs[] = 
 { 
 	L"北", //L"north",
 	L"东北", //L"northeast",
@@ -1404,7 +1404,7 @@ STR16 pUpdateMapInfoText[] =
 	L"网格数", //L"GridNo",
 };
 //EditorMercs.cpp
-CHAR16 gszScheduleActions[ 11 ][20] =
+CHAR16 gszScheduleActions[][20] =
 {
 	L"没有动作", //L"No action",
 	L"上锁", //L"Lock door",
@@ -1419,7 +1419,7 @@ CHAR16 gszScheduleActions[ 11 ][20] =
 	L"算了", //L"Ignore this!",
 };
 
-STR16 zDiffNames[5] =	// NUM_DIFF_LVLS = 5
+STR16 zDiffNames[] =	// NUM_DIFF_LVLS = 5
 { 
 	L"软弱", //L"Wimp",
 	L"简单", //L"Easy", 
@@ -1428,7 +1428,7 @@ STR16 zDiffNames[5] =	// NUM_DIFF_LVLS = 5
 	L"使用兴奋剂", //L"Steroid Users Only",
 };
 
-STR16 EditMercStat[12] =
+STR16 EditMercStat[] =
 { 
 	L"最大生命值", //L"Max Health",
 	L"治疗后生命值", //L"Cur Health",
@@ -1445,7 +1445,7 @@ STR16 EditMercStat[12] =
 };
 
 
-STR16 EditMercOrders[8] = 
+STR16 EditMercOrders[] = 
 { 
 	L"站立", //L"Stationary",
 	L"守卫", //L"On Guard",
@@ -1457,7 +1457,7 @@ STR16 EditMercOrders[8] =
 	L"随机巡逻", //L"Random Point Patrol",
 };
 
-STR16 EditMercAttitudes[6] =
+STR16 EditMercAttitudes[] =
 { 
 	L"防守", //L"Defensive",
 	L"大胆独行", //L"Brave Loner",
@@ -2074,7 +2074,7 @@ STR16 pDisplaySelectionWindowButtonText[] =
 };
 
 //Cursor Modes.cpp
-STR16 wszSelType[6] = {
+STR16 wszSelType[] = {
  L"小", //L"Small",
  L"中", //L"Medium",
  L"大", //L"Large",
@@ -2085,7 +2085,7 @@ STR16 wszSelType[6] = {
 
 //---
 
-CHAR16  gszAimPages[ 6 ][ 20 ] =
+CHAR16  gszAimPages[][ 20 ] =
 {
 	L"页 1/2", //0
 	L"页 2/2",
@@ -3644,7 +3644,7 @@ STR16 gpGameClockString[] =
 
 //When the merc finds a key, they can get a description of it which
 //tells them where and when they found it.
-STR16 sKeyDescriptionStrings[2] =
+STR16 sKeyDescriptionStrings[] =
 {
 	L"找到钥匙的分区: ",
 	L"找到钥匙的日期: ",
@@ -3684,7 +3684,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
+STR16		gzWeaponStatsFasthelpTactical[] =
 {
 	L"|射|程\n \n武器的有效射程。\n超出这个距离精瞄效果将受到严重影响。\n \n该数值越高越好。", //	L"|R|a|n|g|e\n \nThe effective range of this weapon. Attacking from\nbeyond this range will lead to massive penalties.\n \nHigher is better.",
 	L"|伤|害\n \n武器的原始伤害。\n理想情况下对无护甲目标造成的大致伤害值。\n \n该数值越高越好。", //	L"|D|a|m|a|g|e\n \nThis is the damage potential of the weapon.\nIt will usually deliver this much damage\n(or close to it) to any unprotected target.\n \nHigher is better.",
@@ -3807,12 +3807,12 @@ CHAR16 zHealthStr[][13] =
 	L"被俘", // L"CAPTURED",
 };
 
-STR16 gzHiddenHitCountStr[1] =
+STR16 gzHiddenHitCountStr[] =
 {
 	L"?",
 };
 
-STR16	gzMoneyAmounts[6] =
+STR16	gzMoneyAmounts[] =
 {
 	L"$1000",
 	L"$100",
@@ -3834,7 +3834,7 @@ CHAR16		gzConsLabel[10] =
 };
 
 //Conversation options a player has when encountering an NPC
-CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
+CHAR16 zTalkMenuStrings[][ SMALL_STRING_LENGTH ] =
 {
 	L"再说一次？",	//meaning "Repeat yourself"
 	L"友好",		//approach in a friendly
@@ -3845,7 +3845,7 @@ CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 };
 
 //Some NPCs buy, sell or repair items. These different options are available for those NPCs as well.
-CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
+CHAR16 zDealerStrings[][ SMALL_STRING_LENGTH ]=
 {
 	L"买/卖",
 	L"买",
@@ -3853,7 +3853,7 @@ CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 	L"修理",
 };
 
-CHAR16 zDialogActions[1][ SMALL_STRING_LENGTH ] =
+CHAR16 zDialogActions[][ SMALL_STRING_LENGTH ] =
 {
 	L"完成",
 };
@@ -7014,7 +7014,7 @@ STR16 pIMPBeginScreenStrings[] =
 	L"(最多8个字符)",	//"( 8 Characters Max )",
 };
 
-STR16 pIMPFinishButtonText[ 1 ]=
+STR16 pIMPFinishButtonText[]=
 {
 	L"分析...",
 };
@@ -10541,7 +10541,7 @@ STR16   szTacticalCoverDialogPrintString[]=
 };
 
 
-STR16	szDynamicDialogueText[40][17] =
+STR16	szDynamicDialogueText[][17] =
 {
 	// OPINIONEVENT_FRIENDLYFIRE
 	{
@@ -12075,7 +12075,7 @@ STR16	szTurncoatText[] =
 };
 
 // rftr: better lbe tooltips
-STR16 gLbeStatsDesc[14] =
+STR16 gLbeStatsDesc[] =
 {
 	L"MOLLE可用空间：", //L"MOLLE Space Available:",
 	L"MOLLE所需空间：", //L"MOLLE Space Required:",
