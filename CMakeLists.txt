@@ -274,3 +274,7 @@ foreach(app IN LISTS ApplicationTargets)
   target_link_libraries(${app}_sgp PRIVATE libpng)
   target_compile_definitions(${app}_sgp PRIVATE ${compilationFlags} ${debugFlags} NO_ZLIB_COMPRESSION)
 endforeach()
+
+if(JA2_TESTS)
+  add_subdirectory(tests)
+endif()
