@@ -9561,7 +9561,7 @@ STR16		szNationalityTextAdjective[] =
 	L"丹麦人",
 	L"法国人",
 	L"俄罗斯人",
-	L"特拉科纳人"       // UB takes place in Tracona
+	L"特拉科纳人",       // UB takes place in Tracona
 	L"瑞士人",			// 10
 	L"牙买加人",
 	L"波兰人",

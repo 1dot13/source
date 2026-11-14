@@ -8020,7 +8020,7 @@ STR16 gzIMPDisabilityTraitText[]=
 	L"Schwerhörigkeit",
 	L"Kurzsichtigkeit",
 	L"Bluter",
-	L"Höhenangst"
+	L"Höhenangst",
 	L"Selbstverletzend",
 	L"Ihre größte Schwäche",
 };
@@ -8085,8 +8085,8 @@ STR16 gzFacilityErrorMessage[]=
 	// 21 - 25
 	L"%s wurde verletzt beim Arbeiten in Sektor %s. Es scheint aber nichts Ernstes zu sein.",
 	L"%s wurde verletzt beim Arbeiten in der %s in %s. Es scheint aber nichts Ernstes zu sein.",
-	L"Die Einwohner von %s scheinen sich über die Anwesenheit von %s aufzuregen."
-	L"Die Einwohner von %s scheinen sich über die Arbeit von %s in der %s aufzuregen."
+	L"Die Einwohner von %s scheinen sich über die Anwesenheit von %s aufzuregen.",
+	L"Die Einwohner von %s scheinen sich über die Arbeit von %s in der %s aufzuregen.",
 	L"%ss Handeln im Sektor %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
 	// 26 - 30
 	L"%ss Handeln in der %s in %s hat einen Loyalitätsverlust in der gesamten Region bewirkt!",
