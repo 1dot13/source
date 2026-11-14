@@ -4015,7 +4015,7 @@ CHAR16 TacticalStr[][ MED_STRING_LENGTH ] =
 	L"Weiter",					//an abbrieviation for "Continued" (displayed on merc portrait)
 	L"Schleichen aus für %s.",
 	L"Schleichen an für %s.",
-	L"Fahrer",
+	L"Gesundheit: %d/%d\nTreibstoff: %d/%d",
 	L"Fahrzeug verlassen",
 	L"Trupp wechseln",
 	L"Fahren",
@@ -7759,7 +7759,7 @@ STR16 MPClientMessage[] =
 {
 	// 0
 	L"Initialisiere RakNet Client...",
-	L"Verbinde zur ausgewählten Server-IP...",
+	L"Verbinde zu IP: %S ...",
 	L"Erhalte Spieleinstellungen:",
 	L"Sie sind bereits verbunden.",
 	L"Sie verbinden sich bereits...",

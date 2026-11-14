@@ -130,11 +130,11 @@ STR16 gzIMPMajorTraitsHelpTextsRanger[]=
 	L"+%d%s Trefferchance mit Schrotflinten\n",
 	L"-%d%s APs benötigt, um Schrotflinten zu repetieren\n",
 	L"-%d%s APs benötigt, um Schrotflinten abzufeuern\n",
-	L"Gibt Schrotflinten einen weiteren Zielklick\n",
+	L"Gibt Schrotflinten %d weiteren Zielklick\n",
 	L"%d weitere Zielklicks für Schrotflinten\n",
 	L"+%d%s effektive Reichweite mit Schrotflinten\n",
 	L"-%d%s APs benötigt, um einzelne Schrotpatronen zu laden\n",
-	L"Gibt Gewehren einen weiteren Zielklick\n",
+	L"Gibt Gewehren %d weiteren Zielklick\n",
 	L"%d weitere Zielklicks für Gewehre\n",
 };
 
@@ -148,7 +148,7 @@ STR16 gzIMPMajorTraitsHelpTextsGunslinger[]=
 	L"+%d%s Zielbonus pro Klick mit halb- und vollautomatischen Pistolen sowie Revolvern\n",
 	L"-%d%s APs benötigt um Pistolen und Revolver in Vorhalte zu bringe\n",
 	L"-%d%s APs benötigt um halb- und vollautomatische Pistolen sowie Revolver nachzuladen\n",
-	L"Gibt für halb- und vollautomatische Pistolen sowie Revolver einen weiteren Zielklick\n",
+	L"Gibt für halb- und vollautomatische Pistolen sowie Revolver %d weiteren Zielklick\n",
 	L"%d weiteren Zielklick für halb- und vollautomatische Pistolen sowie Revolver\n",
 	L"Can fan the hammer with revolvers\n",	// TODO.Translate
 };
@@ -294,7 +294,7 @@ STR16 gzIMPMinorTraitsHelpTextsThrowing[]=
 	L"+%d%s Schaden geworfener Klingen für jeden Ziel-Klick\n",
 	L"+%d%s Chance auf kritischen Treffer beim Angriff mit Wurfwaffen, falls das Ziel den Werfer nicht bemerkt hat\n",
 	L"+%d Multiplikator für kritische Treffer durch Wurfwaffen\n",
-	L"Gibt einen weiteren Zielklick beim Einsatz von Wurfwaffen\n",
+	L"Gibt %d weiteren Zielklick beim Einsatz von Wurfwaffen\n",
 	L"Gibt %d weitere Zielklicks beim Einsatz von Wurfwaffen\n",
 	L"-%d%s APs benötigt um Handgranaten (und ähnliche Objekte) zu werfen\n",
 	L"+%d%s höhere Reichweite beim Werfen von Handgranaten (und ähnliche Objekten)\n",
