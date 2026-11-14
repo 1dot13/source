@@ -7289,6 +7289,9 @@ void		InternetRainDelayMessageBoxCallBack( UINT8 bExitValue )
 }
 
 
+static_assert(TEXT_NUM_LAPTOP_BN_BOOKMARK_TEXT == BOOKMARK_TEXT_ASSOCIATION_OF_INTERNATION_MERCENARIES + TEXT_NUM_LAPTOP_BOOKMARKS,
+	"Every laptop bookmark needs a help text entry");
+
 void CreateBookMarkHelpText( MOUSE_REGION *pRegion, UINT32 uiBookMarkID )
 {
 	SetRegionFastHelpText( pRegion, gzLaptopHelpText[ BOOKMARK_TEXT_ASSOCIATION_OF_INTERNATION_MERCENARIES + uiBookMarkID ] );
