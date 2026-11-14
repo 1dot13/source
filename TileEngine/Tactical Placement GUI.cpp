@@ -716,11 +716,14 @@ void InitTacticalPlacementGUI()
 				pSoldier->ubStrategicInsertionCode = (UINT8)pSoldier->usStrategicInsertionData;
 			}
 			gMercPlacement[ giPlacements ].pSoldier = pSoldier;
-			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = pSoldier->ubStrategicInsertionCode;
 			gMercPlacement[ giPlacements ].fPlaced = FALSE;
-			
+
 			// WANNE: We always want to have edgepoints
 			CheckForValidMapEdge( &pSoldier->ubStrategicInsertionCode );
+
+			// the check may have redirected to a different edge: copy the corrected code,
+			// otherwise the placement click handlers search a (nonexistent) edgepoint array
+			gMercPlacement[ giPlacements ].ubStrategicInsertionCode = pSoldier->ubStrategicInsertionCode;
 			
 			// Flugente: campaign stats
 			switch( pSoldier->ubStrategicInsertionCode )
