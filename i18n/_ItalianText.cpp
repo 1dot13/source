@@ -10386,6 +10386,7 @@ STR16	szMercCompareEventText[]=
 	L"%s stole my kill",
 	L"%s and me fought well together",
 	L"%s made the enemy surrender",
+	L"%s injured civilians",
 };
 
 STR16	szWHOWebSite[] =
