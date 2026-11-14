@@ -8568,6 +8568,8 @@ STR16 szUDBGenArmorStatsExplanationsTooltipText[]=
 	L"\n \nCette propriété d'armure définit de combien elle\nabsorbe les dégâts de chaque attaque.\n \nN'oubliez pas que les attaques perforantes et\ndivers facteurs aléatoires peuvent altérer\nla réduction final des dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nDétermine la protection de l'armure\nsur votre corps.\n \nSi la protection est inférieure à 100%, les attaques\nont une certaine chance de passer à travers l'armure\nen causant un maximum de dégâts.\n \nValeur élevée recommandée.",
 	L"\n \nIndique à quelle vitesse les conditions de l'armure\nvont chuter et qui est proportionnelle aux\ndégâts subis.\n \nValeur faible recommandée.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only Technicians and special\nNPCs can repair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
+	L"\n \nDetermines how difficult it is to repair\nthis armor and who can fully repair it.\n \ngreen = Anybody can repair it.\n \nyellow = Only special NPCs can\nrepair it beyond repair threshold.\n \nred = This item can't be repaired.\n \nHigher is better.",
 };
 
 STR16 szUDBGenAmmoStatsTooltipText[]=
@@ -8905,6 +8907,7 @@ STR16 szUDBAdvStatsExplanationsTooltipText[]=
 	L"\n \nLe facteur de refroidissement d'une arme,\nest augmenté par ce pourcentage.\n \nValeur élevée recommandée.",
 	L"\n \nLe seuil d'enrayement d'une arme,\nest augmenté par ce pourcentage.\n \nValeur élevée recommandée.",
 	L"\n \nLe seuil de détérioration d'une arme,\nest augmenté par ce pourcentage.\n \nValeur élevée recommandée.",
+	L"\n \nThis is the percentage of damage dealt\nby this item that will be poisonous.\n\nUsefulness depends on whether enemy\nhas poison resistance or absorption.",
 	L"\n \nUn tir salit l'arme de cette valeur. Le type\ndes munitions et les accessoires peuvent\ninfluer sur cette valeur.\n \nValeur faible recommandée.",
 	L"\n \nLorsque cet aliment est mangé, il provoque un empoisonnement.\n \nValeur faible recommandée.",
 	L"\n \nValeur énergétique en kcal.\n \nValeur élevée recommandée.",
