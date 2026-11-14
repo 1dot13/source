@@ -86,6 +86,13 @@ add_subdirectory("ext/zlib")
 add_subdirectory("ext/VFS")
 target_link_libraries(bfVFS PRIVATE 7z)
 
+option(JA2_TESTS "Build the unit tests" ON)
+if(JA2_TESTS)
+  set(INSTALL_GTEST OFF)
+  add_subdirectory("ext/googletest")
+  enable_testing()
+endif()
+
 # turn on asan for everything defined below; 3rd party libs above keep defaults
 ja2_asan_instrument_first_party()
 
