@@ -6554,7 +6554,7 @@ STR16 pMilitiaConfirmStrings[] =
 	L"Szkolenie samoobrony w %d sektorach będzie kosztowało $ %d. %s", // cost to train sveral sectors at once
 
 	L"Nie masz %d$, aby wyszkolić samoobronę w tym mieście.",
-	L"%s musi mieć %d% lojalności, aby można było kontynuować szkolenie samoobrony.",
+	L"%s musi mieć %d%% lojalności, aby można było kontynuować szkolenie samoobrony.",
 	L"Nie możesz już dłużej szkolić samoobrony w mieście %s.",
 	L"liberate more town sectors", // TODO.Translate
 

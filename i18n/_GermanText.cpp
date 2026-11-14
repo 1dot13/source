@@ -7022,7 +7022,7 @@ STR16 pMessageStrings[] =
 	L"Spielstand namens SaveGame249.sav kreiert. Wenn nötig, in SaveGame01 - SaveGame10 umbennen und über die Option 'Laden' aufrufen.",
 	L"%s hat %s getrunken.",
 	L"Paket in Drassen angekommen.",
-	L"%s kommt am %d. um ca. %s am Zielort an (Sektor %s).", //first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)	//LOOTF - is this still valid? I assume it's not.
+	L"%s kommt im Sektor %s am %d. um ca. %s am Zielort an.", //first %s is mercs name(OK), next is the sector location and name where they will be arriving in, lastely is the day an the time of arrival       !!!7 It should be like this: first one is merc (OK), next is day of arrival (OK) , next is time of the day for ex. 07:00 (not OK, now it is still sector), next should be sector (not OK, now it is still time of the day)	//LOOTF - is this still valid? I assume it's not.
 	L"Logbuch aktualisiert.",
 	L"Granatenwerfer-Feuerstöße verwenden Ziel-Cursor (Sperrfeuer aktiviert).",
 	L"Granatenwerfer-Feuerstöße verwenden Flugbahn-Cursor (Sperrfeuer deaktiviert).",
