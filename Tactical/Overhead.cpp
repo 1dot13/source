@@ -10243,7 +10243,7 @@ void CaptureTimerCallback( )
 {
     if( gfSurrendered )
     {
-        DoMessageBox( MSG_BOX_BASIC_STYLE, LargeTacticalStr[ 3 ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, EndBattleWithUnconsciousGuysCallback, NULL );
+        DoMessageBox( MSG_BOX_BASIC_STYLE, LargeTacticalStr[ LARGESTR_TAKEN_PRISONER ], GAME_SCREEN, ( UINT8 )MSG_BOX_FLAG_OK, EndBattleWithUnconsciousGuysCallback, NULL );
     }
     else
     {
