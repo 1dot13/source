@@ -73,7 +73,7 @@ bool Loc::ExportStrings()
 	vfs::PropertyContainer props;
 
 	//not_required ExportSection(props, L"Ja2Credits", pCreditsJA2113, 0, 7);
-	ExportSection(props, L"WeaponType",					WeaponType,					0,	MAXITEMS);
+	ExportSection(props, L"WeaponType",					WeaponType,					0,	GUN_TYPES_MAX);
 	ExportSection(props, L"TeamTurn",					TeamTurnString,				0,	10);
 	ExportSection(props, L"Message",					Message,						0,	TEXT_NUM_STR_MESSAGE);
 	ExportSection(props, L"TownNames",					pTownNames,					0,	MAX_TOWNS);
