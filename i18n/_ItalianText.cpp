@@ -2267,6 +2267,9 @@ CHAR16 Message[][STRING_LENGTH] =
 	L"Turno dei Bloodcat",
 	L"automatic",
 	L"no full auto",
+	L"accurate",
+	L"inaccurate",
+	L"no semi auto",
 	L"The enemy has no more items to steal!",
 	L"The enemy has no item in its hand!",
 // TODO.Translate
@@ -5127,6 +5130,8 @@ STR16 pBookMarkStrings[] =
 	L"Fiorista",
 	L"Assicurazione",
 	L"Annulla",
+	L"Encyclopedia",
+	L"Briefing Room",
 	L"Campaign History",	// TODO.Translate
 	L"MeLoDY",
 	L"WHO",
@@ -6472,6 +6477,7 @@ STR16		zMarksMapScreenText[] =
 	L"%s è pieno di soldati.",
 	L"Il mercenario ha un contratto a tempo determinato.", 
 	L"Il contratto del mercenario non è assicurato",
+	L"Map Overview",		// 24
 	
 	// Flugente: disease texts describing what a map view does TODO.Translate
 	L"This view shows how many rotting corpses are in a sector. The white number are corpses, the green number is accumulated disease, the sector colour indicates how widespread it is. GREY= No disease known of. GREEN to RED = escalating levels of disease.",	// TODO.Translate
@@ -6743,13 +6749,13 @@ STR16	gzGIOScreenText[] =
 #endif	
 	L"Platinum", //Placeholder English
 	L"Opzioni delle armi",
-	L"Available Arsenal", // changed by SANDRO
 	L"Varietà di armi",
 	L"Normale",
 	L"Livello di difficoltà",
 	L"Principiante",
 	L"Esperto",
 	L"Professionista",
+	L"INSANE",
 	L"Start",		// TODO.Translate
 	L"Annulla",
 	L"Difficoltà extra",
@@ -6761,7 +6767,6 @@ STR16	gzGIOScreenText[] =
 	L"Great",
 	L"Excellent",
 	L"Awesome",
-	L"INSANE",
 	L"Inventory / Attachments",	// TODO.Translate
 	L"NOT USED",
 	L"NOT USED",
