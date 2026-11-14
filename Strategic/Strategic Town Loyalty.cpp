@@ -1617,12 +1617,7 @@ void AdjustLoyaltyForCivsEatenByMonsters( INT16 sSectorX, INT16 sSectorY, UINT8 
 		swprintf( str, gpStrategicString[STR_PB_BANDIT_KILLCIVS_IN_SECTOR], ubHowMany, pSectorString );
 	else
 	{
-if( g_lang == i18n::Lang::zh ) {
-		//diffrent order of words in Chinese
-		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], pSectorString, ubHowMany );
-} else {
 		swprintf( str, gpStrategicString[STR_DIALOG_CREATURES_KILL_CIVILIANS], ubHowMany, pSectorString );
-}
 	}
 
 	DoScreenIndependantMessageBox( str, MSG_BOX_FLAG_OK, MapScreenDefaultOkBoxCallback );
