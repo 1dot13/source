@@ -1754,45 +1754,6 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-/*
-CHAR16 gszActionItemDesc[ 34 ][ 30 ] =
-{
-	L"Mina klaksonowa",
-	L"Mina oświetlająca",
-	L"Eksplozja gazu Łzaw.",
-	L"Eksplozja granatu Oszałam.",
-	L"Eksplozja granatu dymnego",
-	L"Gaz musztardowy",
-	L"Mina przeciwpiechotna",
-	L"Otwórz drzwi",
-	L"Zamknij drzwi",
-	L"3x3 Hidden Pit",
-	L"5x5 Hidden Pit",
-	L"Mała eksplozja",
-	L"średnia eksplozja",
-	L"Duża eksplozja",
-	L"Otwórz/Zamknij drzwi",
-	L"Przełącz wszystkie Akcje1",
-	L"Przełącz wszystkie Akcje2",
-	L"Przełącz wszystkie Akcje3",
-	L"Przełącz wszystkie Akcje4",
-	L"Wejście do burdelu",
-	L"Wyjście z burdelu",
-	L"Alarm Kingpin'a",
-	L"Seks z prostytutką",
-	L"Pokaż pokój",
-	L"Alarm lokalny",
-	L"Alarm globalny",
-	L"Dźwięk klaksonu",
-	L"Odbezpiecz drzwi",
-	L"Przełącz blokadę (drzwi)",
-	L"Usuń pułapkę (drzwi)",
-	L"Tog pressure items",
-	L"Alarm w Museum",
-	L"Alarm dzikich kotów",
-	L"Duży gaz łzawiący",
-};
-*/
 STR16 pUpdateItemStatsPanelText[] =
 {
 	L"Chowanie flagi", //0

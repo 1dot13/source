@@ -119,7 +119,6 @@ extern STR16 *pWaitForHelpScreenResponseText;
 extern STR16 *pAutoLoadMapText;
 extern STR16 *pShowHighGroundText;
 //Item Statistics.cpp
-//extern CHAR16 gszActionItemDesc[ 34 ][ 30 ];	// NUM_ACTIONITEMS = 34
 extern STR16 *pUpdateItemStatsPanelText;
 extern STR16 *pSetupGameTypeFlagsText;
 extern STR16 *pSetupGunGUIText;

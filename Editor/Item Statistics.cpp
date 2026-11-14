@@ -36,52 +36,6 @@ INT32 giAlarmTriggerButton = -1;
 INT32 giOwnershipGroupButton = -1;
 
 CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ];
-/*
-CHAR16 gszActionItemDesc[ NUM_ACTIONITEMS ][ 30 ] =
-{
-	L"Klaxon Mine",
-	L"Flare Mine",
-	L"Teargas Explosion",
-	L"Stun Explosion",
-	L"Smoke Explosion",
-	L"Mustard Gas",
-	L"Land Mine",
-	L"Open Door",
-	L"Close Door",
-	L"3x3 Hidden Pit",
-	L"5x5 Hidden Pit",
-	L"Small Explosion",
-	L"Medium Explosion",
-	L"Large Explosion",
-	L"Toggle Door",
-	L"Toggle Action1s",
-	L"Toggle Action2s",
-	L"Toggle Action3s",
-	L"Toggle Action4s",
-	L"Enter Brothel",
-	L"Exit Brothel",
-	L"Kingpin Alarm",
-	L"Sex with Prostitute",
-	L"Reveal Room",
-	L"Local Alarm",
-	L"Global Alarm",
-	L"Klaxon Sound",
-	L"Unlock door",
-	L"Toggle lock",
-	L"Untrap door",
-	L"Tog pressure items",
-	L"Museum alarm",
-	L"Bloodcat alarm",
-	L"Big teargas",
-#ifdef JA2UB
-	L"BIGGENS BOMBS",
-	L"ABIGGENS WARNING",
-	L"SEE FORTIFIED DOOR",
-	L"OPEN FORTIFED DOOR",
-	L"SEE POWER GEN FAN",
-#endif
-};
-*/
 const STR16 GetActionItemName( OBJECTTYPE *pItem )
 {
 	UINT32 i,o;

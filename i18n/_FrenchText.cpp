@@ -1757,44 +1757,6 @@ STR16 pShowHighGroundText[] =
 };
 
 //Item Statistics.cpp
-/*CHAR16 gszActionItemDesc[34][30] =	// NUM_ACTIONITEMS = 34
-{
-	L"Mine klaxon",
-	L"Mine Flash",
-	L"Explosion lacrymo",
-	L"Explosion Assourd.",
-	L"Explosion Fumée",
-	L"Gaz moutarde",
-	L"Mine",
-	L"Ouvrir porte",
-	L"Fermer porte",
-	L"Puit caché 3x3 ",
-	L"Puit caché 5x5",
-	L"Pt Explosion",
-	L"Moy Explosion",
-	L"Grd Explosion",
-	L"Encl porte",
-	L"Encl Action1s",
-	L"Encl Action2s",
-	L"Encl Action3s",
-	L"Encl Action4s",
-	L"Entrer ds bordel",
-	L"Sortir du Bordel",
-	L"Alarme sbire",
-	L"Sexe avec pute",
-	L"Montrer pièce",
-	L"Alarme locale",
-	L"Alarme globale",
-	L"Bruit klaxon",
-	L"Déver. porte",
-	L"Encl verrou",
-	L"Déminer porte",
-	L"Encl Obj press",
-	L"Alarme musée",
-	L"Alarme chtsvg",
-	L"Grd lacrymo",
-};
-*/
 
 
 STR16 pUpdateItemStatsPanelText[] =
