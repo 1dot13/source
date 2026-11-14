@@ -7982,7 +7982,7 @@ STR16 MPClientMessage[] =
 	// 60
 	L"Pobrano wszystkie pliki z serwera.",
 	L"Pobrano '%S' z serwera",
-	L"Rozpoczęto pobieranie '%s' z serwera",
+	L"Rozpoczęto pobieranie '%S' z serwera",
 	L"Nie można rozpocząć gry dopóki wszyscy nie zakończą pobierania plików z serwera",
 	L"Ten serwer przed rozpoczęciem gry wymaga pobrania zmodyfikowanych plików, czy chcesz kontynuować",
 	// 65

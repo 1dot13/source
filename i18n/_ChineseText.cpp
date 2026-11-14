@@ -9893,7 +9893,7 @@ STR16	szCampaignStatsOperationPrefix[] =
 
 	L"狂暴之%s",  //"Violent %s"
 	L"残暴之%s",  //"Brutal %s"
-	L"无情之%",  //"Relentless %s"
+	L"无情之%s",  //"Relentless %s"
 	L"冷酷之%s",  //"Merciless %s"
 
 	L"食人之%s",  //"Cannibalistic %s"

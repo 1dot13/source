@@ -84,7 +84,7 @@ STR16 gzIMPMajorTraitsHelpTextsAutoWeapons[]=
 	L"-%d%s do liczby PA potrzebnych do strzału erkaemem w trybie automatycznym lub serią\n",
 	L"-%d%s do liczby PA potrzebnych do przygotowania erkaemu\n",
 	L"Kara do szansy trafienia ogniem automatycznym/serią jest zmniejszona o %d%s\n",
-	L"Zmniejszona szansa na wystrzelenie przez przypadek większej liczby pocisków w ogniu automatycznym o -%d%s\n",
+	L"Zmniejszona szansa na wystrzelenie przez przypadek większej liczby pocisków w ogniu automatycznym\n",
 
 };
 STR16 gzIMPMajorTraitsHelpTextsHeavyWeapons[]=
