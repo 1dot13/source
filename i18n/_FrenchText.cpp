@@ -1069,7 +1069,7 @@ STR16 iEditorItemStatsButtonsText[] =
 	L"Article supprimer (|S|u|p|p|r)",
 };
 
-STR16 FaceDirs[8] = 
+STR16 FaceDirs[] = 
 { 
 	L"NORD",
 	L"NORD-Est",
@@ -1410,7 +1410,7 @@ STR16 pUpdateMapInfoText[] =
 	L"Grille No",
 };
 //EditorMercs.cpp
-CHAR16 gszScheduleActions[ 11 ][20] =
+CHAR16 gszScheduleActions[][20] =
 {
 	L"Pas d'action",
 	L"Porte verrouillée",
@@ -1425,7 +1425,7 @@ CHAR16 gszScheduleActions[ 11 ][20] =
 	L"Ignorez cela !"
 };
 
-STR16 zDiffNames[5] = 
+STR16 zDiffNames[] = 
 { 
 	L"Mauviette", 
 	L"Simplet", 
@@ -1434,7 +1434,7 @@ STR16 zDiffNames[5] =
 	L"Utilisateurs de stéroïde seulement" 
 };
 
-STR16 EditMercStat[12] = 
+STR16 EditMercStat[] = 
 { 
 	L"Santé max",
 	L"Santé actuel",
@@ -1451,7 +1451,7 @@ STR16 EditMercStat[12] =
 };
 
 
-STR16 EditMercOrders[8] = 
+STR16 EditMercOrders[] = 
 { 
 	L"Stationnaire",
 	L"En garde",
@@ -1463,7 +1463,7 @@ STR16 EditMercOrders[8] =
 	L"Point de patrouille aléatoire",
 };
 
-STR16 EditMercAttitudes[6] = 
+STR16 EditMercAttitudes[] = 
 { 
 	L"Défensif",
 	L"Solitaire courageux",
@@ -2083,7 +2083,7 @@ STR16 pDisplaySelectionWindowButtonText[] =
 };
 
 //Cursor Modes.cpp
-STR16 wszSelType[6] = {
+STR16 wszSelType[] = {
  L"Petit", 
  L"Moyen", 
  L"Large", 
@@ -2094,7 +2094,7 @@ STR16 wszSelType[6] = {
 
 //---
 
-CHAR16  gszAimPages[ 6 ][ 20 ] =
+CHAR16  gszAimPages[][ 20 ] =
 {
 	L"Page 1/2", //0
 	L"Page 2/2",
@@ -3652,7 +3652,7 @@ STR16 gpGameClockString[] =
 
 //When the merc finds a key, they can get a description of it which 
 //tells them where and when they found it.
-STR16 sKeyDescriptionStrings[2] =
+STR16 sKeyDescriptionStrings[] =
 {
 	L"Secteur :",
 	L"Jour :",
@@ -3690,7 +3690,7 @@ CHAR16		gWeaponStatsDesc[][ 20 ] =
 };
 
 // HEADROCK: Several arrays of tooltip text for new Extended Description Box
-STR16		gzWeaponStatsFasthelpTactical[ 33 ] =
+STR16		gzWeaponStatsFasthelpTactical[] =
 {
 	L"|P|o|r|t|é|e\n \nC'est la portée de l'arme. Un tir, au-delà de\ncette valeur, donnera des pénalités.\n \nValeur élevée recommandée.",
 	L"|D|é|g|â|t\n \nC'est la valeur des dégâts. L'arme infligera\ngénéralement cette valeur (ou presque)\nà toutes cibles non protégées.\n \nValeur élevée recommandée.",
@@ -3813,12 +3813,12 @@ CHAR16 zHealthStr[][13] =
 	L"EN PRISON",	// added by Flugente
 };
 
-STR16 gzHiddenHitCountStr[1] =
+STR16 gzHiddenHitCountStr[] =
 {
 	L" ?",	
 };
 
-STR16	gzMoneyAmounts[6] = 
+STR16	gzMoneyAmounts[] = 
 { 
 	L"1000",
 	L"100",
@@ -3840,7 +3840,7 @@ CHAR16		gzConsLabel[10] =
 };
 
 //Conversation options a player has when encountering an NPC
-CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
+CHAR16 zTalkMenuStrings[][ SMALL_STRING_LENGTH ] =
 {
 	L"Pardon ?", 	//meaning "Repeat yourself" 
 	L"Amical",		//approach in a friendly
@@ -3851,7 +3851,7 @@ CHAR16 zTalkMenuStrings[6][ SMALL_STRING_LENGTH ] =
 };
 
 //Some NPCs buy, sell or repair items. These different options are available for those NPCs as well.
-CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
+CHAR16 zDealerStrings[][ SMALL_STRING_LENGTH ]=
 {
 	L"Acheter/Vendre",
 	L"Acheter",
@@ -3859,7 +3859,7 @@ CHAR16 zDealerStrings[4][ SMALL_STRING_LENGTH ]=
 	L"Réparer",
 };
 
-CHAR16 zDialogActions[1][ SMALL_STRING_LENGTH ] = 
+CHAR16 zDialogActions[][ SMALL_STRING_LENGTH ] = 
 {
 	L"OK",
 };
@@ -7021,7 +7021,7 @@ STR16 pIMPBeginScreenStrings[] =
 	L"(8 Caractères Max)",
 };
 
-STR16 pIMPFinishButtonText[ 1 ]=
+STR16 pIMPFinishButtonText[]=
 {
 	L"Analyse",
 };
@@ -10533,7 +10533,7 @@ STR16   szTacticalCoverDialogPrintString[]=
 };
 
 // TODO.Translate
-STR16	szDynamicDialogueText[40][17] =	// TODO.Translate
+STR16	szDynamicDialogueText[][17] =	// TODO.Translate
 {
 	// OPINIONEVENT_FRIENDLYFIRE
 	{
@@ -12067,7 +12067,7 @@ STR16	szTurncoatText[] =
 
 // rftr: better lbe tooltips
 // TODO.Translate
-STR16 gLbeStatsDesc[14] =
+STR16 gLbeStatsDesc[] =
 {
 	L"MOLLE Space Available:",
 	L"MOLLE Space Required:",
