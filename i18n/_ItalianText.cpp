@@ -5132,6 +5132,7 @@ STR16 pBookMarkStrings[] =
 	L"Militia Overview",	// TODO.Translate
 	L"R.I.S.",
 	L"Factories",	// TODO.Translate
+	L"A.R.C.",
 };
 
 STR16 pBookmarkTitle[] =
@@ -5243,6 +5244,9 @@ STR16 pWebPagesTitles[] =
 	L"Encyclopedia - Data",
 	L"Briefing Room",
 	L"Briefing Room - Data",
+	L"", //LAPTOP_MODE_BRIEFING_ROOM_ENTER
+	L"", //LAPTOP_MODE_AIM_MEMBERS_ARCHIVES_NEW
+	L"A.R.C.",
 };
 
 STR16 pShowBookmarkString[] =
@@ -7228,6 +7232,7 @@ STR16 gzLaptopHelpText[] =
 	L"Militia Overview",	// TODO.Translate
 	L"Recon Intelligence Services",	// TODO.Translate
 	L"Controlled factories",	// TODO.Translate
+	L"Arulco Rebel Command",
 };
 
 
