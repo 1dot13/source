@@ -3,3 +3,4 @@ utfcpp     : 2.3.4
 libpng     : 1.2.50
 libsmacker : 1.2.0
 zlib       : 1.2.8
+googletest : 1.18.0
