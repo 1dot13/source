@@ -53,6 +53,33 @@ namespace lang_default = lang_en;
 #include "text.def"
 #undef X
 
+#define TRANSLATION_TABLE_MATCHES_ENGLISH(LANG, NAME)                         \
+  static_assert(std::is_same_v<decltype(lang_en::NAME), decltype(LANG::NAME)>, \
+                "Translation table size differs from English table: " #LANG "::" #NAME);
+
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_de, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_ru, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_nl, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_pl, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_fr, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_it, NAME)
+#include "text.def"
+#undef X
+#define X(NAME) TRANSLATION_TABLE_MATCHES_ENGLISH(lang_zh, NAME)
+#include "text.def"
+#undef X
+#undef TRANSLATION_TABLE_MATCHES_ENGLISH
+
 namespace {
 auto bind_en() -> void {
 #define X(NAME) NAME = lang_en::NAME;
