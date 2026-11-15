@@ -28,14 +28,14 @@
 #include <vfs/Core/vfs_types.h>
 #include <vfs/Core/Interface/vfs_location_interface.h>
 #include <map>
-#include <set>
+#include <vector>
 
 namespace vfs
 {
 	class VFS_API CVirtualProfile
 	{
 		typedef std::map<vfs::Path,vfs::IBaseLocation*, vfs::Path::Less> tLocations;
-		typedef std::set<vfs::IBaseLocation*> tUniqueLoc;
+		typedef std::vector<vfs::IBaseLocation*> tUniqueLoc;
 
 		class IterImpl;
 		class FileIterImpl;
