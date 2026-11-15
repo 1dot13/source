@@ -35,7 +35,7 @@ namespace vfs
 	class VFS_API CVirtualProfile
 	{
 		typedef std::map<vfs::Path,vfs::IBaseLocation*, vfs::Path::Less> tLocations;
-		typedef std::vector<vfs::IBaseLocation*> tUniqueLoc;
+		typedef std::vector<vfs::IBaseLocation*> tLocationList;
 
 		class IterImpl;
 		class FileIterImpl;
@@ -59,7 +59,7 @@ namespace vfs
 	private:
 		void					operator=(vfs::CVirtualProfile const& vprof);
 		tLocations				m_mapLocations;
-		tUniqueLoc				m_setLocations;
+		tLocationList			m_locations;
 	};
 
 	class VFS_API CProfileStack
