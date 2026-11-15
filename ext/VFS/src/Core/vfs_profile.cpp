@@ -42,7 +42,7 @@ class vfs::CVirtualProfile::IterImpl : public vfs::CVirtualProfile::Iterator::II
 	{
 		VFS_THROW_IFF(profile, L"");
 		// only unique locations
-		_loc_iter = m_profile->m_setLocations.begin();
+		_loc_iter = m_profile->m_locations.begin();
 	}
 public:
 	IterImpl() : tBaseClass(), m_profile(NULL)
@@ -52,7 +52,7 @@ public:
 	//////
 	virtual vfs::IBaseLocation*		value()
 	{
-		if(_loc_iter != m_profile->m_setLocations.end())
+		if(_loc_iter != m_profile->m_locations.end())
 		{
 			return *_loc_iter;
 		}
@@ -60,7 +60,7 @@ public:
 	}
 	virtual void					next()
 	{
-		if(_loc_iter != m_profile->m_setLocations.end())
+		if(_loc_iter != m_profile->m_locations.end())
 		{
 			_loc_iter++;
 		}
@@ -75,7 +75,7 @@ protected:
 	}
 private:
 	vfs::CVirtualProfile*						m_profile;
-	vfs::CVirtualProfile::tUniqueLoc::iterator	_loc_iter;
+	vfs::CVirtualProfile::tLocationList::iterator	_loc_iter;
 };
 
 /***************************************************************************/
@@ -175,13 +175,13 @@ vfs::CVirtualProfile::CVirtualProfile(vfs::String const& profile_name, vfs::Path
 
 vfs::CVirtualProfile::~CVirtualProfile()
 {
-	tUniqueLoc::iterator it = m_setLocations.begin();
-	for(; it != m_setLocations.end(); ++it)
+	tLocationList::iterator it = m_locations.begin();
+	for(; it != m_locations.end(); ++it)
 	{
 		delete (*it);
 		//(*it) = NULL;
 	}
-	m_setLocations.clear();
+	m_locations.clear();
 	m_mapLocations.clear();
 };
 
@@ -199,9 +199,9 @@ void vfs::CVirtualProfile::addLocation(vfs::IBaseLocation* pLoc)
 {
 	if(pLoc)
 	{
-		if(std::find(m_setLocations.begin(), m_setLocations.end(), pLoc) == m_setLocations.end())
+		if(std::find(m_locations.begin(), m_locations.end(), pLoc) == m_locations.end())
 		{
-			m_setLocations.push_back(pLoc);
+			m_locations.push_back(pLoc);
 		}
 		std::list<vfs::Path> lDirs;
 		pLoc->getSubDirList(lDirs);
