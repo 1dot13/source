@@ -383,11 +383,11 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<!-- Enrico Chivaldori -->
 	<EMAIL>
 		<Sender>0</Sender>
-		<Subject>À l'aide !!!Subject>
+		<Subject>À l'aide !!!</Subject>
 		<Message>Je suis désolé, mais j'ai encore besoin de vos services. Arulco est de nouveau en danger. Hier, Tixa a été détruit par une attaque de missiles. Une chance que la prison ne soit plus utilisée. Seulement quelques personnes ont été blessées. ±</Message>
-		<Message>Plus tard, j'ai reçu un appel de la "Ricci Mining & Exploration Company". C'est la société qui exploitait les mines d'Arulco au profit de Deidranna. Elle est très connue pour l'extraction des minerais de métaux précieux dans cette partie du monde. ±</Message>
+		<Message>Plus tard, j'ai reçu un appel de la "Ricci Mining &amp; Exploration Company". C'est la société qui exploitait les mines d'Arulco au profit de Deidranna. Elle est très connue pour l'extraction des minerais de métaux précieux dans cette partie du monde. ±</Message>
 		<Message>Cette société est aussi connue pour la corruption, la manipulation politique et l'embauche de mercenaires pour protéger leurs opérations. Cette fois, elle a construit une base à Tracona, le pays directement au nord de Arulco. Ce fut facile pour elle, car ce pays est dirigé par des militaires. ±</Message>
-		<Message>Mon contact à Tracona, confirme l'installation d'une base de missiles. La "Ricci Mining & Exploration Company" exige l'accès immédiat aux mines d'Arulco ou ils commenceront à détruire d'autres villes. Ils promettent une pluie de missiles, sauf si je leur permets de revenir dans mon pays. ±</Message>
+		<Message>Mon contact à Tracona, confirme l'installation d'une base de missiles. La "Ricci Mining &amp; Exploration Company" exige l'accès immédiat aux mines d'Arulco ou ils commenceront à détruire d'autres villes. Ils promettent une pluie de missiles, sauf si je leur permets de revenir dans mon pays. ±</Message>
 		<Message>Je n'ai pas d'armée et mon peuple est fatigué de la guerre. Je ne veux pas d'un conflit avec Tracona, mais leurs missiles doivent être détruits. Cette menace contre mon pays doit être éliminée et je n'ai pas de meilleur candidat pour ce poste que vous. ±</Message>
 		<Message>J'ai affrété un hélicoptère qui peut transporter six mercenaires à Tracona. J'ai aussi déposé sur le même compte que précédemment, le montant qui, selon mes calculs, couvrira vos frais. Nous restons en contact. ±</Message>
 		<Message>Bonne chance, mon ami. ± ± Chivaldori E. ±</Message>
@@ -418,7 +418,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 	<EMAIL>
 		<Sender>0</Sender>
 		<Subject>Urgent</Subject>
-		<Message>La "Ricci Mining & Exploration Company" est de plus en plus menaçante. Ils savent que vous êtes dans le pays et blâment Arulco de votre intrusion. Vous devez agir plus rapidement. Je crains qu'ils nous lancent bientôt les missiles et pour les autres pays voisins, ça serait une terrible leçon. ±</Message>
+		<Message>La "Ricci Mining &amp; Exploration Company" est de plus en plus menaçante. Ils savent que vous êtes dans le pays et blâment Arulco de votre intrusion. Vous devez agir plus rapidement. Je crains qu'ils nous lancent bientôt les missiles et pour les autres pays voisins, ça serait une terrible leçon. ±</Message>
 		<Message>Je sais que ce n'est pas facile, mais vous devez trouver un moyen de mettre un terme à cette menace. ± ± Je vous en conjure, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -443,7 +443,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Sender>0</Sender>
 		<Subject>FÉLICITATIONS.</Subject>
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -451,7 +451,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Subject>FÉLICITATIONS.</Subject>
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
 		<Message>J'informe Miguel de votre progression. Il est très faible et très probablement, il ne passera pas la nuit. Mais, il est encore capable de sourire et semble être très heureux. Comme vous, il aura sa place dans l'histoire de notre pays. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -460,7 +460,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
 		<Message>J'informe Miguel de votre progression. Il est très faible et très probablement, il ne passera pas la nuit. Mais, il est encore capable de sourire et semble être très heureux. Comme vous, il aura sa place dans l'histoire de notre pays. ±</Message>
 		<Message>La mort de Manuel a plongé tous les habitants d'Omerta dans la tristesse. Heureusement, Fatima est une femme forte. Elle comprend la nécessité du sacrifice pour la liberté comme Manuel l'a fait tant de fois dans le passé. Je suis navré pour Pacos, mais il grandira avec la fierté d'être le fils d'un héros. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -469,7 +469,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
 		<Message>J'informe Miguel de votre progression. Il est très faible et très probablement, il ne passera pas la nuit. Mais, il est encore capable de sourire et semble être très heureux. Comme vous, il aura sa place dans l'histoire de notre pays. ±</Message>
 		<Message>J'ai récemment parlé avec Fatima. Elle attend avec impatience le retour de son mari. Il a aidé Arulco à deux reprises, comme vous. Les hommes de cette trempe sont rares. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -477,7 +477,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Subject>FÉLICITATIONS.</Subject>
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
 		<Message>La mort de Manuel a plongé tous les habitants d'Omerta dans la tristesse. Heureusement, Fatima est une femme forte. Elle comprend la nécessité du sacrifice pour la liberté comme Manuel l'a fait tant de fois dans le passé. Je suis navré pour Pacos, mais il grandira avec la fierté d'être le fils d'un héros. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<EMAIL>
@@ -485,7 +485,7 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Subject>FÉLICITATIONS.</Subject>
 		<Message>Une fois de plus, Arulco vous doit sa survie. Vous avez prouvé hier comme aujourd'hui que votre expérience et votre détermination aident ceux qui sont incapables de se défendre. Mon peuple est reconnaissant de l'existence de soldats tels que vous. ±</Message>
 		<Message>J'ai récemment parlé avec Fatima. Elle attend avec impatience le retour de son mari. Il a aidé Arulco à deux reprises, comme vous. Les hommes de cette trempe sont rares. ±</Message>
-		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining & Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
+		<Message>De nombreux pays de la région ont également exprimé leur soulagement à la destruction de cette base. On savait que rien de bon ne pouvait venir de ces missiles. La "Ricci Mining &amp; Exploration Company" les tenait sur nos têtes comme l'épée de Damoclès. ±</Message>
 		<Message>Encore une fois, je tiens à vous exprimer ma profonde gratitude pour votre excellent travail. J'espère que vous ne le prendrez pas mal si je vous dis que je n'ai plus besoin de vos services. ± ± Avec ma plus grande gratitude, ± Chivaldori E.</Message>
 	</EMAIL>
 	<!-- IMP Emails -->
@@ -508,7 +508,8 @@ $DESTINATIONNAME$	-> gets replaced by a BR shipping destination during runtime. 
 		<Message>Notre système de suivi automatisé nous a alerté sur le fait que vous n'avez pas encore visité notre site pour profiter de nos services. Votre code d'accès personnel, GP97SL, va bientôt expirer. Nous vous invitons à nous rendre visite aujourd'hui et découvrir la formidable opportunité qui vous attend. ±</Message>
 		<Message>À l'IMP, nous avons déjà analysé que vous êtes sceptique sur les offres qui semblent trop belles pour être vraies. Vous vous méfiez de l'inconnu, mais vous avez également une fâcheuse tendance à foncer tête baissée, sans même étudier les autres possibilités qui pourraient vous sauver la vie. ±</Message>
 		<Message>Nous savons déjà que vous êtes le client idéal pour tirer profit de nos services. Et pour une somme modique de 3000 $, nous allons vous aider à vous comprendre, il suffit de prendre quelques minutes pour nous rendre visite. ±</Message>
-		<Message>RENDEZ-NOUS VISITE DÈS MAINTENANT ! ± ± Vous ne regretterez pas votre geste. ± Et nous serons en route pour vous aider. ±</EMAIL>
+		<Message>RENDEZ-NOUS VISITE DÈS MAINTENANT ! ± ± Vous ne regretterez pas votre geste. ± Et nous serons en route pour vous aider. ±</Message>
+	</EMAIL>
 	<!-- Miguel Cordona -->
 	<EMAIL>
 		<Sender>53</Sender>
