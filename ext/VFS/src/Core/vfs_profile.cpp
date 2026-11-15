@@ -29,6 +29,7 @@
 #include <vfs/Tools/vfs_log.h>
 #include <vfs/Tools/vfs_parser_tools.h>
 
+#include <algorithm>
 #include <sstream>
 
 
@@ -198,7 +199,10 @@ void vfs::CVirtualProfile::addLocation(vfs::IBaseLocation* pLoc)
 {
 	if(pLoc)
 	{
-		m_setLocations.insert(pLoc);
+		if(std::find(m_setLocations.begin(), m_setLocations.end(), pLoc) == m_setLocations.end())
+		{
+			m_setLocations.push_back(pLoc);
+		}
 		std::list<vfs::Path> lDirs;
 		pLoc->getSubDirList(lDirs);
 		std::list<vfs::Path>::const_iterator cit = lDirs.begin();
