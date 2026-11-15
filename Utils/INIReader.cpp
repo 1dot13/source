@@ -5,6 +5,7 @@
 #include "message.h"
 #include <stdio.h>
 #include <string.h>
+#include <list>
 #include <sstream>
 
 // Kaiden: INI reading function definitions:
@@ -34,6 +35,29 @@ void CIniReader::RegisterFileForMerging(vfs::Path const& filename)
 	m_merge_files.insert(filename);
 }
 
+static bool MergeEveryCopy(vfs::PropertyContainer& props, vfs::Path const& fileName)
+{
+	std::list<vfs::CVirtualProfile*> bottomUp;
+	for(vfs::CProfileStack::Iterator it = getVFS()->getProfileStack()->begin(); !it.end(); it.next())
+	{
+		bottomUp.push_front(it.value());
+	}
+
+	bool allRead = true;
+	for(vfs::CVirtualProfile* profile : bottomUp)
+	{
+		for(vfs::CVirtualProfile::Iterator loc = profile->begin(); !loc.end(); loc.next())
+		{
+			if(!loc.value()->fileExists(fileName))
+			{
+				continue;
+			}
+			allRead = props.initFromIniFile(vfs::tReadableFile::cast(loc.value()->getFile(fileName))) && allRead;
+		}
+	}
+	return allRead;
+}
+
 CIniReader::CIniReader(const CHAR8*	szFileName)
 {
 	memset(m_szFileName,0,sizeof(m_szFileName));
@@ -44,19 +68,7 @@ CIniReader::CIniReader(const CHAR8*	szFileName)
 	}
 	else
 	{
-		vfs::CProfileStack* profs = getVFS()->getProfileStack();
-		vfs::CProfileStack::Iterator it = profs->begin();
-		std::stack<vfs::CVirtualProfile*> rev_order;
-		for(; !it.end(); it.next()) { rev_order.push(it.value()); }
-		while(!rev_order.empty())
-		{
-			vfs::IBaseFile* file = rev_order.top()->getFile(szFileName);
-			if(file)
-			{
-				m_oProps.initFromIniFile(vfs::tReadableFile::cast(file));
-			}
-			rev_order.pop();
-		}
+		MergeEveryCopy(m_oProps, szFileName);
 	}
 	// check for override file
 	{
@@ -80,20 +92,7 @@ CIniReader::CIniReader(const CHAR8*	szFileName, BOOLEAN Force_Custom_Data_Path)
 	}
 	else
 	{
-		CIniReader_File_Found = TRUE;
-		vfs::CProfileStack* profs = getVFS()->getProfileStack();
-		vfs::CProfileStack::Iterator it = profs->begin();
-		std::stack<vfs::CVirtualProfile*> rev_order;
-		for(; !it.end(); it.next()) { rev_order.push(it.value()); }
-		while(!rev_order.empty())
-		{
-			vfs::IBaseFile* file = rev_order.top()->getFile(szFileName);
-			if(file)
-			{
-				CIniReader_File_Found = ((CIniReader_File_Found != FALSE) && m_oProps.initFromIniFile(vfs::tReadableFile::cast(file))) ? TRUE : FALSE;
-			}
-			rev_order.pop();
-		}
+		CIniReader_File_Found = MergeEveryCopy(m_oProps, szFileName) ? TRUE : FALSE;
 	}
 }
 
