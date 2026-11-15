@@ -130,6 +130,11 @@ add_compile_definitions(
 # ja2export utility
 add_subdirectory("export/src")
 
+option(BUILD_VFSTREE "Build vfstree, which lists every file in the VFS and where it came from" ON)
+if(BUILD_VFSTREE)
+  add_subdirectory(vfstree)
+endif()
+
 # static libraries whose translation units don't rely on Application preprocessor definitions.
 add_subdirectory(lua)
 add_subdirectory(Multiplayer)
