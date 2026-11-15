@@ -1238,6 +1238,9 @@ UINT8 LightTrueLevel( INT32 sGridNo, INT16 bLevel )
 	LEVELNODE * pNode;
 	INT32 iSum;
 
+	if ((UINT32)sGridNo == NOWHERE || (UINT32)sGridNo >= WORLD_MAX )
+		return(ubAmbientLightLevel);
+
 	if (bLevel == 0)
 	{
 		pNode = gpWorldLevelData[sGridNo].pLandHead;
