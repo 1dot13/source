@@ -39,6 +39,8 @@
 #include <vfs/Tools/vfs_property_container.h>
 #include <vfs/Tools/vfs_log.h>
 
+#include <filesystem>
+
 #include <vfs/Aspects/vfs_logging.h>
 #include <vfs/Aspects/vfs_settings.h>
 
@@ -306,6 +308,8 @@ bool vfs_init::initVirtualFileSystem(vfs_init::VfsConfig const& conf)
 				bool init_success = false;
 				if(bIsWritable)
 				{
+					std::error_code ec;
+					std::filesystem::create_directories(fullpath.c_wcs(), ec);
 					vfs::CDirectoryTree *pDirTree = new vfs::CDirectoryTree(loc->m_mount_point, fullpath);
 					init_success = pDirTree->init();
 					pDirLocation = pDirTree;
