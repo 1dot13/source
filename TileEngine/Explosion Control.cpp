@@ -1601,7 +1601,7 @@ BOOLEAN DamageSoldierFromBlast( SoldierID ubPerson, SoldierID ubOwner, INT32 sBo
 	// Increment attack counter...
 	//	gTacticalStatus.ubAttackBusyCount++;
 	DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("Incrementing Attack: Explosion dishing out damage, Count now %d", gTacticalStatus.ubAttackBusyCount ) );
-	DebugAttackBusy( String("Explosion dishing out damage to %d\n", pSoldier->ubID) );
+	DebugAttackBusy( String("Explosion dishing out damage to %d\n", pSoldier->ubID.i) );
 
 	sNewWoundAmt = sWoundAmt - __min( sWoundAmt, 35 ) * ArmourVersusExplosivesPercent( pSoldier ) / 100;
 	if ( sNewWoundAmt < 0 )

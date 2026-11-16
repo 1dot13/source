@@ -94,7 +94,7 @@ INT32	CreateBullet( SoldierID ubFirerID, BOOLEAN fFake, UINT16 usFlags,UINT16 fr
 		{
 			gTacticalStatus.ubAttackBusyCount++;
 		}
-		DebugAttackBusy( String( "Creating a new bullet for %d.	ABC now %d\n", ubFirerID, gTacticalStatus.ubAttackBusyCount) );
+		DebugAttackBusy( String( "Creating a new bullet for %d.	ABC now %d\n", ubFirerID.i, gTacticalStatus.ubAttackBusyCount) );
 	}
 
 	//afp-start each bullet carry its tail
@@ -192,7 +192,7 @@ void RemoveBullet( INT32 iBullet )
 //		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Ending bullet, bullets left %d", gBullets[ iBullet ].pFirer->bBulletsLeft ) );
 //		DebugAttackBusy( String( "Deleting a bullet for %d.	Total count now %d\n", gBullets[ iBullet].ubFirerID, gBullets[ iBullet ].pFirer->bBulletsLeft) );
 		// Nah, just decrement the attack busy count and be done with it
-		DebugAttackBusy( String( "Deleting a bullet for %d.\n", gBullets[ iBullet].ubFirerID ) );
+		DebugAttackBusy( String( "Deleting a bullet for %d.\n", gBullets[ iBullet].ubFirerID.i ) );
 		// HEADROCK HAM 5: Fragments do not need reducing.
 		if (gBullets[iBullet].fFragment == false)
 		{
