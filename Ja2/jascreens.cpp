@@ -376,22 +376,14 @@ UINT32 InitScreenHandle(void)
 		sgp::Logger::instance().connectFile(ini_id, L"iniErrorReport.log", false, sgp::Logger::FLUSH_ON_DELETE);
 		sgp::Logger::LogInstance logger = sgp::Logger::instance().logger(ini_id);
 		while (! iniErrorMessages.empty()) {
-			static BOOL iniErrorMessage_create_out_file = TRUE;
 			std::string iniErrorMessage = iniErrorMessages.top();
+			logger << iniErrorMessage << sgp::endl;
+#ifdef _DEBUG
 			CHAR16 str[256];
-
-			if (iniErrorMessage_create_out_file)
-			{
-				y += 25;
-				swprintf( str, L"%S", "Warning: found the following ini errors. iniErrorReport.log has been created." );
-				DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
-				iniErrorMessage_create_out_file = FALSE;
-			}
-
 			y += 25;
 			swprintf( str, L"%S", iniErrorMessage.c_str() );
-			logger << iniErrorMessage << sgp::endl;
 		    DisplayWrappedString( 10, y, 560, 2, FONT12ARIAL, FONT_ORANGE, str, FONT_BLACK, TRUE, LEFT_JUSTIFIED );
+#endif
 
 			iniErrorMessages.pop();
 		}
