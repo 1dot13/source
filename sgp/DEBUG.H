@@ -42,7 +42,11 @@ extern INT32	giProfileCount;
 #define PROFILE_REPORT()		guiProfileTime=(GetTickCount()-guiProfileStart);	\
 								_RPT3(_CRT_WARN, "*** PROFILE REPORT: %d executions took %dms, average of %.2fms per iteration.\n", guiExecutions, guiProfileTime, (FLOAT)guiProfileTime/guiExecutions); 
 
+#if defined(__clang__)
+extern	STR8	String(const STR8 String, ...) __attribute__((format(printf, 1, 2)));
+#else
 extern	STR8	String(const STR8 String, ...);
+#endif
 
 // This func is used by Assert()
 inline void _Null() { }
