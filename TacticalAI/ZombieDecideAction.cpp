@@ -1111,7 +1111,7 @@ INT8 ZombieDecideActionBlack(SOLDIERTYPE *pSoldier)
 		pSoldier->aiData.usActionData = BestAttack.sTarget;
 		pSoldier->bTargetLevel = BestAttack.bTargetLevel;
 
-		DebugAI( AI_MSG_INFO, pSoldier, String("attack opponent %d at gridno %d level %d", BestAttack.ubOpponent, pSoldier->aiData.usActionData, pSoldier->bTargetLevel));
+		DebugAI( AI_MSG_INFO, pSoldier, String("attack opponent %d at gridno %d level %d", BestAttack.ubOpponent.i, pSoldier->aiData.usActionData, pSoldier->bTargetLevel));
 
 		return(ubBestAttackAction);
 	}

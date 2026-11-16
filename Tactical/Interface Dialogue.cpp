@@ -256,7 +256,7 @@ enum
 
 BOOLEAN InitiateConversation( SOLDIERTYPE *pDestSoldier, SOLDIERTYPE *pSrcSoldier, INT8 bApproach, UINT32 uiApproachData )
 {
-	DebugQuestInfo(String("InitiateConversation: from [%d] to [%d] %d data %d", pSrcSoldier->ubID, pDestSoldier->ubID, bApproach, uiApproachData));
+	DebugQuestInfo(String("InitiateConversation: from [%d] to [%d] %d data %d", pSrcSoldier->ubID.i, pDestSoldier->ubID.i, bApproach, uiApproachData));
 
 	// ATE: OK, let's check the status of the Q
 	// If it has something in it....delay this until after....

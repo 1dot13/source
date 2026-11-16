@@ -749,7 +749,7 @@ void DisplayHiddenTurnbased( SOLDIERTYPE * pActingSoldier )
 	//JA2Gold: use function to make sure flags turned off everywhere else
 	//pActingSoldier->flags.uiStatusFlags |= SOLDIER_UNDERAICONTROL;
 	pActingSoldier->SetSoldierAsUnderAiControl(	);
-	DebugAI( String( "Giving AI control to %d", pActingSoldier->ubID ) );
+	DebugAI( String( "Giving AI control to %d", pActingSoldier->ubID.i ) );
 	pActingSoldier->flags.fTurnInProgress = TRUE;
 	gTacticalStatus.uiTimeSinceMercAIStart = GetJA2Clock();	
 	gtTimeSinceMercAIStart = time(0);	// sevenfm: also remember system time

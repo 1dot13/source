@@ -21926,7 +21926,7 @@ void SoldierCollapse( SOLDIERTYPE *pSoldier )
 		if ( (gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT) && (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL) )
 		{
 #ifdef TESTAICONTROL
-			DebugAI( String( "Ending turn for %d because of error from HandleItem", pSoldier->ubID ) );
+			DebugAI( String( "Ending turn for %d because of error from HandleItem", pSoldier->ubID.i ) );
 #endif
 
 			EndAIGuysTurn( pSoldier );

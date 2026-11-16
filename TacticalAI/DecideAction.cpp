@@ -2888,7 +2888,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 				// start retreating for several turns
 				if (BestThrow.ubOpponent != NOBODY && !BestThrow.ubOpponent->IsFlanking())
 				{
-					DebugAI(AI_MSG_INFO, pSoldier, String("start retreat counter for %d", BestThrow.ubOpponent));
+					DebugAI(AI_MSG_INFO, pSoldier, String("start retreat counter for %d", BestThrow.ubOpponent.i));
 					BestThrow.ubOpponent->RetreatCounterStart(2);
 				}
 
@@ -2917,7 +2917,7 @@ INT8 DecideActionRed(SOLDIERTYPE *pSoldier)
 					pSoldier->aiData.bAimTime = BestThrow.ubAimTime;
 				}
 
-				DebugAI(AI_MSG_INFO, pSoldier, String("throw smoke grenade to cover friend %d at spot %d level %d", BestThrow.ubOpponent, BestThrow.sTarget, BestThrow.bTargetLevel));
+				DebugAI(AI_MSG_INFO, pSoldier, String("throw smoke grenade to cover friend %d at spot %d level %d", BestThrow.ubOpponent.i, BestThrow.sTarget, BestThrow.bTargetLevel));
 
 				return(AI_ACTION_TOSS_PROJECTILE);
 			}
@@ -6673,7 +6673,7 @@ L_NEWAIM:
 				pSoldier->bWeaponMode = WM_BURST;
 		}
 
-		DebugAI(AI_MSG_INFO, pSoldier, String("prepare attack at target %d level %d aim %d ap %d cth %d opponent %d", BestAttack.sTarget, BestAttack.bTargetLevel, BestAttack.ubAimTime, BestAttack.ubAPCost, BestAttack.ubChanceToReallyHit, BestAttack.ubOpponent));
+		DebugAI(AI_MSG_INFO, pSoldier, String("prepare attack at target %d level %d aim %d ap %d cth %d opponent %d", BestAttack.sTarget, BestAttack.bTargetLevel, BestAttack.ubAimTime, BestAttack.ubAPCost, BestAttack.ubChanceToReallyHit, BestAttack.ubOpponent.i));
 
 		if (ubBestAttackAction == AI_ACTION_FIRE_GUN)
 		{
@@ -6837,7 +6837,7 @@ L_NEWAIM:
 
 		SoldierID ubOpponentID;
 		sClosestOpponent = ClosestKnownOpponent(pSoldier, NULL, NULL, &ubOpponentID);
-		DebugAI(AI_MSG_INFO, pSoldier, String("boxer: found closest opponent [%d] at %d", ubOpponentID, sClosestOpponent));
+		DebugAI(AI_MSG_INFO, pSoldier, String("boxer: found closest opponent [%d] at %d", ubOpponentID.i, sClosestOpponent));
 
 		if ( !TileIsOutOfBounds(sClosestOpponent) && ubOpponentID != NOBODY )
 		{
@@ -10354,7 +10354,7 @@ void LogDecideInfo(SOLDIERTYPE *pSoldier)
 	DebugAI(AI_MSG_INFO, pSoldier, String("AP=%d/%d %s %s %s %s %s", pSoldier->bActionPoints, pSoldier->bInitialActionPoints, gStr8AlertStatus[pSoldier->aiData.bAlertStatus], gStr8Orders[pSoldier->aiData.bOrders], gStr8Attitude[pSoldier->aiData.bAttitude], gStr8Team[pSoldier->bTeam], gStr8Class[pSoldier->ubSoldierClass]));
 	DebugAI(AI_MSG_INFO, pSoldier, String("Health %d/%d Breath %d/%d Shock %d Tolerance %d AI Morale %d Morale %d", pSoldier->stats.bLife, pSoldier->stats.bLifeMax, pSoldier->bBreath, pSoldier->bBreathMax, pSoldier->aiData.bShock, CalcSuppressionTolerance(pSoldier), pSoldier->aiData.bAIMorale, pSoldier->aiData.bMorale));
 	DebugAI(AI_MSG_INFO, pSoldier, String("Spot %d level %d opponents %d", pSoldier->sGridNo, pSoldier->pathing.bLevel, pSoldier->aiData.bOppCnt));
-	DebugAI(AI_MSG_INFO, pSoldier, String("ubServiceCount %d ubServicePartner %d fDoingSurgery %d", pSoldier->ubServiceCount, pSoldier->ubServicePartner, pSoldier->fDoingSurgery));
+	DebugAI(AI_MSG_INFO, pSoldier, String("ubServiceCount %d ubServicePartner %d fDoingSurgery %d", pSoldier->ubServiceCount, pSoldier->ubServicePartner.i, pSoldier->fDoingSurgery));
 	if (pSoldier->IsCowering())
 	{
 		DebugAI(AI_MSG_INFO, pSoldier, String("Cowering"));
