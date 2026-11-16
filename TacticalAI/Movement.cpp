@@ -873,13 +873,13 @@ void HaltMoveForSoldierOutOfPoints(SOLDIERTYPE *pSoldier)
 	pSoldier->AdjustNoAPToFinishMove( TRUE );
 
 	// We'll keep his action intact though...
-	DebugAI( String("NO AP TO FINISH MOVE for %d (%d APs left)",pSoldier->ubID, pSoldier->bActionPoints) );
+	DebugAI( String("NO AP TO FINISH MOVE for %d (%d APs left)",pSoldier->ubID.i, pSoldier->bActionPoints) );
 
 	// if this dude is under AI right now, then pass the baton to someone else
 	if (pSoldier->flags.uiStatusFlags & SOLDIER_UNDERAICONTROL)
 	{
 		#ifdef TESTAICONTROL
-			DebugAI( String("Ending turn for %d because out of APs for movement", pSoldier->ubID ) );
+			DebugAI( String("Ending turn for %d because out of APs for movement", pSoldier->ubID.i ) );
 		#endif
 
 		EndAIGuysTurn(pSoldier);

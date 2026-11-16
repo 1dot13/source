@@ -1829,7 +1829,7 @@ INT32 FindNearbyDarkerSpot(SOLDIERTYPE *pSoldier)
 INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 {
 	DebugMsg(TOPIC_JA2AI,DBG_LEVEL_3,String("SearchForItems"));
-	DebugAI(AI_MSG_INFO, pSoldier, String("SearchForItems [%d] bReason %d usItem %d", pSoldier->ubID, bReason, usItem));
+	DebugAI(AI_MSG_INFO, pSoldier, String("SearchForItems [%d] bReason %d usItem %d", pSoldier->ubID.i, bReason, usItem));
 
 	INT32					iSearchRange;
 	INT16					sMaxLeft, sMaxRight, sMaxUp, sMaxDown, sXOffset, sYOffset;
@@ -2200,7 +2200,7 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 	
 	if (!TileIsOutOfBounds(sBestSpot))
 	{
-		DebugAI(AI_MSG_INFO, pSoldier, String("%d decides to pick up %S", pSoldier->ubID, ItemNames[gWorldItems[iBestItemIndex].object.usItem]));
+		DebugAI(AI_MSG_INFO, pSoldier, String("%d decides to pick up %S", pSoldier->ubID.i, ItemNames[gWorldItems[iBestItemIndex].object.usItem]));
 		if (Item[gWorldItems[ iBestItemIndex ].object.usItem].usItemClass == IC_GUN)
 		{
 			//CHRISL: This is the line from ADB's code but I removed it, for now, to match what 0verhaul has been working on
@@ -2214,14 +2214,14 @@ INT8 SearchForItems( SOLDIERTYPE * pSoldier, INT8 bReason, UINT16 usItem )
 				if (pSoldier->inv[HANDPOS].fFlags & OBJECT_UNDROPPABLE)
 				{
 					// destroy this item!
-					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first so destroys it", pSoldier->ubID, ItemNames[pSoldier->inv[HANDPOS].usItem]));
+					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first so destroys it", pSoldier->ubID.i, ItemNames[pSoldier->inv[HANDPOS].usItem]));
 					DeleteObj( &(pSoldier->inv[HANDPOS]) );
 					DeductPoints( pSoldier, GetBasicAPsToPickupItem( pSoldier ), 0, AFTERACTION_INTERRUPT );
 				}
 				else
 				{
 					// we want to drop this item!
-					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first", pSoldier->ubID, ItemNames[pSoldier->inv[HANDPOS].usItem]));
+					DebugAI(AI_MSG_INFO, pSoldier, String("%d decides he must drop %S first", pSoldier->ubID.i, ItemNames[pSoldier->inv[HANDPOS].usItem]));
 
 					pSoldier->aiData.bNextAction = AI_ACTION_PICKUP_ITEM;
 					pSoldier->aiData.usNextActionData = sBestSpot;

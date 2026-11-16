@@ -3454,7 +3454,7 @@ static int l_gubBoxerID(lua_State* L)
 		if (val <= 2)
 		{
 			gubBoxerID[val] = val2;
-			DebugQuestInfo(String("Lua: set gubBoxerID[%d] %d", val, gubBoxerID[val]));
+			DebugQuestInfo(String("Lua: set gubBoxerID[%d] %d", val, gubBoxerID[val].i));
 		}
 	}
 
@@ -9343,7 +9343,7 @@ static int l_ResetBoxers(lua_State* L)
 		gubBoxerID[i] = NOBODY;
 		// sevenfm: keep gfBoxerFought[] unchanged as it will be reset every day at 16:00 by HourlyQuestUpdate(), HourlyUpdate.lua		
 		//gfBoxerFought[i] = FALSE;
-		DebugQuestInfo(String("Lua: reset boxer gubBoxerID[%d] %d", i, gubBoxerID[i]));
+		DebugQuestInfo(String("Lua: reset boxer gubBoxerID[%d] %d", i, gubBoxerID[i].i));
 	}
 
 	return 0;
@@ -9363,7 +9363,7 @@ static int l_HealBoxers(lua_State* L)
 		// erase insta-healable injury 
 		gubBoxerID[i]->iHealableInjury = 0;
 
-		DebugQuestInfo(String("Lua: healed gubBoxerID[%d] %d back to full health", i, gubBoxerID[i]));
+		DebugQuestInfo(String("Lua: healed gubBoxerID[%d] %d back to full health", i, gubBoxerID[i].i));
 	}
 
 	return 0;
