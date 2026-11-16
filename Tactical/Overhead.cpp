@@ -9134,7 +9134,7 @@ static void HandleSuppressionFire( SoldierID ubTargetedMerc, SoldierID ubCausedA
                 if ((gTacticalStatus.uiFlags & TURNBASED) && (gTacticalStatus.uiFlags & INCOMBAT))
                 {
                     DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String("!!!!!!! Starting suppression, on %d", pSoldier->ubID ) );
-                    DebugAttackBusy( String("!!!!!!! Starting suppression, on %d\n", pSoldier->ubID ) );
+                    DebugAttackBusy( String("!!!!!!! Starting suppression, on %d\n", pSoldier->ubID.i ) );
                     //gTacticalStatus.ubAttackBusyCount++;
 
                     // make sure suppressor ID is the same!
@@ -9155,7 +9155,7 @@ static void HandleSuppressionFire( SoldierID ubTargetedMerc, SoldierID ubCausedA
                 pSoldier->flags.fInNonintAnim = FALSE;
                 pSoldier->flags.fRTInNonintAnim = FALSE;
                 gTacticalStatus.ubAttackBusyCount++;
-                DebugAttackBusy( String( "Attack busy %d due to suppression fire on %d\n", gTacticalStatus.ubAttackBusyCount, pSoldier->ubID ));
+                DebugAttackBusy( String( "Attack busy %d due to suppression fire on %d\n", gTacticalStatus.ubAttackBusyCount, pSoldier->ubID.i ));
 
 				// sevenfm: switch scope mode as alt holding can only be used in standing stance
 				if (pSoldier->bScopeMode == USE_ALT_WEAPON_HOLD)
@@ -9567,7 +9567,7 @@ static SOLDIERTYPE *InternalReduceAttackBusyCount( )
 
     ubID = pSoldier->ubID;
 
-    DebugAttackBusy( String( "Ending action for %d\n", ubID ) );
+    DebugAttackBusy( String( "Ending action for %d\n", ubID.i ) );
     // Get the intended target info
     pTarget = NULL;
     if (pSoldier->ubTargetID != NOBODY)

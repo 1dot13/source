@@ -4232,15 +4232,15 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	{
 		if ( uiNewAnimFlags & ANIM_ATTACK ) {
 			gTacticalStatus.ubAttackBusyCount++;
-			DebugAttackBusy( String( "**** Attack animation transfer to %s for %d.\nABC now %d\n", gAnimControl[usNewState].zAnimStr, this->ubID, gTacticalStatus.ubAttackBusyCount ) );
+			DebugAttackBusy( String( "**** Attack animation transfer to %s for %d.\nABC now %d\n", gAnimControl[usNewState].zAnimStr, this->ubID.i, gTacticalStatus.ubAttackBusyCount ) );
 		} else if (uiOldAnimFlags & ANIM_ATTACK || this->flags.fChangingStanceDueToSuppression ) {
-			DebugAttackBusy( String( "**** Transfer to %s for %d.\n", gAnimControl[usNewState].zAnimStr, this->ubID ) );
+			DebugAttackBusy( String( "**** Transfer to %s for %d.\n", gAnimControl[usNewState].zAnimStr, this->ubID.i ) );
 		}
 		if ( uiOldAnimFlags & ANIM_ATTACK ) {
-			DebugAttackBusy( String( "**** Attack animation transfer from %s for %d.  Reducing ABC.\n", gAnimControl[this->usOldAniState].zAnimStr, this->ubID ) );
+			DebugAttackBusy( String( "**** Attack animation transfer from %s for %d.  Reducing ABC.\n", gAnimControl[this->usOldAniState].zAnimStr, this->ubID.i ) );
 			ReduceAttackBusyCount( );
 		} else if (uiNewAnimFlags & ANIM_ATTACK  || this->flags.fChangingStanceDueToSuppression ) {
-			DebugAttackBusy( String( "**** Transfer from %s for %d\n", gAnimControl[this->usOldAniState].zAnimStr, this->ubID ) );
+			DebugAttackBusy( String( "**** Transfer from %s for %d\n", gAnimControl[this->usOldAniState].zAnimStr, this->ubID.i ) );
 		}
 	}
 
@@ -4248,7 +4248,7 @@ BOOLEAN SOLDIERTYPE::EVENT_InitNewSoldierAnim( UINT16 usNewState, UINT16 usStart
 	{
 		this->flags.fChangingStanceDueToSuppression = FALSE;
 		DebugMsg( TOPIC_JA2, DBG_LEVEL_3, String( "@@@@@@@ Freeing up attacker - end of suppression stance change" ) );
-		DebugAttackBusy( String( "@@@@@@@ Freeing up attacker - end of suppression stance change for %d\n", this->ubID ) );
+		DebugAttackBusy( String( "@@@@@@@ Freeing up attacker - end of suppression stance change for %d\n", this->ubID.i ) );
 		ReduceAttackBusyCount( );
 	}
 
@@ -9426,7 +9426,7 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 			ubWhoIsThere = WhoIsThere2(NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection)), 1);
 			if (ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID)
 			{
-				DebugAttackBusy(String("Soldier %d tried to climb up on someone.\n", this->ubID));
+				DebugAttackBusy(String("Soldier %d tried to climb up on someone.\n", this->ubID.i));
 				this->aiData.bAction = AI_ACTION_NONE;
 				return;
 			}
@@ -9482,13 +9482,13 @@ void SOLDIERTYPE::BeginSoldierClimbUpRoof(void)
 		}
 		else
 		{
-			DebugAttackBusy(String("Soldier %d tried to climb without AP.\n", this->ubID));
+			DebugAttackBusy(String("Soldier %d tried to climb without AP.\n", this->ubID.i));
 			this->aiData.bAction = AI_ACTION_NONE;
 		}
 	}
 	else
 	{
-		DebugAttackBusy(String("Soldier %d tried to climb where no roof is.\n", this->ubID));
+		DebugAttackBusy(String("Soldier %d tried to climb where no roof is.\n", this->ubID.i));
 		this->aiData.bAction = AI_ACTION_NONE;
 	}
 }
@@ -11286,7 +11286,7 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof(void)
 			ubWhoIsThere = WhoIsThere2(NewGridNo(this->sGridNo, (UINT16)DirectionInc(bNewDirection)), 0);
 			if (ubWhoIsThere != NOBODY && ubWhoIsThere != this->ubID)
 			{
-				DebugAttackBusy(String("Soldier %d tried to climb down on someone.\n", this->ubID));
+				DebugAttackBusy(String("Soldier %d tried to climb down on someone.\n", this->ubID.i));
 				this->aiData.bAction = AI_ACTION_NONE;
 				return;
 			}
@@ -11318,13 +11318,13 @@ void SOLDIERTYPE::BeginSoldierClimbDownRoof(void)
 		}
 		else
 		{
-			DebugAttackBusy(String("Soldier %d tried to climb down without AP.\n", this->ubID));
+			DebugAttackBusy(String("Soldier %d tried to climb down without AP.\n", this->ubID.i));
 			this->aiData.bAction = AI_ACTION_NONE;
 		}
 	}
 	else
 	{
-		DebugAttackBusy(String("Soldier %d tried to climb down where no roof is.\n", this->ubID));
+		DebugAttackBusy(String("Soldier %d tried to climb down where no roof is.\n", this->ubID.i));
 		this->aiData.bAction = AI_ACTION_NONE;
 	}
 }
