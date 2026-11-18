@@ -51,6 +51,7 @@ INT32 ghMilitiaControlBox = -1;
 
 // the x,y position of assignment pop up in tactical
 INT16 gsMilitiaControlBoxesX, gsMilitiaControlBoxesY;
+static const INT16 MILITIA_CONTROL_BOX_MERC_OFFSET_X = 30;
 //INT16 gsTalkToAllBoxesX, gsTalkToAllBoxesY;
 
 // assignment menu mouse regions
@@ -80,9 +81,7 @@ void HandleShadingOfLinesForMilitiaControlMenu( void );
 
 void PositionCursorForMilitiaControlBox( void );
 
-void RepositionMouseRegionsForMilitiaControl( void );
 
-void CheckAndUpdateTacticalMilitiaControlPopUpPositions( void );
 
 
 // create assignments box
@@ -588,12 +587,6 @@ void CreateDestroyMouseRegionsForMilitiaControlMenu( void )
 {
 	static BOOLEAN fCreated = FALSE;
 	UINT32 iCounter = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition;
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions;
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
 	if( ( fShowMilitiaControlMenu == TRUE ) && ( fCreated == FALSE ) )
@@ -609,22 +602,6 @@ void CreateDestroyMouseRegionsForMilitiaControlMenu( void )
 
 		//if( pSoldier -> ubWhatKindOfMercAmI != MERC_TYPE__EPC ) //laltodo
 		{
-			// grab height of font
-			iFontHeight = GetLineSpace( ghMilitiaControlBox ) + GetFontHeight( GetBoxFont( ghMilitiaControlBox ) ); 
-
-			// get x.y position of box
-			GetBoxPosition( ghMilitiaControlBox, &pPosition);
-
-			// grab box x and y position
-			iBoxXPosition = pPosition.iX;
-			iBoxYPosition = pPosition.iY;
-
-			// get dimensions..mostly for width
-			GetBoxSize( ghMilitiaControlBox, &pDimensions );
-
-			// get width
-			iBoxWidth = pDimensions.iRight;
-
 			SetCurrentBox( ghMilitiaControlBox );
 		}
 		
@@ -633,8 +610,7 @@ void CreateDestroyMouseRegionsForMilitiaControlMenu( void )
 		for( iCounter = 0; iCounter < GetNumberOfLinesOfTextInBox( ghMilitiaControlBox ); iCounter++ )
 		{
 			// add mouse region for each line of text..and set user data
-			MSYS_DefineRegion( &gMilitiaControlMenuRegion[ iCounter ], 	( INT16 )( iBoxXPosition ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMilitiaControlBox ) + ( iFontHeight ) * iCounter ), ( INT16 )( iBoxXPosition + iBoxWidth ), ( INT16 )( iBoxYPosition + GetTopMarginSize( ghMilitiaControlBox ) + ( iFontHeight ) * ( iCounter + 1 ) ), MSYS_PRIORITY_HIGHEST - 4 ,
-							 MSYS_NO_CURSOR, MilitiaControlMenuMvtCallBack, MilitiaControlMenuBtnCallBack );
+			DefineBoxLineRegion( &gMilitiaControlMenuRegion[ iCounter ], ghMilitiaControlBox, iCounter, MSYS_PRIORITY_HIGHEST - 4, MilitiaControlMenuMvtCallBack, MilitiaControlMenuBtnCallBack );
 
 			MSYS_SetRegionUserData( &gMilitiaControlMenuRegion[ iCounter ], 0, iCounter );
 		}
@@ -644,7 +620,7 @@ void CreateDestroyMouseRegionsForMilitiaControlMenu( void )
 
 		// unhighlight all strings in box
 		UnHighLightBox( ghMilitiaControlBox );
-		CheckAndUpdateTacticalMilitiaControlPopUpPositions( );
+		DetermineMilitiaControlBoxPositions( );
 
 		//PositionCursorForMilitiaControlBox( );
 	}
@@ -785,62 +761,46 @@ BOOLEAN CreateDestroyMilitiaControlPopUpBoxes( void )
 
 void DetermineMilitiaControlBoxPositions( void )
 {
-	// depending on how many boxes there are, reposition as needed
-	SGPPoint pPoint;
-	SGPPoint pNewPoint;
-	SGPRect pDimensions;
-	SOLDIERTYPE *pSoldier = NULL;
-
-
 	if( ( fShowMilitiaControlMenu == FALSE ) || ( ghMilitiaControlBox == -1 ) )
 	{
 		return;
 	}
 
-	pSoldier = GetSelectedAssignSoldier( TRUE );
 	// pSoldier NULL is legal here!  Gets called during every mapscreen initialization even when nobody is assign char
-	if ( pSoldier == NULL )
+	if ( GetSelectedAssignSoldier( TRUE ) == NULL )
 	{
 		return;
 	}
 
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
+	SGPPoint before, after;
+	GetBoxPosition( ghMilitiaControlBox, &before );
+
+	SGPRect bounds = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	SGPPoint anchor = before;
+
+	if ( !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
 	{
-		GetBoxPosition( ghMilitiaControlBox, &pPoint );
-		gsMilitiaControlBoxesX = ( INT16 )pPoint.iX;
-		gsMilitiaControlBoxesY = ( INT16 )pPoint.iY;
+		bounds.iBottom = gsVIEWPORT_WINDOW_END_Y;
+		anchor.iX = gsMilitiaControlBoxesX;
+		anchor.iY = gsMilitiaControlBoxesY;
+
+		SGPRect size;
+		GetBoxSize( ghMilitiaControlBox, &size );
+		if ( anchor.iX + size.iRight > bounds.iRight )
+		{
+			anchor.iX -= MILITIA_CONTROL_BOX_MERC_OFFSET_X + size.iRight;
+		}
 	}
 
-	pPoint.iX = gsMilitiaControlBoxesX;
-	pPoint.iY = gsMilitiaControlBoxesY;
+	PlaceBox( ghMilitiaControlBox, anchor, bounds );
+	MoveBoxLineRegions( gMilitiaControlMenuRegion, min( GetNumberOfLinesOfTextInBox( ghMilitiaControlBox ), (UINT32)MAX_MILCON_STRING_COUNT ), ghMilitiaControlBox );
 
-	
-	SetBoxPosition( ghMilitiaControlBox, pPoint );
-	GetBoxSize( ghMilitiaControlBox, &pDimensions );
-	
-
-	// hang it right beside the MilitiaControl/EPC box menu
-	pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-	pNewPoint.iY = pPoint.iY;
-
-
-
-	//if( ( fShowTalkToAllMenu == TRUE ) && ( ghTalkToAllBox != -1 ) )
-	//{
-	//	pNewPoint.iY += ( ( GetFontHeight( MAP_SCREEN_FONT ) + 2 ) * MILCON_MENU_ALL );
-	//	SetBoxPosition( ghTalkToAllBox, pNewPoint );
-	//	TrainPosition.iX = pNewPoint.iX;
-	//	TrainPosition.iY = pNewPoint.iY;
-	//	OrigTrainPosition.iY = pNewPoint.iY;
-	//	OrigTrainPosition.iX = pNewPoint.iX;
-
-	//	GetBoxSize( ghTalkToAllBox, &pDimensions );
-	//	GetBoxPosition( ghTalkToAllBox, &pPoint );
-	//}
-
-	return;
+	GetBoxPosition( ghMilitiaControlBox, &after );
+	if ( ( before.iX != after.iX || before.iY != after.iY ) && !( guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
+	{
+		SetRenderFlags( RENDER_FLAG_FULL );
+	}
 }
-
 
 
 void SetTacticalPopUpMilitiaControlBoxXY( SOLDIERTYPE *pSoldier )
@@ -868,7 +828,7 @@ void SetTacticalPopUpMilitiaControlBoxXY( SOLDIERTYPE *pSoldier )
 		sX = 0;
 	}
 
-	gsMilitiaControlBoxesX = sX + 30;
+	gsMilitiaControlBoxesX = sX + MILITIA_CONTROL_BOX_MERC_OFFSET_X;
 	
 	if( sY < 0 )
 	{
@@ -877,96 +837,8 @@ void SetTacticalPopUpMilitiaControlBoxXY( SOLDIERTYPE *pSoldier )
 	
 	gsMilitiaControlBoxesY = sY;
 
-	// ATE: Check if we are past tactical viewport....
-	// Use estimate width's/heights
-	if ( ( gsMilitiaControlBoxesX + 100 ) > SCREEN_WIDTH )
-	{
-		gsMilitiaControlBoxesX = SCREEN_WIDTH - 100;
-	}
-
-	if ( ( gsMilitiaControlBoxesY + 130 ) > SCREEN_HEIGHT )
-	{
-		gsMilitiaControlBoxesY = SCREEN_HEIGHT - 190;
-	}
-
 	return;
 }
-
-
-void CheckAndUpdateTacticalMilitiaControlPopUpPositions( void )
-{
-	SGPRect pDimensions2;
-	SGPPoint pPoint;	
-	//SOLDIERTYPE *pSoldier = NULL;
-
-
-	if( fShowMilitiaControlMenu == FALSE )
-	{
-		return;
-	}
-
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
-	{
-		return;
-	}
-
-	//get the soldier
-	//pSoldier = GetSelectedAssignSoldier( FALSE );
-
-	//if( pSoldier -> ubWhatKindOfMercAmI == MERC_TYPE__EPC ) //laltodo
-	{
-		GetBoxSize( ghMilitiaControlBox, &pDimensions2 );
-	}
-
-	// just the MilitiaControl box
-	if( gsMilitiaControlBoxesX + pDimensions2.iRight  >= SCREEN_WIDTH ) 
-	{
-		gsMilitiaControlBoxesX = ( INT16 ) ( SCREEN_WIDTH - 1 - ( pDimensions2.iRight  ) );
-		SetRenderFlags( RENDER_FLAG_FULL );
-	}
-
-	if( gsMilitiaControlBoxesY + pDimensions2.iBottom  >= SCREEN_HEIGHT-120 )
-	{
-		gsMilitiaControlBoxesY = ( INT16 )( SCREEN_HEIGHT - 121 - ( pDimensions2.iBottom  ) );
-		SetRenderFlags( RENDER_FLAG_FULL );
-	}
-
-	pPoint.iX = gsMilitiaControlBoxesX;
-	pPoint.iY = gsMilitiaControlBoxesY;
-
-	//if( pSoldier -> ubWhatKindOfMercAmI != MERC_TYPE__EPC) //laltodo
-	{
-		SetBoxPosition( ghMilitiaControlBox, pPoint );
-	}
-
-	RepositionMouseRegionsForMilitiaControl( );
-}
-
-
-void RepositionMouseRegionsForMilitiaControl( void )
-{
-	INT16 sDeltaX, sDeltaY;
-	INT32 iCounter = 0;
-
-	if( fShowMilitiaControlMenu == TRUE )
-	{
-		sDeltaX = gsMilitiaControlBoxesX - gMilitiaControlMenuRegion[ 0 ].RegionTopLeftX;
-		sDeltaY = ( INT16 ) ( gsMilitiaControlBoxesY - gMilitiaControlMenuRegion[ 0 ].RegionTopLeftY + GetTopMarginSize( ghMilitiaControlBox ) );
-
-		// find the delta from the old to the new, and alter values accordingly
-		for( iCounter = 0; iCounter < ( INT32 )GetNumberOfLinesOfTextInBox( ghMilitiaControlBox ); iCounter++ )
-		{
-			gMilitiaControlMenuRegion[ iCounter ].RegionTopLeftX += sDeltaX;
-			gMilitiaControlMenuRegion[ iCounter ].RegionTopLeftY += sDeltaY;
-
-			gMilitiaControlMenuRegion[ iCounter ].RegionBottomRightX += sDeltaX;
-			gMilitiaControlMenuRegion[ iCounter ].RegionBottomRightY += sDeltaY;
-		}
-
-		gfPausedTacticalRenderFlags = RENDER_FLAG_FULL;
-	}
-}
-
 
 
 void PositionCursorForMilitiaControlBox( void )

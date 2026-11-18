@@ -265,10 +265,7 @@ void POPUP_SUB_POPUP_OPTION::showPopup()
 	// check if it's available at this time, if there is an avail function set
 	if ( !this->AvailabilityFunctionSet() || this->checkAvailability() )
 	{
-		if (!this->customPositionSet || this->customRule == POPUP_POSITION_RELATIVE) {
-			this->positionSubPopup();
-		}
-
+		this->subPopup->anchorTo( this->parent, this->parent->lineOf( this ) );
 		this->subPopup->show();
 	}
 }
@@ -278,22 +275,6 @@ void POPUP_SUB_POPUP_OPTION::hidePopup()
 	this->subPopup->hide();
 }
 
-void POPUP_SUB_POPUP_OPTION::positionSubPopup()
-{
-	INT16 x,y;
-
-	if( this->customPositionSet )
-	{
-		x = this->parent->X + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + this->customX;
-		y = this->parent->Y + this->customY;
-	} else {
-		x = this->parent->X + this->parent->Dimensions.iLeft + this->parent->Dimensions.iRight + 10;
-		y = this->parent->Y + 10;
-	}
-
-	this->subPopup->setPosition(x,y);
-}
-
 BOOLEAN POPUP_SUB_POPUP_OPTION::run()
 {
 	//cout << "running function " << utf8string::as_utf8(this->name.c_str()).c_str() << endl;
@@ -301,22 +282,6 @@ BOOLEAN POPUP_SUB_POPUP_OPTION::run()
 
 	return TRUE;
 }
-
-BOOLEAN POPUP_SUB_POPUP_OPTION::setPopupPosition(UINT16 x,	UINT16 y, INT8 positioningRule){
-	this->customPositionSet = true;
-
-	if (positioningRule != POPUP_POSITION_RELATIVE){
-		return this->subPopup->setPosition(x,y,positioningRule);
-	} else {
-		this->customX = x;
-		this->customY = y;
-		this->customRule = positioningRule;
-		return this->subPopup->setPosition(this->parent->X + this->parent->Dimensions.iRight + x, this->parent->Y + y,POPUP_POSITION_TOP_LEFT);
-	}
-}
-
-
-
 
 static void shadeOpenSubPopup( POPUP_SUB_POPUP_OPTION * opt ){
 	// make the option yellow while its open
@@ -344,8 +309,6 @@ void POPUP_SUB_POPUP_OPTION::initSubPopup()
 	this->subPopup = new POPUP( (CHAR*) std::wstring(this->name).c_str() );
 	this->subPopup->setCallback(POPUP_CALLBACK_SHOW,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &shadeOpenSubPopup, this ));
 	this->subPopup->setCallback(POPUP_CALLBACK_HIDE,new popupCallbackFunction<void,POPUP_SUB_POPUP_OPTION*>( &unShadeOpenSubPopup, this ));
-
-	this->customPositionSet = false;
 
 	// set highlight color
 	this->color_highlight = FONT_WHITE;
@@ -539,6 +502,9 @@ void POPUP::setInitialValues(void)
 	this->Y =	20;
 
 	this->positioningRule = POPUP_POSITION_TOP_LEFT;
+	this->anchorParent = NULL;
+	this->anchorLine = 0;
+	this->side = 1;
 
 	//int i = 0;
 	//for (i=0; i<POPUP_MAX_OPTIONS; i++)
@@ -711,6 +677,7 @@ BOOLEAN POPUP::setPosition(UINT16 x, UINT16 y, UINT8 positioningRule )
 	this->OrigPosition.iY = y ;
 
 	this->positioningRule = positioningRule;
+	this->anchorParent = NULL;
 
 	#ifdef JA2TESTVERSION
 		CHAR8 debugStr[120];
@@ -719,6 +686,22 @@ BOOLEAN POPUP::setPosition(UINT16 x, UINT16 y, UINT8 positioningRule )
 	#endif
 
 	return TRUE;
+}
+
+void POPUP::anchorTo( const POPUP *parent, UINT32 uiParentLine )
+{
+	this->anchorParent = parent;
+	this->anchorLine = uiParentLine;
+}
+
+UINT32 POPUP::lineOf( const POPUP_SUB_POPUP_OPTION *option ) const
+{
+	UINT32 uiLine = 0;
+	while ( uiLine < this->subPopupOptions.size() && this->subPopupOptions[uiLine] != option )
+	{
+		++uiLine;
+	}
+	return uiLine;
 }
 
 //////////////////////////////////
@@ -746,8 +729,6 @@ BOOLEAN POPUP::show()
 	// create all the GUI areas
 	this->CreateScreenMask();
 	this->CreateMouseRegions();
-	// make SURE the regions have been repositioned
-	this->CheckAndUpdateTacticalPopUpPositions();
 	// shade unavaliable options
 	this->HandleShadingOfLines();
 	
@@ -844,8 +825,6 @@ BOOLEAN POPUP::forceDraw(){
 	// create all the GUI areas
 	this->CreateScreenMask();
 	this->CreateMouseRegions();
-	// make SURE the regions have been repositioned
-	this->CheckAndUpdateTacticalPopUpPositions();
 	// shade unavaliable options
 	this->HandleShadingOfLines();
 	
@@ -938,6 +917,9 @@ void POPUP::RebuildBox( void )
 
 		// set fonts and what not
 		this->UpdateTextProperties();
+
+		// the box may have changed size
+		this->DetermineBoxPositions();
 
 		// adjust the mouse regions (might've changed substantially)
 		this->AdjustMouseRegions();
@@ -1223,36 +1205,9 @@ void POPUP::CreateMouseRegions( void )
 {
 	UINT32 iCounter = 0;
 	UINT32 iTotal = 0;
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	SGPPoint pPosition={0,0};
-	INT32 iBoxWidth = 0;
-	SGPRect pDimensions={0,0,0,0};
 	static BOOLEAN fShowRemoveMenu = FALSE;
 
 	gfIgnoreScrolling = FALSE;
-
-	if( ( guiCurrentScreen == MAP_SCREEN ) ) 
-	{
-	  SetBoxPosition( this->boxId, this->Position );
-	}
-
-	// grab height of font
-	iFontHeight = GetLineSpace( this->boxId ) + GetFontHeight( GetBoxFont( this->boxId ) ); 
-
-	// get x.y position of box
-	GetBoxPosition( this->boxId, &pPosition);
-
-	// grab box x and y position
-	iBoxXPosition = pPosition.iX;
-	iBoxYPosition = pPosition.iY;
-
-	// get dimensions..mostly for width
-	GetBoxSize( this->boxId, &pDimensions );
-
-	// get width
-	iBoxWidth = pDimensions.iRight;
 
 	SetCurrentBox( this->boxId );
 	
@@ -1261,17 +1216,7 @@ void POPUP::CreateMouseRegions( void )
 	{
 		// add mouse region for each line of text..and set user data
 		
-		MSYS_DefineRegion(	&this->MenuRegion[ iTotal ], 	
-							( INT16 )( iBoxXPosition ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + 
-							( iFontHeight ) * iTotal ), 
-							( INT16 )( iBoxXPosition + iBoxWidth ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + 
-							( iFontHeight ) * ( iTotal + 1 ) ), 
-							POPUP_OPTION_PRIORITY ,
-							MSYS_NO_CURSOR, 
-							popupMouseMoveCallback, 
-							popupMouseClickCallback );
+		DefineBoxLineRegion( &this->MenuRegion[ iTotal ], this->boxId, iTotal, POPUP_OPTION_PRIORITY, popupMouseMoveCallback, popupMouseClickCallback );
 	
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 0, iCounter );
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 1, REGION_SUB_POPUP );
@@ -1287,15 +1232,7 @@ void POPUP::CreateMouseRegions( void )
 	{
 		// add mouse region for each line of text..and set user data
 		
-		MSYS_DefineRegion(	&this->MenuRegion[ iTotal ], 	
-							( INT16 )( iBoxXPosition ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + ( iFontHeight ) * iTotal ), 
-							( INT16 )( iBoxXPosition + iBoxWidth ), 
-							( INT16 )( iBoxYPosition + GetTopMarginSize( this->boxId ) + ( iFontHeight ) * ( iTotal + 1 ) ), 
-							POPUP_OPTION_PRIORITY ,
-							MSYS_NO_CURSOR, 
-							popupMouseMoveCallback, 
-							popupMouseClickCallback );
+		DefineBoxLineRegion( &this->MenuRegion[ iTotal ], this->boxId, iTotal, POPUP_OPTION_PRIORITY, popupMouseMoveCallback, popupMouseClickCallback );
 	
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 0, iCounter );
 		MSYS_SetRegionUserData( &this->MenuRegion[ iTotal ], 1, REGION_OPTION );
@@ -1310,7 +1247,6 @@ void POPUP::CreateMouseRegions( void )
 
 	// unhighlight all strings in box
 	UnHighLightBox( this->boxId );
-	this->CheckAndUpdateTacticalPopUpPositions();
 }
 
 void POPUP::DestroyMouseRegions( void )
@@ -1328,62 +1264,7 @@ void POPUP::DestroyMouseRegions( void )
 
 void POPUP::AdjustMouseRegions( void )
 {
-	UINT32 iCounter = 0;
-	UINT32 iTotal = 0;
-
-	INT32 iFontHeight = 0;
-	INT32 iBoxXPosition = 0;
-	INT32 iBoxYPosition = 0;
-	INT32 iBoxWidth = 0;
-
-	SGPPoint pPosition={0,0};
-	SGPRect pDimensions={0,0,0,0};
-
-	// grab height of font
-	iFontHeight = GetLineSpace( this->boxId ) + GetFontHeight( GetBoxFont( this->boxId ) ); 
-
-	// get x.y position of box
-	GetBoxPosition( this->boxId, &pPosition);
-
-	// grab box x and y position
-	iBoxXPosition = pPosition.iX;
-	iBoxYPosition = pPosition.iY;
-
-	// get dimensions..mostly for width
-	GetBoxSize( this->boxId, &pDimensions );
-
-	// get width
-	iBoxWidth = pDimensions.iRight;
-
-	// adjust regions for sub popups 
-	for( iCounter = 0; iCounter < this->subPopupOptionCount ; iCounter++ )
-	{
-		this->MenuRegion[ iTotal ].RegionTopLeftX = ( INT16 )( iBoxXPosition );
-		this->MenuRegion[ iTotal ].RegionTopLeftY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * iTotal );
-
-		this->MenuRegion[ iTotal ].RegionBottomRightX = ( INT16 )( iBoxXPosition + iBoxWidth );
-		this->MenuRegion[ iTotal ].RegionBottomRightY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * ( iTotal + 1 ) );
-		iTotal++;
-	}
-
-	// adjust regions for options 
-	for( iCounter = 0; iCounter < this->optionCount ; iCounter++ )
-	{
-		this->MenuRegion[ iTotal ].RegionTopLeftX = ( INT16 )( iBoxXPosition );
-		this->MenuRegion[ iTotal ].RegionTopLeftY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * iTotal );
-
-		this->MenuRegion[ iTotal ].RegionBottomRightX = ( INT16 )( iBoxXPosition + iBoxWidth );
-		this->MenuRegion[ iTotal ].RegionBottomRightY = ( INT16 )( iBoxYPosition 
-												+ GetTopMarginSize( this->boxId ) 
-												+ ( iFontHeight ) * ( iTotal + 1 ) );
-		iTotal++;
-	}
+	MoveBoxLineRegions( this->MenuRegion, min( this->subPopupOptionCount + this->optionCount, POPUP_MAX_OPTIONS ), this->boxId );
 }
 
 void POPUP::ScreenMaskBtnCallback(MOUSE_REGION * pRegion, INT32 iReason )
@@ -1573,161 +1454,50 @@ void POPUP::HandleShadingOfLines( void )
 
 void POPUP::DetermineBoxPositions( void )
 {
-	// depending on how many boxes there are, reposition as needed
-	SGPPoint pPoint;
-	SGPPoint pNewPoint;
-	SGPRect pDimensions;
-
 	if( ( this->PopupVisible == FALSE ) || ( this->boxId == -1 ) )
 	{
 		return;
 	}
 
-	// get an idea about what size the box ought to be
-	pPoint.iX = 0;
-	pPoint.iY = 0;
+	const SGPRect screen = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 
-	SetBoxPosition( this->boxId, pPoint );
-	GetBoxSize( this->boxId, &pDimensions );
+	ResizeBoxToText( this->boxId );
 
-	INT32 boxWidth = pDimensions.iRight;
-	INT32 boxHeight = pDimensions.iBottom;
-
-	/*
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
+	if ( this->anchorParent && this->anchorParent->boxId != -1 )
 	{
-		GetBoxPosition( this->boxId, &pPoint );
-		this->BoxesX = ( INT16 )pPoint.iX;
-		this->BoxesY = ( INT16 )pPoint.iY;
+		this->side = PlaceBoxBeside( this->boxId, this->anchorParent->boxId, this->anchorLine, this->anchorParent->side, screen );
 	}
-	*/
-
-	switch (this->positioningRule){
-		case POPUP_POSITION_TOP_LEFT:
-
-			pPoint.iX = this->OrigPosition.iX;
-			pPoint.iY = this->OrigPosition.iY;
-
-			break;
-
-		case POPUP_POSITION_TOP_RIGHT:
-
-			pPoint.iX = this->OrigPosition.iX - boxWidth;
-			pPoint.iY = this->OrigPosition.iY;
-
-			break;
-
-		case POPUP_POSITION_BOTTOM_RIGHT:
-
-			pPoint.iX = this->OrigPosition.iX - boxWidth;
-			pPoint.iY = this->OrigPosition.iY - boxHeight;
-
-			break;
-
-		case POPUP_POSITION_BOTTOM_LEFT:
-
-			pPoint.iX = this->OrigPosition.iX;
-			pPoint.iY = this->OrigPosition.iY - boxHeight;
-
-			break;
-
-		default:
-			#ifdef JA2TESTVERSION
-				CHAR8 debugStr[120];
-				wsprintf(debugStr,"Incorrect positioning rule for box id: %i \n",this->boxId);
-				OutputDebugString( debugStr );
-			#endif
-
-			// assume default
-			pPoint.iX = this->OrigPosition.iX;
-			pPoint.iY = this->OrigPosition.iY;
-
-			return;
-	}
-
-	// Flugente: fix obvious errors
-	pPoint.iX = max( pPoint.iX, 0 );
-	pPoint.iX = min( pPoint.iX, SCREEN_WIDTH );
-
-	pPoint.iY = max( pPoint.iY, 0 );
-	pPoint.iY = min( pPoint.iY, SCREEN_HEIGHT );
-
-	// set all the other positions to match this one
-	this->Position = pPoint;
-	this->BoxesX = pPoint.iX;
-	this->BoxesY = pPoint.iY;
-	this->X= pPoint.iX;
-	this->Y= pPoint.iY;
-
-	SetBoxPosition( this->boxId, pPoint );
-	GetBoxSize( this->boxId, &pDimensions );
-
-	// hang it right beside the LPC/EPC box menu
-	pNewPoint.iX = pPoint.iX + pDimensions.iRight;
-	pNewPoint.iY = pPoint.iY;
-
-	return;
-}
-
-void POPUP::CheckAndUpdateTacticalPopUpPositions( void )
-{
-	SGPRect pDimensions2;
-	SGPPoint pPoint;	
-
-	if( this->PopupVisible == FALSE )
+	else
 	{
-		return;
+		SGPRect size;
+		GetBoxSize( this->boxId, &size );
+
+		const BOOLEAN fOpensLeft = ( this->positioningRule == POPUP_POSITION_TOP_RIGHT || this->positioningRule == POPUP_POSITION_BOTTOM_RIGHT );
+		const BOOLEAN fOpensUp = ( this->positioningRule == POPUP_POSITION_BOTTOM_LEFT || this->positioningRule == POPUP_POSITION_BOTTOM_RIGHT );
+
+		const BOOLEAN fFitsRight = this->OrigPosition.iX + size.iRight <= screen.iRight;
+		const BOOLEAN fFitsLeft = this->OrigPosition.iX - size.iRight >= screen.iLeft;
+		const BOOLEAN fFitsDown = this->OrigPosition.iY + size.iBottom <= screen.iBottom;
+		const BOOLEAN fFitsUp = this->OrigPosition.iY - size.iBottom >= screen.iTop;
+
+		this->side = ( fOpensLeft ? ( fFitsLeft || !fFitsRight ) : ( !fFitsRight && fFitsLeft ) ) ? -1 : 1;
+		const BOOLEAN fUp = fOpensUp ? ( fFitsUp || !fFitsDown ) : ( !fFitsDown && fFitsUp );
+
+		SGPPoint anchor = this->OrigPosition;
+		if ( this->side < 0 )
+			anchor.iX -= size.iRight;
+		if ( fUp )
+			anchor.iY -= size.iBottom;
+
+		PlaceBox( this->boxId, anchor, screen );
 	}
 
-	if ( (guiTacticalInterfaceFlags & INTERFACE_MAPSCREEN ) )
-	{
-		return;
-	}
+	SGPPoint placed;
+	GetBoxPosition( this->boxId, &placed );
 
-	GetBoxSize( this->boxId, &pDimensions2 );
-
-	if( this->BoxesX + pDimensions2.iRight  >= SCREEN_WIDTH ) 
-	{
-		this->BoxesX = ( INT16 ) ( SCREEN_WIDTH - 1 - ( pDimensions2.iRight  ) );
-		SetRenderFlags( RENDER_FLAG_FULL );
-	}
-
-	if( this->BoxesY + pDimensions2.iBottom  >= SCREEN_HEIGHT-120 )
-	{
-		this->BoxesY = ( INT16 )( SCREEN_HEIGHT - 121 - ( pDimensions2.iBottom  ) );
-		SetRenderFlags( RENDER_FLAG_FULL );
-	}
-
-	pPoint.iX = this->BoxesX;
-	pPoint.iY = this->BoxesY;
-
-	SetBoxPosition( this->boxId, pPoint );
-
-	this->RepositionMouseRegions( );
-}
-
-void POPUP::RepositionMouseRegions( void )
-{
-	INT16 sDeltaX, sDeltaY;
-	INT32 iCounter = 0;
-
-	if( this->PopupVisible == TRUE )
-	{
-		sDeltaX = this->BoxesX - this->MenuRegion[ 0 ].RegionTopLeftX;
-		sDeltaY = ( INT16 ) ( this->BoxesY - this->MenuRegion[ 0 ].RegionTopLeftY + GetTopMarginSize( this->boxId ) );
-
-		// find the delta from the old to the new, and alter values accordingly
-		for( iCounter = 0; iCounter < ( INT32 )GetNumberOfLinesOfTextInBox( this->boxId ); iCounter++ )
-		{
-			this->MenuRegion[ iCounter ].RegionTopLeftX += sDeltaX;
-			this->MenuRegion[ iCounter ].RegionTopLeftY += sDeltaY;
-
-			this->MenuRegion[ iCounter ].RegionBottomRightX += sDeltaX;
-			this->MenuRegion[ iCounter ].RegionBottomRightY += sDeltaY;
-		}
-
-		gfPausedTacticalRenderFlags = RENDER_FLAG_FULL;
-	}
+	this->Position = placed;
+	this->BoxesX = this->X = (INT16)placed.iX;
+	this->BoxesY = this->Y = (INT16)placed.iY;
 }
 
 void POPUP::PositionCursorForBox(void)
