@@ -14662,6 +14662,7 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 			const UINT16 usDrainPercent = (UINT16)max( 0, 100 - Item[pObj->usItem].percentstatusdrainreduction );
 			if ( usDrainPercent == 0 )
 			{
+				// A medical kit with no status drain satisfies the request without losing status.
 				usPointsToConsume = 0;
 				break;
 			}
