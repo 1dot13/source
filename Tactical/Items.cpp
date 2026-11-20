@@ -7892,17 +7892,20 @@ static UINT16 UsableKitPointsFromStatus( UINT16 usStatus, UINT16 usDrainPercent 
 	return (UINT16)( ( (UINT32)usStatus * 100 ) / usDrainPercent );
 }
 
-static BOOLEAN UseKitEntryWithoutStatusDrain( OBJECTTYPE * pObj, INT8 bLoop )
+static BOOLEAN UseKitEntryWithoutStatusDrain( OBJECTTYPE * pObj, INT32 bLoop )
 {
+	// Status 1 is the reserved empty state for refillable canteens.
+	const INT8 bEmptyStatus = ItemIsCanteen(pObj->usItem) ? 1 : 0;
+
 	// A usable entry satisfies the request without losing status.
-	if ( (*pObj)[bLoop]->data.objectStatus > 0 )
+	if ( (*pObj)[bLoop]->data.objectStatus > bEmptyStatus )
 		return TRUE;
 
 	// Empty canteens stay as refillable containers; other empty entries are retired.
 	if ( ItemIsCanteen(pObj->usItem) )
 		(*pObj)[bLoop]->data.objectStatus = 1;
 	else
-		pObj->ubNumberOfObjects--;
+		pObj->RemoveObjectAtIndex(bLoop);
 
 	return FALSE;
 }
@@ -7911,7 +7914,7 @@ UINT16 UseKitPoints( OBJECTTYPE * pObj, UINT16 usPoints, SOLDIERTYPE *pSoldier )
 {
 	// start consuming from the last kit in, so we end up with fewer fuller kits rather than
 	// lots of half-empty ones.
-	INT8		bLoop;
+	INT32		bLoop;
 	UINT16 usOriginalPoints = usPoints;
 	const UINT16 usDrainPercent = (UINT16)max( 0, 100 - Item[pObj->usItem].percentstatusdrainreduction );
 
@@ -14650,7 +14653,7 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 {
 	OBJECTTYPE * pObj;
 	UINT8 ubPocket;
-	INT8 bLoop;
+	INT32 bLoop;
 
 	// add up kit points of all medkits
 	// CHRISL: Changed to dynamically determine max inventory locations.
@@ -14660,16 +14663,21 @@ BOOLEAN UseTotalMedicalKitPoints( SOLDIERTYPE * pSoldier, UINT16 usPointsToConsu
 		{
 			pObj = &(pSoldier->inv[ ubPocket ]);
 			const UINT16 usDrainPercent = (UINT16)max( 0, 100 - Item[pObj->usItem].percentstatusdrainreduction );
-			if ( usDrainPercent == 0 )
-			{
-				// A medical kit with no status drain satisfies the request without losing status.
-				usPointsToConsume = 0;
-				break;
-			}
 			// start consuming from the last kit in, so we end up with fewer fuller kits rather than
 			// lots of half-empty ones.
 			for (bLoop = pObj->ubNumberOfObjects - 1; bLoop >= 0; bLoop--)
 			{
+				if ( usDrainPercent == 0 )
+				{
+					// An exhausted zero-drain entry cannot satisfy the request.
+					if ( UseKitEntryWithoutStatusDrain(pObj, bLoop) )
+					{
+						usPointsToConsume = 0;
+						break;
+					}
+					continue;
+				}
+
 				if( (usPointsToConsume * usDrainPercent / 100) < (*pObj)[bLoop]->data.objectStatus )
 				{
 					(*pObj)[bLoop]->data.objectStatus -= (INT8)(usPointsToConsume * usDrainPercent / 100);
