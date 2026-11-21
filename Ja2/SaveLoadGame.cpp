@@ -7386,8 +7386,7 @@ BOOLEAN LoadSavedGame( int ubSavedGameID )
 	{
 	if( guiCurrentSaveGameVersion < 84 )
 	{
-		LoadVehicleMovementInfoFromSavedGame(&fileBuffer);
-		if ( gfBufferLoadFailed )
+		if ( !LoadVehicleMovementInfoFromSavedGame(&fileBuffer) || gfBufferLoadFailed )
 		{
 			DebugMsg(TOPIC_JA2, DBG_LEVEL_3, String("LoadVehicleMovementInfoFromSavedGame failed"));
 			MemFree(gpLoadBufferStart);

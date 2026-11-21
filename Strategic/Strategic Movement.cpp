@@ -886,6 +886,26 @@ GROUP* CreateNewMilitiaGroupDepartingFromSector( UINT32 uiSector, UINT16& arusNu
 //1)	Find the first unused ID (unique)
 //2)	Assign that ID to the new group
 //3)	Insert the group at the end of the list.
+BOOLEAN CanAddStrategicMovementGroups( UINT16 usRequiredGroups )
+{
+	if ( usRequiredGroups == 0 )
+		return TRUE;
+
+	UINT16 usFreeGroups = 0;
+
+	for ( UINT16 usGroupID = 1; usGroupID < 256; ++usGroupID )
+	{
+		const UINT32 uiIndex = usGroupID / 32;
+		const UINT32 uiBit = usGroupID % 32;
+		const UINT32 uiMask = ((UINT32)1) << uiBit;
+
+		if ( !(uniqueIDMask[uiIndex] & uiMask) && ++usFreeGroups >= usRequiredGroups )
+			return TRUE;
+	}
+
+	return FALSE;
+}
+
 UINT8 AddGroupToList( GROUP *pGroup )
 {
 	GROUP *curr;
@@ -908,7 +928,7 @@ UINT8 AddGroupToList( GROUP *pGroup )
 
 		index = ID / 32;
 		bit = ID % 32;
-		mask = 1 << bit;
+		mask = ((UINT32)1) << bit;
 		if( !(uniqueIDMask[ index ] & mask) )
 		{ //found a free ID
 			pGroup->ubGroupID = ID;
@@ -983,7 +1003,7 @@ void RemoveGroupFromList( GROUP *pGroup )
 		//clear the unique group ID
 		index = pGroup->ubGroupID / 32;
 		bit = pGroup->ubGroupID % 32;
-		mask = 1 << bit;
+		mask = ((UINT32)1) << bit;
 
 		if( !(uniqueIDMask[ index ] & mask) )
 		{
@@ -3131,7 +3151,7 @@ void RemovePGroup( GROUP *pGroup )
 	//clear the unique group ID
 	index = pGroup->ubGroupID / 32;
 	bit = pGroup->ubGroupID % 32;
-	mask = 1 << bit;
+	mask = ((UINT32)1) << bit;
 
 	if( !(uniqueIDMask[ index ] & mask) )
 	{
@@ -4274,7 +4294,7 @@ BOOLEAN LoadStrategicMovementGroupsFromSavedGameFile(CHAR8** ppBuffer)
 		}
 		index = pGroup->ubGroupID / 32;
 		bit = pGroup->ubGroupID % 32;
-		mask = 1 << bit;
+		mask = ((UINT32)1) << bit;
 		uniqueIDMask[index] += mask;
 		pGroup = pGroup->next;
 	}
