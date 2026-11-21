@@ -157,6 +157,7 @@ extern GROUP *gpGroupList;
 //General utility functions
 void RemoveAllGroups();
 GROUP* GetGroup( UINT8 ubGroupID );
+BOOLEAN CanAddStrategicMovementGroups( UINT16 usRequiredGroups );
 
 //Remove a group from the list.	This removes all of the waypoints as well as the members of the group.
 //Calling this function doesn't position them in a sector.	It is up to you to do that.	The event system

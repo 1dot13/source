@@ -2627,32 +2627,49 @@ BOOLEAN SaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
 
 BOOLEAN LoadVehicleMovementInfoFromSavedGame(CHAR8** ppBuffer)
 {
-	GROUP* pGroup = NULL;
-	UINT32	uiNumBytesRead = 0;
+	if ( ppBuffer == NULL || *ppBuffer == NULL )
+		return FALSE;
 
-	for ( int cnt = 0; cnt < 5; ++cnt ) {
-		if (!LoadDataFromBuffer(&gubVehicleMovementGroups[cnt], *ppBuffer, sizeof(INT8), "VehicleMovementInfo"))
-		{
-			break;
-		}
-	}
-
-	if ( gfBufferLoadFailed )
+	CHAR8* pCursor = *ppBuffer;
+	std::vector<INT8> loadedGroups(MAX_VEHICLES, 0);
+	for ( int cnt = 0; cnt < 5; ++cnt )
 	{
-		return false;
+		if (!LoadDataFromBuffer(&loadedGroups[cnt], pCursor, sizeof(INT8), "VehicleMovementInfo"))
+			return FALSE;
 	}
 
+	// Older saves only contain the original five vehicle groups. Build the
+	// additional persistent groups privately and publish their IDs only after
+	// every group has been resolved successfully.
+	const UINT16 groupsToCreate = MAX_VEHICLES - 5;
+	// AddGroupToList asserts when all 255 IDs are occupied. Reject the legacy
+	// conversion before it can mutate the strategic list.
+	if ( !CanAddStrategicMovementGroups(groupsToCreate) )
+		return FALSE;
+
+	// Keep rollback bookkeeping on the stack so recording an inserted group
+	// cannot allocate during the conversion.
+	GROUP* createdGroups[MAX_VEHICLES - 5] = {};
+	UINT16 createdGroupCount = 0;
 	for ( int cnt = 5; cnt < MAX_VEHICLES; cnt++ )
 	{
-		// create mvt groups
-		gubVehicleMovementGroups[cnt] = CreateNewVehicleGroupDepartingFromSector(1, 1, cnt);
-
-		// Set persistent....
-		pGroup = GetGroup(gubVehicleMovementGroups[cnt]);
-		pGroup->fPersistant = TRUE;
+		const UINT8 groupID = CreateNewVehicleGroupDepartingFromSector(1, 1, cnt);
+		GROUP* const pGroup = GetGroup(groupID);
+		if ( pGroup == NULL )
+		{
+			for ( UINT16 groupIndex = 0; groupIndex < createdGroupCount; ++groupIndex )
+				RemovePGroup(createdGroups[groupIndex]);
+			return FALSE;
+		}
+		loadedGroups[cnt] = static_cast<INT8>(groupID);
+		createdGroups[createdGroupCount++] = pGroup;
 	}
+	for ( UINT16 groupIndex = 0; groupIndex < createdGroupCount; ++groupIndex )
+		createdGroups[groupIndex]->fPersistant = TRUE;
 
-	return(TRUE);
+	gubVehicleMovementGroups.swap(loadedGroups);
+	*ppBuffer = pCursor;
+	return TRUE;
 }
 
 BOOLEAN NewSaveVehicleMovementInfoToSavedGameFile( HWFILE hFile )
