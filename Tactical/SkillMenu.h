@@ -18,7 +18,7 @@ class SkillMenuItem
 {
 public:
 	SkillMenuItem()	:
-	  fInitialized(FALSE), usPosX(0), gPopup(NULL)
+	  fInitialized(FALSE), gPopup(NULL)
 	{
 	}
 	  	
@@ -51,19 +51,17 @@ public:
 		return FALSE;
 	}
 
-	UINT16 GetMaxPosX()
-	{
-		if ( gPopup )
-			return (usPosX + gPopup->getBoxDimensions().iRight);
-
-		return usPosX;
-	}
-
 	virtual void SetPos(UINT16 usX, UINT16 usY)
 	{
-		// same y, different x
-		usPosX = usX;
-		gPopup->setPosition( usPosX, usY );
+		gPopup->setPosition( usX, usY );
+
+		fInitialized = TRUE;
+		gPopup->show();
+	}
+
+	void OpenBeside( SkillMenuItem &parent )
+	{
+		gPopup->anchorTo( parent.GetPopup(), 0 );
 
 		fInitialized = TRUE;
 		gPopup->show();
@@ -81,7 +79,6 @@ public:
 
 private:
 	BOOLEAN fInitialized;
-	UINT16  usPosX;
 	POPUP*  gPopup;
 };
 
